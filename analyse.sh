@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script wertet die Kurse der letzten 100, 38 Tage aus.
+# Script wertet die Kurse der letzten 100, 38, 18 Tage aus.
 # Aufruf: ./analyse.sh [offline]
 # Optionaler Parameter "offline" wenn nicht über REST API angefragt wird. Sonst werden lokale Files hergenommen.
 #
