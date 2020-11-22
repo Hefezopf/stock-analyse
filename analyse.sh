@@ -11,27 +11,34 @@
 #LNX.XETRA ??
 symbols='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LNX.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
 
-#rm -rf values*.txt
+#rm -rf data/values*.txt
 
+if [[ $1 == 'offline' ]]; then
+	echo offline
+else
+	echo online
+fi
+	
 for symbol in $symbols
 do
     under38=0
 	under100=0
     over38=0
 	over100=0
-	echo "## $symbol $1 ##"
+	echo "## $symbol ##"
 	if [[ $1 == 'offline' ]]; then
-		echo offline
+		true
+		#echo offline
 	else
-	    echo online
-		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > values.${symbol}.txt
+	    #echo online
+		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
 	fi
 	
-	cp values.${symbol}.txt values100.txt
-	last=$(head -n1 -q values100.txt)
+	cp ./data/values.${symbol}.txt ./data/values100.txt
+	last=$(head -n1 -q data/values100.txt)
 	
-	head -n38 values.${symbol}.txt > values38.txt
-	average38=$(cat values38.txt | awk '{ sum += $1; } END { print sum/38; }')
+	head -n38 ./data/values.${symbol}.txt > ./data/values38.txt
+	average38=$(cat ./data/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	if awk 'BEGIN {exit !('$last' > '$average38')}'; then
 	    over38=1
 	fi
@@ -40,7 +47,7 @@ do
 	    under38=1
 	fi
 
-	average100=$(cat values100.txt | awk '{ sum += $1; } END { print sum/100; }')
+	average100=$(cat ./data/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	if awk 'BEGIN {exit !('$last' > '$average100')}'; then
 	    over100=1
 		
