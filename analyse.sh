@@ -3,13 +3,14 @@
 # Aufruf: ./analyse.sh [offline]
 # Optionaler Parameter "offline" wenn nicht über REST API angefragt wird. Sonst werden lokale Files hergenommen.
 #
+# Set MARKET_STACK_ACCESS_KEY as Env Variable
 # export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
 #
 
 #symbols='ALV.XETRA VOW.XETRA'
 
 #LNX.XETRA ??
-symbols='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LNX.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
+symbols='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
 
 #rm -rf data/values*.txt
 
@@ -21,8 +22,10 @@ fi
 	
 for symbol in $symbols
 do
+    under18=0
     under38=0
 	under100=0
+    over18=0
     over38=0
 	over100=0
 	echo "## $symbol ##"
@@ -37,6 +40,16 @@ do
 	cp ./data/values.${symbol}.txt ./data/values100.txt
 	last=$(head -n1 -q data/values100.txt)
 	
+	head -n18 ./data/values.${symbol}.txt > ./data/values18.txt
+	average18=$(cat ./data/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
+	if awk 'BEGIN {exit !('$last' > '$average18')}'; then
+	    over18=1
+	fi
+
+	if awk 'BEGIN {exit !('$last' < '$average18')}'; then
+	    under18=1
+	fi
+
 	head -n38 ./data/values.${symbol}.txt > ./data/values38.txt
 	average38=$(cat ./data/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	if awk 'BEGIN {exit !('$last' > '$average38')}'; then
@@ -56,12 +69,12 @@ do
 		under100=1
 	fi
 	
-	if [ $over38 == 1 ] && [ $over100 == 1 ]; then
-		echo "------------------------> Sell: $symbol $last over average 38: $average38 and over average 100: $average100"
+	if [ $over18 == 1 ] && [ $over38 == 1 ] && [ $over100 == 1 ]; then
+		echo "-------> Sell: $symbol $last over average 18: $average18 and average 38: $average38 and over average 100: $average100"
 	fi
 	
-	if [ $under38 == 1 ] && [ $under100 == 1 ]; then
-		echo "++++++++++++++++++++++++> Buy: $symbol $last under average 38: $average38 and under average 100: $average100"
+	if [ $under18 == 1 ] && [ $under38 == 1 ] && [ $under100 == 1 ]; then
+		echo "++++++++> Buy: $symbol $last under average 18: $average18 and under average 38: $average38 and under average 100: $average100"
 	fi
 	
 	echo " "
