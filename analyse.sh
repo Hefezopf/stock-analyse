@@ -1,23 +1,31 @@
 #!/bin/bash
 # Script wertet die Kurse der letzten 100, 38, 18 Tage aus.
-# Aufruf: ./analyse.sh [offline]
-# Optionaler Parameter "offline" wenn nicht über REST API angefragt wird. Sonst werden lokale Files hergenommen.
+# Aufruf: ./analyse.sh SYMBOLS [offline]
+# SYMBOLS ist Liste der Kürzel z.B.: 'ADS.XETRA ALV.XETRA BAS.XETRA'
+# Optionaler Parameter "offline" wenn nicht über REST API angefragt wird. Dann werden lokale Dateien hergenommen.
+# 1. Aufruf Beispiel: ./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA'
+# 2. Aufruf Beispiel: ./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' offline
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 # export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
-#
-
-#symbols='ALV.XETRA VOW.XETRA'
 
 #LNX.XETRA ??
-symbols='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
+#symbols='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
+symbols=$1
 
-#rm -rf data/values*.txt
+#rm -rf ./data/values*.txt
+result_file=./data/result.txt
+rm -rf $result_file
 
-if [[ $1 == 'offline' ]]; then
-	echo offline
+if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
+	echo Error: MARKET_STACK_ACCESS_KEY not set!
+	exit
+fi
+
+if [[ $2 == 'offline' ]]; then
+	echo Offline Auswertung
 else
-	echo online
+	echo Online Abfrage
 fi
 	
 for symbol in $symbols
@@ -29,11 +37,9 @@ do
     over38=0
 	over100=0
 	echo "## $symbol ##"
-	if [[ $1 == 'offline' ]]; then
+	if [[ $2 == 'offline' ]]; then
 		true
-		#echo offline
 	else
-	    #echo online
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
 	fi
 	
@@ -71,10 +77,12 @@ do
 	
 	if [ $over18 == 1 ] && [ $over38 == 1 ] && [ $over100 == 1 ]; then
 		echo "-------> Sell: $symbol $last over average 18: $average18 and average 38: $average38 and over average 100: $average100"
+		echo Sell: http://www.google.com/search?tbm=fin&q=${symbol} >> $result_file
 	fi
 	
 	if [ $under18 == 1 ] && [ $under38 == 1 ] && [ $under100 == 1 ]; then
 		echo "++++++++> Buy: $symbol $last under average 18: $average18 and under average 38: $average38 and under average 100: $average100"
+		echo Buy: http://www.google.com/search?tbm=fin&q=${symbol} >> $result_file
 	fi
 	
 	echo " "
