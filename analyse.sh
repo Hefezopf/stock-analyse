@@ -77,12 +77,12 @@ do
 	
 	if [ $over18 == 1 ] && [ $over38 == 1 ] && [ $over100 == 1 ]; then
 		echo "-------> Overrated: $symbol $last over average 18: $average18 and average 38: $average38 and over average 100: $average100"
-		echo Overrated: http://www.google.com/search?tbm=fin&q=${symbol} >> $result_file
+		echo Overrated: "http://www.google.com/search?tbm=fin&q=${symbol}" >> $result_file
 	fi
 	
 	if [ $under18 == 1 ] && [ $under38 == 1 ] && [ $under100 == 1 ]; then
 		echo "++++++++> Underrated: $symbol $last under average 18: $average18 and under average 38: $average38 and under average 100: $average100"
-		echo Underrated: http://www.google.com/search?tbm=fin&q=${symbol} >> $result_file
+		echo Underrated: "http://www.google.com/search?tbm=fin&q=${symbol}" >> $result_file
 	fi
 	
 	echo " "
