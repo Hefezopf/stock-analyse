@@ -1,10 +1,10 @@
 #!/bin/bash
-# Script wertet die Kurse der letzten 100, 38, 18 Tage aus.
-# Aufruf: ./analyse.sh SYMBOLS [offline]
-# SYMBOLS ist Liste der Kürzel z.B.: 'ADS.XETRA ALV.XETRA BAS.XETRA'
-# Optionaler Parameter "offline" wenn nicht über REST API angefragt wird. Dann werden lokale Dateien hergenommen.
-# 1. Aufruf Beispiel: ./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA'
-# 2. Aufruf Beispiel: ./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' offline
+# This script checks given stock quotes and their averages of the last 100, 38, 18 days.
+# Call: ./analyse.sh SYMBOLS [offline]
+# SYMBOLS - Liste of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA'
+# Optional parameter "offline" do not query over REST API. Instead read local files.
+# 1. Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA'
+# 2. Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' offline
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 # export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
@@ -23,9 +23,9 @@ if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
 fi
 
 if [[ $2 == 'offline' ]]; then
-	echo Offline Auswertung
+	echo Offline Query
 else
-	echo Online Abfrage
+	echo Online Query
 fi
 	
 for symbol in $symbols
@@ -76,13 +76,13 @@ do
 	fi
 	
 	if [ $over18 == 1 ] && [ $over38 == 1 ] && [ $over100 == 1 ]; then
-		echo "-------> Sell: $symbol $last over average 18: $average18 and average 38: $average38 and over average 100: $average100"
-		echo Sell: http://www.google.com/search?tbm=fin&q=${symbol} >> $result_file
+		echo "-------> Overrated: $symbol $last over average 18: $average18 and average 38: $average38 and over average 100: $average100"
+		echo Overrated: http://www.google.com/search?tbm=fin&q=${symbol} >> $result_file
 	fi
 	
 	if [ $under18 == 1 ] && [ $under38 == 1 ] && [ $under100 == 1 ]; then
-		echo "++++++++> Buy: $symbol $last under average 18: $average18 and under average 38: $average38 and under average 100: $average100"
-		echo Buy: http://www.google.com/search?tbm=fin&q=${symbol} >> $result_file
+		echo "++++++++> Underrated: $symbol $last under average 18: $average18 and under average 38: $average38 and under average 100: $average100"
+		echo Underrated: http://www.google.com/search?tbm=fin&q=${symbol} >> $result_file
 	fi
 	
 	echo " "
