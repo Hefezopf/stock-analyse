@@ -50,26 +50,17 @@ do
 	
 	head -n18 ./data/values.${symbol}.txt > ./data/values18.txt
 	average18=$(cat ./data/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
-	greater_then $last $average18
-	over18=$?
-	
-	less_then $last $average18
-	under18=$?
+	greater_then $last $average18; over18=$?
+	less_then $last $average18;	under18=$?
 
 	head -n38 ./data/values.${symbol}.txt > ./data/values38.txt
 	average38=$(cat ./data/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
-	greater_then $last $average38
-    over38=$?
-
-    less_then $last $average38
-	under38=$?
+	greater_then $last $average38; over38=$?
+    less_then $last $average38;	under38=$?
 	
 	average100=$(cat ./data/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
-	greater_then $last $average100
-	over100=$?
-	
-	less_then $last $average100
-	under100=$?
+	greater_then $last $average100;	over100=$?
+	less_then $last $average100; under100=$?
 	
 	if [ $over18 == 1 ] && [ $over38 == 1 ] && [ $over100 == 1 ]; then
 		echo "-------> Overrated: $symbol $last over average 18: $average18 and average 38: $average38 and over average 100: $average100"
