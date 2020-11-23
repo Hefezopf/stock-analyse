@@ -5,11 +5,11 @@ This script checks given stock quotes and their averages of the last 100, 38, 18
 
 
 # Run
-./analyse.sh SYMBOLS [offline]
+./analyse.sh SYMBOLS PERCENTAGE [offline]
 
-./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA'
+./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' 0.09 online 
 
-./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' offline
+./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' 0.09 offline
 
 
 # Result
