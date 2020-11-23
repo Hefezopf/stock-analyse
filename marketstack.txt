@@ -1,0 +1,79 @@
+https://marketstack.com/documentation
+
+info@hopf-it.de
+m*2-1
+
+
+-Funktionen im script
+Travis oder github jobs?
+-Cron job
+oder 
+-shell script 
+-mit email versandt
+
+
+https://www.google.com/search?q=MSF.XETRA
+
+
+EOAN.XETRA
+
+https://www.comdirect.de/ovm/cd/api/1.0/derivatives/turbo?wkn=EOAN
+
+
+http://www.google.com/search?tbm=fin&q=EOAN.XETRA
+
+
+export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
+
+
+https://github.com/Hefezopf/stock-analyse.git
+
+
+http://api.marketstack.com/v1
+https://marketstack.com/usage
+
+KEY:
+a310b2410e8ca3c818a281b4eca0b86f
+
+curl  --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA" |  jq '.'
+
+
+http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL
+
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL'
+	
+curl GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL'
+
+curl  --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL' | jq '.'
+
+
+GERMANY,"DE","CATS"
+
+	
+https://stedolan.github.io/jq/
+
+cat Xetra.json | jq '.data[].symbol'
+
+
+MSF.XETRA APC.XETRA AMZ.XETRA ABEC.XETRA ABEA.XETRA AHLA.XETRA FB2A.XETRA BRYN.XETRA BRH.XETRA VODJ.XETRA 3V64.XETRA CMC.XETRA JNJ.XETRA WMT.XETRA M4I.XETRA NESM.XETRA PRG.XETRA SOBA.XETRA UNH.XETRA NCB.XETRA HDI.XETRA INL.XETRA CCC3.XETRA BAC.XETRA XONA.XETRA WDP.XETRA MOH.XETRA 6MK.XETRA CTP2.XETRA PFE.XETRA PEP.XETRA CHV.XETRA ADB.XETRA CIS.XETRA NWT.XETRA R6C.XETRA R6C3.XETRA NVD.XETRA NFC.XETRA ORC.XETRA BCO.XETRA FOO.XETRA LOR.XETRA MDO.XETRA SAP.XETRA NOVC.XETRA NKE.XETRA ABL.XETRA UNVB.XETRA UNI2.XETRA TRVC.XETRA CTO.XETRA 2M6.XETRA BRM.XETRA TL0.XETRA 4I1.XETRA 4AB.XETRA 2PP.XETRA LLY.XETRA HBC1.XETRA AMG.XETRA ASMF.XETRA ZEG.XETRA SNW.XETRA ASME.XETRA ALD.XETRA UTC1.XETRA 1TY.XETRA IBM.XETRA NOVA.XETRA TOTB.XETRA 1YD.XETRA LOM.XETRA UNP.XETRA 1NBA.XETRA TII.XETRA BPE.XETRA CQD.XETRA LIN.XETRA BPE5.XETRA DAP.XETRA GS7.XETRA IXD1.XETRA BIL.XETRA AIR.XETRA GIS.XETRA GEC.XETRA BMT.XETRA SRB.XETRA QCI.XETRA AEC1.XETRA ENL.XETRA ALV.XETRA MMM.XETRA VOW.XETRA CVS.XETRA GUI.XETRA SIE.XETRA KTF.XETRA UPAB.XETRA
+
+
+https://jqplay.org/jq?q=.%5B0%5D&j=%5B%7B%22name%22%3A%22JSON%22%2C%20%22good%22%3Atrue%7D%2C%20%7B%22name%22%3A%22XML%22%2C%20%22good%22%3Afalse%7D%5D
+
+	
+curl  --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f' | jq '.'
+
+curl  --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f' | jq '.data[].name'
+
+
+curl  --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA'
+
+curl  --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=ALV.XETRA' | jq '.'
+curl  --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].name'
+curl  --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].close'
+
+curl  --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
+
+https://www.chartjs.org/docs/latest/charts/line.html
+
+cat test.txt | awk '{ sum += $1; } END { print sum; }'
