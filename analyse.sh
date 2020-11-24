@@ -45,6 +45,8 @@ else
 	echo Online Query
 fi
 
+echo Analyse with factor $lesserFactor | tee -a $result_file
+
 symbols=$1	
 for symbol in $symbols
 do
@@ -71,7 +73,7 @@ do
 	average100=$(cat ./data/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	greater_then $last $average100;	over100=$?
 	less_then $last $average100; under100=$?
-	
+
 	if [ $over18 == 1 ] && [ $over38 == 1 ] && [ $over100 == 1 ]; then
 		echo "-------> Overrated: $symbol $last EUR is $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
 		echo -e Overrated: "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
