@@ -1,12 +1,12 @@
 #!/bin/bash
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE [offline|online]
-# 1. Parameter SYMBOLS - Liste of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA'
+# 1. Parameter SYMBOLS - Liste of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
 # 2.  Parameter PERCENTAGE - 0.12 means 12 Percent,; 0 if not specified
 # 3. Optional parameter "offline" do not query over REST API. Instead read local files.
 # Call example: ./analyse.sh 'ADS.XETRA' 
 # Call example: ./analyse.sh 'ADS.XETRA' 0.09 online 
-# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' 0.11 offline
+# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 0.11 offline
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 # export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
@@ -84,17 +84,24 @@ do
 	greater_then $average18 $average100; agv18_over_agv100=$?
 	less_then $average18 $average100; agv18_under_agv100=$?
 
-	if [ $last_over_agv18 == 1 ] && [ $last_over_agv38 == 1 ] && [ $last_over_agv100 == 1 ] && 
-	   [ $agv18_over_agv38 == 1 ] && [ $agv38_over_agv100 == 1 ] && [ $agv18_over_agv100 == 1 ];
-	then
-		echo "-------> Overrated: $symbol last $last EUR is $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
-		echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $result_file
+	filesize=$(stat -c %s ./data/values.${symbol}.txt)
+	# Valid data is higher then 200
+	if [[ $filesize > 200 ]];then
+		if [ $last_over_agv18 == 1 ] && [ $last_over_agv38 == 1 ] && [ $last_over_agv100 == 1 ] && 
+		[ $agv18_over_agv38 == 1 ] && [ $agv38_over_agv100 == 1 ] && [ $agv18_over_agv100 == 1 ];
+		then
+			echo "------- Overrated: $symbol last $last EUR is $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
+			echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $result_file
+		fi
+		
+		if [ $last_under_agv18 == 1 ] && [ $last_under_agv38 == 1 ] && [ $last_under_agv100 == 1 ] && 
+		[ $agv18_under_agv38 == 1 ] && [ $agv38_under_agv100 == 1 ] && [ $agv18_under_agv100 == 1 ];
+		then
+			echo "++++++++ Underrated: $symbol last $last EUR is $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
+			echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $result_file
+		fi
+	else
+	    echo "!!!!!!!! Filesize: $filesize of $symbol suspicious!"
 	fi
-	
-	if [ $last_under_agv18 == 1 ] && [ $last_under_agv38 == 1 ] && [ $last_under_agv100 == 1 ] && 
-	   [ $agv18_under_agv38 == 1 ] && [ $agv38_under_agv100 == 1 ] && [ $agv18_under_agv100 == 1 ];
-	then
-		echo "++++++++> Underrated: $symbol last $last EUR is $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
-		echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $result_file
-	fi
+
 done
