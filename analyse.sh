@@ -49,6 +49,7 @@ else
 fi
 
 echo -e "Analyse with factor $lesserFactor \n\r" | tee -a $result_file
+echo -e -n "https://github.com/Hefezopf/stock-analyse/actions  \n\r" >> $result_file
 echo -n start chrome " " >> $result_file
 
 for symbol in $symbols
