@@ -44,7 +44,7 @@ https://marketstack.com/usage
 KEY:
 a310b2410e8ca3c818a281b4eca0b86f
 
-curl  --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA" |  jq '.'
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA" |  jq '.'
 
 
 http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL
@@ -53,7 +53,7 @@ curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MA
 	
 curl GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL'
 
-curl  --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL' | jq '.'
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL' | jq '.'
 
 
 GERMANY,"DE","CATS"
@@ -72,18 +72,23 @@ https://github.com/dawidd6/action-send-mail
 https://jqplay.org/jq?q=.%5B0%5D&j=%5B%7B%22name%22%3A%22JSON%22%2C%20%22good%22%3Atrue%7D%2C%20%7B%22name%22%3A%22XML%22%2C%20%22good%22%3Afalse%7D%5D
 
 	
-curl  --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f' | jq '.'
+curl --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f' | jq '.'
 
-curl  --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f' | jq '.data[].name'
+curl --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f' | jq '.data[].name'
 
 
-curl  --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA'
+curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA'
 
-curl  --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=ALV.XETRA' | jq '.'
-curl  --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].name'
-curl  --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].close'
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=ALV.XETRA' | jq '.'
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].name'
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].close'
 
-curl  --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
+UNVB.XETRA
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=a310b2410e8ca3c818a281b4eca0b86f&exchange=XETRA&symbols=UNVB.XETRA" | jq '.' 
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=a310b2410e8ca3c818a281b4eca0b86f&exchange=XETRA&symbols=UNVB.XETRA" | jq '.data[].date'
+	
+
+curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
 
 https://www.chartjs.org/docs/latest/charts/line.html
 
