@@ -48,13 +48,13 @@ else
 	echo Online Query
 fi
 
-echo Analyse with factor $lesserFactor | tee -a $result_file
+echo -e "Analyse with factor $lesserFactor \n\r" | tee -a $result_file
 echo -n start chrome " " >> $result_file
 
 for symbol in $symbols
 do
 	echo "## $symbol ##"
-	if [[ $onOfflineQuery == 'offline' ]]; then
+	if [[ $onOfflineQuery == 'offline' ]];then
 		true
 	else
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
@@ -64,27 +64,37 @@ do
 	
 	head -n18 ./data/values.${symbol}.txt > ./data/values18.txt
 	average18=$(cat ./data/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
-	greater_then $last $average18; last_over_agv_18=$?
-	less_then $last $average18;	last_under_agv_18=$?
+	greater_then $last $average18; last_over_agv18=$?
+	less_then $last $average18;	last_under_agv18=$?
 
 	head -n38 ./data/values.${symbol}.txt > ./data/values38.txt
 	average38=$(cat ./data/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
-	greater_then $last $average38; last_over_agv_38=$?
-    less_then $last $average38;	last_under_agv_38=$?
+	greater_then $last $average38; last_over_agv38=$?
+    less_then $last $average38;	last_under_agv38=$?
 	
 	head -n100 ./data/values.${symbol}.txt > ./data/values100.txt
 	average100=$(cat ./data/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
-	greater_then $last $average100;	last_over_agv_100=$?
-	less_then $last $average100; last_under_agv_100=$?
+	greater_then $last $average100;	last_over_agv100=$?
+	less_then $last $average100; last_under_agv100=$?
 
-	if [ $last_over_agv_18 == 1 ] && [ $last_over_agv_38 == 1 ] && [ $last_over_agv_100 == 1 ]; then
-		echo "-------> Overrated: $symbol $last EUR is $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
+	greater_then $average18 $average38; agv18_over_agv38=$?
+	less_then $average18 $average38; agv18_under_agv38=$?
+	greater_then $average38 $average100; agv38_over_agv100=$?
+	less_then $average38 $average100; agv38_under_agv100=$?
+	greater_then $average18 $average100; agv18_over_agv100=$?
+	less_then $average18 $average100; agv18_under_agv100=$?
+
+	if [ $last_over_agv18 == 1 ] && [ $last_over_agv38 == 1 ] && [ $last_over_agv100 == 1 ] && 
+	   [ $agv18_over_agv38 == 1 ] && [ $agv38_over_agv100 == 1 ] && [ $agv18_over_agv100 == 1 ];
+	then
+		echo "-------> Overrated: $symbol last $last EUR is $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
 		echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $result_file
-		#echo -e "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
 	fi
 	
-	if [ $last_under_agv_18 == 1 ] && [ $last_under_agv_38 == 1 ] && [ $last_under_agv_100 == 1 ]; then
-		echo "++++++++> Underrated: $symbol $last EUR is $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
+	if [ $last_under_agv18 == 1 ] && [ $last_under_agv38 == 1 ] && [ $last_under_agv100 == 1 ] && 
+	   [ $agv18_under_agv38 == 1 ] && [ $agv38_under_agv100 == 1 ] && [ $agv18_under_agv100 == 1 ];
+	then
+		echo "++++++++> Underrated: $symbol last $last EUR is $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
 		echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $result_file
 	fi
 done
