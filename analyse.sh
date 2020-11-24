@@ -11,14 +11,17 @@
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 # export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
 
-# 0.12 means 12 Percent
+# Parameter
+symbols=$1
 offsetInPercentage=$2
+onOfflineQuery=$3
+
+
 lesserFactor=$( echo "1 $offsetInPercentage" | awk '{print $1 + $2}' )
 greaterFactor=$( echo "1 $offsetInPercentage" | awk '{print $1 - $2}' )
 
 result_file=./data/result.txt
 rm -rf $result_file
-#touch $result_file
 
 less_then () {
     lesserValue=$( echo "$lesserFactor $1" | awk '{print $1 * $2}' )
@@ -39,22 +42,19 @@ if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
 	exit
 fi
 
-if [[ $3 == 'offline' ]]; then
+if [[ $onOfflineQuery == 'offline' ]]; then
 	echo Offline Query
 else
 	echo Online Query
 fi
 
 echo Analyse with factor $lesserFactor | tee -a $result_file
-echo TEST >> $result_file
-echo start chrome "http://www.google.com/search?tbm=fin&q=BMW.XETRA" "http://www.google.com/search?tbm=fin&q=EOAN.XETRA" >> $result_file
-echo TEST >> $result_file
+echo -n start chrome " " >> $result_file
 
-symbols=$1	
 for symbol in $symbols
 do
 	echo "## $symbol ##"
-	if [[ $3 == 'offline' ]]; then
+	if [[ $onOfflineQuery == 'offline' ]]; then
 		true
 	else
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
@@ -79,13 +79,12 @@ do
 
 	if [ $last_over_agv_18 == 1 ] && [ $last_over_agv_38 == 1 ] && [ $last_over_agv_100 == 1 ]; then
 		echo "-------> Overrated: $symbol $last EUR is $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
-		echo -e "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
+		echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $result_file
+		#echo -e "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
 	fi
 	
 	if [ $last_under_agv_18 == 1 ] && [ $last_under_agv_38 == 1 ] && [ $last_under_agv_100 == 1 ]; then
 		echo "++++++++> Underrated: $symbol $last EUR is $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
-		echo -e Underrated: "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
+		echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $result_file
 	fi
-	
-	echo " "
 done
