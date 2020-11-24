@@ -18,7 +18,7 @@ greaterFactor=$( echo "1 $offsetInPercentage" | awk '{print $1 - $2}' )
 
 result_file=./data/result.txt
 rm -rf $result_file
-touch $result_file
+#touch $result_file
 
 less_then () {
     lesserValue=$( echo "$lesserFactor $1" | awk '{print $1 * $2}' )
