@@ -61,25 +61,25 @@ do
 	
 	head -n18 ./data/values.${symbol}.txt > ./data/values18.txt
 	average18=$(cat ./data/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
-	greater_then $last $average18; over18=$?
-	less_then $last $average18;	under18=$?
+	greater_then $last $average18; last_over_agv_18=$?
+	less_then $last $average18;	last_under_agv_18=$?
 
 	head -n38 ./data/values.${symbol}.txt > ./data/values38.txt
 	average38=$(cat ./data/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
-	greater_then $last $average38; over38=$?
-    less_then $last $average38;	under38=$?
+	greater_then $last $average38; last_over_agv_38=$?
+    less_then $last $average38;	last_under_agv_38=$?
 	
 	head -n100 ./data/values.${symbol}.txt > ./data/values100.txt
 	average100=$(cat ./data/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
-	greater_then $last $average100;	over100=$?
-	less_then $last $average100; under100=$?
+	greater_then $last $average100;	last_over_agv_100=$?
+	less_then $last $average100; last_under_agv_100=$?
 
-	if [ $over18 == 1 ] && [ $over38 == 1 ] && [ $over100 == 1 ]; then
+	if [ $last_over_agv_18 == 1 ] && [ $last_over_agv_38 == 1 ] && [ $last_over_agv_100 == 1 ]; then
 		echo "-------> Overrated: $symbol $last EUR is $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
 		echo -e Overrated: "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
 	fi
 	
-	if [ $under18 == 1 ] && [ $under38 == 1 ] && [ $under100 == 1 ]; then
+	if [ $last_under_agv_18 == 1 ] && [ $last_under_agv_38 == 1 ] && [ $last_under_agv_100 == 1 ]; then
 		echo "++++++++> Underrated: $symbol $last EUR is $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
 		echo -e Underrated: "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
 	fi
