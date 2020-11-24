@@ -6,17 +6,21 @@ m*2-1
 
 start chrome "http://www.google.com/search?tbm=fin&q=ADS.XETRA" "http://www.google.com/search?tbm=fin&q=ALV.XETRA" 
 
-+Funktionen im script
-+Travis oder github jobs?
-+Cron job
-oder 
-+shell script 
-+mit email versandt
+
+1000
+curl --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f&exchange=XETRA&limit=1000' | jq '.data[].symbol' > stocksymbols.txt
+
+BAYN
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=BAYN.XETRA" | jq '.data[0].volume'
+
+DRW8
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=DRW8.XETRA" | jq '.data[].close'
+
+AI3A.XETRA
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=AI3A.XETRA" | jq '.data[].close'
 
 https://www.google.com/search?q=MSF.XETRA
 
-
-EOAN.XETRA
 
 https://www.comdirect.de/ovm/cd/api/1.0/derivatives/turbo?wkn=EOAN
 
