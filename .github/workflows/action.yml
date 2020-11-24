@@ -36,7 +36,7 @@ jobs:
       - name: Run analyse-dax.sh 0.10 offline
         run: |
           echo Start analyse...
-          export MARKET_STACK_ACCESS_KEY="${{secrets.MARKET_STACK_ACCESS_KEY}}
+          export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           chmod +x ./analyse.sh
           chmod +x ./analyse-dax.sh
           chmod +x ./analyse-world.sh
