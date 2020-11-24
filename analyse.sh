@@ -46,6 +46,9 @@ else
 fi
 
 echo Analyse with factor $lesserFactor | tee -a $result_file
+echo TEST >> $result_file
+echo start chrome "http://www.google.com/search?tbm=fin&q=BMW.XETRA" "http://www.google.com/search?tbm=fin&q=EOAN.XETRA" >> $result_file
+echo TEST >> $result_file
 
 symbols=$1	
 for symbol in $symbols
@@ -76,7 +79,7 @@ do
 
 	if [ $last_over_agv_18 == 1 ] && [ $last_over_agv_38 == 1 ] && [ $last_over_agv_100 == 1 ]; then
 		echo "-------> Overrated: $symbol $last EUR is $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
-		echo -e Overrated: "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
+		echo -e "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
 	fi
 	
 	if [ $last_under_agv_18 == 1 ] && [ $last_under_agv_38 == 1 ] && [ $last_under_agv_100 == 1 ]; then
