@@ -18,6 +18,7 @@ greaterFactor=$( echo "1 $offsetInPercentage" | awk '{print $1 - $2}' )
 
 result_file=./data/result.txt
 rm -rf $result_file
+touch $result_file
 
 less_then () {
     lesserValue=$( echo "$lesserFactor $1" | awk '{print $1 * $2}' )
@@ -73,12 +74,12 @@ do
 	
 	if [ $over18 == 1 ] && [ $over38 == 1 ] && [ $over100 == 1 ]; then
 		echo "-------> Overrated: $symbol $last EUR is $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
-		echo -e Overrated: "http://www.google.com/search?tbm=fin&q=${symbol}\n" >> $result_file
+		echo -e Overrated: "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
 	fi
 	
 	if [ $under18 == 1 ] && [ $under38 == 1 ] && [ $under100 == 1 ]; then
 		echo "++++++++> Underrated: $symbol $last EUR is $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
-		echo -e Underrated: "http://www.google.com/search?tbm=fin&q=${symbol}\n" >> $result_file
+		echo -e Underrated: "http://www.google.com/search?tbm=fin&q=${symbol}\n\r" >> $result_file
 	fi
 	
 	echo " "
