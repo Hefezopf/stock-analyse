@@ -18,7 +18,7 @@ This script checks given stock quotes and their averages of the last 100, 38, 18
 
 # Result
 
-Outputs a result.txt
+Outputs a result.html
 
 
 # REST Call
