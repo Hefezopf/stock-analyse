@@ -19,10 +19,7 @@ onOfflineQuery=$3
 lesserFactor=$( echo "100 $offsetInPercentage" | awk '{print ($1 + $2)/100}' )
 greaterFactor=$( echo "100 $offsetInPercentage" | awk '{print ($1 - $2)/100}' )
 
-echo lesserFactor $lesserFactor
-echo greaterFactor $greaterFactor
-
-result_file=./data/result.txt
+result_file=./data/result.html
 rm -rf $result_file
 
 less_then () {
