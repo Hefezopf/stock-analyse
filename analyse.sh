@@ -1,12 +1,12 @@
 #!/bin/bash
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE [offline|online]
-# 1. Parameter SYMBOLS - Liste of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
-# 2.  Parameter PERCENTAGE - 0.12 means 12 Percent,; 0 if not specified
-# 3. Optional parameter "offline" do not query over REST API. Instead read local files.
+# 1. Parameter: SYMBOLS - Liste of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
+# 2. Parameter: PERCENTAGE - 2 means 2 percent,; 1 if not specified
+# 3. Optional parameter: "offline" do not query over REST API. Instead read local files.
 # Call example: ./analyse.sh 'ADS.XETRA' 
-# Call example: ./analyse.sh 'ADS.XETRA' 0.09 online 
-# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 0.11 offline
+# Call example: ./analyse.sh 'ADS.XETRA' 2 online 
+# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 2 offline
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 # export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
@@ -16,9 +16,11 @@ symbols=$1
 offsetInPercentage=$2
 onOfflineQuery=$3
 
+lesserFactor=$( echo "100 $offsetInPercentage" | awk '{print ($1 + $2)/100}' )
+greaterFactor=$( echo "100 $offsetInPercentage" | awk '{print ($1 - $2)/100}' )
 
-lesserFactor=$( echo "1 $offsetInPercentage" | awk '{print $1 + $2}' )
-greaterFactor=$( echo "1 $offsetInPercentage" | awk '{print $1 - $2}' )
+echo lesserFactor $lesserFactor
+echo greaterFactor $greaterFactor
 
 result_file=./data/result.txt
 rm -rf $result_file
@@ -49,7 +51,9 @@ else
 fi
 
 echo -e "Analyse with factor $lesserFactor \n\r" | tee -a $result_file
-echo -e -n "https://github.com/Hefezopf/stock-analyse/actions  \n\r" >> $result_file
+echo " "
+echo -e "https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $result_file
+echo " "
 echo -n start chrome " " >> $result_file
 
 for symbol in $symbols
