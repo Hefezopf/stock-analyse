@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Line Chart</title>
+	<script src="js/chart.min.js"></script>
+	<script src="js/utils.js"></script>
+	<style>
+	canvas{
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
+</head>
+
+<body>
+
+	<input type='file' multiple>
+	<script>
+  
+  var inputFiles = document.getElementsByTagName("input")[0];
+inputFiles.onchange = function(){
+  var promise = Promise.resolve();
+  inputFiles.files.map( file => promise.then(()=> readFile(file)));
+  promise.then(() => console.log('all done...'));
+}
+
+function readFile(file){
+  return new Promise((resolve, reject) => {
+    var fr = new FileReader();  
+    fr.onload = () => {
+      resolve(fr.result )
+    };
+    fr.readAsText(file.blob);
+  });
+}
+  </script>
+
+
+
+
+	<div style="width:75%;">
+		<canvas id="canvas"></canvas>
+	</div>
+	<br>
+	<br>
+	<button id="randomizeData">Randomize Data</button>
+	<button id="addDataset">Add Dataset</button>
+	<button id="removeDataset">Remove Dataset</button>
+	<button id="addData">Add Data</button>
+	<button id="removeData">Remove Data</button>
+
+	<script>
+		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		var config = {
+			type: 'line',
+			data: {
+				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'January', 'February', 'March', 'April', 'May', 'June', 'January', 'February', 'March', 'April', 'May', 'June', 'January', 'February', 'March', 'April', 'May', 'June', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
+				datasets: [{
+					label: 'My First dataset',
+					backgroundColor: window.chartColors.red,
+					borderColor: window.chartColors.red,
+					data: [
+					1596,1606,1593.5,1594,1633.5,1629.5,1639,1634,1641,1557.5,1584.5,1606.5,1616.5,1621,1517,1455,1445.5,1505,1537,1577,1538.5,1568.5,1566,1588.5,1598.5,1630.5,1623.5,1642,1682,1721,1734.5,1700.5,1675,1612.5,1590.5,1631,1604,1598.5,1577,1602.5,1601.5,1596,1581,1578,1581,1514.5,1516.5,1445,1438,1399,1383.5,1374,1376,1310.5,1347,1307.5,1329,1428,1417,1391.5,1412,1469.5,1465.5,1417,1378.5,1367.5,1418,1466.5,1449,1449,1415.5,1457.5,1416,1403.5,1423,1488,1471.5,1472.5,1441,1464,1417,1382,1414.5,1381,1397.5,1351.5,1430.5,1424.5,1414,1437.5,1402,1364.5,1380,1357.5,1405,1379,1401.5,1405.5,1401.5,1372.5
+					],
+					fill: false,
+				}
+				/*
+				, {
+					label: 'My Second dataset',
+					fill: false,
+					backgroundColor: window.chartColors.blue,
+					borderColor: window.chartColors.blue,
+					data: [
+						// randomScalingFactor(),
+						1596,1606,1593.5,1594,1633.5,1629.5,1639,1634
+					],
+				}
+				*/
+			]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					title: {
+						display: true,
+						text: 'Chart.js Line Chart'
+					},
+					tooltip: {
+						mode: 'index',
+						intersect: false,
+					}
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					x: {
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Month'
+						}
+					},
+					y: {
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Value'
+						}
+					}
+				}
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		};
+
+		document.getElementById('randomizeData').addEventListener('click', function() {
+			config.data.datasets.forEach(function(dataset) {
+				dataset.data = dataset.data.map(function() {
+					return randomScalingFactor();
+				});
+
+			});
+
+			window.myLine.update();
+		});
+
+		var colorNames = Object.keys(window.chartColors);
+		document.getElementById('addDataset').addEventListener('click', function() {
+			var colorName = colorNames[config.data.datasets.length % colorNames.length];
+			var newColor = window.chartColors[colorName];
+			var newDataset = {
+				label: 'Dataset ' + config.data.datasets.length,
+				backgroundColor: newColor,
+				borderColor: newColor,
+				data: [],
+				fill: false
+			};
+
+			for (var index = 0; index < config.data.labels.length; ++index) {
+				newDataset.data.push(randomScalingFactor());
+			}
+
+			config.data.datasets.push(newDataset);
+			window.myLine.update();
+		});
+
+		document.getElementById('addData').addEventListener('click', function() {
+			if (config.data.datasets.length > 0) {
+				var month = MONTHS[config.data.labels.length % MONTHS.length];
+				config.data.labels.push(month);
+
+				config.data.datasets.forEach(function(dataset) {
+					dataset.data.push(randomScalingFactor());
+				});
+
+				window.myLine.update();
+			}
+		});
+
+		document.getElementById('removeDataset').addEventListener('click', function() {
+			config.data.datasets.splice(0, 1);
+			window.myLine.update();
+		});
+
+		document.getElementById('removeData').addEventListener('click', function() {
+			config.data.labels.splice(-1, 1); // remove the label first
+
+			config.data.datasets.forEach(function(dataset) {
+				dataset.data.pop();
+			});
+
+			window.myLine.update();
+		});
+	</script>
+</body>
+
+</html>
