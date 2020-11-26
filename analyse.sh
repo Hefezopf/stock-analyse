@@ -1,12 +1,13 @@
 #!/bin/bash
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
-# Call: ./analyse.sh SYMBOLS PERCENTAGE [offline|online]
+# Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED
 # 1. Parameter: SYMBOLS - Liste of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
-# 2. Parameter: PERCENTAGE - 2 means 2 percent,; 1 if not specified
-# 3. Optional parameter: "offline" do not query over REST API. Instead read local files.
+# 2. Parameter: PERCENTAGE - '3' means 3 percent; 1 if not specified.
+# 3. Optional parameter: QUERY - [online|offline] 'offline' do not query over REST API. Instead read local files.
+# 4. Optional parameter: RATED - "rated" [overrated|underrated] 'underrated' only list underrated stocks.
 # Call example: ./analyse.sh 'ADS.XETRA' 
-# Call example: ./analyse.sh 'ADS.XETRA' 2 online 
-# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 2 offline
+# Call example: ./analyse.sh 'ADS.XETRA' 3 online 
+# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 # export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
@@ -17,24 +18,37 @@ export LANG=en_IN.UTF-8
 export LANGUAGE=en_IN.UTF-8
 
 # Parameter
-symbols=$1
-offsetInPercentage=$2
-onOfflineQuery=$3
+symbolsParam=$1
+percentageParam=$2
+queryParam=$3
+ratedParam=$4
 
-if [[ $onOfflineQuery == 'offline' ]]; then
-	echo Offline Query
+# Check parameter
+if [[ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ]] && [[ ! -z "${percentageParam##*[!0-9]*}" ]]  && ( [[ $queryParam == 'offline' ]] || [[ $queryParam == 'online' ]] ) && ( [[ $ratedParam == 'overrated' ]] || [[ $ratedParam == 'underrated' ]] ); then
+	echo ""
 else
-	echo Online Query
+	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED"
+	echo " SYMBOLS: Stock ticker symbols blank separated"
+	echo " PERCENTAGE: Percentage number between 0..100"
+	echo " QUERY: Query data online|offline"
+	echo " RATED: List only overrated|underrated"
+	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated"
+	exit
 fi
 
-lesserFactor=$( echo "100 $offsetInPercentage" | awk '{print ($1 + $2)/100}' )
-greaterFactor=$( echo "100 $offsetInPercentage" | awk '{print ($1 - $2)/100}' )
+lesserFactor=$( echo "100 $percentageParam" | awk '{print ($1 + $2)/100}' )
+greaterFactor=$( echo "100 $percentageParam" | awk '{print ($1 - $2)/100}' )
 
 resultFile=./data/result.txt
 rm -rf $resultFile
 
-echo -e "Analyse with factor $lesserFactor \n\r" | tee -a $resultFile
-echo -e "https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
+echo -e "Analyse parameters:" | tee -a $resultFile
+echo -e " Symbols: $symbolsParam" | tee -a $resultFile
+echo -e " Percentage: $percentageParam" | tee -a $resultFile
+echo -e " Query: $queryParam" | tee -a $resultFile
+echo -e " Rated: $ratedParam \n\r" | tee -a $resultFile
+echo -e "Results here:" >> $resultFile
+echo -e " https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
 echo -n start chrome " " >> $resultFile
 
 lessThen () {
@@ -52,15 +66,15 @@ greaterThen () {
 }
 
 if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
-	echo Error: MARKET_STACK_ACCESS_KEY not set!
+	echo "Error: MARKET_STACK_ACCESS_KEY not set!"
 	exit
 fi
 
 # Get data
-for symbol in $symbols
+for symbol in $symbolsParam
 do
 	echo "## Get $symbol ##"
-	if [[ $onOfflineQuery == 'offline' ]];then
+	if [[ $queryParam == 'offline' ]]; then
 		true
 	else
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
@@ -70,7 +84,7 @@ done
 echo " "
 
 # Analyse data
-for symbol in $symbols
+for symbol in $symbolsParam
 do
 	echo "## Analyse $symbol ##"
 	lastRaw=$(head -n1 -q ./data/values.${symbol}.txt)
@@ -104,19 +118,23 @@ do
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
-	if [[ $fileSize > 200 ]];then
-		if [ $lastOverAgv18 == 1 ] && [ $lastOverAgv38 == 1 ] && [ $lastOverAgv100 == 1 ] && 
-		[ $agv18OverAgv38 == 1 ] && [ $agv38OverAgv100 == 1 ] && [ $agv18OverAgv100 == 1 ];
-		then
-			echo "- Overrated: $symbol last $last EUR is more then $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
-			echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
+	if [[ $fileSize > 200 ]]; then
+		# Overrated
+		if [[ $ratedParam == 'overrated' ]]; then
+			if [ $lastOverAgv18 == 1 ] && [ $lastOverAgv38 == 1 ] && [ $lastOverAgv100 == 1 ] && 
+			   [ $agv18OverAgv38 == 1 ] && [ $agv38OverAgv100 == 1 ] && [ $agv18OverAgv100 == 1 ]; then
+				echo "- Overrated: $symbol last $last EUR is more then $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
+				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
+			fi
 		fi
-		
-		if [ $lastUnderAgv18 == 1 ] && [ $lastUnderAgv38 == 1 ] && [ $lastUnderAgv100 == 1 ] && 
-		[ $agv18UnderAgv38 == 1 ] && [ $agv38UnderAgv100 == 1 ] && [ $agv18UnderAgv100 == 1 ];
-		then
-			echo "+ Underrated: $symbol last $last EUR is more then $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
-			echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
+	
+		# Underrated
+		if [[ $ratedParam == 'underrated' ]]; then
+			if [ $lastUnderAgv18 == 1 ] && [ $lastUnderAgv38 == 1 ] && [ $lastUnderAgv100 == 1 ] && 
+			   [ $agv18UnderAgv38 == 1 ] && [ $agv38UnderAgv100 == 1 ] && [ $agv18UnderAgv100 == 1 ]; then
+				echo "+ Underrated: $symbol last $last EUR is more then $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
+				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
+			fi
 		fi
 	else
 	    echo "! File sizeof $symbol id suspicious: $fileSize kb"
