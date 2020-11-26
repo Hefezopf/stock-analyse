@@ -49,7 +49,7 @@ echo -e " Query: $queryParam" | tee -a $resultFile
 echo -e " Rated: $ratedParam \n\r" | tee -a $resultFile
 echo -e "Results here:" >> $resultFile
 echo -e " https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
-echo -n start chrome " " >> $resultFile
+echo -n "start chrome " >> $resultFile
 
 lessThen () {
     lesserValue=$( echo "$lesserFactor $1" | awk '{print $1 * $2}' )
