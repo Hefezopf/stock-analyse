@@ -37,14 +37,14 @@ echo -e "Analyse with factor $lesserFactor \n\r" | tee -a $resultFile
 echo -e "https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
 echo -n start chrome " " >> $resultFile
 
-less_then () {
+lessThen () {
     lesserValue=$( echo "$lesserFactor $1" | awk '{print $1 * $2}' )
     if awk 'BEGIN {exit !('$lesserValue' < '$2')}'; then
 		return 1
 	fi
 }
 
-greater_then () {
+greaterThen () {
 	greaterValue=$( echo "$greaterFactor $1" | awk '{print $1 * $2}' )
     if awk 'BEGIN {exit !('$greaterValue' > '$2')}'; then
 		return 1
@@ -56,15 +56,23 @@ if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
 	exit
 fi
 
+# Get data
 for symbol in $symbols
 do
-	echo "## $symbol ##"
+	echo "## Get $symbol ##"
 	if [[ $onOfflineQuery == 'offline' ]];then
 		true
 	else
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
 	fi
-	
+done
+
+echo " "
+
+# Analyse data
+for symbol in $symbols
+do
+	echo "## Analyse $symbol ##"
 	lastRaw=$(head -n1 -q ./data/values.${symbol}.txt)
 	last=$(printf "%'.2f\n" $lastRaw)
 
@@ -72,45 +80,45 @@ do
 	average18Raw=$(cat ./data/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
 	average18=$(printf "%'.2f\n" $average18Raw)
 	
-	greater_then $last $average18; last_over_agv18=$?
-	less_then $last $average18;	last_under_agv18=$?
+	greaterThen $last $average18; lastOverAgv18=$?
+	lessThen $last $average18;	lastUnderAgv18=$?
 
 	head -n38 ./data/values.${symbol}.txt > ./data/values38.txt
 	average38Raw=$(cat ./data/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	average38=$(printf "%'.2f\n" $average38Raw)
-	greater_then $last $average38; last_over_agv38=$?
-    less_then $last $average38;	last_under_agv38=$?
+	greaterThen $last $average38; lastOverAgv38=$?
+    lessThen $last $average38;	lastUnderAgv38=$?
 	
 	head -n100 ./data/values.${symbol}.txt > ./data/values100.txt
 	average100Raw=$(cat ./data/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	average100=$(printf "%'.2f\n" $average100Raw)
-	greater_then $last $average100;	last_over_agv100=$?
-	less_then $last $average100; last_under_agv100=$?
+	greaterThen $last $average100;	lastOverAgv100=$?
+	lessThen $last $average100; lastUnderAgv100=$?
 
-	greater_then $average18 $average38; agv18_over_agv38=$?
-	less_then $average18 $average38; agv18_under_agv38=$?
-	greater_then $average38 $average100; agv38_over_agv100=$?
-	less_then $average38 $average100; agv38_under_agv100=$?
-	greater_then $average18 $average100; agv18_over_agv100=$?
-	less_then $average18 $average100; agv18_under_agv100=$?
+	greaterThen $average18 $average38; agv18OverAgv38=$?
+	lessThen $average18 $average38; agv18UnderAgv38=$?
+	greaterThen $average38 $average100; agv38OverAgv100=$?
+	lessThen $average38 $average100; agv38UnderAgv100=$?
+	greaterThen $average18 $average100; agv18OverAgv100=$?
+	lessThen $average18 $average100; agv18UnderAgv100=$?
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
-	# Valid data is higher then 200; damaged or unsufficiant data
+	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
 	if [[ $fileSize > 200 ]];then
-		if [ $last_over_agv18 == 1 ] && [ $last_over_agv38 == 1 ] && [ $last_over_agv100 == 1 ] && 
-		[ $agv18_over_agv38 == 1 ] && [ $agv38_over_agv100 == 1 ] && [ $agv18_over_agv100 == 1 ];
+		if [ $lastOverAgv18 == 1 ] && [ $lastOverAgv38 == 1 ] && [ $lastOverAgv100 == 1 ] && 
+		[ $agv18OverAgv38 == 1 ] && [ $agv38OverAgv100 == 1 ] && [ $agv18OverAgv100 == 1 ];
 		then
-			echo "------- Overrated: $symbol last $last EUR is more then $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
+			echo "- Overrated: $symbol last $last EUR is more then $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
 			echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
 		fi
 		
-		if [ $last_under_agv18 == 1 ] && [ $last_under_agv38 == 1 ] && [ $last_under_agv100 == 1 ] && 
-		[ $agv18_under_agv38 == 1 ] && [ $agv38_under_agv100 == 1 ] && [ $agv18_under_agv100 == 1 ];
+		if [ $lastUnderAgv18 == 1 ] && [ $lastUnderAgv38 == 1 ] && [ $lastUnderAgv100 == 1 ] && 
+		[ $agv18UnderAgv38 == 1 ] && [ $agv38UnderAgv100 == 1 ] && [ $agv18UnderAgv100 == 1 ];
 		then
-			echo "+++++++ Underrated: $symbol last $last EUR is more then $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
+			echo "+ Underrated: $symbol last $last EUR is more then $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
 			echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
 		fi
 	else
-	    echo "!!!!!!!! File size: $fileSize kb of $symbol suspicious!"
+	    echo "! File sizeof $symbol id suspicious: $fileSize kb"
 	fi
 done
