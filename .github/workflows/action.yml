@@ -64,10 +64,11 @@ jobs:
           
           echo github ${{github.event.inputs.symbolsParam}}
           
-          symbolsInput=${{github.event.inputs.symbolsParam}}
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
           
           echo after github 
-          
+          echo symbolsInput $symbolsInput 
+
           percentageInput=${{github.event.inputs.percentageParam}}
           queryInput=${{github.event.inputs.queryParam}}
           ratedInput=${{github.event.inputs.ratedParam}}
