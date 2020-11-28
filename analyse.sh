@@ -27,12 +27,17 @@ ratedParam=$4
 if [[ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ]] && [[ ! -z "${percentageParam##*[!0-9]*}" ]]  && ( [[ $queryParam == 'offline' ]] || [[ $queryParam == 'online' ]] ) && ( [[ $ratedParam == 'overrated' ]] || [[ $ratedParam == 'underrated' ]] ); then
 	echo ""
 else
-	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED"
-	echo " SYMBOLS: Stock ticker symbols blank separated"
-	echo " PERCENTAGE: Percentage number between 0..100"
-	echo " QUERY: Query data online|offline"
-	echo " RATED: List only overrated|underrated"
-	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated"
+	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
+	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $resultFile
+	echo " PERCENTAGE: Percentage number between 0..100" | tee -a $resultFile
+	echo " QUERY: Query data online|offline" | tee -a $resultFile
+	echo " RATED: List only overrated|underrated" | tee -a $resultFile
+	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated" | tee -a $resultFile
+	exit
+fi
+
+if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
+	echo "Error: MARKET_STACK_ACCESS_KEY not set!" | tee -a $resultFile
 	exit
 fi
 
@@ -64,11 +69,6 @@ greaterThen () {
 		return 1
 	fi
 }
-
-if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
-	echo "Error: MARKET_STACK_ACCESS_KEY not set!"
-	exit
-fi
 
 # Get data
 for symbol in $symbolsParam
@@ -137,6 +137,6 @@ do
 			fi
 		fi
 	else
-	    echo "! File sizeof $symbol id suspicious: $fileSize kb"
+	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $resultFile
 	fi
 done
