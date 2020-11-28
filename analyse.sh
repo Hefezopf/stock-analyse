@@ -23,6 +23,8 @@ percentageParam=$2
 queryParam=$3
 ratedParam=$4
 
+echo xxxxxxxxx $symbolsParam $percentageParam $queryParam $ratedParam
+
 # Check parameter
 if  ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ); then
 #if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ); then
