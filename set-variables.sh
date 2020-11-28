@@ -4,7 +4,7 @@ queryDefault=offline
 ratedDefault=underrated
 echo with default parameter: $percentageDefault $queryDefault $ratedDefault
 
-percentageInput=88
+percentageInput=
 queryInput=
 ratedInput=
 
@@ -16,4 +16,5 @@ queryVar=${queryInput:-$queryDefault}
 ratedVar=${ratedInput:-$ratedDefault}
 
 echo with CALCULATED parameter: $percentageVar $queryVar $ratedVar
+
 ./analyse.sh 'DB1.XETRA BMW.XETRA' $percentageVar $queryVar $ratedVar
