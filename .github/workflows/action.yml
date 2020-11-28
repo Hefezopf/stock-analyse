@@ -61,7 +61,14 @@ jobs:
           export percentageEnv=${{github.event.inputs.percentageParam}}
           export queryEnv=${{github.event.inputs.queryParam}}
           export ratedEnv=${{github.event.inputs.ratedParam}}
-          echo with parameter: $symbolsEnv $percentageEnv $queryEnv $ratedEnv
+
+          symbolsVar="${symbolsEnv-BMW.XETRA}"
+          percentageVar="${percentageEnv-5"
+          queryVar="${queryEnv-offline}"
+          ratedVar="${ratedEnv-underrated}"
+
+          echo with Manuel parameter: $symbolsEnv $percentageEnv $queryEnv $ratedEnv
+          echo with CI parameter: $symbolsVar $percentageVar $queryVar $ratedVar
 
           echo with parameter: ${{github.event.inputs.symbolsParam}} ${{github.event.inputs.percentageParam}} ${{github.event.inputs.queryParam}} ${{github.event.inputs.ratedParam}}
 
@@ -71,6 +78,7 @@ jobs:
           chmod +x ./analyse-eurostoxx50.sh
           chmod +x ./analyse-xetra100.sh
           chmod +x ./analyse-xetra1000.sh
+          echo XXXXX
           sh ./analyse-dax2.sh ${{github.event.inputs.percentageParam}} ${{github.event.inputs.queryParam}} ${{github.event.inputs.ratedParam}}
       - name: Send result.txt via email
         uses: dawidd6/action-send-mail@v2
