@@ -31,7 +31,6 @@ if  ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$r
 #if [[ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ]] && [[ ! -z "${percentageParam##*[!0-9]*}" ]]  && ( [[ "$queryParam" = 'offline' ]] || [[ "$queryParam" = 'online' ]] ) && ( [[ "$ratedParam" = 'overrated' ]] || [[ "$ratedParam" = 'underrated' ]] ); then
 	echo ""
 else
-	#echo "Usage: ./analyse.sh PERCENTAGE QUERY RATED" | tee -a $resultFile
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
 	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $resultFile
 	echo " PERCENTAGE: Percentage number between 0..100" | tee -a $resultFile
