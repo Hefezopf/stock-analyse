@@ -61,6 +61,7 @@ jobs:
           export queryEnv=${{github.event.inputs.queryParam}}
           export ratedEnv=${{github.event.inputs.ratedParam}}
           echo with parameter: ${{github.event.inputs.symbolsParam}} ${{github.event.inputs.percentageParam}} ${{github.event.inputs.queryParam}} ${{github.event.inputs.ratedParam}}
+          export symbolsVar="${symbolsEnv-BMW.XETRA}"
           chmod +x ./analyse.sh
           chmod +x ./analyse-dax2.sh
           chmod +x ./analyse-dax30.sh
