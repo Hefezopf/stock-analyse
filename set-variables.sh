@@ -17,4 +17,4 @@ ratedVar=${ratedInput:-$ratedDefault}
 
 echo with CALCULATED parameter: $percentageVar $queryVar $ratedVar
 
-./analyse.sh "ADS.XETRA ALV.XETRA BAS.XETRA" $percentageVar $queryVar $ratedVar
+./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' $percentageVar $queryVar $ratedVar
