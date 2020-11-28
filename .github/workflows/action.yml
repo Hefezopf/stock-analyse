@@ -56,16 +56,25 @@ jobs:
         run: |
           echo Start analyse...
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
-          symbolsEnv=${{github.event.inputs.symbolsParam}}
-          percentageEnv=${{github.event.inputs.percentageParam}}
-          queryEnv=${{github.event.inputs.queryParam}}
-          ratedEnv=${{github.event.inputs.ratedParam}}
-          echo with parameter: ${{github.event.inputs.symbolsParam}} ${{github.event.inputs.percentageParam}} ${{github.event.inputs.queryParam}} ${{github.event.inputs.ratedParam}}
-          percentageVar=${percentageEnv-9}
-          queryVar=${queryEnv-offline}
-          ratedVar=${ratedEnv-underrated}
-          echo with Manuel parameter: $percentageEnv $queryEnv $ratedEnv
-          echo with CI parameter: $percentageVar $queryVar $ratedVar		  
+          
+          percentageDefault=2
+          queryDefault=offline
+          ratedDefault=underrated
+          echo with default parameter: $percentageDefault $queryDefault $ratedDefault
+          
+          percentageInput=${{github.event.inputs.percentageParam}}
+          queryInput=${{github.event.inputs.queryParam}}
+          ratedInput=${{github.event.inputs.ratedParam}}
+          
+          echo with form input parameter: ${{github.event.inputs.percentageParam}} ${{github.event.inputs.queryParam}} ${{github.event.inputs.ratedParam}}
+          echo with input parameter: $percentageInput $queryInput $ratedInput
+          
+          percentageVar=${percentageInput:-$percentageDefault}
+          queryVar=${queryInput:-$queryDefault}
+          ratedVar=${ratedInput:-$ratedDefault}          
+          
+          echo with CALCULATED parameter: $percentageVar $queryVar $ratedVar
+
           chmod +x ./analyse.sh
           chmod +x ./analyse-dax2.sh
           chmod +x ./analyse-dax30.sh
