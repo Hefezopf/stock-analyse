@@ -1,10 +1,10 @@
 #!/bin/bash
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED
-# 1. Parameter: SYMBOLS - Liste of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
-# 2. Parameter: PERCENTAGE - '3' means 3 percent; 1 if not specified.
+# 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
+# 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent; 1 if not specified.
 # 3. Optional parameter: QUERY - [online|offline] 'offline' do not query over REST API. Instead read local files.
-# 4. Optional parameter: RATED - "rated" [overrated|underrated] 'underrated' only list underrated stocks.
+# 4. Optional parameter: RATED - Looking for what rating? [overrated|underrated]. If 'underrated', only list low/underrated stocks.
 # Call example: ./analyse.sh 'ADS.XETRA' 
 # Call example: ./analyse.sh 'ADS.XETRA' 3 online 
 # Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated

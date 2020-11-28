@@ -5,15 +5,11 @@ This script checks given stock quotes and their averages of the last 100, 38, 18
 
 
 # Run
-./analyse.sh SYMBOLS PERCENTAGE [offline]
+./analyse.sh SYMBOLS PERCENTAGE QUERY RATED
 
-./analyse-xetra100.sh 9 online 
+./analyse.sh 'ADS.XETRA' 9 online overrated
 
-./analyse-dax30.sh 9 offline 
-
-./analyse.sh 'ADS.XETRA' 9 online 
-
-./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' 9 offline
+./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' 9 offline underrated
 
 
 # Result
