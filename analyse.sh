@@ -24,7 +24,8 @@ queryParam=$3
 ratedParam=$4
 
 # Check parameter
-if [[ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ]] && [[ ! -z "${percentageParam##*[!0-9]*}" ]]  && ( [[ $queryParam == 'offline' ]] || [[ $queryParam == 'online' ]] ) && ( [[ $ratedParam == 'overrated' ]] || [[ $ratedParam == 'underrated' ]] ); then
+#if [[ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ]] && [[ ! -z "${percentageParam##*[!0-9]*}" ]]  && ( [[ $queryParam == 'offline' ]] || [[ $queryParam == 'online' ]] ) && ( [[ $ratedParam == 'overrated' ]] || [[ $ratedParam == 'underrated' ]] ); then
+if [[ ! -z "${percentageParam##*[!0-9]*}" ]]  && ( [[ $queryParam == 'offline' ]] || [[ $queryParam == 'online' ]] ) && ( [[ $ratedParam == 'overrated' ]] || [[ $ratedParam == 'underrated' ]] ); then
 	echo ""
 else
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
