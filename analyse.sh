@@ -54,6 +54,7 @@ echo " Symbols: $symbolsParam" | tee -a $resultFile
 echo " Percentage: $percentageParam" | tee -a $resultFile
 echo " Query: $queryParam" | tee -a $resultFile
 echo " Rated: $ratedParam" | tee -a $resultFile
+echo " " | tee -a $resultFile
 echo "Results here:" >> $resultFile
 echo " https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
 echo -n "start chrome " >> $resultFile
