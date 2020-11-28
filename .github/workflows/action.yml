@@ -11,10 +11,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
-      symbolsParam:
-        description: 'List of stock symbols like: "ADS.XETRA ALV.XETRA BAS.XETRA ..."'     
-        required: true
-        default: 'ADS.XETRA ALV.XETRA BAS.XETRA'
       percentageParam:
         description: 'Percentage difference; "3" means 3 percent; 1 if not specified.'     
         required: true
@@ -57,18 +53,16 @@ jobs:
           echo Start analyse...
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           
-          symbolsDefault="ADS.XETRA ALV.XETRA BAS.XETRA"
           percentageDefault=1
           queryDefault=offline
           ratedDefault=underrated
           echo with default parameter: $percentageDefault $queryDefault $ratedDefault
           
-          symbolsInput=${{github.event.inputs.symbolsParam}}
           percentageInput=${{github.event.inputs.percentageParam}}
           queryInput=${{github.event.inputs.queryParam}}
           ratedInput=${{github.event.inputs.ratedParam}}
           
-          symbolsVar=${symbolsInput:-$symbolsDefault}
+          symbolsVar="ADS.XETRA ALV.XETRA BAS.XETRA"
           percentageVar=${percentageInput:-$percentageDefault}
           queryVar=${queryInput:-$queryDefault}
           ratedVar=${ratedInput:-$ratedDefault}          
