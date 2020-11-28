@@ -76,7 +76,7 @@ greaterThen () {
 for symbol in $symbolsParam
 do
 	echo "## Get $symbol ##"
-	if [ "$queryParam" == 'offline' ]; then
+	if [ "$queryParam" = 'offline' ]; then
 		true
 	else
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
