@@ -62,6 +62,11 @@ jobs:
           export ratedEnv=${{github.event.inputs.ratedParam}}
           echo with parameter: ${{github.event.inputs.symbolsParam}} ${{github.event.inputs.percentageParam}} ${{github.event.inputs.queryParam}} ${{github.event.inputs.ratedParam}}
           export symbolsVar="${symbolsEnv-BMW.XETRA}"
+          export percentageVar="${percentageEnv-5"
+          export queryVar="${queryEnv-offline}"
+          export ratedVar="${ratedEnv-underrated}"
+          echo with Manuel parameter: $symbolsEnv $percentageEnv $queryEnv $ratedEnv
+          echo with CI parameter: $symbolsVar $percentageVar $queryVar $ratedVar		  
           chmod +x ./analyse.sh
           chmod +x ./analyse-dax2.sh
           chmod +x ./analyse-dax30.sh
