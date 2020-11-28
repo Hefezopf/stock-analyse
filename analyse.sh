@@ -49,13 +49,13 @@ greaterFactor=$( echo "100 $percentageParam" | awk '{print ($1 - $2)/100}' )
 resultFile=./data/result.txt
 rm -rf $resultFile
 
-echo -e "Analyse parameters:" | tee -a $resultFile
-echo -e " Symbols: $symbolsParam" | tee -a $resultFile
-echo -e " Percentage: $percentageParam" | tee -a $resultFile
-echo -e " Query: $queryParam" | tee -a $resultFile
-echo -e " Rated: $ratedParam \n\r" | tee -a $resultFile
-echo -e "Results here:" >> $resultFile
-echo -e " https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
+echo "Analyse parameters:" | tee -a $resultFile
+echo " Symbols: $symbolsParam" | tee -a $resultFile
+echo " Percentage: $percentageParam" | tee -a $resultFile
+echo " Query: $queryParam" | tee -a $resultFile
+echo " Rated: $ratedParam" | tee -a $resultFile
+echo "Results here:" >> $resultFile
+echo " https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
 echo -n "start chrome " >> $resultFile
 
 lessThen () {
