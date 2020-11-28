@@ -11,16 +11,20 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
+      symbolsParam:
+        description: 'SYMBOLS - List of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...''     
+        required: true
+        default: 'ADS.XETRA ALV.XETRA'
       percentageParam:
-        description: 'Percentage difference; "3" means 3 percent; 1 if not specified.'     
+        description: 'PERCENTAGE difference; "3" means 3 percent; 1 if not specified.'     
         required: true
         default: '3'
       queryParam:
-        description: '[online|offline] "offline" do not query over REST API. Instead read local files.'     
+        description: 'QUERY [online|offline] "offline" do not query over REST API. Instead read local files.'     
         required: true
         default: 'offline'
       ratedParam:
-        description: 'Looking for what rating? [overrated|underrated]. If "underrated", only list low/underrated stocks.'     
+        description: 'RATED Looking for what rating? [overrated|underrated]. If "underrated", only list low/underrated stocks.'     
         required: true
         default: 'underrated'
 
@@ -53,15 +57,18 @@ jobs:
           echo Start analyse...
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           
+          #symbolsDefault='ADS.XETRA ALV.XETRA BAS.XETRA'
           percentageDefault=1
           queryDefault=offline
           ratedDefault=underrated
           
+          #symbolsInput=${{github.event.inputs.symbolsParam}}
           percentageInput=${{github.event.inputs.percentageParam}}
           queryInput=${{github.event.inputs.queryParam}}
           ratedInput=${{github.event.inputs.ratedParam}}
           
-          symbolsVar='ADS.XETRA'
+          symbolsVar='ADS.XETRA ALV.XETRA BAS.XETRA'
+          #symbolsVar=${symbolsInput:-$symbolsDefault}
           percentageVar=${percentageInput:-$percentageDefault}
           queryVar=${queryInput:-$queryDefault}
           ratedVar=${ratedInput:-$ratedDefault}          
@@ -74,7 +81,7 @@ jobs:
           chmod +x ./analyse-xetra1000.sh
 
           sh ./analyse.sh $symbolsVar $percentageVar $queryVar $ratedVar
-          
+
       - name: Send result.txt via email
         uses: dawidd6/action-send-mail@v2
         with:
