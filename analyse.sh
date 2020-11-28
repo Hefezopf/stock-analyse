@@ -76,11 +76,11 @@ greaterThen () {
 for symbol in $symbolsParam
 do
 	echo "## Get $symbol ##"
-	#if [[ $queryParam == 'offline' ]]; then
-	#	true
-	#else
-	#	curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
-	#fi
+	if [ "$queryParam" == 'offline' ]; then
+		true
+	else
+		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
+	fi
 done
 
 echo " "
@@ -124,7 +124,7 @@ do
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
-	#if [[ $fileSize > 200 ]]; then
+	if [ "$fileSize" > 200 ]; then
 		# Overrated
 		if [[ $ratedParam == 'overrated' ]]; then
 			if [ $lastOverAgv18 == 1 ] && [ $lastOverAgv38 == 1 ] && [ $lastOverAgv100 == 1 ] && 
@@ -142,7 +142,7 @@ do
 				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
 			fi
 		fi
-	#else
+	else
 	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $resultFile
-	#fi
+	fi
 done
