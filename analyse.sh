@@ -90,24 +90,28 @@ for symbol in $symbolsParam
 do
 	echo "## Analyse $symbol ##"
 	lastRaw=$(head -n1 -q ./data/values.${symbol}.txt)
-	last=$(printf "%'.2f\n" $lastRaw)
+	#last=$(printf "%'.2f\n" $lastRaw)
+    last=$lastRaw
 
 	head -n18 ./data/values.${symbol}.txt > ./data/values18.txt
 	average18Raw=$(cat ./data/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
-	average18=$(printf "%'.2f\n" $average18Raw)
+	#average18=$(printf "%'.2f\n" $average18Raw)
+	average18=$average18Raw
 	
 	greaterThen $last $average18; lastOverAgv18=$?
 	lessThen $last $average18;	lastUnderAgv18=$?
 
 	head -n38 ./data/values.${symbol}.txt > ./data/values38.txt
 	average38Raw=$(cat ./data/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
-	average38=$(printf "%'.2f\n" $average38Raw)
+	#average38=$(printf "%'.2f\n" $average38Raw)
+	average38=$average38Raw
 	greaterThen $last $average38; lastOverAgv38=$?
     lessThen $last $average38;	lastUnderAgv38=$?
 	
 	head -n100 ./data/values.${symbol}.txt > ./data/values100.txt
 	average100Raw=$(cat ./data/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
-	average100=$(printf "%'.2f\n" $average100Raw)
+	#average100=$(printf "%'.2f\n" $average100Raw)
+	average100=$average100Raw
 	greaterThen $last $average100;	lastOverAgv100=$?
 	lessThen $last $average100; lastUnderAgv100=$?
 
