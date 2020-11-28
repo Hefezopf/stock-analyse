@@ -1,4 +1,4 @@
-name: CI
+name: StockAnalyse
 
 # Controls when the action will run. 
 on:
@@ -56,11 +56,15 @@ jobs:
         run: |
           echo Start analyse...
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+          
           export symbolsEnv=${{github.event.inputs.symbolsParam}}
           export percentageEnv=${{github.event.inputs.percentageParam}}
           export queryEnv=${{github.event.inputs.queryParam}}
           export ratedEnv=${{github.event.inputs.ratedParam}}
           echo with parameter: $symbolsEnv $percentageEnv $queryEnv $ratedEnv
+
+          echo with parameter: ${{github.event.inputs.symbolsParam}} ${{github.event.inputs.percentageParam}} ${{github.event.inputs.queryParam}} ${{github.event.inputs.ratedParam}}
+
           chmod +x ./analyse.sh
           chmod +x ./analyse-dax2.sh
           chmod +x ./analyse-dax30.sh
