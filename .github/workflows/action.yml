@@ -56,12 +56,16 @@ jobs:
         run: |
           echo Start analyse...
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+          export symbolsEnv=${{ github.event.inputs.symbolsParam }}
+          export percentageEnv=${{ github.event.inputs.percentageParam }}
+          export queryEnv=${{ github.event.inputs.queryParam }}
+          export ratedEnv=${{ github.event.inputs.ratedParam }}
           chmod +x ./analyse.sh
           chmod +x ./analyse-dax30.sh
           chmod +x ./analyse-eurostoxx50.sh
           chmod +x ./analyse-xetra100.sh
           chmod +x ./analyse-xetra1000.sh
-          sh ./analyse.sh ${{ github.event.inputs.symbolsParam }} ${{ github.event.inputs.percentageParam }} ${{ github.event.inputs.queryParam }} ${{ github.event.inputs.ratedParam }}
+          sh ./analyse.sh $symbolsEnv $percentageEnv $queryEnv $ratedEnv
       - name: Send result.txt via email
         uses: dawidd6/action-send-mail@v2
         with:
