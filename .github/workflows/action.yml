@@ -12,9 +12,22 @@ on:
   workflow_dispatch:
     inputs:
       symbolsParam:
-        description: 'List of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...''     
+        description: 'List of stock symbols like: "ADS.XETRA ALV.XETRA BAS.XETRA ..."'     
         required: true
         default: 'ADS.XETRA ALV.XETRA'
+      PERCENTAGE:
+        description: 'Percentage difference; "3" means 3 percent; 1 if not specified.'     
+        required: true
+        default: '1'
+      QUERY:
+        description: '[online|offline] "offline" do not query over REST API. Instead read local files.'     
+        required: true
+        default: 'offline'
+      RATED:
+        description: 'Looking for what rating? [overrated|underrated]. If "underrated", only list low/underrated stocks.'     
+        required: true
+        default: 'underrated'
+
   schedule:
   # Every 10 minutes
   # */10 * * * *  
