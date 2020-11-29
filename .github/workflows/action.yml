@@ -12,19 +12,19 @@ on:
   workflow_dispatch:
     inputs:
       symbolsParam:
-        description: 'SYMBOLS - List of stock symbols like: "ADS.XETRA ALV.XETRA BAS.XETRA"'     
+        description: 'SYMBOLS - List of stock symbols like: "ADS.XETRA ALV.XETRA"'     
         required: true
         default: 'ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
       percentageParam:
-        description: 'PERCENTAGE difference; "3" means 3 percent; 1 if not specified.'     
+        description: 'PERCENTAGE - "3" means 3 percent.'     
         required: true
         default: '3'
       queryParam:
-        description: 'QUERY [online|offline] "offline" do not query over REST API. Instead read local files.'     
+        description: 'QUERY - [online|offline].'     
         required: true
         default: 'offline'
       ratedParam:
-        description: 'RATED Looking for what rating? [overrated|underrated]. If "underrated", only list low/underrated stocks.'     
+        description: 'RATED - [overrated|underrated]. list low/underrated stocks.'     
         required: true
         default: 'underrated'
 
@@ -90,7 +90,7 @@ jobs:
           #password: g*1!
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}          
-          subject: Github Actions job result for stock-analyse $symbolsVar ${percentageVar} $queryVar $ratedVar
+          subject: Github Actions job result for stock-analyse
           # Literal body:
           #body: Build job of ${{github.repository}} completed successfully!
           # Read file contents as body:
