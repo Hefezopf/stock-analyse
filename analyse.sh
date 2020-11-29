@@ -2,11 +2,10 @@
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
-# 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent; 1 if not specified.
-# 3. Optional parameter: QUERY - [online|offline] 'offline' do not query over REST API. Instead read local files.
-# 4. Optional parameter: RATED - Looking for what rating? [overrated|underrated]. If 'underrated', only list low/underrated stocks.
-# Call example: ./analyse.sh 'ADS.XETRA' 
-# Call example: ./analyse.sh 'ADS.XETRA' 3 online 
+# 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
+# 3. Optional parameter: QUERY - [online|offline] 'offline' do not query over REST API.
+# 4. Optional parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
+# Call example: ./analyse.sh 'ADS.XETRA' 3 online underrated
 # Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
@@ -41,8 +40,8 @@ if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
 	exit
 fi
 
-lesserFactor=$( echo "100 $percentageParam" | awk '{print ($1 + $2)/100}' )
-greaterFactor=$( echo "100 $percentageParam" | awk '{print ($1 - $2)/100}' )
+percentageLesserFactor=$( echo "100 $percentageParam" | awk '{print ($1 + $2)/100}' )
+percentageGreaterFactor=$( echo "100 $percentageParam" | awk '{print ($1 - $2)/100}' )
 
 resultFile=./data/result.txt
 rm -rf $resultFile
@@ -58,15 +57,15 @@ echo " https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
 echo -n "start chrome " >> $resultFile
 
 lessThen () {
-    lesserValue=$( echo "$lesserFactor $1" | awk '{print $1 * $2}' )
-    if awk 'BEGIN {exit !('$lesserValue' < '$2')}'; then
+    lesserValue=$( echo "$1 $2" | awk '{print $1 * $2}' )
+    if awk 'BEGIN {exit !('$lesserValue' < '$3')}'; then
 		return 1
 	fi
 }
 
 greaterThen () {
-	greaterValue=$( echo "$greaterFactor $1" | awk '{print $1 * $2}' )
-    if awk 'BEGIN {exit !('$greaterValue' > '$2')}'; then
+	greaterValue=$( echo "$1 $2" | awk '{print $1 * $2}' )
+    if awk 'BEGIN {exit !('$greaterValue' > '$3')}'; then
 		return 1
 	fi
 }
@@ -97,29 +96,38 @@ do
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
 	
-	greaterThen $last $average18; lastOverAgv18=$?
-	lessThen $last $average18;	lastUnderAgv18=$?
+	greaterThen $percentageGreaterFactor $last $average18; lastOverAgv18=$?
+	lessThen $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
 	head -n38 ./data/values.${symbol}.txt > ./data/values38.txt
 	average38Raw=$(cat ./data/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	#average38=$(printf "%'.2f\n" $average38Raw)
 	average38=$average38Raw
-	greaterThen $last $average38; lastOverAgv38=$?
-    lessThen $last $average38;	lastUnderAgv38=$?
+	greaterThen $percentageGreaterFactor $last $average38; lastOverAgv38=$?
+    lessThen $percentageLesserFactor $last $average38;lastUnderAgv38=$?
 	
 	head -n100 ./data/values.${symbol}.txt > ./data/values100.txt
 	average100Raw=$(cat ./data/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	#average100=$(printf "%'.2f\n" $average100Raw)
 	average100=$average100Raw
-	greaterThen $last $average100;	lastOverAgv100=$?
-	lessThen $last $average100; lastUnderAgv100=$?
+	greaterThen $percentageGreaterFactor $last $average100; lastOverAgv100=$?
+	lessThen $percentageLesserFactor $last $average100; lastUnderAgv100=$?
 
-	greaterThen $average18 $average38; agv18OverAgv38=$?
-	lessThen $average18 $average38; agv18UnderAgv38=$?
-	greaterThen $average38 $average100; agv38OverAgv100=$?
-	lessThen $average38 $average100; agv38UnderAgv100=$?
-	greaterThen $average18 $average100; agv18OverAgv100=$?
-	lessThen $average18 $average100; agv18UnderAgv100=$?
+	greaterThen $percentageGreaterFactor $average18 $average38; agv18OverAgv38=$?
+	lessThen $percentageLesserFactor $average18 $average38; agv18UnderAgv38=$?
+	greaterThen $percentageGreaterFactor $average38 $average100; agv38OverAgv100=$?
+	lessThen $percentageLesserFactor $average38 $average100; agv38UnderAgv100=$?
+	greaterThen $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
+	lessThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
+
+
+	head -n14 ./data/values.${symbol}.txt > ./data/values14.txt
+	lowest14Raw=$(sort ./data/values14.txt | head -n 1)
+	highest14Raw=$(sort -r ./data/values14.txt | head -n 1)
+	# stochastic=((C – Ln )/( Hn – Ln )) * 100
+	stochastic14=$( echo "$last $lowest14Raw $highest14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}' )
+	echo stochastic14 $stochastic14
+
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
@@ -128,7 +136,7 @@ do
 		if [ "$ratedParam" = 'overrated' ]; then
 			if [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
 			   [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
-				echo "- Overrated: $symbol last $last EUR is more then $lesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
+				echo "- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
 				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
 			fi
 		fi
@@ -137,7 +145,7 @@ do
 		if [ "$ratedParam" = 'underrated' ]; then
 			if [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
 			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
-				echo "+ Underrated: $symbol last $last EUR is more then $greaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
+				echo "+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
 				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
 			fi
 		fi
