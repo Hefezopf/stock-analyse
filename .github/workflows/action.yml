@@ -27,6 +27,10 @@ on:
         description: 'RATED - [overrated|underrated]. list low/underrated stocks.'     
         required: true
         default: 'underrated'
+      stochasticParam:
+        description: 'STOCHASTIC14 - "20" means 20/80 percent.'     
+        required: true
+        default: '20'
 
   schedule:
   # Every 10 minutes
@@ -61,16 +65,19 @@ jobs:
           percentageDefault=1
           queryDefault=offline
           ratedDefault=underrated
+          stochasticDefault=20
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           percentageInput=${{github.event.inputs.percentageParam}}
           queryInput=${{github.event.inputs.queryParam}}
           ratedInput=${{github.event.inputs.ratedParam}}
+          stochasticInput=${{github.event.inputs.stochasticParam}}
           
           symbolsVar=${symbolsInput:-$symbolsDefault}
           percentageVar=${percentageInput:-$percentageDefault}
           queryVar=${queryInput:-$queryDefault}
           ratedVar=${ratedInput:-$ratedDefault}          
+          stochasticVar=${stochasticInput:-$stochasticDefault}          
           
           chmod +x ./analyse.sh
           chmod +x ./analyse-dax2.sh
@@ -79,7 +86,7 @@ jobs:
           chmod +x ./analyse-xetra100.sh
           chmod +x ./analyse-xetra1000.sh
 
-          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar
+          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar
 
       - name: Send result.txt via email
         uses: dawidd6/action-send-mail@v2
@@ -90,7 +97,7 @@ jobs:
           #password: g*1!
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}          
-          subject: Github Actions job result for stock-analyse
+          subject: Github stock-analyse actions result
           # Literal body:
           #body: Build job of ${{github.repository}} completed successfully!
           # Read file contents as body:

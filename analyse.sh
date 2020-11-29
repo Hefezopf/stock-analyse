@@ -1,12 +1,13 @@
 #!/bin/bash
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
-# Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED
+# Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
-# 3. Optional parameter: QUERY - [online|offline] 'offline' do not query over REST API.
-# 4. Optional parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
-# Call example: ./analyse.sh 'ADS.XETRA' 3 online underrated
-# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated
+# 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
+# 4. Parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
+# 5. Parameter: STOCHASTIC: Percentage for stochastic indicator.
+# Call example: ./analyse.sh 'ADS.XETRA' 3 online underrated 20
+# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 # export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
@@ -21,9 +22,10 @@ symbolsParam=$1
 percentageParam=$2
 queryParam=$3
 ratedParam=$4
+stochasticPercentageParam=$5
 
 # Check parameter
-if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ); then
+if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] ; then
 	echo ""
 else
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
@@ -31,7 +33,8 @@ else
 	echo " PERCENTAGE: Percentage number between 0..100" | tee -a $resultFile
 	echo " QUERY: Query data online|offline" | tee -a $resultFile
 	echo " RATED: List only overrated|underrated" | tee -a $resultFile
-	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated" | tee -a $resultFile
+	echo " STOCHASTIC14: Percentage for stochastic indicator" | tee -a $resultFile
+	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20" | tee -a $resultFile
 	exit
 fi
 
@@ -51,6 +54,7 @@ echo " Symbols: $symbolsParam" | tee -a $resultFile
 echo " Percentage: $percentageParam" | tee -a $resultFile
 echo " Query: $queryParam" | tee -a $resultFile
 echo " Rated: $ratedParam" | tee -a $resultFile
+echo " Stochastic14: $stochasticPercentageParam" | tee -a $resultFile
 echo " " | tee -a $resultFile
 echo "Results here:" >> $resultFile
 echo " https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
@@ -60,6 +64,8 @@ lessThen () {
     lesserValue=$( echo "$1 $2" | awk '{print $1 * $2}' )
     if awk 'BEGIN {exit !('$lesserValue' < '$3')}'; then
 		return 1
+	else
+		return 0		
 	fi
 }
 
@@ -67,7 +73,13 @@ greaterThen () {
 	greaterValue=$( echo "$1 $2" | awk '{print $1 * $2}' )
     if awk 'BEGIN {exit !('$greaterValue' > '$3')}'; then
 		return 1
+	else
+		return 0
 	fi
+}
+
+round() {
+	return $(printf "%.${2}f" "${1}")
 }
 
 # Get data
@@ -121,12 +133,14 @@ do
 	lessThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
 
 
+    # stochastic=((C – Ln )/( Hn – Ln )) * 100
 	head -n14 ./data/values.${symbol}.txt > ./data/values14.txt
 	lowest14Raw=$(sort ./data/values14.txt | head -n 1)
 	highest14Raw=$(sort -r ./data/values14.txt | head -n 1)
-	# stochastic=((C – Ln )/( Hn – Ln )) * 100
 	stochastic14=$( echo "$last $lowest14Raw $highest14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}' )
-	echo stochastic14 $stochastic14
+	round ${stochastic14} 0; stochasticRounded14=$?
+	stochasticPercentageLower=$stochasticPercentageParam
+	stochasticPercentageUpper=$( echo "$stochasticPercentageLower" | awk '{print (100 - $1)}' )
 
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
@@ -134,18 +148,18 @@ do
 	if [ "$fileSize" > 200 ]; then
 		# Overrated
 		if [ "$ratedParam" = 'overrated' ]; then
-			if [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
+			if [ "$stochasticRounded14" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
 			   [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
-				echo "- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR"
+				echo "- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
 				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
 			fi
 		fi
 	
 		# Underrated
 		if [ "$ratedParam" = 'underrated' ]; then
-			if [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
+			if [ "$stochasticRounded14" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
 			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
-				echo "+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR"
+				echo "+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
 				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
 			fi
 		fi
