@@ -51,16 +51,17 @@ resultFile=./out/result.txt
 touch $resultFile
 rm -rf $resultFile
 
-echo "Analyse parameters:" | tee -a $resultFile
-echo " Symbols: $symbolsParam" | tee -a $resultFile
-echo " Percentage: $percentageParam" | tee -a $resultFile
-echo " Query: $queryParam" | tee -a $resultFile
-echo " Rated: $ratedParam" | tee -a $resultFile
-echo " Stochastic14: $stochasticPercentageParam" | tee -a $resultFile
+echo "# Analyse parameter" | tee -a $resultFile
+echo "Symbols: $symbolsParam" | tee -a $resultFile
+echo "Percentage: $percentageParam" | tee -a $resultFile
+echo "Query: $queryParam" | tee -a $resultFile
+echo "Rated: $ratedParam" | tee -a $resultFile
+echo "Stochastic14: $stochasticPercentageParam" | tee -a $resultFile
+echo " " >> $resultFile
+echo "# Result" >> $resultFile
+echo "https://github.com/Hefezopf/stock-analyse/actions" >> $resultFile
 echo " " | tee -a $resultFile
-echo "Results here:" >> $resultFile
-echo " https://github.com/Hefezopf/stock-analyse/actions" >> $resultFile
-echo " " | tee -a $resultFile
+echo "# URLs" >> $resultFile
 echo "start chrome " >> $resultFile
 
 lesserThen () {
@@ -88,7 +89,7 @@ round() {
 # Get data
 for symbol in $symbolsParam
 do
-	echo "## Get $symbol ##"
+	echo "# Get $symbol"
 	if [ "$queryParam" = 'offline' ]; then
 		true
 	else
@@ -101,7 +102,7 @@ echo " "
 # Analyse data
 for symbol in $symbolsParam
 do
-	echo "## Analyse $symbol ##"
+	echo "# Analyse $symbol"
 	lastRaw=$(head -n1 -q ./data/values.${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
@@ -194,5 +195,6 @@ do
 done
 
 tar -zcf out.tar.gz out
+mv out.tar.gz out
 rm ./out/values*.txt
 rm ./out/commaListFile.txt
