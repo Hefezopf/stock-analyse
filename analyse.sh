@@ -46,7 +46,9 @@ fi
 percentageLesserFactor=$( echo "100 $percentageParam" | awk '{print ($1 + $2)/100}' )
 percentageGreaterFactor=$( echo "100 $percentageParam" | awk '{print ($1 - $2)/100}' )
 
-resultFile=./data/result.txt
+mkdir ./out
+resultFile=./out/result.txt
+touch $resultFile
 rm -rf $resultFile
 
 echo "Analyse parameters:" | tee -a $resultFile
@@ -57,8 +59,9 @@ echo " Rated: $ratedParam" | tee -a $resultFile
 echo " Stochastic14: $stochasticPercentageParam" | tee -a $resultFile
 echo " " | tee -a $resultFile
 echo "Results here:" >> $resultFile
-echo " https://github.com/Hefezopf/stock-analyse/actions \n\r" >> $resultFile
-echo -n "start chrome " >> $resultFile
+echo " https://github.com/Hefezopf/stock-analyse/actions" >> $resultFile
+echo " " | tee -a $resultFile
+echo "start chrome " >> $resultFile
 
 lessThen () {
     lesserValue=$( echo "$1 $2" | awk '{print $1 * $2}' )
@@ -91,6 +94,18 @@ do
 	else
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
 	fi
+
+    # Chart
+	commaList=$(cat ./data/values.${symbol}.txt | awk '{ print $1","; }')
+    indexSymbolFile=./out/index.${symbol}.html
+	rm -rf $indexSymbolFile
+	cp ./js/chart.min.js ./out
+	cp ./js/utils.js ./out
+	cat ./js/indexPart1.html >> $indexSymbolFile
+	echo "'" ${symbol} "'," >> $indexSymbolFile
+	cat ./js/indexPart2.html >> $indexSymbolFile
+	echo $commaList >> $indexSymbolFile
+	cat ./js/indexPart3.html >> $indexSymbolFile
 done
 
 echo " "
@@ -103,23 +118,23 @@ do
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
 
-	head -n18 ./data/values.${symbol}.txt > ./data/values18.txt
-	average18Raw=$(cat ./data/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
+	head -n18 ./data/values.${symbol}.txt > ./out/values18.txt
+	average18Raw=$(cat ./out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
 	
 	greaterThen $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	lessThen $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
-	head -n38 ./data/values.${symbol}.txt > ./data/values38.txt
-	average38Raw=$(cat ./data/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
+	head -n38 ./data/values.${symbol}.txt > ./out/values38.txt
+	average38Raw=$(cat ./out/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	#average38=$(printf "%'.2f\n" $average38Raw)
 	average38=$average38Raw
 	greaterThen $percentageGreaterFactor $last $average38; lastOverAgv38=$?
     lessThen $percentageLesserFactor $last $average38;lastUnderAgv38=$?
 	
-	head -n100 ./data/values.${symbol}.txt > ./data/values100.txt
-	average100Raw=$(cat ./data/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
+	head -n100 ./data/values.${symbol}.txt > ./out/values100.txt
+	average100Raw=$(cat ./out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	#average100=$(printf "%'.2f\n" $average100Raw)
 	average100=$average100Raw
 	greaterThen $percentageGreaterFactor $last $average100; lastOverAgv100=$?
@@ -134,9 +149,9 @@ do
 
 
     # stochastic=((C – Ln )/( Hn – Ln )) * 100
-	head -n14 ./data/values.${symbol}.txt > ./data/values14.txt
-	lowest14Raw=$(sort ./data/values14.txt | head -n 1)
-	highest14Raw=$(sort -r ./data/values14.txt | head -n 1)
+	head -n14 ./data/values.${symbol}.txt > ./out/values14.txt
+	lowest14Raw=$(sort ./out/values14.txt | head -n 1)
+	highest14Raw=$(sort -r ./out/values14.txt | head -n 1)
 	stochastic14=$( echo "$last $lowest14Raw $highest14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}' )
 	round ${stochastic14} 0; stochasticRounded14=$?
 	stochasticPercentageLower=$stochasticPercentageParam
@@ -167,3 +182,5 @@ do
 	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $resultFile
 	fi
 done
+
+tar -zcf out.tar.gz out
