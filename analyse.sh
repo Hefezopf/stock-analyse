@@ -194,6 +194,7 @@ do
 	fi
 done
 
+# Cleanup
 tar -zcf out.tar.gz out
 mv out.tar.gz out
 rm ./out/values*.txt
