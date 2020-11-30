@@ -46,7 +46,7 @@ fi
 percentageLesserFactor=$( echo "100 $percentageParam" | awk '{print ($1 + $2)/100}' )
 percentageGreaterFactor=$( echo "100 $percentageParam" | awk '{print ($1 - $2)/100}' )
 
-mkdir ./out
+mkdir -p ./out
 resultFile=./out/result.txt
 touch $resultFile
 rm -rf $resultFile
@@ -95,7 +95,7 @@ do
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
 	fi
 
-    # Chart
+    # Chart schreiben index.${symbol}.html
 	commaList=$(cat ./data/values.${symbol}.txt | awk '{ print $1","; }')
     indexSymbolFile=./out/index.${symbol}.html
 	rm -rf $indexSymbolFile
