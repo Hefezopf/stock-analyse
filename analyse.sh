@@ -63,7 +63,7 @@ echo " https://github.com/Hefezopf/stock-analyse/actions" >> $resultFile
 echo " " | tee -a $resultFile
 echo "start chrome " >> $resultFile
 
-lessThen () {
+lesserThen () {
     lesserValue=$( echo "$1 $2" | awk '{print $1 * $2}' )
     if awk 'BEGIN {exit !('$lesserValue' < '$3')}'; then
 		return 1
@@ -112,47 +112,48 @@ do
 	average18=$average18Raw
 	
 	greaterThen $percentageGreaterFactor $last $average18; lastOverAgv18=$?
-	lessThen $percentageLesserFactor $last $average18; lastUnderAgv18=$?
+	lesserThen $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
 	head -n38 ./data/values.${symbol}.txt > ./out/values38.txt
 	average38Raw=$(cat ./out/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	#average38=$(printf "%'.2f\n" $average38Raw)
 	average38=$average38Raw
 	greaterThen $percentageGreaterFactor $last $average38; lastOverAgv38=$?
-    lessThen $percentageLesserFactor $last $average38;lastUnderAgv38=$?
+    lesserThen $percentageLesserFactor $last $average38;lastUnderAgv38=$?
 	
 	head -n100 ./data/values.${symbol}.txt > ./out/values100.txt
 	average100Raw=$(cat ./out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	#average100=$(printf "%'.2f\n" $average100Raw)
 	average100=$average100Raw
 	greaterThen $percentageGreaterFactor $last $average100; lastOverAgv100=$?
-	lessThen $percentageLesserFactor $last $average100; lastUnderAgv100=$?
+	lesserThen $percentageLesserFactor $last $average100; lastUnderAgv100=$?
 
     # Averages
 	greaterThen $percentageGreaterFactor $average18 $average38; agv18OverAgv38=$?
-	lessThen $percentageLesserFactor $average18 $average38; agv18UnderAgv38=$?
+	lesserThen $percentageLesserFactor $average18 $average38; agv18UnderAgv38=$?
 	greaterThen $percentageGreaterFactor $average38 $average100; agv38OverAgv100=$?
-	lessThen $percentageLesserFactor $average38 $average100; agv38UnderAgv100=$?
+	lesserThen $percentageLesserFactor $average38 $average100; agv38UnderAgv100=$?
 	greaterThen $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
-	lessThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
+	lesserThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
 
     # stochastic=((C – Ln )/( Hn – Ln )) * 100
 	head -n14 ./data/values.${symbol}.txt > ./out/values14.txt
 	lowest14Raw=$(sort ./out/values14.txt | head -n 1)
 	highest14Raw=$(sort -r ./out/values14.txt | head -n 1)
-	stochastic14=$( echo "$last $lowest14Raw $highest14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}' )
+    greaterThen 1 $highest14Raw $lowest14Raw; validStochastik=$?
+	if [ "$validStochastik" = 1 ]; then
+		stochastic14=$( echo "$last $lowest14Raw $highest14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}' )
+	else
+		stochastic14=100
+	fi
 	round ${stochastic14} 0; stochasticRounded14=$?
 	stochasticPercentageLower=$stochasticPercentageParam
 	stochasticPercentageUpper=$( echo "$stochasticPercentageLower" | awk '{print (100 - $1)}' )
-
-
 
 	# Average
 	#xaverage100Raw=$(cat ./out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	#xcommaList=$(cat ./out/values100.txt | awk '{ print $1","; }')
     #xindexSymbolFile=./out/index.${symbol}.html
-
-
 
     # Chart schreiben index.${symbol}.html
 	commaList=$(cat ./data/values.${symbol}.txt | awk '{ print $1","; }')
