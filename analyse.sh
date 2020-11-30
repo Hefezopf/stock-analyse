@@ -152,9 +152,13 @@ do
 	stochasticPercentageUpper=$( echo "$stochasticPercentageLower" | awk '{print (100 - $1)}' )
 
 	# Average
-	#xaverage100Raw=$(cat ./out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
-	#xcommaList=$(cat ./out/values100.txt | awk '{ print $1","; }')
-    #xindexSymbolFile=./out/index.${symbol}.html
+	echo bbbbbbbbbbb
+	#awk 'FNR>=1 && FNR<=18' ./data/values.${symbol}.txt
+	#xaverage18Raw=$(awk 'FNR>=1 && FNR<=18' ./data/values.${symbol}.txt)
+	#head -n18 ./data/values.${symbol}.txt > ./out/values18.txt
+	#average100Raw=$(cat ./out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
+    echo ssssssssssssssss $xaverage18Raw
+
 
     # Chart schreiben index.${symbol}.html
 	cat ./data/values.${symbol}.txt | tac > ./out/commaListFile.txt
