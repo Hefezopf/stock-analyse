@@ -15,31 +15,6 @@
 </head>
 
 <body>
-
-	<input type='file' multiple>
-	<script>
-  
-  var inputFiles = document.getElementsByTagName("input")[0];
-inputFiles.onchange = function(){
-  var promise = Promise.resolve();
-  inputFiles.files.map( file => promise.then(()=> readFile(file)));
-  promise.then(() => console.log('all done...'));
-}
-
-function readFile(file){
-  return new Promise((resolve, reject) => {
-    var fr = new FileReader();  
-    fr.onload = () => {
-      resolve(fr.result )
-    };
-    fr.readAsText(file.blob);
-  });
-}
-  </script>
-
-
-
-
 	<div style="width:75%;">
 		<canvas id="canvas"></canvas>
 	</div>
