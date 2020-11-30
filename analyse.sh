@@ -156,7 +156,8 @@ do
     #xindexSymbolFile=./out/index.${symbol}.html
 
     # Chart schreiben index.${symbol}.html
-	commaList=$(cat ./data/values.${symbol}.txt | awk '{ print $1","; }')
+	cat ./data/values.${symbol}.txt | tac > ./out/commaListFile.txt
+	commaList=$(cat ./out/commaListFile.txt | awk '{ print $1","; }')
     indexSymbolFile=./out/index.${symbol}.html
 	rm -rf $indexSymbolFile
 	cp ./js/chart.min.js ./out
@@ -193,3 +194,5 @@ do
 done
 
 tar -zcf out.tar.gz out
+rm ./out/values*.txt
+rm ./out/commaListFile.txt
