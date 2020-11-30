@@ -94,18 +94,6 @@ do
 	else
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
 	fi
-
-    # Chart schreiben index.${symbol}.html
-	commaList=$(cat ./data/values.${symbol}.txt | awk '{ print $1","; }')
-    indexSymbolFile=./out/index.${symbol}.html
-	rm -rf $indexSymbolFile
-	cp ./js/chart.min.js ./out
-	cp ./js/utils.js ./out
-	cat ./js/indexPart1.html >> $indexSymbolFile
-	echo "'" ${symbol} "'," >> $indexSymbolFile
-	cat ./js/indexPart2.html >> $indexSymbolFile
-	echo $commaList >> $indexSymbolFile
-	cat ./js/indexPart3.html >> $indexSymbolFile
 done
 
 echo " "
@@ -140,6 +128,7 @@ do
 	greaterThen $percentageGreaterFactor $last $average100; lastOverAgv100=$?
 	lessThen $percentageLesserFactor $last $average100; lastUnderAgv100=$?
 
+    # Averages
 	greaterThen $percentageGreaterFactor $average18 $average38; agv18OverAgv38=$?
 	lessThen $percentageLesserFactor $average18 $average38; agv18UnderAgv38=$?
 	greaterThen $percentageGreaterFactor $average38 $average100; agv38OverAgv100=$?
@@ -155,6 +144,27 @@ do
 	round ${stochastic14} 0; stochasticRounded14=$?
 	stochasticPercentageLower=$stochasticPercentageParam
 	stochasticPercentageUpper=$( echo "$stochasticPercentageLower" | awk '{print (100 - $1)}' )
+
+
+
+	# Average
+	#xaverage100Raw=$(cat ./out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
+	#xcommaList=$(cat ./out/values100.txt | awk '{ print $1","; }')
+    #xindexSymbolFile=./out/index.${symbol}.html
+
+
+
+    # Chart schreiben index.${symbol}.html
+	commaList=$(cat ./data/values.${symbol}.txt | awk '{ print $1","; }')
+    indexSymbolFile=./out/index.${symbol}.html
+	rm -rf $indexSymbolFile
+	cp ./js/chart.min.js ./out
+	cp ./js/utils.js ./out
+	cat ./js/indexPart1.html >> $indexSymbolFile
+	echo "'" ${symbol} "'," >> $indexSymbolFile
+	cat ./js/indexPart2.html >> $indexSymbolFile
+	echo $commaList >> $indexSymbolFile
+	cat ./js/indexPart3.html >> $indexSymbolFile	
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
