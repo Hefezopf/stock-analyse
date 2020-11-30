@@ -147,7 +147,6 @@ do
 	greaterThen $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
 	lessThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
 
-
     # stochastic=((C – Ln )/( Hn – Ln )) * 100
 	head -n14 ./data/values.${symbol}.txt > ./out/values14.txt
 	lowest14Raw=$(sort ./out/values14.txt | head -n 1)
@@ -156,7 +155,6 @@ do
 	round ${stochastic14} 0; stochasticRounded14=$?
 	stochasticPercentageLower=$stochasticPercentageParam
 	stochasticPercentageUpper=$( echo "$stochasticPercentageLower" | awk '{print (100 - $1)}' )
-
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
