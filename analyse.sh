@@ -196,14 +196,12 @@ do
 		stochastic14=100
 	fi
 	round ${stochastic14} 0; stochasticRounded14=$?
-	#echo stochastic14 $stochastic14
 	stochasticPercentageLower=$stochasticPercentageParam
 	stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
 
 	# Stochastic 14
 	stochasticInDays14=14
 	stochasticOfDays $stochasticInDays14
-	#echo stochasticListxxx $stochasticList
 	stochasticList14=$stochasticList
 
 	# Average 18
