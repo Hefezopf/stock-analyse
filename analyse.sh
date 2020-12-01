@@ -90,16 +90,9 @@ averageOffDays() {
 	averagePriceList=""
 	i=1
 	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
-		echo iii $i
 		averagePriceList=$(echo $averagePriceList ",")
 		i=$(( i + 1 ))
 	done 
-
-	#for ((i=1;i<"${1}";i++)); # Fill with blank comma seperated data
-	#do
-	 #echo kkkkkk $i
-		#averagePriceList=$(echo $averagePriceList ",")
-	#done
 
 	i=0
 	while [ "$i" -le $((100-$1)) ]; 
@@ -109,13 +102,6 @@ averageOffDays() {
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 		i=$(( i + 1 ))
 	done
-
-	#for ((i=0;i<=(100-"${1}");i++));
-	#do
-		#headLines=$(echo $((100-$i)))
-	    #averagePrice=$(head -n$headLines ./data/values.${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
-		#averagePriceList=$(echo $averagePriceList $averagePrice",")
-	#done
 }
 
 # Get data
