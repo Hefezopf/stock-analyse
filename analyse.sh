@@ -10,7 +10,7 @@
 # Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
-# export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
+export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
 
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
@@ -43,8 +43,8 @@ if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
 	exit
 fi
 
-percentageLesserFactor=$( echo "100 $percentageParam" | awk '{print ($1 + $2)/100}' )
-percentageGreaterFactor=$( echo "100 $percentageParam" | awk '{print ($1 - $2)/100}' )
+percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
+percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
 
 mkdir -p ./out
 resultFile=./out/result.txt
@@ -65,7 +65,7 @@ echo "# URLs" >> $resultFile
 echo "start chrome " >> $resultFile
 
 lesserThen () {
-    lesserValue=$( echo "$1 $2" | awk '{print $1 * $2}' )
+    lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$lesserValue' < '$3')}'; then
 		return 1
 	else
@@ -74,7 +74,7 @@ lesserThen () {
 }
 
 greaterThen () {
-	greaterValue=$( echo "$1 $2" | awk '{print $1 * $2}' )
+	greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$greaterValue' > '$3')}'; then
 		return 1
 	else
@@ -84,6 +84,21 @@ greaterThen () {
 
 round() {
 	return $(printf "%.${2}f" "${1}")
+}
+
+averageOffDays() {
+	averagePriceList=""
+	for ((i=1;i<${1};i++)); # Fill with blank comma seperated data
+	do
+		averagePriceList=$(echo $averagePriceList ",")
+	done
+
+	for ((i=0;i<=(100-${1});i++));
+	do
+		headLines=$(echo $((100-$i)))
+	    averagePrice=$(head -n$headLines ./data/values.${symbol}.txt | tail -${1} | awk '{ sum += $1; } END { print sum/'${1}'; }')
+		averagePriceList=$(echo $averagePriceList $averagePrice",")
+	done
 }
 
 # Get data
@@ -137,32 +152,33 @@ do
 	greaterThen $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
 	lesserThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
 
-    # stochastic=((C – Ln )/( Hn – Ln )) * 100
+    # Stochastic Formula=((C – Ln )/( Hn – Ln )) * 100
 	head -n14 ./data/values.${symbol}.txt > ./out/values14.txt
 	lowest14Raw=$(sort ./out/values14.txt | head -n 1)
 	highest14Raw=$(sort -r ./out/values14.txt | head -n 1)
     greaterThen 1 $highest14Raw $lowest14Raw; validStochastik=$?
 	if [ "$validStochastik" = 1 ]; then
-		stochastic14=$( echo "$last $lowest14Raw $highest14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}' )
+		stochastic14=$(echo "$last $lowest14Raw $highest14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
 	else
 		stochastic14=100
 	fi
 	round ${stochastic14} 0; stochasticRounded14=$?
 	stochasticPercentageLower=$stochasticPercentageParam
-	stochasticPercentageUpper=$( echo "$stochasticPercentageLower" | awk '{print (100 - $1)}' )
+	stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
 
-	# Average
-	echo bbbbbbbbbbb
-	#awk 'FNR>=1 && FNR<=18' ./data/values.${symbol}.txt
-	#xaverage18Raw=$(awk 'FNR>=1 && FNR<=18' ./data/values.${symbol}.txt)
-	#head -n18 ./data/values.${symbol}.txt > ./out/values18.txt
-	#average100Raw=$(cat ./out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
-    echo ssssssssssssssss $xaverage18Raw
+	# Average 18
+	averageInDays18=18
+	averageOffDays $averageInDays18
+	averagePriceList18=$averagePriceList
 
+    # Average 38
+	averageInDays38=38
+	averageOffDays $averageInDays38
+	averagePriceList38=$averagePriceList
 
     # Chart schreiben index.${symbol}.html
-	cat ./data/values.${symbol}.txt | tac > ./out/commaListFile.txt
-	commaList=$(cat ./out/commaListFile.txt | awk '{ print $1","; }')
+	cat ./data/values.${symbol}.txt | tac > ./out/commaPriceListFile.txt
+	commaPriceList=$(cat ./out/commaPriceListFile.txt | awk '{ print $1","; }')
     indexSymbolFile=./out/index.${symbol}.html
 	rm -rf $indexSymbolFile
 	cp ./js/chart.min.js ./out
@@ -170,8 +186,17 @@ do
 	cat ./js/indexPart1.html >> $indexSymbolFile
 	echo "'" ${symbol} "'," >> $indexSymbolFile
 	cat ./js/indexPart2.html >> $indexSymbolFile
-	echo $commaList >> $indexSymbolFile
+	echo $commaPriceList >> $indexSymbolFile
 	cat ./js/indexPart3.html >> $indexSymbolFile	
+	echo "'" Average $averageInDays18 "'," >> $indexSymbolFile
+	cat ./js/indexPart4.html >> $indexSymbolFile
+	echo $averagePriceList18 >> $indexSymbolFile
+	cat ./js/indexPart5.html >> $indexSymbolFile	
+
+	echo "'" Average $averageInDays38 "'," >> $indexSymbolFile
+	cat ./js/indexPart6.html >> $indexSymbolFile
+	echo $averagePriceList38 >> $indexSymbolFile
+	cat ./js/indexPart7.html >> $indexSymbolFile	
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
@@ -201,5 +226,5 @@ done
 # Cleanup
 tar -zcf out.tar.gz out
 mv out.tar.gz out
-rm ./out/values*.txt
-rm ./out/commaListFile.txt
+#rm ./out/values*.txt
+rm ./out/commaPriceListFile.txt

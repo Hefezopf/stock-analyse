@@ -1,3 +1,3 @@
 #!/bin/bash
-#./analyse.sh 'DB1.XETRA BMW.XETRA' 1 offline underrated 20
+#./analyse.sh 'ADS.XETRA BMW.XETRA' 1 offline underrated 20
 ./analyse.sh 'DB1.XETRA BMW.XETRA' $1 $2 $3 $4

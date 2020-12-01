@@ -15,19 +15,19 @@
 </head>
 
 <body>
+	<h2>Stock Analsyse</h2>
 	<div style="width:75%;">
 		<canvas id="canvas"></canvas>
 	</div>
+	<!--
+	<div style="width:75%;">
+		<canvas id="canvas2"></canvas>
+	</div>
+	-->
 	<br>
 	<br>
-	<button id="randomizeData">Randomize Data</button>
-	<button id="addDataset">Add Dataset</button>
-	<button id="removeDataset">Remove Dataset</button>
-	<button id="addData">Add Data</button>
-	<button id="removeData">Remove Data</button>
 
 	<script>
-		var MONTHS = ['1','2','3','4','5'];
 		var config = {
 			type: 'line',
 			data: {
@@ -45,33 +45,31 @@
 					],
 				datasets: [{
 					label: 'Stock',
-					backgroundColor: window.chartColors.red,
-					borderColor: window.chartColors.red,
-					data: [
-					235.6, 242, 234.8, 242.4, 238.5, 237.8, 242.2, 246.6, 245, 243.6, 239.1, 239.1, 238.9, 242.5, 234.2, 233.9, 238.5, 237.3, 239.8, 244.3, 249.4, 253.8, 263.3, 263.7, 268.2, 265.9, 268.6, 267.5, 261.6, 260, 258.5, 259, 256.3, 257.3, 255.6, 253, 254.6, 255, 266.5, 266, 262.7, 263.1, 260, 272, 273.3, 275.8, 279, 282.9, 279.5, 279.6, 271.2, 271.8, 283.8, 278, 278.5, 283.7, 281.2, 276.1, 278.9, 276.9, 273.5, 276.2, 277.1, 277.3, 282.5, 286.3, 286.5, 284.8, 277, 284, 284.1, 281.6, 274.5, 282.1, 281.8, 274, 272.9, 257, 258.8, 255, 260, 267.1, 269.3, 275.1, 277.4, 298.8, 281.5, 279.3, 274, 270, 275.1, 277.6, 284.2, 282, 280.5, 280, 279.2, 273.6, 274.7, 271.2,
-				],
 					fill: false,
-				}
-				
-				, {
-					label: 'Average',
-					fill: false,
-					backgroundColor: window.chartColors.blue,
-					borderColor: window.chartColors.blue,
+					backgroundColor: window.chartColors.black,
+					borderColor: window.chartColors.black,
 					data: [
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-					277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
-				],
-				}
-				
+						235.6, 242, 234.8, 242.4, 238.5, 237.8, 242.2, 246.6, 245, 243.6, 239.1, 239.1, 238.9, 242.5, 234.2, 233.9, 238.5, 237.3, 239.8, 244.3, 249.4, 253.8, 263.3, 263.7, 268.2, 265.9, 268.6, 267.5, 261.6, 260, 258.5, 259, 256.3, 257.3, 255.6, 253, 254.6, 255, 266.5, 266, 262.7, 263.1, 260, 272, 273.3, 275.8, 279, 282.9, 279.5, 279.6, 271.2, 271.8, 283.8, 278, 278.5, 283.7, 281.2, 276.1, 278.9, 276.9, 273.5, 276.2, 277.1, 277.3, 282.5, 286.3, 286.5, 284.8, 277, 284, 284.1, 281.6, 274.5, 282.1, 281.8, 274, 272.9, 257, 258.8, 255, 260, 267.1, 269.3, 275.1, 277.4, 298.8, 281.5, 279.3, 274, 270, 275.1, 277.6, 284.2, 282, 280.5, 280, 279.2, 273.6, 274.7, 271.2,
+						]
+					},
+					{
+						label: 'Average',
+						fill: false,
+						backgroundColor: window.chartColors.blue,
+						borderColor: window.chartColors.blue,
+						data: [
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,277.97,
+						],
+					}
 			]
 			},
 			options: {
@@ -112,66 +110,11 @@
 		window.onload = function() {
 			var ctx = document.getElementById('canvas').getContext('2d');
 			window.myLine = new Chart(ctx, config);
+			//var ctx2 = document.getElementById('canvas2').getContext('2d');
+			//window.myLine2 = new Chart(ctx2, config);
 		};
 
-		document.getElementById('randomizeData').addEventListener('click', function() {
-			config.data.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return randomScalingFactor();
-				});
 
-			});
-
-			window.myLine.update();
-		});
-
-		var colorNames = Object.keys(window.chartColors);
-		document.getElementById('addDataset').addEventListener('click', function() {
-			var colorName = colorNames[config.data.datasets.length % colorNames.length];
-			var newColor = window.chartColors[colorName];
-			var newDataset = {
-				label: 'Dataset ' + config.data.datasets.length,
-				backgroundColor: newColor,
-				borderColor: newColor,
-				data: [],
-				fill: false
-			};
-
-			for (var index = 0; index < config.data.labels.length; ++index) {
-				newDataset.data.push(randomScalingFactor());
-			}
-
-			config.data.datasets.push(newDataset);
-			window.myLine.update();
-		});
-
-		document.getElementById('addData').addEventListener('click', function() {
-			if (config.data.datasets.length > 0) {
-				var month = MONTHS[config.data.labels.length % MONTHS.length];
-				config.data.labels.push(month);
-
-				config.data.datasets.forEach(function(dataset) {
-					dataset.data.push(randomScalingFactor());
-				});
-
-				window.myLine.update();
-			}
-		});
-
-		document.getElementById('removeDataset').addEventListener('click', function() {
-			config.data.datasets.splice(0, 1);
-			window.myLine.update();
-		});
-
-		document.getElementById('removeData').addEventListener('click', function() {
-			config.data.labels.splice(-1, 1); // remove the label first
-
-			config.data.datasets.forEach(function(dataset) {
-				dataset.data.pop();
-			});
-
-			window.myLine.update();
-		});
 	</script>
 </body>
 
