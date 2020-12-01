@@ -86,7 +86,7 @@ round() {
 	return $(printf "%.${2}f" "${1}")
 }
 
-averageOffDays() {
+averageOfDays() {
 	averagePriceList=""
 	i=1
 	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
@@ -100,6 +100,35 @@ averageOffDays() {
 		headLines=$(echo $((100-$i)))
 	    averagePrice=$(head -n$headLines ./data/values.${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
+		i=$(( i + 1 ))
+	done
+}
+
+stochasticOfDays() {
+	stochasticFile=./out/stochastic.txt
+	stochasticList=""
+	i=1
+	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
+		stochasticList=$(echo $stochasticList ",")
+		i=$(( i + 1 ))
+	done 
+
+	i=0
+	while [ "$i" -le $((100-$1)) ];
+	do
+		headLines=$(echo $((100-$i)))
+		head -n$headLines ./data/values.${symbol}.txt | tail -"${1}" > $stochasticFile
+		lastStochastic14Raw=$(head -n 1 $stochasticFile)
+		lowestStochastic14Raw=$(sort $stochasticFile | head -n 1)
+		highestStochastic14Raw=$(sort -r $stochasticFile | head -n 1)
+		greaterThen 1 $highestStochastic14Raw $lowestStochastic14Raw; validStochastik=$?
+		if [ "$validStochastik" = 1 ]; then
+			# Formula=((C – Ln )/( Hn – Ln )) * 100
+			stochasticPrice=$(echo "$lastStochastic14Raw $lowestStochastic14Raw $highestStochastic14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
+		else
+			stochasticPrice=100
+		fi
+		stochasticList=$(echo $stochasticList $stochasticPrice",")
 		i=$(( i + 1 ))
 	done
 }
@@ -155,33 +184,42 @@ do
 	greaterThen $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
 	lesserThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
 
-    # Stochastic Formula=((C – Ln )/( Hn – Ln )) * 100
+    # Stochastic
 	head -n14 ./data/values.${symbol}.txt > ./out/values14.txt
 	lowest14Raw=$(sort ./out/values14.txt | head -n 1)
 	highest14Raw=$(sort -r ./out/values14.txt | head -n 1)
     greaterThen 1 $highest14Raw $lowest14Raw; validStochastik=$?
 	if [ "$validStochastik" = 1 ]; then
+	    # Formula=((C – Ln )/( Hn – Ln )) * 100
 		stochastic14=$(echo "$last $lowest14Raw $highest14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
 	else
 		stochastic14=100
 	fi
 	round ${stochastic14} 0; stochasticRounded14=$?
+	#echo stochastic14 $stochastic14
 	stochasticPercentageLower=$stochasticPercentageParam
 	stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
 
+	# Stochastic 14
+	stochasticInDays14=14
+	stochasticOfDays $stochasticInDays14
+	#echo stochasticListxxx $stochasticList
+	stochasticList14=$stochasticList
+
 	# Average 18
 	averageInDays18=18
-	averageOffDays $averageInDays18
+	averageOfDays $averageInDays18
 	averagePriceList18=$averagePriceList
 
     # Average 38
 	averageInDays38=38
-	averageOffDays $averageInDays38
+	averageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
     # Chart schreiben index.${symbol}.html
-	cat ./data/values.${symbol}.txt | tac > ./out/commaPriceListFile.txt
-	commaPriceList=$(cat ./out/commaPriceListFile.txt | awk '{ print $1","; }')
+	commaPriceListFile=./out/commaPriceListFile.txt
+	cat ./data/values.${symbol}.txt | tac > $commaPriceListFile
+	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
     indexSymbolFile=./out/index.${symbol}.html
 	rm -rf $indexSymbolFile
 	cp ./js/chart.min.js ./out
@@ -191,6 +229,7 @@ do
 	cat ./js/indexPart2.html >> $indexSymbolFile
 	echo $commaPriceList >> $indexSymbolFile
 	cat ./js/indexPart3.html >> $indexSymbolFile	
+
 	echo "'" Average $averageInDays18 "'," >> $indexSymbolFile
 	cat ./js/indexPart4.html >> $indexSymbolFile
 	echo $averagePriceList18 >> $indexSymbolFile
@@ -199,7 +238,10 @@ do
 	echo "'" Average $averageInDays38 "'," >> $indexSymbolFile
 	cat ./js/indexPart6.html >> $indexSymbolFile
 	echo $averagePriceList38 >> $indexSymbolFile
-	cat ./js/indexPart7.html >> $indexSymbolFile	
+	cat ./js/indexPart7.html >> $indexSymbolFile
+
+	echo $stochasticList14 >> $indexSymbolFile
+	cat ./js/indexPart8.html >> $indexSymbolFile
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
@@ -230,4 +272,5 @@ done
 tar -zcf out.tar.gz out
 mv out.tar.gz out
 #rm ./out/values*.txt
-rm ./out/commaPriceListFile.txt
+rm $commaPriceListFile
+rm $stochasticFile
