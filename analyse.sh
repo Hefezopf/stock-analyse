@@ -88,15 +88,15 @@ round() {
 
 averageOffDays() {
 	averagePriceList=""
-	for ((i=1;i<${1};i++)); # Fill with blank comma seperated data
+	for ((i=1;i<"${1}";i++)); # Fill with blank comma seperated data
 	do
 		averagePriceList=$(echo $averagePriceList ",")
 	done
 
-	for ((i=0;i<=(100-${1});i++));
+	for ((i=0;i<=(100-"${1}");i++));
 	do
 		headLines=$(echo $((100-$i)))
-	    averagePrice=$(head -n$headLines ./data/values.${symbol}.txt | tail -${1} | awk '{ sum += $1; } END { print sum/'${1}'; }')
+	    averagePrice=$(head -n$headLines ./data/values.${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 	done
 }
