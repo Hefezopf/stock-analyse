@@ -241,6 +241,9 @@ do
 	echo $stochasticList14 >> $indexSymbolFile
 	cat ./js/indexPart8.html >> $indexSymbolFile
 
+	echo $(stat -c %y ./data/values.${symbol}.txt | cut -b 1-19) >> $indexSymbolFile
+	cat ./js/indexPart9.html >> $indexSymbolFile
+
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
 	if [ "$fileSize" > 200 ]; then
