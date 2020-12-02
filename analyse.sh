@@ -241,7 +241,12 @@ do
 	echo $stochasticList14 >> $indexSymbolFile
 	cat ./js/indexPart8.html >> $indexSymbolFile
 
-	echo $(stat -c %y ./data/values.${symbol}.txt | cut -b 1-19) >> $indexSymbolFile
+	echo "<p>&nbsp;Kursdatum:<b>" $(stat -c %y ./data/values.${symbol}.txt | cut -b 1-19) "</b>" >> $indexSymbolFile
+	echo "&nbsp;Letzter Kurs:<b>" $last "</b>" >> $indexSymbolFile
+	echo "&nbsp;Average 18:<b>" $average18 "</b>" >> $indexSymbolFile
+	echo "&nbsp;Average 38:<b>" $average38 "</b>" >> $indexSymbolFile
+	echo "&nbsp;Average 100:<b>" $average100 "</b>" >> $indexSymbolFile
+	echo "&nbsp;Stochastic 14:<b>" $stochasticRounded14 "</b></p>" >> $indexSymbolFile
 	cat ./js/indexPart9.html >> $indexSymbolFile
 
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
@@ -270,8 +275,10 @@ do
 done
 
 # Cleanup
-tar -zcf out.tar.gz out
-mv out.tar.gz out
-#rm ./out/values*.txt
 rm $commaPriceListFile
 rm $stochasticFile
+rm ./out/values*.txt
+outZipFile=out.tar.gz
+rm -rf ./out/$outZipFile
+tar -zcf $outZipFile out
+mv $outZipFile out
