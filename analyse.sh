@@ -296,6 +296,6 @@ rm $commaPriceListFile
 rm $stochasticFile
 rm ./out/values*.txt
 outZipFile=out.tar.gz
-rm -rf ./out/$outZipFile
+#rm -rf ./out/$outZipFile
 tar -zcf $outZipFile out
-mv $outZipFile out
+mv $outZipFile ./out
