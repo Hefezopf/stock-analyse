@@ -214,6 +214,37 @@ do
 	averageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
+    # Average 100
+	averageInDays100=100
+	averageOfDays $averageInDays100
+	averagePriceList100=$averagePriceList
+
+	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
+	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
+	if [ "$fileSize" > 200 ]; then
+		# Overrated
+		if [ "$ratedParam" = 'overrated' ]; then
+			if [ "$stochasticRounded14" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
+			   [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
+				echo "- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
+				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
+			fi
+		fi
+	
+		# Underrated
+		if [ "$ratedParam" = 'underrated' ]; then
+			if [ "$stochasticRounded14" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
+			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
+				resultUnderrated="+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
+				echo $resultUnderrated
+				resultUrl="\"http://www.google.com/search?tbm=fin&q=${symbol}\" "
+				echo $resultUrl >> $resultFile
+			fi
+		fi
+	else
+	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $resultFile
+	fi
+
     # Chart schreiben index.${symbol}.html
 	commaPriceListFile=./out/commaPriceListFile.txt
 	cat ./data/values.${symbol}.txt | tac > $commaPriceListFile
@@ -236,42 +267,28 @@ do
 	echo "'" Average $averageInDays38 "'," >> $indexSymbolFile
 	cat ./js/indexPart6.html >> $indexSymbolFile
 	echo $averagePriceList38 >> $indexSymbolFile
-	cat ./js/indexPart7.html >> $indexSymbolFile
+	cat ./js/indexPart7.html >> $indexSymbolFile	
 
-	echo $stochasticList14 >> $indexSymbolFile
+	echo "'" Average $averageInDays100 "'," >> $indexSymbolFile
 	cat ./js/indexPart8.html >> $indexSymbolFile
-
-	echo "<p>&nbsp;Kursdatum:<b>" $(stat -c %y ./data/values.${symbol}.txt | cut -b 1-19) "</b>" >> $indexSymbolFile
-	echo "&nbsp;Letzter Kurs:<b>" $last "</b>" >> $indexSymbolFile
-	echo "&nbsp;Average 18:<b>" $average18 "</b>" >> $indexSymbolFile
-	echo "&nbsp;Average 38:<b>" $average38 "</b>" >> $indexSymbolFile
-	echo "&nbsp;Average 100:<b>" $average100 "</b>" >> $indexSymbolFile
-	echo "&nbsp;Stochastic 14:<b>" $stochasticRounded14 "</b></p>" >> $indexSymbolFile
+	echo $averagePriceList100 >> $indexSymbolFile
 	cat ./js/indexPart9.html >> $indexSymbolFile
 
-	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
-	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
-	if [ "$fileSize" > 200 ]; then
-		# Overrated
-		if [ "$ratedParam" = 'overrated' ]; then
-			if [ "$stochasticRounded14" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
-			   [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
-				echo "- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
-				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
-			fi
-		fi
-	
-		# Underrated
-		if [ "$ratedParam" = 'underrated' ]; then
-			if [ "$stochasticRounded14" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
-			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
-				echo "+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
-				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
-			fi
-		fi
-	else
-	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $resultFile
-	fi
+	echo $stochasticList14 >> $indexSymbolFile
+	cat ./js/indexPart10.html >> $indexSymbolFile
+
+	echo "<p>Kursdatum:<b>" $(stat -c %y ./data/values.${symbol}.txt | cut -b 1-16) " Uhr</b>" >> $indexSymbolFile
+	echo "&nbsp;Letzter Kurs:<b>" $last "€</b>" >> $indexSymbolFile
+	echo "&nbsp;Average 18:<b>" $average18 "€</b>" >> $indexSymbolFile
+	echo "&nbsp;Average 38:<b>" $average38 "€</b>" >> $indexSymbolFile
+	echo "&nbsp;Average 100:<b>" $average100 "€</b>" >> $indexSymbolFile
+	echo "&nbsp;Stochastic 14:<b>" $stochasticRounded14 "</b></p>" >> $indexSymbolFile
+	#echo "<br>" >> $indexSymbolFile
+	echo "<p>Result:</p>" >> $indexSymbolFile
+	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
+	echo "<p>Result Url:</p>" >> $indexSymbolFile
+	echo "<p><b><a href=" $resultUrl "</a>" $resultUrl "</b></p>" >> $indexSymbolFile
+	cat ./js/indexPart11.html >> $indexSymbolFile
 done
 
 # Cleanup
