@@ -70,17 +70,19 @@ jobs:
           echo Parameters from Curl: query ${{ github.event.client_payload.query }}
           echo Parameters from Curl: rated ${{ github.event.client_payload.rated }}
           echo Parameters from Curl: stochastic ${{ github.event.client_payload.stochastic }}
-          symbolsDefault='${{ github.event.client_payload.symbols }}'
-          percentageDefault='${{ github.event.client_payload.percentage }}'
-          queryDefault='${{ github.event.client_payload.query }}'
-          ratedDefault='${{ github.event.client_payload.rated }}'
-          stochasticDefault='${{ github.event.client_payload.stochastic }}'
+          symbolsCurl='${{ github.event.client_payload.symbols }}'
+          percentageCurl='${{ github.event.client_payload.percentage }}'
+          queryCurl='${{ github.event.client_payload.query }}'
+          ratedCurl='${{ github.event.client_payload.rated }}'
+          stochasticCurl='${{ github.event.client_payload.stochastic }}'
             
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
         run: |
           echo Start analyse...
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+
+echo symbolsCurl ${symbolsCurl}
 
           symbolsDefault='${{ github.event.client_payload.symbols }}'          
           percentageDefault='${{ github.event.client_payload.percentage }}'
