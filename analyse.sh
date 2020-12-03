@@ -9,8 +9,16 @@
 # Call example: ./analyse.sh 'ADS.XETRA' 3 online underrated 20
 # Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20
 #
-# Set MARKET_STACK_ACCESS_KEY as Env Variable
+# Set MARKET_STACK_ACCESS_KEY as ENV variable
 export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
+
+# Prepare
+mkdir -p ./out
+resultFile=./out/result.html
+touch $resultFile
+rm -rf $resultFile
+outZipFile=out.tar.gz
+rm -rf ./out/$outZipFile
 
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
@@ -24,10 +32,16 @@ queryParam=$3
 ratedParam=$4
 stochasticPercentageParam=$5
 
+
 # Check parameter
 if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] ; then
 	echo ""
 else
+
+	html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi Pierce,</p>    <p class="colored">      This text is blue if the window width is      below 500px and red otherwise.    </p>    <p>Jerry</p>  </div></body></html>")
+	echo " " $html > $resultFile
+    exit
+
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
 	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $resultFile
 	echo " PERCENTAGE: Percentage number between 0..100" | tee -a $resultFile
@@ -45,11 +59,6 @@ fi
 
 percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
 percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
-
-mkdir -p ./out
-resultFile=./out/result.txt
-touch $resultFile
-rm -rf $resultFile
 
 echo "# Analyse parameter" | tee -a $resultFile
 echo "Symbols: $symbolsParam" | tee -a $resultFile
@@ -295,7 +304,6 @@ done
 rm $commaPriceListFile
 rm $stochasticFile
 rm ./out/values*.txt
-outZipFile=out.tar.gz
-#rm -rf ./out/$outZipFile
+rm -rf 200
 tar -zcf $outZipFile out
 mv $outZipFile ./out

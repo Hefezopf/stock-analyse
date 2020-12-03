@@ -14,7 +14,10 @@ This script checks given stock quotes and their averages of the last 100, 38, 18
 
 # Result
 
-Outputs a result.txt
+Outputs:
+- out/result.html
+- out/index.SYMBOL.html
+- out/out.tar.gz
 
 
 # REST Call
