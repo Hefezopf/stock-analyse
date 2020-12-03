@@ -55,7 +55,7 @@ else
 	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20" | tee -a $resultFile
 	echo "<br>" >> $resultFile
     echo $htmlEnd >> $resultFile
-	exit
+	exit 0
 fi
 
 if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
@@ -69,17 +69,29 @@ percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100
 percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
 
 echo "# Analyse parameter" | tee -a $resultFile
+echo "<br>" >> $resultFile
 echo "Symbols: $symbolsParam" | tee -a $resultFile
+echo "<br>" >> $resultFile
 echo "Percentage: $percentageParam" | tee -a $resultFile
+echo "<br>" >> $resultFile
 echo "Query: $queryParam" | tee -a $resultFile
+echo "<br>" >> $resultFile
 echo "Rated: $ratedParam" | tee -a $resultFile
+echo "<br>" >> $resultFile
 echo "Stochastic14: $stochasticPercentageParam" | tee -a $resultFile
+echo "<br>" >> $resultFile
 echo " " >> $resultFile
+echo "<br>" >> $resultFile
 echo "# Result" >> $resultFile
+echo "<br>" >> $resultFile
 echo "https://github.com/Hefezopf/stock-analyse/actions" >> $resultFile
+echo "<br>" >> $resultFile
 echo " " | tee -a $resultFile
+echo "<br>" >> $resultFile
 echo "# URLs" >> $resultFile
+echo "<br>" >> $resultFile
 echo "start chrome " >> $resultFile
+echo "<br>" >> $resultFile
 
 lesserThen () {
     lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
@@ -162,6 +174,7 @@ do
 done
 
 echo " "
+echo "<br>" >> $resultFile
 
 # Analyse data
 for symbol in $symbolsParam
@@ -243,8 +256,12 @@ do
 		if [ "$ratedParam" = 'overrated' ]; then
 			if [ "$stochasticRounded14" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
 			   [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
-				echo "- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
-				echo -n "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
+				resultOverrated="- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
+				echo $resultOverrated
+				echo "<br>" >> $resultFile
+				#resultUrl="\"http://www.google.com/search?tbm=fin&q=${symbol}\" "
+				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
+				echo "<br>" >> $resultFile
 			fi
 		fi
 	
@@ -254,12 +271,15 @@ do
 			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
 				resultUnderrated="+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
 				echo $resultUnderrated
-				resultUrl="\"http://www.google.com/search?tbm=fin&q=${symbol}\" "
-				echo $resultUrl >> $resultFile
+				echo "<br>" >> $resultFile
+				#resultUrl="\"http://www.google.com/search?tbm=fin&q=${symbol}\" "
+				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
+				echo "<br>" >> $resultFile
 			fi
 		fi
 	else
 	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $resultFile
+		echo "<br>" >> $resultFile
 	fi
 
     # Chart schreiben index.${symbol}.html
