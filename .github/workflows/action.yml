@@ -96,7 +96,7 @@ jobs:
           git commit -am "Commit ./data with github action"
           git push 
 
-      - name: Send result.txt via email
+      - name: Send result via email
         uses: dawidd6/action-send-mail@v2
         with:
           server_address: smtp.ionos.de
@@ -116,4 +116,4 @@ jobs:
           # Optional content type (defaults to text/plain):
           content_type: text/html          
           # Optional attachments:
-          attachments: ./out/result.txt, ./out/out.tar.gz
+          attachments: ./out/email.html, ./out/out.tar.gz
