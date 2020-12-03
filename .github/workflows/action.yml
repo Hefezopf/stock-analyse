@@ -69,7 +69,9 @@ jobs:
           symbolsDefault=''${{ github.event.client_payload.symbols }}''
           export symbolsDefault2="${{ github.event.client_payload.symbols }}"
           export symbolsDefault3='${{ github.event.client_payload.symbols }}'
-          echo symbolsDefault $symbolsDefault
+          echo cc symbolsDefault $symbolsDefault
+          echo cc 2symbolsDefault $symbolsDefault2
+          echo cc 3symbolsDefault $symbolsDefault3
             
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
@@ -81,7 +83,9 @@ jobs:
           echo symbolsDefault $symbolsDefault
           echo 2symbolsDefault $symbolsDefault2
           echo 3symbolsDefault $symbolsDefault3
-
+          symbolsDefault='${{ github.event.client_payload.symbols }}'
+          echo bbbbbsymbolsDefault $symbolsDefault
+          
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
 
           #symbolsDefault='VOW.XETRA'
@@ -112,8 +116,8 @@ jobs:
 
           sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar
 
-          git reset --hard origin/main
-          
+          #git reset --hard origin/main
+
           #git pull
           #git config user.email "markus@hopf-it.de"
           #git config user.name "Markus Hopf"
