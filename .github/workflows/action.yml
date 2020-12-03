@@ -61,10 +61,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - if: github.event.client_payload.foo == 'bar'
-        name: Curl parameters
+      # Set parameter from Curl
+      - if: github.event.client_payload.symbols != ''
+        name: With Curl parameters
         run: |
-          echo 1Parameters from Curl: ${{ github.event.client_payload.foo }}
+          echo 1Parameters from Curl: ${{ github.event.client_payload.symbols }}
+          symbolsDefault='${{ github.event.client_payload.symbols }}'
             
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
@@ -72,12 +74,12 @@ jobs:
           echo Start analyse...
 
 
-          echo 2Parameters from Curl: ${{ github.event.client_payload.foo }}
+          echo 2Parameters from Curl: ${{ github.event.client_payload.symbols }}
 
 
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
 
-          symbolsDefault='VOW.XETRA'
+          #symbolsDefault='VOW.XETRA'
           #symbolsDefault='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
           percentageDefault=1
           queryDefault=online
