@@ -47,7 +47,7 @@ percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100
 percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
 
 mkdir -p ./out
-resultFile=./out/result.html
+resultFile=./out/result.txt
 touch $resultFile
 rm -rf $resultFile
 
