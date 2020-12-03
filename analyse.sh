@@ -26,37 +26,42 @@ stochasticPercentageParam=$5
 
 # Prepare
 mkdir -p ./out
-resultFile=./out/email.html
+outZipFile=out.tar.gz
+rm -rf ./out/$outZipFile
+resultFile=./out/result.html
 rm -rf $resultFile
+htmlEnd=$(echo "</p><p>Thanks</p></div></body></html>" )
 
-
-html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi kkkkk $1,</p>    <p class="colored">")
-echo " " $html > $resultFile
-
+# Email header
+htmlHeader=$(echo "<html><head><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div id="body"><p>Stock Analyse,</p><p>")
+echo $htmlHeader > $resultFile
 
 # Check parameter
 if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] ; then
 	echo ""
 else
-    #html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi kkkkk $1,</p>    <p class="colored">      This text is blue if the window width is      below 500px and red otherwise.    </p>    <p>Jerry</p>  </div></body></html>")
-	#echo " " $html > $resultFile
-
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
+	echo "<br>" >> $resultFile
 	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $resultFile
+	echo "<br>" >> $resultFile
 	echo " PERCENTAGE: Percentage number between 0..100" | tee -a $resultFile
+	echo "<br>" >> $resultFile
 	echo " QUERY: Query data online|offline" | tee -a $resultFile
+	echo "<br>" >> $resultFile
 	echo " RATED: List only overrated|underrated" | tee -a $resultFile
+	echo "<br>" >> $resultFile
 	echo " STOCHASTIC14: Percentage for stochastic indicator" | tee -a $resultFile
+	echo "<br>" >> $resultFile
 	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20" | tee -a $resultFile
-	
-	html=$(echo "</p>    <p>Thanks</p>  </div></body></html>")
-    echo " " $html >> $resultFile
-
+	echo "<br>" >> $resultFile
+    echo $htmlEnd >> $resultFile
 	exit
 fi
 
 if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
 	echo "Error: MARKET_STACK_ACCESS_KEY not set!" | tee -a $resultFile
+	echo "<br>" >> $resultFile
+    echo $htmlEnd >> $resultFile
 	exit
 fi
 
@@ -303,14 +308,11 @@ do
 	cat ./js/indexPart11.html >> $indexSymbolFile
 done
 
-html=$(echo "</p>    <p>Thanks</p>  </div></body></html>")
-echo " " $html >> $resultFile
+echo $htmlEnd >> $resultFile
 
 # Cleanup
 rm $commaPriceListFile
 rm $stochasticFile
 rm ./out/values*.txt
-outZipFile=out.tar.gz
-rm -rf ./out/$outZipFile
 tar -zcf $outZipFile out
 mv $outZipFile ./out
