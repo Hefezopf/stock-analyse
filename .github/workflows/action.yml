@@ -66,9 +66,9 @@ jobs:
         name: With Curl parameters
         #with:
           #symbols_with: '${{ github.event.client_payload.symbols }}'
-        env:
-          SYMBOLS_CURL: '${{ github.event.client_payload.symbols }}' 
-          GITHUB_CONTEXT: ${{ tojson(github) }}       
+        #env:
+          #SYMBOLS_CURL: '${{ github.event.client_payload.symbols }}' 
+          #GITHUB_CONTEXT: ${{ tojson(github) }}       
         run: |
           echo Parameters from Curl: symbols ${{ github.event.client_payload.symbols }}
           echo Parameters from Curl: percentage ${{ github.event.client_payload.percentage }}
@@ -80,11 +80,6 @@ jobs:
           queryCurl='${{ github.event.client_payload.query }}'
           ratedCurl='${{ github.event.client_payload.rated }}'
           stochasticCurl='${{ github.event.client_payload.stochastic }}'
-
-          echo SYMBOLS_CURL1 "$SYMBOLS_CURL"
-          echo SYMBOLS_CURL2 $SYMBOLS_CURL
-          echo symbols_with $symbols_with
-          echo GITHUB_CONTEXT $GITHUB_CONTEXT
             
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
@@ -93,14 +88,10 @@ jobs:
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
 
 
-          symbolsCurl='${{ github.event.client_payload.symbols }}'
-          echo symbolsCurl ${symbolsCurl}
-          echo SYMBOLS_CURL3 "$SYMBOLS_CURL"
-          echo SYMBOLS_CURL4 $SYMBOLS_CURL
-          echo SYMBOLS_WITH5 $SYMBOLS_WITH
+          #symbolsCurl='${{ github.event.client_payload.symbols }}'
+         
 
-
-          #symbolsDefault='${{ github.event.client_payload.symbols }}'          
+          symbolsDefault='${{ github.event.client_payload.symbols }}'          
           percentageDefault='${{ github.event.client_payload.percentage }}'
           queryDefault='${{ github.event.client_payload.query }}'
           ratedDefault='${{ github.event.client_payload.rated }}'
@@ -121,8 +112,7 @@ jobs:
           ratedInput=${{github.event.inputs.ratedParam}}
           stochasticInput=${{github.event.inputs.stochasticParam}}
           
-          symbolsVar=${symbolsInput:-symbolsCurl:-$symbolsDefault}
-          #symbolsVar=${symbolsInput:-$symbolsDefault}
+          symbolsVar=${symbolsInput:-$symbolsDefault}
           percentageVar=${percentageInput:-$percentageDefault}
           queryVar=${queryInput:-$queryDefault}
           ratedVar=${ratedInput:-$ratedDefault}          
