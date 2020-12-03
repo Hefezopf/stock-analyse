@@ -64,8 +64,8 @@ jobs:
       # Set parameter from Curl
       - if: github.event.client_payload.symbols != ''
         name: With Curl parameters
-        with:
-          symbols_with: '${{ github.event.client_payload.symbols }}'
+        #with:
+          #symbols_with: '${{ github.event.client_payload.symbols }}'
         env:
           SYMBOLS_CURL: '${{ github.event.client_payload.symbols }}' 
           GITHUB_CONTEXT: ${{ tojson(github) }}       
