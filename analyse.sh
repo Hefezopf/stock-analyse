@@ -56,6 +56,7 @@ else
 	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20" | tee -a $resultFile
 	echo "<br>" >> $resultFile
     echo $htmlEnd >> $resultFile
+	cp $resultFile ./out/$outZipFile
 	exit
 fi
 
@@ -63,6 +64,7 @@ if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
 	echo "Error: MARKET_STACK_ACCESS_KEY not set!" | tee -a $resultFile
 	echo "<br>" >> $resultFile
     echo $htmlEnd >> $resultFile
+	cp $resultFile ./out/$outZipFile
 	exit
 fi
 
