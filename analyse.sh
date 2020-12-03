@@ -28,6 +28,7 @@ stochasticPercentageParam=$5
 mkdir -p ./out
 outZipFile=out.tar.gz
 rm -rf ./out/$outZipFile
+touch outZipFile
 resultFile=./out/result.html
 rm -rf $resultFile
 htmlEnd=$(echo "</p><p>Thanks</p></div></body></html>" )
