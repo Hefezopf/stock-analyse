@@ -75,11 +75,12 @@ jobs:
           queryCurl='${{ github.event.client_payload.query }}'
           ratedCurl='${{ github.event.client_payload.rated }}'
           stochasticCurl='${{ github.event.client_payload.stochastic }}'
-          env = {
-            symbols_Curl = '${{ github.event.client_payload.symbols }}'
-          }
-          echo env.symbols_Curl '${{ github.env.symbols_Curl }}'
-          echo env.symbols_Curl github.env.symbols_Curl
+        env:
+          SYMBOLS_CURL = '${{ github.event.client_payload.symbols }}'
+         
+          echo env.SYMBOLS_CURL '${{ github.env.SYMBOLS_CURL }}'
+          echo env.SYMBOLS_CURL2 github.env.SYMBOLS_CURL
+          echo SYMBOLS_CURL3 "$SYMBOLS_CURL"
             
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
