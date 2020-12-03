@@ -15,7 +15,7 @@ This script checks given stock quotes and their averages of the last 100, 38, 18
 # Result
 
 Outputs:
-- out/result.html
+- out/result.txt
 - out/index.SYMBOL.html
 - out/out.tar.gz
 
