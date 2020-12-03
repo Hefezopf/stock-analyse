@@ -25,14 +25,10 @@ ratedParam=$4
 stochasticPercentageParam=$5
 
 # Prepare
-
-rm -rf outZipFile
-
-
 mkdir -p ./out
 outZipFile=out.tar.gz
 rm -rf ./out/$outZipFile
-touch outZipFile
+touch $outZipFile
 resultFile=./out/result.html
 rm -rf $resultFile
 htmlEnd=$(echo "</p><p>Thanks</p></div></body></html>" )
@@ -60,7 +56,6 @@ else
 	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20" | tee -a $resultFile
 	echo "<br>" >> $resultFile
     echo $htmlEnd >> $resultFile
-	cp $resultFile ./out/$outZipFile
 	exit
 fi
 
@@ -68,7 +63,6 @@ if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
 	echo "Error: MARKET_STACK_ACCESS_KEY not set!" | tee -a $resultFile
 	echo "<br>" >> $resultFile
     echo $htmlEnd >> $resultFile
-	cp $resultFile ./out/$outZipFile
 	exit
 fi
 
