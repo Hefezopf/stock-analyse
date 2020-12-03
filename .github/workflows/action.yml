@@ -82,15 +82,20 @@ jobs:
           echo Start analyse...
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
 
-          symbolsDefault='${{ github.event.client_payload.symbols }}'          
+
+          symbolsCurl='${{ github.event.client_payload.symbols }}'
+          echo symbolsCurl ${symbolsCurl}
+
+
+          #symbolsDefault='${{ github.event.client_payload.symbols }}'          
           percentageDefault='${{ github.event.client_payload.percentage }}'
           queryDefault='${{ github.event.client_payload.query }}'
           ratedDefault='${{ github.event.client_payload.rated }}'
           stochasticDefault='${{ github.event.client_payload.stochastic }}'
           
-          echo symbolsCurl ${symbolsCurl}
+          
 
-          #symbolsDefault='VOW.XETRA'
+          symbolsDefault='VOW.XETRA'
           #symbolsDefault='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
           #percentageDefault=1
           #queryDefault=online
@@ -103,7 +108,8 @@ jobs:
           ratedInput=${{github.event.inputs.ratedParam}}
           stochasticInput=${{github.event.inputs.stochasticParam}}
           
-          symbolsVar=${symbolsInput:-$symbolsDefault}
+          symbolsVar=${symbolsInput:-symbolsCurl:-$symbolsDefault}
+          #symbolsVar=${symbolsInput:-$symbolsDefault}
           percentageVar=${percentageInput:-$percentageDefault}
           queryVar=${queryInput:-$queryDefault}
           ratedVar=${ratedInput:-$ratedDefault}          
