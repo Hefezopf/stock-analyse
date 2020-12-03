@@ -32,15 +32,14 @@ queryParam=$3
 ratedParam=$4
 stochasticPercentageParam=$5
 
-
 # Check parameter
 if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] ; then
 	echo ""
 else
 
-	html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi Pierce,</p>    <p class="colored">      This text is blue if the window width is      below 500px and red otherwise.    </p>    <p>Jerry</p>  </div></body></html>")
-	echo " " $html > $resultFile
-    exit
+	#html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi Pierce,</p>    <p class="colored">      This text is blue if the window width is      below 500px and red otherwise.    </p>    <p>Jerry</p>  </div></body></html>")
+	#echo " " $html > $resultFile
+    #exit
 
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
 	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $resultFile
