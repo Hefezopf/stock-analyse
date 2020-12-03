@@ -64,6 +64,8 @@ jobs:
       # Set parameter from Curl
       - if: github.event.client_payload.symbols != ''
         name: With Curl parameters
+        env:
+          SYMBOLS_CURL: '${{ github.event.client_payload.symbols }}'        
         run: |
           echo Parameters from Curl: symbols ${{ github.event.client_payload.symbols }}
           echo Parameters from Curl: percentage ${{ github.event.client_payload.percentage }}
@@ -75,9 +77,6 @@ jobs:
           queryCurl='${{ github.event.client_payload.query }}'
           ratedCurl='${{ github.event.client_payload.rated }}'
           stochasticCurl='${{ github.event.client_payload.stochastic }}'
-        env:
-          SYMBOLS_CURL = '${{ github.event.client_payload.symbols }}'
-         
           echo env.SYMBOLS_CURL '${{ github.env.SYMBOLS_CURL }}'
           echo env.SYMBOLS_CURL2 github.env.SYMBOLS_CURL
           echo SYMBOLS_CURL3 "$SYMBOLS_CURL"
