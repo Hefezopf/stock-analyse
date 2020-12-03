@@ -65,7 +65,8 @@ jobs:
       - if: github.event.client_payload.symbols != ''
         name: With Curl parameters
         env:
-          SYMBOLS_CURL: '${{ github.event.client_payload.symbols }}'        
+          SYMBOLS_CURL: '${{ github.event.client_payload.symbols }}' 
+          GITHUB_CONTEXT: ${{ tojson(github) }}       
         run: |
           echo Parameters from Curl: symbols ${{ github.event.client_payload.symbols }}
           echo Parameters from Curl: percentage ${{ github.event.client_payload.percentage }}
@@ -80,7 +81,7 @@ jobs:
 
           echo SYMBOLS_CURL1 "$SYMBOLS_CURL"
           echo SYMBOLS_CURL2 $SYMBOLS_CURL
-          echo ${{ tojson(github) }}
+          echo GITHUB_CONTEXT $GITHUB_CONTEXT
             
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
