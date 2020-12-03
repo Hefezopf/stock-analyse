@@ -24,11 +24,11 @@ queryParam=$3
 ratedParam=$4
 stochasticPercentageParam=$5
 
+# Prepare
+mkdir -p ./out
+resultFile=./out/email.html
+rm -rf $resultFile
 
-
-
-    html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi xxxxx,</p>    <p class="colored">      This text is blue if the window width is      below 500px and red otherwise.    </p>    <p>Jerry</p>  </div></body></html>")
-	echo " " $html > ./out/email.html
 
 
 
@@ -36,6 +36,9 @@ stochasticPercentageParam=$5
 if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] ; then
 	echo ""
 else
+    html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi kkkkk $1,</p>    <p class="colored">      This text is blue if the window width is      below 500px and red otherwise.    </p>    <p>Jerry</p>  </div></body></html>")
+	echo " " $html > $resultFile
+
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
 	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $resultFile
 	echo " PERCENTAGE: Percentage number between 0..100" | tee -a $resultFile
@@ -53,11 +56,6 @@ fi
 
 percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
 percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
-
-mkdir -p ./out
-resultFile=./out/result.txt
-touch $resultFile
-rm -rf $resultFile
 
 echo "# Analyse parameter" | tee -a $resultFile
 echo "Symbols: $symbolsParam" | tee -a $resultFile
