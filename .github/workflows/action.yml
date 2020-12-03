@@ -61,8 +61,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Curl parameters
-        if: ${{ github.event.client_payload.foo }} == 'bar'
+      - if: github.event.client_payload.foo == 'bar'
+        name: Curl parameters
         run: |
           echo 1Parameters from Curl: ${{ github.event.client_payload.foo }}
             
