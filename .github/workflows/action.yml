@@ -8,8 +8,10 @@ on:
   #pull_request:
     #branches: [ main ]
 
+  # Can be triggered with curl
   repository_dispatch:
-    types: [curl]    
+    types: [curl] 
+       
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
@@ -33,6 +35,7 @@ on:
         description: 'STOCHASTIC14 - "30" means 30/70 percent'     
         required: true
         default: '30'
+        
   schedule:
   # Every 10 minutes
   # */10 * * * *  
@@ -64,7 +67,8 @@ jobs:
           echo Start analyse...
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
 
-          symbolsDefault='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
+          symbolsDefault='VOW.XETRA'
+          #symbolsDefault='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
           percentageDefault=1
           queryDefault=online
           ratedDefault=underrated
