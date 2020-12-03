@@ -16,7 +16,7 @@ export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
 mkdir -p ./out
 resultFile=./out/result.html
 touch $resultFile
-rm -rf $resultFile
+#rm -rf $resultFile
 outZipFile=out.tar.gz
 rm -rf ./out/$outZipFile
 
@@ -303,6 +303,6 @@ done
 rm $commaPriceListFile
 rm $stochasticFile
 rm ./out/values*.txt
-rm -rf 200
+#rm -rf 200
 tar -zcf $outZipFile out
 mv $outZipFile ./out
