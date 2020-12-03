@@ -61,13 +61,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Curl parameters
+        if: ${{ github.event.client_payload.foo }} == 'bar'
+        run: |
+          echo 1Parameters from Curl: ${{ github.event.client_payload.foo }}
+            
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
         run: |
           echo Start analyse...
 
-          
-          echo Parameters from Curl: ${{ github.event.client_payload.foo }}
+
+          echo 2Parameters from Curl: ${{ github.event.client_payload.foo }}
 
 
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
