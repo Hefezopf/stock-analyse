@@ -65,29 +65,29 @@ jobs:
       - if: github.event.client_payload.symbols != ''
         name: With Curl parameters
         run: |
-          echo 1Parameters from Curl: ${{ github.event.client_payload.symbols }}
-          symbolsDefault=''${{ github.event.client_payload.symbols }}''
-          export symbolsDefault2="${{ github.event.client_payload.symbols }}"
-          export symbolsDefault3='${{ github.event.client_payload.symbols }}'
-          echo cc symbolsDefault $symbolsDefault
-          echo cc 2symbolsDefault $symbolsDefault2
-          echo cc 3symbolsDefault $symbolsDefault3
+          echo Parameters from Curl: symbols ${{ github.event.client_payload.symbols }}
+          echo Parameters from Curl: percentage ${{ github.event.client_payload.percentage }}
+          echo Parameters from Curl: query ${{ github.event.client_payload.query }}
+          echo Parameters from Curl: rated ${{ github.event.client_payload.rated }}
+          echo Parameters from Curl: stochastic ${{ github.event.client_payload.stochastic }}
+          symbolsDefault='${{ github.event.client_payload.symbols }}'
+          percentageDefault='${{ github.event.client_payload.percentage }}'
+          queryDefault='${{ github.event.client_payload.query }}'
+          ratedDefault='${{ github.event.client_payload.rated }}'
+          stochasticDefault='${{ github.event.client_payload.stochastic }}'
             
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
         run: |
           echo Start analyse...
-
-
-          echo 2Parameters from Curl: ${{ github.event.client_payload.symbols }}
-          echo symbolsDefault $symbolsDefault
-          echo 2symbolsDefault $symbolsDefault2
-          echo 3symbolsDefault $symbolsDefault3
-          symbolsDefault='${{ github.event.client_payload.symbols }}'
-          echo bbbbbsymbolsDefault $symbolsDefault
-          
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
 
+          symbolsDefault='${{ github.event.client_payload.symbols }}'          
+          percentageDefault='${{ github.event.client_payload.percentage }}'
+          queryDefault='${{ github.event.client_payload.query }}'
+          ratedDefault='${{ github.event.client_payload.rated }}'
+          stochasticDefault='${{ github.event.client_payload.stochastic }}'
+          
           #symbolsDefault='VOW.XETRA'
           #symbolsDefault='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
           percentageDefault=1

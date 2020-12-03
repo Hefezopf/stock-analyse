@@ -28,7 +28,10 @@ CURL works only from unrestricted devices!
 Github Token for Curl
 TOKEN=cbf8fa08a037b3d1e14c78fc5e991204861a2704-1
 
-curl -H "Authorization: token $TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "MSF.XETRA"}}'
+curl -H "Authorization: token $TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' /
+"https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" /
+-d '{"event_type": "curl", "client_payload": {"symbols": "MSF.XETRA"}, {"percentage": "1"}, {"query": "offline"}, {"rated": "underrated"}, {"stochastic": "40"}}'
+
  ${{ github.event.client_payload.symbols }}
 !!
 
