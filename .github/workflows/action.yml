@@ -109,10 +109,21 @@ jobs:
           # Literal body:
           #body: Build job of ${{github.repository}} completed successfully!
           # Read file contents as body:
-          body: file://./out/result.html
+          #body: file://./out/result.html
+          body: |
+              <!DOCTYPE html>
+              <html>
+              <body>
+              <h1>Heading</h1>
+              <p>Paragraph</p>
+              </body>
+              </html>
           to: info@hopf-it.de
           from: Github stock-analyse # <github@hopf-it.de>
           # Optional content type (defaults to text/plain):
-          content_type: text/html
+          content_type: 
+            - text/html
+            - text/plain           
           # Optional attachments:
-          attachments: ./out/result.html, ./out/out.tar.gz       
+          #attachments: ./out/result.html, ./out/out.tar.gz
+          #attachments: ./out/result.html, ./out/out.tar.gz
