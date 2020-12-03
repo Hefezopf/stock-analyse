@@ -64,8 +64,8 @@ jobs:
       # Set parameter from Curl
       - if: github.event.client_payload.symbols != ''
         name: With Curl parameters
-        with: # Set the secret as an input
-          SYMBOLS_WITH: '${{ github.event.client_payload.symbols }}'
+        with:
+          symbols_with: '${{ github.event.client_payload.symbols }}'
         env:
           SYMBOLS_CURL: '${{ github.event.client_payload.symbols }}' 
           GITHUB_CONTEXT: ${{ tojson(github) }}       
@@ -83,7 +83,7 @@ jobs:
 
           echo SYMBOLS_CURL1 "$SYMBOLS_CURL"
           echo SYMBOLS_CURL2 $SYMBOLS_CURL
-          echo SYMBOLS_WITH3 $SYMBOLS_WITH
+          echo symbols_with $symbols_with
           echo GITHUB_CONTEXT $GITHUB_CONTEXT
             
       # Runs a set of commands using the runners shell
