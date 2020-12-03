@@ -30,14 +30,16 @@ resultFile=./out/email.html
 rm -rf $resultFile
 
 
+html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi kkkkk $1,</p>    <p class="colored">")
+echo " " $html > $resultFile
 
 
 # Check parameter
 if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] ; then
 	echo ""
 else
-    html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi kkkkk $1,</p>    <p class="colored">      This text is blue if the window width is      below 500px and red otherwise.    </p>    <p>Jerry</p>  </div></body></html>")
-	echo " " $html > $resultFile
+    #html=$(echo "<html><head>  <style>    .colored {      color: blue;    }    #body {      font-size: 14px;    }    @media screen and (min-width: 500px) {      .colored {        color:red;      }    }  </style></head><body>  <div id="body">    <p>Hi kkkkk $1,</p>    <p class="colored">      This text is blue if the window width is      below 500px and red otherwise.    </p>    <p>Jerry</p>  </div></body></html>")
+	#echo " " $html > $resultFile
 
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
 	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $resultFile
@@ -46,6 +48,10 @@ else
 	echo " RATED: List only overrated|underrated" | tee -a $resultFile
 	echo " STOCHASTIC14: Percentage for stochastic indicator" | tee -a $resultFile
 	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20" | tee -a $resultFile
+	
+	html=$(echo "</p>    <p>Thanks</p>  </div></body></html>")
+    echo " " $html >> $resultFile
+
 	exit
 fi
 
@@ -296,6 +302,9 @@ do
 	echo "<p><b><a href=" $resultUrl "</a>" $resultUrl "</b></p>" >> $indexSymbolFile
 	cat ./js/indexPart11.html >> $indexSymbolFile
 done
+
+html=$(echo "</p>    <p>Thanks</p>  </div></body></html>")
+echo " " $html >> $resultFile
 
 # Cleanup
 rm $commaPriceListFile
