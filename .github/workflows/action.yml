@@ -65,6 +65,11 @@ jobs:
       - name: Run stock analyse
         run: |
           echo Start analyse...
+
+          
+          echo Parameters from Curl: ${{ github.event.client_payload.foo }}
+
+
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
 
           symbolsDefault='VOW.XETRA'
