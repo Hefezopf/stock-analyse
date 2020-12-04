@@ -315,8 +315,8 @@ do
 	echo $stochasticList14 >> $indexSymbolFile
 	cat ./js/indexPart10.html >> $indexSymbolFile
 
-	echo "<p>Kursdatum:<b>" $(stat -c %y ./data/values.${symbol}.txt | cut -b 1-16) " Uhr</b>" >> $indexSymbolFile
-	echo "&nbsp;Letzter Kurs:<b>" $last "€</b>" >> $indexSymbolFile
+	echo "<p>Kursdatum:<b>" $(stat -c %y ./data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
+	echo "&nbsp;Schluss Kurs:<b>" $last "€</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 18:<b>" $average18 "€</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 38:<b>" $average38 "€</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 100:<b>" $average100 "€</b>" >> $indexSymbolFile
