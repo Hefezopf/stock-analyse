@@ -252,7 +252,8 @@ do
 
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
-	if [ "$fileSize" > 200 ]; then
+	if [ "$fileSize" -gt 200 ]; then
+	#if [ "$fileSize" > 200 ]; then
 		# Overrated
 		resultOverrated=""
 		if [ "$ratedParam" = 'overrated' ]; then
@@ -323,18 +324,18 @@ do
 	echo "&nbsp;Average 38:<b>" $average38 "€</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 100:<b>" $average100 "€</b>" >> $indexSymbolFile
 	echo "&nbsp;Stochastic 14:<b>" $stochasticRounded14 "</b></p>" >> $indexSymbolFile
-	#if ??
 	echo "<p>Result:</p>" >> $indexSymbolFile
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
-	#echo "<p>Result Url:</p>" >> $indexSymbolFile
-	#echo "<p><b><a href=" $resultUrl "</a>" $resultUrl "</b></p>" >> $indexSymbolFile
 	cat ./js/indexPart11.html >> $indexSymbolFile
+
+	indexSymbolFileList=$(echo $indexSymbolFileList " " $indexSymbolFile)
 done
 
 echo $htmlEnd >> $resultFile
 
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);
+echo " "
 echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
 echo "time elapsed."
 
@@ -342,5 +343,8 @@ echo "time elapsed."
 rm $commaPriceListFile
 rm $stochasticFile
 rm ./out/values*.txt
-tar -zcf $outZipFile out
+tar -zcf $outZipFile $indexSymbolFileList
+#tar -zcf $outZipFile ./out
 mv $outZipFile ./out
+
+#echo indexSymbolFileList $indexSymbolFileList
