@@ -12,9 +12,9 @@
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 
 # Settings for currency formating with 'printf'
-#export LC_ALL=en_IN.UTF-8
-#export LANG=en_IN.UTF-8
-#export LANGUAGE=en_IN.UTF-8
+export LC_ALL=en_IN.UTF-8
+export LANG=en_IN.UTF-8
+export LANGUAGE=en_IN.UTF-8
 
 # Parameter
 symbolsParam=$1
@@ -31,7 +31,8 @@ touch ./out/$outZipFile
 resultFile=./out/result.html
 rm -rf $resultFile
 htmlEnd=$(echo "</p><p>Thanks</p></div></body></html>" )
-SECONDS=0
+#SECONDS=0
+START=$(date +%s);
 
 # Email header
 htmlHeader=$(echo "<html><head><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div id="body"><p>Stock Analyse,</p><p>")
@@ -334,8 +335,10 @@ done
 echo $htmlEnd >> $resultFile
 
 # Time measurement
-duration=$SECONDS
-echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
+#duration=$SECONDS
+#echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
+END=$(date +%s);
+echo $((END-START)) | awk '{print int($1/60)":"int($1%60)}'
 
 # Cleanup
 rm $commaPriceListFile
