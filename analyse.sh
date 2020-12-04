@@ -10,12 +10,11 @@
 # Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
-export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
 
 # Settings for currency formating with 'printf'
-export LC_ALL=en_IN.UTF-8
-export LANG=en_IN.UTF-8
-export LANGUAGE=en_IN.UTF-8
+#export LC_ALL=en_IN.UTF-8
+#export LANG=en_IN.UTF-8
+#export LANGUAGE=en_IN.UTF-8
 
 # Parameter
 symbolsParam=$1
@@ -255,6 +254,7 @@ do
 	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
 	if [ "$fileSize" > 200 ]; then
 		# Overrated
+		resultOverrated=""
 		if [ "$ratedParam" = 'overrated' ]; then
 			if [ "$stochasticRounded14" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
 			   [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
@@ -268,6 +268,7 @@ do
 		fi
 	
 		# Underrated
+		resultUnderrated=""
 		if [ "$ratedParam" = 'underrated' ]; then
 			if [ "$stochasticRounded14" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
 			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
@@ -325,8 +326,8 @@ do
 	#if ??
 	echo "<p>Result:</p>" >> $indexSymbolFile
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
-	echo "<p>Result Url:</p>" >> $indexSymbolFile
-	echo "<p><b><a href=" $resultUrl "</a>" $resultUrl "</b></p>" >> $indexSymbolFile
+	#echo "<p>Result Url:</p>" >> $indexSymbolFile
+	#echo "<p><b><a href=" $resultUrl "</a>" $resultUrl "</b></p>" >> $indexSymbolFile
 	cat ./js/indexPart11.html >> $indexSymbolFile
 done
 

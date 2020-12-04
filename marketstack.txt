@@ -35,7 +35,8 @@ curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.
 
 date +"%T.%6N"
 
--wenn 2 stimmt das nciht! Underrated: EOAN.XETRA last 8.996 EUR is more then 0.99 under average18: 9.15356 EUR and under average38: 9.265 EUR and under average100: 9.66613 EUR. Stochastic14 is 9
+-Es sollen nur die geänderten HTML geschicht werden
++wenn 2 stimmt das nciht! Underrated: EOAN.XETRA last 8.996 EUR is more then 0.99 under average18: 9.15356 EUR and under average38: 9.265 EUR and under average100: 9.66613 EUR. Stochastic14 is 9
 -Mehrere Strategien über Schalter anwenden
 +eigene Action für schedule 
 +Curl
@@ -61,14 +62,6 @@ auspacken
 tar -xvf out.tar.gz
 
 
-
-bash
-export MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
-
-CMD
-set MARKET_STACK_ACCESS_KEY="a310b2410e8ca3c818a281b4eca0b86f"
-
-
 start chrome "http://www.google.com/search?tbm=fin&q=ADS.XETRA" "http://www.google.com/search?tbm=fin&q=ALV.XETRA" 
 
 
@@ -85,9 +78,6 @@ start chrome "http://www.google.com/search?tbm=fin&q=ADS.XETRA" "http://www.goog
 	#head -n14 ./data/values.${symbol}.txt | awk '{ sum += $1; } END { print sum/14; }'
 	#head -n15 ./data/values.${symbol}.txt | tail -14 | awk '{ sum += $1; } END { print sum/14; }'
 
-
-1000
-curl --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f&exchange=XETRA&limit=1000' | jq '.data[].symbol' > stocksymbols.txt
 
 BAYN
 curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=BAYN.XETRA" | jq '.data[0].volume'
@@ -121,8 +111,6 @@ https://github.com/Hefezopf/stock-analyse.git
 http://api.marketstack.com/v1
 https://marketstack.com/usage
 
-KEY:
-a310b2410e8ca3c818a281b4eca0b86f
 
 curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA" |  jq '.'
 
@@ -152,10 +140,6 @@ https://github.com/dawidd6/action-send-mail
 https://jqplay.org/jq?q=.%5B0%5D&j=%5B%7B%22name%22%3A%22JSON%22%2C%20%22good%22%3Atrue%7D%2C%20%7B%22name%22%3A%22XML%22%2C%20%22good%22%3Afalse%7D%5D
 
 	
-curl --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f' | jq '.'
-
-curl --location --request GET 'http://api.marketstack.com/v1/tickers?access_key=a310b2410e8ca3c818a281b4eca0b86f' | jq '.data[].name'
-
 
 curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA'
 
@@ -163,10 +147,7 @@ curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MA
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].name'
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].close'
 
-UNVB.XETRA
-curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=a310b2410e8ca3c818a281b4eca0b86f&exchange=XETRA&symbols=UNVB.XETRA" | jq '.' 
-curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=a310b2410e8ca3c818a281b4eca0b86f&exchange=XETRA&symbols=UNVB.XETRA" | jq '.data[].date'
-	
+
 
 curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
 
