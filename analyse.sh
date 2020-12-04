@@ -24,11 +24,11 @@ ratedParam=$4
 stochasticPercentageParam=$5
 
 # Prepare
-mkdir -p ./out
+mkdir -p out
 outZipFile=out.tar.gz
-rm -rf ./out/$outZipFile
-touch ./out/$outZipFile
-resultFile=./out/result.html
+rm -rf out/$outZipFile
+touch out/$outZipFile
+resultFile=out/result.html
 rm -rf $resultFile
 htmlEnd=$(echo "</p><p>Thanks</p></div></body></html>" )
 START_TIME_MEASUREMENT=$(date +%s);
@@ -128,14 +128,14 @@ averageOfDays() {
 	while [ "$i" -le $((100-$1)) ]; 
 	do
 		headLines=$(echo $((100-$i)))
-	    averagePrice=$(head -n$headLines ./data/values.${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+	    averagePrice=$(head -n$headLines data/values.${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 		i=$(( i + 1 ))
 	done
 }
 
 stochasticOfDays() {
-	stochasticFile=./out/stochastic.txt
+	stochasticFile=out/stochastic.txt
 	stochasticList=""
 	i=1
 	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
@@ -147,7 +147,7 @@ stochasticOfDays() {
 	while [ "$i" -le $((100-$1)) ];
 	do
 		headLines=$(echo $((100-$i)))
-		head -n$headLines ./data/values.${symbol}.txt | tail -"${1}" > $stochasticFile
+		head -n$headLines data/values.${symbol}.txt | tail -"${1}" > $stochasticFile
 		lastStochastic14Raw=$(head -n 1 $stochasticFile)
 		lowestStochastic14Raw=$(sort $stochasticFile | head -n 1)
 		highestStochastic14Raw=$(sort -r $stochasticFile | head -n 1)
@@ -170,7 +170,7 @@ do
 	if [ "$queryParam" = 'offline' ]; then
 		true
 	else
-		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > ./data/values.${symbol}.txt
+		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/values.${symbol}.txt
 	fi
 done
 
@@ -181,27 +181,27 @@ echo "<br>" >> $resultFile
 for symbol in $symbolsParam
 do
 	echo "# Analyse $symbol"
-	lastRaw=$(head -n1 -q ./data/values.${symbol}.txt)
+	lastRaw=$(head -n1 -q data/values.${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
 
-	head -n18 ./data/values.${symbol}.txt > ./out/values18.txt
-	average18Raw=$(cat ./out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
+	head -n18 data/values.${symbol}.txt > out/values18.txt
+	average18Raw=$(cat out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
 	
 	greaterThen $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	lesserThen $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
-	head -n38 ./data/values.${symbol}.txt > ./out/values38.txt
-	average38Raw=$(cat ./out/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
+	head -n38 data/values.${symbol}.txt > out/values38.txt
+	average38Raw=$(cat out/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	#average38=$(printf "%'.2f\n" $average38Raw)
 	average38=$average38Raw
 	greaterThen $percentageGreaterFactor $last $average38; lastOverAgv38=$?
     lesserThen $percentageLesserFactor $last $average38;lastUnderAgv38=$?
 	
-	head -n100 ./data/values.${symbol}.txt > ./out/values100.txt
-	average100Raw=$(cat ./out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
+	head -n100 data/values.${symbol}.txt > out/values100.txt
+	average100Raw=$(cat out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	#average100=$(printf "%'.2f\n" $average100Raw)
 	average100=$average100Raw
 	greaterThen $percentageGreaterFactor $last $average100; lastOverAgv100=$?
@@ -216,9 +216,9 @@ do
 	lesserThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
 
     # Stochastic
-	head -n14 ./data/values.${symbol}.txt > ./out/values14.txt
-	lowest14Raw=$(sort ./out/values14.txt | head -n 1)
-	highest14Raw=$(sort -r ./out/values14.txt | head -n 1)
+	head -n14 data/values.${symbol}.txt > out/values14.txt
+	lowest14Raw=$(sort out/values14.txt | head -n 1)
+	highest14Raw=$(sort -r out/values14.txt | head -n 1)
     greaterThen 1 $highest14Raw $lowest14Raw; validStochastik=$?
 	if [ "$validStochastik" = 1 ]; then
 	    # Formula=((C – Ln )/( Hn – Ln )) * 100
@@ -251,7 +251,7 @@ do
 	averagePriceList100=$averagePriceList
 
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
-	fileSize=$(stat -c %s ./data/values.${symbol}.txt)
+	fileSize=$(stat -c %s data/values.${symbol}.txt)
 	if [ "$fileSize" -gt 200 ]; then
 	#if [ "$fileSize" > 200 ]; then
 		# Overrated
@@ -287,38 +287,38 @@ do
 	fi
 
     # Chart schreiben index.${symbol}.html
-	commaPriceListFile=./out/commaPriceListFile.txt
-	cat ./data/values.${symbol}.txt | tac > $commaPriceListFile
+	commaPriceListFile=out/commaPriceListFile.txt
+	cat data/values.${symbol}.txt | tac > $commaPriceListFile
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
-    indexSymbolFile=./out/index.${symbol}.html
+    indexSymbolFile=out/index.${symbol}.html
 	rm -rf $indexSymbolFile
-	cp ./js/chart.min.js ./out
-	cp ./js/utils.js ./out
-	cat ./js/indexPart1.html >> $indexSymbolFile
+	cp js/chart.min.js out
+	cp js/utils.js out
+	cat js/indexPart1.html >> $indexSymbolFile
 	echo "'" ${symbol} "'," >> $indexSymbolFile
-	cat ./js/indexPart2.html >> $indexSymbolFile
+	cat js/indexPart2.html >> $indexSymbolFile
 	echo $commaPriceList >> $indexSymbolFile
-	cat ./js/indexPart3.html >> $indexSymbolFile	
+	cat js/indexPart3.html >> $indexSymbolFile	
 
 	echo "'" Average $averageInDays18 "'," >> $indexSymbolFile
-	cat ./js/indexPart4.html >> $indexSymbolFile
+	cat js/indexPart4.html >> $indexSymbolFile
 	echo $averagePriceList18 >> $indexSymbolFile
-	cat ./js/indexPart5.html >> $indexSymbolFile	
+	cat js/indexPart5.html >> $indexSymbolFile	
 
 	echo "'" Average $averageInDays38 "'," >> $indexSymbolFile
-	cat ./js/indexPart6.html >> $indexSymbolFile
+	cat js/indexPart6.html >> $indexSymbolFile
 	echo $averagePriceList38 >> $indexSymbolFile
-	cat ./js/indexPart7.html >> $indexSymbolFile	
+	cat js/indexPart7.html >> $indexSymbolFile	
 
 	echo "'" Average $averageInDays100 "'," >> $indexSymbolFile
-	cat ./js/indexPart8.html >> $indexSymbolFile
+	cat js/indexPart8.html >> $indexSymbolFile
 	echo $averagePriceList100 >> $indexSymbolFile
-	cat ./js/indexPart9.html >> $indexSymbolFile
+	cat js/indexPart9.html >> $indexSymbolFile
 
 	echo $stochasticList14 >> $indexSymbolFile
-	cat ./js/indexPart10.html >> $indexSymbolFile
+	cat js/indexPart10.html >> $indexSymbolFile
 
-	echo "<p>Kursdatum:<b>" $(stat -c %y ./data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
+	echo "<p>Kursdatum:<b>" $(stat -c %y data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;Schluss Kurs:<b>" $last "€</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 18:<b>" $average18 "€</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 38:<b>" $average38 "€</b>" >> $indexSymbolFile
@@ -326,7 +326,7 @@ do
 	echo "&nbsp;Stochastic 14:<b>" $stochasticRounded14 "</b></p>" >> $indexSymbolFile
 	echo "<p>Result:</p>" >> $indexSymbolFile
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
-	cat ./js/indexPart11.html >> $indexSymbolFile
+	cat js/indexPart11.html >> $indexSymbolFile
 
 	indexSymbolFileList=$(echo $indexSymbolFileList " " $indexSymbolFile)
 done
@@ -342,9 +342,9 @@ echo "time elapsed."
 # Cleanup
 rm $commaPriceListFile
 rm $stochasticFile
-rm ./out/values*.txt
+rm out/values*.txt
 tar -zcf $outZipFile $indexSymbolFileList
-#tar -zcf $outZipFile ./out
-mv $outZipFile ./out
+#tar -zcf $outZipFile out
+mv $outZipFile out
 
 #echo indexSymbolFileList $indexSymbolFileList
