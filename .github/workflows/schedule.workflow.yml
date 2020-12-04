@@ -1,0 +1,155 @@
+name: Schedule
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  #push:
+    #branches: [ main ]
+  #pull_request:
+    #branches: [ main ]
+
+  # Can be triggered with curl
+  #repository_dispatch:
+    #types: [curl] 
+       
+  # Allows you to run this workflow manually from the Actions tab
+  #workflow_dispatch:
+    #inputs:
+      #symbolsParam:
+        #description: 'SYMBOLS - List of stock symbols like: "ADS.XETRA ALV.XETRA"'     
+        #required: true
+        #default: 'ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
+      #percentageParam:
+        #description: 'PERCENTAGE - "1" means 1 percent'     
+        #required: true
+        #default: '1'
+      #queryParam:
+        #description: 'QUERY - [online|offline]'     
+        #required: true
+        #default: 'online'
+      #ratedParam:
+        #description: 'RATED - [overrated|underrated]. List low/underrated stocks'     
+        #required: true
+        #default: 'underrated'
+      #stochasticParam:
+        #description: 'STOCHASTIC14 - "30" means 30/70 percent'     
+        #required: true
+        #default: '30'
+        
+  schedule:
+  # Every 10 minutes
+  # */10 * * * *  
+  # Every Monday at 13:00
+  # 0 13 * * 1
+  # At 00:00 on Saturday
+  # 0 0 * * 6 
+  # Every 2nd day
+  # 0 0 */2 * *  
+  # On Tue, Thr, Sat
+  # 0 0 * * 2,4,6 
+  - cron: "0 0 * * 2,4,6"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Set parameter from Curl
+      #- if: github.event.client_payload.symbols != ''
+        #name: With Curl parameters     
+        #run: |
+         # echo Parameters from Curl: symbols ${{ github.event.client_payload.symbols }}
+          #echo Parameters from Curl: percentage ${{ github.event.client_payload.percentage }}
+         #echo Parameters from Curl: query ${{ github.event.client_payload.query }}
+          #echo Parameters from Curl: rated ${{ github.event.client_payload.rated }}
+          ##echo Parameters from Curl: stochastic ${{ github.event.client_payload.stochastic }}
+          #symbolsCurl='${{ github.event.client_payload.symbols }}'
+          #percentageCurl='${{ github.event.client_payload.percentage }}'
+          #queryCurl='${{ github.event.client_payload.query }}'
+          #ratedCurl='${{ github.event.client_payload.rated }}'
+          #stochasticCurl='${{ github.event.client_payload.stochastic }}'
+            
+      # Runs a set of commands using the runners shell
+      - name: Run stock analyse
+        run: |
+          echo Start analyse...
+          export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+
+
+          #symbolsCurl='${{ github.event.client_payload.symbols }}'
+         
+
+          #symbolsDefault='${{ github.event.client_payload.symbols }}'          
+          #percentageDefault='${{ github.event.client_payload.percentage }}'
+          #queryDefault='${{ github.event.client_payload.query }}'
+          #ratedDefault='${{ github.event.client_payload.rated }}'
+          #stochasticDefault='${{ github.event.client_payload.stochastic }}'
+          
+          
+
+          #symbolsDefault='VOW.XETRA'
+          symbolsDefault='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
+          percentageDefault=1
+          queryDefault=online
+          ratedDefault=underrated
+          stochasticDefault=40
+
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
+          percentageInput=${{github.event.inputs.percentageParam}}
+          queryInput=${{github.event.inputs.queryParam}}
+          ratedInput=${{github.event.inputs.ratedParam}}
+          stochasticInput=${{github.event.inputs.stochasticParam}}
+          
+          symbolsVar=${symbolsInput:-$symbolsDefault}
+          percentageVar=${percentageInput:-$percentageDefault}
+          queryVar=${queryInput:-$queryDefault}
+          ratedVar=${ratedInput:-$ratedDefault}          
+          stochasticVar=${stochasticInput:-$stochasticDefault}          
+          
+          chmod +x ./analyse.sh
+          chmod +x ./analyse-dax2.sh
+          chmod +x ./analyse-dax30.sh
+          chmod +x ./analyse-eurostoxx50.sh
+          chmod +x ./analyse-xetra100.sh
+          chmod +x ./analyse-xetra1000.sh
+
+          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar
+
+          #git reset --hard origin/main
+          #git pull
+          #git config user.email "markus@hopf-it.de"
+          #git config user.name "Markus Hopf"
+          #git add ./data/*
+          #git add ./out/*.html 
+          #git add ./out/out.tar.gz
+          #git commit -am "Commit ./data with github action"
+          #git push 
+
+      - name: Send result via email
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.ionos.de
+          server_port: 465
+          #username: github(ä)h...-it.de
+          #password: g*1!
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}          
+          subject: Github stock-analyse actions "Schedule" result
+          # Literal body:
+          #body: Build job of ${{github.repository}} completed successfully!
+          # Read file contents as body:
+          body: file://./out/result.html
+          to: info@hopf-it.de
+          from: Github stock-analyse # <github@hopf-it.de>
+          # Optional content type (defaults to text/plain):
+          content_type: text/html          
+          # Optional attachments:
+          #attachments: ./out/result.html, ./out/out.tar.gz
+          attachments: ./out/out.tar.gz
