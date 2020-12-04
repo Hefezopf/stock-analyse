@@ -35,19 +35,6 @@ on:
         description: 'STOCHASTIC14 - "30" means 30/70 percent'     
         required: true
         default: '30'
-        
-  #schedule:
-  # Every 10 minutes
-  # */10 * * * *  
-  # Every Monday at 13:00
-  # 0 13 * * 1
-  # At 00:00 on Saturday
-  # 0 0 * * 6 
-  # Every 2nd day
-  # 0 0 */2 * *  
-  # On Tue, Thr, Sat
-  # 0 0 * * 2,4,6 
-  #- cron: "0 0 * * 2,4,6"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -61,21 +48,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Set parameter from cURL
-      #- if: github.event.client_payload.symbols != ''
-      #  name: With cURL parameters      
-        #run: |
-          #echo Parameters from Curl: symbols ${{ github.event.client_payload.symbols }}
-          #echo Parameters from Curl: percentage ${{ github.event.client_payload.percentage }}
-          #echo Parameters from Curl: query ${{ github.event.client_payload.query }}
-          #echo Parameters from Curl: rated ${{ github.event.client_payload.rated }}
-          #echo Parameters from Curl: stochastic ${{ github.event.client_payload.stochastic }}
-          #symbolsCurl='${{ github.event.client_payload.symbols }}'
-          #percentageCurl='${{ github.event.client_payload.percentage }}'
-          #queryCurl='${{ github.event.client_payload.query }}'
-          #ratedCurl='${{ github.event.client_payload.rated }}'
-          #stochasticCurl='${{ github.event.client_payload.stochastic }}'
-            
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
         run: |
