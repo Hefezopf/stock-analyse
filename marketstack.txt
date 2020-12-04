@@ -9,51 +9,31 @@ https://marketstack.com/usage
 https://github.com/Hefezopf/stock-analyse/actions
 
 
-## Analyse CON.XETRA ##
-./analyse.sh: 82: return: Illegal number: -100
-Error: Process completed with exit code 2.
-
-https://docs.github.com/en/free-pro-team@latest/rest/reference/actions#create-a-workflow-dispatch-event
+https://www.chartjs.org/docs/latest/charts/line.html
+https://www.chartjs.org/docs/latest/
 
 
-        default: 'MSF.XETRA APC.XETRA AMZ.XETRA ABEC.XETRA ABEA.XETRA AHLA.XETRA FB2A.XETRA BRYN.XETRA BRH.XETRA VODJ.XETRA 3V64.XETRA CMC.XETRA JNJ.XETRA WMT.XETRA M4I.XETRA NESM.XETRA PRG.XETRA SOBA.XETRA UNH.XETRA NCB.XETRA HDI.XETRA INL.XETRA CCC3.XETRA BAC.XETRA XONA.XETRA WDP.XETRA MOH.XETRA 6MK.XETRA CTP2.XETRA PFE.XETRA PEP.XETRA CHV.XETRA ADB.XETRA CIS.XETRA NWT.XETRA R6C.XETRA R6C3.XETRA NVD.XETRA NFC.XETRA ORC.XETRA BCO.XETRA FOO.XETRA LOR.XETRA MDO.XETRA SAP.XETRA NOVC.XETRA NKE.XETRA ABL.XETRA UNI2.XETRA TRVC.XETRA CTO.XETRA 2M6.XETRA BRM.XETRA TL0.XETRA 4I1.XETRA 4AB.XETRA 2PP.XETRA LLY.XETRA HBC1.XETRA AMG.XETRA ASMF.XETRA ZEG.XETRA SNW.XETRA ASME.XETRA ALD.XETRA 1TY.XETRA IBM.XETRA NOVA.XETRA TOTB.XETRA 1YD.XETRA LOM.XETRA UNP.XETRA 1NBA.XETRA TII.XETRA BPE.XETRA CQD.XETRA LIN.XETRA BPE5.XETRA DAP.XETRA GS7.XETRA IXD1.XETRA BIL.XETRA AIR.XETRA GIS.XETRA GEC.XETRA BMT.XETRA SRB.XETRA QCI.XETRA AEC1.XETRA ENL.XETRA ALV.XETRA MMM.XETRA VOW.XETRA CVS.XETRA GUI.XETRA SIE.XETRA KTF.XETRA UPAB.XETRA'
-
-
-          symbolsDefault='MSF.XETRA APC.XETRA AMZ.XETRA ABEC.XETRA ABEA.XETRA AHLA.XETRA FB2A.XETRA BRYN.XETRA BRH.XETRA VODJ.XETRA 3V64.XETRA CMC.XETRA JNJ.XETRA WMT.XETRA M4I.XETRA NESM.XETRA PRG.XETRA SOBA.XETRA UNH.XETRA NCB.XETRA HDI.XETRA INL.XETRA CCC3.XETRA BAC.XETRA XONA.XETRA WDP.XETRA MOH.XETRA 6MK.XETRA CTP2.XETRA PFE.XETRA PEP.XETRA CHV.XETRA ADB.XETRA CIS.XETRA NWT.XETRA R6C.XETRA R6C3.XETRA NVD.XETRA NFC.XETRA ORC.XETRA BCO.XETRA FOO.XETRA LOR.XETRA MDO.XETRA SAP.XETRA NOVC.XETRA NKE.XETRA ABL.XETRA UNI2.XETRA TRVC.XETRA CTO.XETRA 2M6.XETRA BRM.XETRA TL0.XETRA 4I1.XETRA 4AB.XETRA 2PP.XETRA LLY.XETRA HBC1.XETRA AMG.XETRA ASMF.XETRA ZEG.XETRA SNW.XETRA ASME.XETRA ALD.XETRA 1TY.XETRA IBM.XETRA NOVA.XETRA TOTB.XETRA 1YD.XETRA LOM.XETRA UNP.XETRA 1NBA.XETRA TII.XETRA BPE.XETRA CQD.XETRA LIN.XETRA BPE5.XETRA DAP.XETRA GS7.XETRA IXD1.XETRA BIL.XETRA AIR.XETRA GIS.XETRA GEC.XETRA BMT.XETRA SRB.XETRA QCI.XETRA AEC1.XETRA ENL.XETRA ALV.XETRA MMM.XETRA VOW.XETRA CVS.XETRA GUI.XETRA SIE.XETRA KTF.XETRA UPAB.XETRA'
+TODO:
+-----
+-Es sollen nur die geänderten HTML geschicht werden
+-Mehrere Strategien über Schalter anwenden
+-Warum ist die Stochastik bei EOAN immer 100?
+-Performance
+-Runden auf euro
+-Auflösung: Ticker zu wkn und Name
+-RSI- Relative Stärke (14)
+-MACD - Moving average convergence divergance (12,26,9)
 
 
 
 !!
-
 Github Token for cURL:
 cURL works only from unrestricted devices!
 
 GITHUB_TOKEN=cbf8fa08a037b3d1e14c78fc5e991204861a2704-1
 curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "MSF.XETRA", "percentage": "1", "query": "offline", "rated": "underrated", "stochastic": "40"}'
-
 !!
 
-date +"%T.%6N"
-
--Es sollen nur die geänderten HTML geschicht werden
-+wenn 2 stimmt das nciht! Underrated: EOAN.XETRA last 8.996 EUR is more then 0.99 under average18: 9.15356 EUR and under average38: 9.265 EUR and under average100: 9.66613 EUR. Stochastic14 is 9
--Mehrere Strategien über Schalter anwenden
-+eigene Action für schedule 
-+Curl
-+Dauer/status ausgeben
--Warum ist die Stochastik bei EOAN immer 100?
--Performance
-+HTML email
--Runden auf euro
--Auflösung: Ticker zu wkn und Name
--RSI- Relative Stärke (14)
--MACD - Moving average convergence divergance (12,26,9)
-+farben kurven chart black 18 purple 38 Rot 100 grün 
-+Unten Ausgabe letzer kurs Agv und Stochastik
-+Oben oder unten: Datum ausgeben von wann der Chart ist!
-+Werte mit git unter /data speichern
-+Slow stochastik (14,3,3) Fast Stochastik %K = ((C – Ln )/( Hn – Ln )) * 100 %D
-+Slow stochastik as Chart
 
 einpacken
 tar -zcvf out.tar.gz out
@@ -61,23 +41,7 @@ tar -zcvf out.tar.gz out
 auspacken
 tar -xvf out.tar.gz
 
-
 start chrome "http://www.google.com/search?tbm=fin&q=ADS.XETRA" "http://www.google.com/search?tbm=fin&q=ALV.XETRA" 
-
-
-	# Average
-	echo Average
-	xaverage18Raw=$(awk 'FNR>=1 && FNR<=18' ./data/values.${symbol}.txt | awk '{ sum += $1; } END { print sum/18; }')
-    echo $xaverage18Raw
-	#xaverage18Raw=$(awk 'FNR>=2 && FNR<=19' ./data/values.${symbol}.txt | awk '{ sum += $1; } END { print sum/18; }')
-    #echo $xaverage18Raw
-	#xaverage18Raw=$(awk 'FNR>=3 && FNR<=20' ./data/values.${symbol}.txt | awk '{ sum += $1; } END { print sum/18; }')
-    #echo $xaverage18Raw
-	
-	#head -n15 ./data/values.${symbol}.txt | tail -14 > ./out/values14.txt 
-	#head -n14 ./data/values.${symbol}.txt | awk '{ sum += $1; } END { print sum/14; }'
-	#head -n15 ./data/values.${symbol}.txt | tail -14 | awk '{ sum += $1; } END { print sum/14; }'
-
 
 BAYN
 curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=BAYN.XETRA" | jq '.data[0].volume'
@@ -91,16 +55,6 @@ curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MA
 https://www.google.com/search?q=MSF.XETRA
 
 
-https://www.comdirect.de/ovm/cd/api/1.0/derivatives/turbo?wkn=EOAN
-
-
-http://www.google.com/search?tbm=fin&q=EOAN.XETRA
-
-
-https://nutzer.comdirect.de/inf/aktien/detail/uebersicht.html?ID_INSTRUMENT=85841&SEARCH_REDIRECT=true&REDIRECT_TYPE=SYMBOL&REFERER=search.general&SEARCH_VALUE=INL
-
-
-
 https://github.com/Hefezopf/stock-analyse/actions
 
 https://github.com/Hefezopf/stock-analyse
@@ -108,12 +62,7 @@ https://github.com/Hefezopf/stock-analyse
 https://github.com/Hefezopf/stock-analyse.git
 
 
-http://api.marketstack.com/v1
-https://marketstack.com/usage
-
-
 curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA" |  jq '.'
-
 
 http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL
 
@@ -123,12 +72,9 @@ curl GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY
 
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL' | jq '.'
 
-
-GERMANY,"DE","CATS"
-
-	
+jq:
+---
 https://stedolan.github.io/jq/
-
 cat Xetra.json | jq '.data[].symbol'
 
 
@@ -136,22 +82,12 @@ MSF.XETRA APC.XETRA AMZ.XETRA ABEC.XETRA ABEA.XETRA AHLA.XETRA FB2A.XETRA BRYN.X
 
 https://github.com/dawidd6/action-send-mail
 
-
 https://jqplay.org/jq?q=.%5B0%5D&j=%5B%7B%22name%22%3A%22JSON%22%2C%20%22good%22%3Atrue%7D%2C%20%7B%22name%22%3A%22XML%22%2C%20%22good%22%3Afalse%7D%5D
 
 	
-
 curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA'
-
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=ALV.XETRA' | jq '.'
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].name'
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].close'
-
-
-
 curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
 
-https://www.chartjs.org/docs/latest/charts/line.html
-https://www.chartjs.org/docs/latest/
-
-cat test.txt | awk '{ sum += $1; } END { print sum; }'
