@@ -7,35 +7,7 @@ on:
     #branches: [ main ]
   #pull_request:
     #branches: [ main ]
-
-  # Can be triggered with curl
-  #repository_dispatch:
-    #types: [curl] 
        
-  # Allows you to run this workflow manually from the Actions tab
-  #workflow_dispatch:
-    #inputs:
-      #symbolsParam:
-        #description: 'SYMBOLS - List of stock symbols like: "ADS.XETRA ALV.XETRA"'     
-        #required: true
-        #default: 'ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
-      #percentageParam:
-        #description: 'PERCENTAGE - "1" means 1 percent'     
-        #required: true
-        #default: '1'
-      #queryParam:
-        #description: 'QUERY - [online|offline]'     
-        #required: true
-        #default: 'online'
-      #ratedParam:
-        #description: 'RATED - [overrated|underrated]. List low/underrated stocks'     
-        #required: true
-        #default: 'underrated'
-      #stochasticParam:
-        #description: 'STOCHASTIC14 - "30" means 30/70 percent'     
-        #required: true
-        #default: '30'
-        
   schedule:
   # Every 10 minutes
   # */10 * * * *  
@@ -47,7 +19,7 @@ on:
   # 0 0 */2 * *  
   # On Tue, Thr, Sat
   # 0 0 * * 2,4,6 
-  - cron: "*/10 * * * *"
+  - cron: "0 0 * * 2,4,6"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -60,21 +32,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Set parameter from Curl
-      #- if: github.event.client_payload.symbols != ''
-        #name: With Curl parameters     
-        #run: |
-         # echo Parameters from Curl: symbols ${{ github.event.client_payload.symbols }}
-          #echo Parameters from Curl: percentage ${{ github.event.client_payload.percentage }}
-         #echo Parameters from Curl: query ${{ github.event.client_payload.query }}
-          #echo Parameters from Curl: rated ${{ github.event.client_payload.rated }}
-          ##echo Parameters from Curl: stochastic ${{ github.event.client_payload.stochastic }}
-          #symbolsCurl='${{ github.event.client_payload.symbols }}'
-          #percentageCurl='${{ github.event.client_payload.percentage }}'
-          #queryCurl='${{ github.event.client_payload.query }}'
-          #ratedCurl='${{ github.event.client_payload.rated }}'
-          #stochasticCurl='${{ github.event.client_payload.stochastic }}'
             
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
@@ -82,43 +39,13 @@ jobs:
           echo Start analyse...
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
 
+          symbolsVar='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
+          percentageVar=1
+          queryVar=online
+          ratedVar=underrated
+          stochasticVar=30
 
-          #symbolsCurl='${{ github.event.client_payload.symbols }}'
-         
-
-          #symbolsDefault='${{ github.event.client_payload.symbols }}'          
-          #percentageDefault='${{ github.event.client_payload.percentage }}'
-          #queryDefault='${{ github.event.client_payload.query }}'
-          #ratedDefault='${{ github.event.client_payload.rated }}'
-          #stochasticDefault='${{ github.event.client_payload.stochastic }}'
-          
-          
-
-          #symbolsDefault='VOW.XETRA'
-          symbolsDefault='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
-          percentageDefault=1
-          queryDefault=offline
-          ratedDefault=underrated
-          stochasticDefault=44
-
-          symbolsInput="${{github.event.inputs.symbolsParam}}"
-          percentageInput=${{github.event.inputs.percentageParam}}
-          queryInput=${{github.event.inputs.queryParam}}
-          ratedInput=${{github.event.inputs.ratedParam}}
-          stochasticInput=${{github.event.inputs.stochasticParam}}
-          
-          symbolsVar=${symbolsInput:-$symbolsDefault}
-          percentageVar=${percentageInput:-$percentageDefault}
-          queryVar=${queryInput:-$queryDefault}
-          ratedVar=${ratedInput:-$ratedDefault}          
-          stochasticVar=${stochasticInput:-$stochasticDefault}          
-          
           chmod +x ./analyse.sh
-          chmod +x ./analyse-dax2.sh
-          chmod +x ./analyse-dax30.sh
-          chmod +x ./analyse-eurostoxx50.sh
-          chmod +x ./analyse-xetra100.sh
-          chmod +x ./analyse-xetra1000.sh
 
           sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar
 
