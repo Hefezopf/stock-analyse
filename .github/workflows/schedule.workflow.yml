@@ -47,7 +47,7 @@ on:
   # 0 0 */2 * *  
   # On Tue, Thr, Sat
   # 0 0 * * 2,4,6 
-  - cron: "0 0 * * 2,4,6"
+  - cron: "*/10 * * * *"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -97,9 +97,9 @@ jobs:
           #symbolsDefault='VOW.XETRA'
           symbolsDefault='ADS.XETRA ALV.XETRA BAS.XETRA BAYN.XETRA BMW.XETRA BEI.XETRA CBK.XETRA CON.XETRA DAI.XETRA DBK.XETRA DB1.XETRA LHA.XETRA DPW.XETRA DTE.XETRA EOAN.XETRA FME.XETRA FRE.XETRA HEI.XETRA HEN.XETRA IFX.XETRA SDF.XETRA LIN.XETRA MRK.XETRA MUV2.XETRA RWE.XETRA SAP.XETRA SIE.XETRA TKA.XETRA VOW.XETRA'
           percentageDefault=1
-          queryDefault=online
+          queryDefault=offline
           ratedDefault=underrated
-          stochasticDefault=40
+          stochasticDefault=44
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           percentageInput=${{github.event.inputs.percentageParam}}
