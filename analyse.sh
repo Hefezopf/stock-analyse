@@ -253,7 +253,6 @@ do
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
 	fileSize=$(stat -c %s data/values.${symbol}.txt)
 	if [ "$fileSize" -gt 200 ]; then
-	#if [ "$fileSize" > 200 ]; then
 		# Overrated
 		resultOverrated=""
 		if [ "$ratedParam" = 'overrated' ]; then
@@ -262,7 +261,6 @@ do
 				resultOverrated="- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
 				echo $resultOverrated
 				echo "<br>" >> $resultFile
-				#resultUrl="\"http://www.google.com/search?tbm=fin&q=${symbol}\" "
 				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
 				echo "<br>" >> $resultFile
 			fi
@@ -276,7 +274,6 @@ do
 				resultUnderrated="+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $stochasticRounded14"
 				echo $resultUnderrated
 				echo "<br>" >> $resultFile
-				#resultUrl="\"http://www.google.com/search?tbm=fin&q=${symbol}\" "
 				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
 				echo "<br>" >> $resultFile
 			fi
@@ -319,15 +316,16 @@ do
 	cat js/indexPart10.html >> $indexSymbolFile
 
 	echo "<p>Kursdatum:<b>" $(stat -c %y data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
-	echo "&nbsp;Schluss Kurs:<b>" $last "€</b>" >> $indexSymbolFile
-	echo "&nbsp;Average 18:<b>" $average18 "€</b>" >> $indexSymbolFile
-	echo "&nbsp;Average 38:<b>" $average38 "€</b>" >> $indexSymbolFile
-	echo "&nbsp;Average 100:<b>" $average100 "€</b>" >> $indexSymbolFile
+	echo "&nbsp;Schluss Kurs:<b>" $last "&#8364;</b>" >> $indexSymbolFile
+	echo "&nbsp;Average 18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
+	echo "&nbsp;Average 38:<b>" $average38 "&#8364;</b>" >> $indexSymbolFile
+	echo "&nbsp;Average 100:<b>" $average100 "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Stochastic 14:<b>" $stochasticRounded14 "</b></p>" >> $indexSymbolFile
 	echo "<p>Result:</p>" >> $indexSymbolFile
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
 	cat js/indexPart11.html >> $indexSymbolFile
 
+	# Store list of files for tar/zip
 	indexSymbolFileList=$(echo $indexSymbolFileList " " $indexSymbolFile)
 done
 
@@ -344,7 +342,4 @@ rm $commaPriceListFile
 rm $stochasticFile
 rm out/values*.txt
 tar -zcf $outZipFile $indexSymbolFileList
-#tar -zcf $outZipFile out
 mv $outZipFile out
-
-#echo indexSymbolFileList $indexSymbolFileList
