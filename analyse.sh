@@ -32,6 +32,7 @@ touch ./out/$outZipFile
 resultFile=./out/result.html
 rm -rf $resultFile
 htmlEnd=$(echo "</p><p>Thanks</p></div></body></html>" )
+SECONDS=0
 
 # Email header
 htmlHeader=$(echo "<html><head><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div id="body"><p>Stock Analyse,</p><p>")
@@ -321,7 +322,7 @@ do
 	echo "&nbsp;Average 38:<b>" $average38 "€</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 100:<b>" $average100 "€</b>" >> $indexSymbolFile
 	echo "&nbsp;Stochastic 14:<b>" $stochasticRounded14 "</b></p>" >> $indexSymbolFile
-	#echo "<br>" >> $indexSymbolFile
+	#if ??
 	echo "<p>Result:</p>" >> $indexSymbolFile
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
 	echo "<p>Result Url:</p>" >> $indexSymbolFile
@@ -330,6 +331,10 @@ do
 done
 
 echo $htmlEnd >> $resultFile
+
+# Time measurement
+duration=$SECONDS
+echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
 
 # Cleanup
 rm $commaPriceListFile
