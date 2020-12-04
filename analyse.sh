@@ -31,8 +31,7 @@ touch ./out/$outZipFile
 resultFile=./out/result.html
 rm -rf $resultFile
 htmlEnd=$(echo "</p><p>Thanks</p></div></body></html>" )
-#SECONDS=0
-START=$(date +%s);
+START_TIME_MEASUREMENT=$(date +%s);
 
 # Email header
 htmlHeader=$(echo "<html><head><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div id="body"><p>Stock Analyse,</p><p>")
@@ -335,10 +334,9 @@ done
 echo $htmlEnd >> $resultFile
 
 # Time measurement
-#duration=$SECONDS
-#echo "$(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
-END=$(date +%s);
-echo $((END-START)) | awk '{print int($1/60)":"int($1%60)}'
+END_TIME_MEASUREMENT=$(date +%s);
+echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
+echo "time elapsed."
 
 # Cleanup
 rm $commaPriceListFile
