@@ -202,12 +202,17 @@ do
 	fi
 done
 
-echo " "
+#echo " "
 echo "<br>" >> $OUT_RESULT_FILE
 
-# Analyse data
+# Analyse data for each symbol
 for symbol in $symbolsParam
 do
+	#
+	# Gather data
+	#
+
+echo " "
 	echo "# Analyse $symbol"
 	lastRaw=$(head -n1 -q data/values.${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
@@ -218,7 +223,7 @@ do
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
 
-    ProgressBar 1 7
+    ProgressBar 1 6
 
 	GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
@@ -245,14 +250,14 @@ do
 	GreaterThenWithFactor $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
 	LesserThenWithFactor $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
  
-    ProgressBar 2 7
+    ProgressBar 2 6
 
     # Calculate all Stochastic 14 values
 	stochasticInDays14=14
 	StochasticOfDays $stochasticInDays14
 	stochasticQuoteList14=$stochasticQuoteList
 
-    ProgressBar 3 7
+    ProgressBar 3 6
 
 	# Stochastics percentage
 	stochasticPercentageLower=$stochasticPercentageParam
@@ -263,21 +268,25 @@ do
 	AverageOfDays $averageInDays18
 	averagePriceList18=$averagePriceList
 
-	ProgressBar 4 7
+	ProgressBar 4 6
 
     # Average 38
 	averageInDays38=38
 	AverageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
-	ProgressBar 5 7
+	ProgressBar 5 6
 
     # Average 100
 	averageInDays100=100
 	AverageOfDays $averageInDays100
 	averagePriceList100=$averagePriceList
 
-	ProgressBar 6 7
+	ProgressBar 6 6
+
+	#
+	# Apply strategies
+	#
 
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
 	fileSize=$(stat -c %s data/values.${symbol}.txt)
@@ -307,12 +316,26 @@ do
 				echo "<br>" >> $OUT_RESULT_FILE
 			fi
 		fi
+	
+		# Low stochastik
+		resultLowStochastik=""
+		if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
+			resultLowStochastik="+ Low stochastik: $symbol has $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
+			echo $resultLowStochastik
+			echo "<br>" >> $OUT_RESULT_FILE
+			echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+			echo "<br>" >> $OUT_RESULT_FILE
+		fi
 	else
 	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
 	fi
 
-    # Chart schreiben index.${symbol}.html
+	#
+	# Output
+	#
+
+    # Writing chart index.${symbol}.html
 	commaPriceListFile=out/commaPriceListFile.txt
 	cat data/values.${symbol}.txt | tac > $commaPriceListFile
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
@@ -354,13 +377,12 @@ do
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
 	cat js/indexPart11.html >> $indexSymbolFile
 
-	# Store list of files for tar/zip for later 
+	# Store list of files for later (tar/zip)
 	indexSymbolFileList=$(echo $indexSymbolFileList " " $indexSymbolFile)
+
 done
 
 echo $HTML_END >> $OUT_RESULT_FILE
-
-ProgressBar 7 7
 
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);
