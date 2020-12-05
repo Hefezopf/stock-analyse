@@ -154,11 +154,12 @@ stochasticOfDays() {
 		greaterThen 1 $highestStochastic14Raw $lowestStochastic14Raw; validStochastik=$?
 		if [ "$validStochastik" = 1 ]; then
 			# Formula=((C – Ln )/( Hn – Ln )) * 100
-			stochasticPrice=$(echo "$lastStochastic14Raw $lowestStochastic14Raw $highestStochastic14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
+			lastStochasticPrice=$(echo "$lastStochastic14Raw $lowestStochastic14Raw $highestStochastic14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
 		else
-			stochasticPrice=100
+			lastStochasticPrice=100
 		fi
-		stochasticList=$(echo $stochasticList $stochasticPrice",")
+
+		stochasticList=$(echo $stochasticList $lastStochasticPrice",")
 		i=$(( i + 1 ))
 	done
 }
@@ -215,25 +216,15 @@ do
 	greaterThen $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
 	lesserThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
 
-    # Stochastic
-	head -n14 data/values.${symbol}.txt > out/values14.txt
-	lowest14Raw=$(sort out/values14.txt | head -n 1)
-	highest14Raw=$(sort -r out/values14.txt | head -n 1)
-    greaterThen 1 $highest14Raw $lowest14Raw; validStochastik=$?
-	if [ "$validStochastik" = 1 ]; then
-	    # Formula=((C – Ln )/( Hn – Ln )) * 100
-		stochastic14=$(echo "$last $lowest14Raw $highest14Raw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
-	else
-		stochastic14=100
-	fi
-	round ${stochastic14} 0; stochasticRounded14=$?
-	stochasticPercentageLower=$stochasticPercentageParam
-	stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
-
-	# Stochastic 14
+    # Calculate all Stochastic 14 values
 	stochasticInDays14=14
 	stochasticOfDays $stochasticInDays14
 	stochasticList14=$stochasticList
+
+	# Some other Stochastics
+	round ${lastStochasticPrice} 0; stochasticRounded14=$?
+	stochasticPercentageLower=$stochasticPercentageParam
+	stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
 
 	# Average 18
 	averageInDays18=18
@@ -325,7 +316,7 @@ do
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
 	cat js/indexPart11.html >> $indexSymbolFile
 
-	# Store list of files for tar/zip
+	# Store list of files for tar/zip for later 
 	indexSymbolFileList=$(echo $indexSymbolFileList " " $indexSymbolFile)
 done
 
