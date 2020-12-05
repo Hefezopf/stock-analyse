@@ -177,11 +177,11 @@ StochasticOfDays() {
 # ProgressBar function: Input is currentState($1) and totalState($2)
 ProgressBar() {
 	# Process data
-	let _progress=$(echo $((${1}*100/${2}*100))/100)
-	#let _progress=(${1}*100/${2}*100)/100
-	let _done=$(echo $((${_progress}*4))/10)
-	#let _done=(${_progress}*4)/10
-	let _left=40-$_done
+	#_progress=$(echo $((${1}*100/${2}*100))/100)
+	_progress=(${1}*100/${2}*100)/100
+	#_done=$(echo $((${_progress}*4))/10)
+	_done=(${_progress}*4)/10
+	_left=40-$_done
 	# Build progressbar string lengths
 	_fill=$(printf "%${_done}s")
 	_empty=$(printf "%${_left}s")                         
@@ -216,7 +216,7 @@ do
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
 
-    ProgressBar 1 7
+    #ProgressBar 1 7
 
 	GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
@@ -243,14 +243,14 @@ do
 	GreaterThenWithFactor $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
 	LesserThenWithFactor $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
  
-    ProgressBar 2 7
+    #ProgressBar 2 7
 
     # Calculate all Stochastic 14 values
 	stochasticInDays14=14
 	StochasticOfDays $stochasticInDays14
 	stochasticQuoteList14=$stochasticQuoteList
 
-    ProgressBar 3 7
+    #ProgressBar 3 7
 
 	# Stochastics percentage
 	stochasticPercentageLower=$stochasticPercentageParam
@@ -261,21 +261,21 @@ do
 	AverageOfDays $averageInDays18
 	averagePriceList18=$averagePriceList
 
-	ProgressBar 4 7
+	#ProgressBar 4 7
 
     # Average 38
 	averageInDays38=38
 	AverageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
-	ProgressBar 5 7
+	#ProgressBar 5 7
 
     # Average 100
 	averageInDays100=100
 	AverageOfDays $averageInDays100
 	averagePriceList100=$averagePriceList
 
-	ProgressBar 6 7
+	#ProgressBar 6 7
 
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
 	fileSize=$(stat -c %s data/values.${symbol}.txt)
@@ -358,7 +358,7 @@ done
 
 echo $HTML_END >> $OUT_RESULT_FILE
 
-ProgressBar 7 7
+#ProgressBar 7 7
 
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);
