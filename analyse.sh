@@ -175,19 +175,19 @@ StochasticOfDays() {
 }
 
 # ProgressBar function: Input is currentState($1) and totalState($2)
-ProgressBar() {
-	# Process data
-	#_progress=$(echo $((${1}*100/${2}*100))/100)
-	_progress=(${1}*100/${2}*100)/100
-	#_done=$(echo $((${_progress}*4))/10)
-	_done=(${_progress}*4)/10
-	_left=40-$_done
-	# Build progressbar string lengths
-	_fill=$(printf "%${_done}s")
-	_empty=$(printf "%${_left}s")                         
-	# Progress : [########################################] 100%
-	printf "\r${_fill// /#}${_empty// /-} ${_progress}%%"
-}
+# ProgressBar() {
+# 	# Process data
+# 	#_progress=$(echo $((${1}*100/${2}*100))/100)
+# 	_progress=(${1}*100/${2}*100)/100
+# 	#_done=$(echo $((${_progress}*4))/10)
+# 	_done=(${_progress}*4)/10
+# 	_left=40-$_done
+# 	# Build progressbar string lengths
+# 	_fill=$(printf "%${_done}s")
+# 	_empty=$(printf "%${_left}s")                         
+# 	# Progress : [########################################] 100%
+# 	printf "\r${_fill// /#}${_empty// /-} ${_progress}%%"
+# }
 
 # Get data
 for symbol in $symbolsParam
