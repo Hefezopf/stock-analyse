@@ -26,6 +26,10 @@ https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.w
 
 ## cURL
 
+./curl.sh "INL.XETRA" 1 offline underrated 20
+
+or Example
+
 curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "INL.XETRA", "percentage": "1", "query": "offline", "rated": "underrated", "stochastic": "20"}'
 
 
