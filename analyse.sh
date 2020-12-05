@@ -25,102 +25,104 @@ stochasticPercentageParam=$5
 
 # Prepare
 mkdir -p out
-outZipFile=out.tar.gz
-rm -rf out/$outZipFile
-touch out/$outZipFile
-resultFile=out/result.html
-rm -rf $resultFile
-htmlEnd=$(echo "</p><p>Thanks</p></div></body></html>" )
+OUT_ZIP_FILE=out.tar.gz
+rm -rf out/$OUT_ZIP_FILE
+touch out/$OUT_ZIP_FILE
+OUT_RESULT_FILE=out/result.html
+rm -rf $OUT_RESULT_FILE
+HTML_END=$(echo "</p><p>Thanks</p></div></body></html>" )
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Email header
 htmlHeader=$(echo "<html><head><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div id="body"><p>Stock Analyse,</p><p>")
-echo $htmlHeader > $resultFile
+echo $htmlHeader > $OUT_RESULT_FILE
 
 # Check parameter
 if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] ; then
 	echo ""
 else
-	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $resultFile
-	echo "<br>" >> $resultFile
-	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $resultFile
-	echo "<br>" >> $resultFile
-	echo " PERCENTAGE: Percentage number between 0..100" | tee -a $resultFile
-	echo "<br>" >> $resultFile
-	echo " QUERY: Query data online|offline" | tee -a $resultFile
-	echo "<br>" >> $resultFile
-	echo " RATED: List only overrated|underrated" | tee -a $resultFile
-	echo "<br>" >> $resultFile
-	echo " STOCHASTIC14: Percentage for stochastic indicator" | tee -a $resultFile
-	echo "<br>" >> $resultFile
-	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20" | tee -a $resultFile
-	echo "<br>" >> $resultFile
-    echo $htmlEnd >> $resultFile
+	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE
+	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE
+	echo " PERCENTAGE: Percentage number between 0..100" | tee -a $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE
+	echo " QUERY: Query data online|offline" | tee -a $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE
+	echo " RATED: List only overrated|underrated" | tee -a $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE
+	echo " STOCHASTIC14: Percentage for stochastic indicator" | tee -a $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE
+	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20" | tee -a $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE
+    echo $HTML_END >> $OUT_RESULT_FILE
 	exit
 fi
 
 if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
-	echo "Error: MARKET_STACK_ACCESS_KEY not set!" | tee -a $resultFile
-	echo "<br>" >> $resultFile
-    echo $htmlEnd >> $resultFile
+	echo "Error: MARKET_STACK_ACCESS_KEY not set!" | tee -a $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE
+    echo $HTML_END >> $OUT_RESULT_FILE
 	exit
 fi
 
 percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
 percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
 
-echo "# Analyse parameter" | tee -a $resultFile
-echo "<br>" >> $resultFile
-echo "Symbols: $symbolsParam" | tee -a $resultFile
-echo "<br>" >> $resultFile
-echo "Percentage: $percentageParam" | tee -a $resultFile
-echo "<br>" >> $resultFile
-echo "Query: $queryParam" | tee -a $resultFile
-echo "<br>" >> $resultFile
-echo "Rated: $ratedParam" | tee -a $resultFile
-echo "<br>" >> $resultFile
-echo "Stochastic14: $stochasticPercentageParam" | tee -a $resultFile
-echo "<br>" >> $resultFile
-echo " " >> $resultFile
-echo "<br>" >> $resultFile
-echo "# Result" >> $resultFile
-echo "<br>" >> $resultFile
-echo "https://github.com/Hefezopf/stock-analyse/actions" >> $resultFile
-echo "<br>" >> $resultFile
-echo " " | tee -a $resultFile
-echo "<br>" >> $resultFile
-echo "# URLs" >> $resultFile
-echo "<br>" >> $resultFile
-echo "start chrome " >> $resultFile
-echo "<br>" >> $resultFile
+echo "# Analyse parameter" | tee -a $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "Symbols: $symbolsParam" | tee -a $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "Percentage: $percentageParam" | tee -a $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "Query: $queryParam" | tee -a $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "Rated: $ratedParam" | tee -a $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "Stochastic14: $stochasticPercentageParam" | tee -a $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo " " >> $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "# Result" >> $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "https://github.com/Hefezopf/stock-analyse/actions" >> $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo " " | tee -a $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "# URLs" >> $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "start chrome " >> $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
 
-# lesserThen function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
-function lesserThen {
-    lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if awk 'BEGIN {exit !('$lesserValue' < '$3')}'; then
+# LesserThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+function LesserThenWithFactor {
+    _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
+    if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
 		return 1
 	else
 		return 0		
 	fi
 }
 
-# ProgressBar function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
-function greaterThen {
-	greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if awk 'BEGIN {exit !('$greaterValue' > '$3')}'; then
+# GreaterThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+function GreaterThenWithFactor {
+	_greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
+    if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
 		return 1
 	else
 		return 0
 	fi
 }
 
-# round function: Input is floatNumber($1), digitsAfterComma($2)
-function round {
+# RoundNumber function: Input is floatNumber($1), digitsAfterComma($2)
+function RoundNumber {
 	return $(printf "%.${2}f" "${1}")
 }
 
-# averageOfDays function: Input is amountOfDays($1)
-function averageOfDays {
+# AverageOfDays function:
+# Input is amountOfDays($1)
+# Output: averagePriceList is comma separted list
+function AverageOfDays {
 	averagePriceList=""
 	i=1
 	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
@@ -138,18 +140,20 @@ function averageOfDays {
 	done
 }
 
-# stochasticOfDays function: Input is amountOfDays($1)
-function stochasticOfDays {
+# StochasticOfDays function: Input is amountOfDays($1)
+# Output: stochasticQuoteList is comma separted list
+function StochasticOfDays {
 	stochasticFile=out/stochastic.txt
-	stochasticList=""
+	stochasticQuoteList=""
 	i=1
 	# Fill with blank comma seperated data
 	while [ "$i" -lt "${1}" ]; do 
-		stochasticList=$(echo $stochasticList ",")
+		stochasticQuoteList=$(echo $stochasticQuoteList ",")
 		i=$(( i + 1 ))
 	done 
 
 	i=0
+	# TODO optimize not 100 loop?!
 	while [ "$i" -le $((100-$1)) ];
 	do
 		headLines=$(echo $((100-$i)))
@@ -157,15 +161,15 @@ function stochasticOfDays {
 		lastStochasticRaw=$(head -n 1 $stochasticFile)
 		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
 		highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
-		greaterThen 1 $highestStochasticRaw $lowestStochasticRaw; validStochastik=$?
+		GreaterThenWithFactor 1 $highestStochasticRaw $lowestStochasticRaw; validStochastik=$?
 		if [ "$validStochastik" = 1 ]; then
 			# Formula=((C – Ln )/( Hn – Ln )) * 100
-			lastStochasticPrice=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
+			lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
 		else
-			lastStochasticPrice=100
+			lastStochasticQuote=100
 		fi
-	    round ${lastStochasticPrice} 0; lastStochasticPriceRounded=$?
-		stochasticList=$(echo $stochasticList $lastStochasticPriceRounded",")
+	    RoundNumber ${lastStochasticQuote} 0; lastStochasticQuoteRounded=$?
+		stochasticQuoteList=$(echo $stochasticQuoteList $lastStochasticQuoteRounded",")
 		i=$(( i + 1 ))
 	done
 }
@@ -195,7 +199,7 @@ do
 done
 
 echo " "
-echo "<br>" >> $resultFile
+echo "<br>" >> $OUT_RESULT_FILE
 
 # Analyse data
 for symbol in $symbolsParam
@@ -212,45 +216,37 @@ do
 
     ProgressBar 1 7
 
-	greaterThen $percentageGreaterFactor $last $average18; lastOverAgv18=$?
-	lesserThen $percentageLesserFactor $last $average18; lastUnderAgv18=$?
+	GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
+	LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
 	head -n38 data/values.${symbol}.txt > out/values38.txt
 	average38Raw=$(cat out/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	#average38=$(printf "%'.2f\n" $average38Raw)
 	average38=$average38Raw
-	greaterThen $percentageGreaterFactor $last $average38; lastOverAgv38=$?
-    lesserThen $percentageLesserFactor $last $average38;lastUnderAgv38=$?
+	GreaterThenWithFactor $percentageGreaterFactor $last $average38; lastOverAgv38=$?
+    LesserThenWithFactor $percentageLesserFactor $last $average38;lastUnderAgv38=$?
 	
 	head -n100 data/values.${symbol}.txt > out/values100.txt
 	average100Raw=$(cat out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	#average100=$(printf "%'.2f\n" $average100Raw)
 	average100=$average100Raw
-	greaterThen $percentageGreaterFactor $last $average100; lastOverAgv100=$?
-	lesserThen $percentageLesserFactor $last $average100; lastUnderAgv100=$?
+	GreaterThenWithFactor $percentageGreaterFactor $last $average100; lastOverAgv100=$?
+	LesserThenWithFactor $percentageLesserFactor $last $average100; lastUnderAgv100=$?
 
     # Averages
-	greaterThen $percentageGreaterFactor $average18 $average38; agv18OverAgv38=$?
-	lesserThen $percentageLesserFactor $average18 $average38; agv18UnderAgv38=$?
-	greaterThen $percentageGreaterFactor $average38 $average100; agv38OverAgv100=$?
-	lesserThen $percentageLesserFactor $average38 $average100; agv38UnderAgv100=$?
-	greaterThen $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
-	lesserThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
+	GreaterThenWithFactor $percentageGreaterFactor $average18 $average38; agv18OverAgv38=$?
+	LesserThenWithFactor $percentageLesserFactor $average18 $average38; agv18UnderAgv38=$?
+	GreaterThenWithFactor $percentageGreaterFactor $average38 $average100; agv38OverAgv100=$?
+	LesserThenWithFactor $percentageLesserFactor $average38 $average100; agv38UnderAgv100=$?
+	GreaterThenWithFactor $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
+	LesserThenWithFactor $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
  
     ProgressBar 2 7
 
-
-START_TIME_MEASUREMENT=$(date +%s);
-
     # Calculate all Stochastic 14 values
 	stochasticInDays14=14
-	stochasticOfDays $stochasticInDays14
-	stochasticList14=$stochasticList
-
-END_TIME_MEASUREMENT=$(date +%s);
-echo " "
-echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
-
+	StochasticOfDays $stochasticInDays14
+	stochasticQuoteList14=$stochasticQuoteList
 
     ProgressBar 3 7
 
@@ -260,21 +256,21 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 
 	# Average 18
 	averageInDays18=18
-	averageOfDays $averageInDays18
+	AverageOfDays $averageInDays18
 	averagePriceList18=$averagePriceList
 
 	ProgressBar 4 7
 
     # Average 38
 	averageInDays38=38
-	averageOfDays $averageInDays38
+	AverageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
 	ProgressBar 5 7
 
     # Average 100
 	averageInDays100=100
-	averageOfDays $averageInDays100
+	AverageOfDays $averageInDays100
 	averagePriceList100=$averagePriceList
 
 	ProgressBar 6 7
@@ -285,31 +281,31 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 		# Overrated
 		resultOverrated=""
 		if [ "$ratedParam" = 'overrated' ]; then
-			if [ "$lastStochasticPriceRounded" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
+			if [ "$lastStochasticQuoteRounded" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
 			   [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
-				resultOverrated="- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $lastStochasticPriceRounded"
+				resultOverrated="- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
 				echo $resultOverrated
-				echo "<br>" >> $resultFile
-				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
-				echo "<br>" >> $resultFile
+				echo "<br>" >> $OUT_RESULT_FILE
+				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+				echo "<br>" >> $OUT_RESULT_FILE
 			fi
 		fi
 	
 		# Underrated
 		resultUnderrated=""
 		if [ "$ratedParam" = 'underrated' ]; then
-			if [ "$lastStochasticPriceRounded" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
+			if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
 			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
-				resultUnderrated="+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $lastStochasticPriceRounded"
+				resultUnderrated="+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
 				echo $resultUnderrated
-				echo "<br>" >> $resultFile
-				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $resultFile
-				echo "<br>" >> $resultFile
+				echo "<br>" >> $OUT_RESULT_FILE
+				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+				echo "<br>" >> $OUT_RESULT_FILE
 			fi
 		fi
 	else
-	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $resultFile
-		echo "<br>" >> $resultFile
+	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
+		echo "<br>" >> $OUT_RESULT_FILE
 	fi
 
     # Chart schreiben index.${symbol}.html
@@ -341,7 +337,7 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 	echo $averagePriceList100 >> $indexSymbolFile
 	cat js/indexPart9.html >> $indexSymbolFile
 
-	echo $stochasticList14 >> $indexSymbolFile
+	echo $stochasticQuoteList14 >> $indexSymbolFile
 	cat js/indexPart10.html >> $indexSymbolFile
 
 	echo "<p>Kursdatum:<b>" $(stat -c %y data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
@@ -349,7 +345,7 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 	echo "&nbsp;Average 18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 38:<b>" $average38 "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 100:<b>" $average100 "&#8364;</b>" >> $indexSymbolFile
-	echo "&nbsp;Stochastic 14:<b>" $lastStochasticPriceRounded "</b></p>" >> $indexSymbolFile
+	echo "&nbsp;Stochastic 14:<b>" $lastStochasticQuoteRounded "</b></p>" >> $indexSymbolFile
 	echo "<p>Result:</p>" >> $indexSymbolFile
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
 	cat js/indexPart11.html >> $indexSymbolFile
@@ -358,7 +354,7 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 	indexSymbolFileList=$(echo $indexSymbolFileList " " $indexSymbolFile)
 done
 
-echo $htmlEnd >> $resultFile
+echo $HTML_END >> $OUT_RESULT_FILE
 
 ProgressBar 7 7
 
@@ -372,5 +368,5 @@ echo "time elapsed."
 rm $commaPriceListFile
 rm $stochasticFile
 rm out/values*.txt
-tar -zcf $outZipFile $indexSymbolFileList
-mv $outZipFile out
+tar -zcf $OUT_ZIP_FILE $indexSymbolFileList
+mv $OUT_ZIP_FILE out
