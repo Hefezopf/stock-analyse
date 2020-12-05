@@ -89,8 +89,6 @@ jobs:
 
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
-        echo github.sha
-        echo github.event_name
         with:
           server_address: smtp.ionos.de
           server_port: 465
@@ -98,7 +96,7 @@ jobs:
           #password: g*1!
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}          
-          subject: Github stock-analyse actions "Manually/cURL" result
+          subject: Github stock-analyse actions "Manually/cURL" result ${{github.event_name}}
           # Literal body:
           #body: Build job of ${{github.repository}} completed successfully!
           # Read file contents as body:
