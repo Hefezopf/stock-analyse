@@ -195,7 +195,7 @@ ProgressBar() {
 	_fill=$(printf "%${_done}s")
 	_empty=$(printf "%${_left}s")                         
 	# Progress : [########################################] 100%
-	printf "\r${_fill// /#}${_empty// /-} ${_progress}%%"
+	echo $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
 }
 
 # Get data
