@@ -185,10 +185,23 @@ ProgressBar() {
 	# Build progressbar string lengths
 	_fill=$(printf "%${_done}s")
 	_empty=$(printf "%${_left}s")                         
-	# Progress : [########################################] 100%
-	#echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
-	prin=$(echo $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%") )
-	echo $prin
+	# Progress: ######################################## 100%
+	#printf "\r${_fill// /#}${_empty// /-} ${_progress}%%"
+	
+
+platform='unknown'
+unamestr=$( uname )
+#unamestr=`uname`
+echo $unamestr
+if [[ "$unamestr" == 'MINGW64_NT-10.0-18363' ]]; then
+   platform='linux'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+   platform='freebsd'
+fi
+echo $platform
+
+
+	echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
 }
 
 # Get data
