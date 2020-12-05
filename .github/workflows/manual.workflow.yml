@@ -60,7 +60,6 @@ jobs:
           ratedDefault='${{ github.event.client_payload.rated }}'
           stochasticDefault='${{ github.event.client_payload.stochastic }}'  
 
-          #symbolsInput="${{github.event.inputs.symbolsParam}}"
           symbolsInput=${{github.event.inputs.symbolsParam}}
           percentageInput=${{github.event.inputs.percentageParam}}
           queryInput=${{github.event.inputs.queryParam}}
@@ -81,15 +80,11 @@ jobs:
 
           sh ./analyse.sh $symbolsVar $percentageVar $queryVar $ratedVar $stochasticVar
 
-          #git reset --hard origin/main
-          #git config pull.ff only
-          #git pull
-
           git config user.email "markus@hopf-it.de"
           git config user.name "Markus Hopf"
           git add ./data/*
           git add ./out/*.html 
-          git add ./out/out.tar.gz
+          #git add ./out/out.tar.gz
           git commit -am "Commit ./data/* and ./out/* with github action"
           git push 
 
