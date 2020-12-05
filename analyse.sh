@@ -149,8 +149,8 @@ stochasticOfDays() {
 		headLines=$(echo $((100-$i)))
 		head -n$headLines data/values.${symbol}.txt | tail -"${1}" > $stochasticFile
 		lastStochasticRaw=$(head -n 1 $stochasticFile)
-		lowestStochasticRaw=$(sort $stochasticFile | head -n 1)
-		highestStochasticRaw=$(sort -r $stochasticFile | head -n 1)
+		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
+		highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
 		greaterThen 1 $highestStochasticRaw $lowestStochasticRaw; validStochastik=$?
 		if [ "$validStochastik" = 1 ]; then
 			# Formula=((C – Ln )/( Hn – Ln )) * 100
