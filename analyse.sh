@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
@@ -195,7 +195,7 @@ ProgressBar() {
 	_fill=$(printf "%${_done}s")
 	_empty=$(printf "%${_left}s")                         
 	# Progress : [########################################] 100%
-	echo $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
+	echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
 }
 
 # Get data
