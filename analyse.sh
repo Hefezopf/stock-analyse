@@ -188,8 +188,7 @@ ProgressBar() {
 	# Progress: ######################################## 100%
 	#printf "\r${_fill// /#}${_empty// /-} ${_progress}%%"
 	unamestr=$(uname)
-	#echo $unamestr
-	if [ "$unamestr" = 'MINGW64_NT-10.0-18363' ]; then
+	if [ $(uname) = 'MINGW64_NT-10.0-18363' ]; then
 		echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
 	fi
 }
