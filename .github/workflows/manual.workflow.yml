@@ -12,7 +12,7 @@ on:
   repository_dispatch:
     types: [curl] 
        
-  # Allows you to run this workflow manually from the Actions tab
+  # Can be triggered manually
   workflow_dispatch:
     inputs:
       symbolsParam:
@@ -96,7 +96,7 @@ jobs:
           #password: g*1!
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}          
-          subject: Github stock-analyse actions "Manually/cURL" result ${{github.event_name}}
+          subject: Github stock-analyse result ${{github.event_name}} "Manually/cURL" ${{github.event.action}}
           # Literal body:
           #body: Build job of ${{github.repository}} completed successfully!
           # Read file contents as body:
