@@ -177,8 +177,8 @@ StochasticOfDays() {
 # ProgressBar function: Input is currentState($1) and totalState($2)
 ProgressBar() {
 	# Process data
-	let _progress=(${1}*100/${2}*100)/100
-	let _done=(${_progress}*4)/10
+	_progress=(${1}*100/${2}*100)/100
+	_done=(${_progress}*4)/10
 	let _left=40-$_done
 	# Build progressbar string lengths
 	_fill=$(printf "%${_done}s")
