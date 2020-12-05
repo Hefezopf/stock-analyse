@@ -187,21 +187,11 @@ ProgressBar() {
 	_empty=$(printf "%${_left}s")                         
 	# Progress: ######################################## 100%
 	#printf "\r${_fill// /#}${_empty// /-} ${_progress}%%"
-	
-
-platform='unknown'
-unamestr=$( uname )
-#unamestr=`uname`
-echo $unamestr
-if [[ "$unamestr" == 'MINGW64_NT-10.0-18363' ]]; then
-   platform='linux'
-elif [[ "$unamestr" == 'FreeBSD' ]]; then
-   platform='freebsd'
-fi
-echo $platform
-
-
-	echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
+	unamestr=$( uname )
+	#echo $unamestr
+	if [[ "$unamestr" == 'MINGW64_NT-10.0-18363' ]]; then
+		echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
+	fi
 }
 
 # Get data
