@@ -26,7 +26,7 @@ on:
       queryParam:
         description: 'QUERY - [online|offline]'     
         required: true
-        default: 'online'
+        default: 'offline'
       ratedParam:
         description: 'RATED - [overrated|underrated]. List low/underrated stocks'     
         required: true
@@ -96,7 +96,7 @@ jobs:
           #password: g*1!
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}          
-          subject: Github stock-analyse result ${{github.event_name}} "Manually/cURL" ${{github.event.action}}
+          subject: Github stock-analyse result ${{github.event_name}} ${{github.event.action}}
           # Literal body:
           #body: Build job of ${{github.repository}} completed successfully!
           # Read file contents as body:
