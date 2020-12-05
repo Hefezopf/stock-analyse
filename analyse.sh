@@ -95,7 +95,7 @@ echo "start chrome " >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 
 # LesserThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
-LesserThenWithFactor {
+LesserThenWithFactor() {
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
 		return 1
@@ -105,7 +105,7 @@ LesserThenWithFactor {
 }
 
 # GreaterThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
-GreaterThenWithFactor {
+GreaterThenWithFactor() {
 	_greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
 		return 1
@@ -115,14 +115,14 @@ GreaterThenWithFactor {
 }
 
 # RoundNumber function: Input is floatNumber($1), digitsAfterComma($2)
-RoundNumber {
+RoundNumber() {
 	return $(printf "%.${2}f" "${1}")
 }
 
 # AverageOfDays function:
 # Input is amountOfDays($1)
 # Output: averagePriceList is comma separted list
-AverageOfDays {
+AverageOfDays() {
 	averagePriceList=""
 	i=1
 	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
@@ -142,7 +142,7 @@ AverageOfDays {
 
 # StochasticOfDays function: Input is amountOfDays($1)
 # Output: stochasticQuoteList is comma separted list
-StochasticOfDays {
+StochasticOfDays() {
 	stochasticFile=out/stochastic.txt
 	stochasticQuoteList=""
 	i=1
@@ -175,7 +175,7 @@ StochasticOfDays {
 }
 
 # ProgressBar function: Input is currentState($1) and totalState($2)
-ProgressBar {
+ProgressBar() {
 	# Process data
 	let _progress=(${1}*100/${2}*100)/100
 	let _done=(${_progress}*4)/10
