@@ -94,7 +94,8 @@ echo "<br>" >> $resultFile
 echo "start chrome " >> $resultFile
 echo "<br>" >> $resultFile
 
-lesserThen () {
+# lesserThen function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+function lesserThen {
     lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$lesserValue' < '$3')}'; then
 		return 1
@@ -103,7 +104,8 @@ lesserThen () {
 	fi
 }
 
-greaterThen () {
+# ProgressBar function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+function greaterThen {
 	greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$greaterValue' > '$3')}'; then
 		return 1
@@ -112,11 +114,13 @@ greaterThen () {
 	fi
 }
 
-round() {
+# round function: Input is floatNumber($1), digitsAfterComma($2)
+function round {
 	return $(printf "%.${2}f" "${1}")
 }
 
-averageOfDays() {
+# averageOfDays function: Input is amountOfDays($1)
+function averageOfDays {
 	averagePriceList=""
 	i=1
 	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
@@ -134,11 +138,13 @@ averageOfDays() {
 	done
 }
 
-stochasticOfDays() {
+# stochasticOfDays function: Input is amountOfDays($1)
+function stochasticOfDays {
 	stochasticFile=out/stochastic.txt
 	stochasticList=""
 	i=1
-	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
+	# Fill with blank comma seperated data
+	while [ "$i" -lt "${1}" ]; do 
 		stochasticList=$(echo $stochasticList ",")
 		i=$(( i + 1 ))
 	done 
@@ -162,6 +168,19 @@ stochasticOfDays() {
 		stochasticList=$(echo $stochasticList $lastStochasticPriceRounded",")
 		i=$(( i + 1 ))
 	done
+}
+
+# ProgressBar function: Input is currentState($1) and totalState($2)
+function ProgressBar {
+	# Process data
+	let _progress=(${1}*100/${2}*100)/100
+	let _done=(${_progress}*4)/10
+	let _left=40-$_done
+	# Build progressbar string lengths
+	_fill=$(printf "%${_done}s")
+	_empty=$(printf "%${_left}s")                         
+	# Progress : [########################################] 100%
+	printf "\r${_fill// /#}${_empty// /-} ${_progress}%%"
 }
 
 # Get data
@@ -190,7 +209,9 @@ do
 	average18Raw=$(cat out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
-	
+
+    ProgressBar 1 7
+
 	greaterThen $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	lesserThen $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
@@ -215,11 +236,23 @@ do
 	lesserThen $percentageLesserFactor $average38 $average100; agv38UnderAgv100=$?
 	greaterThen $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
 	lesserThen $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
+ 
+    ProgressBar 2 7
+
+
+START_TIME_MEASUREMENT=$(date +%s);
 
     # Calculate all Stochastic 14 values
 	stochasticInDays14=14
 	stochasticOfDays $stochasticInDays14
 	stochasticList14=$stochasticList
+
+END_TIME_MEASUREMENT=$(date +%s);
+echo " "
+echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
+
+
+    ProgressBar 3 7
 
 	# Stochastics percentage
 	stochasticPercentageLower=$stochasticPercentageParam
@@ -230,15 +263,21 @@ do
 	averageOfDays $averageInDays18
 	averagePriceList18=$averagePriceList
 
+	ProgressBar 4 7
+
     # Average 38
 	averageInDays38=38
 	averageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
+	ProgressBar 5 7
+
     # Average 100
 	averageInDays100=100
 	averageOfDays $averageInDays100
 	averagePriceList100=$averagePriceList
+
+	ProgressBar 6 7
 
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
 	fileSize=$(stat -c %s data/values.${symbol}.txt)
@@ -320,6 +359,8 @@ do
 done
 
 echo $htmlEnd >> $resultFile
+
+ProgressBar 7 7
 
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);
