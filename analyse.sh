@@ -197,49 +197,30 @@ stochasticQuoteList=$(echo " , , , , 4, 9, 6, 8,")
 # Revers and output the last x numbers
 stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
 
-    IFS="," set -- $stochasticQuoteList
-    #if [ "$3" = "Sangamithra" ]; then
-        printf "%s" "$3|$2|$1"
-    #fi
-# IFS=',' read -r -a array < <(echo "$stochasticQuoteList")
-#     if [ "${array[2]}" == "Sangamithra" ]; then
-#         printf "%s" "${array[2]}|${array[1]}|${array[0]}"
-#     fi
-
+IFS="," set -- $stochasticQuoteList
+printf "%s" "$3|$2|$1"
 
 lowValue=8
 inc=0
-#IFS=',' read -r -a array <<< "$stochasticQuoteList"
-echo ssss ${array[@]}
-for i in "${array[@]}"; do
-	i=$(echo "$i" | awk '{gsub(/^[ \t]+| [ \t]+$/,""); print $0 }')
-	#echo iii $i und lowValue $lowValue
-	if [ "$i" -lt "$lowValue" ]; then
+
+echo " "		
+echo "1:" "$1"
+echo "2:" "$2"
+
+w=$(echo "$1" | cut -b 2-3)
+echo w $w 
+ww=$(echo "$2" | cut -b 2-3)
+echo ww $ww 
+
+if [ "$w" -lt "$lowValue" ]; then
 		inc=$(($inc + 1))
-	fi
-done
+fi
+if [ "$ww" -lt "$lowValue" ]; then
+		inc=$(($inc + 1))
+fi
 if [ "$inc" -lt 4 ]; then
 	echo So oft: $inc inden letzten 4 Quotes unter Schwellwert: $lowValue
 fi
-
-lowValue=8
-inc=0
-#IFS=',' read -ra ADDR <<< "$stochasticQuoteList"
-# IFS=',' read -ra ADDR <<EOL
-# $stochasticQuoteList
-# EOL
-# echo $ADDR
-
-# for i in "${ADDR[@]}"; do
-# 	i=$(echo "$i" | awk '{gsub(/^[ \t]+| [ \t]+$/,""); print $0 }')
-# 	#echo iii $i und lowValue $lowValue
-# 	if [ "$i" -lt "$lowValue" ]; then
-# 		inc=$(($inc + 1))
-# 	fi
-# done
-# if [ "$inc" -lt 4 ]; then
-# 	echo So oft: $inc inden letzten 4 Quotes unter Schwellwert: $lowValue
-# fi
 exit
 
 
