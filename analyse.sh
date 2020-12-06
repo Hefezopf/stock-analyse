@@ -198,7 +198,8 @@ stochasticQuoteList=$(echo " , , , , 4, 9, 6, 8,")
 stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
 
 array=$(echo "$stochasticQuoteList" | sed 's/,/\n/g')
-echo jjj "$index ${array[index]}"
+#echo jjj "$index ${array[index]}"
+echo jjj "${array[@]}"
 echo kkkk
 #IFS=',' read -r -a array <<< "$stochasticQuoteList"
 for index in "${!array[@]}"
