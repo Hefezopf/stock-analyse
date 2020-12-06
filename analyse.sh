@@ -420,7 +420,7 @@ fi
 	cat js/indexPart11.html >> $indexSymbolFile
 
 	# Store list of files for later (tar/zip)
-	indexSymbolFileList=$(echo $indexSymbolFileList " " $indexSymbolFile)
+	indexSymbolFileList=$(echo $indexSymbolFileList "" $indexSymbolFile)
 
 done
 
