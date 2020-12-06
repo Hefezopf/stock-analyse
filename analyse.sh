@@ -24,7 +24,6 @@ ratedParam=$4
 stochasticPercentageParam=$5
 
 # Prepare
-#rm -rf out
 mkdir -p out
 OUT_ZIP_FILE=out.tar.gz
 rm -rf out/$OUT_ZIP_FILE
@@ -382,7 +381,7 @@ fi
 	commaPriceListFile=out/commaPriceListFile.txt
 	cat data/values.${symbol}.txt | tac > $commaPriceListFile
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
-    indexSymbolFile=./out/index.${symbol}.html
+    indexSymbolFile=out/index.${symbol}.html
 	rm -rf $indexSymbolFile
 	cp js/chart.min.js out
 	cp js/utils.js out
@@ -421,7 +420,7 @@ fi
 	cat js/indexPart11.html >> $indexSymbolFile
 
 	# Store list of files for later (tar/zip)
-	indexSymbolFileList=$(echo $indexSymbolFileList "" $indexSymbolFile)
+	indexSymbolFileList=$(echo $indexSymbolFileList $indexSymbolFile)
 done
 
 echo $HTML_END >> $OUT_RESULT_FILE
