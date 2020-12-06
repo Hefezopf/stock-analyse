@@ -198,22 +198,14 @@ stochasticQuoteList=$(echo " , , , , 4, 9, 6, 8,")
 stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
 IFS=','
 
-myarray=('$stochasticQuoteList')
-echo "My array: ${myarray[@]}"
-echo "Number of elements in the array: ${#myarray[@]}"
+IFS=',' read -r -a array <<< "$stochasticQuoteList"
+echo ssss $array
 
-for (( i=0; i<=${#myarray[@]}; i++ )); do
-     echo "${myarray[$i]}"
-done
-
-array=$(echo "$stochasticQuoteList" | sed 's/,/\n/g')
-echo kkk "${array[0]}"
-#IFS=',' read -r -a array <<< "$stochasticQuoteList"
 for index in "${!array[@]}"
 do
     echo iii "${array[index]}"
 done
-#echo mmmmmmmm $stochasticQuoteList
+
 lowValue=8
 inc=0
 #IFS=',' read -ra ADDR <<< "$stochasticQuoteList"
