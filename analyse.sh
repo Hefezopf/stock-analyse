@@ -319,7 +319,34 @@ do
 	
 
 		# Low stochastik
-##############
+# echo --------stochasticQuoteList $stochasticQuoteList
+# # Revers and output the last x numbers
+# stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
+# IFS="," set -- $stochasticQuoteList
+# lowStochasticValue=9
+# howManyUnderLowStochasticValue=0
+# w=$(echo "$1" | cut -b 2-3)
+# ww=$(echo "$2" | cut -b 2-3)
+# www=$(echo "$3" | cut -b 2-3)
+# if [ "$w" -lt "$lowStochasticValue" ]; then
+# 		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+# fi
+# if [ "$ww" -lt "$lowStochasticValue" ]; then
+# 		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+# fi
+# if [ "$www" -lt "$lowStochasticValue" ]; then
+# 		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+# fi
+
+# 		resulthowManyUnderLowStochasticValue=""
+# 		if [ "$howManyUnderLowStochasticValue" -lt 4 ]; then
+# 			resulthowManyUnderLowStochasticValue="+ Many low stochastic: $symbol has $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue"
+# 			echo $resulthowManyUnderLowStochasticValue
+# 			echo "<br>" >> $OUT_RESULT_FILE
+# 			echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+# 			echo "<br>" >> $OUT_RESULT_FILE
+# 		fi
+
 
 
 		resultLowStochastik=""
@@ -381,11 +408,6 @@ do
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
 	cat js/indexPart11.html >> $indexSymbolFile
 
-echo xxxxxxxxxxxxxxxx
-ls $indexSymbolFile
-cat $indexSymbolFile
-echo yyyyyyyyyyyyy
-
 	# Store list of files for later (tar/zip)
 	indexSymbolFileList=$(echo $indexSymbolFileList $indexSymbolFile)
 done
@@ -402,7 +424,5 @@ echo "time elapsed."
 rm $commaPriceListFile
 rm $stochasticFile
 rm out/values*.txt
-echo ------
-ls $indexSymbolFileList
 tar -zcf $OUT_ZIP_FILE $indexSymbolFileList
 mv $OUT_ZIP_FILE out
