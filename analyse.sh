@@ -11,6 +11,49 @@
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 
+# 		stochasticQuoteList=", , , , , , , , , , , , , 54, 29, 10, 61, 100, 1, 0, 1,"
+# 		echo --------stochasticQuoteList $stochasticQuoteList
+# 		# Revers and output the last x numbers
+# 		stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
+# 		OLDIFS=$IFS
+# 		IFS="," set -- $stochasticQuoteList
+# 		echo "$1" "$2" "$3"
+# 		w=$(echo "$1" | cut -b 2-3)
+# 		ww=$(echo "$2" | cut -b 2-3)
+# 		www=$(echo "$3" | cut -b 2-3)
+# 		echo "$w" "$ww" "$www"
+# 		echo lengthw ${#w} 
+# 		echo lengthww ${#ww} 
+# 		echo lengthwww ${#www} 
+# 		IFS=$OLDIFS
+# 		lowStochasticValue=9
+# 		howManyUnderLowStochasticValue=0
+# 		if [ ! "${#w}" -gt 1 ]; then
+# 			echo skipw
+# 		fi
+# 		if [ ! "${#ww}" -gt 1 ]; then
+# 			echo skipww
+# 		fi		
+# 		if [ ! "${#www}" -gt 1 ]; then
+# 			echo skipwww
+# 		fi
+# 		if [ "$w" -lt "$lowStochasticValue" ]; then
+# 				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+# 		fi
+# 		if [ "$ww" -lt "$lowStochasticValue" ]; then
+# 				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+# 		fi
+# 		if [ "$www" -lt "$lowStochasticValue" ]; then
+# 				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+# 		fi
+#         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
+# 			resulthowManyUnderLowStochasticValue="+ Many low stochastic: $symbol has $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue"
+# 			echo $resulthowManyUnderLowStochasticValue		
+# 		fi		
+# exit
+
+
+
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
 export LANG=en_IN.UTF-8
@@ -318,8 +361,10 @@ do
 		fi
 	
 
-		# Low stochastik
-		echo --------stochasticQuoteList $stochasticQuoteList
+		# Low stochastik 3 last values under 9
+		lowStochasticValue=9
+		#stochasticQuoteList=", , , , , , , , , , , , , 54, 27, 44, 66, 70, 80, 100, 100, 99, 80, 86, 77, 82, 55, 28, 62, 76, 71, 48, 35, 44, 73, 100, 61, 56, 100, 94, 100, 100, 100, 94, 100, 98, 100, 77, 74, 82, 73, 69, 80, 76, 54, 81, 100, 100, 98, 100, 100, 100, 100, 94, 62, 0, 19, 7, 11, 17, 58, 100, 88, 100, 96, 76, 29, 49, 82, 100, 100, 100, 73, 20, 51, 43, 50, 55, 43, 15, 0, 20, 18, 29, 10, 61, 100, 100, 100, 100,"
+		#echo --------stochasticQuoteList $stochasticQuoteList
 		# Revers and output the last x numbers
 		stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
 		OLDIFS=$IFS
@@ -328,16 +373,15 @@ do
 		ww=$(echo "$2" | cut -b 2-3)
 		www=$(echo "$3" | cut -b 2-3)
 		IFS=$OLDIFS
-		lowStochasticValue=9
 		howManyUnderLowStochasticValue=0
-		if [ "$w" -lt "$lowStochasticValue" ]; then
-				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+		if [ ! "${#w}" -gt 1 ] && [ "$w" -lt "$lowStochasticValue" ]; then
+			howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
 		fi
-		if [ "$ww" -lt "$lowStochasticValue" ]; then
-				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+		if [ ! "${#ww}" -gt 1 ] && [ "$ww" -lt "$lowStochasticValue" ]; then
+			howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
 		fi
-		if [ "$www" -lt "$lowStochasticValue" ]; then
-				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+		if [ ! "${#www}" -gt 1 ] && [ "$www" -lt "$lowStochasticValue" ]; then
+			howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
 		fi
 		resulthowManyUnderLowStochasticValue=""
 		if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
