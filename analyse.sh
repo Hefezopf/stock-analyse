@@ -12,7 +12,7 @@
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 
 # Import functions
-. ./functions
+. ./functions.sh
 
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
