@@ -192,7 +192,9 @@ ProgressBar() {
 }
 
 
-
+echo xxxxxxxxxxxxxxx
+which sh
+		
 stochasticQuoteList=$(echo " , , , , 4, 9, 6, 8,")
 # Revers and output the last x numbers
 stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
