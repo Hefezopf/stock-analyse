@@ -419,6 +419,11 @@ fi
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
 	cat js/indexPart11.html >> $indexSymbolFile
 
+echo xxxxxxxxxxxxxxxx
+ls $indexSymbolFile
+cat $indexSymbolFile
+echo yyyyyyyyyyyyy
+
 	# Store list of files for later (tar/zip)
 	indexSymbolFileList=$(echo $indexSymbolFileList $indexSymbolFile)
 done
