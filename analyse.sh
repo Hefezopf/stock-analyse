@@ -6,53 +6,10 @@
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
 # 4. Parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
 # 5. Parameter: STOCHASTIC: Percentage for stochastic indicator.
-# Call example: ./analyse.sh 'ADS.XETRA' 3 online underrated 20
-# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20
+# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 online underrated 20
+# Call example: ./analyse.sh 'ADS.XETRA' 3 offline underrated 20
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
-
-# 		stochasticQuoteList=", , , , , , , , , , , , , 54, 29, 10, 61, 100, 1, 0, 1,"
-# 		echo --------stochasticQuoteList $stochasticQuoteList
-# 		# Revers and output the last x numbers
-# 		stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
-# 		OLDIFS=$IFS
-# 		IFS="," set -- $stochasticQuoteList
-# 		echo "$1" "$2" "$3"
-# 		w=$(echo "$1" | cut -b 2-3)
-# 		ww=$(echo "$2" | cut -b 2-3)
-# 		www=$(echo "$3" | cut -b 2-3)
-# 		echo "$w" "$ww" "$www"
-# 		echo lengthw ${#w} 
-# 		echo lengthww ${#ww} 
-# 		echo lengthwww ${#www} 
-# 		IFS=$OLDIFS
-# 		lowStochasticValue=9
-# 		howManyUnderLowStochasticValue=0
-# 		if [ ! "${#w}" -gt 1 ]; then
-# 			echo skipw
-# 		fi
-# 		if [ ! "${#ww}" -gt 1 ]; then
-# 			echo skipww
-# 		fi		
-# 		if [ ! "${#www}" -gt 1 ]; then
-# 			echo skipwww
-# 		fi
-# 		if [ "$w" -lt "$lowStochasticValue" ]; then
-# 				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-# 		fi
-# 		if [ "$ww" -lt "$lowStochasticValue" ]; then
-# 				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-# 		fi
-# 		if [ "$www" -lt "$lowStochasticValue" ]; then
-# 				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-# 		fi
-#         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-# 			resulthowManyUnderLowStochasticValue="+ Many low stochastic: $symbol has $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue"
-# 			echo $resulthowManyUnderLowStochasticValue		
-# 		fi		
-# exit
-
-
 
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
@@ -136,7 +93,6 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "# URLs" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "start chrome " >> $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
 
 # LesserThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
 LesserThenWithFactor() {
@@ -205,8 +161,8 @@ StochasticOfDays() {
 		lastStochasticRaw=$(head -n 1 $stochasticFile)
 		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
 		highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
-		GreaterThenWithFactor 1 $highestStochasticRaw $lowestStochasticRaw; validStochastik=$?
-		if [ "$validStochastik" = 1 ]; then
+		GreaterThenWithFactor 1 $highestStochasticRaw $lowestStochasticRaw; validStochastic=$?
+		if [ "$validStochastic" = 1 ]; then
 			# Formula=((C – Ln )/( Hn – Ln )) * 100
 			lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
 		else
@@ -245,8 +201,6 @@ do
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/values.${symbol}.txt
 	fi
 done
-
-echo "<br>" >> $OUT_RESULT_FILE
 
 # Analyse data for each symbol
 for symbol in $symbolsParam
@@ -334,34 +288,29 @@ do
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
 	fileSize=$(stat -c %s data/values.${symbol}.txt)
 	if [ "$fileSize" -gt 200 ]; then
-		# Overrated
+		# Strategie: Overrated
 		resultOverrated=""
 		if [ "$ratedParam" = 'overrated' ]; then
 			if [ "$lastStochasticQuoteRounded" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
 			   [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
 				resultOverrated="- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
 				echo $resultOverrated
-				echo "<br>" >> $OUT_RESULT_FILE
 				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
-				echo "<br>" >> $OUT_RESULT_FILE
 			fi
 		fi
 	
-		# Underrated
+		# Strategie: Underrated
 		resultUnderrated=""
 		if [ "$ratedParam" = 'underrated' ]; then
 			if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
 			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
 				resultUnderrated="+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
 				echo $resultUnderrated
-				echo "<br>" >> $OUT_RESULT_FILE
 				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
-				echo "<br>" >> $OUT_RESULT_FILE
 			fi
 		fi
 	
-
-		# Low stochastik 3 last values under 9
+		# Strategie: Low stochastic 3 last values under 9
 		lowStochasticValue=9
 		#stochasticQuoteList=", , , , , , , , , , , , , 54, 27, 44, 66, 70, 80, 100, 100, 99, 80, 86, 77, 82, 55, 28, 62, 76, 71, 48, 35, 44, 73, 100, 61, 56, 100, 94, 100, 100, 100, 94, 100, 98, 100, 77, 74, 82, 73, 69, 80, 76, 54, 81, 100, 100, 98, 100, 100, 100, 100, 94, 62, 0, 19, 7, 11, 17, 58, 100, 88, 100, 96, 76, 29, 49, 82, 100, 100, 100, 73, 20, 51, 43, 50, 55, 43, 15, 0, 20, 18, 29, 10, 61, 100, 100, 100, 100,"
 		#echo --------stochasticQuoteList $stochasticQuoteList
@@ -369,35 +318,34 @@ do
 		stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
 		OLDIFS=$IFS
 		IFS="," set -- $stochasticQuoteList
-		w=$(echo "$1" | cut -b 2-3)
-		ww=$(echo "$2" | cut -b 2-3)
-		www=$(echo "$3" | cut -b 2-3)
+		# Cut comma, like: ",22" -> "22"
+		value1=$(echo "$1" | cut -b 2-3)
+		value2=$(echo "$2" | cut -b 2-3)
+		value3=$(echo "$3" | cut -b 2-3)
 		IFS=$OLDIFS
 		howManyUnderLowStochasticValue=0
-		if [ ! "${#w}" -gt 1 ] && [ "$w" -lt "$lowStochasticValue" ]; then
+		if [ ! "${#value1}" -gt 1 ] && [ "$value1" -lt "$lowStochasticValue" ]; then
 			howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
 		fi
-		if [ ! "${#ww}" -gt 1 ] && [ "$ww" -lt "$lowStochasticValue" ]; then
+		if [ ! "${#value2}" -gt 1 ] && [ "$value2" -lt "$lowStochasticValue" ]; then
 			howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
 		fi
-		if [ ! "${#www}" -gt 1 ] && [ "$www" -lt "$lowStochasticValue" ]; then
+		if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$lowStochasticValue" ]; then
 			howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
 		fi
 		resulthowManyUnderLowStochasticValue=""
+		# All 3 last values under?
 		if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-			resulthowManyUnderLowStochasticValue="+ Many low stochastic: $symbol has $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue"
+			resulthowManyUnderLowStochasticValue="+ Low stochastic: $symbol has $howManyUnderLowStochasticValue the last 3 quotes under: $lowStochasticValue"
 			echo $resulthowManyUnderLowStochasticValue
-			echo "<br>" >> $OUT_RESULT_FILE
 			echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
-			echo "<br>" >> $OUT_RESULT_FILE
 		fi
 
-
-
-		# resultLowStochastik=""
+		# Strategie: The very last stochastic is 0
+		# resultLowStochastic=""
 		# if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
-		# 	resultLowStochastik="+ Low stochastik: $symbol has $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
-		# 	echo $resultLowStochastik
+		# 	resultLowStochastic="+ Low stochastic: $symbol has $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
+		# 	echo $resultLowStochastic
 		# 	echo "<br>" >> $OUT_RESULT_FILE
 		# 	echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
 		# 	echo "<br>" >> $OUT_RESULT_FILE
