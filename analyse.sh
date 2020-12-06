@@ -11,6 +11,8 @@
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 
+source functions
+
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
 export LANG=en_IN.UTF-8
@@ -95,14 +97,14 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "start chrome " >> $OUT_RESULT_FILE
 
 # LesserThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
-LesserThenWithFactor() {
-    _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
-		return 1
-	else
-		return 0		
-	fi
-}
+# LesserThenWithFactor() {
+#     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
+#     if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
+# 		return 1
+# 	else
+# 		return 0		
+# 	fi
+# }
 
 # GreaterThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
 GreaterThenWithFactor() {
