@@ -319,46 +319,8 @@ do
 	
 
 		# Low stochastik
-echo --------stochasticQuoteList $stochasticQuoteList
-#stochasticQuoteList=$(echo " , , , , 4, 9, 6, 18,")
-# Revers and output the last x numbers
-stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
-IFS="," set -- $stochasticQuoteList
-#printf "%s" "$3 $2 $1"
-lowStochasticValue=9
-howManyUnderLowStochasticValue=0
-#echo " "		
-#echo "1:" "$1"
-#echo "2:" "$2"
-#echo "3:" "$3"
-w=$(echo "$1" | cut -b 2-3)
-#echo w $w 
-ww=$(echo "$2" | cut -b 2-3)
-#echo ww $ww 
-www=$(echo "$3" | cut -b 2-3)
-#echo www $www 
-if [ "$w" -lt "$lowStochasticValue" ]; then
-		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-fi
-if [ "$ww" -lt "$lowStochasticValue" ]; then
-		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-fi
-if [ "$www" -lt "$lowStochasticValue" ]; then
-		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-fi
-# if [ "$howManyUnderLowStochasticValue" -lt 4 ]; then
-# 	echo $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue
-# fi
-#exit
+##############
 
-		resulthowManyUnderLowStochasticValue=""
-		if [ "$howManyUnderLowStochasticValue" -lt 4 ]; then
-			resulthowManyUnderLowStochasticValue="+ Many low stochastic: $symbol has $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue"
-			echo $resulthowManyUnderLowStochasticValue
-			echo "<br>" >> $OUT_RESULT_FILE
-			echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
-			echo "<br>" >> $OUT_RESULT_FILE
-		fi
 
 		resultLowStochastik=""
 		if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
