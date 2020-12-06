@@ -31,6 +31,7 @@ rm -rf out/$OUT_ZIP_FILE
 touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/result.html
 rm -rf $OUT_RESULT_FILE
+indexSymbolFileList=""
 HTML_END=$(echo "</p><p>Thanks</p></div></body></html>" )
 START_TIME_MEASUREMENT=$(date +%s);
 
@@ -421,7 +422,6 @@ fi
 
 	# Store list of files for later (tar/zip)
 	indexSymbolFileList=$(echo $indexSymbolFileList "" $indexSymbolFile)
-
 done
 
 echo $HTML_END >> $OUT_RESULT_FILE
