@@ -350,14 +350,14 @@ do
 
 
 
-		resultLowStochastik=""
-		if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
-			resultLowStochastik="+ Low stochastik: $symbol has $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
-			echo $resultLowStochastik
-			echo "<br>" >> $OUT_RESULT_FILE
-			echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
-			echo "<br>" >> $OUT_RESULT_FILE
-		fi
+		# resultLowStochastik=""
+		# if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
+		# 	resultLowStochastik="+ Low stochastik: $symbol has $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
+		# 	echo $resultLowStochastik
+		# 	echo "<br>" >> $OUT_RESULT_FILE
+		# 	echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+		# 	echo "<br>" >> $OUT_RESULT_FILE
+		# fi
 	else
 	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
