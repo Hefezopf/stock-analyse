@@ -1,0 +1,9 @@
+# LesserThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+LesserThenWithFactor() {
+    _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
+    if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
+		return 1
+	else
+		return 0		
+	fi
+}
