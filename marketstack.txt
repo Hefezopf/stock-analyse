@@ -1,5 +1,9 @@
 marketstack.com:
 ----------------
+
+. ~/.bash_profile
+
+
 REST Api
 https://marketstack.com/dashboard
 info@hopf-it.de
@@ -18,12 +22,12 @@ echo $X_OPENFIGI_APIKEY
 export TICKER=IBM
 curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${TICKER}'"}]' | jq '.[0].data[0].name'
 
-. ~/.bash_profile
 
 TODO:
 -----
--MRK.XETRA 100, 100, 100,
--werte werden gedreht, daher erstmal nur bis stochastik 9 auswerten 
+-Functions auslagern?!
+-Strategien auslagen
+-Werte werden reverted/gedreht, daher erstmal nur bis stochastik 9 auswerten
 -#!/bin/sh
 -Aktien Name in Output schreiben mit FIGI
 -Low Stoch stimmt nicht
