@@ -7,7 +7,7 @@
 # 4. Parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
 # 5. Parameter: STOCHASTIC: Percentage for stochastic indicator.
 # Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 online underrated 20
-# Call example: ./analyse.sh 'ADS.XETRA' 3 offline underrated 20
+# Call example: ./analyse.sh 'ADS.XETRA' 1 offline underrated 20
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 
@@ -218,34 +218,7 @@ do
 			fi
 		fi
 	
-		# Strategie: Low stochastic 3 last values under 9
-		lowStochasticValue=9
-		# Revers and output the last x numbers
-		stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
-		OLDIFS=$IFS
-		IFS="," set -- $stochasticQuoteList
-		# Cut comma, like: ",22" -> "22"
-		value1=$(echo "$1" | cut -b 2-3)
-		value2=$(echo "$2" | cut -b 2-3)
-		value3=$(echo "$3" | cut -b 2-3)
-		IFS=$OLDIFS
-		howManyUnderLowStochasticValue=0
-		if [ ! "${#value1}" -gt 1 ] && [ "$value1" -lt "$lowStochasticValue" ]; then
-			howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-		fi
-		if [ ! "${#value2}" -gt 1 ] && [ "$value2" -lt "$lowStochasticValue" ]; then
-			howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-		fi
-		if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$lowStochasticValue" ]; then
-			howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-		fi
-		resulthowManyUnderLowStochasticValue=""
-		# All 3 last values under?
-		if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-			resulthowManyUnderLowStochasticValue="+ Low stochastic: $symbol has $howManyUnderLowStochasticValue the last 3 quotes under: $lowStochasticValue"
-			echo $resulthowManyUnderLowStochasticValue
-			echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
-		fi
+		StrategieLowStochastic 9 "$stochasticQuoteList"
 
 		# Strategie: The very last stochastic is 0
 		# resultLowStochastic=""
