@@ -197,10 +197,14 @@ stochasticQuoteList=$(echo " , , , , 4, 9, 6, 8,")
 # Revers and output the last x numbers
 stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
 
-IFS=',' read -r -a array < <(echo "$stochasticQuoteList")
-    if [ "${array[2]}" == "Sangamithra" ]; then
-        printf "%s" "${array[2]}|${array[1]}|${array[0]}"
-    fi
+    IFS="," set -- $stochasticQuoteList
+    #if [ "$3" = "Sangamithra" ]; then
+        printf "%s" "$3|$2|$1"
+    #fi
+# IFS=',' read -r -a array < <(echo "$stochasticQuoteList")
+#     if [ "${array[2]}" == "Sangamithra" ]; then
+#         printf "%s" "${array[2]}|${array[1]}|${array[0]}"
+#     fi
 
 
 lowValue=8
