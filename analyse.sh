@@ -24,6 +24,7 @@ ratedParam=$4
 stochasticPercentageParam=$5
 
 # Prepare
+rm -rf out
 mkdir -p out
 OUT_ZIP_FILE=out.tar.gz
 rm -rf out/$OUT_ZIP_FILE
