@@ -13,8 +13,16 @@ https://www.chartjs.org/docs/latest/charts/line.html
 https://www.chartjs.org/docs/latest/
 
 
+export X_OPENFIGI_APIKEY="X-OPENFIGI-APIKEY: 55c6c3ff-77a0-40a2-b1c4-23c636bc7ce3-1"
+echo $X_OPENFIGI_APIKEY
+export TICKER=IBM
+curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${TICKER}'"}]' | jq '.[0].data[0].name'
+
+. ~/.bash_profile
+
 TODO:
 -----
+-Name in Output schreiben mit FIGI
 -Low Stoch stimmt nicht
 -Start chrome bei mehrere
 -Progress bei mehreren 

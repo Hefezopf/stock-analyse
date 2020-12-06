@@ -26,7 +26,7 @@ https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.w
 
 ## cURL
 
-./curl.sh "INL.XETRA" 1 offline underrated 20
+./curl_github_dispatch.sh "INL.XETRA" 1 offline underrated 20
 
 or Example
 
