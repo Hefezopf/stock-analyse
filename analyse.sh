@@ -196,32 +196,30 @@ ProgressBar() {
 stochasticQuoteList=$(echo " , , , , 4, 9, 6, 8,")
 # Revers and output the last x numbers
 stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
-
+IFS=','
 array=$(echo "$stochasticQuoteList" | sed 's/,/\n/g')
-#echo jjj "$index ${array[index]}"
-echo jjj "${array[@]}"
-echo kkkk
+echo kkk "${array[0]}"
 #IFS=',' read -r -a array <<< "$stochasticQuoteList"
 for index in "${!array[@]}"
 do
-    echo iii "$index ${array[index]}"
+    echo iii "${array[index]}"
 done
 #echo mmmmmmmm $stochasticQuoteList
 lowValue=8
 inc=0
 #IFS=',' read -ra ADDR <<< "$stochasticQuoteList"
-IFS=',' read -ra ADDR <<EOL
-$stochasticQuoteList
-EOL
-echo $ADDR
+# IFS=',' read -ra ADDR <<EOL
+# $stochasticQuoteList
+# EOL
+# echo $ADDR
 
-for i in "${ADDR[@]}"; do
-	i=$(echo "$i" | awk '{gsub(/^[ \t]+| [ \t]+$/,""); print $0 }')
-	#echo iii $i und lowValue $lowValue
-	if [ "$i" -lt "$lowValue" ]; then
-		inc=$(($inc + 1))
-	fi
-done
+# for i in "${ADDR[@]}"; do
+# 	i=$(echo "$i" | awk '{gsub(/^[ \t]+| [ \t]+$/,""); print $0 }')
+# 	#echo iii $i und lowValue $lowValue
+# 	if [ "$i" -lt "$lowValue" ]; then
+# 		inc=$(($inc + 1))
+# 	fi
+# done
 if [ "$inc" -lt 4 ]; then
 	echo So oft: $inc inden letzten 4 Quotes unter Schwellwert: $lowValue
 fi
