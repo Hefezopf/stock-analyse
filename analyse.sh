@@ -202,7 +202,6 @@ do
 	fi
 done
 
-#echo " "
 echo "<br>" >> $OUT_RESULT_FILE
 
 # Analyse data for each symbol
@@ -212,7 +211,7 @@ do
 	# Gather data
 	#
 
-echo " "
+    echo " "
 	echo "# Analyse $symbol"
 	lastRaw=$(head -n1 -q data/values.${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
@@ -318,6 +317,28 @@ echo " "
 		fi
 	
 		# Low stochastik
+
+echo stochasticQuoteList $stochasticQuoteList
+
+
+
+# Revers and output the last x numbers
+stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
+echo mmmmmmmm $stochasticQuoteList
+lowValue=8
+inc=0
+IFS=',' read -ra ADDR <<< "$stochasticQuoteList"
+for i in "${ADDR[@]}"; do
+	i=$(echo "$i" | awk '{gsub(/^[ \t]+| [ \t]+$/,""); print $0 }')
+	echo iii $i und lowValue $lowValue
+	if [ "$i" -lt "$lowValue" ]; then
+		inc=$(($inc + 1))
+	fi
+done
+echo So oft: $inc inden letzten 4 Quotes unter Schwellwert: $lowValue
+
+
+
 		resultLowStochastik=""
 		if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
 			resultLowStochastik="+ Low stochastik: $symbol has $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
