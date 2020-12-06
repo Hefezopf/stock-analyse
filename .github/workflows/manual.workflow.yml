@@ -82,8 +82,8 @@ jobs:
 
           git config user.email "markus@hopf-it.de"
           git config user.name "Markus Hopf"
-          git add ./data/*
-          git add ./out/index.*.html 
+          git add data/*
+          git add out/index.*.html 
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
 
@@ -100,10 +100,10 @@ jobs:
           # Literal body:
           #body: Build job of ${{github.repository}} completed successfully!
           # Read file contents as body:
-          body: file://./out/result.html
+          body: file://out/result.html
           to: info@hopf-it.de
           from: Github stock-analyse # <github@hopf-it.de>
           # Optional content type (defaults to text/plain):
           content_type: text/html          
           # Optional attachments:
-          attachments: ./out/out.tar.gz
+          attachments: out/out.tar.gz
