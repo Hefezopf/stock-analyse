@@ -191,39 +191,6 @@ ProgressBar() {
 	fi
 }
 
-
-	
-stochasticQuoteList=$(echo " , , , , 4, 9, 6, 8,")
-# Revers and output the last x numbers
-stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
-
-IFS="," set -- $stochasticQuoteList
-printf "%s" "$3|$2|$1"
-
-lowValue=8
-inc=0
-
-echo " "		
-echo "1:" "$1"
-echo "2:" "$2"
-
-w=$(echo "$1" | cut -b 2-3)
-echo w $w 
-ww=$(echo "$2" | cut -b 2-3)
-echo ww $ww 
-
-if [ "$w" -lt "$lowValue" ]; then
-		inc=$(($inc + 1))
-fi
-if [ "$ww" -lt "$lowValue" ]; then
-		inc=$(($inc + 1))
-fi
-if [ "$inc" -lt 4 ]; then
-	echo So oft: $inc inden letzten 4 Quotes unter Schwellwert: $lowValue
-fi
-exit
-
-
 # Get data
 for symbol in $symbolsParam
 do
@@ -349,31 +316,48 @@ do
 			fi
 		fi
 	
+
 		# Low stochastik
+echo --------stochasticQuoteList $stochasticQuoteList
+#stochasticQuoteList=$(echo " , , , , 4, 9, 6, 18,")
+# Revers and output the last x numbers
+stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
+IFS="," set -- $stochasticQuoteList
+#printf "%s" "$3 $2 $1"
+lowStochasticValue=9
+howManyUnderLowStochasticValue=0
+#echo " "		
+#echo "1:" "$1"
+#echo "2:" "$2"
+#echo "3:" "$3"
+w=$(echo "$1" | cut -b 2-3)
+#echo w $w 
+ww=$(echo "$2" | cut -b 2-3)
+#echo ww $ww 
+www=$(echo "$3" | cut -b 2-3)
+#echo www $www 
+if [ "$w" -lt "$lowStochasticValue" ]; then
+		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+fi
+if [ "$ww" -lt "$lowStochasticValue" ]; then
+		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+fi
+if [ "$www" -lt "$lowStochasticValue" ]; then
+		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+fi
+# if [ "$howManyUnderLowStochasticValue" -lt 4 ]; then
+# 	echo $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue
+# fi
+#exit
 
-echo stochasticQuoteList $stochasticQuoteList
-
-
-
-# # Revers and output the last x numbers
-# stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
-# echo mmmmmmmm $stochasticQuoteList
-# lowValue=8
-# inc=0
-# #IFS=',' read -ra ADDR <<< "$stochasticQuoteList"
-# IFS=',' read -ra ADDR <<"$stochasticQuoteList"
-# $stochasticQuoteList
-
-# for i in "${ADDR[@]}"; do
-# 	i=$(echo "$i" | awk '{gsub(/^[ \t]+| [ \t]+$/,""); print $0 }')
-# 	echo iii $i und lowValue $lowValue
-# 	if [ "$i" -lt "$lowValue" ]; then
-# 		inc=$(($inc + 1))
-# 	fi
-# done
-# echo So oft: $inc inden letzten 4 Quotes unter Schwellwert: $lowValue
-
-
+		resulthowManyUnderLowStochasticValue=""
+		if [ "$howManyUnderLowStochasticValue" -lt 4 ]; then
+			resulthowManyUnderLowStochasticValue="+ Many low stochastic: $symbol has $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue"
+			echo $resulthowManyUnderLowStochasticValue
+			echo "<br>" >> $OUT_RESULT_FILE
+			echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+			echo "<br>" >> $OUT_RESULT_FILE
+		fi
 
 		resultLowStochastik=""
 		if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
