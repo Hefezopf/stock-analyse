@@ -340,7 +340,7 @@ do
 				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
 		fi
 		resulthowManyUnderLowStochasticValue=""
-		if [ "$howManyUnderLowStochasticValue" -lt 4 ]; then
+		if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
 			resulthowManyUnderLowStochasticValue="+ Many low stochastic: $symbol has $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue"
 			echo $resulthowManyUnderLowStochasticValue
 			echo "<br>" >> $OUT_RESULT_FILE
