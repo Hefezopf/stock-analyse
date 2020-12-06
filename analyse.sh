@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
@@ -191,6 +191,30 @@ ProgressBar() {
 	fi
 }
 
+
+
+stochasticQuoteList=$(echo " , , , , 4, 9, 6, 8,")
+# Revers and output the last x numbers
+#stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
+echo mmmmmmmm $stochasticQuoteList
+lowValue=8
+inc=0
+#IFS=',' read -ra ADDR <<< "$stochasticQuoteList"
+IFS=',' read -ra ADDR <<EOL
+"$stochasticQuoteList"
+EOL
+
+for i in "${ADDR[@]}"; do
+	i=$(echo "$i" | awk '{gsub(/^[ \t]+| [ \t]+$/,""); print $0 }')
+	echo iii $i und lowValue $lowValue
+	if [ "$i" -lt "$lowValue" ]; then
+		inc=$(($inc + 1))
+	fi
+done
+echo So oft: $inc inden letzten 4 Quotes unter Schwellwert: $lowValue
+#exit
+
+
 # Get data
 for symbol in $symbolsParam
 do
@@ -322,20 +346,23 @@ echo stochasticQuoteList $stochasticQuoteList
 
 
 
-# Revers and output the last x numbers
-stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
-echo mmmmmmmm $stochasticQuoteList
-lowValue=8
-inc=0
-IFS=',' read -ra ADDR <<< "$stochasticQuoteList"
-for i in "${ADDR[@]}"; do
-	i=$(echo "$i" | awk '{gsub(/^[ \t]+| [ \t]+$/,""); print $0 }')
-	echo iii $i und lowValue $lowValue
-	if [ "$i" -lt "$lowValue" ]; then
-		inc=$(($inc + 1))
-	fi
-done
-echo So oft: $inc inden letzten 4 Quotes unter Schwellwert: $lowValue
+# # Revers and output the last x numbers
+# stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 }' )
+# echo mmmmmmmm $stochasticQuoteList
+# lowValue=8
+# inc=0
+# #IFS=',' read -ra ADDR <<< "$stochasticQuoteList"
+# IFS=',' read -ra ADDR <<"$stochasticQuoteList"
+# $stochasticQuoteList
+
+# for i in "${ADDR[@]}"; do
+# 	i=$(echo "$i" | awk '{gsub(/^[ \t]+| [ \t]+$/,""); print $0 }')
+# 	echo iii $i und lowValue $lowValue
+# 	if [ "$i" -lt "$lowValue" ]; then
+# 		inc=$(($inc + 1))
+# 	fi
+# done
+# echo So oft: $inc inden letzten 4 Quotes unter Schwellwert: $lowValue
 
 
 
