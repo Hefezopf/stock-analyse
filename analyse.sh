@@ -319,31 +319,26 @@ do
 	
 
 		# Low stochastik
-
-OLDIFS=$IFS
-echo --------stochasticQuoteList $stochasticQuoteList
-# Revers and output the last x numbers
-stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
-IFS="," set -- $stochasticQuoteList
-
-w=$(echo "$1" | cut -b 2-3)
-ww=$(echo "$2" | cut -b 2-3)
-www=$(echo "$3" | cut -b 2-3)
-
-IFS=$OLDIFS
-
-lowStochasticValue=9
-howManyUnderLowStochasticValue=0
-if [ "$w" -lt "$lowStochasticValue" ]; then
-		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-fi
-if [ "$ww" -lt "$lowStochasticValue" ]; then
-		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-fi
-if [ "$www" -lt "$lowStochasticValue" ]; then
-		howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
-fi
-
+		echo --------stochasticQuoteList $stochasticQuoteList
+		# Revers and output the last x numbers
+		stochasticQuoteList=$(echo "$stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
+		OLDIFS=$IFS
+		IFS="," set -- $stochasticQuoteList
+		w=$(echo "$1" | cut -b 2-3)
+		ww=$(echo "$2" | cut -b 2-3)
+		www=$(echo "$3" | cut -b 2-3)
+		IFS=$OLDIFS
+		lowStochasticValue=9
+		howManyUnderLowStochasticValue=0
+		if [ "$w" -lt "$lowStochasticValue" ]; then
+				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+		fi
+		if [ "$ww" -lt "$lowStochasticValue" ]; then
+				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+		fi
+		if [ "$www" -lt "$lowStochasticValue" ]; then
+				howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+		fi
 		resulthowManyUnderLowStochasticValue=""
 		if [ "$howManyUnderLowStochasticValue" -lt 4 ]; then
 			resulthowManyUnderLowStochasticValue="+ Many low stochastic: $symbol has $howManyUnderLowStochasticValue within the last 3 quotes under low stochastic value: $lowStochasticValue"
