@@ -1,4 +1,5 @@
-# LesserThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+# LesserThenWithFactor function:
+# Input is factor($1), firstCompareValue($2), secondCompareValue($3)
 LesserThenWithFactor() {
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
@@ -8,7 +9,8 @@ LesserThenWithFactor() {
 	fi
 }
 
-# GreaterThenWithFactor function: Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+# GreaterThenWithFactor function:
+# Input is factor($1), firstCompareValue($2), secondCompareValue($3)
 GreaterThenWithFactor() {
 	_greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
@@ -18,7 +20,8 @@ GreaterThenWithFactor() {
 	fi
 }
 
-# RoundNumber function: Input is floatNumber($1), digitsAfterComma($2)
+# RoundNumber function:
+# Input is floatNumber($1), digitsAfterComma($2)
 RoundNumber() {
 	return $(printf "%.${2}f" "${1}")
 }
@@ -44,7 +47,8 @@ AverageOfDays() {
 	done
 }
 
-# StochasticOfDays function: Input is amountOfDays($1)
+# StochasticOfDays function:
+# Input is amountOfDays($1)
 # Output: stochasticQuoteList is comma separted list
 StochasticOfDays() {
 	stochasticFile=out/stochastic.txt
@@ -78,7 +82,8 @@ StochasticOfDays() {
 	done
 }
 
-# ProgressBar function: Input is currentState($1) and totalState($2)
+# ProgressBar function:
+# Input is currentState($1) and totalState($2)
 ProgressBar() {
 	# Process data
 	_progress_=$(echo $((${1}*100/${2}*100)))
