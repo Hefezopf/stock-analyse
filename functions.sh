@@ -47,10 +47,6 @@ AverageOfDays() {
 # StochasticOfDays function: Input is amountOfDays($1)
 # Output: stochasticQuoteList is comma separted list
 StochasticOfDays() {
-
-START_TIME_MEASUREMENT=$(date +%s);
-
-
 	stochasticFile=out/stochastic.txt
 	stochasticQuoteList=""
 	i=1
@@ -66,15 +62,9 @@ START_TIME_MEASUREMENT=$(date +%s);
 	do
 		headLines=$(echo $((100-$i)))
 		head -n$headLines data/values.${symbol}.txt | tail -"${1}" > $stochasticFile
-
-OLDIFS=$IFS
-IFS=$'\n' read -r -a lines < $stochasticFile
-		lastStochasticRaw=${lines[0]}
-		#lastStochasticRaw=$(head -n 1 $stochasticFile)
+		lastStochasticRaw=$(head -n 1 $stochasticFile)
 		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
-        highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
-IFS=$OLDIFS
-
+		highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
 		GreaterThenWithFactor 1 $highestStochasticRaw $lowestStochasticRaw; validStochastic=$?
 		if [ "$validStochastic" = 1 ]; then
 			# Formula=((C – Ln )/( Hn – Ln )) * 100
@@ -86,12 +76,6 @@ IFS=$OLDIFS
 		stochasticQuoteList=$(echo $stochasticQuoteList $lastStochasticQuoteRounded",")
 		i=$(( i + 1 ))
 	done
-
-# Time measurement
-END_TIME_MEASUREMENT=$(date +%s);
-echo " "
-echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
-echo "time elapsed."	
 }
 
 # ProgressBar function: Input is currentState($1) and totalState($2)
