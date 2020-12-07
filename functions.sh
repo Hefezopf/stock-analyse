@@ -79,22 +79,9 @@ IFS=$'\n' read -d '' -r -a lines < $stochasticFile
 		#lastStochasticRaw=$(head -n 1 $stochasticFile)
 		
 
+		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
 
-IFS=$'\n' sorted=($(sort -g <<<"${lines[*]}"))
-#unset IFS
-		lowestStochasticRaw=${sorted[0]}
-
-
-		#lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
-#echo lll $lowestStochasticRaw 
-#exit
-
-
-IFS=$'\n' sorted=($(sort -gr <<<"${lines[*]}"))
-#unset IFS
-		highestStochasticRaw=${sorted[0]}
-
-        #highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
+        highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
 #echo hhh $highestStochasticRaw 
 #exit
 IFS=$OLDIFS
