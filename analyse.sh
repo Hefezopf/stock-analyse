@@ -102,6 +102,11 @@ echo "start chrome " >> $OUT_RESULT_FILE
 # Get data
 for symbol in $symbolsParam
 do
+	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
+    stockname=$(curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0]')
+#    stockname=$(curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
+	echo -- $symbolRaw -- $stockname
+
 	echo "# Get $symbol"
 	if [ "$queryParam" = 'offline' ]; then
 		true
