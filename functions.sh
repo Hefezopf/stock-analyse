@@ -67,23 +67,12 @@ START_TIME_MEASUREMENT=$(date +%s);
 		headLines=$(echo $((100-$i)))
 		head -n$headLines data/values.${symbol}.txt | tail -"${1}" > $stochasticFile
 
-
-
 OLDIFS=$IFS
-IFS=$'\n' read -d '' -r -a lines < $stochasticFile
-#IFS=$OLDIFS
-
-
-		
+IFS=$'\n' read -r -a lines < $stochasticFile
 		lastStochasticRaw=${lines[0]}
 		#lastStochasticRaw=$(head -n 1 $stochasticFile)
-		
-
 		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
-
         highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
-#echo hhh $highestStochasticRaw 
-#exit
 IFS=$OLDIFS
 
 		GreaterThenWithFactor 1 $highestStochasticRaw $lowestStochasticRaw; validStochastic=$?
