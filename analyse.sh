@@ -103,9 +103,14 @@ echo "start chrome " >> $OUT_RESULT_FILE
 for symbol in $symbolsParam
 do
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
-    stockname=$(curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0]')
-#    stockname=$(curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
-	echo -- $symbolRaw -- $stockname
+	grepStockname=$(grep -w "$symbolRaw " data/stocks.txt)
+	#echo --- $grepStockname
+	if [ ! "${#grepStockname}" -gt 1 ]; then
+		#stockname=$(curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0]')
+    	stockname=$(curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
+		echo $symbolRaw $stockname | tee -a data/stocks.txt
+	fi	
+	sleep 10
 
 	echo "# Get $symbol"
 	if [ "$queryParam" = 'offline' ]; then
@@ -275,6 +280,8 @@ do
 	echo $stochasticQuoteList14 >> $indexSymbolFile
 	cat js/indexPart10.html >> $indexSymbolFile
 
+    symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
+	echo "<p>Aktie:<b>" $(grep -w "$symbolRaw " data/stocks.txt) "</b>" >> $indexSymbolFile
 	echo "<p>Kursdatum:<b>" $(stat -c %y data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;Schluss Kurs:<b>" $last "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
