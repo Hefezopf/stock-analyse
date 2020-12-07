@@ -278,9 +278,9 @@ do
 	cat js/indexPart10.html >> $indexSymbolFile
 
     symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
-	echo "<p>Aktie:<b>" $(grep -w "$symbolRaw " data/stocks.txt) "</b>" >> $indexSymbolFile
-	echo "<p>Kursdatum:<b>" $(stat -c %y data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
-	echo "&nbsp;Schluss Kurs:<b>" $last "&#8364;</b>" >> $indexSymbolFile
+	echo "<p>Stock:<b>" $(grep -w "$symbolRaw " data/stocks.txt) "</b>" >> $indexSymbolFile
+	echo "<p>Date:<b>" $(stat -c %y data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
+	echo "&nbsp;Final quote:<b>" $last "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 38:<b>" $average38 "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 100:<b>" $average100 "&#8364;</b>" >> $indexSymbolFile
