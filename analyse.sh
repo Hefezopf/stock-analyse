@@ -104,6 +104,7 @@ echo "<br>" >> $OUT_RESULT_FILE
 for symbol in $symbolsParam
 do
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
+	symbolRaw=$(echo ${symbolRaw^^})
 	symbolName=$(grep -w "$symbolRaw " data/_ticker_names.txt)
 	if [ ! "${#symbolName}" -gt 1 ]; then
     	stockname=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
@@ -127,6 +128,7 @@ do
 
     echo " "
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
+	symbolRaw=$(echo ${symbolRaw^^})
 	echo "# Analyse $symbolRaw"
 	lastRaw=$(head -n1 -q data/${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
