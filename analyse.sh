@@ -230,9 +230,9 @@ do
 					ID_NOTATION=999999
 				fi 
 				echo $symbolRaw >> $OUT_RESULT_FILE
-				echo -e "\n\r\n\r" >> $OUT_RESULT_FILE
+				echo "<br>" >> $OUT_RESULT_FILE
 		        echo $COMDIRECT_URL_PREFIX$ID_NOTATION >> $OUT_RESULT_FILE
-				echo -e "\n\r\n\r" >> $OUT_RESULT_FILE
+				echo "<br><br>" >> $OUT_RESULT_FILE
 			fi
 		fi
 	
