@@ -6,8 +6,8 @@
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
 # 4. Parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
 # 5. Parameter: STOCHASTIC: Percentage for stochastic indicator.
-# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 online underrated 20
-# Call example: ./analyse.sh 'ADS.XETRA' 1 offline underrated 20
+# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 online underrated 9
+# Call example: ./analyse.sh 'ADS.XETRA' 1 offline underrated 9
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 
@@ -60,7 +60,7 @@ else
 	echo "<br>" >> $OUT_RESULT_FILE
 	echo " STOCHASTIC14: Percentage for stochastic indicator" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
-	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 20" | tee -a $OUT_RESULT_FILE
+	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 9" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
     echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 	exit

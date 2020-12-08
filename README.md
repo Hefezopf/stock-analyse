@@ -9,9 +9,9 @@ This script checks given stock quotes and their averages of the last 100, 38, 18
 ## CMD
 ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC
 
-./analyse.sh 'ADS.XETRA' 1 online overrated 30
+./analyse.sh 'ADS.XETRA' 1 online overrated 9
 
-./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' 2 offline underrated 20
+./analyse.sh 'ADS.XETRA ALV.XETRA BAS.XETRA' 2 offline underrated 9
 
 
 ## Github Action
@@ -26,7 +26,7 @@ https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.w
 
 ## cURL
 
-./curl_github_dispatch.sh "INL.XETRA" 1 offline underrated 20
+./curl_github_dispatch.sh "INL.XETRA" 1 offline underrated 9
 
 or Example
 
