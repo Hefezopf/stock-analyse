@@ -103,13 +103,13 @@ echo "start chrome " >> $OUT_RESULT_FILE
 for symbol in $symbolsParam
 do
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
-	grepStockname=$(grep -w "$symbolRaw " data/stocks.txt)
+	grepStockname=$(grep -w "$symbolRaw " data/ticker_names.txt)
 	if [ ! "${#grepStockname}" -gt 1 ]; then
     	stockname=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
-		echo $symbolRaw $stockname | tee -a data/stocks.txt
+		echo $symbolRaw $stockname | tee -a data/ticker_names.txt
 	fi	
 
-	echo "# Get $symbol"
+	echo "# Get $symbolRaw"
 	if [ "$queryParam" = 'offline' ]; then
 		true
 	else
@@ -125,7 +125,8 @@ do
 	#
 
     echo " "
-	echo "# Analyse $symbol"
+	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
+	echo "# Analyse $symbolRaw"
 	lastRaw=$(head -n1 -q data/values.${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
@@ -210,7 +211,7 @@ do
 			   [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
 				resultOverrated="- Overrated: $symbol last $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
 				echo $resultOverrated
-				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+				#echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
 			fi
 		fi
 	
@@ -221,10 +222,18 @@ do
 			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
 				resultUnderrated="+ Underrated: $symbol last $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
 				echo $resultUnderrated
-				echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+				#echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+		
+				ID_NOTATION=$(grep "${symbolRaw}" data/ticker_idnotation.txt | cut -f 2 -d ' ')
+				if [ ! "${#ID_NOTATION}" -gt 1 ]; then
+					ID_NOTATION=999999
+				fi 
+		        echo "\"https://nutzer.comdirect.de/inf/aktien/detail/chart_big.html?NAME_PORTFOLIO=Watch&POSITION=234%2C%2C24125490&timeSpan=1Y&chartType=MOUNTAIN&interactivequotes=true&disbursement_split=false&news=false&rel=false&log=false&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&expo=false&fundWithEarnings=true&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&indicatorsBelowChart=SST&PRESET=1&ID_NOTATION=$ID_NOTATION\" " >> $OUT_RESULT_FILE
 			fi
 		fi
 	
+	    # Strategie: Low stochastic 3 last values under lowStochasticValue
+		resultStrategieLowStochastic=""
 		StrategieLowStochastic 9 "$stochasticQuoteList"
 
 		# Strategie: The very last stochastic is 0
@@ -277,18 +286,19 @@ do
 	echo $stochasticQuoteList14 >> $indexSymbolFile
 	cat js/indexPart10.html >> $indexSymbolFile
 
-    symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
-	echo "<p>Stock:<b>" $(grep -w "$symbolRaw " data/stocks.txt) "</b>" >> $indexSymbolFile
+    #symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
+	echo "<p>Stock:<b>" $(grep -w "$symbolRaw " data/ticker_names.txt) "</b>" >> $indexSymbolFile
 	echo "<p>Date:<b>" $(stat -c %y data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;Final quote:<b>" $last "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 38:<b>" $average38 "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 100:<b>" $average100 "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Stochastic 14:<b>" $lastStochasticQuoteRounded "</b></p>" >> $indexSymbolFile
-	echo "<p>Result:</p>" >> $indexSymbolFile
+	echo "<p>Analyse:</p>" >> $indexSymbolFile
 	echo "<p><b>" $resultUnderrated "</b></p>" >> $indexSymbolFile
+	echo "<p><b>" $resultStrategieLowStochastic "</b></p>" >> $indexSymbolFile
 	#echo "<p><b><a href="$resultUnderrated">xxxx</a></b></p>" >> $indexSymbolFile
-	
+
 	cat js/indexPart11.html >> $indexSymbolFile
 
 	# Store list of files for later (tar/zip)
