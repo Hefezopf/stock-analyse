@@ -41,6 +41,7 @@ indexSymbolFileList=""
 HTML_RESULT_FILE_HEADER=$(echo "<html><head><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div id="body"><p>Stock Analyse,</p><p>")
 echo $HTML_RESULT_FILE_HEADER > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END=$(echo "</p><p>Thanks</p></div></body></html>" )
+COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart_big.html?NAME_PORTFOLIO=Watch&POSITION=234%2C%2C24125490&timeSpan=1Y&chartType=MOUNTAIN&interactivequotes=true&disbursement_split=false&news=false&rel=false&log=false&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&expo=false&fundWithEarnings=true&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&indicatorsBelowChart=SST&PRESET=1&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check parameter
@@ -97,7 +98,7 @@ echo " " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "# URLs" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "start chrome " >> $OUT_RESULT_FILE
+#echo "start chrome " >> $OUT_RESULT_FILE
 
 # Get data
 for symbol in $symbolsParam
@@ -228,7 +229,10 @@ do
 				if [ ! "${#ID_NOTATION}" -gt 1 ]; then
 					ID_NOTATION=999999
 				fi 
-		        echo "https://nutzer.comdirect.de/inf/aktien/detail/chart_big.html?NAME_PORTFOLIO=Watch&POSITION=234%2C%2C24125490&timeSpan=1Y&chartType=MOUNTAIN&interactivequotes=true&disbursement_split=false&news=false&rel=false&log=false&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&expo=false&fundWithEarnings=true&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&indicatorsBelowChart=SST&PRESET=1&ID_NOTATION=$ID_NOTATION" >> $OUT_RESULT_FILE
+				echo $symbolRaw >> $OUT_RESULT_FILE
+				echo -e "\n\r\n\r" >> $OUT_RESULT_FILE
+		        echo $COMDIRECT_URL_PREFIX$ID_NOTATION >> $OUT_RESULT_FILE
+				echo -e "\n\r\n\r" >> $OUT_RESULT_FILE
 			fi
 		fi
 	
