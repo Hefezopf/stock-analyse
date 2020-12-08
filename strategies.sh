@@ -24,12 +24,18 @@ StrategieLowStochastic() {
     if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValue" ]; then
         howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
     fi
-    resulthowManyUnderLowStochasticValue=""
-    # All 3 last values under?
+    resultStrategieLowStochastic=""
+    # All 3 last values under _lowStochasticValue?
     if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-        resulthowManyUnderLowStochasticValue="+ Low stochastic: $symbol has the last 3 quotes under: $_lowStochasticValue"
-        echo $resulthowManyUnderLowStochasticValue
-        echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+        resultStrategieLowStochastic="+ Low stochastic: $symbol has the last 3 quotes under: $_lowStochasticValue"
+        echo $resultStrategieLowStochastic
+        #echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+
+        ID_NOTATION=$(grep "${symbolRaw}" data/ticker_idnotation.txt | cut -f 2 -d ' ')
+        if [ ! "${#ID_NOTATION}" -gt 1 ]; then
+            ID_NOTATION=999999
+        fi        
+        echo "\"https://nutzer.comdirect.de/inf/aktien/detail/chart_big.html?NAME_PORTFOLIO=Watch&POSITION=234%2C%2C24125490&timeSpan=1Y&chartType=MOUNTAIN&interactivequotes=true&disbursement_split=false&news=false&rel=false&log=false&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&expo=false&fundWithEarnings=true&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&indicatorsBelowChart=SST&PRESET=1&ID_NOTATION=$ID_NOTATION\" " >> $OUT_RESULT_FILE
     fi
 }
 
