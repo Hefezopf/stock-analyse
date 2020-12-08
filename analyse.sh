@@ -104,8 +104,8 @@ echo "<br>" >> $OUT_RESULT_FILE
 for symbol in $symbolsParam
 do
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
-	grepStockname=$(grep -w "$symbolRaw " data/ticker_names.txt)
-	if [ ! "${#grepStockname}" -gt 1 ]; then
+	symbolName=$(grep -w "$symbolRaw " data/ticker_names.txt)
+	if [ ! "${#symbolName}" -gt 1 ]; then
     	stockname=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
 		echo $symbolRaw $stockname | tee -a data/ticker_names.txt
 	fi	
@@ -229,7 +229,7 @@ do
 				if [ ! "${#ID_NOTATION}" -gt 1 ]; then
 					ID_NOTATION=999999
 				fi 
-				echo $symbolRaw >> $OUT_RESULT_FILE
+				echo $symbolName >> $OUT_RESULT_FILE
 				echo "<br>" >> $OUT_RESULT_FILE
 		        echo $COMDIRECT_URL_PREFIX$ID_NOTATION >> $OUT_RESULT_FILE
 				echo "<br><br>" >> $OUT_RESULT_FILE
@@ -241,10 +241,10 @@ do
 		StrategieLowStochastic 9 "$stochasticQuoteList"
 
 		# Strategie: The very last stochastic is 0
-		# resultLowStochastic=""
+		# resultVeryLastStochasticIs0=""
 		# if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
-		# 	resultLowStochastic="+ Low stochastic: $symbol has $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
-		# 	echo $resultLowStochastic
+		# 	resultVeryLastStochasticIs0="+ Low stochastic: $symbol has $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
+		# 	echo $resultVeryLastStochasticIs0
 		# 	echo "<br>" >> $OUT_RESULT_FILE
 		# 	echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
 		# 	echo "<br>" >> $OUT_RESULT_FILE
