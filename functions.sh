@@ -103,7 +103,7 @@ ProgressBar() {
 # Input is currentState($1) and totalState($2)
 WriteComdirectUrl() {
 	_symbolName=$(grep -w "$symbolRaw " data/ticker_names.txt)
-	ID_NOTATION=$(grep "${_symbolName}" data/ticker_idnotation.txt | cut -f 2 -d ' ')
+	ID_NOTATION=$(grep "${symbolRaw}" data/ticker_idnotation.txt | cut -f 2 -d ' ')
 	if [ ! "${#ID_NOTATION}" -gt 1 ]; then
 		ID_NOTATION=999999
 	fi 
