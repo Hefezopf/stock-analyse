@@ -35,7 +35,7 @@ StrategieLowStochastic() {
         if [ ! "${#ID_NOTATION}" -gt 1 ]; then
             ID_NOTATION=999999
         fi        
-        echo "\"https://nutzer.comdirect.de/inf/aktien/detail/chart_big.html?NAME_PORTFOLIO=Watch&POSITION=234%2C%2C24125490&timeSpan=1Y&chartType=MOUNTAIN&interactivequotes=true&disbursement_split=false&news=false&rel=false&log=false&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&expo=false&fundWithEarnings=true&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&indicatorsBelowChart=SST&PRESET=1&ID_NOTATION=$ID_NOTATION\"" " " >> $OUT_RESULT_FILE
+        echo "'https://nutzer.comdirect.de/inf/aktien/detail/chart_big.html?NAME_PORTFOLIO=Watch&POSITION=234%2C%2C24125490&timeSpan=1Y&chartType=MOUNTAIN&interactivequotes=true&disbursement_split=false&news=false&rel=false&log=false&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&expo=false&fundWithEarnings=true&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&indicatorsBelowChart=SST&PRESET=1&ID_NOTATION=$ID_NOTATION'" " " >> $OUT_RESULT_FILE
     fi
 }
 
