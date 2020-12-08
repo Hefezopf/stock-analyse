@@ -33,6 +33,9 @@ export TICKER=IBM
 curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${TICKER}'"}]' | jq '.[0].data[0].name'
 
 
+git config advice.addIgnoredFile false
+
+
 TODO:
 -----
 -Doppelte urls vermeiden
