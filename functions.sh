@@ -1,5 +1,6 @@
 # LesserThenWithFactor function:
 # Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+# Output: 1 if lesser
 LesserThenWithFactor() {
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
@@ -11,6 +12,7 @@ LesserThenWithFactor() {
 
 # GreaterThenWithFactor function:
 # Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+# Output: 1 if greater
 GreaterThenWithFactor() {
 	_greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
@@ -22,6 +24,7 @@ GreaterThenWithFactor() {
 
 # RoundNumber function:
 # Input is floatNumber($1), digitsAfterComma($2)
+# Output: Number
 RoundNumber() {
 	return $(printf "%.${2}f" "${1}")
 }
@@ -84,8 +87,8 @@ StochasticOfDays() {
 
 # ProgressBar function:
 # Input is currentState($1) and totalState($2)
+# Output: echo
 ProgressBar() {
-	# Process data
 	_progress_=$(echo $((${1}*100/${2}*100)))
 	_progress=$(echo $(($_progress_/100)))
 	_done_=$(echo $((${_progress}*4)))
@@ -98,4 +101,17 @@ ProgressBar() {
 	if [ $(uname) = 'MINGW64_NT-10.0-18363' ]; then
 		echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
 	fi
+}
+
+# WriteComdirectUrl function:
+# Input -
+# Output: echo to file
+WriteComdirectUrl() {
+	_symbolName=$(grep -w "$symbolRaw " data/ticker_names.txt)
+	ID_NOTATION=$(grep "${symbolRaw}" data/ticker_idnotation.txt | cut -f 2 -d ' ')
+	if [ ! "${#ID_NOTATION}" -gt 1 ]; then
+		ID_NOTATION=999999
+	fi 
+	echo $_symbolName "<br>" >> $OUT_RESULT_FILE
+	echo $COMDIRECT_URL_PREFIX$ID_NOTATION "<br><br>" >> $OUT_RESULT_FILE
 }
