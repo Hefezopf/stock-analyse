@@ -1,5 +1,7 @@
-# StrategieLowStochastic function: Input is lowStochasticValue($1), stochasticQuoteList($2)
+# StrategieLowStochastic function:
 # Strategie: Low stochastic 3 last values under lowStochasticValue
+# Input is lowStochasticValue($1), stochasticQuoteList($2)
+# Output: resultStrategieLowStochastic
 StrategieLowStochastic() {		
     _lowStochasticValue="$1"
     _stochasticQuoteList="$2"
@@ -23,12 +25,19 @@ StrategieLowStochastic() {
     if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValue" ]; then
         howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
     fi
-    resulthowManyUnderLowStochasticValue=""
-    # All 3 last values under?
+    resultStrategieLowStochastic=""
+    # All 3 last values under _lowStochasticValue?
     if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-        resulthowManyUnderLowStochasticValue="+ Low stochastic: $symbol has $howManyUnderLowStochasticValue the last 3 quotes under: $lowStochasticValue"
-        echo $resulthowManyUnderLowStochasticValue
-        echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
+        resultStrategieLowStochastic="+ Low stochastic: 3 last stochastic quotes are under: $_lowStochasticValue"
+        echo $resultStrategieLowStochastic
+        WriteComdirectUrl
     fi
 }
 
+# RandomId function:
+# Input -
+# Output: -
+RandomId() {	
+    randomResult=$(od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}')
+    echo $randomResult	
+}
