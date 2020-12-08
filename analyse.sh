@@ -233,12 +233,12 @@ do
 		# fi
 	
 	    # -Strategie: Low stochastic 3 last values under lowStochasticValue
-		resultStrategieLowStochastic=""
-		StrategieLowStochastic 9 "$stochasticQuoteList"
+		resultStrategieUnderratedLowStochastic=""
+		StrategieUnderratedLowStochastic 9 "$stochasticQuoteList"
 
 		# -Strategie: The very last stochastic is lower then stochasticPercentageLower
-		resultStrategieVeryLastStochasticIsLowerThen=""
-		StrategieVeryLastStochasticIsLowerThen
+		resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
+		StrategieUnderratedVeryLastStochasticIsLowerThen
 	else
 	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
@@ -293,8 +293,8 @@ do
 	echo "<p><b>" $resultStrategieOverratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
 	# -
 	echo "<p><b>" $resultStrategieUnderratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
-	echo "<p><b>" $resultStrategieLowStochastic "</b></p>" >> $indexSymbolFile
-	echo "<p><b>" $resultStrategieVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
+	echo "<p><b>" $resultStrategieUnderratedLowStochastic "</b></p>" >> $indexSymbolFile
+	echo "<p><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
 
 	cat js/indexPart11.html >> $indexSymbolFile
 
