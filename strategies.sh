@@ -9,6 +9,7 @@ StrategieOverratedByPercentAndStochastic() {
             [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
             resultStrategieOverratedByPercentAndStochastic="- Overrated: $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
             echo $resultStrategieOverratedByPercentAndStochastic
+            WriteComdirectUrl
         fi
     fi
 }
