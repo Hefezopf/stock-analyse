@@ -1,5 +1,6 @@
 # LesserThenWithFactor function:
 # Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+# Output: 1 if lesser
 LesserThenWithFactor() {
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
@@ -11,6 +12,7 @@ LesserThenWithFactor() {
 
 # GreaterThenWithFactor function:
 # Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+# Output: 1 if greater
 GreaterThenWithFactor() {
 	_greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
@@ -22,6 +24,7 @@ GreaterThenWithFactor() {
 
 # RoundNumber function:
 # Input is floatNumber($1), digitsAfterComma($2)
+# Output: Number
 RoundNumber() {
 	return $(printf "%.${2}f" "${1}")
 }
@@ -84,6 +87,7 @@ StochasticOfDays() {
 
 # ProgressBar function:
 # Input is currentState($1) and totalState($2)
+# Output: echo
 ProgressBar() {
 	_progress_=$(echo $((${1}*100/${2}*100)))
 	_progress=$(echo $(($_progress_/100)))
@@ -99,8 +103,9 @@ ProgressBar() {
 	fi
 }
 
-# ProgressBar function:
-# Input is currentState($1) and totalState($2)
+# WriteComdirectUrl function:
+# Input -
+# Output: echo to file
 WriteComdirectUrl() {
 	_symbolName=$(grep -w "$symbolRaw " data/ticker_names.txt)
 	ID_NOTATION=$(grep "${symbolRaw}" data/ticker_idnotation.txt | cut -f 2 -d ' ')

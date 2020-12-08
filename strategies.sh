@@ -1,6 +1,7 @@
 # StrategieLowStochastic function:
-# Input is lowStochasticValue($1), stochasticQuoteList($2)
 # Strategie: Low stochastic 3 last values under lowStochasticValue
+# Input is lowStochasticValue($1), stochasticQuoteList($2)
+# Output: resultStrategieLowStochastic
 StrategieLowStochastic() {		
     _lowStochasticValue="$1"
     _stochasticQuoteList="$2"
@@ -34,6 +35,8 @@ StrategieLowStochastic() {
 }
 
 # RandomId function:
+# Input -
+# Output: -
 RandomId() {	
     randomResult=$(od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}')
     echo $randomResult	
