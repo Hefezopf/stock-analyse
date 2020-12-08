@@ -107,8 +107,6 @@ WriteComdirectUrl() {
 	if [ ! "${#ID_NOTATION}" -gt 1 ]; then
 		ID_NOTATION=999999
 	fi 
-	echo $_symbolName >> $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE
-	echo $COMDIRECT_URL_PREFIX$ID_NOTATION >> $OUT_RESULT_FILE
-	echo "<br><br>" >> $OUT_RESULT_FILE
+	echo $_symbolName "<br>" >> $OUT_RESULT_FILE
+	echo $COMDIRECT_URL_PREFIX$ID_NOTATION "<br><br>" >> $OUT_RESULT_FILE
 }

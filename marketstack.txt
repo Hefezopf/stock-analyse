@@ -35,12 +35,16 @@ curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type
 
 TODO:
 -----
--Doppelte urls vermeiden
--google raus
--in function auslagern   ID_NOTATION=$(grep "${symbolRaw}" data/ticker_idnotation.txt | cut -f 2 -d ' ')
 -index vorne wegnehmen -> out/ADS-chart.html
 -value vorne wegnehmen -> data/ADS-data.html
 -data/_ticker
+
+-Doppelte urls vermeiden
+  perl -ne 'print unless $seen{$_}++' out/result.html > out/resultuniq.html
+  br ?
+  randomResult="ooooooo"
+  RandomId 77; randomResult=$?
+  echo ---- $randomResult  
 (-Anker in Result)
 (-.XETRA über weg nehmen)
 -Link zu comdirect in Result

@@ -217,13 +217,13 @@ do
 			fi
 		fi
 	
-		# Strategie: Underrated
-		resultStrategieUnderrated=""
+		# Strategie: UnderratedByPercentAndStochastic
+		resultStrategieUnderratedByPercentAndStochastic=""
 		if [ "$ratedParam" = 'underrated' ]; then
 			if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
 			   [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
-				resultStrategieUnderrated="+ Underrated: $last EUR is more then $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
-				echo $resultStrategieUnderrated		
+				resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: Last price $last EUR is $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR and Stochastic14 $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
+				echo $resultStrategieUnderratedByPercentAndStochastic
 		        WriteComdirectUrl
 			fi
 		fi
@@ -235,7 +235,7 @@ do
 		# Strategie: The very last stochastic is lower then stochasticPercentageLower
 		resultStrategieVeryLastStochasticIsLowerThen=""
 		if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
-			resultStrategieVeryLastStochasticIsLowerThen="+ Very last stochastic: $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
+			resultStrategieVeryLastStochasticIsLowerThen="+ Very last stochastic: last stochastic quote $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
 			echo $resultStrategieVeryLastStochasticIsLowerThen
 			WriteComdirectUrl
 		fi
@@ -289,7 +289,7 @@ do
 	echo "&nbsp;Stochastic 14:<b>" $lastStochasticQuoteRounded "</b></p>" >> $indexSymbolFile
 	echo "<p>Analyse:</p>" >> $indexSymbolFile
 	# Strategies output
-	echo "<p><b>" $resultStrategieUnderrated "</b></p>" >> $indexSymbolFile
+	echo "<p><b>" $resultStrategieUnderratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
 	echo "<p><b>" $resultStrategieLowStochastic "</b></p>" >> $indexSymbolFile
 	echo "<p><b>" $resultStrategieVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
 

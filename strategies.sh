@@ -27,8 +27,14 @@ StrategieLowStochastic() {
     resultStrategieLowStochastic=""
     # All 3 last values under _lowStochasticValue?
     if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-        resultStrategieLowStochastic="+ Low stochastic: 3 last stochastic quotes under: $_lowStochasticValue"
+        resultStrategieLowStochastic="+ Low stochastic: 3 last stochastic quotes are under: $_lowStochasticValue"
         echo $resultStrategieLowStochastic
         WriteComdirectUrl
     fi
+}
+
+# RandomId function:
+RandomId() {	
+    randomResult=$(od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}')
+    echo $randomResult	
 }
