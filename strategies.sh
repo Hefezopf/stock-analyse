@@ -27,17 +27,8 @@ StrategieLowStochastic() {
     resultStrategieLowStochastic=""
     # All 3 last values under _lowStochasticValue?
     if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-        resultStrategieLowStochastic="+ Low stochastic: $symbol has the last 3 quotes under: $_lowStochasticValue"
+        resultStrategieLowStochastic="+ Low stochastic: 3 last stochastic quotes under: $_lowStochasticValue"
         echo $resultStrategieLowStochastic
-        #echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
-
-        ID_NOTATION=$(grep "${symbolRaw}" data/ticker_idnotation.txt | cut -f 2 -d ' ')
-        if [ ! "${#ID_NOTATION}" -gt 1 ]; then
-            ID_NOTATION=999999
-        fi        
-        echo $symbolName >> $OUT_RESULT_FILE
-        echo "<br>" >> $OUT_RESULT_FILE
-        echo $COMDIRECT_URL_PREFIX$ID_NOTATION >> $OUT_RESULT_FILE
-        echo "<br><br>" >> $OUT_RESULT_FILE
+        WriteComdirectUrl
     fi
 }

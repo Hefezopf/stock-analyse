@@ -85,7 +85,6 @@ StochasticOfDays() {
 # ProgressBar function:
 # Input is currentState($1) and totalState($2)
 ProgressBar() {
-	# Process data
 	_progress_=$(echo $((${1}*100/${2}*100)))
 	_progress=$(echo $(($_progress_/100)))
 	_done_=$(echo $((${_progress}*4)))
@@ -98,4 +97,18 @@ ProgressBar() {
 	if [ $(uname) = 'MINGW64_NT-10.0-18363' ]; then
 		echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
 	fi
+}
+
+# ProgressBar function:
+# Input is currentState($1) and totalState($2)
+WriteComdirectUrl() {
+	_symbolName=$(grep -w "$symbolRaw " data/ticker_names.txt)
+	ID_NOTATION=$(grep "${_symbolName}" data/ticker_idnotation.txt | cut -f 2 -d ' ')
+	if [ ! "${#ID_NOTATION}" -gt 1 ]; then
+		ID_NOTATION=999999
+	fi 
+	echo $_symbolName >> $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE
+	echo $COMDIRECT_URL_PREFIX$ID_NOTATION >> $OUT_RESULT_FILE
+	echo "<br><br>" >> $OUT_RESULT_FILE
 }
