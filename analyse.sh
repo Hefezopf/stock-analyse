@@ -104,17 +104,17 @@ echo "<br>" >> $OUT_RESULT_FILE
 for symbol in $symbolsParam
 do
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
-	symbolName=$(grep -w "$symbolRaw " data/ticker_names.txt)
+	symbolName=$(grep -w "$symbolRaw " data/_ticker_names.txt)
 	if [ ! "${#symbolName}" -gt 1 ]; then
     	stockname=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
-		echo $symbolRaw $stockname | tee -a data/ticker_names.txt
+		echo $symbolRaw $stockname | tee -a data/_ticker_names.txt
 	fi	
 
 	echo "# Get $symbolRaw"
 	if [ "$queryParam" = 'offline' ]; then
 		true
 	else
-		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/values.${symbol}.txt
+		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbol}.txt
 	fi
 done
 
@@ -128,11 +128,11 @@ do
     echo " "
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
 	echo "# Analyse $symbolRaw"
-	lastRaw=$(head -n1 -q data/values.${symbol}.txt)
+	lastRaw=$(head -n1 -q data/${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
 
-	head -n18 data/values.${symbol}.txt > out/values18.txt
+	head -n18 data/${symbol}.txt > out/values18.txt
 	average18Raw=$(cat out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
@@ -142,14 +142,14 @@ do
 	GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
-	head -n38 data/values.${symbol}.txt > out/values38.txt
+	head -n38 data/${symbol}.txt > out/values38.txt
 	average38Raw=$(cat out/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	#average38=$(printf "%'.2f\n" $average38Raw)
 	average38=$average38Raw
 	GreaterThenWithFactor $percentageGreaterFactor $last $average38; lastOverAgv38=$?
     LesserThenWithFactor $percentageLesserFactor $last $average38;lastUnderAgv38=$?
 	
-	head -n100 data/values.${symbol}.txt > out/values100.txt
+	head -n100 data/${symbol}.txt > out/values100.txt
 	average100Raw=$(cat out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	#average100=$(printf "%'.2f\n" $average100Raw)
 	average100=$average100Raw
@@ -203,7 +203,7 @@ do
 	#
 
 	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
-	fileSize=$(stat -c %s data/values.${symbol}.txt)
+	fileSize=$(stat -c %s data/${symbol}.txt)
 	if [ "$fileSize" -gt 200 ]; then
 
 		# Strategie: Overrated
@@ -248,11 +248,11 @@ do
 	# Output
 	#
 
-    # Writing chart index.${symbol}.html
+    # Writing chart ${symbol}.html
 	commaPriceListFile=out/commaPriceListFile.txt
-	cat data/values.${symbol}.txt | tac > $commaPriceListFile
+	cat data/${symbol}.txt | tac > $commaPriceListFile
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
-    indexSymbolFile=out/index.${symbol}.html
+    indexSymbolFile=out/${symbol}.html
 	rm -rf $indexSymbolFile
 	cp js/chart.min.js out
 	cp js/utils.js out
@@ -280,8 +280,8 @@ do
 	echo $stochasticQuoteList14 >> $indexSymbolFile
 	cat js/indexPart10.html >> $indexSymbolFile
 
-	echo "<p>Stock:<b>" $(grep -w "$symbolRaw " data/ticker_names.txt) "</b>" >> $indexSymbolFile
-	echo "<p>Date:<b>" $(stat -c %y data/values.${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
+	echo "<p>Stock:<b>" $(grep -w "$symbolRaw " data/_ticker_names.txt) "</b>" >> $indexSymbolFile
+	echo "<p>Date:<b>" $(stat -c %y data/${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;Final quote:<b>" $last "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 38:<b>" $average38 "&#8364;</b>" >> $indexSymbolFile

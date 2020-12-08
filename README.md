@@ -36,8 +36,8 @@ curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.
 # Result
 
 Outputs:
-- data/values.SYMBOL.txt
-- out/index.SYMBOL.html
+- data/SYMBOL.txt
+- out/SYMBOL.html
 - out/result.html
 - out/out.tar.gz
 

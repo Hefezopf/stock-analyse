@@ -2,4 +2,4 @@
 #./analyse.sh 'ADS.XETRA BMW.XETRA' 1 offline underrated 20
 set -x
 ./analyse.sh 'DB1.XETRA' $1 $2 $3 $4
-start chrome out/index.DB1.XETRA.html
+start chrome out/DB1.XETRA.html

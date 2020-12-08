@@ -44,7 +44,7 @@ AverageOfDays() {
 	while [ "$i" -le $((100-$1)) ]; 
 	do
 		headLines=$(echo $((100-$i)))
-	    averagePrice=$(head -n$headLines data/values.${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+	    averagePrice=$(head -n$headLines data/${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 		i=$(( i + 1 ))
 	done
@@ -68,7 +68,7 @@ StochasticOfDays() {
 	while [ "$i" -le $((100-$1)) ];
 	do
 		headLines=$(echo $((100-$i)))
-		head -n$headLines data/values.${symbol}.txt | tail -"${1}" > $stochasticFile
+		head -n$headLines data/${symbol}.txt | tail -"${1}" > $stochasticFile
 		lastStochasticRaw=$(head -n 1 $stochasticFile)
 		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
 		highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
@@ -107,8 +107,8 @@ ProgressBar() {
 # Input -
 # Output: echo to file
 WriteComdirectUrl() {
-	_symbolName=$(grep -w "$symbolRaw " data/ticker_names.txt)
-	ID_NOTATION=$(grep "${symbolRaw}" data/ticker_idnotation.txt | cut -f 2 -d ' ')
+	_symbolName=$(grep -w "$symbolRaw " data/_ticker_names.txt)
+	ID_NOTATION=$(grep "${symbolRaw}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
 	if [ ! "${#ID_NOTATION}" -gt 1 ]; then
 		ID_NOTATION=999999
 	fi 
