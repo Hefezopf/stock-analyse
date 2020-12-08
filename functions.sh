@@ -111,7 +111,11 @@ WriteComdirectUrl() {
 	ID_NOTATION=$(grep "${symbolRaw}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
 	if [ ! "${#ID_NOTATION}" -gt 1 ]; then
 		ID_NOTATION=999999
-	fi 
-	echo $_symbolName "<br>" >> $OUT_RESULT_FILE
-	echo $COMDIRECT_URL_PREFIX$ID_NOTATION "<br><br>" >> $OUT_RESULT_FILE
+	fi
+	# only write URL once into result file
+	if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
+		ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
+		echo $_symbolName "<br>" >> $OUT_RESULT_FILE
+		echo $COMDIRECT_URL_PREFIX$ID_NOTATION "<br><br>" >> $OUT_RESULT_FILE
+	fi
 }
