@@ -1,4 +1,5 @@
-# StrategieLowStochastic function: Input is lowStochasticValue($1), stochasticQuoteList($2)
+# StrategieLowStochastic function:
+# Input is lowStochasticValue($1), stochasticQuoteList($2)
 # Strategie: Low stochastic 3 last values under lowStochasticValue
 StrategieLowStochastic() {		
     _lowStochasticValue="$1"
@@ -26,7 +27,7 @@ StrategieLowStochastic() {
     resulthowManyUnderLowStochasticValue=""
     # All 3 last values under?
     if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-        resulthowManyUnderLowStochasticValue="+ Low stochastic: $symbol has $howManyUnderLowStochasticValue the last 3 quotes under: $lowStochasticValue"
+        resulthowManyUnderLowStochasticValue="+ Low stochastic: $symbol has the last 3 quotes under: $_lowStochasticValue"
         echo $resulthowManyUnderLowStochasticValue
         echo "\"http://www.google.com/search?tbm=fin&q=${symbol}\" " >> $OUT_RESULT_FILE
     fi
