@@ -240,7 +240,9 @@ do
 	commaPriceListFile=out/commaPriceListFile.txt
 	cat data/${symbol}.txt | tac > $commaPriceListFile
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
-    indexSymbolFile=out/${symbol}.html
+   # indexSymbolFile=out/${symbol}.html
+    indexSymbolFile=out/${symbolRaw}.html
+	
 	rm -rf $indexSymbolFile
 	cp js/_chart.min.js out
 	cp js/_utils.js out
@@ -287,9 +289,6 @@ do
 	echo "<p><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
 
 	cat js/indexPart11.html >> $indexSymbolFile
-
-	# Store list of files for later (tar/zip)
-	#indexSymbolFileList=$(echo $indexSymbolFileList $indexSymbolFile)
 done
 
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
