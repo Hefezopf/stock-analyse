@@ -34,7 +34,7 @@ mkdir -p out
 OUT_ZIP_FILE=_out.tar.gz
 rm -rf out/$OUT_ZIP_FILE
 touch out/$OUT_ZIP_FILE
-OUT_RESULT_FILE=out/result.html
+OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 indexSymbolFileList=""
 # Email header
