@@ -1,13 +1,13 @@
 #!/bin/bash
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC
-# 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS.XETRA ALV.XETRA BAS.XETRA ...'
+# 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS ALV BAS ...'
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
 # 4. Parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
 # 5. Parameter: STOCHASTIC: Percentage for stochastic indicator.
-# Call example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 online underrated 9
-# Call example: ./analyse.sh 'ADS.XETRA' 1 offline underrated 9
+# Call example: ./analyse.sh 'ADS ALV' 3 online underrated 9
+# Call example: ./analyse.sh 'ADS' 1 offline underrated 9
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 
@@ -36,7 +36,7 @@ rm -rf out/$OUT_ZIP_FILE
 touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
-indexSymbolFileList=""
+indexSymbolFileList=$OUT_RESULT_FILE
 # Email header
 HTML_RESULT_FILE_HEADER=$(echo "<html><head><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div id="body"><p>Stock Analyse,</p><p>")
 echo $HTML_RESULT_FILE_HEADER > $OUT_RESULT_FILE
@@ -60,7 +60,7 @@ else
 	echo "<br>" >> $OUT_RESULT_FILE
 	echo " STOCHASTIC14: Percentage for stochastic indicator" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
-	echo "Example: ./analyse.sh 'ADS.XETRA ALV.XETRA' 3 offline underrated 9" | tee -a $OUT_RESULT_FILE
+	echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
     echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 	exit
@@ -101,13 +101,15 @@ echo " " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "# URLs" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-#echo "start chrome " >> $OUT_RESULT_FILE
 
 # Get data
 for symbol in $symbolsParam
 do
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
-	symbolRaw=$(echo ${symbolRaw} | tr a-z A-Z)
+	
+	symbolRaw=$(echo ${symbol} | tr a-z A-Z)
+	symbol=$symbolRaw".XETRA"
+
 	symbolName=$(grep -w "$symbolRaw " data/_ticker_names.txt)
 	if [ ! "${#symbolName}" -gt 1 ]; then
     	stockname=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
@@ -118,7 +120,7 @@ do
 	if [ "$queryParam" = 'offline' ]; then
 		true
 	else
-		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbol}.txt
+		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbolRaw}.txt
 	fi
 done
 
@@ -272,7 +274,8 @@ do
 	echo $stochasticQuoteList14 >> $indexSymbolFile
 	cat js/indexPart10.html >> $indexSymbolFile
 
-    echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbol</a><br>" >> $indexSymbolFile
+	ID_NOTATION=$(grep "${symbolRaw}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
+    echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbolName</a><br>" >> $indexSymbolFile
 	echo "Date:<b>" $(stat -c %y data/${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;Final quote:<b>" $last "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile

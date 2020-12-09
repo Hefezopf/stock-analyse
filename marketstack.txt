@@ -46,7 +46,7 @@ TODO:
   https://de.wikipedia.org/wiki/Relative_Strength_Index
 -MACD - Moving average convergence divergance (12,26,9)
 -Werte werden reverted/gedreht, daher erstmal nur bis stochastik 9 auswerten
--(.XETRA über weg nehmen)
+-( über weg nehmen)
 -(Runden auf euro)
 -(Auflösung: Symbol Ticker zu WKN)
 -Besseres EMail Template
@@ -61,7 +61,7 @@ Github Token for cURL:
 cURL works only from unrestricted devices!
 
 GITHUB_TOKEN=cbf8fa08a037b3d1e14c78fc5e991204861a2704-1
-curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "MSF.XETRA", "percentage": "1", "query": "offline", "rated": "underrated", "stochastic": "40"}'
+curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "MSF", "percentage": "1", "query": "offline", "rated": "underrated", "stochastic": "40"}'
 !!
 
 
@@ -76,7 +76,7 @@ tar -tvf out/_out.tar.gz
 #stochasticQuoteList=", , , , , , , , , , 82, 55, 28, 62, 18, 29, 10, 61, 100, 100, 100, 100,"
 
 
-start chrome "http://www.google.com/search?tbm=fin&q=ADS.XETRA" "http://www.google.com/search?tbm=fin&q=ALV.XETRA" 
+start chrome "http://www.google.com/search?tbm=fin&q=ADS" "http://www.google.com/search?tbm=fin&q=ALV" 
 
 BAYN
 curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=BAYN.XETRA" | jq '.data[0].volume'
@@ -84,10 +84,10 @@ curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MA
 DRW8
 curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=DRW8.XETRA" | jq '.data[].close'
 
-AI3A.XETRA
+AI3A
 curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=AI3A.XETRA" | jq '.data[].close'
 
-https://www.google.com/search?q=MSF.XETRA
+https://www.google.com/search?q=MSF
 
 
 https://github.com/Hefezopf/stock-analyse/actions
@@ -113,7 +113,7 @@ https://stedolan.github.io/jq/
 cat Xetra.json | jq '.data[].symbol'
 
 
-MSF.XETRA AMZ.XETRA ABEC.XETRA ABEA.XETRA AHLA.XETRA FB2A.XETRA BRYN.XETRA BRH.XETRA VODJ.XETRA 3V64.XETRA CMC.XETRA JNJ.XETRA WMT.XETRA M4I.XETRA NESM.XETRA PRG.XETRA SOBA.XETRA UNH.XETRA NCB.XETRA HDI.XETRA INL.XETRA CCC3.XETRA BAC.XETRA XONA.XETRA WDP.XETRA MOH.XETRA 6MK.XETRA CTP2.XETRA PFE.XETRA PEP.XETRA CHV.XETRA ADB.XETRA CIS.XETRA NWT.XETRA R6C.XETRA R6C3.XETRA NVD.XETRA NFC.XETRA ORC.XETRA BCO.XETRA FOO.XETRA LOR.XETRA MDO.XETRA SAP.XETRA NOVC.XETRA NKE.XETRA ABL.XETRA UNVB.XETRA TRVC.XETRA CTO.XETRA 2M6.XETRA BRM.XETRA TL0.XETRA 4I1.XETRA 4AB.XETRA 2PP.XETRA LLY.XETRA HBC1.XETRA AMG.XETRA ASMF.XETRA ZEG.XETRA SNW.XETRA ASME.XETRA ALD.XETRA 1TY.XETRA IBM.XETRA NOVA.XETRA TOTB.XETRA 1YD.XETRA LOM.XETRA UNP.XETRA 1NBA.XETRA TII.XETRA BPE.XETRA CQD.XETRA LIN.XETRA BPE5.XETRA DAP.XETRA GS7.XETRA IXD1.XETRA BIL.XETRA AIR.XETRA GIS.XETRA GEC.XETRA BMT.XETRA SRB.XETRA QCI.XETRA AEC1.XETRA ENL.XETRA ALV.XETRA MMM.XETRA VOW.XETRA CVS.XETRA GUI.XETRA SIE.XETRA KTF.XETRA UPAB.XETRA
+MSF AMZ ABEC ABEA AHLA FB2A BRYN BRH VODJ 3V64 CMC JNJ WMT M4I NESM PRG SOBA UNH NCB HDI INL CCC3 BAC XONA WDP MOH 6MK CTP2 PFE PEP CHV ADB CIS NWT R6C R6C3 NVD NFC ORC BCO FOO LOR MDO SAP NOVC NKE ABL UNVB TRVC CTO 2M6 BRM TL0 4I1 4AB 2PP LLY HBC1 AMG ASMF ZEG SNW ASME ALD 1TY IBM NOVA TOTB 1YD LOM UNP 1NBA TII BPE CQD LIN BPE5 DAP GS7 IXD1 BIL AIR GIS GEC BMT SRB QCI AEC1 ENL ALV MMM VOW CVS GUI SIE KTF UPAB
 
 https://github.com/dawidd6/action-send-mail
 
