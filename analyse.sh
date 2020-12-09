@@ -264,7 +264,7 @@ do
 	echo $stochasticQuoteList14 >> $indexSymbolFile
 	cat js/indexPart10.html >> $indexSymbolFile
 
-echo "<p>Stock:<b><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbol</a></b><br>" >> $indexSymbolFile
+    echo "<p>Stock:<b><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbol</a></b><br>" >> $indexSymbolFile
 	#echo "<p>Stock:<b>" $(grep -w "$symbolRaw " data/_ticker_names.txt) "</b>" >> $indexSymbolFile
 	echo "Date:<b>" $(stat -c %y data/${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;Final quote:<b>" $last "&#8364;</b>" >> $indexSymbolFile
