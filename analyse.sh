@@ -244,6 +244,8 @@ do
 	rm -rf $indexSymbolFile
 	cp js/_chart.min.js out
 	cp js/_utils.js out
+	cat js/indexPart0.html >> $indexSymbolFile
+	echo "${symbolRaw}" >> $indexSymbolFile
 	cat js/indexPart1.html >> $indexSymbolFile
 	echo "'" ${symbol} "'," >> $indexSymbolFile
 	cat js/indexPart2.html >> $indexSymbolFile
