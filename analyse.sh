@@ -132,7 +132,8 @@ do
     echo " "
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
 	symbolRaw=$(echo ${symbolRaw} | tr a-z A-Z)
-	echo "# Analyse $symbolRaw"
+	symbolName=$(grep -w "$symbolRaw " data/_ticker_names.txt)
+	echo "# Analyse $symbolName"
 	lastRaw=$(head -n1 -q data/${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
@@ -286,7 +287,7 @@ do
 	cat js/indexPart11.html >> $indexSymbolFile
 
 	# Store list of files for later (tar/zip)
-	indexSymbolFileList=$(echo $indexSymbolFileList $indexSymbolFile)
+	#indexSymbolFileList=$(echo $indexSymbolFileList $indexSymbolFile)
 done
 
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
