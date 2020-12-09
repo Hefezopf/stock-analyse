@@ -114,7 +114,7 @@ do
 		echo $symbolRaw $stockname | tee -a data/_ticker_names.txt
 	fi	
 
-	echo "# Get $symbolRaw"
+	echo "# Get $symbolName"
 	if [ "$queryParam" = 'offline' ]; then
 		true
 	else
