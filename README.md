@@ -3,6 +3,8 @@ Automated Stock Analysis.
 
 This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 
+![ScreenShot](ScreenShot.png "ScreenShot")
+
 
 # Run
 
