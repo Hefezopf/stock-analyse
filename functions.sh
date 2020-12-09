@@ -115,6 +115,7 @@ WriteComdirectUrl() {
 	# only write URL once into result file
 	if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
 		ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
+		echo "<a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$_symbolName</a><br>" >> $OUT_RESULT_FILE
 		echo $_symbolName "<br>" >> $OUT_RESULT_FILE
 		echo $COMDIRECT_URL_PREFIX$ID_NOTATION "<br><br>" >> $OUT_RESULT_FILE
 	fi
