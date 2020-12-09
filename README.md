@@ -3,10 +3,24 @@ Automated Stock Analysis.
 
 This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 
-![ScreenShot](ScreenShot.png "ScreenShot")
-
 
 # Run
+
+![ScreenShotCMD](ScreenShotCMD.png "ScreenShotCMD")
+
+
+# Result
+
+![ScreenShotResult](ScreenShotResult.png "ScreenShotResult")
+
+## Outputs:
+- data/SYMBOL.txt
+- out/SYMBOL.html
+- out/result.html
+- out/out.tar.gz
+
+
+# Execute
 
 ## CMD
 ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC
@@ -33,15 +47,6 @@ https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.w
 or Example
 
 curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "INL.XETRA", "percentage": "1", "query": "offline", "rated": "underrated", "stochastic": "20"}'
-
-
-# Result
-
-Outputs:
-- data/SYMBOL.txt
-- out/SYMBOL.html
-- out/result.html
-- out/out.tar.gz
 
 
 # REST Call
