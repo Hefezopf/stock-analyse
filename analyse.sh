@@ -31,7 +31,7 @@ stochasticPercentageParam=$5
 
 # Prepare
 mkdir -p out
-OUT_ZIP_FILE=out.tar.gz
+OUT_ZIP_FILE=_out.tar.gz
 rm -rf out/$OUT_ZIP_FILE
 touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/result.html
