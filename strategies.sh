@@ -9,7 +9,7 @@ StrategieOverratedByPercentAndStochastic() {
             [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
             resultStrategieOverratedByPercentAndStochastic="- Overrated: $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
             echo $resultStrategieOverratedByPercentAndStochastic
-            WriteComdirectUrl
+            WriteComdirectUrlAndStoreFileList
         fi
     fi
 }
@@ -24,7 +24,7 @@ StrategieUnderratedByPercentAndStochastic() {
             [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
             resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: Last price $last EUR is $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR and Stochastic14 $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
             echo $resultStrategieUnderratedByPercentAndStochastic
-            WriteComdirectUrl
+            WriteComdirectUrlAndStoreFileList
         fi
     fi
 }
@@ -38,7 +38,7 @@ StrategieUnderratedVeryLastStochasticIsLowerThen() {
         if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
             resultStrategieUnderratedVeryLastStochasticIsLowerThen="+ Very last stochastic: last stochastic quote $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
             echo $resultStrategieUnderratedVeryLastStochasticIsLowerThen
-            WriteComdirectUrl
+            WriteComdirectUrlAndStoreFileList
         fi
     fi
 }
@@ -76,7 +76,7 @@ StrategieUnderratedLowStochastic() {
         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
             resultStrategieUnderratedLowStochastic="+ Low stochastic: 3 last stochastic quotes are under: $_lowStochasticValue"
             echo $resultStrategieUnderratedLowStochastic
-            WriteComdirectUrl
+            WriteComdirectUrlAndStoreFileList
         fi
     fi
 }
