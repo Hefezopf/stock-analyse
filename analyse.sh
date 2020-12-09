@@ -242,8 +242,8 @@ do
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
     indexSymbolFile=out/${symbol}.html
 	rm -rf $indexSymbolFile
-	cp js/chart.min.js out
-	cp js/utils.js out
+	cp js/_chart.min.js out
+	cp js/_utils.js out
 	cat js/indexPart1.html >> $indexSymbolFile
 	echo "'" ${symbol} "'," >> $indexSymbolFile
 	cat js/indexPart2.html >> $indexSymbolFile
