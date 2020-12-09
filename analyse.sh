@@ -92,7 +92,10 @@ echo " " >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "# Result" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "https://github.com/Hefezopf/stock-analyse/actions" >> $OUT_RESULT_FILE
+
+echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br>" >> $OUT_RESULT_FILE
+
+#echo "https://github.com/Hefezopf/stock-analyse/actions" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo " " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
@@ -264,8 +267,7 @@ do
 	echo $stochasticQuoteList14 >> $indexSymbolFile
 	cat js/indexPart10.html >> $indexSymbolFile
 
-    echo "<p>Stock:<b><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbol</a></b><br>" >> $indexSymbolFile
-	#echo "<p>Stock:<b>" $(grep -w "$symbolRaw " data/_ticker_names.txt) "</b>" >> $indexSymbolFile
+    echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbol</a><br>" >> $indexSymbolFile
 	echo "Date:<b>" $(stat -c %y data/${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;Final quote:<b>" $last "&#8364;</b>" >> $indexSymbolFile
 	echo "&nbsp;Average 18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
