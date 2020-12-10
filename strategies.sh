@@ -7,7 +7,7 @@ StrategieOverratedByPercentAndStochastic() {
     if [ "$ratedParam" = 'overrated' ]; then
         if [ "$lastStochasticQuoteRounded" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
             [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
-            resultStrategieOverratedByPercentAndStochastic="- Overrated: $last EUR is more then $percentageLesserFactor over average18: $average18 EUR and average38: $average38 EUR and over average100: $average100 EUR. Stochastic14 is $lastStochasticQuoteRounded"
+            resultStrategieOverratedByPercentAndStochastic="- Overrated by percent and stochastic: $last EUR is $percentageLesserFactor over Avg18: $average18 EUR and Avg38: $average38 EUR and Avg100: $average100 EUR and Stoc14 is $lastStochasticQuoteRounded is higher then $stochasticPercentageUpper"
             echo $resultStrategieOverratedByPercentAndStochastic
             WriteComdirectUrlAndStoreFileList
         fi
@@ -22,7 +22,7 @@ StrategieUnderratedByPercentAndStochastic() {
     if [ "$ratedParam" = 'underrated' ]; then
         if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
             [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
-            resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: Last price $last EUR is $percentageGreaterFactor under average18: $average18 EUR and under average38: $average38 EUR and under average100: $average100 EUR and Stochastic14 $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
+            resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: $last EUR is $percentageGreaterFactor under Avg18: $average18 EUR and Avg38: $average38 EUR and Avg100: $average100 EUR and Stoch14 $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
             echo $resultStrategieUnderratedByPercentAndStochastic
             WriteComdirectUrlAndStoreFileList
         fi
