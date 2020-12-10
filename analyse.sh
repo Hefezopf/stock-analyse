@@ -110,12 +110,15 @@ do
 	symbolRaw=$(echo ${symbol} | tr a-z A-Z)
 	symbol=$symbolRaw".XETRA"
 
+	# Symbol names
 	symbolName=$(grep -w "$symbolRaw " data/_ticker_names.txt)
 	if [ ! "${#symbolName}" -gt 1 ]; then
     	stockname=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
 		echo $symbolRaw $stockname | tee -a data/_ticker_names.txt
+		#sleep 13
 	fi	
 
+	# Stock data
 	echo "# Get $symbolName"
 	if [ "$queryParam" = 'offline' ]; then
 		true
