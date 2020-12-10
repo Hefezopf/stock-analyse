@@ -217,10 +217,6 @@ do
 	fileSize=$(stat -c %s data/${symbol}.txt)
 	if [ "$fileSize" -gt 200 ]; then
 
-		# +Strategie: OverratedByPercentAndStochastic
-		resultStrategieOverratedByPercentAndStochastic=""
-		StrategieOverratedByPercentAndStochastic
-
 		# -Strategie: UnderratedByPercentAndStochastic
 		resultStrategieUnderratedByPercentAndStochastic=""
 		StrategieUnderratedByPercentAndStochastic
@@ -230,8 +226,12 @@ do
 		StrategieUnderratedLowStochastic 9 "$stochasticQuoteList"
 
 		# -Strategie: The very last stochastic is lower then stochasticPercentageLower
-		resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
-		StrategieUnderratedVeryLastStochasticIsLowerThen
+		#resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
+		#StrategieUnderratedVeryLastStochasticIsLowerThen
+
+		# +Strategie: OverratedByPercentAndStochastic
+		resultStrategieOverratedByPercentAndStochastic=""
+		StrategieOverratedByPercentAndStochastic
 	else
 	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
