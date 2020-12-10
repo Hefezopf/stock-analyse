@@ -115,7 +115,7 @@ do
 	if [ ! "${#symbolName}" -gt 1 ]; then
     	stockname=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
 		echo $symbolRaw $stockname | tee -a data/_ticker_names.txt
-		sleep 13
+		#sleep 13
 	fi	
 
 	# Stock data
@@ -127,7 +127,6 @@ do
 	fi
 done
 
-exit 
 # Analyse data for each symbol
 for symbol in $symbolsParam
 do
