@@ -54,8 +54,11 @@ AverageOfDays() {
 # Input is amountOfDays($1)
 # Output: RSIQuoteList is comma separted list
 RSIOfDays() {
-	RSIFile=out/RSI.txt
 	RSIQuoteList=""
+	RSILast2PricesFile=out/RSI_Last2Prices.txt
+	RSIwinningDaysFile=out/RSI_WinningDays.txt
+	RSIloosingDaysFile=out/RSI_LoosingDays.txt
+	RSIWinningLoosingQuotientFile=out/RSI_WinningLoosingQuotient.txt
 	i=1
 	# Fill with blank comma seperated data
 	while [ "$i" -lt "${1}" ]; do 
@@ -63,31 +66,38 @@ RSIOfDays() {
 		i=$(( i + 1 ))
 	done 
 
-	rm out/winningDays.txt
-	rm out/loosingDays.txt
 	i=1
 	while [ "$i" -le 100 ];
 	do
-		head -n$i data/${symbol}.txt | tail -2 > $RSIFile
-		diff=$(awk 'p{print $0-p}{p=$0}' $RSIFile)
+		head -n$i data/${symbol}.txt | tail -2 > $RSILast2PricesFile
+		diff=$(awk 'p{print $0-p}{p=$0}' $RSILast2PricesFile)
 		short="${diff:0:1}";
 		if [ "$short" = '-' ]; then
-			echo $diff >> out/loosingDays.txt
+			echo $diff >> $RSIloosingDaysFile
 		else
-		    echo $diff >> out/winningDays.txt
+		    echo $diff >> $RSIwinningDaysFile
 		fi
 
 		if [ $i -gt 14 ]; then
 			headLines=$(echo $((100-$i)))
-	        RSIWinQuote=$(head -n$headLines out/winningDays.txt  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
-	        RSILooseQuote=$(head -n$headLines out/loosingDays.txt  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
-			echo $RSIWinQuote > out/RSIQuote.txt
-			echo $RSILooseQuote >> out/RSIQuote.txt
-			RSIQuote=$(awk 'p{print $0/p}{p=$0}' out/RSIQuote.txt)
-		    RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")
+	        RSIwinningDaysAvg=$(head -n$headLines $RSIwinningDaysFile | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+	        RSIloosingDaysAvg=$(head -n$headLines $RSIloosingDaysFile  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
+			echo $RSIwinningDaysAvg > $RSIWinningLoosingQuotientFile
+			#echo $RSIloosingDaysAvg >> $RSIWinningLoosingQuotientFile
+			#rech=$(echo $(($RSIwinningDaysAvg+$RSIloosingDaysAvg)))
+			RSIwinningDaysloosingDaysAvg=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 + $2}')
+			echo RSIwinningDaysloosingDaysAvg $RSIwinningDaysloosingDaysAvg
+			echo $RSIwinningDaysloosingDaysAvg >> $RSIWinningLoosingQuotientFile
+			#RSIWinningLoosingQuotient=$(awk 'p{print $0/p}{p=$0}' $RSIWinningLoosingQuotientFile)
+		    RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIwinningDaysloosingDaysAvg" | awk '{print $1 / $2}')
+		    RSIQuoteList=$(echo $RSIQuoteList $RSIWinningLoosingQuotient",")
 		fi
 		i=$(( i + 1 ))
 	done
+	#rm -rf $RSIwinningDaysFile
+	#rm -rf $RSIloosingDaysFile
+	#rm -rf $RSIloosingDaysFile
+	#rm -rf $RSIWinningLoosingQuotientFile
 }
 
 # StochasticOfDays function:
