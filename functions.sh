@@ -50,6 +50,69 @@ AverageOfDays() {
 	done
 }
 
+
+# RSIOfDays function:
+# Input is amountOfDays($1)
+# Output: stochasticQuoteList is comma separted list
+RSIOfDays() {
+	RSIFile=out/RSI.txt
+	RSIQuoteList=""
+	i=1
+	# Fill with blank comma seperated data
+	while [ "$i" -lt "${1}" ]; do 
+		RSIQuoteList=$(echo $RSIQuoteList ",")
+		i=$(( i + 1 ))
+	done 
+
+	winningDays=0
+	loosingDays=0
+	i=1
+	while [ "$i" -le 100 ];
+	do
+		head -n$i data/${symbol}.txt | tail -2 > $RSIFile
+		diff=$(awk 'p{print $0-p}{p=$0}' $RSIFile)
+		echo diff $diff
+		short="${diff:0:1}";
+		if [ "$short" = '-' ]; then
+			#loosingDays=$(( $loosingDays+$diff ))
+			echo loosingDays
+		else
+		   #winningDays=$(( $winningDays+$diff ))
+		    winningDays=$(echo $(($winningDays + $diff)))
+			echo winningDays
+		fi
+echo i $i
+		if [ $i = 14 ]; then
+		
+			rsiWinningDays=$(echo $(($winningDays / 14)))
+			#rsiWinningDays=$winningDays/14
+			echo rsiWinningDays $rsiWinningDays
+			#rsiLoosingDays=$loosingDays/14
+			#rsi=$rsiWinningDays/$rsiLoosingDays
+			#echo rsi $rsi
+			exit
+		fi
+
+		#echo winningDays $winningDays
+		#lastRSIRaw=$(head -n 1 $RSIFile)
+		#echo $i $lastRSIRaw
+		#echo "--"  $i " lastRSIRaw " $lastRSIRaw
+		#lastRSIRaw=$(head -n 1 $RSIFile)
+		# lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
+		# highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
+		#GreaterThenWithFactor 1 $highestStochasticRaw $lowestStochasticRaw; validStochastic=$?
+		# if [ "$validStochastic" = 1 ]; then
+		# 	# Formula=((C – Ln )/( Hn – Ln )) * 100
+		# 	lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
+		# else
+		# 	lastStochasticQuote=100
+		# fi
+	    # RoundNumber ${lastStochasticQuote} 0; lastStochasticQuoteRounded=$?
+		# stochasticQuoteList=$(echo $stochasticQuoteList $lastStochasticQuoteRounded",")
+		i=$(( i + 1 ))
+	done
+}
+
 # StochasticOfDays function:
 # Input is amountOfDays($1)
 # Output: stochasticQuoteList is comma separted list

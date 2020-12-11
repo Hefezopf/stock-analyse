@@ -177,6 +177,12 @@ do
  
     ProgressBar 2 6
 
+
+RSIInDays14=14
+RSIOfDays $RSIInDays14
+RSIQuoteList14=$RSIQuoteList
+exit
+
     # Calculate all Stochastic 14 values
 	stochasticInDays14=14
 	StochasticOfDays $stochasticInDays14
