@@ -50,10 +50,9 @@ AverageOfDays() {
 	done
 }
 
-
 # RSIOfDays function:
 # Input is amountOfDays($1)
-# Output: stochasticQuoteList is comma separted list
+# Output: RSIQuoteList is comma separted list
 RSIOfDays() {
 	RSIFile=out/RSI.txt
 	RSIQuoteList=""
@@ -64,68 +63,29 @@ RSIOfDays() {
 		i=$(( i + 1 ))
 	done 
 
-	rm winningDays.txt
-	rm loosingDays.txt
+	rm out/winningDays.txt
+	rm out/loosingDays.txt
 	i=1
-# echo " "
-# cat winningDays.txt
-# RSIQuote=$(cat winningDays.txt | awk '{ sum += $1; } END { print sum/9; }')
-# echo $RSIQuote
-# RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")
-# echo $RSIQuoteList
-# exit
 	while [ "$i" -le 100 ];
 	do
-		#echo iiii $i	
 		head -n$i data/${symbol}.txt | tail -2 > $RSIFile
 		diff=$(awk 'p{print $0-p}{p=$0}' $RSIFile)
-		#echo diff $diff
 		short="${diff:0:1}";
 		if [ "$short" = '-' ]; then
-			echo $diff >> loosingDays.txt
+			echo $diff >> out/loosingDays.txt
 		else
-		    echo $diff >> winningDays.txt
+		    echo $diff >> out/winningDays.txt
 		fi
 
-		rm RSIQuote.txt
-		if [ $i -gt 14 ]; then #14
-			echo rsiWinningDays
-			cat winningDays.txt
+		if [ $i -gt 14 ]; then
 			headLines=$(echo $((100-$i)))
-	        RSIWinQuote=$(head -n$headLines winningDays.txt  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
-	        RSILooseQuote=$(head -n$headLines loosingDays.txt  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
-			echo +++ RSIWinQuote $RSIWinQuote --- RSILooseQuote $RSILooseQuote 
-			#RSIQuote=$RSIWinQuote/$RSILooseQuote
-			echo $RSIWinQuote >> RSIQuote.txt
-			echo $RSILooseQuote >> RSIQuote.txt
-			
-			
-			#diff=$(awk 'p{print $0-p}{p=$0}' $RSIFile)
-			RSIQuote=$(echo $(($RSIWinQuote/$RSILooseQuote)))
+	        RSIWinQuote=$(head -n$headLines out/winningDays.txt  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+	        RSILooseQuote=$(head -n$headLines out/loosingDays.txt  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
+			echo $RSIWinQuote > out/RSIQuote.txt
+			echo $RSILooseQuote >> out/RSIQuote.txt
+			RSIQuote=$(awk 'p{print $0/p}{p=$0}' out/RSIQuote.txt)
 		    RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")
-			echo $RSIQuoteList
-			#exit
 		fi
-
-		# if [ $i -gt 16 ]; then #14
-		# 	exit
-		# fi
-		#echo winningDays $winningDays
-		#lastRSIRaw=$(head -n 1 $RSIFile)
-		#echo $i $lastRSIRaw
-		#echo "--"  $i " lastRSIRaw " $lastRSIRaw
-		#lastRSIRaw=$(head -n 1 $RSIFile)
-		# lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
-		# highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
-		#GreaterThenWithFactor 1 $highestStochasticRaw $lowestStochasticRaw; validStochastic=$?
-		# if [ "$validStochastic" = 1 ]; then
-		# 	# Formula=((C – Ln )/( Hn – Ln )) * 100
-		# 	lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
-		# else
-		# 	lastStochasticQuote=100
-		# fi
-	    # RoundNumber ${lastStochasticQuote} 0; lastStochasticQuoteRounded=$?
-		# stochasticQuoteList=$(echo $stochasticQuoteList $lastStochasticQuoteRounded",")
 		i=$(( i + 1 ))
 	done
 }
