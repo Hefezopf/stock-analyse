@@ -64,35 +64,52 @@ RSIOfDays() {
 		i=$(( i + 1 ))
 	done 
 
-	winningDays=0
-	loosingDays=0
+	rm winningDays.txt
+	rm loosingDays.txt
 	i=1
+# echo " "
+# cat winningDays.txt
+# RSIQuote=$(cat winningDays.txt | awk '{ sum += $1; } END { print sum/9; }')
+# echo $RSIQuote
+# RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")
+# echo $RSIQuoteList
+# exit
 	while [ "$i" -le 100 ];
 	do
+		#echo iiii $i	
 		head -n$i data/${symbol}.txt | tail -2 > $RSIFile
 		diff=$(awk 'p{print $0-p}{p=$0}' $RSIFile)
-		echo diff $diff
+		#echo diff $diff
 		short="${diff:0:1}";
 		if [ "$short" = '-' ]; then
-			#loosingDays=$(( $loosingDays+$diff ))
-			echo loosingDays
+			echo $diff >> loosingDays.txt
 		else
-		   #winningDays=$(( $winningDays+$diff ))
-		    winningDays=$(echo $(($winningDays + $diff)))
-			echo winningDays
-		fi
-echo i $i
-		if [ $i = 14 ]; then
-		
-			rsiWinningDays=$(echo $(($winningDays / 14)))
-			#rsiWinningDays=$winningDays/14
-			echo rsiWinningDays $rsiWinningDays
-			#rsiLoosingDays=$loosingDays/14
-			#rsi=$rsiWinningDays/$rsiLoosingDays
-			#echo rsi $rsi
-			exit
+		    echo $diff >> winningDays.txt
 		fi
 
+		rm RSIQuote.txt
+		if [ $i -gt 14 ]; then #14
+			echo rsiWinningDays
+			cat winningDays.txt
+			headLines=$(echo $((100-$i)))
+	        RSIWinQuote=$(head -n$headLines winningDays.txt  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+	        RSILooseQuote=$(head -n$headLines loosingDays.txt  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+			echo +++ RSIWinQuote $RSIWinQuote --- RSILooseQuote $RSILooseQuote 
+			#RSIQuote=$RSIWinQuote/$RSILooseQuote
+			echo $RSIWinQuote >> RSIQuote.txt
+			echo $RSILooseQuote >> RSIQuote.txt
+			
+			
+			#diff=$(awk 'p{print $0-p}{p=$0}' $RSIFile)
+			RSIQuote=$(echo $(($RSIWinQuote/$RSILooseQuote)))
+		    RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")
+			echo $RSIQuoteList
+			#exit
+		fi
+
+		# if [ $i -gt 16 ]; then #14
+		# 	exit
+		# fi
 		#echo winningDays $winningDays
 		#lastRSIRaw=$(head -n 1 $RSIFile)
 		#echo $i $lastRSIRaw
