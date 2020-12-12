@@ -83,11 +83,11 @@ RSIOfDays() {
 			echo 0 >> $RSIwinningDaysFile
 		fi
 
-		if [ "${diffLast2Prices:0:1}" = '-' ]; then
-			echo ${diffLast2Prices:1} >> $RSIloosingDaysFile
-		else
-			echo 0 >> $RSIloosingDaysFile
-		fi
+		# if [ "${diffLast2Prices:0:1}" = '-' ]; then
+		# 	echo ${diffLast2Prices:1} >> $RSIloosingDaysFile
+		# else
+		# 	echo 0 >> $RSIloosingDaysFile
+		# fi
 
 		# # TODO evtl -gt 13?
 		# if [ $i -gt 14 ]; then
