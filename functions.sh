@@ -77,21 +77,23 @@ RSIOfDays() {
 	    i=$(( i + 1 ))
 		head -n$i data/${symbol}.txt | tail -2 > $RSILast2PricesFile
 		diffLast2Prices=$(awk 'p{print p-$0}{p=$0}' $RSILast2PricesFile)
-		echo diffLast2Prices $diffLast2Prices ${diffLast2Prices:0:1}
+		#echo diffLast2Prices $diffLast2Prices
+		short=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
+		#echo short $short
 		#if [ ! "${diffLast2Prices:0:1}" = '-' ]; then
-		if [ ! ${diffLast2Prices:0:1} = '-' ]; then
+		if [ ! ${short} = '-' ]; then
 		    echo $diffLast2Prices >> $RSIwinningDaysFile
 		else
 			echo 0 >> $RSIwinningDaysFile
 		fi
-
+#exit
 		#if [ "${diffLast2Prices:0:1}" = '-' ]; then
-		if [ ${diffLast2Prices:0:1} = '-' ]; then
+		if [ ${short} = '-' ]; then
 			echo ${diffLast2Prices:1} >> $RSIloosingDaysFile
 		else
 			echo 0 >> $RSIloosingDaysFile
 		fi
-#exit
+
 		# TODO evtl -gt 13?
 		if [ $i -gt 14 ]; then
 	        RSIwinningDaysAvg=$(tail -"${1}" $RSIwinningDaysFile | awk '{ sum += $1; } END { print sum/'${1}'; }')
