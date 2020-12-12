@@ -73,27 +73,34 @@ RSIOfDays() {
 	    i=$(( i + 1 ))
 		head -n$i data/${symbol}.txt | tail -2 > $RSILast2PricesFile
 		diffLast2Prices=$(awk 'p{print p-$0}{p=$0}' $RSILast2PricesFile)
-		echo diffLast2Prices $diffLast2Prices
-		if [ "${diffLast2Prices:0:1}" = '-' ] || [ "${diffLast2Prices}" = 0 ] ; then
-			echo $diffLast2Prices >> $RSIloosingDaysFile
-		fi
-		if [ ! "${diffLast2Prices:0:1}" = '-' ] ; then
+		if [ ! "${diffLast2Prices:0:1}" = '-' ]; then
 		    echo $diffLast2Prices >> $RSIwinningDaysFile
+		else
+			echo 0 >> $RSIwinningDaysFile
 		fi
 
+		if [ "${diffLast2Prices:0:1}" = '-' ]; then
+			echo ${diffLast2Prices:1} >> $RSIloosingDaysFile
+		else
+			echo 0 >> $RSIloosingDaysFile
+		fi
+
+		# TODO evtl -gt 13?
 		if [ $i -gt 14 ]; then
-			headLines=$(echo $((100-$i)))
-	        RSIwinningDaysAvg=$(head -n$headLines $RSIwinningDaysFile | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
-	        RSIloosingDaysAvg=$(head -n$headLines $RSIloosingDaysFile  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
-			RSIwinningDaysloosingDaysAvg=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 + $2}')
-			#echo RSIwinningDaysloosingDaysAvg $RSIwinningDaysloosingDaysAvg
-		    RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIwinningDaysloosingDaysAvg" | awk '{print $1 / $2}')
-		    RSIQuoteList=$(echo $RSIQuoteList $RSIWinningLoosingQuotient",")
+	        RSIwinningDaysAvg=$(tail -"${1}" $RSIwinningDaysFile | awk '{ sum += $1; } END { print sum/'${1}'; }')
+	        RSIloosingDaysAvg=$(tail -"${1}" $RSIloosingDaysFile  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
+			RSIwinningDaysloosingDaysAvgNenner=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 + $2}')
+		    RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 / $2}')
+		    #RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIwinningDaysloosingDaysAvgNenner" | awk '{print $1 / $2}')
+			RSIQuoteList=$(echo $RSIQuoteList $RSIWinningLoosingQuotient",")
+
+echo RSIQuoteList $RSIQuoteList
+
 			# if [ $i -gt 16 ]; then
 			# 	exit
 			# fi
+
 		fi
-		#i=$(( i + 1 ))
 	done
 	#rm -rf $RSIwinningDaysFile
 	#rm -rf $RSIloosingDaysFile

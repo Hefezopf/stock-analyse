@@ -92,12 +92,9 @@ echo " " >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "# Result" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-
 echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br>" >> $OUT_RESULT_FILE
-
-#echo "https://github.com/Hefezopf/stock-analyse/actions" >> $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo " " | tee -a $OUT_RESULT_FILE
+#echo "<br>" >> $OUT_RESULT_FILE
+#echo " " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "# URLs" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
