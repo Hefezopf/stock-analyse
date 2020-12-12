@@ -176,7 +176,7 @@ do
 
 	# Calculate RSI 14 values
 	RSIInDays14=14
-	#RSIOfDays $RSIInDays14
+	RSIOfDays $RSIInDays14
 	RSIQuoteList14=$RSIQuoteList
 
 	ProgressBar 3 7
