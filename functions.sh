@@ -97,7 +97,8 @@ RSIOfDays() {
 			RSIwinningDaysloosingDaysAvgNenner=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 + $2}')
 		    RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIwinningDaysloosingDaysAvgNenner" | awk '{print $1 / $2}')
 			#RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 / $2}')
-		    
+		    #echo RSIWinningLoosingQuotient $RSIWinningLoosingQuotient
+
 			#(G17=0;100;100-(100/(1+H17)))
 			RSIQuote=0
 			if [ "${RSIloosingDaysAvg}" = 0 ]; then
@@ -106,8 +107,9 @@ RSIOfDays() {
 				RSIQuote=$(echo "$RSIWinningLoosingQuotient" | awk '{print 100-(100/(1+$1))}')
 			fi
 
-			RoundNumber ${RSIQuote} 0; RSIQuote=$?	
-			RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")
+			#RoundNumber ${RSIQuote} 0; RSIQuote=$?	
+			
+			RSIQuoteList=$(echo $RSIQuoteList $RSIWinningLoosingQuotient",")
 		fi
 	done
 	rm -rf $RSIwinningDaysFile
