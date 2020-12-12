@@ -75,19 +75,19 @@ RSIOfDays() {
 	while [ "$i" -le 100 ];
 	do
 	    i=$(( i + 1 ))
-		# head -n$i data/${symbol}.txt | tail -2 > $RSILast2PricesFile
-		# diffLast2Prices=$(awk 'p{print p-$0}{p=$0}' $RSILast2PricesFile)
-		# if [ ! "${diffLast2Prices:0:1}" = '-' ]; then
-		#     echo $diffLast2Prices >> $RSIwinningDaysFile
-		# else
-		# 	echo 0 >> $RSIwinningDaysFile
-		# fi
+		head -n$i data/${symbol}.txt | tail -2 > $RSILast2PricesFile
+		diffLast2Prices=$(awk 'p{print p-$0}{p=$0}' $RSILast2PricesFile)
+		if [ ! "${diffLast2Prices:0:1}" = '-' ]; then
+		    echo $diffLast2Prices >> $RSIwinningDaysFile
+		else
+			echo 0 >> $RSIwinningDaysFile
+		fi
 
-		# if [ "${diffLast2Prices:0:1}" = '-' ]; then
-		# 	echo ${diffLast2Prices:1} >> $RSIloosingDaysFile
-		# else
-		# 	echo 0 >> $RSIloosingDaysFile
-		# fi
+		if [ "${diffLast2Prices:0:1}" = '-' ]; then
+			echo ${diffLast2Prices:1} >> $RSIloosingDaysFile
+		else
+			echo 0 >> $RSIloosingDaysFile
+		fi
 
 		# # TODO evtl -gt 13?
 		# if [ $i -gt 14 ]; then
