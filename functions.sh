@@ -45,6 +45,10 @@ AverageOfDays() {
 	do
 		headLines=$(echo $((100-$i)))
 	    averagePrice=$(head -n$headLines data/${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+		#echo averagePrice $averagePrice
+		# round dalso low prices?
+		#RoundNumber ${averagePrice} 0; averagePrice=$?
+		#echo averagePrice $averagePrice
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 		i=$(( i + 1 ))
 	done
@@ -89,25 +93,26 @@ RSIOfDays() {
 		if [ $i -gt 14 ]; then
 	        RSIwinningDaysAvg=$(tail -"${1}" $RSIwinningDaysFile | awk '{ sum += $1; } END { print sum/'${1}'; }')
 	        RSIloosingDaysAvg=$(tail -"${1}" $RSIloosingDaysFile  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
+
 			RSIwinningDaysloosingDaysAvgNenner=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 + $2}')
-		    #RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 / $2}')
 		    RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIwinningDaysloosingDaysAvgNenner" | awk '{print $1 / $2}')
-
+			#RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 / $2}')
+		    
 			#(G17=0;100;100-(100/(1+H17)))
+			RSIQuote=0
+			if [ "${RSIloosingDaysAvg}" = 0 ]; then
+				RSIQuote=100
+			else
+				RSIQuote=$(echo "$RSIWinningLoosingQuotient" | awk '{print 100-(100/(1+$1))}')
+			fi
 
-			RSIQuoteList=$(echo $RSIQuoteList $RSIWinningLoosingQuotient",")
-
-echo RSIQuoteList $RSIQuoteList
-
-			# if [ $i -gt 16 ]; then
-			# 	exit
-			# fi
-
+			RoundNumber ${RSIQuote} 0; RSIQuote=$?	
+			RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")
 		fi
 	done
-	#rm -rf $RSIwinningDaysFile
-	#rm -rf $RSIloosingDaysFile
-	#rm -rf $RSILast2PricesFile
+	rm -rf $RSIwinningDaysFile
+	rm -rf $RSIloosingDaysFile
+	rm -rf $RSILast2PricesFile
 }
 
 # StochasticOfDays function:
