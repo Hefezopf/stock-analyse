@@ -90,8 +90,11 @@ RSIOfDays() {
 	        RSIwinningDaysAvg=$(tail -"${1}" $RSIwinningDaysFile | awk '{ sum += $1; } END { print sum/'${1}'; }')
 	        RSIloosingDaysAvg=$(tail -"${1}" $RSIloosingDaysFile  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
 			RSIwinningDaysloosingDaysAvgNenner=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 + $2}')
-		    RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 / $2}')
-		    #RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIwinningDaysloosingDaysAvgNenner" | awk '{print $1 / $2}')
+		    #RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 / $2}')
+		    RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIwinningDaysloosingDaysAvgNenner" | awk '{print $1 / $2}')
+
+			#(G17=0;100;100-(100/(1+H17)))
+
 			RSIQuoteList=$(echo $RSIQuoteList $RSIWinningLoosingQuotient",")
 
 echo RSIQuoteList $RSIQuoteList
