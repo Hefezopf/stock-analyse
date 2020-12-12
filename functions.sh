@@ -77,20 +77,15 @@ RSIOfDays() {
 	    i=$(( i + 1 ))
 		head -n$i data/${symbol}.txt | tail -2 > $RSILast2PricesFile
 		diffLast2Prices=$(awk 'p{print p-$0}{p=$0}' $RSILast2PricesFile)
-		#echo diffLast2Prices $diffLast2Prices
 		isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
-		#echo short $short
-		#if [ ! "${diffLast2Prices:0:1}" = '-' ]; then
 		if [ ! ${isNegativ} = '-' ]; then
 		    echo $diffLast2Prices >> $RSIwinningDaysFile
 		else
 			echo 0 >> $RSIwinningDaysFile
 		fi
-#exit
-		#if [ "${diffLast2Prices:0:1}" = '-' ]; then
+
 		if [ ${isNegativ} = '-' ]; then
 		    withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
-			#echo withoutMinusSign $withoutMinusSign
 			echo $withoutMinusSign >> $RSIloosingDaysFile
 		else
 			echo 0 >> $RSIloosingDaysFile
@@ -115,7 +110,6 @@ RSIOfDays() {
 			fi
 
 			#RoundNumber ${RSIQuote} 0; RSIQuote=$?	
-			
 			RSIQuoteList=$(echo $RSIQuoteList $RSIWinningLoosingQuotient",")
 		fi
 	done
