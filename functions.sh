@@ -45,9 +45,76 @@ AverageOfDays() {
 	do
 		headLines=$(echo $((100-$i)))
 	    averagePrice=$(head -n$headLines data/${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+		#echo averagePrice $averagePrice
+		# round dalso low prices?
+		#RoundNumber ${averagePrice} 0; averagePrice=$?
+		#echo averagePrice $averagePrice
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 		i=$(( i + 1 ))
 	done
+}
+
+# RSIOfDays function:
+# Input is amountOfDays($1)
+# Output: RSIQuoteList is comma separted list
+RSIOfDays() {
+	RSIQuoteList=""
+	RSILast2PricesFile=out/RSI_Last2Prices.txt
+	RSIwinningDaysFile=out/RSI_WinningDays.txt
+	RSIloosingDaysFile=out/RSI_LoosingDays.txt
+	i=1
+	# Fill with blank comma seperated data
+	while [ "$i" -lt "${1}" ]; do 
+		RSIQuoteList=$(echo $RSIQuoteList ",")
+		i=$(( i + 1 ))
+	done 
+
+	rm -rf $RSIwinningDaysFile
+	rm -rf $RSIloosingDaysFile
+	i=1
+	while [ "$i" -le 100 ];
+	do
+	    i=$(( i + 1 ))
+		head -n$i data/${symbol}.txt | tail -2 > $RSILast2PricesFile
+		diffLast2Prices=$(awk 'p{print p-$0}{p=$0}' $RSILast2PricesFile)
+		if [ ! "${diffLast2Prices:0:1}" = '-' ]; then
+		    echo $diffLast2Prices >> $RSIwinningDaysFile
+		else
+			echo 0 >> $RSIwinningDaysFile
+		fi
+
+		if [ "${diffLast2Prices:0:1}" = '-' ]; then
+			echo ${diffLast2Prices:1} >> $RSIloosingDaysFile
+		else
+			echo 0 >> $RSIloosingDaysFile
+		fi
+
+		# TODO evtl -gt 13?
+		if [ $i -gt 14 ]; then
+	        RSIwinningDaysAvg=$(tail -"${1}" $RSIwinningDaysFile | awk '{ sum += $1; } END { print sum/'${1}'; }')
+	        RSIloosingDaysAvg=$(tail -"${1}" $RSIloosingDaysFile  | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
+
+			RSIwinningDaysloosingDaysAvgNenner=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 + $2}')
+		    RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIwinningDaysloosingDaysAvgNenner" | awk '{print $1 / $2}')
+			#RSIWinningLoosingQuotient=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print $1 / $2}')
+		    #echo RSIWinningLoosingQuotient $RSIWinningLoosingQuotient
+
+			#(G17=0;100;100-(100/(1+H17)))
+			RSIQuote=0
+			if [ "${RSIloosingDaysAvg}" = 0 ]; then
+				RSIQuote=100
+			else
+				RSIQuote=$(echo "$RSIWinningLoosingQuotient" | awk '{print 100-(100/(1+$1))}')
+			fi
+
+			#RoundNumber ${RSIQuote} 0; RSIQuote=$?	
+			
+			RSIQuoteList=$(echo $RSIQuoteList $RSIWinningLoosingQuotient",")
+		fi
+	done
+	rm -rf $RSIwinningDaysFile
+	rm -rf $RSIloosingDaysFile
+	rm -rf $RSILast2PricesFile
 }
 
 # StochasticOfDays function:

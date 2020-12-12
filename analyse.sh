@@ -92,12 +92,9 @@ echo " " >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "# Result" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-
 echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br>" >> $OUT_RESULT_FILE
-
-#echo "https://github.com/Hefezopf/stock-analyse/actions" >> $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo " " | tee -a $OUT_RESULT_FILE
+#echo "<br>" >> $OUT_RESULT_FILE
+#echo " " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "# URLs" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
@@ -148,7 +145,7 @@ do
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
 
-    ProgressBar 1 6
+    ProgressBar 1 7
 
 	GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
@@ -175,14 +172,21 @@ do
 	GreaterThenWithFactor $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
 	LesserThenWithFactor $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
  
-    ProgressBar 2 6
+    ProgressBar 2 7
 
-    # Calculate all Stochastic 14 values
+	# Calculate RSI 14 values
+	RSIInDays14=14
+	RSIOfDays $RSIInDays14
+	RSIQuoteList14=$RSIQuoteList
+
+	ProgressBar 3 7
+
+    # Calculate Stochastic 14 values
 	stochasticInDays14=14
 	StochasticOfDays $stochasticInDays14
 	stochasticQuoteList14=$stochasticQuoteList
 
-    ProgressBar 3 6
+    ProgressBar 4 7
 
 	# Stochastics percentage
 	stochasticPercentageLower=$stochasticPercentageParam
@@ -193,22 +197,22 @@ do
 	AverageOfDays $averageInDays18
 	averagePriceList18=$averagePriceList
 
-	ProgressBar 4 6
+	ProgressBar 5 7
 
     # Average 38
 	averageInDays38=38
 	AverageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
-	ProgressBar 5 6
+	ProgressBar 6 7
 
     # Average 100
 	averageInDays100=100
 	AverageOfDays $averageInDays100
 	averagePriceList100=$averagePriceList
 
-	ProgressBar 6 6
-
+    ProgressBar 7 7
+	
 	#
 	# Apply strategies
 	#
@@ -277,6 +281,9 @@ do
 	echo $stochasticQuoteList14 >> $indexSymbolFile
 	cat js/indexPart10.html >> $indexSymbolFile
 
+	echo $RSIQuoteList14 >> $indexSymbolFile
+	cat js/indexPart11.html >> $indexSymbolFile
+
 	ID_NOTATION=$(grep "${symbolRaw}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbolName</a><br>" >> $indexSymbolFile
 	echo "Date:<b>" $(stat -c %y data/${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
@@ -294,7 +301,7 @@ do
 	echo "<p><b>" $resultStrategieUnderratedLowStochastic "</b></p>" >> $indexSymbolFile
 	echo "<p><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
 
-	cat js/indexPart11.html >> $indexSymbolFile
+	cat js/indexPart12.html >> $indexSymbolFile
 done
 
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
