@@ -183,7 +183,7 @@ do
 
     # Calculate Stochastic 14 values
 	stochasticInDays14=14
-	StochasticOfDays $stochasticInDays14
+	#StochasticOfDays $stochasticInDays14
 	stochasticQuoteList14=$stochasticQuoteList
 
     ProgressBar 4 7
@@ -194,21 +194,21 @@ do
 
 	# Average 18
 	averageInDays18=18
-	AverageOfDays $averageInDays18
+	#AverageOfDays $averageInDays18
 	averagePriceList18=$averagePriceList
 
 	ProgressBar 5 7
 
     # Average 38
 	averageInDays38=38
-	AverageOfDays $averageInDays38
+	#AverageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
 	ProgressBar 6 7
 
     # Average 100
 	averageInDays100=100
-	AverageOfDays $averageInDays100
+	#AverageOfDays $averageInDays100
 	averagePriceList100=$averagePriceList
 
     ProgressBar 7 7
