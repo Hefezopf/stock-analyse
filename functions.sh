@@ -86,15 +86,15 @@ RSIOfDays() {
 	do
 	    i=$(( i + 1 ))
 
-		# Fill with blank comma seperated data
-		if [ $i -lt 15 ]; then
+		# Fill with blank comma seperated data  
+		blank=$(( "${1}" + 1 )) #15
+		if [ $i -lt $blank ]; then
 			RSIQuoteList=$(echo $RSIQuoteList ",")
 		fi
 
-		# TODO evtl -gt 13?
-		if [ $i -gt 14 ]; then
-	        RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n14 | awk '{ sum += $1; } END { print sum/'${1}'; }')
-			RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n14 | awk '{ sum += $1; } END { print sum/'${1}'; }') 
+		if [ $i -gt "${1}" ]; then #14
+	        RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+			RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
 			if [ "${RSIloosingDaysAvg}" = 0 ]; then
 				RSIQuote=100
 			else
