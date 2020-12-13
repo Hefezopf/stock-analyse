@@ -235,7 +235,7 @@ do
 		StrategieUnderratedLowStochastic 9 "$stochasticQuoteList"
 
 	    # -Strategie: Low RSI last quote under lowRSIValue
-		#resultStrategieUnderratedLowRSI=""
+		resultStrategieUnderratedLowRSI=""
 		StrategieUnderratedLowRSI 40 "$RSIQuoteList"
 
 		# -Strategie: The very last stochastic is lower then stochasticPercentageLower
@@ -307,6 +307,7 @@ do
 	# -
 	echo "<p><b>" $resultStrategieUnderratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
 	echo "<p><b>" $resultStrategieUnderratedLowStochastic "</b></p>" >> $indexSymbolFile
+	echo "<p><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
 	echo "<p><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
 
 	cat js/indexPart12.html >> $indexSymbolFile
