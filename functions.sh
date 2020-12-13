@@ -33,7 +33,6 @@ RoundNumber() {
 # Input is amountOfDays($1)
 # Output: averagePriceList is comma separted list
 AverageOfDays() {
-	averagePriceList=""
 	i=1
 	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
 		averagePriceList=$(echo $averagePriceList ",")
@@ -58,7 +57,6 @@ AverageOfDays() {
 # Input is amountOfDays($1)
 # Output: RSIQuoteList is comma separted list
 RSIOfDays() {
-	RSIQuoteList=""
 	RSIwinningDaysFile=out/RSI_WinningDays.txt
 	RSIloosingDaysFile=out/RSI_LoosingDays.txt
 	i=1
@@ -119,7 +117,6 @@ RSIOfDays() {
 # Output: stochasticQuoteList is comma separted list
 StochasticOfDays() {
 	stochasticFile=out/stochastic.txt
-	stochasticQuoteList=""
 	i=1
 	# Fill with blank comma seperated data
 	while [ "$i" -lt "${1}" ]; do 

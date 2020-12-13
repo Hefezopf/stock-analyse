@@ -176,6 +176,7 @@ do
 
 	# Calculate RSI 14 values
 	RSIInDays14=14
+	RSIQuoteList=""
 	RSIOfDays $RSIInDays14
 	RSIQuoteList14=$RSIQuoteList
 
@@ -183,6 +184,7 @@ do
 
     # Calculate Stochastic 14 values
 	stochasticInDays14=14
+	stochasticQuoteList=""
 	StochasticOfDays $stochasticInDays14
 	stochasticQuoteList14=$stochasticQuoteList
 
@@ -194,6 +196,7 @@ do
 
 	# Average 18
 	averageInDays18=18
+	averagePriceList=""
 	AverageOfDays $averageInDays18
 	averagePriceList18=$averagePriceList
 
@@ -201,6 +204,7 @@ do
 
     # Average 38
 	averageInDays38=38
+	averagePriceList=""
 	AverageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
@@ -208,6 +212,7 @@ do
 
     # Average 100
 	averageInDays100=100
+	averagePriceList=""
 	AverageOfDays $averageInDays100
 	averagePriceList100=$averagePriceList
 
