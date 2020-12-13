@@ -91,17 +91,16 @@ StrategieUnderratedLowRSI() {
     if [ "$ratedParam" = 'underrated' ]; then	
         _lowRSIValue="$1"
         _RSIQuoteList="$2"
-        #_RSIQuoteList=", 77, 38,"
-        #RSIlastQuote=${_RSIQuoteList: (-3)}
-        RSIlastQuote=" 38,"
-        echo RSIlastQuote $RSIlastQuote
+        #RSIlastQuote=$(echo "$_RSIQuoteList" | cut -f 99 -d ',')
+#        RSIlastQuote=" 38,"
+        #echo RSIlastQuote $RSIlastQuote
         #RSIlastQuote=${RSIlastQuote:0:2}
-        RSIlastQuote=22
-        echo RSIlastQuote $RSIlastQuote
+        RSIlastQuote=$(echo "$_RSIQuoteList" | cut -f 100 -d ',')
+#       echo RSIlastQuote $RSIlastQuote
         resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
         if [ "$RSIlastQuote" -lt $_lowRSIValue ]; then
-            resultStrategieUnderratedLowRSI="+ Low RSI: last RSI quote under: $_lowRSIValue"
+            resultStrategieUnderratedLowRSI="+ Low RSI: last RSI quote $_RSIQuoteList under: $_lowRSIValue"
             echo $resultStrategieUnderratedLowRSI
             WriteComdirectUrlAndStoreFileList
         fi
