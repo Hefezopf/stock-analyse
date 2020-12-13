@@ -87,7 +87,7 @@ RSIOfDays() {
 	    i=$(( i + 1 ))
 
 		# Fill with blank comma seperated data  
-		blank=$(( "${1}" + 1 )) #15
+		blank=$(( $1 + 1 )) #15
 		if [ $i -lt $blank ]; then
 			RSIQuoteList=$(echo $RSIQuoteList ",")
 		fi
