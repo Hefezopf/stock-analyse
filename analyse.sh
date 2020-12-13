@@ -234,6 +234,10 @@ do
 		resultStrategieUnderratedLowStochastic=""
 		StrategieUnderratedLowStochastic 9 "$stochasticQuoteList"
 
+	    # -Strategie: Low RSI last quote under lowRSIValue
+		#resultStrategieUnderratedLowRSI=""
+		StrategieUnderratedLowRSI 40 "$RSIQuoteList"
+
 		# -Strategie: The very last stochastic is lower then stochasticPercentageLower
 		#resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
 		#StrategieUnderratedVeryLastStochasticIsLowerThen
@@ -254,7 +258,6 @@ do
 	commaPriceListFile=out/commaPriceListFile.txt
 	cat data/${symbol}.txt | tac > $commaPriceListFile
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
-   # indexSymbolFile=out/${symbol}.html
     indexSymbolFile=out/${symbolRaw}.html
 	
 	rm -rf $indexSymbolFile
