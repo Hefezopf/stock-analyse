@@ -90,8 +90,8 @@ StrategieUnderratedLowStochastic() {
 StrategieUnderratedLowRSI() {	
     if [ "$ratedParam" = 'underrated' ]; then	
         _lowRSIValue="$1"
-        #_RSIQuoteList="$2"
-        _RSIQuoteList=", 77, 38,"
+        _RSIQuoteList="$2"
+        #_RSIQuoteList=", 77, 38,"
         RSIlastQuote=${_RSIQuoteList: (-3)}
         echo RSIlastQuote $RSIlastQuote
         RSIlastQuote=${RSIlastQuote:0:2}
