@@ -44,10 +44,6 @@ AverageOfDays() {
 	do
 		headLines=$(echo $((100-$i)))
 	    averagePrice=$(head -n$headLines data/${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
-		#echo averagePrice $averagePrice
-		# round dalso low prices?
-		#RoundNumber ${averagePrice} 0; averagePrice=$?
-		#echo averagePrice $averagePrice
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 		i=$(( i + 1 ))
 	done
@@ -98,8 +94,8 @@ RSIOfDays() {
 			if [ "${RSIloosingDaysAvg}" = 0 ]; then
 				RSIQuote=100
 			else
-				#RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')
-				RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
+				RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')
+				#RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
 			fi
 
 			RoundNumber ${RSIQuote} 0; RSIQuote=$?	
