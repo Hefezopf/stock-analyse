@@ -83,14 +83,16 @@ StrategieUnderratedLowStochastic() {
 
 # StrategieUnderratedLowRSI function:
 # Strategie: Low RSI last quote under lowRSIValue
+# https://www.charttec.de/html/indikator_rsi_relative_strength_index.php
+# https://de.wikipedia.org/wiki/Relative_Strength_Index
 # Input is lowRSIValue($1), RSIQuoteList($2)
 # Output: resultStrategieUnderratedLowRSI
 StrategieUnderratedLowRSI() {	
     if [ "$ratedParam" = 'underrated' ]; then	
         _lowRSIValue="$1"
-        _RSIQuoteList="$2"
-
-        RSIlastQuote=${_RSIQuoteList: -3}
+        #_RSIQuoteList="$2"
+        _RSIQuoteList=", 77, 38,"
+        RSIlastQuote=${_RSIQuoteList:-3}
         RSIlastQuote=${RSIlastQuote:0:2}
         resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
