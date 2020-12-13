@@ -21,11 +21,11 @@ This script checks given stock quotes and their averages of the last 100, 38, 18
 # Execute
 
 ## CMD
-./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC
+./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC RSI
 
-./analyse.sh 'BEI' 1 online overrated 9
+./analyse.sh 'BEI' 1 online overrated 9 30
 
-./analyse.sh 'BEI ALV BAS' 2 offline underrated 9
+./analyse.sh 'BEI ALV BAS' 2 offline underrated 9 30
 
 
 ## Github Action
@@ -37,11 +37,11 @@ https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.w
 
 
 ## cURL
-./curl_github_dispatch.sh "BEI" 1 offline underrated 9
+./curl_github_dispatch.sh "BEI" 1 offline underrated 9 30
 
 or Example
 
-curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "BEI", "percentage": "1", "query": "offline", "rated": "underrated", "stochastic": "20"}'
+curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "BEI", "percentage": "1", "query": "offline", "rated": "underrated", "stochastic": "20", "RSI": "30"}'
 
 
 # REST Call

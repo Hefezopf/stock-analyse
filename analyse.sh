@@ -1,13 +1,14 @@
 #!/bin/bash
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
-# Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC
+# Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC RSI
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS ALV BAS ...'
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
 # 4. Parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
 # 5. Parameter: STOCHASTIC: Percentage for stochastic indicator.
-# Call example: ./analyse.sh 'ADS ALV' 3 online underrated 9
-# Call example: ./analyse.sh 'ADS' 1 offline underrated 9
+# 6. Parameter: RSI: Quote for RSI indicator.
+# Call example: ./analyse.sh 'ADS ALV' 3 online underrated 9 30
+# Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
 #
 # Set MARKET_STACK_ACCESS_KEY as Env Variable
 
@@ -28,6 +29,7 @@ percentageParam=$2
 queryParam=$3
 ratedParam=$4
 stochasticPercentageParam=$5
+RSIQuoteParam=$6
 
 # Prepare
 mkdir -p out
@@ -45,7 +47,7 @@ COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?N
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check parameter
-if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ]; then
+if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] && [ ! -z "${RSIQuoteParam##*[!0-9]*}" ]; then
 	echo ""
 else
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $OUT_RESULT_FILE
@@ -60,7 +62,9 @@ else
 	echo "<br>" >> $OUT_RESULT_FILE
 	echo " STOCHASTIC14: Percentage for stochastic indicator" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
-	echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9" | tee -a $OUT_RESULT_FILE
+	echo " RSI14: Quote for RSI indicator" | tee -a $OUT_RESULT_FILE
+	echo "<br>" >> $OUT_RESULT_FILE	
+	echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
     echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 	exit
@@ -87,6 +91,8 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Rated: $ratedParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic14: $stochasticPercentageParam" | tee -a $OUT_RESULT_FILE
+echo "<br>" >> $OUT_RESULT_FILE
+echo "RSI14: $RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo " " >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
@@ -236,7 +242,7 @@ do
 
 	    # -Strategie: Low RSI last quote under lowRSIValue
 		resultStrategieUnderratedLowRSI=""
-		StrategieUnderratedLowRSI 40 "$RSIQuoteList"
+		StrategieUnderratedLowRSI $RSIQuoteParam "$RSIQuoteList"
 
 		# -Strategie: The very last stochastic is lower then stochasticPercentageLower
 		#resultStrategieUnderratedVeryLastStochasticIsLowerThen=""

@@ -35,6 +35,10 @@ on:
         description: 'STOCHASTIC14 - "9" means 9/91 percent'     
         required: true
         default: '9'
+      RSIParam:
+        description: 'RSI14 - "30" means 30/70 Quote'     
+        required: true
+        default: '30'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -58,19 +62,22 @@ jobs:
           percentageDefault='${{ github.event.client_payload.percentage }}'
           queryDefault='${{ github.event.client_payload.query }}'
           ratedDefault='${{ github.event.client_payload.rated }}'
-          stochasticDefault='${{ github.event.client_payload.stochastic }}'  
+          stochasticDefault='${{ github.event.client_payload.stochastic }}'
+          RSIDefault='${{ github.event.client_payload.RSI }}'  
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           percentageInput=${{github.event.inputs.percentageParam}}
           queryInput=${{github.event.inputs.queryParam}}
           ratedInput=${{github.event.inputs.ratedParam}}
           stochasticInput=${{github.event.inputs.stochasticParam}}
+          RSIInput=${{github.event.inputs.RSIParam}}
           
           symbolsVar=${symbolsInput:-$symbolsDefault}
           percentageVar=${percentageInput:-$percentageDefault}
           queryVar=${queryInput:-$queryDefault}
           ratedVar=${ratedInput:-$ratedDefault}          
           stochasticVar=${stochasticInput:-$stochasticDefault}          
+          RSIVar=${RSIInput:-$RSIDefault}          
           
           chmod +x ./analyse.sh
 
@@ -78,7 +85,7 @@ jobs:
           #git config pull.rebase false
           #git pull
 
-          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar
+          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar $RSIVar
 
           git config user.email "markus@hopf-it.de"
           git config user.name "Markus Hopf"

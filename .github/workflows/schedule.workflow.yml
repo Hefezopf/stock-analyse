@@ -38,6 +38,7 @@ jobs:
           queryVar=online
           ratedVar=underrated
           stochasticVar=9
+          RSIVar=30
 
           chmod +x ./analyse.sh
 
@@ -45,7 +46,7 @@ jobs:
           #git config pull.rebase false
           #git pull
 
-          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar
+          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar $RSIVar
 
           git config user.email "markus@hopf-it.de"
           git config user.name "Markus Hopf"
