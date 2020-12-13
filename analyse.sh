@@ -102,7 +102,7 @@ echo "<br>" >> $OUT_RESULT_FILE
 # Get data
 for symbol in $symbolsParam
 do
-	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
+	#symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
 	
 	symbolRaw=$(echo ${symbol} | tr a-z A-Z)
 	symbol=$symbolRaw".XETRA"

@@ -95,7 +95,8 @@ StrategieUnderratedLowRSI() {
         #RSIlastQuote=${_RSIQuoteList: (-3)}
         RSIlastQuote=" 38,"
         echo RSIlastQuote $RSIlastQuote
-        RSIlastQuote=${RSIlastQuote:0:2}
+        #RSIlastQuote=${RSIlastQuote:0:2}
+        RSIlastQuote=22
         echo RSIlastQuote $RSIlastQuote
         resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
