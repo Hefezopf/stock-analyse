@@ -59,7 +59,6 @@ AverageOfDays() {
 # Output: RSIQuoteList is comma separted list
 RSIOfDays() {
 	RSIQuoteList=""
-	RSILast2PricesFile=out/RSI_Last2Prices.txt
 	RSIwinningDaysFile=out/RSI_WinningDays.txt
 	RSIloosingDaysFile=out/RSI_LoosingDays.txt
 	i=1
@@ -75,8 +74,7 @@ RSIOfDays() {
 	while [ "$i" -le 100 ];
 	do
 	    i=$(( i + 1 ))
-		head -n$i data/${symbol}.txt | tail -2 > $RSILast2PricesFile
-		diffLast2Prices=$(awk 'p{print p-$0}{p=$0}' $RSILast2PricesFile)
+		diffLast2Prices=$(head -n$i data/${symbol}.txt | tail -2 | awk 'p{print p-$0}{p=$0}' )
 		isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
 		if [ ! ${isNegativ} = '-' ]; then
 		    echo $diffLast2Prices >> $RSIwinningDaysFile
@@ -115,7 +113,6 @@ RSIOfDays() {
 	done
 	rm -rf $RSIwinningDaysFile
 	rm -rf $RSIloosingDaysFile
-	rm -rf $RSILast2PricesFile
 }
 
 # StochasticOfDays function:
