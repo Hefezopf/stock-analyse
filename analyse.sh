@@ -10,7 +10,7 @@
 # Call example: ./analyse.sh 'ADS ALV' 3 online underrated 9 30
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
 #
-# Set MARKET_STACK_ACCESS_KEY as Env Variable
+# Set MARKET_STACK_ACCESS_KEY and MARKET_STACK_ACCESS_KEY2 as Env Variable
 
 # Import functions
 . ./functions.sh
@@ -70,8 +70,8 @@ else
 	exit
 fi
 
-if [ -z "$MARKET_STACK_ACCESS_KEY" ]; then
-	echo "Error: MARKET_STACK_ACCESS_KEY not set!" | tee -a $OUT_RESULT_FILE
+if [ -z "$MARKET_STACK_ACCESS_KEY" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ]; then
+	echo "Error: MARKET_STACK_ACCESS_KEY or MARKET_STACK_ACCESS_KEY2 not set!" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
     echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 	exit
@@ -124,7 +124,13 @@ do
 	if [ "$queryParam" = 'offline' ]; then
 		true
 	else
-		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbolRaw}.txt
+	    tag=$(date +"%d")
+		evenodd=$(( $tag  % 2 ))
+		if [ "$evenodd" -eq 0 ]; then
+			curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbolRaw}.txt
+		else
+			curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY2}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbolRaw}.txt
+		fi
 	fi
 done
 
