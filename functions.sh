@@ -30,9 +30,10 @@ RoundNumber() {
 }
 
 # AverageOfDays function:
-# Input is amountOfDays($1)
+# Input is amountOfDaysParam($1)
 # Output: averagePriceList is comma separted list
 AverageOfDays() {
+	amountOfDaysParam=${1}
 	i=1
 	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
 		averagePriceList=$(echo $averagePriceList ",")
@@ -40,10 +41,10 @@ AverageOfDays() {
 	done 
 
 	i=0
-	while [ "$i" -le $((100-$1)) ]; 
+	while [ "$i" -le $((100-amountOfDaysParam)) ]; 
 	do
 		headLines=$(echo $((100-$i)))
-	    averagePrice=$(head -n$headLines data/${symbol}.txt | tail -"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+	    averagePrice=$(head -n$headLines data/${symbol}.txt | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 		i=$(( i + 1 ))
 	done
@@ -105,9 +106,10 @@ RSIOfDays() {
 }
 
 # StochasticOfDays function:
-# Input is amountOfDays($1)
+# Input is amountOfDaysParam($1)
 # Output: stochasticQuoteList is comma separted list
 StochasticOfDays() {
+	amountOfDaysParam=${1}
 	stochasticFile=out/stochastic.txt
 	i=1
 	# Fill with blank comma seperated data
@@ -118,10 +120,10 @@ StochasticOfDays() {
 
 	i=0
 	# TODO optimize not 100 loop?!
-	while [ "$i" -le $((100-$1)) ];
+	while [ "$i" -le $((100-amountOfDaysParam)) ];
 	do
 		headLines=$(echo $((100-$i)))
-		head -n$headLines data/${symbol}.txt | tail -"${1}" > $stochasticFile
+		head -n$headLines data/${symbol}.txt | tail -"${amountOfDaysParam}" > $stochasticFile
 		lastStochasticRaw=$(head -n 1 $stochasticFile)
 		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
 		highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
@@ -139,10 +141,12 @@ StochasticOfDays() {
 }
 
 # ProgressBar function:
-# Input is currentState($1) and totalState($2)
+# Input is currentStateParam($1) and totalStateParam($2)
 # Output: echo
 ProgressBar() {
-	_progress_=$(echo $((${1}*100/${2}*100)))
+	currentStateParam=${1}
+	totalStateParam=${2}
+	_progress_=$(echo $((currentStateParam*100/totalStateParam*100)))
 	_progress=$(echo $(($_progress_/100)))
 	_done_=$(echo $((${_progress}*4)))
 	_done=$(echo $(($_done_/10)))
