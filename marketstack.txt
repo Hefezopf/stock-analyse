@@ -150,13 +150,10 @@ fi
 
 
 # RSIOfDays function:
-# Input is amountOfDays($1)
-# Output: RSIQuoteList is comma separted list
+# Input is amountOfDaysParam($1)
+# Output: RSIQuoteList is comma separated list
 RSIOfDays() {
-	RSIwinningDaysFile=out/RSI_WinningDays.txt
-	RSIloosingDaysFile=out/RSI_LoosingDays.txt
-	rm -rf $RSIwinningDaysFile
-	rm -rf $RSIloosingDaysFile
+	amountOfDaysParam=${1}
 	i=1
 	while [ "$i" -le 100 ];
 	do
@@ -165,17 +162,15 @@ RSIOfDays() {
 		isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
 		if [ ! ${isNegativ} = '-' ]; then
 			RSIwinningDays=$(echo -e $RSIwinningDays $diffLast2Prices"")
-			echo $diffLast2Prices >> $RSIwinningDaysFile
 		else
 		    RSIwinningDays=$(echo $RSIwinningDays "0")	
-			echo 0 >> $RSIwinningDaysFile
 		fi
 
 		if [ ${isNegativ} = '-' ]; then
 		    withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
-			echo $withoutMinusSign >> $RSIloosingDaysFile
+			RSIloosingDays=$(echo -e $RSIloosingDays $withoutMinusSign"")
 		else
-			echo 0 >> $RSIloosingDaysFile
+		    RSIloosingDays=$(echo $RSIloosingDays "0")	
 		fi
 	done
 
@@ -185,34 +180,23 @@ RSIOfDays() {
 	    i=$(( i + 1 ))
 
 		# Fill with blank comma seperated data  
-		blank=$(( $1 + 1 ))
-		if [ $i -lt $blank ]; then  # <14
+		if [ $i -lt $((amountOfDaysParam + 1 )) ]; then  # <14
 			RSIQuoteList=$(echo $RSIQuoteList ",")
 		else # >14
+			indBegin=$(( 100+2-i ))
+			indEnd=$(( indBegin+1+amountOfDaysParam ))		
+			RSIwinningDaysGap=$(echo "$RSIwinningDays" | cut -f $indBegin-$indEnd -d ' ')	
+		    RSIloosingDaysGap=$(echo "$RSIloosingDays" | cut -f $indBegin-$indEnd -d ' ')	
 
+			OLDIFS=$IFS
+			IFS=" " set -- $RSIwinningDaysGap
+			RSIwinningDaysAvg=$(echo "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}" "${8}" "${9}" "${10}" "${11}" "${12}" "${13}" "${14}" | awk '{print ('${1}'+'${2}'+'${3}'+'${4}'+'${5}'+'${6}'+'${7}'+'${8}'+'${9}'+'${10}'+'${11}'+'${12}'+'${13}'+'${14}')/'${amountOfDaysParam}'}')
+			IFS=" " set -- $RSIloosingDaysGap
+			RSIloosingDaysAvg=$(echo "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}" "${8}" "${9}" "${10}" "${11}" "${12}" "${13}" "${14}" | awk '{print ('${1}'+'${2}'+'${3}'+'${4}'+'${5}'+'${6}'+'${7}'+'${8}'+'${9}'+'${10}'+'${11}'+'${12}'+'${13}'+'${14}')/'${amountOfDaysParam}'}')
+			IFS=$OLDIFS
 
-			indBegin=$(( 100+1-i ))
-			indEnd=$(( indBegin+${1} ))
-			RSIwinningDaysGap=$(echo "$RSIwinningDays" | cut -f $indBegin-$indEnd -d ' ')			
-echo RSIwinningDaysGap $RSIwinningDaysGap
-			RSIwinningDaysAvg=0
-			RSIwinningDaysAvg=$(echo "$RSIwinningDaysGap" | awk 'BEGIN {print $1+$2; exit}')
-echo RSIwinningDaysAvg $RSIwinningDaysAvg
-exit
-			# indBegin=$(( 100+1-i ))
-			# indEnd=$(( indBegin+${1} ))
-			# RSIwinningDaysGap=$(echo "$RSIwinningDays" | cut -f $indBegin-$indEnd -d ' ')			
-			# RSIwinningDaysAvg=0
-			# for j in $(echo $RSIwinningDaysGap | sed "s/,/ /g")
-			# do
-			# 	RSIwinningDaysAvg=$(echo $RSIwinningDaysAvg $j | awk '{ print $1 + $2; }')
-			# done
-			# RSIwinningDaysAvg=$(echo $RSIwinningDaysAvg | awk '{ print $1/'${1}'; }')
-#RSIwinningDaysAvg=33
-
-
-	        RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
-			RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
+	        #RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+			#RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n$amountOfDaysParam | awk '{ sum += $1; } END { print sum/'$amountOfDaysParam'; }') 
 			if [ "${RSIloosingDaysAvg}" = 0 ]; then
 				RSIQuote=100
 			else
@@ -224,6 +208,4 @@ exit
 			RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")			
 		fi
 	done
-	rm -rf $RSIwinningDaysFile
-	rm -rf $RSIloosingDaysFile
 }

@@ -50,9 +50,10 @@ AverageOfDays() {
 }
 
 # RSIOfDays function:
-# Input is amountOfDays($1)
+# Input is amountOfDaysParam($1)
 # Output: RSIQuoteList is comma separted list
 RSIOfDays() {
+	amountOfDaysParam=${1}
 	RSIwinningDaysFile=out/RSI_WinningDays.txt
 	RSIloosingDaysFile=out/RSI_LoosingDays.txt
 	rm -rf $RSIwinningDaysFile
@@ -83,11 +84,11 @@ RSIOfDays() {
 	    i=$(( i + 1 ))
 
 		# Fill with blank comma seperated data  
-		if [ $i -lt $(( $1 + 1 )) ]; then  # <14
+		if [ $i -lt $(( amountOfDaysParam + 1 )) ]; then  # <14
 			RSIQuoteList=$(echo $RSIQuoteList ",")
 		else # >14
-	        RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
-			RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
+	        RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
+			RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }') 
 			if [ "${RSIloosingDaysAvg}" = 0 ]; then
 				RSIQuote=100
 			else
