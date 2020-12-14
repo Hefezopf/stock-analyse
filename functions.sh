@@ -64,7 +64,7 @@ RSIOfDays() {
 		diffLast2Prices=$(head -n$i data/${symbol}.txt | tail -2 | awk 'p{print p-$0}{p=$0}' )
 		isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
 		if [ ! ${isNegativ} = '-' ]; then
-		    echo $diffLast2Prices >> $RSIwinningDaysFile
+			echo $diffLast2Prices >> $RSIwinningDaysFile
 		else
 			echo 0 >> $RSIwinningDaysFile
 		fi
@@ -83,12 +83,9 @@ RSIOfDays() {
 	    i=$(( i + 1 ))
 
 		# Fill with blank comma seperated data  
-		blank=$(( $1 + 1 )) #15
-		if [ $i -lt $blank ]; then
+		if [ $i -lt $(( $1 + 1 )) ]; then  # <14
 			RSIQuoteList=$(echo $RSIQuoteList ",")
-		fi
-
-		if [ $i -gt "${1}" ]; then #14
+		else # >14
 	        RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
 			RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }') 
 			if [ "${RSIloosingDaysAvg}" = 0 ]; then
