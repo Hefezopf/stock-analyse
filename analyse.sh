@@ -317,22 +317,22 @@ do
 	ID_NOTATION=$(grep "${symbolRaw}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbolName</a><br>" >> $indexSymbolFile
 	echo "Date:<b>" $(stat -c %y data/${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
-	echo "&nbsp;Final price:<b>" $last "&#8364;</b>" >> $indexSymbolFile
-	echo "&nbsp;Avg18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
-	echo "&nbsp;Avg38:<b>" $average38 "&#8364;</b>" >> $indexSymbolFile
-	echo "&nbsp;Avg100:<b>" $average100 "&#8364;</b>" >> $indexSymbolFile
-	echo "&nbsp;Stoch14:<b>" $lastStochasticQuoteRounded "</b>" >> $indexSymbolFile
-	echo "&nbsp;RSI14:<b>" $lastRSIQuoteRounded "</b></p>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Final price:<b>" $last "&#8364;</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>" $average18 "&#8364;</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>" $average38 "&#8364;</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>" $average100 "&#8364;</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>" $lastStochasticQuoteRounded "</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>" $lastRSIQuoteRounded "</b></span></p>" >> $indexSymbolFile
 	echo "<p>Analyse:</p>" >> $indexSymbolFile
 	# Strategies output
 	# +
-	echo "<p><b>" $resultStrategieOverratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
+	echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieOverratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
 	# -
-	echo "<p><b>" $resultStrategieUnderratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
-	echo "<p><b>" $resultStrategieUnderratedLowStochastic "</b></p>" >> $indexSymbolFile
-	echo "<p><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
-	echo "<p><b>" $resultStrategieUnderratedLowStochasticLowRSI "</b></p>" >> $indexSymbolFile
-	#echo "<p><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
+	echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
+	echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedLowStochastic "</b></p>" >> $indexSymbolFile
+	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
+	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowStochasticLowRSI "</b></p>" >> $indexSymbolFile
+	#echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
 
 	cat js/indexPart12.html >> $indexSymbolFile
 done
