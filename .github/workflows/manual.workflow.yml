@@ -99,14 +99,14 @@ jobs:
         run: |
           echo Define variables...
           export RESULT_FILES=$(ls out/*.html)
-          echo $RESULT_FILES
-          RESULT_FILESS=${RESULT_FILES}
-          echo $RESULT_FILESS  
+          echo $RESULT_FILES 
         env:
           RESULT_FILES: $(ls out/*.html)
                     
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
+        env:
+          RESULT_FILES: $(ls out/*.html)
         with:
           server_address: smtp.ionos.de
           server_port: 465
@@ -124,4 +124,4 @@ jobs:
           # Optional content type (defaults to text/plain):
           content_type: text/html          
           # Optional attachments:
-          attachments: out/_out.tar.gz ${RESULT_FILESS}
+          attachments: out/_out.tar.gz ${RESULT_FILES}
