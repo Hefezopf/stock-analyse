@@ -136,11 +136,13 @@ do
 		else
 			ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
 		fi
-		stockOnlineClose=$(curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbolRaw}.txt)
-		if [ "${#stockOnlineClose}" -eq 0 ]; then
+		DATA_FILE=data/${symbolRaw}.txt
+		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > $DATA_FILE
+		fileSize=$(stat -c %s $DATA_FILE)
+		if [ "${fileSize}" -eq "0" ]; then
 			echo "!Symbol NOT found online in marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
 			echo "<br>" >> $OUT_RESULT_FILE
-			rm -rf data/${symbolRaw}.txt
+			rm -rf $DATA_FILE
 			exit
 		fi
 	fi
@@ -163,7 +165,8 @@ do
 
 	ProgressBar 1 8
 
-	lastRaw=$(head -n1 -q data/${symbol}.txt)
+    DATA_FILE=data/${symbol}.txt
+	lastRaw=$(head -n1 -q $DATA_FILE)
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
 
