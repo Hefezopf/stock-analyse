@@ -5,11 +5,11 @@ This script checks given stock quotes and their averages of the last 100, 38, 18
 
 
 # Run
-![ScreenShotCMD](ScreenShotCMD.png "ScreenShotCMD")
+![ScreenShotCMD](images/ScreenShotCMD.png "ScreenShotCMD")
 
 
 # Result
-![ScreenShotResult](ScreenShotResult.png "ScreenShotResult")
+![ScreenShotResult](images/ScreenShotResult.png "ScreenShotResult")
 
 ## Outputs:
 - data/SYMBOL.txt
