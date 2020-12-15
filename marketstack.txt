@@ -76,8 +76,9 @@ curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type
 
 git config advice.addIgnoredFile false
 
-
 sort -k 2 data/_ticker_names.txt > data/_ticker_names_sorted.txt
+
+cat data/_ticker_idnotation.txt | sort | uniq -c | grep "2 "
 
 
 !!
