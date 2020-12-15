@@ -44,7 +44,7 @@ AverageOfDays() {
 	while [ "$i" -le $((100-amountOfDaysParam)) ]; 
 	do
 		headLines=$(echo $((100-$i)))
-	    averagePrice=$(head -n$headLines data/${symbol}.txt | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
+	    averagePrice=$(head -n$headLines $DATA_FILE | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 		i=$(( i + 1 ))
 	done
@@ -63,7 +63,7 @@ RSIOfDays() {
 	while [ "$i" -le 100 ];
 	do
 	    i=$(( i + 1 ))
-		diffLast2Prices=$(head -n$i data/${symbol}.txt | tail -2 | awk 'p{print p-$0}{p=$0}' )
+		diffLast2Prices=$(head -n$i $DATA_FILE | tail -2 | awk 'p{print p-$0}{p=$0}' )
 		isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
 		if [ ! ${isNegativ} = '-' ]; then
 			echo $diffLast2Prices >> $RSIwinningDaysFile
@@ -123,7 +123,7 @@ StochasticOfDays() {
 	while [ "$i" -le $((100-amountOfDaysParam)) ];
 	do
 		headLines=$(echo $((100-$i)))
-		head -n$headLines data/${symbol}.txt | tail -"${amountOfDaysParam}" > $stochasticFile
+		head -n$headLines $DATA_FILE | tail -"${amountOfDaysParam}" > $stochasticFile
 		lastStochasticRaw=$(head -n 1 $stochasticFile)
 		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
 		highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
