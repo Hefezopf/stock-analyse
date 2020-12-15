@@ -97,8 +97,8 @@ RSIOfDays() {
 				#RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
 			fi
 
-			RoundNumber ${RSIQuote} 0; RSIQuote=$?	
-			RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")			
+			RoundNumber ${RSIQuote} 0; lastRSIQuoteRounded=$?	
+			RSIQuoteList=$(echo $RSIQuoteList $lastRSIQuoteRounded",")			
 		fi
 	done
 	rm -rf $RSIwinningDaysFile
