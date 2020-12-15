@@ -101,3 +101,25 @@ StrategieUnderratedLowRSI() {
         fi
     fi
 }
+
+# StrategieUnderratedLowStochasticLowRSI function:
+# Strategie: Low Stochastic and Low RSI last quote under lowRSIValue
+# Input is lowStochasticValue($1), stochasticQuoteList($2), lowRSIQuoteParam($3) RSIQuoteList($4)
+# Output: resultStrategieLowStochasticUnderratedLowRSI
+StrategieUnderratedLowStochasticLowRSI() {	
+    if [ "$ratedParam" = 'underrated' ]; then	
+        _lowStochasticValue="$1"
+        _stochasticQuoteList="$2"
+        _lowRSIQuoteParam="$3"
+        _RSIQuoteList="$4"   
+        stochasticLastQuote=$(echo "$_stochasticQuoteList" | cut -f 100 -d ',')
+        RSIlastQuote=$(echo "$_RSIQuoteList" | cut -f 100 -d ',')
+        resultStrategieUnderratedLowStochasticLowRSI=""
+        # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue
+        if [ "$stochasticLastQuote" -lt $_lowStochasticValue ] && [ "$RSIlastQuote" -lt $_lowRSIQuoteParam ]; then
+            resultStrategieUnderratedLowStochasticLowRSI="+ Low Stoch & Low RSI: last Stoch quote $stochasticLastQuote under: $lowStochasticValue and last RSI quote $RSIlastQuote under: $_lowRSIQuoteParam"
+            echo $resultStrategieUnderratedLowStochasticLowRSI
+            WriteComdirectUrlAndStoreFileList
+        fi
+    fi
+}
