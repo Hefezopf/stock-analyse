@@ -254,11 +254,11 @@ do
 
 	    # -Strategie: Low RSI last quote under lowRSIValue
 		resultStrategieUnderratedLowRSI=""
-		StrategieUnderratedLowRSI $RSIQuoteParam "$RSIQuoteList"
+		StrategieUnderratedLowRSI $RSIQuoteParam
 
 	    # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
 		resultStrategieUnderratedLowStochasticLowRSI=""
-		StrategieUnderratedLowStochasticLowRSI 9 "$stochasticQuoteList" $RSIQuoteParam "$RSIQuoteList"
+		StrategieUnderratedLowStochasticLowRSI 9 $RSIQuoteParam
 
 		# -Strategie: The very last stochastic is lower then stochasticPercentageLower
 		#resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
@@ -317,11 +317,12 @@ do
 	ID_NOTATION=$(grep "${symbolRaw}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbolName</a><br>" >> $indexSymbolFile
 	echo "Date:<b>" $(stat -c %y data/${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
-	echo "&nbsp;Final quote:<b>" $last "&#8364;</b>" >> $indexSymbolFile
-	echo "&nbsp;Average 18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
-	echo "&nbsp;Average 38:<b>" $average38 "&#8364;</b>" >> $indexSymbolFile
-	echo "&nbsp;Average 100:<b>" $average100 "&#8364;</b>" >> $indexSymbolFile
-	echo "&nbsp;Stochastic 14:<b>" $lastStochasticQuoteRounded "</b></p>" >> $indexSymbolFile
+	echo "&nbsp;Final price:<b>" $last "&#8364;</b>" >> $indexSymbolFile
+	echo "&nbsp;Avg18:<b>" $average18 "&#8364;</b>" >> $indexSymbolFile
+	echo "&nbsp;Avg38:<b>" $average38 "&#8364;</b>" >> $indexSymbolFile
+	echo "&nbsp;Avg100:<b>" $average100 "&#8364;</b>" >> $indexSymbolFile
+	echo "&nbsp;Stoch14:<b>" $lastStochasticQuoteRounded "</b>" >> $indexSymbolFile
+	echo "&nbsp;RSI14:<b>" $lastRSIQuoteRounded "</b></p>" >> $indexSymbolFile
 	echo "<p>Analyse:</p>" >> $indexSymbolFile
 	# Strategies output
 	# +
