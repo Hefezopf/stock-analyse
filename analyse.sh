@@ -46,6 +46,9 @@ HTML_RESULT_FILE_END=$(echo "</p><p>Thanks</p></div></body></html>" )
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?NAME_PORTFOLIO=Watch&POSITION=234%2C%2C24125490&timeSpan=1Y&chartType=MOUNTAIN&interactivequotes=true&disbursement_split=false&news=false&rel=false&log=false&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&expo=false&fundWithEarnings=true&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
 
+# Check for duplicate symbol in cmd
+echo $symbolsParam | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c && echo "Duplicate symbol in parameter list!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE && exit
+
 # Check parameter
 if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] && [ ! -z "${RSIQuoteParam##*[!0-9]*}" ]; then
 	echo ""
@@ -148,6 +151,7 @@ do
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
 
+	# Check for unknown symbol in cmd; No stock data could be fetched earlier
 	if [ "${#lastRaw}" -eq 0 ]; then
 		echo "!Symbol NOT found: $symbol" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
