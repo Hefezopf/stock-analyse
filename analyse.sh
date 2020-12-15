@@ -39,6 +39,7 @@ touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 indexSymbolFileList=$OUT_RESULT_FILE
+TICKER_NAMES_FILE=data/_ticker_names.txt
 # Email header
 HTML_RESULT_FILE_HEADER=$(echo "<html><head><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div id="body"><p>Stock Analyse,</p><p>")
 echo $HTML_RESULT_FILE_HEADER > $OUT_RESULT_FILE
@@ -115,11 +116,13 @@ do
 	symbol=$symbolRaw".XETRA"
 
 	# Symbol names
-	symbolName=$(grep -w "$symbolRaw " data/_ticker_names.txt)
+	symbolName=$(grep -w "$symbolRaw " $TICKER_NAMES_FILE)
 	if [ ! "${#symbolName}" -gt 1 ]; then
     	stockname=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
-		echo $symbolRaw $stockname | tee -a data/_ticker_names.txt
-		#sleep 13
+		if ! [ "$stockname" = 'null' ]; then
+			echo $symbolRaw $stockname | tee -a $TICKER_NAMES_FILE
+			sleep 11 # only some request per minute
+		fi
 	fi	
 
 	# Stock data
@@ -148,7 +151,7 @@ do
     	
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
 	symbolRaw=$(echo ${symbolRaw} | tr a-z A-Z)
-	symbolName=$(grep -w "$symbolRaw " data/_ticker_names.txt)
+	symbolName=$(grep -w "$symbolRaw " $TICKER_NAMES_FILE)
 	echo "# Analyse $symbolName"
 
 	ProgressBar 1 8
