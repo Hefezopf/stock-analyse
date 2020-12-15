@@ -236,7 +236,7 @@ do
 	# Apply strategies
 	#
 
-	# Valid data is higher then 200; otherwise data meight be damaged or unsufficiant
+	# Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
 	fileSize=$(stat -c %s data/${symbol}.txt)
 	if [ "$fileSize" -gt 200 ]; then
 
@@ -251,6 +251,10 @@ do
 	    # -Strategie: Low RSI last quote under lowRSIValue
 		resultStrategieUnderratedLowRSI=""
 		StrategieUnderratedLowRSI $RSIQuoteParam "$RSIQuoteList"
+
+	    # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
+		resultStrategieUnderratedLowStochasticLowRSI=""
+		StrategieUnderratedLowStochasticLowRSI 9 "$stochasticQuoteList" $RSIQuoteParam "$RSIQuoteList"
 
 		# -Strategie: The very last stochastic is lower then stochasticPercentageLower
 		#resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
@@ -322,7 +326,8 @@ do
 	echo "<p><b>" $resultStrategieUnderratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
 	echo "<p><b>" $resultStrategieUnderratedLowStochastic "</b></p>" >> $indexSymbolFile
 	echo "<p><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
-	echo "<p><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
+	echo "<p><b>" $resultStrategieUnderratedLowStochasticLowRSI "</b></p>" >> $indexSymbolFile
+	#echo "<p><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
 
 	cat js/indexPart12.html >> $indexSymbolFile
 done
