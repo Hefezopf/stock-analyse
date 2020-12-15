@@ -35,7 +35,7 @@ RoundNumber() {
 AverageOfDays() {
 	amountOfDaysParam=${1}
 	i=1
-	while [ "$i" -lt "${1}" ]; do  # Fill with blank comma seperated data
+	while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
 		averagePriceList=$(echo $averagePriceList ",")
 		i=$(( i + 1 ))
 	done 
@@ -85,7 +85,7 @@ RSIOfDays() {
 	    i=$(( i + 1 ))
 
 		# Fill with blank comma seperated data  
-		if [ $i -lt $(( amountOfDaysParam + 1 )) ]; then  # <14
+		if [ $i -lt $(( amountOfDaysParam + 1 )) ]; then # <14
 			RSIQuoteList=$(echo $RSIQuoteList ",")
 		else # >14
 	        RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')

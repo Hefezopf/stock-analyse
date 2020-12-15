@@ -90,8 +90,6 @@ StrategieUnderratedLowStochastic() {
 StrategieUnderratedLowRSI() {	
     if [ "$ratedParam" = 'underrated' ]; then	
         _lowRSIValue="$1"
-        #_RSIQuoteList="$2"
-        #RSIlastQuote=$(echo "$_RSIQuoteList" | cut -f 100 -d ',')
         resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
         if [ "$lastRSIQuoteRounded" -lt $_lowRSIValue ]; then
@@ -109,12 +107,7 @@ StrategieUnderratedLowRSI() {
 StrategieUnderratedLowStochasticLowRSI() {	
     if [ "$ratedParam" = 'underrated' ]; then	
         _lowStochasticValue="$1"
-        #_stochasticQuoteList="$2"
         _lowRSIQuoteParam="$2"
-        #_RSIQuoteList="$4"   
-        #stochasticLastQuote=$(echo "$_stochasticQuoteList" | cut -f 100 -d ',')
-        #RSIlastQuote=$(echo "$_RSIQuoteList" | cut -f 100 -d ',')
-        #lastRSIQuoteRounded #lastRSIQuoteRounded
         resultStrategieUnderratedLowStochasticLowRSI=""
         # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue
         if [ "$lastRSIQuoteRounded" -lt $_lowStochasticValue ] && [ "$lastRSIQuoteRounded" -lt $_lowRSIQuoteParam ]; then
