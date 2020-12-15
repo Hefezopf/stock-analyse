@@ -95,6 +95,10 @@ jobs:
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
 
+      - name: Define variables
+        env:
+          RESULT_FILES: $(ls out/*.html)
+                    
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
         with:
@@ -114,4 +118,4 @@ jobs:
           # Optional content type (defaults to text/plain):
           content_type: text/html          
           # Optional attachments:
-          attachments: out/_out.tar.gz
+          attachments: out/_out.tar.gz ${RESULT_FILES}
