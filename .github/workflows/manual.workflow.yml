@@ -94,19 +94,9 @@ jobs:
           #git add out/*.html
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
-
-      - name: Define variables
-        run: |
-          echo Define variables...
-          export RESULT_FILES=$(ls out/*.html)
-          echo $RESULT_FILES 
-        env:
-          RESULT_FILES: $(ls out/*.html)
                     
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
-        env:
-          RESULT_FILES: $(ls out/*.html)
         with:
           server_address: smtp.ionos.de
           server_port: 465
