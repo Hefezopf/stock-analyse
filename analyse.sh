@@ -99,8 +99,6 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "# Result" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br>" >> $OUT_RESULT_FILE
-#echo "<br>" >> $OUT_RESULT_FILE
-#echo " " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "# URLs" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
@@ -149,6 +147,12 @@ do
 	lastRaw=$(head -n1 -q data/${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
+
+	if [ "${#lastRaw}" -eq 0 ]; then
+		echo "!Symbol NOT found: $symbol" | tee -a $OUT_RESULT_FILE
+		echo "<br>" >> $OUT_RESULT_FILE
+		exit
+	fi
 
 	head -n18 data/${symbol}.txt > out/values18.txt
 	average18Raw=$(cat out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
