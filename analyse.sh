@@ -118,24 +118,30 @@ do
 	# Symbol names
 	symbolName=$(grep -w "$symbolRaw " $TICKER_NAMES_FILE)
 	if [ ! "${#symbolName}" -gt 1 ]; then
-    	stockname=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
-		if ! [ "$stockname" = 'null' ]; then
-			echo $symbolRaw $stockname | tee -a $TICKER_NAMES_FILE
-			sleep 11 # only some request per minute
+    	symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
+		if ! [ "$symbolName" = 'null' ]; then
+			echo $symbolRaw $symbolName | tee -a $TICKER_NAMES_FILE
+			# Can requested in bulk request as an option!
+			sleep 13 # only some requests per minute to openfigi (About 6 per minute).
 		fi
 	fi	
 
 	# Stock data
 	echo "# Get $symbolName"
-	if [ "$queryParam" = 'offline' ]; then
-		true
-	else
+	if [ "$queryParam" = 'online' ]; then
 	    tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
 		evenodd=$(( $tag  % 2 ))
 		if [ "$evenodd" -eq 0 ]; then
-			curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbolRaw}.txt
+		    ACCESS_KEY=${MARKET_STACK_ACCESS_KEY}
 		else
-			curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY2}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbolRaw}.txt
+			ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
+		fi
+		stockOnlineClose=$(curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbolRaw}.txt)
+		if [ "${#stockOnlineClose}" -eq 0 ]; then
+			echo "!Symbol NOT found online in marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
+			echo "<br>" >> $OUT_RESULT_FILE
+			rm -rf data/${symbolRaw}.txt
+			exit
 		fi
 	fi
 done
@@ -148,10 +154,11 @@ do
 	#
 
     echo " "
-    	
+
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
 	symbolRaw=$(echo ${symbolRaw} | tr a-z A-Z)
 	symbolName=$(grep -w "$symbolRaw " $TICKER_NAMES_FILE)
+
 	echo "# Analyse $symbolName"
 
 	ProgressBar 1 8
@@ -162,7 +169,7 @@ do
 
 	# Check for unknown symbol in cmd; No stock data could be fetched earlier
 	if [ "${#lastRaw}" -eq 0 ]; then
-		echo "!Symbol NOT found: $symbol" | tee -a $OUT_RESULT_FILE
+		echo "!Symbol NOT found offline in data/*.txt.: $symbolRaw. Try online query!" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
 		exit
 	fi
