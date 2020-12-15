@@ -127,7 +127,7 @@ do
 	if [ "$queryParam" = 'offline' ]; then
 		true
 	else
-	    tag=$(date +"%d")
+	    tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
 		evenodd=$(( $tag  % 2 ))
 		if [ "$evenodd" -eq 0 ]; then
 			curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > data/${symbolRaw}.txt
@@ -145,10 +145,14 @@ do
 	#
 
     echo " "
+    	
 	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
 	symbolRaw=$(echo ${symbolRaw} | tr a-z A-Z)
 	symbolName=$(grep -w "$symbolRaw " data/_ticker_names.txt)
 	echo "# Analyse $symbolName"
+
+	ProgressBar 1 8
+
 	lastRaw=$(head -n1 -q data/${symbol}.txt)
 	#last=$(printf "%'.2f\n" $lastRaw)
     last=$lastRaw
@@ -165,7 +169,7 @@ do
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
 
-    ProgressBar 1 7
+    ProgressBar 2 8
 
 	GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
@@ -192,7 +196,7 @@ do
 	GreaterThenWithFactor $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
 	LesserThenWithFactor $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
  
-    ProgressBar 2 7
+    ProgressBar 3 8
 
 	# Calculate RSI 14 values
 	RSIInDays14=14
@@ -200,7 +204,7 @@ do
 	RSIOfDays $RSIInDays14
 	RSIQuoteList14=$RSIQuoteList
 
-	ProgressBar 3 7
+	ProgressBar 4 8
 
     # Calculate Stochastic 14 values
 	stochasticInDays14=14
@@ -208,7 +212,7 @@ do
 	StochasticOfDays $stochasticInDays14
 	stochasticQuoteList14=$stochasticQuoteList
 
-    ProgressBar 4 7
+    ProgressBar 5 8
 
 	# Stochastics percentage
 	stochasticPercentageLower=$stochasticPercentageParam
@@ -220,7 +224,7 @@ do
 	AverageOfDays $averageInDays18
 	averagePriceList18=$averagePriceList
 
-	ProgressBar 5 7
+	ProgressBar 6 8
 
     # Average 38
 	averageInDays38=38
@@ -228,7 +232,7 @@ do
 	AverageOfDays $averageInDays38
 	averagePriceList38=$averagePriceList
 
-	ProgressBar 6 7
+	ProgressBar 7 8
 
     # Average 100
 	averageInDays100=100
@@ -236,7 +240,7 @@ do
 	AverageOfDays $averageInDays100
 	averagePriceList100=$averagePriceList
 
-    ProgressBar 7 7
+    ProgressBar 8 8
 	
 	#
 	# Apply strategies
@@ -290,7 +294,7 @@ do
 	cat js/indexPart0.html >> $indexSymbolFile
 	echo "${symbolRaw}" >> $indexSymbolFile
 	cat js/indexPart1.html >> $indexSymbolFile
-	echo "'" ${symbol} "'," >> $indexSymbolFile
+	echo "'" ${symbolName} "'," >> $indexSymbolFile
 	cat js/indexPart2.html >> $indexSymbolFile
 	echo $commaPriceList >> $indexSymbolFile
 	cat js/indexPart3.html >> $indexSymbolFile	
@@ -325,7 +329,7 @@ do
 	echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>" $average100 "&#8364;</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>" $lastStochasticQuoteRounded "</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>" $lastRSIQuoteRounded "</b></span></p>" >> $indexSymbolFile
-	echo "<p>Analyse:</p>" >> $indexSymbolFile
+	#echo "<p>Analyse:</p>" >> $indexSymbolFile
 	# Strategies output
 	# +
 	echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieOverratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
@@ -335,6 +339,7 @@ do
 	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
 	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowStochasticLowRSI "</b></p>" >> $indexSymbolFile
 	#echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
+	echo "<p>Good Luck!</p>" >> $indexSymbolFile
 
 	cat js/indexPart12.html >> $indexSymbolFile
 done
