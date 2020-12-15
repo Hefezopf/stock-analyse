@@ -370,6 +370,6 @@ echo "time elapsed."
 rm $commaPriceListFile
 rm $stochasticFile
 rm out/values*.txt
-#tar -zcf $OUT_ZIP_FILE $indexSymbolFileList
-tar -cf $OUT_ZIP_FILE $indexSymbolFileList
+tar -zcf $OUT_ZIP_FILE $indexSymbolFileList
+#tar -cf $OUT_ZIP_FILE $indexSymbolFileList
 mv $OUT_ZIP_FILE out
