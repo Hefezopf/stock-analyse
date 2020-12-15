@@ -177,7 +177,7 @@ do
 		exit
 	fi
 
-	head -n18 data/${symbol}.txt > out/values18.txt
+	head -n18 $DATA_FILE > out/values18.txt
 	average18Raw=$(cat out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
@@ -187,14 +187,14 @@ do
 	GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
-	head -n38 data/${symbol}.txt > out/values38.txt
+	head -n38 $DATA_FILE > out/values38.txt
 	average38Raw=$(cat out/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	#average38=$(printf "%'.2f\n" $average38Raw)
 	average38=$average38Raw
 	GreaterThenWithFactor $percentageGreaterFactor $last $average38; lastOverAgv38=$?
     LesserThenWithFactor $percentageLesserFactor $last $average38;lastUnderAgv38=$?
 	
-	head -n100 data/${symbol}.txt > out/values100.txt
+	head -n100 $DATA_FILE > out/values100.txt
 	average100Raw=$(cat out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	#average100=$(printf "%'.2f\n" $average100Raw)
 	average100=$average100Raw
@@ -260,7 +260,7 @@ do
 	#
 
 	# Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
-	fileSize=$(stat -c %s data/${symbol}.txt)
+	fileSize=$(stat -c %s $DATA_FILE)
 	if [ "$fileSize" -gt 200 ]; then
 
 		# -Strategie: UnderratedByPercentAndStochastic
@@ -297,7 +297,7 @@ do
 
     # Writing chart ${symbol}.html
 	commaPriceListFile=out/commaPriceListFile.txt
-	cat data/${symbol}.txt | tac > $commaPriceListFile
+	cat $DATA_FILE | tac > $commaPriceListFile
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
     indexSymbolFile=out/${symbolRaw}.html
 	
@@ -335,7 +335,7 @@ do
 
 	ID_NOTATION=$(grep "${symbolRaw}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbolName</a><br>" >> $indexSymbolFile
-	echo "Date:<b>" $(stat -c %y data/${symbol}.txt | cut -b 1-10) "</b>" >> $indexSymbolFile
+	echo "Date:<b>" $(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Final price:<b>" $last "&#8364;</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>" $average18 "&#8364;</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>" $average38 "&#8364;</b></span>" >> $indexSymbolFile
