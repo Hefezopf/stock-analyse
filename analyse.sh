@@ -189,6 +189,7 @@ do
 	
 	head -n100 $DATA_FILE > temp/values100.txt
 	average100Raw=$(cat temp/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
+	PS1='\u@\h:\w\$ '
 	average100=$(printf "%'.3f\n" $average100Raw)
 	#average100=$average100Raw
 	GreaterThenWithFactor $percentageGreaterFactor $last $average100; lastOverAgv100=$?
