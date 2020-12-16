@@ -111,17 +111,61 @@ echo "# URLs" >> $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 
 # Get data
+# for symbol in $symbolsParam
+# do
+# 	symbolRaw=$(echo ${symbol} | tr a-z A-Z)
+# 	symbol=$symbolRaw".XETRA"
+
+# 	# Symbol names
+# 	symbolName=$(grep -w "$symbolRaw " $TICKER_NAMES_FILE)
+# 	if [ ! "${#symbolName}" -gt 1 ]; then
+#     	symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
+# 		if ! [ "$symbolName" = 'null' ]; then
+# 			echo $symbolRaw $symbolName | tee -a $TICKER_NAMES_FILE
+# 			# Can requested in bulk request as an option!
+# 			sleep 13 # only some requests per minute to openfigi (About 6 per minute).
+# 		fi
+# 	fi	
+
+# 	# Stock data
+# 	echo "# Get $symbolName"
+# 	if [ "$queryParam" = 'online' ]; then
+# 	    tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
+# 		evenodd=$(( $tag  % 2 ))
+# 		if [ "$evenodd" -eq 0 ]; then
+# 		    ACCESS_KEY=${MARKET_STACK_ACCESS_KEY}
+# 		else
+# 			ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
+# 		fi
+# 		DATA_FILE=data/${symbolRaw}.txt
+# 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > $DATA_FILE
+# 		fileSize=$(stat -c %s $DATA_FILE)
+# 		if [ "${fileSize}" -eq "0" ]; then
+# 			echo "!Symbol NOT found online in marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
+# 			echo "<br>" >> $OUT_RESULT_FILE
+# 			rm -rf $DATA_FILE
+# 			exit
+# 		fi
+# 	fi
+# done
+
+# Analyse data for each symbol
 for symbol in $symbolsParam
 do
-	symbolRaw=$(echo ${symbol} | tr a-z A-Z)
-	symbol=$symbolRaw".XETRA"
+	#
+	# Gather data
+	#
+
+
+	symbol=$(echo ${symbol} | tr a-z A-Z)
+	#symbol=$symbolRaw".XETRA"
 
 	# Symbol names
-	symbolName=$(grep -w "$symbolRaw " $TICKER_NAMES_FILE)
+	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
 	if [ ! "${#symbolName}" -gt 1 ]; then
-    	symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
+    	symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbol}'"}]' | jq '.[0].data[0].name')
 		if ! [ "$symbolName" = 'null' ]; then
-			echo $symbolRaw $symbolName | tee -a $TICKER_NAMES_FILE
+			echo $symbol $symbolName | tee -a $TICKER_NAMES_FILE
 			# Can requested in bulk request as an option!
 			sleep 13 # only some requests per minute to openfigi (About 6 per minute).
 		fi
@@ -137,8 +181,8 @@ do
 		else
 			ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
 		fi
-		DATA_FILE=data/${symbolRaw}.txt
-		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > $DATA_FILE
+		DATA_FILE=data/${symbol}.txt
+		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq '.data[].close' > $DATA_FILE
 		fileSize=$(stat -c %s $DATA_FILE)
 		if [ "${fileSize}" -eq "0" ]; then
 			echo "!Symbol NOT found online in marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
@@ -147,20 +191,16 @@ do
 			exit
 		fi
 	fi
-done
 
-# Analyse data for each symbol
-for symbol in $symbolsParam
-do
-	#
-	# Gather data
-	#
+
+
+
 
     echo " "
 
-	symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
-	symbolRaw=$(echo ${symbolRaw} | tr a-z A-Z)
-	symbolName=$(grep -w "$symbolRaw " $TICKER_NAMES_FILE)
+	#symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
+	#symbolRaw=$(echo ${symbolRaw} | tr a-z A-Z)
+	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
 
 	#echo "# Analyse " $symbolName
 	CreateCmdAnalyseHyperlink
@@ -174,7 +214,7 @@ do
 
 	# Check for unknown symbol in cmd; No stock data could be fetched earlier
 	if [ "${#lastRaw}" -eq 0 ]; then
-		echo "!Symbol NOT found offline in data/*.txt.: $symbolRaw. Try online query!" | tee -a $OUT_RESULT_FILE
+		echo "!Symbol NOT found offline in data/*.txt.: $symbol. Try online query!" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
 		exit
 	fi
@@ -301,14 +341,14 @@ do
 	commaPriceListFile=temp/commaPriceListFile.txt
 	cat $DATA_FILE | tac > $commaPriceListFile
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
-    indexSymbolFile=out/${symbolRaw}.html
+    indexSymbolFile=out/${symbol}.html
 	
 	rm -rf $indexSymbolFile
 	cp js/_chart.min.js out
 	cp js/_utils.js out
 	cp js/_favicon.ico out
 	cat js/indexPart0.html >> $indexSymbolFile
-	echo "${symbolRaw}" >> $indexSymbolFile
+	echo "${symbol}" >> $indexSymbolFile
 	cat js/indexPart1.html >> $indexSymbolFile
 	echo "'" ${symbolName} "'," >> $indexSymbolFile
 	cat js/indexPart2.html >> $indexSymbolFile
@@ -336,7 +376,7 @@ do
 	echo $RSIQuoteList14 >> $indexSymbolFile
 	cat js/indexPart11.html >> $indexSymbolFile
 
-	ID_NOTATION=$(grep "${symbolRaw}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
+	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbolName</a><br>" >> $indexSymbolFile
 	echo "Date:<b>" $(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Final price:<b>" $last "&#8364;</b></span>" >> $indexSymbolFile
