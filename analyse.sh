@@ -100,54 +100,9 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic14: $stochasticPercentageParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI14: $RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo " " >> $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo "# Result" >> $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br>" >> $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo "# URLs" >> $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-
-# Get data
-# for symbol in $symbolsParam
-# do
-# 	symbolRaw=$(echo ${symbol} | tr a-z A-Z)
-# 	symbol=$symbolRaw".XETRA"
-
-# 	# Symbol names
-# 	symbolName=$(grep -w "$symbolRaw " $TICKER_NAMES_FILE)
-# 	if [ ! "${#symbolName}" -gt 1 ]; then
-#     	symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbolRaw}'"}]' | jq '.[0].data[0].name')
-# 		if ! [ "$symbolName" = 'null' ]; then
-# 			echo $symbolRaw $symbolName | tee -a $TICKER_NAMES_FILE
-# 			# Can requested in bulk request as an option!
-# 			sleep 13 # only some requests per minute to openfigi (About 6 per minute).
-# 		fi
-# 	fi	
-
-# 	# Stock data
-# 	echo "# Get $symbolName"
-# 	if [ "$queryParam" = 'online' ]; then
-# 	    tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-# 		evenodd=$(( $tag  % 2 ))
-# 		if [ "$evenodd" -eq 0 ]; then
-# 		    ACCESS_KEY=${MARKET_STACK_ACCESS_KEY}
-# 		else
-# 			ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
-# 		fi
-# 		DATA_FILE=data/${symbolRaw}.txt
-# 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}" | jq '.data[].close' > $DATA_FILE
-# 		fileSize=$(stat -c %s $DATA_FILE)
-# 		if [ "${fileSize}" -eq "0" ]; then
-# 			echo "!Symbol NOT found online in marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
-# 			echo "<br>" >> $OUT_RESULT_FILE
-# 			rm -rf $DATA_FILE
-# 			exit
-# 		fi
-# 	fi
-# done
+echo "<br><br># Result<br>" >> $OUT_RESULT_FILE
+echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br><br>" >> $OUT_RESULT_FILE
+echo "# URLs<br>" >> $OUT_RESULT_FILE
 
 # Analyse data for each symbol
 for symbol in $symbolsParam
@@ -156,10 +111,7 @@ do
 	# Gather data
 	#
 
-
 	symbol=$(echo ${symbol} | tr a-z A-Z)
-	#symbol=$symbolRaw".XETRA"
-
 	# Symbol names
 	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
 	if [ ! "${#symbolName}" -gt 1 ]; then
@@ -192,14 +144,8 @@ do
 		fi
 	fi
 
-
-
-
-
     echo " "
 
-	#symbolRaw=$(echo "${symbol}" | cut -f 1 -d '.')
-	#symbolRaw=$(echo ${symbolRaw} | tr a-z A-Z)
 	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
 
 	#echo "# Analyse " $symbolName
@@ -378,6 +324,11 @@ do
 
 	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbolName</a><br>" >> $indexSymbolFile
+	echo "Percentage: $percentageParam<br>"  >> $indexSymbolFile
+	echo "Query: $queryParam<br>"  >> $indexSymbolFile
+	echo "Rated: $ratedParam<br>"  >> $indexSymbolFile
+	echo "Stochastic14: $stochasticPercentageParam<br>"  >> $indexSymbolFile
+	echo "RSI14: $RSIQuoteParam<br>"  >> $indexSymbolFile
 	echo "Date:<b>" $(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Final price:<b>" $last "&#8364;</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>" $average18 "&#8364;</b></span>" >> $indexSymbolFile
@@ -385,7 +336,7 @@ do
 	echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>" $average100 "&#8364;</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>" $lastStochasticQuoteRounded "</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>" $lastRSIQuoteRounded "</b></span></p>" >> $indexSymbolFile
-	#echo "<p>Analyse:</p>" >> $indexSymbolFile
+
 	# Strategies output
 	# +
 	echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieOverratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
@@ -413,5 +364,4 @@ rm $commaPriceListFile
 rm $stochasticFile
 rm temp/values*.txt
 tar -zcf $OUT_ZIP_FILE $indexSymbolFileList
-#tar -cf $OUT_ZIP_FILE $indexSymbolFileList
 mv $OUT_ZIP_FILE out
