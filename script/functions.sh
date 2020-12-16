@@ -83,7 +83,6 @@ RSIOfDays() {
 	while [ "$i" -le 100 ];
 	do
 	    i=$(( i + 1 ))
-
 		# Fill with blank comma seperated data  
 		if [ $i -lt $(( amountOfDaysParam + 1 )) ]; then # <14
 			RSIQuoteList=$(echo $RSIQuoteList ",")
