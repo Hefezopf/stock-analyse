@@ -5,7 +5,7 @@
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
 # 4. Parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
-# 5. Parameter: STOCHASTIC: Percentage for stochastic indicator.
+# 5. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
 # 6. Parameter: RSI: Quote for RSI indicator.
 # Call example: ./analyse.sh 'ADS ALV' 3 online underrated 9 30
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
@@ -52,7 +52,12 @@ START_TIME_MEASUREMENT=$(date +%s);
 echo $symbolsParam | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c && echo "Duplicate symbol in parameter list!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE && exit
 
 # Check parameter
-if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] && [ ! -z "${percentageParam##*[!0-9]*}" ]  && ( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) && ( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) && [ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] && [ ! -z "${RSIQuoteParam##*[!0-9]*}" ]; then
+if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] &&
+	[ ! -z "${percentageParam##*[!0-9]*}" ]  && 
+	( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) &&
+	( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) &&
+	[ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#stochasticPercentageParam} -gt 1 ] &&
+	[ ! -z "${RSIQuoteParam##*[!0-9]*}" ]; then
 	echo ""
 else
 	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $OUT_RESULT_FILE
@@ -65,7 +70,7 @@ else
 	echo "<br>" >> $OUT_RESULT_FILE
 	echo " RATED: List only overrated|underrated" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
-	echo " STOCHASTIC14: Percentage for stochastic indicator" | tee -a $OUT_RESULT_FILE
+	echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
 	echo " RSI14: Quote for RSI indicator" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE	
@@ -184,8 +189,8 @@ do
 	
 	head -n100 $DATA_FILE > temp/values100.txt
 	average100Raw=$(cat temp/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
-	#average100=$(printf "%'.2f\n" $average100Raw)
-	average100=$average100Raw
+	average100=$(printf "%'.3f\n" $average100Raw)
+	#average100=$average100Raw
 	GreaterThenWithFactor $percentageGreaterFactor $last $average100; lastOverAgv100=$?
 	LesserThenWithFactor $percentageLesserFactor $last $average100; lastUnderAgv100=$?
 
@@ -257,7 +262,7 @@ do
 	
 	    # -Strategie: Low stochastic 3 last values under lowStochasticValue
 		resultStrategieUnderratedLowStochastic=""
-		StrategieUnderratedLowStochastic 9 "$stochasticQuoteList"
+		StrategieUnderratedLowStochastic $stochasticPercentageParam "$stochasticQuoteList"
 
 	    # -Strategie: Low RSI last quote under lowRSIValue
 		resultStrategieUnderratedLowRSI=""
@@ -265,7 +270,7 @@ do
 
 	    # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
 		resultStrategieUnderratedLowStochasticLowRSI=""
-		StrategieUnderratedLowStochasticLowRSI 9 $RSIQuoteParam
+		StrategieUnderratedLowStochasticLowRSI $stochasticPercentageParam $RSIQuoteParam
 
 		# -Strategie: The very last stochastic is lower then stochasticPercentageLower
 		#resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
