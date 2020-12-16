@@ -33,12 +33,13 @@ RSIQuoteParam=$6
 
 # Prepare
 mkdir -p out
+mkdir -p temp
 OUT_ZIP_FILE=_out.tar.gz
 rm -rf out/$OUT_ZIP_FILE
 touch out/$OUT_ZIP_FILE
-touch temp/values18.txt
-touch temp/values38.txt
-touch temp/values100.txt
+#touch temp/values18.txt
+#touch temp/values38.txt
+#touch temp/values100.txt
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 indexSymbolFileList=$OUT_RESULT_FILE
