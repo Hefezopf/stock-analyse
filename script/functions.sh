@@ -166,7 +166,7 @@ ProgressBar() {
 # Input -
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
-	ID_NOTATION=$(grep "${symbolRaw}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
+	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
 	if [ ! "${#ID_NOTATION}" -gt 1 ]; then
 		ID_NOTATION=999999
 	fi
@@ -175,7 +175,7 @@ WriteComdirectUrlAndStoreFileList() {
 		ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
 		echo "<a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbolName</a><br>" >> $OUT_RESULT_FILE
 		# Store list of files for later (tar/zip)
-	    indexSymbolFileList=$(echo $indexSymbolFileList out/${symbolRaw}.html)
+	    indexSymbolFileList=$(echo $indexSymbolFileList out/${symbol}.html)
 	fi
 }
 
