@@ -178,3 +178,12 @@ WriteComdirectUrlAndStoreFileList() {
 	    indexSymbolFileList=$(echo $indexSymbolFileList out/${symbolRaw}.html)
 	fi
 }
+
+# CreateCmdHyperlink function:
+# - Write file Hyperlink in CMD
+CreateCmdHyperlink() {
+	driveLetter=$(pwd | cut -f 2 -d '/')
+	suffixPath=$(pwd | cut -b 3-200)
+	verzeichnis=$driveLetter":"$suffixPath
+	echo -e "\e]8;;file:///"$verzeichnis"/out/"$symbol".html\a# Analyse "$symbol"\e]8;;\a"
+}
