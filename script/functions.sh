@@ -185,6 +185,6 @@ CreateCmdHyperlink() {
 	driveLetter=$(pwd | cut -f 2 -d '/')
 	suffixPath=$(pwd | cut -b 3-200)
 	verzeichnis=$driveLetter":"$suffixPath
-	#echo -e "\e]8;;file:///"$verzeichnis"/out/"$symbol".html\a# Analyse "$symbol"\e]8;;\a"
-	echo -e "\e[4m\e]8;;file:///"$verzeichnis"/out/"$symbol".html\a# Analyse "$symbol"\e]8\e[0m\a"
+	echo -e "\e]8;;file:///"$verzeichnis"/out/"$symbol".html\a# Analyse "$symbol"\e]8;;\a"
+	#echo -e "\e[4m\e]8;;file:///"$verzeichnis"/out/"$symbol".html\a# Analyse "$symbol"\e]8\e[0m\a"
 }
