@@ -1,11 +1,17 @@
-marketstack.com:
-----------------
+TODO:
+-----
+
 
 . ~/.bash_profile
 
 
-TODO:
------
+out/commaPriceListFile.txt
+out/stochastic.txt
+out/RSI_WinningDays.txt
+-Temp ordner
+-scripts ordner
+-Result.html favicon
+-Beschreibung wie vorgegehne wenn kauf: ins musterdepot, in schedule liste, ...
 -Nach oben/overrated auch Alarme wie nach unten z.b. RSI
 -link in consle auf out file zum direkten klicken
 -chart.js not working on iphone
@@ -34,9 +40,9 @@ TODO:
 
 
 Depot:
-./analyse.sh 'SNW PSM CEC XONA GEC GIS B4B FTE TNE5 CRIN CCAP BEI CBK 1COV DBK EOAN BAYN BSN ENI' 1 offline underrated 9 90
+./analyse.sh 'SNW PSM CEC XONA GEC GIS B4B FTE TNE5 CRIN CCAP BEI DBK EOAN BAYN BSN ENI' 1 offline underrated 9 90
 Depot+DAX+Eurostoxx (70):
-./analyse.sh 'PSM CEC XONA GEC GIS B4B FTE TNE5 CRIN CCAP BEI CBK 1COV DBK LHA EOAN FME FRE HEI HEN IFX SDF MRK RWE TKA VOW MTX DWNI DHER ADS 1N8 AIL AIR ALV 1NBA ASME AXA BSD2 BAS BAYN BMW BNP DAI BSN DPW DTE ENL GZF ENI IBE1 IXD1 INN1 IES PPX AHOG PHI1 LOR LIN MOH MUV2 NOA3 1TY SNW SAP SND SIE TOTB SQU VVU VOW3 VNA' 1 offline underrated 9 90
+./analyse.sh 'SNW PSM CEC XONA GEC GIS B4B FTE TNE5 CRIN CCAP BEI DBK EOAN BAYN BSN ENI CBK 1COV DBK LHA FME FRE HEI HEN IFX SDF MRK RWE TKA VOW MTX DWNI DHER ADS 1N8 AIL AIR ALV 1NBA ASME AXA BSD2 BAS BAYN BMW BNP DAI BSN DPW DTE ENL GZF ENI IBE1 IXD1 INN1 IES PPX AHOG PHI1 LOR LIN MOH MUV2 NOA3 1TY SNW SAP SND SIE TOTB SQU VVU VOW3 VNA' 1 offline underrated 9 90
 
 
 REST Api
@@ -155,11 +161,11 @@ Cache:
 cacheFile=$(find data/cache/${symbol}.values18.txt 2> /dev/null -mtime -1 -print)
 if [ "${#cacheFile}" -gt 0 ]; then
 	echo Read from cache file
-	cp data/cache/${symbol}.values18.txt out/values18.txt
+	cp data/cache/${symbol}.values18.txt temp/values18.txt
 else
 	echo Create cache file
 	head -n18 data/${symbol}.txt > data/cache/${symbol}.values18.txt
-	cp data/cache/${symbol}.values18.txt out/values18.txt
+	cp data/cache/${symbol}.values18.txt temp/values18.txt
 fi
 
 
