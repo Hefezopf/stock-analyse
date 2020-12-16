@@ -182,11 +182,13 @@ WriteComdirectUrlAndStoreFileList() {
 # CreateCmdAnalyseHyperlink function:
 # - Write file Hyperlink in CMD
 CreateCmdAnalyseHyperlink() {
-	if [ $(echo uname) = 'Linux' ]; then
-		#echo "No! Hyperlink"
+	unameVar=$(uname)
+	echo unameVar $unameVar
+	if [ $unameVar = 'Linux' ]; then
+		echo "No! Hyperlink"
 		echo "# Analyse "$symbol
 	else
-		#echo "Hyperlink"
+		echo "Hyperlink"
 		driveLetter=$(pwd | cut -f 2 -d '/')
 		suffixPath=$(pwd | cut -b 3-200)
 		verzeichnis=$driveLetter":"$suffixPath
