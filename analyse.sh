@@ -18,8 +18,6 @@
 # Import strategies
 . ./script/strategies.sh
 
-uname
-
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
 export LANG=en_IN.UTF-8
