@@ -179,9 +179,9 @@ WriteComdirectUrlAndStoreFileList() {
 	fi
 }
 
-# CreateCmdHyperlink function:
+# CreateCmdAnalyseHyperlink function:
 # - Write file Hyperlink in CMD
-CreateCmdHyperlink() {
+CreateCmdAnalyseHyperlink() {
 	driveLetter=$(pwd | cut -f 2 -d '/')
 	suffixPath=$(pwd | cut -b 3-200)
 	verzeichnis=$driveLetter":"$suffixPath

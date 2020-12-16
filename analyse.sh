@@ -18,6 +18,8 @@
 # Import strategies
 . ./script/strategies.sh
 
+uname
+
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
 export LANG=en_IN.UTF-8
@@ -162,8 +164,8 @@ do
 	symbolRaw=$(echo ${symbolRaw} | tr a-z A-Z)
 	symbolName=$(grep -w "$symbolRaw " $TICKER_NAMES_FILE)
 
-	# # Analyse $symbolName
-	CreateCmdHyperlink
+	#echo "# Analyse " $symbolName
+	CreateCmdAnalyseHyperlink
 
 	ProgressBar 1 8
 
