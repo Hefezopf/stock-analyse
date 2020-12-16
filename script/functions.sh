@@ -55,8 +55,8 @@ AverageOfDays() {
 # Output: RSIQuoteList is comma separted list
 RSIOfDays() {
 	amountOfDaysParam=${1}
-	RSIwinningDaysFile=out/RSI_WinningDays.txt
-	RSIloosingDaysFile=out/RSI_LoosingDays.txt
+	RSIwinningDaysFile=temp/RSI_WinningDays.txt
+	RSIloosingDaysFile=temp/RSI_LoosingDays.txt
 	rm -rf $RSIwinningDaysFile
 	rm -rf $RSIloosingDaysFile
 	i=1
@@ -110,7 +110,7 @@ RSIOfDays() {
 # Output: stochasticQuoteList is comma separted list
 StochasticOfDays() {
 	amountOfDaysParam=${1}
-	stochasticFile=out/stochastic.txt
+	stochasticFile=temp/stochastic.txt
 	i=1
 	# Fill with blank comma seperated data
 	while [ "$i" -lt "${1}" ]; do 

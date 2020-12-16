@@ -13,10 +13,10 @@
 # Set MARKET_STACK_ACCESS_KEY and MARKET_STACK_ACCESS_KEY2 as Env Variable
 
 # Import functions
-. ./functions.sh
+. ./script/functions.sh
 
 # Import strategies
-. ./strategies.sh
+. ./script/strategies.sh
 
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
@@ -41,7 +41,7 @@ rm -rf $OUT_RESULT_FILE
 indexSymbolFileList=$OUT_RESULT_FILE
 TICKER_NAMES_FILE=data/_ticker_names.txt
 # Email header
-HTML_RESULT_FILE_HEADER=$(echo "<html><head><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div id="body"><p>Stock Analyse,</p><p>")
+HTML_RESULT_FILE_HEADER=$(echo "<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>")
 echo $HTML_RESULT_FILE_HEADER > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END=$(echo "</p><p>Thanks</p></div></body></html>" )
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?NAME_PORTFOLIO=Watch&POSITION=234%2C%2C24125490&timeSpan=1Y&chartType=MOUNTAIN&interactivequotes=true&disbursement_split=false&news=false&rel=false&log=false&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&expo=false&fundWithEarnings=true&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
@@ -177,8 +177,8 @@ do
 		exit
 	fi
 
-	head -n18 $DATA_FILE > out/values18.txt
-	average18Raw=$(cat out/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
+	head -n18 $DATA_FILE > temp/values18.txt
+	average18Raw=$(cat temp/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
 	#average18=$(printf "%'.2f\n" $average18Raw)
 	average18=$average18Raw
 
@@ -187,15 +187,15 @@ do
 	GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
 	LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
-	head -n38 $DATA_FILE > out/values38.txt
-	average38Raw=$(cat out/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
+	head -n38 $DATA_FILE > temp/values38.txt
+	average38Raw=$(cat temp/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
 	#average38=$(printf "%'.2f\n" $average38Raw)
 	average38=$average38Raw
 	GreaterThenWithFactor $percentageGreaterFactor $last $average38; lastOverAgv38=$?
     LesserThenWithFactor $percentageLesserFactor $last $average38;lastUnderAgv38=$?
 	
-	head -n100 $DATA_FILE > out/values100.txt
-	average100Raw=$(cat out/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
+	head -n100 $DATA_FILE > temp/values100.txt
+	average100Raw=$(cat temp/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
 	#average100=$(printf "%'.2f\n" $average100Raw)
 	average100=$average100Raw
 	GreaterThenWithFactor $percentageGreaterFactor $last $average100; lastOverAgv100=$?
@@ -296,7 +296,7 @@ do
 	#
 
     # Writing chart ${symbol}.html
-	commaPriceListFile=out/commaPriceListFile.txt
+	commaPriceListFile=temp/commaPriceListFile.txt
 	cat $DATA_FILE | tac > $commaPriceListFile
 	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
     indexSymbolFile=out/${symbolRaw}.html
@@ -369,7 +369,7 @@ echo "time elapsed."
 # Cleanup
 rm $commaPriceListFile
 rm $stochasticFile
-rm out/values*.txt
+rm temp/values*.txt
 tar -zcf $OUT_ZIP_FILE $indexSymbolFileList
 #tar -cf $OUT_ZIP_FILE $indexSymbolFileList
 mv $OUT_ZIP_FILE out
