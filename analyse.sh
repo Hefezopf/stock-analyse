@@ -20,8 +20,6 @@
 
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
-# export LANG=en_IN.UTF-8
-# export LANGUAGE=en_IN.UTF-8
 
 # Parameter
 symbolsParam=$1
@@ -112,12 +110,8 @@ echo "# URLs<br>" >> $OUT_RESULT_FILE
 # Analyse data for each symbol
 for symbol in $symbolsParam
 do
-	#
-	# Gather data
-	#
-
+	# Get symbol names
 	symbol=$(echo ${symbol} | tr a-z A-Z)
-	# Symbol names
 	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
 	if [ ! "${#symbolName}" -gt 1 ]; then
     	symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbol}'"}]' | jq '.[0].data[0].name')
@@ -128,7 +122,7 @@ do
 		fi
 	fi	
 
-	# Stock data
+	# Get stock data
 	echo "# Get $symbolName"
 	if [ "$queryParam" = 'online' ]; then
 	    tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
@@ -150,9 +144,7 @@ do
 	fi
 
     echo " "
-
 	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
-
 	#echo "# Analyse " $symbolName
 	CreateCmdAnalyseHyperlink
 
