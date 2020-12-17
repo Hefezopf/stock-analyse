@@ -114,7 +114,8 @@ StochasticOfDays() {
 	# Fill with blank comma seperated data
 	while [ "$i" -lt "${1}" ]; do 
 		stochasticQuoteList=$(echo $stochasticQuoteList ",")
-		i=$(( i + 1 ))
+		#i=$(( i + 1 ))
+		i=$(expr $i + 1)
 	done 
 
 	i=0
