@@ -43,7 +43,7 @@ TICKER_NAMES_FILE=data/_ticker_names.txt
 HTML_RESULT_FILE_HEADER=$(echo "<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>")
 echo $HTML_RESULT_FILE_HEADER > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END=$(echo "</p><p>Thanks</p></div></body></html>" )
-COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?NAME_PORTFOLIO=Watch&POSITION=234%2C%2C24125490&timeSpan=1Y&chartType=MOUNTAIN&interactivequotes=true&disbursement_split=false&news=false&rel=false&log=false&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&expo=false&fundWithEarnings=true&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
+COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for duplicate symbol in cmd
@@ -317,7 +317,7 @@ do
 	cat js/indexPart11.html >> $indexSymbolFile
 
 	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
-    echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION"#timeSpan=6M&e& target=_blank>$symbolName</a><br>" >> $indexSymbolFile
+    echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$symbolName</a><br>" >> $indexSymbolFile
 	echo "Percentage: $percentageParam<br>"  >> $indexSymbolFile
 	echo "Query: $queryParam<br>"  >> $indexSymbolFile
 	echo "Rated: $ratedParam<br>"  >> $indexSymbolFile
