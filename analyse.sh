@@ -357,15 +357,11 @@ do
 	cp $symbolFile out/$i.html
 	i=$(( i + 1 ))
 done
-
-
-while [ "$i" -le 10 ];
+while [ "$i" -le 5 ];
 do
 	touch out/$i.html
 	i=$(( i + 1 ))
 done
-
-ls out -lisa
 
 
 
