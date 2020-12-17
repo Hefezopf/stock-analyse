@@ -98,11 +98,10 @@ jobs:
 
       - name: Send result via email
         uses: swinton/screenshot-website@v1.0.0      
+        uses: dawidd6/action-send-mail@v2
         with:
           source: https://github.com/swinton/screenshot-website
           destination: screenshot.png  
-        uses: dawidd6/action-send-mail@v2
-        with:
           server_address: smtp.ionos.de
           server_port: 465
           #username: github(ä)h...-it.de
