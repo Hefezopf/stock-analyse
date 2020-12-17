@@ -181,7 +181,7 @@ WriteComdirectUrlAndStoreFileList() {
 # CreateCmdAnalyseHyperlink function:
 # - Write file Hyperlink in CMD
 CreateCmdAnalyseHyperlink() {
-	outputText="# Analyse "$symbol
+	outputText="# Analyse "$symbolName
 	if [ $(uname) = 'Linux' ]; then
 		echo $outputText
 	else

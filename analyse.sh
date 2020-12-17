@@ -144,7 +144,6 @@ do
 		fi
 	fi
 
-    echo " "
 	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
 	#echo "# Analyse " $symbolName
 	CreateCmdAnalyseHyperlink
