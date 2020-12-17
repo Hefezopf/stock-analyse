@@ -237,6 +237,8 @@ do
 	averagePriceList100=$averagePriceList
 
     ProgressBar 8 8
+
+	echo " "
 	
 	#
 	# Apply strategies
