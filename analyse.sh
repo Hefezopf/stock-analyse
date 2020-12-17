@@ -238,7 +238,9 @@ do
 
     ProgressBar 8 8
 
-	echo " "
+	if [ ! $(uname) = 'Linux' ]; then
+		echo " "
+	fi
 	
 	#
 	# Apply strategies
