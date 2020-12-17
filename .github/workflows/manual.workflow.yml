@@ -60,12 +60,12 @@ jobs:
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
 
-          symbolsDefault='${{ github.event.client_payload.symbols }}'          
-          percentageDefault='${{ github.event.client_payload.percentage }}'
-          queryDefault='${{ github.event.client_payload.query }}'
-          ratedDefault='${{ github.event.client_payload.rated }}'
-          stochasticDefault='${{ github.event.client_payload.stochastic }}'
-          RSIDefault='${{ github.event.client_payload.RSI }}'  
+          symbolsDefault='${{github.event.client_payload.symbols}}'          
+          percentageDefault='${{github.event.client_payload.percentage}}'
+          queryDefault='${{github.event.client_payload.query}}'
+          ratedDefault='${{github.event.client_payload.rated}}'
+          stochasticDefault='${{github.event.client_payload.stochastic}}'
+          RSIDefault='${{github.event.client_payload.RSI}}'  
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           percentageInput=${{github.event.inputs.percentageParam}}
@@ -96,10 +96,10 @@ jobs:
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push
            
-      - uses: actions/upload-artifact@v2
-        with:
-          name: my-artifactx
-          path: out/*.html
+      #- uses: actions/upload-artifact@v2
+      #  with:
+      #    name: my-artifactx
+      #    path: out/*.html
     
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
@@ -120,4 +120,6 @@ jobs:
           # Optional content type (defaults to text/plain):
           content_type: text/html          
           # Optional attachments:
-          attachments: out/_out.tar.gz,out/SNW.html,out/index_orig.html,out/1.html
+          #attachments: out/_out.tar.gz,out/SNW.html,out/index_orig.html,out/1.html
+          attachments: out/_out.tar.gz
+          
