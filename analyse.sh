@@ -317,7 +317,7 @@ do
 	cat js/indexPart11.html >> $indexSymbolFile
 
 	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
-    echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION" target=_blank>$symbolName</a><br>" >> $indexSymbolFile
+    echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION"#timeSpan=6M&e& target=_blank>$symbolName</a><br>" >> $indexSymbolFile
 	echo "Percentage: $percentageParam<br>"  >> $indexSymbolFile
 	echo "Query: $queryParam<br>"  >> $indexSymbolFile
 	echo "Rated: $ratedParam<br>"  >> $indexSymbolFile
