@@ -96,6 +96,7 @@ jobs:
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push
            
+      # Maximal 2 hardcoded screenshot. See analyse.sh line 361 as well!
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/1.html
@@ -114,7 +115,7 @@ jobs:
         with:
           name: screenshot2
 
-      # compress screenshot.tar.gz at the end
+      # Compress screenshot.tar.gz at the end
       - shell: bash
         run: |          
           tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png
