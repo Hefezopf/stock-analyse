@@ -355,7 +355,7 @@ do
 	cp $symbolFile out/$i.html
 	i=$(( i + 1 ))
 done
-
+ls out
 
 
 # Time measurement
