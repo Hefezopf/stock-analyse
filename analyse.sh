@@ -75,14 +75,14 @@ else
 	echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
     echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
-	exit
+	exit 5
 fi
 
 if [ -z "$MARKET_STACK_ACCESS_KEY" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ]; then
 	echo "Error: MARKET_STACK_ACCESS_KEY or MARKET_STACK_ACCESS_KEY2 not set!" | tee -a $OUT_RESULT_FILE
 	echo "<br>" >> $OUT_RESULT_FILE
     echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
-	exit
+	exit 6
 fi
 
 percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
@@ -140,7 +140,7 @@ do
 			echo "!Symbol NOT found online in marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
 			echo "<br>" >> $OUT_RESULT_FILE
 			rm -rf $DATA_FILE
-			exit
+			exit 7
 		fi
 	fi
 
@@ -159,7 +159,7 @@ do
 	if [ "${#lastRaw}" -eq 0 ]; then
 		echo "!Symbol NOT found offline in data/*.txt.: $symbol. Try online query!" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
-		exit
+		exit 8
 	fi
 
 	head -n18 $DATA_FILE > temp/values18.txt
