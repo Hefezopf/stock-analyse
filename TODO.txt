@@ -153,6 +153,55 @@ else
 fi
 
 
+
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: out/2.html
+          #source: https://github.com/swinton/screenshot-website
+          destination: screenshot.png   
+
+      - name: Upload Screenshot
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: screenshot.png
+
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact1
+          path: out/*.html
+    
+      - name: Send result via email
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.ionos.de
+          server_port: 465
+          #username: github(ä)h...-it.de
+          #password: g*1!
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}          
+          subject: Github stock-analyse result ${{github.event_name}} ${{github.event.action}}
+          # Literal body:
+          #body: Build job of ${{github.repository}} completed successfully!
+          # Read file contents as body:
+          body: file://out/_result.html
+          to: info@hopf-it.de
+          from: Github stock-analyse # <github@hopf-it.de>
+          # Optional content type (defaults to text/plain):
+          content_type: text/html          
+          # Optional attachments:
+          #attachments: out/_out.tar.gz,out/SNW.html,out/index_orig.html,out/1.html
+          #attachments: out/_out.tar.gz,/home/runner/work/stock-analyse/stock-analyse/screenshot.png
+          attachments: out/_out.tar.gz,screenshot.png
+
+
+
+
 # RSIOfDays function:
 # Input is amountOfDaysParam($1)
 # Output: RSIQuoteList is comma separated list
