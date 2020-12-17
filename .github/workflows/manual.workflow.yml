@@ -106,8 +106,10 @@ jobs:
           name: screenshot1
       - shell: bash
         run: |
-          tar -zcf test.tar.gz screenshot1.png 
+          tar -zcf screenshot.tar.gz screenshot1.png 
 
+
+           
       - uses: swinton/screenshot-website@v1.x
         with:
           source: out/2.html
@@ -116,16 +118,17 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: screenshot2
+      - shell: bash
+        run: |          
+          tar -rf screenshot.tar.gz screenshot2.png
+
+
 
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact1
           path: out/*.html
     
-      - name: Download artifact1 
-        uses: actions/download-artifact@v2
-        with:
-          name: my-artifact1
 
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
@@ -148,5 +151,6 @@ jobs:
           # Optional attachments:
           #attachments: out/_out.tar.gz,out/SNW.html,out/index_orig.html,out/1.html
           #attachments: out/_out.tar.gz,/home/runner/work/stock-analyse/stock-analyse/screenshot.png
-          attachments: out/_out.tar.gz,screenshot1.png,screenshot2.png,test.tar.gz
+          #attachments: out/_out.tar.gz,screenshot1.png,screenshot2.png,test.tar.gz
+          attachments: out/_out.tar.gz,screenshot.tar.gz
           
