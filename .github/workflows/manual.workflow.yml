@@ -99,9 +99,20 @@ jobs:
       - uses: swinton/screenshot-website@v1.0.0      
         with:
           source: https://github.com/swinton/screenshot-website
-          destination: screenshot.png 
+          destination: screenshot.png
+      
+      - name: Upload math result for job 2
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: screenshot.png
 
-      - name: Screenshot          
+      - name: Screenshot 
+        uses: actions/download-artifact@v2
+          with:
+            name: screenshot
+      - name: Print the final result
+        shell: bash
         run: |
           ls
           pwd
