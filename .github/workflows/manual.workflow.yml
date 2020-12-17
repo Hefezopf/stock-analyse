@@ -104,9 +104,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: screenshot1
-      - shell: bash
-        run: |
-          tar -cf screenshot.tar.gz screenshot1.png 
+      # - shell: bash
+      #   run: |
+      #     tar -cf screenshot.tar.gz screenshot1.png 
 
 
            
@@ -118,13 +118,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: screenshot2
-      - shell: bash
-        run: |          
-          tar -rf screenshot.tar.gz screenshot2.png
+      # - shell: bash
+      #   run: |          
+      #     tar -cf screenshot.tar.gz screenshot1.png screenshot2.png
 
       - shell: bash
         run: |          
-          gzip screenshot.tar.gz
+          tar -cf screenshot.tar.gz screenshot1.png screenshot2.png
 
 # compress screenshot.tar.gz at the end
 
