@@ -96,10 +96,17 @@ jobs:
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push
            
-      #- uses: actions/upload-artifact@v2
-      #  with:
-      #    name: my-artifactx
-      #    path: out/*.html
+      - name: Screenshot Website
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://github.com/swinton/screenshot-website
+          destination: screenshot.png
+          full-page: true     
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact1
+          path: screenshot.png
     
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
@@ -121,5 +128,5 @@ jobs:
           content_type: text/html          
           # Optional attachments:
           #attachments: out/_out.tar.gz,out/SNW.html,out/index_orig.html,out/1.html
-          attachments: out/_out.tar.gz
+          attachments: out/_out.tar.gz,screenshot.png
           
