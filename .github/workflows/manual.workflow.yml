@@ -122,11 +122,29 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: screenshot3
+           
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: out/4.html
+          destination: screenshot4.png   
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot4
+           
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: out/5.html
+          destination: screenshot5.png   
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot5
 
-# compress screenshot.tar.gz at the end
+      # compress screenshot.tar.gz at the end
       - shell: bash
         run: |          
-          tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png screenshot3.png
+          tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png screenshot3.png screenshot4.png screenshot5.png
 
 
       # - uses: actions/upload-artifact@v2
@@ -139,8 +157,6 @@ jobs:
         with:
           server_address: smtp.ionos.de
           server_port: 465
-          #username: github(ä)h...-it.de
-          #password: g*1!
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}          
           subject: Github stock-analyse result ${{github.event_name}} ${{github.event.action}}
