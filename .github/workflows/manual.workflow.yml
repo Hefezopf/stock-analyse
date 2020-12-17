@@ -99,28 +99,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: out/ # or path/to/artifact
-          
-      - uses: swinton/screenshot-website@v1.0.0      
-        with:
-          source: https://github.com/swinton/screenshot-website
-          destination: screenshot.png
-      
-      - name: Upload math result for job 2
-        uses: actions/upload-artifact@v2
-        with:
-          name: screenshot
-          path: screenshot.png
-
-      - name: Screenshot 
-        uses: actions/download-artifact@v2
-        with:
-          name: screenshot
-        #shell: bash
-        #run: |
-          #ls
-          #pwd
-          #ls /home/runner/work/stock-analyse/stock-analyse
+          path: out/*.html
           
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
@@ -141,4 +120,4 @@ jobs:
           # Optional content type (defaults to text/plain):
           content_type: text/html          
           # Optional attachments:
-          attachments: out/_out.tar.gz,/home/runner/work/stock-analyse/stock-analyse/screenshot.png
+          attachments: out/_out.tar.gz,file://out/_result.html
