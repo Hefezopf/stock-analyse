@@ -353,13 +353,13 @@ echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 i=1
 for symbolFile in $reportedSymbolFileList
 do
-	echo symbolFile $symbolFile
-	cp $symbolFile out/$i.html
+	#echo symbolFile $symbolFile
+	cp $symbolFile temp/$i.html
 	i=$(( i + 1 ))
 done
 while [ "$i" -le 5 ];
 do
-	touch out/$i.html
+	touch temp/$i.html
 	i=$(( i + 1 ))
 done
 
