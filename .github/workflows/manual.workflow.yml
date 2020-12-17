@@ -102,6 +102,17 @@ jobs:
           #source: https://github.com/swinton/screenshot-website
           destination: screenshot.png   
 
+      - name: Upload Screenshot
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: screenshot.png
+
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot
+
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact1
