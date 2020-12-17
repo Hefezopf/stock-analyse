@@ -94,8 +94,13 @@ jobs:
           git add data/*
           #git add out/*.html
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
-          git push 
-
+          git push
+           
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: out/ # or path/to/artifact
+          
       - uses: swinton/screenshot-website@v1.0.0      
         with:
           source: https://github.com/swinton/screenshot-website
