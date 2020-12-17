@@ -348,14 +348,14 @@ done
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 
 
-i=1
-for symbolFile in $reportedSymbolFileList
-do
-	echo symbolFile $symbolFile
-	cp $symbolFile out/$i.html
-	i=$(( i + 1 ))
-done
-ls out
+# i=1
+# for symbolFile in $reportedSymbolFileList
+# do
+# 	echo symbolFile $symbolFile
+# 	cp $symbolFile out/$i.html
+# 	i=$(( i + 1 ))
+# done
+# ls out
 
 
 # Time measurement

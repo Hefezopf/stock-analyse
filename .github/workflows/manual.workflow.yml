@@ -95,7 +95,13 @@ jobs:
           #git add out/*.html
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
-                    
+
+      - name: Screenshot Website
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://github.com/swinton/screenshot-website
+          destination: screenshot.png
+
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
         with:
@@ -115,4 +121,4 @@ jobs:
           # Optional content type (defaults to text/plain):
           content_type: text/html          
           # Optional attachments:
-          attachments: out/_out.tar.gz,out/1.html,out/2.html
+          attachments: out/_out.tar.gz,screenshot.png
