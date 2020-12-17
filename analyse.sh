@@ -37,7 +37,7 @@ rm -rf out/$OUT_ZIP_FILE
 touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
-indexSymbolFileList=$OUT_RESULT_FILE
+reportedSymbolFileList=$OUT_RESULT_FILE
 TICKER_NAMES_FILE=data/_ticker_names.txt
 # Email header
 HTML_RESULT_FILE_HEADER=$(echo "<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>")
@@ -347,6 +347,17 @@ done
 
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 
+
+i=1
+for symbolFile in $reportedSymbolFileList
+do
+	echo symbolFile $symbolFile
+	cp $symbolFile out/$i.html
+	i=$(( i + 1 ))
+done
+
+
+
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);
 echo " "
@@ -357,5 +368,5 @@ echo "time elapsed."
 rm $commaPriceListFile
 rm $stochasticFile
 rm temp/values*.txt
-tar -zcf $OUT_ZIP_FILE $indexSymbolFileList
+tar -zcf $OUT_ZIP_FILE $reportedSymbolFileList
 mv $OUT_ZIP_FILE out

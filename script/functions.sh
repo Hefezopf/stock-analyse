@@ -174,7 +174,7 @@ WriteComdirectUrlAndStoreFileList() {
 		ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
 		echo "<a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$symbolName</a><br>" >> $OUT_RESULT_FILE
 		# Store list of files for later (tar/zip)
-	    indexSymbolFileList=$(echo $indexSymbolFileList out/${symbol}.html)
+	    reportedSymbolFileList=$(echo $reportedSymbolFileList out/${symbol}.html)
 	fi
 }
 
