@@ -348,6 +348,8 @@ done
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 
 
+
+
 i=1
 for symbolFile in $reportedSymbolFileList
 do
@@ -355,8 +357,16 @@ do
 	cp $symbolFile out/$i.html
 	i=$(( i + 1 ))
 done
-ls out
-cp js/index_orig.html out
+
+
+while [ "$i" -le 10 ];
+do
+	touch out/$i.html
+	i=$(( i + 1 ))
+done
+
+ls out -lisa
+
 
 
 # Time measurement

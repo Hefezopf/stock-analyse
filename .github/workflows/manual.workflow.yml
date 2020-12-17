@@ -104,11 +104,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: screenshot1
-      # - shell: bash
-      #   run: |
-      #     tar -cf screenshot.tar.gz screenshot1.png 
-
-
            
       - uses: swinton/screenshot-website@v1.x
         with:
@@ -118,22 +113,27 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: screenshot2
-      # - shell: bash
-      #   run: |          
-      #     tar -cf screenshot.tar.gz screenshot1.png screenshot2.png
-
-      - shell: bash
-        run: |          
-          tar -cf screenshot.tar.gz screenshot1.png screenshot2.png
+           
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: out/3.html
+          destination: screenshot2.png   
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot3
 
 # compress screenshot.tar.gz at the end
+      - shell: bash
+        run: |          
+          tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png screenshot3.png
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact1
-          path: out/*.html
+
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: my-artifact1
+      #     path: out/*.html
     
-
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
         with:
