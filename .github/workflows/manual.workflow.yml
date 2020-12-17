@@ -96,6 +96,7 @@ jobs:
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push
            
+      - name: Screenshot 
       - uses: swinton/screenshot-website@v1.x
         with:
           source: out/1.html
@@ -105,6 +106,7 @@ jobs:
         with:
           name: screenshot1
            
+      - name: Screenshot 
       - uses: swinton/screenshot-website@v1.x
         with:
           source: out/2.html
@@ -114,6 +116,7 @@ jobs:
         with:
           name: screenshot2
            
+      - name: Screenshot 
       - uses: swinton/screenshot-website@v1.x
         with:
           source: out/3.html
@@ -123,6 +126,7 @@ jobs:
         with:
           name: screenshot3
            
+      - name: Screenshot 
       - uses: swinton/screenshot-website@v1.x
         with:
           source: out/4.html
@@ -132,6 +136,7 @@ jobs:
         with:
           name: screenshot4
            
+      - name: Screenshot 
       - uses: swinton/screenshot-website@v1.x
         with:
           source: out/5.html
@@ -145,12 +150,6 @@ jobs:
       - shell: bash
         run: |          
           tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png screenshot3.png screenshot4.png screenshot5.png
-
-
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: my-artifact1
-      #     path: out/*.html
     
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
@@ -169,8 +168,5 @@ jobs:
           # Optional content type (defaults to text/plain):
           content_type: text/html          
           # Optional attachments:
-          #attachments: out/_out.tar.gz,out/SNW.html,out/index_orig.html,out/1.html
-          #attachments: out/_out.tar.gz,/home/runner/work/stock-analyse/stock-analyse/screenshot.png
-          #attachments: out/_out.tar.gz,screenshot1.png,screenshot2.png,test.tar.gz
           attachments: out/_out.tar.gz,screenshot.tar.gz
           
