@@ -98,7 +98,7 @@ jobs:
            
       - uses: swinton/screenshot-website@v1.x
         with:
-          source: out/1.html
+          source: temp/1.html
           destination: screenshot1.png   
       - name: Download Screenshot 
         uses: actions/download-artifact@v2
@@ -107,44 +107,17 @@ jobs:
            
       - uses: swinton/screenshot-website@v1.x
         with:
-          source: out/2.html
+          source: temp/2.html
           destination: screenshot2.png   
       - name: Download Screenshot 
         uses: actions/download-artifact@v2
         with:
           name: screenshot2
-           
-      - uses: swinton/screenshot-website@v1.x
-        with:
-          source: out/3.html
-          destination: screenshot3.png   
-      - name: Download Screenshot 
-        uses: actions/download-artifact@v2
-        with:
-          name: screenshot3
-           
-      - uses: swinton/screenshot-website@v1.x
-        with:
-          source: out/4.html
-          destination: screenshot4.png   
-      - name: Download Screenshot 
-        uses: actions/download-artifact@v2
-        with:
-          name: screenshot4
-           
-      - uses: swinton/screenshot-website@v1.x
-        with:
-          source: out/5.html
-          destination: screenshot5.png   
-      - name: Download Screenshot 
-        uses: actions/download-artifact@v2
-        with:
-          name: screenshot5
 
       # compress screenshot.tar.gz at the end
       - shell: bash
         run: |          
-          tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png screenshot3.png screenshot4.png screenshot5.png
+          tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png
     
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
