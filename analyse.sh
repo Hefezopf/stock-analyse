@@ -239,7 +239,7 @@ do
     ProgressBar 8 8
 
 	if [ ! $(uname) = 'Linux' ]; then
-		echo " "
+		echo ""
 	fi
 	
 	#
@@ -370,7 +370,7 @@ done
 
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);
-echo " "
+echo ""
 echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
 echo "time elapsed."
 
