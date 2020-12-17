@@ -123,6 +123,7 @@ do
 	fi	
 
 	# Get stock data
+	echo ""
 	echo "# Get $symbolName"
 	if [ "$queryParam" = 'online' ]; then
 	    tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
