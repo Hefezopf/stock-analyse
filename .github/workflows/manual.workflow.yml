@@ -109,18 +109,23 @@ jobs:
       - name: Download Screenshot 
         uses: actions/download-artifact@v2
         with:
-          name: screenshot*
+          name: screenshot1
 
-      # - name: Download Screenshot 
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: screenshot2
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot2
 
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact1
           path: out/*.html
     
+      - name: Download artifact1 
+        uses: actions/download-artifact@v2
+        with:
+          name: my-artifact1
+
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
         with:
