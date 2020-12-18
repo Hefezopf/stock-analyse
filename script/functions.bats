@@ -2,7 +2,7 @@
 
 # https://github.com/bats-core/bats-core
 
-load '/d/code/bats-assert/load.bash'
+#load '/d/code/bats-assert/load.bash'
 
 # Import functions
 . ./script/functions.sh
@@ -10,7 +10,7 @@ load '/d/code/bats-assert/load.bash'
 @test "LesserThenWithFactor" {
   run LesserThenWithFactor 0 99 100
   [ "$status" -eq 1 ]
-  assert_output ''
+  #assert_output ''
   [ "$output" == '' ]  
 
   run LesserThenWithFactor 1 100 99
