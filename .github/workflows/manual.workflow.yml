@@ -54,8 +54,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - shell: bash
-        run: |     
+        run: |    
+          pwd 
+          storeDir=$(pwd)
           sh ./script/install-bats.sh     
+          cd $storeDir
           sh ./test.sh
 
       # Runs a set of commands using the runners shell
