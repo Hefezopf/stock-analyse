@@ -56,9 +56,10 @@ jobs:
       - shell: bash
         run: |    
           sh ./script/install-bats.sh
-          chmod +x ./test.sh
           /home/runner/.local/bin/bats -version
-          sh ./test.sh
+          /home/runner/.local/bin/bats --tap script/*.bats
+          #chmod +x ./test.sh
+          #sh ./test.sh
 
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
