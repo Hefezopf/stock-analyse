@@ -55,12 +55,9 @@ jobs:
 
       - shell: bash
         run: |    
-          #echo ${{ env.GITHUB_WORKSPACE }}
-          #storeDir=$(pwd)
-          sh ./script/install-bats.sh    
-          #cd ${{ env.GITHUB_WORKSPACE }} 
-          #cd $storeDir
+          sh ./script/install-bats.sh
           chmod +x ./test.sh
+          /home/runner/.local/bin/bats -version
           sh ./test.sh
 
       # Runs a set of commands using the runners shell
