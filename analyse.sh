@@ -138,10 +138,10 @@ do
 		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq '.data[].close' > $DATA_FILE
 		fileSize=$(stat -c %s $DATA_FILE)
 		if [ "${fileSize}" -eq "0" ]; then
-			echo "!Symbol NOT found online in marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
+			echo "!Symbol NOT found online on marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
 			echo "<br>" >> $OUT_RESULT_FILE
 			rm -rf $DATA_FILE
-			exit 7
+			#exit 7
 		fi
 	fi
 
@@ -154,13 +154,14 @@ do
     DATA_FILE=data/${symbol}.txt
 	lastRaw=$(head -n1 -q $DATA_FILE)
 	last=$(printf "%.2f" $lastRaw)
-    #last=$lastRaw
-
-	# Check for unknown symbol in cmd; No stock data could be fetched earlier
+	# Check for unknown or not fetched symbol in cmd or on marketstack.com
 	if [ "${#lastRaw}" -eq 0 ]; then
-		echo "!Symbol NOT found offline in data/*.txt.: $symbol. Try online query!" | tee -a $OUT_RESULT_FILE
+		echo "!Symbol $symbol NOT found offline in data/$symbol.txt: Try to query 'online'!" | tee -a $OUT_RESULT_FILE
+		#echo "!Symbol NOT found offline in data/*.txt.:$symbol. Try to query 'online'!" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
-		exit 8
+		#exit 8
+		# continue with next symbol in the list
+		continue
 	fi
 
 	head -n18 $DATA_FILE > temp/values18.txt
@@ -346,7 +347,6 @@ do
 	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
 	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowStochasticLowRSI "</b></p>" >> $indexSymbolFile
 	#echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
-	#echo "<p>Good Luck!</p>" >> $indexSymbolFile
 	echo "Good Luck!" >> $indexSymbolFile
 
 	cat js/indexPart12.html >> $indexSymbolFile
