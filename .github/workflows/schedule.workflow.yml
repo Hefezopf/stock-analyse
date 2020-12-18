@@ -120,8 +120,9 @@ jobs:
           #body: Build job of ${{github.repository}} completed successfully!
           # Read file contents as body:
           body: file://out/_result.html
-          to: info@hopf-it.de
-          from: Github stock-analyse # <github@hopf-it.de>
+          #to: info@hopf-it.de
+          to: ${{secrets.MAIL_ADRESS}}
+          from: Github stock-analyse # <githubÄhopf-...de>
           # Optional content type (defaults to text/plain):
           content_type: text/html          
           # Optional attachments:
