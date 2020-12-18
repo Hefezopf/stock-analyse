@@ -51,7 +51,7 @@ START_TIME_MEASUREMENT=$(date +%s);
 echo $symbolsParam | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Duplicate symbol in parameter list!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE && exit 4
 
 # Check parameter
-if  [ ! -z "${symbolsParam##*[!A-Z0-9. ]*}" ] &&
+if  [ ! -z "${symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
 	[ ! -z "${percentageParam##*[!0-9]*}" ]  && 
 	( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) &&
 	( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) &&
