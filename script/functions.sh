@@ -24,24 +24,15 @@ GreaterThenWithFactor() {
 	fi
 }
 
-# RoundNumberToInt function:
-# Input is floatNumber($1)
-# Output: Number
-RoundNumberToInt() {
-	return $(printf "%.0f" "${1}")
-}
-
-
-
 ################
 AverageOfDaysTest() {
-	declare -n amountOfDaysParam=${1}
+	local amountOfDaysParam=${1}
 	i=1
 	while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
 		i=$(( i + 1 ))
 		averagePriceList=$(echo $averagePriceList ",")
 	done 
-	echo $averagePriceList >/dev/null
+	averagePriceList=$averagePriceList
 }
 ################
 
@@ -114,7 +105,7 @@ RSIOfDays() {
 				#RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
 			fi
 
-			RoundNumberToInt ${RSIQuote}; lastRSIQuoteRounded=$?	
+			lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
 			RSIQuoteList=$(echo $RSIQuoteList $lastRSIQuoteRounded",")			
 		fi
 	done
@@ -152,7 +143,8 @@ StochasticOfDays() {
 		else
 			lastStochasticQuote=100
 		fi
-	    RoundNumberToInt ${lastStochasticQuote}; lastStochasticQuoteRounded=$?
+
+		lastStochasticQuoteRounded=$(echo "$lastStochasticQuote" | cut -f 1 -d '.')
 		stochasticQuoteList=$(echo $stochasticQuoteList $lastStochasticQuoteRounded",")
 		i=$(( i + 1 ))
 	done
