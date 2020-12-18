@@ -65,16 +65,16 @@
   [ "$output" == '' ]  
 }
 
-@test "RoundNumber" {
-  #run RoundNumber 99,9 0
+@test "RoundNumberToInt" {
+  #run RoundNumberToInt 99,9
   #[ "$status" -eq 100 ]
   #[ "$output" == '' ]  
 
-  #run RoundNumber 99,4 0
+  #run RoundNumberToInt 99,4
   #[ "$status" -eq 99 ]
   #[ "$output" == '' ]  
 
-  run RoundNumber 99,5 0
+  run RoundNumberToInt 99,5
   [ "$status" -eq 100 ]
   [ "$output" == '' ]  
 }
