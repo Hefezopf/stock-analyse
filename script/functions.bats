@@ -75,7 +75,7 @@
   #[ "$output" == '' ]  
 
   run RoundNumberToInt 99,5
-  [ "$status" -eq 100 ]
+  [ "$status" -eq 99 ]
   [ "$output" == '' ]  
 }
 
