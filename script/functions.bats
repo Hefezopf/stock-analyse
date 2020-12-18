@@ -3,42 +3,92 @@
 # https://github.com/bats-core/bats-core
 
 # Import functions
-#. functions.sh
+. ./script/functions.sh
 
-# https://advancedweb.hu/testing-bash-scripts-with-the-bats-testing-framework/
+@test "LesserThenWithFactor" {
+  run LesserThenWithFactor 0 99 100
+  [ "$status" -eq 1 ]
+  [ "$output" == '' ]  
 
-load 'test_helper'
-fixtures file_setup_teardown
+  run LesserThenWithFactor 1 100 99
+  [ "$status" -eq 0 ]
+  [ "$output" == '' ]  
 
-setup_file() {
-  export SETUP_FILE_EXPORT_TEST=true
+  run LesserThenWithFactor 1 100 100
+  [ "$status" -eq 0 ]
+  [ "$output" == '' ]  
+
+  run LesserThenWithFactor 1 99 100
+  [ "$status" -eq 1 ]
+  [ "$output" == '' ]  
+
+  run LesserThenWithFactor 1.1 100 111
+  [ "$status" -eq 1 ]
+  [ "$output" == '' ]  
+
+  run LesserThenWithFactor 1.1 100 109
+  [ "$status" -eq 0 ]
+  [ "$output" == '' ]  
+
+  run LesserThenWithFactor 1.1 100 110
+  [ "$status" -eq 0 ]
+  [ "$output" == '' ]  
 }
 
-setup() {
-  # give each test their own tmpdir to allow for parallelization without interference
-  make_bats_test_suite_tmpdir "$BATS_TEST_NAME"
-}
+@test "GreaterThenWithFactor" {
+  run GreaterThenWithFactor 0 99 100
+  [ "$status" -eq 0 ]
+  [ "$output" == '' ]  
 
-teardown() {
-  test_helper::cleanup_tmpdir "$BATS_TEST_NAME"
-}
+  run GreaterThenWithFactor 1 100 99
+  [ "$status" -eq 1 ]
+  [ "$output" == '' ]  
 
-@test "addition" {
-  result=$(expr 2 + 2)
-  [ "$result" -eq 4 ]
+  run GreaterThenWithFactor 1 100 100
+  [ "$status" -eq 0 ]
+  [ "$output" == '' ]  
+
+  run GreaterThenWithFactor 1 101 100
+  [ "$status" -eq 1 ]
+  [ "$output" == '' ]  
+
+  run GreaterThenWithFactor 1.1 100 101
+  [ "$status" -eq 1 ]
+  [ "$output" == '' ]  
+
+  run GreaterThenWithFactor 1.1 100 109
+  [ "$status" -eq 1 ]
+  [ "$output" == '' ]  
+
+  run GreaterThenWithFactor 1.1 100 110
+  [ "$status" -eq 0 ]
+  [ "$output" == '' ]  
 }
 
 @test "RoundNumber" {
-  result=$(RoundNumber 99,9 0)
-  [ "$result" -eq 4 ]
+  run RoundNumber 99,9 0
+  [ "$status" -eq 100 ]
+  [ "$output" == '' ]  
+
+  run RoundNumber 99,4 0
+  [ "$status" -eq 99 ]
+  [ "$output" == '' ]  
+
+  run RoundNumber 99,5 0
+  [ "$status" -eq 100 ]
+  [ "$output" == '' ]  
 }
 
-@test "hello.sh" {
-  run src/hello.sh John
-  assert_output "Hello John"
-}
-
-@test "hello.sh should great the user" {
-  result=$(src/hello.sh John)
-  [ "$result" = "Hello John" ]
+@test "AverageOfDaysTest" {
+  days=2
+  run AverageOfDaysTest $days
+  [ "$status" -eq 0 ]
+  #[ "$output" == ', ' ] 
+  #[ "$days" == ',' ]  
+  #[ "$days" == 'foo' ]  
+  #foo bar rab oof
+  
+  run AverageOfDaysTest 14
+  [ "$status" -eq 0 ]
+  #[ "$output" == ', , , , , , , , , , , , ,' ]  
 }

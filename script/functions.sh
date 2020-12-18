@@ -12,7 +12,9 @@ LesserThenWithFactor() {
 
 # GreaterThenWithFactor function:
 # Input is factor($1), firstCompareValue($2), secondCompareValue($3)
-# Output: 1 if greater
+# Output: 1 if 'factor'*'firstCompareValue'>'secondCompareValue' else 0
+# Example 1.1*100>109 -> return 1
+# Example 1.1*100>110 -> return 0
 GreaterThenWithFactor() {
 	_greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
@@ -28,6 +30,22 @@ GreaterThenWithFactor() {
 RoundNumber() {
 	return $(printf "%.${2}f" "${1}")
 }
+
+
+
+################
+AverageOfDaysTest() {
+	declare -n amountOfDaysParam=${1}
+	i=1
+	while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
+		i=$(( i + 1 ))
+		averagePriceList=$(echo $averagePriceList ",")
+	done 
+	echo $averagePriceList >/dev/null
+}
+################
+
+
 
 # AverageOfDays function:
 # Input is amountOfDaysParam($1)
