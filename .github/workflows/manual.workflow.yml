@@ -53,14 +53,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - task: ShellScript@2
-        displayName: Install Bats
-        inputs:
-          scriptPath: script/installBATS.sh
-
-      - bash: |
+      - shell: bash
+        run: |     
+          sh ./script/installBATS.sh     
           sh ./test.sh
-        displayName: Test script...
 
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
