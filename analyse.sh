@@ -95,13 +95,13 @@ countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$(( countSymbols + 1 ))
 echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Percentage:$percentageParam" | tee -a $OUT_RESULT_FILE
+echo "Percentage:$percentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Query:$queryParam" | tee -a $OUT_RESULT_FILE
+echo "Query:$queryParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Rated:$ratedParam" | tee -a $OUT_RESULT_FILE
+echo "Rated:$ratedParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Stochastic14:$stochasticPercentageParam" | tee -a $OUT_RESULT_FILE
+echo "Stochastic14:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI14:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 echo "<br><br># Result<br>" >> $OUT_RESULT_FILE
@@ -323,11 +323,6 @@ do
 
 	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$symbolName</a><br>" >> $indexSymbolFile
-	# echo "Percentage: $percentageParam<br>" >> $indexSymbolFile
-	# echo "Query: $queryParam<br>" >> $indexSymbolFile
-	# echo "Rated: $ratedParam<br>" >> $indexSymbolFile
-	# echo "Stochastic14: $stochasticPercentageParam<br>" >> $indexSymbolFile
-	# echo "RSI14: $RSIQuoteParam<br>" >> $indexSymbolFile
 	echo "Percentage:$percentageParam " >> $indexSymbolFile
 	echo "Query:$queryParam " >> $indexSymbolFile
 	echo "Rated:$ratedParam " >> $indexSymbolFile
