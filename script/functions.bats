@@ -2,12 +2,15 @@
 
 # https://github.com/bats-core/bats-core
 
+load '/d/code/bats-assert/load.bash'
+
 # Import functions
 . ./script/functions.sh
 
 @test "LesserThenWithFactor" {
   run LesserThenWithFactor 0 99 100
   [ "$status" -eq 1 ]
+  assert_output ''
   [ "$output" == '' ]  
 
   run LesserThenWithFactor 1 100 99
@@ -65,30 +68,13 @@
   [ "$output" == '' ]  
 }
 
-@test "RoundNumberToInt" {
-  #run RoundNumberToInt 99,9
-  #[ "$status" -eq 100 ]
-  #[ "$output" == '' ]  
-
-  #run RoundNumberToInt 99,4
-  #[ "$status" -eq 99 ]
-  #[ "$output" == '' ]  
-
-  run RoundNumberToInt 99,5
-  [ "$status" -eq 99 ]
-  [ "$output" == '' ]  
-}
-
 @test "AverageOfDaysTest" {
-  days=2
-  run AverageOfDaysTest $days
-  [ "$status" -eq 0 ]
-  #[ "$output" == ', ' ] 
-  #[ "$days" == ',' ]  
-  #[ "$days" == 'foo' ]  
-  #foo bar rab oof
+  AverageOfDaysTest 2
+  [ "$averagePriceList" == ',' ] 
   
-  run AverageOfDaysTest 14
-  [ "$status" -eq 0 ]
-  #[ "$output" == ', , , , , , , , , , , , ,' ]  
+  AverageOfDaysTest 3
+  [ "$averagePriceList" == ', , ,' ]  
+
+  AverageOfDaysTest 14
+  [ "$averagePriceList" == ', , , , , , , , , , , , , , , ,' ]  
 }
