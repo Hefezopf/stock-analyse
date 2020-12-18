@@ -89,21 +89,21 @@ fi
 percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
 percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
 
-echo "# Analyse parameter" | tee -a $OUT_RESULT_FILE
+echo "# Analyse Parameter" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$(( countSymbols + 1 ))
-echo "Symbols ($countSymbols): $symbolsParam" | tee -a $OUT_RESULT_FILE
+echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Percentage: $percentageParam" | tee -a $OUT_RESULT_FILE
+echo "Percentage:$percentageParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Query: $queryParam" | tee -a $OUT_RESULT_FILE
+echo "Query:$queryParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Rated: $ratedParam" | tee -a $OUT_RESULT_FILE
+echo "Rated:$ratedParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Stochastic14: $stochasticPercentageParam" | tee -a $OUT_RESULT_FILE
+echo "Stochastic14:$stochasticPercentageParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "RSI14: $RSIQuoteParam" | tee -a $OUT_RESULT_FILE
+echo "RSI14:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 echo "<br><br># Result<br>" >> $OUT_RESULT_FILE
 echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br><br>" >> $OUT_RESULT_FILE
 echo "# URLs<br>" >> $OUT_RESULT_FILE
@@ -323,18 +323,24 @@ do
 
 	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$symbolName</a><br>" >> $indexSymbolFile
-	echo "Percentage: $percentageParam<br>"  >> $indexSymbolFile
-	echo "Query: $queryParam<br>"  >> $indexSymbolFile
-	echo "Rated: $ratedParam<br>"  >> $indexSymbolFile
-	echo "Stochastic14: $stochasticPercentageParam<br>"  >> $indexSymbolFile
-	echo "RSI14: $RSIQuoteParam<br>"  >> $indexSymbolFile
-	echo "Date:<b>" $(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Final price:<b>" $last "&#8364;</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>" $average18 "&#8364;</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>" $average38 "&#8364;</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>" $average100 "&#8364;</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>" $lastStochasticQuoteRounded "</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>" $lastRSIQuoteRounded "</b></span></p>" >> $indexSymbolFile
+	# echo "Percentage: $percentageParam<br>" >> $indexSymbolFile
+	# echo "Query: $queryParam<br>" >> $indexSymbolFile
+	# echo "Rated: $ratedParam<br>" >> $indexSymbolFile
+	# echo "Stochastic14: $stochasticPercentageParam<br>" >> $indexSymbolFile
+	# echo "RSI14: $RSIQuoteParam<br>" >> $indexSymbolFile
+	echo "Percentage:$percentageParam " >> $indexSymbolFile
+	echo "Query:$queryParam " >> $indexSymbolFile
+	echo "Rated:$ratedParam " >> $indexSymbolFile
+	echo "Stochastic14:$stochasticPercentageParam " >> $indexSymbolFile
+	echo "RSI14:$RSIQuoteParam<br>" >> $indexSymbolFile
+
+	echo "Date:<b>"$(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Final price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>"$average18 "&#8364;</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>"$average38 "&#8364;</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>"$average100 "&#8364;</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>"$lastStochasticQuoteRounded "</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>"$lastRSIQuoteRounded "</b></span></p>" >> $indexSymbolFile
 
 	# Strategies output
 	# +
@@ -345,7 +351,8 @@ do
 	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
 	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowStochasticLowRSI "</b></p>" >> $indexSymbolFile
 	#echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
-	echo "<p>Good Luck!</p>" >> $indexSymbolFile
+	#echo "<p>Good Luck!</p>" >> $indexSymbolFile
+	echo "Good Luck!" >> $indexSymbolFile
 
 	cat js/indexPart12.html >> $indexSymbolFile
 done
