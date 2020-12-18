@@ -101,9 +101,9 @@ echo "Query:$queryParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "Rated:$ratedParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Stochastic14:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
+echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "RSI14:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
+echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 echo "<br><br># Result<br>" >> $OUT_RESULT_FILE
 echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br><br>" >> $OUT_RESULT_FILE
 echo "# URLs<br>" >> $OUT_RESULT_FILE
@@ -323,11 +323,11 @@ do
 
 	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$symbolName</a><br>" >> $indexSymbolFile
-	echo "Percentage:$percentageParam " >> $indexSymbolFile
-	echo "Query:$queryParam " >> $indexSymbolFile
-	echo "Rated:$ratedParam " >> $indexSymbolFile
-	echo "Stochastic14:$stochasticPercentageParam " >> $indexSymbolFile
-	echo "RSI14:$RSIQuoteParam<br>" >> $indexSymbolFile
+	echo "Percentage:<b>$percentageParam</b> " >> $indexSymbolFile
+	echo "Query:<b>$queryParam</b> " >> $indexSymbolFile
+	echo "Rated:<b>$ratedParam</b> " >> $indexSymbolFile
+	echo "Stochastic14:<b>$stochasticPercentageParam</b> " >> $indexSymbolFile
+	echo "RSI14:<b>$RSIQuoteParam</b><br>" >> $indexSymbolFile
 
 	echo "Date:<b>"$(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Final price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
