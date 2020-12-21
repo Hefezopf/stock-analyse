@@ -115,6 +115,25 @@ jobs:
         with:
           name: screenshot1
 
+
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/2.html
+          destination: screenshot2.png   
+          full-page: true
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot2
+
+      # Compress screenshot.tar.gz at the end
+      - shell: bash
+        run: |   
+          ls -lisa *.png       
+          tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png
+
+
+
       # Compress screenshot.tar.gz at the end
       - shell: bash
         run: |          
