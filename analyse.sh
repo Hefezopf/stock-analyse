@@ -198,16 +198,16 @@ do
 	# Calculate RSI 14 values
 	RSIInDays14=14
 	RSIQuoteList=""
-	RSIOfDays $RSIInDays14
-	RSIQuoteList14=$RSIQuoteList
+	RSIOfDays $RSIInDays14 $DATA_FILE
+	#RSIQuoteList14=$RSIQuoteList
 
 	ProgressBar 4 8
 
     # Calculate Stochastic 14 values
 	stochasticInDays14=14
 	stochasticQuoteList=""
-	StochasticOfDays $stochasticInDays14
-	stochasticQuoteList14=$stochasticQuoteList
+	StochasticOfDays $stochasticInDays14 $DATA_FILE
+	#stochasticQuoteList14=$stochasticQuoteList
 
     ProgressBar 5 8
 
@@ -218,7 +218,7 @@ do
 	# Average 18
 	averageInDays18=18
 	averagePriceList=""
-	AverageOfDays $averageInDays18
+	AverageOfDays $averageInDays18 $DATA_FILE
 	averagePriceList18=$averagePriceList
 
 	ProgressBar 6 8
@@ -226,7 +226,7 @@ do
     # Average 38
 	averageInDays38=38
 	averagePriceList=""
-	AverageOfDays $averageInDays38
+	AverageOfDays $averageInDays38 $DATA_FILE
 	averagePriceList38=$averagePriceList
 
 	ProgressBar 7 8
@@ -234,7 +234,7 @@ do
     # Average 100
 	averageInDays100=100
 	averagePriceList=""
-	AverageOfDays $averageInDays100
+	AverageOfDays $averageInDays100 $DATA_FILE
 	averagePriceList100=$averagePriceList
 
     ProgressBar 8 8
@@ -316,10 +316,10 @@ do
 	echo $averagePriceList100 >> $indexSymbolFile
 	cat js/indexPart9.html >> $indexSymbolFile
 
-	echo $stochasticQuoteList14 >> $indexSymbolFile
+	echo $stochasticQuoteList >> $indexSymbolFile
 	cat js/indexPart10.html >> $indexSymbolFile
 
-	echo $RSIQuoteList14 >> $indexSymbolFile
+	echo $RSIQuoteList >> $indexSymbolFile
 	cat js/indexPart11.html >> $indexSymbolFile
 
 	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
