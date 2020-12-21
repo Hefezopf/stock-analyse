@@ -57,6 +57,9 @@ jobs:
         run: |    
           sh ./script/install-bats.sh
           /home/runner/.local/bin/bats -version
+          touch temp/RSI_WinningDays.txt
+          touch temp/RSI_LoosingDays.txt
+          touch temp/stochastic.txt
           /home/runner/.local/bin/bats --tap script/*.bats
           #chmod +x ./test.sh
           #sh ./test.sh
