@@ -199,7 +199,8 @@ do
 	RSIInDays14=14
 	RSIQuoteList=""
 	RSIOfDays $RSIInDays14 $DATA_FILE
-	# RSIQuoteList14=$RSIQuoteList
+	echo "www"
+	RSIQuoteList=$RSIQuoteList
 
 	ProgressBar 4 8
 
