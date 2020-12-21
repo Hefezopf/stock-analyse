@@ -199,7 +199,7 @@ do
 	RSIInDays14=14
 	RSIQuoteList=""
 	RSIOfDays $RSIInDays14 $DATA_FILE
-	#RSIQuoteList14=$RSIQuoteList
+	# RSIQuoteList14=$RSIQuoteList
 
 	ProgressBar 4 8
 
@@ -207,7 +207,7 @@ do
 	stochasticInDays14=14
 	stochasticQuoteList=""
 	StochasticOfDays $stochasticInDays14 $DATA_FILE
-	#stochasticQuoteList14=$stochasticQuoteList
+	# stochasticQuoteList14=$stochasticQuoteList
 
     ProgressBar 5 8
 
