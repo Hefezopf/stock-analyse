@@ -91,16 +91,11 @@ jobs:
           
           chmod +x ./analyse.sh
 
-          #git reset --hard origin/main
-          #git config pull.rebase false
-          #git pull
-
           sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar $RSIVar
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add data/*
-          #git add out/*.html
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push
            
