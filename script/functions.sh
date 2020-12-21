@@ -3,7 +3,7 @@
 # Output: 1 if lesser
 LesserThenWithFactor() {
     local _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if [ awk 'BEGIN {exit !('$_lesserValue' < '$3')}' ]; then
+    if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
 		return 1
 	else
 		return 0		
@@ -17,7 +17,7 @@ LesserThenWithFactor() {
 # Example 1.1*100>110 -> return 0
 GreaterThenWithFactor() {
 	local _greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if [ awk 'BEGIN {exit !('$_greaterValue' > '$3')}' ]; then
+    if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
 		return 1
 	else
 		return 0
@@ -59,6 +59,8 @@ RSIOfDays() {
 	local RSIloosingDaysFile=temp/RSI_LoosingDays.txt
 	rm -rf $RSIwinningDaysFile
 	rm -rf $RSIloosingDaysFile
+	touch $RSIwinningDaysFile
+	touch $RSIloosingDaysFile
 	local i=1
 	while [ "$i" -le 100 ];
 	do
@@ -112,6 +114,7 @@ StochasticOfDays() {
 	local amountOfDaysParam=${1}
 	local dataFileParam=${2}
 	local stochasticFile=temp/stochastic.txt
+	touch $stochasticFile
 	local i=1
 	# Fill with blank comma seperated data
 	while [ "$i" -lt "${1}" ]; do 
@@ -129,7 +132,7 @@ StochasticOfDays() {
 		local lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
 		local highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
 
-		if [ awk 'BEGIN {exit !('$highestStochasticRaw' > '$lowestStochasticRaw')}' ]; then
+		if awk 'BEGIN {exit !('$highestStochasticRaw' > '$lowestStochasticRaw')}'; then
 			validStochastic=1
 		else 
 			validStochastic=0 
@@ -147,6 +150,7 @@ StochasticOfDays() {
 		i=$(( i + 1 ))
 	done
 
+    rm -rf $stochasticFile
 	#echo stochasticQuoteList $stochasticQuoteList
 	stochasticQuoteList=$stochasticQuoteList
 	#exit
