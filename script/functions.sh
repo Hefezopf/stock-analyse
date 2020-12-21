@@ -59,8 +59,8 @@ RSIOfDays() {
 	local RSIloosingDaysFile=temp/RSI_LoosingDays.txt
 	rm -rf $RSIwinningDaysFile
 	rm -rf $RSIloosingDaysFile
-	touch $RSIwinningDaysFile
-	touch $RSIloosingDaysFile
+	#touch $RSIwinningDaysFile
+	#touch $RSIloosingDaysFile
 	local i=1
 	while [ "$i" -le 100 ];
 	do
@@ -114,7 +114,7 @@ StochasticOfDays() {
 	local amountOfDaysParam=${1}
 	local dataFileParam=${2}
 	local stochasticFile=temp/stochastic.txt
-	touch $stochasticFile
+	#touch $stochasticFile
 	local i=1
 	# Fill with blank comma seperated data
 	while [ "$i" -lt "${1}" ]; do 
@@ -149,11 +149,8 @@ StochasticOfDays() {
 		stochasticQuoteList=$(echo $stochasticQuoteList $lastStochasticQuoteRounded",")
 		i=$(( i + 1 ))
 	done
-
     rm -rf $stochasticFile
-	#echo stochasticQuoteList $stochasticQuoteList
 	stochasticQuoteList=$stochasticQuoteList
-	#exit
 }
 
 # ProgressBar function:
