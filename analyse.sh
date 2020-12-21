@@ -199,7 +199,6 @@ do
 	RSIInDays14=14
 	RSIQuoteList=""
 	RSIOfDays $RSIInDays14 $DATA_FILE
-	echo "www"
 	RSIQuoteList=$RSIQuoteList
 
 	ProgressBar 4 8
@@ -378,8 +377,8 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 echo "time elapsed."
 
 # Cleanup
-rm $commaPriceListFile
-rm $stochasticFile
+rm -rf $commaPriceListFile
+rm -rf $stochasticFile
 rm temp/values*.txt
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
 tar -zcf $OUT_ZIP_FILE $reportedSymbolFileList

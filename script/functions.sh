@@ -2,7 +2,7 @@
 # Input is factor($1), firstCompareValue($2), secondCompareValue($3)
 # Output: 1 if lesser
 LesserThenWithFactor() {
-    local _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
+    _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
 		return 1
 	else
@@ -16,7 +16,7 @@ LesserThenWithFactor() {
 # Example 1.1*100>109 -> return 1
 # Example 1.1*100>110 -> return 0
 GreaterThenWithFactor() {
-	local _greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
+	_greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
 		return 1
 	else
@@ -28,21 +28,19 @@ GreaterThenWithFactor() {
 # Input is amountOfDaysParam($1), dataFileParam($2)
 # Output: averagePriceList is comma separted list
 AverageOfDays() {
-	local amountOfDaysParam=${1}
-	local dataFileParam=${2}
-	local i=1
+	amountOfDaysParam=${1}
+	dataFileParam=${2}
+	i=1
 	while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
 		averagePriceList=$(echo $averagePriceList ",")
 		i=$(( i + 1 ))
 	done 
 
-	local i=0
+	i=0
 	while [ "$i" -le $((100-amountOfDaysParam)) ]; 
 	do
-		local headLines=$(echo $((100-$i)))
-		
-	    local averagePrice=$(head -n$headLines $dataFileParam | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
-		#local averagePrice=$(head -n$headLines $DATA_FILE | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
+		headLines=$(echo $((100-$i)))
+	    averagePrice=$(head -n$headLines $dataFileParam | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
 		averagePriceList=$(echo $averagePriceList $averagePrice",")
 		i=$(( i + 1 ))
 	done
@@ -59,8 +57,6 @@ RSIOfDays() {
 	RSIloosingDaysFile=temp/RSI_LoosingDays.txt
 	rm -rf $RSIwinningDaysFile
 	rm -rf $RSIloosingDaysFile
-	#touch $RSIwinningDaysFile
-	#touch $RSIloosingDaysFile
 	i=1
 	while [ "$i" -le 100 ];
 	do
@@ -111,11 +107,10 @@ RSIOfDays() {
 # Input is amountOfDaysParam($1), dataFileParam($2)
 # Output: stochasticQuoteList is comma separted list
 StochasticOfDays() {
-	local amountOfDaysParam=${1}
-	local dataFileParam=${2}
-	local stochasticFile=temp/stochastic.txt
-	#touch $stochasticFile
-	local i=1
+	amountOfDaysParam=${1}
+	dataFileParam=${2}
+	stochasticFile=temp/stochastic.txt
+	i=1
 	# Fill with blank comma seperated data
 	while [ "$i" -lt "${1}" ]; do 
 		stochasticQuoteList=$(echo $stochasticQuoteList ",")
@@ -126,11 +121,11 @@ StochasticOfDays() {
 	# TODO optimize not 100 loop?!
 	while [ "$i" -le $((100-amountOfDaysParam)) ];
 	do
-		local headLines=$(echo $((100-$i)))
+		headLines=$(echo $((100-$i)))
 		head -n$headLines $dataFileParam | tail -"${amountOfDaysParam}" > $stochasticFile
-		local lastStochasticRaw=$(head -n 1 $stochasticFile)
-		local lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
-		local highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
+		lastStochasticRaw=$(head -n 1 $stochasticFile)
+		lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
+		highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
 
 		if awk 'BEGIN {exit !('$highestStochasticRaw' > '$lowestStochasticRaw')}'; then
 			validStochastic=1
@@ -157,16 +152,16 @@ StochasticOfDays() {
 # Input is currentStateParam($1) and totalStateParam($2)
 # Output: echo
 ProgressBar() {
-	local currentStateParam=${1}
-	local totalStateParam=${2}
-	local _progress_=$(echo $((currentStateParam*100/totalStateParam*100)))
-	local _progress=$(echo $(($_progress_/100)))
-	local _done_=$(echo $((${_progress}*4)))
-	local _done=$(echo $(($_done_/10)))
-    local _left=$(echo $((40-$_done)))
+	currentStateParam=${1}
+	totalStateParam=${2}
+	_progress_=$(echo $((currentStateParam*100/totalStateParam*100)))
+	_progress=$(echo $(($_progress_/100)))
+	_done_=$(echo $((${_progress}*4)))
+	_done=$(echo $(($_done_/10)))
+    _left=$(echo $((40-$_done)))
 	# Build progressbar string lengths
-	local _fill=$(printf "%${_done}s")
-	local _empty=$(printf "%${_left}s")                         
+	_fill=$(printf "%${_done}s")
+	_empty=$(printf "%${_left}s")                         
 	# Progress: ######################################## 100%
 	if [ $(uname) = 'MINGW64_NT-10.0-18363' ]; then
 		echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
@@ -179,13 +174,13 @@ ProgressBar() {
 # Input -
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
-	local ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
+	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
 	if [ ! "${#ID_NOTATION}" -gt 1 ]; then
 		ID_NOTATION=999999
 	fi
 	# only write URL once into result file
 	if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
-		local ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
+		ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
 		echo "<a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$symbolName</a><br>" >> $OUT_RESULT_FILE
 		# Store list of files for later (tar/zip)
 	    reportedSymbolFileList=$(echo $reportedSymbolFileList out/${symbol}.html)
@@ -196,13 +191,13 @@ WriteComdirectUrlAndStoreFileList() {
 # CreateCmdAnalyseHyperlink function:
 # - Write file Hyperlink in CMD
 CreateCmdAnalyseHyperlink() {
-	local outputText="# Analyse "$symbolName
+	outputText="# Analyse "$symbolName
 	if [ $(uname) = 'Linux' ]; then
 		echo $outputText
 	else
-		local driveLetter=$(pwd | cut -f 2 -d '/')
-		local suffixPath=$(pwd | cut -b 3-200)
-		local verzeichnis=$driveLetter":"$suffixPath
+		driveLetter=$(pwd | cut -f 2 -d '/')
+		suffixPath=$(pwd | cut -b 3-200)
+		verzeichnis=$driveLetter":"$suffixPath
 		echo -e "\e]8;;file:///"$verzeichnis"/out/"$symbol".html\a$outputText\e]8;;\a"
 		#echo -e "\e[4m\e]8;;file:///"$verzeichnis"/out/"$symbol".html\a$outputText\e]8\e[0m\a"
 	fi
