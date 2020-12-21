@@ -68,12 +68,12 @@ jobs:
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
 
-          symbolsDefault='${{github.event.client_payload.symbols}}'          
-          percentageDefault='${{github.event.client_payload.percentage}}'
-          queryDefault='${{github.event.client_payload.query}}'
-          ratedDefault='${{github.event.client_payload.rated}}'
-          stochasticDefault='${{github.event.client_payload.stochastic}}'
-          RSIDefault='${{github.event.client_payload.RSI}}'  
+          symbolsDefault='${{github.event.client_payload.symbols}}:-"BEI"'          
+          percentageDefault='${{github.event.client_payload.percentage}}:-1'
+          queryDefault='${{github.event.client_payload.query}}:-offline'
+          ratedDefault='${{github.event.client_payload.rated}}:-underrated'
+          stochasticDefault='${{github.event.client_payload.stochastic}}:-9'
+          RSIDefault='${{github.event.client_payload.RSI}}:-98'  
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           percentageInput=${{github.event.inputs.percentageParam}}
