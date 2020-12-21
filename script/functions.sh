@@ -53,20 +53,20 @@ AverageOfDays() {
 # Input is amountOfDaysParam($1), dataFileParam($2)
 # Output: RSIQuoteList is comma separted list
 RSIOfDays() {
-	local amountOfDaysParam=${1}
-	local dataFileParam=${2}
-	local RSIwinningDaysFile=temp/RSI_WinningDays.txt
-	local RSIloosingDaysFile=temp/RSI_LoosingDays.txt
+	amountOfDaysParam=${1}
+	dataFileParam=${2}
+	RSIwinningDaysFile=temp/RSI_WinningDays.txt
+	RSIloosingDaysFile=temp/RSI_LoosingDays.txt
 	rm -rf $RSIwinningDaysFile
 	rm -rf $RSIloosingDaysFile
 	#touch $RSIwinningDaysFile
 	#touch $RSIloosingDaysFile
-	local i=1
+	i=1
 	while [ "$i" -le 100 ];
 	do
 	    i=$(( i + 1 ))
-		local diffLast2Prices=$(head -n$i $dataFileParam | tail -2 | awk 'p{print p-$0}{p=$0}' )
-		local isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
+		diffLast2Prices=$(head -n$i $dataFileParam | tail -2 | awk 'p{print p-$0}{p=$0}' )
+		isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
 		if [ ! ${isNegativ} = '-' ]; then
 			echo $diffLast2Prices >> $RSIwinningDaysFile
 		else
@@ -74,7 +74,7 @@ RSIOfDays() {
 		fi
 
 		if [ ${isNegativ} = '-' ]; then
-		    local withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
+		    withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
 			echo $withoutMinusSign >> $RSIloosingDaysFile
 		else
 			echo 0 >> $RSIloosingDaysFile
@@ -89,8 +89,8 @@ RSIOfDays() {
 		if [ $i -lt $(( amountOfDaysParam + 1 )) ]; then # <14
 			RSIQuoteList=$(echo $RSIQuoteList ",")
 		else # >14
-	        local RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
-			local RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }') 
+	        RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
+			RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }') 
 			if [ "${RSIloosingDaysAvg}" = 0 ]; then
 				RSIQuote=100
 			else
