@@ -352,7 +352,7 @@ done
 
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 
-# Write temp symbolFile's for later screenshot in github workflow!
+# Write temp/*.html symbolFile's for later screenshot in github workflow!
 rm -rf temp/*.html
 i=1
 for symbolFile in $reportedSymbolFileList
@@ -361,8 +361,8 @@ do
 	cp $symbolFile temp/$i.html
 	i=$(( i + 1 ))
 done
-# Maximal 5 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
-while [ "$i" -le 5 ];
+# Maximal 10 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
+while [ "$i" -le 10 ];
 do
 	touch temp/$i.html
 	i=$(( i + 1 ))
