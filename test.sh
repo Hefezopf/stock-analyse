@@ -10,5 +10,6 @@
 # libexec, bin share und lib
 # bats -version
 
-#./../bats-core/bin/bats --tap script/functions.bats
-bats --tap script/*.bats
+# /C/Users/xcg4444/bin/bats --tap script/*.bats
+bats --tap script/functions.bats
+bats --tap script/strategies.bats

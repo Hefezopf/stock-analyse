@@ -271,7 +271,7 @@ do
 
 		# +Strategie: OverratedByPercentAndStochastic
 		resultStrategieOverratedByPercentAndStochastic=""
-		StrategieOverratedByPercentAndStochastic
+		StrategieOverratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageUpper $lastOverAgv18 $lastOverAgv38 $lastOverAgv100 $agv18OverAgv38 $agv38OverAgv100 $agv18OverAgv100 $last $percentageLesserFactor $average18 $average38 $average100 $lastStochasticQuoteRounded $stochasticPercentageUpper $OUT_RESULT_FILE $symbol
 	else
 	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
@@ -352,7 +352,7 @@ done
 
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
 
-# Write temp symbolFile's for laster screenshot in github workflow!
+# Write temp symbolFile's for later screenshot in github workflow!
 rm -rf temp/*.html
 i=1
 for symbolFile in $reportedSymbolFileList

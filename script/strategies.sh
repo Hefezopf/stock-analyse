@@ -1,17 +1,36 @@
 
 # StrategieOverratedByPercentAndStochastic function:
 # Strategie: Overrated by Percent and Stochastic
-# Input -
+# Input: ratedParam($1)lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), lastStochasticQuoteRounded($15), stochasticPercentageUpper($16), OUT_RESULT_FILE_param($17), symbolParam($18)
 # Output: resultStrategieOverratedByPercentAndStochastic
-StrategieOverratedByPercentAndStochastic() {	
-    if [ "$ratedParam" = 'overrated' ]; then
-        if [ "$lastStochasticQuoteRounded" -gt "$stochasticPercentageUpper" ] && [ "$lastOverAgv18" = 1 ] && [ "$lastOverAgv38" = 1 ] && [ "$lastOverAgv100" = 1 ] && 
-            [ "$agv18OverAgv38" = 1 ] && [ "$agv38OverAgv100" = 1 ] && [ "$agv18OverAgv100" = 1 ]; then
-            resultStrategieOverratedByPercentAndStochastic="- Overrated by percent and stochastic: $last EUR is $percentageLesserFactor over Avg18 $average18 EUR and Avg38 $average38 EUR and Avg100 $average100 EUR and Stoc14 is $lastStochasticQuoteRounded is higher then $stochasticPercentageUpper"
+StrategieOverratedByPercentAndStochastic() {
+    _ratedParam=${1}
+    _lastStochasticQuoteRounded=${2}
+    _stochasticPercentageUpper=${3}
+    _lastOverAgv18=${4}
+    _lastOverAgv38=${5}
+    _lastOverAgv100=${6}
+    _agv18OverAgv38=${7}
+    _agv38OverAgv100=${8}
+    _agv18OverAgv100=${9}
+    _last=${10}
+    _percentageLesserFactor=${11}
+    _average18=${12}
+    _average38=${13}
+    _average100=${14}
+    _lastStochasticQuoteRounded=${15}
+    _stochasticPercentageUpper=${16}
+    _OUT_RESULT_FILE_param=${17}
+    _symbolParam=${18}
+    if [ "$_ratedParam" = 'overrated' ]; then
+        if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
+            [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
+            resultStrategieOverratedByPercentAndStochastic="- Overrated by percent and stochastic: $_last EUR is $_percentageLesserFactor over Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoc14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
             echo $resultStrategieOverratedByPercentAndStochastic
-            WriteComdirectUrlAndStoreFileList
+            WriteComdirectUrlAndStoreFileList $_OUT_RESULT_FILE_param $symbolParam
         fi
     fi
+    resultStrategieOverratedByPercentAndStochastic=$resultStrategieOverratedByPercentAndStochastic
 }
 
 # StrategieUnderratedByPercentAndStochastic function:
@@ -24,7 +43,7 @@ StrategieUnderratedByPercentAndStochastic() {
             [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
             resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: $last EUR is $percentageGreaterFactor under Avg18 $average18 EUR and Avg38 $average38 EUR and Avg100 $average100 EUR and Stoch14 $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
             echo $resultStrategieUnderratedByPercentAndStochastic
-            WriteComdirectUrlAndStoreFileList
+            WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol
         fi
     fi
 }
@@ -38,7 +57,7 @@ StrategieUnderratedVeryLastStochasticIsLowerThen() {
         if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
             resultStrategieUnderratedVeryLastStochasticIsLowerThen="+ Very last stochastic: last stochastic quote $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
             echo $resultStrategieUnderratedVeryLastStochasticIsLowerThen
-            WriteComdirectUrlAndStoreFileList
+            WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol
         fi
     fi
 }
@@ -76,7 +95,7 @@ StrategieUnderratedLowStochastic() {
         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
             resultStrategieUnderratedLowStochastic="+ Low stochastic: 3 last stochastic quotes are under $_lowStochasticValue"
             echo $resultStrategieUnderratedLowStochastic
-            WriteComdirectUrlAndStoreFileList
+            WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol
         fi
     fi
 }
@@ -95,7 +114,7 @@ StrategieUnderratedLowRSI() {
         if [ "$lastRSIQuoteRounded" -lt $_lowRSIValue ]; then
             resultStrategieUnderratedLowRSI="+ Low RSI: last RSI quote $lastRSIQuoteRounded under $_lowRSIValue"
             echo $resultStrategieUnderratedLowRSI
-            WriteComdirectUrlAndStoreFileList
+            WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol
         fi
     fi
 }
@@ -113,7 +132,7 @@ StrategieUnderratedLowStochasticLowRSI() {
         if [ "$lastRSIQuoteRounded" -lt $_lowStochasticValue ] && [ "$lastRSIQuoteRounded" -lt $_lowRSIQuoteParam ]; then
             resultStrategieUnderratedLowStochasticLowRSI="+ Low Stoch & Low RSI: last Stoch quote $lastRSIQuoteRounded under $_lowStochasticValue and last RSI quote $lastRSIQuoteRounded under $_lowRSIQuoteParam"
             echo $resultStrategieUnderratedLowStochasticLowRSI
-            WriteComdirectUrlAndStoreFileList
+            WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol
         fi
     fi
 }
