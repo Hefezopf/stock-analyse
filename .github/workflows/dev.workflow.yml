@@ -146,18 +146,32 @@ jobs:
         with:
           name: screenshot2
 
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/3.html
+          destination: screenshot3.png   
+          full-page: true
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot3
+
       # Compress screenshot.tar.gz at the end
       - shell: bash
         run: |   
-          ls -lisa *.png
-          fileSize=$(stat -c %s screenshot1.png)
-          echo fileSize $fileSize
-          if [ "${fileSize}" -gt "200" ]; then
-            echo dooooooooooo
-          else            
-            echo donnnnnnnnnnt
+          if [ "$(stat -c %s screenshot1.png)" -gt "100000" ]; then
+            echo dooooooooooo1
+            fileList=$fileList screenshot1.png
           fi
-          tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png
+          if [ "$(stat -c %s screenshot2.png)" -gt "100000" ]; then
+            echo dooooooooooo2
+            fileList=$fileList screenshot2.png
+          fi
+          if [ "$(stat -c %s screenshot3.png)" -gt "100000" ]; then
+            echo dooooooooooo3
+            fileList=$fileList screenshot3.png
+          fi
+          tar -zcf screenshot.tar.gz $fileList
 
       # Compress screenshot.tar.gz at the end
      # - shell: bash
