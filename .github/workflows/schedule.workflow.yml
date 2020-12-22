@@ -107,8 +107,28 @@ jobs:
 
       # Compress screenshot.tar.gz at the end
       - shell: bash
-        run: |          
-          tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png screenshot3.png screenshot4.png screenshot5.png
+        run: |  
+          fileSize=$(stat -c %s screenshot1.png)
+          if [ "${fileSize}" -gt "100000" ]; then
+            fileList=$(echo $fileList "screenshot1.png")
+          fi
+          fileSize=$(stat -c %s screenshot2.png)
+          if [ "${fileSize}" -gt "100000" ]; then
+            fileList=$(echo $fileList "screenshot2.png")
+          fi
+          fileSize=$(stat -c %s screenshot3.png)
+          if [ "${fileSize}" -gt "100000" ]; then
+            fileList=$(echo $fileList "screenshot3.png")
+          fi
+          fileSize=$(stat -c %s screenshot4.png)
+          if [ "${fileSize}" -gt "100000" ]; then
+            fileList=$(echo $fileList "screenshot4.png")
+          fi
+          fileSize=$(stat -c %s screenshot5.png)
+          if [ "${fileSize}" -gt "100000" ]; then
+            fileList=$(echo $fileList "screenshot5.png")
+          fi
+          tar -zcf screenshot.tar.gz $fileList
 
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
