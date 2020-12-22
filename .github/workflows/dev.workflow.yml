@@ -158,7 +158,15 @@ jobs:
 
       # Compress screenshot.tar.gz at the end
       - shell: bash
-        run: |   
+        run: |  
+          ls 
+          fileSize=$(stat -c %s screenshot1.png)
+          echo fileSize $fileSize
+          if [ "${fileSize}" -gt "200" ]; then
+            echo dooooooooooo
+          else            
+            echo donnnnnnnnnnt
+          fi        
           fileSize=$(stat -c %s screenshot1.png)
           echo fileSize $fileSize 
 		      if [ "$fileSize" -gt "100000" ]; then
