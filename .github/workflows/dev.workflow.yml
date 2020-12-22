@@ -160,7 +160,8 @@ jobs:
       - shell: bash
         run: |   
           fileSize=$(stat -c %s screenshot1.png)
-		      if [ "${fileSize}" -gt "100000" ]; then
+          echo fileSize $fileSize 
+		      if [ $fileSize -gt "100000" ]; then
             echo dooooooooooo1
             fileList=$fileList screenshot1.png
           fi
