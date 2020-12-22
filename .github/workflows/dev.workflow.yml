@@ -161,17 +161,17 @@ jobs:
         run: |   
           fileSize=$(stat -c %s screenshot1.png)
           echo fileSize $fileSize 
-		      if [ $fileSize -gt 100000 ]; then
+		      if [ "$fileSize" -gt 100000 ]; then
             echo dooooooooooo1
             fileList=$(echo $fileList "screenshot1.png")
           fi
           fileSize=$(stat -c %s screenshot2.png)
-		      if [ "${fileSize}" -gt "100000" ]; then
+		      if [ "$fileSize" -gt 100000 ]; then
             echo dooooooooooo2
             fileList=$(echo $fileList "screenshot2.png")
           fi
           fileSize=$(stat -c %s screenshot3.png)
-		      if [ "${fileSize}" -gt "100000" ]; then
+		      if [ "$fileSize" -gt 100000 ]; then
             echo dooooooooooo3
             fileList=$(echo $fileList "screenshot3.png")
           fi
