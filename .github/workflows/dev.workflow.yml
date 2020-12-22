@@ -1,3 +1,7 @@
+# Is triggered:
+#   1. on each push
+#   2. curl 
+#   3. manuell 
 name: Dev
 
 env:
@@ -76,20 +80,12 @@ jobs:
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
 
-
           symbolsEnv=${{env.symbolsEnv}}  
           percentageEnv=${{env.percentageEnv}}  
           queryEnv=${{env.queryEnv}}
           ratedEnv=${{env.ratedEnv}}
           stochasticEnv=${{env.stochasticEnv}}
           RSIEnv=${{env.RSIEnv}}
-          echo symbolsEnv $symbolsEnv
-          echo percentageEnv $percentageEnv
-          echo queryEnv $queryEnv
-          echo ratedEnv $ratedEnv
-          echo stochasticEnv $stochasticEnv
-          echo RSIEnv $RSIEnv
-
 
           symbolsDefault='${{github.event.client_payload.symbols}}'   
           percentageDefault='${{github.event.client_payload.percentage}}'
@@ -118,12 +114,6 @@ jobs:
           ratedVar=${ratedVar:-$ratedEnv}          
           stochasticVar=${stochasticVar:-$stochasticEnv}          
           RSIVar=${RSIVar:-$RSIEnv}
-          echo symbolsVar $symbolsVar
-          echo percentageVar $percentageVar
-          echo queryVar $queryVar
-          echo ratedVar $ratedVar
-          echo stochasticVar $stochasticVar
-          echo RSIVar $RSIVar
 
           chmod +x ./analyse.sh
 
@@ -146,7 +136,6 @@ jobs:
         with:
           name: screenshot1
 
-
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/2.html
@@ -162,8 +151,6 @@ jobs:
         run: |   
           ls -lisa *.png       
           tar -zcf screenshot.tar.gz screenshot1.png screenshot2.png
-
-
 
       # Compress screenshot.tar.gz at the end
       - shell: bash
@@ -188,4 +175,3 @@ jobs:
           content_type: text/html          
           # Optional attachments:
           attachments: out/_out.tar.gz,screenshot.tar.gz
-          
