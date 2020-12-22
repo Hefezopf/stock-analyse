@@ -7,6 +7,12 @@
 # Import functions
 . ./script/functions.sh
 
+@test "WriteComdirectUrlAndStoreFileList" {
+  rm -rf temp/_result.html
+  WriteComdirectUrlAndStoreFileList "temp/_result.html" BEI
+  [ "$reportedSymbolFileList" == 'out/BEI.html' ]
+}
+
 @test "LesserThenWithFactor" {
   run LesserThenWithFactor 0 99 100
   [ "$status" -eq 1 ]
