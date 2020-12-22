@@ -110,7 +110,20 @@ jobs:
           queryVar=${queryInput:-$queryDefault}
           ratedVar=${ratedInput:-$ratedDefault}          
           stochasticVar=${stochasticInput:-$stochasticDefault}          
-          RSIVar=${RSIInput:-$RSIDefault}          
+          RSIVar=${RSIInput:-$RSIDefault}   
+
+          symbolsVar=${symbolsVar:-$symbolsEnv}
+          percentageVar=${percentageVar:-$percentageEnv}
+          queryVar=${queryVar:-$queryEnv}
+          ratedVar=${ratedVar:-$ratedEnv}          
+          stochasticVar=${stochasticVar:-$stochasticEnv}          
+          RSIVar=${RSIVar:-$RSIEnv}
+          echo symbolsVar $symbolsVar
+          echo percentageVar $percentageVar
+          echo queryVar $queryVar
+          echo ratedVar $ratedVar
+          echo stochasticVar $stochasticVar
+          echo RSIVar $RSIVar
           
           chmod +x ./analyse.sh
 
