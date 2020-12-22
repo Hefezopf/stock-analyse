@@ -77,12 +77,12 @@ jobs:
           export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
 
 
-          symbolsEnv ='${{env.symbolsEnv}}'  
-          percentageEnv ='${{env.percentageEnv}}'  
-          queryEnv ='${{env.queryEnv}}'  
-          ratedEnv ='${{env.ratedEnv}}'  
-          stochasticEnv ='${{env.stochasticEnv}}'  
-          RSIEnv ='${{env.RSIEnv}}'  
+          symbolsEnv=${{env.symbolsEnv}}  
+          percentageEnv=${{env.percentageEnv}}  
+          queryEnv=${{env.queryEnv}}
+          ratedEnv=${{env.ratedEnv}}
+          stochasticEnv=${{env.stochasticEnv}}
+          RSIEnv=${{env.RSIEnv}}
           echo symbolsEnv $symbolsEnv
           echo percentageEnv $percentageEnv
           echo queryEnv $queryEnv
@@ -124,7 +124,7 @@ jobs:
           echo ratedVar $ratedVar
           echo stochasticVar $stochasticVar
           echo RSIVar $RSIVar
-          
+
           chmod +x ./analyse.sh
 
           sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar $RSIVar
