@@ -1,3 +1,44 @@
+# UsageCheckParameter function:
+# Input is symbolsParam($1)
+# Output: OUT_RESULT_FILE
+UsageCheckParameter() {
+    _symbolsParam=${1}
+	_percentageParam=${2}
+	_queryParam=${3}
+	_ratedParam=${4}
+	_stochasticPercentageParam=${5}
+	_RSIQuoteParam=${6}
+	OUT_RESULT_FILE_param=${7}
+
+	if  [ ! -z "${_symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
+		[ ! -z "${_percentageParam##*[!0-9]*}" ]  && 
+		( [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ] ) &&
+		( [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'underrated' ] ) &&
+		[ ! -z "${_stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#_stochasticPercentageParam} -gt 1 ] &&
+		[ ! -z "${_RSIQuoteParam##*[!0-9]*}" ]; then
+		echo ""
+	else
+		echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $OUT_RESULT_FILE_param
+		echo "<br>" >> $OUT_RESULT_FILE_param
+		echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $OUT_RESULT_FILE_param
+		echo "<br>" >> $OUT_RESULT_FILE_param
+		echo " PERCENTAGE: Percentage number between 0..100" | tee -a $OUT_RESULT_FILE_param
+		echo "<br>" >> $OUT_RESULT_FILE_param
+		echo " QUERY: Query data online|offline" | tee -a $OUT_RESULT_FILE_param
+		echo "<br>" >> $OUT_RESULT_FILE_param
+		echo " RATED: List only overrated|underrated" | tee -a $OUT_RESULT_FILE_param
+		echo "<br>" >> $OUT_RESULT_FILE_param
+		echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a $OUT_RESULT_FILE_param
+		echo "<br>" >> $OUT_RESULT_FILE_param
+		echo " RSI14: Quote for RSI indicator" | tee -a $OUT_RESULT_FILE_param
+		echo "<br>" >> $OUT_RESULT_FILE_param	
+		echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a $OUT_RESULT_FILE_param
+		echo "<br>" >> $OUT_RESULT_FILE_param
+		echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE_param
+		exit 5
+	fi
+}
+
 # LesserThenWithFactor function:
 # Input is factor($1), firstCompareValue($2), secondCompareValue($3)
 # Output: 1 if lesser
