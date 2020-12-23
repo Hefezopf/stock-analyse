@@ -223,7 +223,7 @@ ProgressBar() {
 	_fill=$(printf "%${_done}s")
 	_empty=$(printf "%${_left}s")                         
 	# Progress: ######################################## 100%
-	if [ $(uname) = 'MINGW64_NT-10.0-18363' ]; then
+	if [[ $(uname) == *"MINGW"* ]]; then
 		echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
 	fi
 }

@@ -106,12 +106,11 @@ do
 			echo "!Symbol NOT found online on marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
 			echo "<br>" >> $OUT_RESULT_FILE
 			rm -rf $DATA_FILE
-			#exit 7
 		fi
 	fi
 
 	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
-	#echo "# Analyse " $symbolName
+
 	CreateCmdAnalyseHyperlink
 
 	ProgressBar 1 8
@@ -122,9 +121,7 @@ do
 	# Check for unknown or not fetched symbol in cmd or on marketstack.com
 	if [ "${#lastRaw}" -eq 0 ]; then
 		echo "!Symbol $symbol NOT found offline in data/$symbol.txt: Try to query 'online'!" | tee -a $OUT_RESULT_FILE
-		#echo "!Symbol NOT found offline in data/*.txt.:$symbol. Try to query 'online'!" | tee -a $OUT_RESULT_FILE
 		echo "<br>" >> $OUT_RESULT_FILE
-		#exit 8
 		# continue with next symbol in the list
 		continue
 	fi
