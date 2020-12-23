@@ -6,6 +6,60 @@
 # Import functions
 . ./script/functions.sh
 
+@test "CurlSymbolName" {
+  rm -rf "test/_ticker_names.txt"
+
+  function grep() {
+    echo "BEI \"BEIERSDORF AG\""
+  }
+  export -f grep  
+
+  CurlSymbolName "BEI" "test/_ticker_names.txt" 0
+  [ "$symbolName" == 'BEI "BEIERSDORF AG"' ]  
+
+  function grep() {
+    echo ""
+  }
+  export -f grep 
+
+  function curl() {
+    echo "null"
+  }
+  export -f curl 
+
+  CurlSymbolName XXX "test/_ticker_names.txt" 0
+  #echo symbolName "$symbolName"
+  [ "$symbolName" == 'null' ]
+
+  function curl() {
+    echo "[{
+        "data": [{
+            "figi": "BBG000BLNNH6",
+            "securityType": "Common Stock",
+            "marketSector": "Equity",
+            "ticker": "ADS",
+            "name": "Adidas",
+            "uniqueID": "EQ0010080100001000",
+            "exchCode": "US",
+            "shareClassFIGI": "BBG001S5S399",
+            "compositeFIGI": "BBG000BLNNH6",
+            "securityType2": "Common Stock",
+            "securityDescription": "IBM",
+            "uniqueIDFutOpt": null
+        }]
+    }]"
+  }
+  export -f curl 
+
+  function jq() {
+    echo "\"Adidas\""
+  }
+  export -f jq   
+
+  CurlSymbolName ADS "test/_ticker_names.txt" 0
+  [ "$symbolName" == '"Adidas"' ]      
+}
+
 @test "UsageCheckParameter" {
   run UsageCheckParameter 'ADS BEI' 1 offline underrated 9 30 "temp/_result.html"
   [ "$status" -eq 0 ]

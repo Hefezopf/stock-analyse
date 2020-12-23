@@ -85,17 +85,8 @@ echo "# URLs<br>" >> $OUT_RESULT_FILE
 # Analyse data for each symbol
 for symbol in $symbolsParam
 do
-	# Get symbol names
-	symbol=$(echo ${symbol} | tr a-z A-Z)
-	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
-	if [ ! "${#symbolName}" -gt 1 ]; then
-    	symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${symbol}'"}]' | jq '.[0].data[0].name')
-		if ! [ "$symbolName" = 'null' ]; then
-			echo $symbol $symbolName | tee -a $TICKER_NAMES_FILE
-			# Can requested in bulk request as an option!
-			sleep 13 # only some requests per minute to openfigi (About 6 per minute).
-		fi
-	fi	
+	# Curl symbol name
+	CurlSymbolName $symbol $TICKER_NAMES_FILE 14
 
 	# Get stock data
 	echo ""
@@ -303,7 +294,7 @@ do
 	echo "RSI14:<b>$RSIQuoteParam</b><br>" >> $indexSymbolFile
 
 	echo "Date:<b>"$(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Final price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
+	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>"$average18 "&#8364;</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>"$average38 "&#8364;</b></span>" >> $indexSymbolFile
 	echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>"$average100 "&#8364;</b></span>" >> $indexSymbolFile

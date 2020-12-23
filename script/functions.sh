@@ -1,5 +1,25 @@
+# CurlSymbolName function:
+# Input is _symbolParam($1), _TICKER_NAMES_FILE_param($2), _sleepParam($3)
+# Output: TICKER_NAMES_FILE
+CurlSymbolName() {
+	_symbolParam=${1}
+	_TICKER_NAMES_FILE_param=${2}
+	_sleepParam=${3}
+	symbol=$(echo ${_symbolParam} | tr a-z A-Z)
+	symbolName=$(grep -w "$_symbolParam " $_TICKER_NAMES_FILE_param)
+	if [ ! "${#symbolName}" -gt 1 ]; then
+    	symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${_symbolParam}'"}]' | jq '.[0].data[0].name')
+		if ! [ "$symbolName" = 'null' ]; then
+			echo $symbol $symbolName | tee -a $_TICKER_NAMES_FILE_param
+			# Can requested in bulk request as an option!
+			sleep $_sleepParam # 14; Only some requests per minute to openfigi (About 6 per minute).
+		fi
+	fi		
+	symbolName=$symbolName
+}	
+
 # UsageCheckParameter function:
-# Input is symbolsParam($1)
+# Input is _symbolsParam($1), _percentageParam($2), _queryParam($3), _ratedParam($4), _stochasticPercentageParam($5), _RSIQuoteParam($6), OUT_RESULT_FILE_param($7)
 # Output: OUT_RESULT_FILE
 UsageCheckParameter() {
     _symbolsParam=${1}
@@ -9,7 +29,6 @@ UsageCheckParameter() {
 	_stochasticPercentageParam=${5}
 	_RSIQuoteParam=${6}
 	OUT_RESULT_FILE_param=${7}
-
 	if  [ ! -z "${_symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
 		[ ! -z "${_percentageParam##*[!0-9]*}" ]  && 
 		( [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ] ) &&
