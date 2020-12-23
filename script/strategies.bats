@@ -1,8 +1,7 @@
 #!/usr/bin/env bats
 
 # https://github.com/bats-core/bats-core
-
-#load '/d/code/bats-assert/load.bash'
+# load '/d/code/bats-assert/load.bash'
 
 # Import functions
 . ./script/strategies.sh

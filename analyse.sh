@@ -50,34 +50,8 @@ START_TIME_MEASUREMENT=$(date +%s);
 # Check for duplicate symbol in cmd
 echo $symbolsParam | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Duplicate symbol in parameter list!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE && exit 4
 
-# Check parameter
-if  [ ! -z "${symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
-	[ ! -z "${percentageParam##*[!0-9]*}" ]  && 
-	( [ "$queryParam" = 'offline' ] || [ "$queryParam" = 'online' ] ) &&
-	( [ "$ratedParam" = 'overrated' ] || [ "$ratedParam" = 'underrated' ] ) &&
-	[ ! -z "${stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#stochasticPercentageParam} -gt 1 ] &&
-	[ ! -z "${RSIQuoteParam##*[!0-9]*}" ]; then
-	echo ""
-else
-	echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE
-	echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE
-	echo " PERCENTAGE: Percentage number between 0..100" | tee -a $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE
-	echo " QUERY: Query data online|offline" | tee -a $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE
-	echo " RATED: List only overrated|underrated" | tee -a $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE
-	echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE
-	echo " RSI14: Quote for RSI indicator" | tee -a $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE	
-	echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE
-    echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
-	exit 5
-fi
+# Usage: Check parameter
+UsageCheckParameter $symbolsParam $percentageParam $queryParam $ratedParam $stochasticPercentageParam $RSIQuoteParam $OUT_RESULT_FILE
 
 if [ -z "$MARKET_STACK_ACCESS_KEY" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ]; then
 	echo "Error: MARKET_STACK_ACCESS_KEY or MARKET_STACK_ACCESS_KEY2 not set!" | tee -a $OUT_RESULT_FILE

@@ -1,11 +1,33 @@
 #!/usr/bin/env bats
 
 # https://github.com/bats-core/bats-core
-
-#load '/d/code/bats-assert/load.bash'
+# load '/d/code/bats-assert/load.bash'
 
 # Import functions
 . ./script/functions.sh
+
+@test "UsageCheckParameter" {
+  run UsageCheckParameter 'ADS BEI' 1 offline underrated 9 30 "temp/_result.html"
+  [ "$status" -eq 0 ]
+
+  run UsageCheckParameter 'A.DS' 1 offline underrated 9 30 "temp/_result.html"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter 'ADS' xxxx offline underrated 9 30 "temp/_result.html"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter 'ADS' 1 xxline underrated 9 30 "temp/_result.html"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter 'ADS' 1 offline XXunderrated 9 30 "temp/_result.html"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter 'ADS' 1 offline underrated xx 30 "temp/_result.html"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter 'ADS' 1 offline underrated 9 xxx "temp/_result.html"
+  [ "$status" -eq 5 ]
+}
 
 @test "WriteComdirectUrlAndStoreFileList" {
   rm -rf temp/_result.html
