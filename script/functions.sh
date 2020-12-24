@@ -224,7 +224,7 @@ ProgressBar() {
 	_empty=$(printf "%${_left}s")                         
 	# Progress: ######################################## 100%
 	#if [[ $(uname) == *"MINGW"* ]]; then
-		echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
+	#	echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
 	#fi
 }
 
