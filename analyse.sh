@@ -51,7 +51,7 @@ START_TIME_MEASUREMENT=$(date +%s);
 echo $symbolsParam | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Duplicate symbol in parameter list!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE && exit 4
 
 # Usage: Check parameter
-UsageCheckParameter $symbolsParam $percentageParam $queryParam $ratedParam $stochasticPercentageParam $RSIQuoteParam $OUT_RESULT_FILE
+#UsageCheckParameter $symbolsParam $percentageParam $queryParam $ratedParam $stochasticPercentageParam $RSIQuoteParam $OUT_RESULT_FILE
 
 if [ -z "$MARKET_STACK_ACCESS_KEY" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ]; then
 	echo "Error: MARKET_STACK_ACCESS_KEY or MARKET_STACK_ACCESS_KEY2 not set!" | tee -a $OUT_RESULT_FILE
