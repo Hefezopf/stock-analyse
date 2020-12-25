@@ -30,9 +30,6 @@ UsageCheckParameter() {
 	_RSIQuoteParam=${6}
 	OUT_RESULT_FILE_param=${7}
 
-echo _symbolsParam $_symbolsParam
-echo 111 ${1}
-
 	if  [ ! -z "${_symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
 		[ ! -z "${_percentageParam##*[!0-9]*}" ]  && 
 		( [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ] ) &&
