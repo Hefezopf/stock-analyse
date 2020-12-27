@@ -54,10 +54,10 @@ echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $
 UsageCheckParameter "$symbolsParam" $percentageParam $queryParam $ratedParam $stochasticPercentageParam $RSIQuoteParam $OUT_RESULT_FILE
 
 if [ -z "$MARKET_STACK_ACCESS_KEY" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ]; then
-	echo "Error: MARKET_STACK_ACCESS_KEY or MARKET_STACK_ACCESS_KEY2 not set!" | tee -a $OUT_RESULT_FILE
-	echo "<br>" >> $OUT_RESULT_FILE
+    echo "Error: MARKET_STACK_ACCESS_KEY or MARKET_STACK_ACCESS_KEY2 not set!" | tee -a $OUT_RESULT_FILE
+    echo "<br>" >> $OUT_RESULT_FILE
     echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
-	exit 6
+    exit 6
 fi
 
 percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
@@ -85,231 +85,231 @@ echo "# URLs<br>" >> $OUT_RESULT_FILE
 # Analyse data for each symbol
 for symbol in $symbolsParam
 do
-	# Curl symbol name
-	CurlSymbolName $symbol $TICKER_NAMES_FILE 14
+    # Curl symbol name
+    CurlSymbolName $symbol $TICKER_NAMES_FILE 14
 
-	# Get stock data
-	echo ""
-	echo "# Get $symbolName"
-	if [ "$queryParam" = 'online' ]; then
-	    tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-		evenodd=$(( $tag  % 2 ))
-		if [ "$evenodd" -eq 0 ]; then
-		    ACCESS_KEY=${MARKET_STACK_ACCESS_KEY}
-		else
-			ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
-		fi
-		DATA_FILE=data/${symbol}.txt
-		curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq '.data[].close' > $DATA_FILE
-		fileSize=$(stat -c %s $DATA_FILE)
-		if [ "${fileSize}" -eq "0" ]; then
-			echo "!Symbol NOT found online on marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
-			echo "<br>" >> $OUT_RESULT_FILE
-			rm -rf $DATA_FILE
-		fi
-	fi
+    # Get stock data
+    echo ""
+    echo "# Get $symbolName"
+    if [ "$queryParam" = 'online' ]; then
+        tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
+        evenodd=$(( $tag  % 2 ))
+        if [ "$evenodd" -eq 0 ]; then
+            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY}
+        else
+            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
+        fi
+        DATA_FILE=data/${symbol}.txt
+        curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq '.data[].close' > $DATA_FILE
+        fileSize=$(stat -c %s $DATA_FILE)
+        if [ "${fileSize}" -eq "0" ]; then
+            echo "!Symbol NOT found online on marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
+            echo "<br>" >> $OUT_RESULT_FILE
+            rm -rf $DATA_FILE
+        fi
+    fi
 
-	symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
+    symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
 
-	CreateCmdAnalyseHyperlink
+    CreateCmdAnalyseHyperlink
 
-	ProgressBar 1 8
+    ProgressBar 1 8
 
     DATA_FILE=data/${symbol}.txt
-	lastRaw=$(head -n1 -q $DATA_FILE)
-	last=$(printf "%.2f" $lastRaw)
-	# Check for unknown or not fetched symbol in cmd or on marketstack.com
-	if [ "${#lastRaw}" -eq 0 ]; then
-		echo "!Symbol $symbol NOT found offline in data/$symbol.txt: Try to query 'online'!" | tee -a $OUT_RESULT_FILE
-		echo "<br>" >> $OUT_RESULT_FILE
-		# continue with next symbol in the list
-		continue
-	fi
+    lastRaw=$(head -n1 -q $DATA_FILE)
+    last=$(printf "%.2f" $lastRaw)
+    # Check for unknown or not fetched symbol in cmd or on marketstack.com
+    if [ "${#lastRaw}" -eq 0 ]; then
+        echo "!Symbol $symbol NOT found offline in data/$symbol.txt: Try to query 'online'!" | tee -a $OUT_RESULT_FILE
+        echo "<br>" >> $OUT_RESULT_FILE
+        # continue with next symbol in the list
+        continue
+    fi
 
-	head -n18 $DATA_FILE > temp/values18.txt
-	average18Raw=$(cat temp/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
-	average18=$(printf "%.2f" $average18Raw)
+    head -n18 $DATA_FILE > temp/values18.txt
+    average18Raw=$(cat temp/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
+    average18=$(printf "%.2f" $average18Raw)
 
     ProgressBar 2 8
 
-	GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
-	LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
+    GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
+    LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
 
-	head -n38 $DATA_FILE > temp/values38.txt
-	average38Raw=$(cat temp/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
-	average38=$(printf "%.2f" $average38Raw)
-	GreaterThenWithFactor $percentageGreaterFactor $last $average38; lastOverAgv38=$?
+    head -n38 $DATA_FILE > temp/values38.txt
+    average38Raw=$(cat temp/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
+    average38=$(printf "%.2f" $average38Raw)
+    GreaterThenWithFactor $percentageGreaterFactor $last $average38; lastOverAgv38=$?
     LesserThenWithFactor $percentageLesserFactor $last $average38;lastUnderAgv38=$?
-	
-	head -n100 $DATA_FILE > temp/values100.txt
-	average100Raw=$(cat temp/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
-	average100=$(printf "%.2f" $average100Raw)
-	GreaterThenWithFactor $percentageGreaterFactor $last $average100; lastOverAgv100=$?
-	LesserThenWithFactor $percentageLesserFactor $last $average100; lastUnderAgv100=$?
+    
+    head -n100 $DATA_FILE > temp/values100.txt
+    average100Raw=$(cat temp/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
+    average100=$(printf "%.2f" $average100Raw)
+    GreaterThenWithFactor $percentageGreaterFactor $last $average100; lastOverAgv100=$?
+    LesserThenWithFactor $percentageLesserFactor $last $average100; lastUnderAgv100=$?
 
     # Averages
-	GreaterThenWithFactor $percentageGreaterFactor $average18 $average38; agv18OverAgv38=$?
-	LesserThenWithFactor $percentageLesserFactor $average18 $average38; agv18UnderAgv38=$?
-	GreaterThenWithFactor $percentageGreaterFactor $average38 $average100; agv38OverAgv100=$?
-	LesserThenWithFactor $percentageLesserFactor $average38 $average100; agv38UnderAgv100=$?
-	GreaterThenWithFactor $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
-	LesserThenWithFactor $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
+    GreaterThenWithFactor $percentageGreaterFactor $average18 $average38; agv18OverAgv38=$?
+    LesserThenWithFactor $percentageLesserFactor $average18 $average38; agv18UnderAgv38=$?
+    GreaterThenWithFactor $percentageGreaterFactor $average38 $average100; agv38OverAgv100=$?
+    LesserThenWithFactor $percentageLesserFactor $average38 $average100; agv38UnderAgv100=$?
+    GreaterThenWithFactor $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
+    LesserThenWithFactor $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
  
     ProgressBar 3 8
 
-	# Calculate RSI 14 values
-	RSIInDays14=14
-	RSIQuoteList=""
-	RSIOfDays $RSIInDays14 $DATA_FILE
+    # Calculate RSI 14 values
+    RSIInDays14=14
+    RSIQuoteList=""
+    RSIOfDays $RSIInDays14 $DATA_FILE
 
-	ProgressBar 4 8
+    ProgressBar 4 8
 
     # Calculate Stochastic 14 values
-	stochasticInDays14=14
-	stochasticQuoteList=""
-	StochasticOfDays $stochasticInDays14 $DATA_FILE
+    stochasticInDays14=14
+    stochasticQuoteList=""
+    StochasticOfDays $stochasticInDays14 $DATA_FILE
 
     ProgressBar 5 8
 
-	# Stochastics percentage
-	stochasticPercentageLower=$stochasticPercentageParam
-	stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
+    # Stochastics percentage
+    stochasticPercentageLower=$stochasticPercentageParam
+    stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
 
-	# Average 18
-	averageInDays18=18
-	averagePriceList=""
-	AverageOfDays $averageInDays18 $DATA_FILE
-	averagePriceList18=$averagePriceList
+    # Average 18
+    averageInDays18=18
+    averagePriceList=""
+    AverageOfDays $averageInDays18 $DATA_FILE
+    averagePriceList18=$averagePriceList
 
-	ProgressBar 6 8
+    ProgressBar 6 8
 
     # Average 38
-	averageInDays38=38
-	averagePriceList=""
-	AverageOfDays $averageInDays38 $DATA_FILE
-	averagePriceList38=$averagePriceList
+    averageInDays38=38
+    averagePriceList=""
+    AverageOfDays $averageInDays38 $DATA_FILE
+    averagePriceList38=$averagePriceList
 
-	ProgressBar 7 8
+    ProgressBar 7 8
 
     # Average 100
-	averageInDays100=100
-	averagePriceList=""
-	AverageOfDays $averageInDays100 $DATA_FILE
-	averagePriceList100=$averagePriceList
+    averageInDays100=100
+    averagePriceList=""
+    AverageOfDays $averageInDays100 $DATA_FILE
+    averagePriceList100=$averagePriceList
 
     ProgressBar 8 8
 
-	if [ ! $(uname) = 'Linux' ]; then
-		echo ""
-	fi
-	
-	#
-	# Apply strategies
-	#
+    if [ ! $(uname) = 'Linux' ]; then
+        echo ""
+    fi
+    
+    #
+    # Apply strategies
+    #
 
-	# Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
-	fileSize=$(stat -c %s $DATA_FILE)
-	if [ "$fileSize" -gt 200 ]; then
+    # Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
+    fileSize=$(stat -c %s $DATA_FILE)
+    if [ "$fileSize" -gt 200 ]; then
 
-		# -Strategie: UnderratedByPercentAndStochastic
-		resultStrategieUnderratedByPercentAndStochastic=""
-		StrategieUnderratedByPercentAndStochastic
-	
-	    # -Strategie: Low stochastic 3 last values under lowStochasticValue
-		resultStrategieUnderratedLowStochastic=""
-		StrategieUnderratedLowStochastic $stochasticPercentageParam "$stochasticQuoteList"
+        # -Strategie: UnderratedByPercentAndStochastic
+        resultStrategieUnderratedByPercentAndStochastic=""
+        StrategieUnderratedByPercentAndStochastic
+    
+        # -Strategie: Low stochastic 3 last values under lowStochasticValue
+        resultStrategieUnderratedLowStochastic=""
+        StrategieUnderratedLowStochastic $stochasticPercentageParam "$stochasticQuoteList"
 
-	    # -Strategie: Low RSI last quote under lowRSIValue
-		resultStrategieUnderratedLowRSI=""
-		StrategieUnderratedLowRSI $RSIQuoteParam
+        # -Strategie: Low RSI last quote under lowRSIValue
+        resultStrategieUnderratedLowRSI=""
+        StrategieUnderratedLowRSI $RSIQuoteParam
 
-	    # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
-		resultStrategieUnderratedLowStochasticLowRSI=""
-		StrategieUnderratedLowStochasticLowRSI $stochasticPercentageParam $RSIQuoteParam
+        # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
+        resultStrategieUnderratedLowStochasticLowRSI=""
+        StrategieUnderratedLowStochasticLowRSI $stochasticPercentageParam $RSIQuoteParam
 
-		# -Strategie: The very last stochastic is lower then stochasticPercentageLower
-		#resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
-		#StrategieUnderratedVeryLastStochasticIsLowerThen
+        # -Strategie: The very last stochastic is lower then stochasticPercentageLower
+        #resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
+        #StrategieUnderratedVeryLastStochasticIsLowerThen
 
-		# +Strategie: OverratedByPercentAndStochastic
-		resultStrategieOverratedByPercentAndStochastic=""
-		StrategieOverratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageUpper $lastOverAgv18 $lastOverAgv38 $lastOverAgv100 $agv18OverAgv38 $agv38OverAgv100 $agv18OverAgv100 $last $percentageLesserFactor $average18 $average38 $average100 $lastStochasticQuoteRounded $stochasticPercentageUpper $OUT_RESULT_FILE $symbol
-	else
-	    echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
-		echo "<br>" >> $OUT_RESULT_FILE
-	fi
+        # +Strategie: OverratedByPercentAndStochastic
+        resultStrategieOverratedByPercentAndStochastic=""
+        StrategieOverratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageUpper $lastOverAgv18 $lastOverAgv38 $lastOverAgv100 $agv18OverAgv38 $agv38OverAgv100 $agv18OverAgv100 $last $percentageLesserFactor $average18 $average38 $average100 $lastStochasticQuoteRounded $stochasticPercentageUpper $OUT_RESULT_FILE $symbol
+    else
+        echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
+        echo "<br>" >> $OUT_RESULT_FILE
+    fi
 
-	#
-	# Output
-	#
+    #
+    # Output
+    #
 
     # Writing chart ${symbol}.html
-	commaPriceListFile=temp/commaPriceListFile.txt
-	cat $DATA_FILE | tac > $commaPriceListFile
-	commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
+    commaPriceListFile=temp/commaPriceListFile.txt
+    cat $DATA_FILE | tac > $commaPriceListFile
+    commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
     indexSymbolFile=out/${symbol}.html
-	
-	rm -rf $indexSymbolFile
-	cp js/_chart.min.js out
-	cp js/_utils.js out
-	cp js/_favicon.ico out
-	cat js/indexPart0.html >> $indexSymbolFile
-	echo "${symbol}" >> $indexSymbolFile
-	cat js/indexPart1.html >> $indexSymbolFile
-	echo "'" ${symbolName} "'," >> $indexSymbolFile
-	cat js/indexPart2.html >> $indexSymbolFile
-	echo $commaPriceList >> $indexSymbolFile
-	cat js/indexPart3.html >> $indexSymbolFile	
+    
+    rm -rf $indexSymbolFile
+    cp js/_chart.min.js out
+    cp js/_utils.js out
+    cp js/_favicon.ico out
+    cat js/indexPart0.html >> $indexSymbolFile
+    echo "${symbol}" >> $indexSymbolFile
+    cat js/indexPart1.html >> $indexSymbolFile
+    echo "'" ${symbolName} "'," >> $indexSymbolFile
+    cat js/indexPart2.html >> $indexSymbolFile
+    echo $commaPriceList >> $indexSymbolFile
+    cat js/indexPart3.html >> $indexSymbolFile    
 
-	echo "'" Average $averageInDays18 "'," >> $indexSymbolFile
-	cat js/indexPart4.html >> $indexSymbolFile
-	echo $averagePriceList18 >> $indexSymbolFile
-	cat js/indexPart5.html >> $indexSymbolFile	
+    echo "'" Average $averageInDays18 "'," >> $indexSymbolFile
+    cat js/indexPart4.html >> $indexSymbolFile
+    echo $averagePriceList18 >> $indexSymbolFile
+    cat js/indexPart5.html >> $indexSymbolFile    
 
-	echo "'" Average $averageInDays38 "'," >> $indexSymbolFile
-	cat js/indexPart6.html >> $indexSymbolFile
-	echo $averagePriceList38 >> $indexSymbolFile
-	cat js/indexPart7.html >> $indexSymbolFile	
+    echo "'" Average $averageInDays38 "'," >> $indexSymbolFile
+    cat js/indexPart6.html >> $indexSymbolFile
+    echo $averagePriceList38 >> $indexSymbolFile
+    cat js/indexPart7.html >> $indexSymbolFile    
 
-	echo "'" Average $averageInDays100 "'," >> $indexSymbolFile
-	cat js/indexPart8.html >> $indexSymbolFile
-	echo $averagePriceList100 >> $indexSymbolFile
-	cat js/indexPart9.html >> $indexSymbolFile
+    echo "'" Average $averageInDays100 "'," >> $indexSymbolFile
+    cat js/indexPart8.html >> $indexSymbolFile
+    echo $averagePriceList100 >> $indexSymbolFile
+    cat js/indexPart9.html >> $indexSymbolFile
 
-	echo $stochasticQuoteList >> $indexSymbolFile
-	cat js/indexPart10.html >> $indexSymbolFile
+    echo $stochasticQuoteList >> $indexSymbolFile
+    cat js/indexPart10.html >> $indexSymbolFile
 
-	echo $RSIQuoteList >> $indexSymbolFile
-	cat js/indexPart11.html >> $indexSymbolFile
+    echo $RSIQuoteList >> $indexSymbolFile
+    cat js/indexPart11.html >> $indexSymbolFile
 
-	ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
+    ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$symbolName</a><br>" >> $indexSymbolFile
-	echo "Percentage:<b>$percentageParam</b> " >> $indexSymbolFile
-	echo "Query:<b>$queryParam</b> " >> $indexSymbolFile
-	echo "Rated:<b>$ratedParam</b> " >> $indexSymbolFile
-	echo "Stochastic14:<b>$stochasticPercentageParam</b> " >> $indexSymbolFile
-	echo "RSI14:<b>$RSIQuoteParam</b><br>" >> $indexSymbolFile
+    echo "Percentage:<b>$percentageParam</b> " >> $indexSymbolFile
+    echo "Query:<b>$queryParam</b> " >> $indexSymbolFile
+    echo "Rated:<b>$ratedParam</b> " >> $indexSymbolFile
+    echo "Stochastic14:<b>$stochasticPercentageParam</b> " >> $indexSymbolFile
+    echo "RSI14:<b>$RSIQuoteParam</b><br>" >> $indexSymbolFile
 
-	echo "Date:<b>"$(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>"$average18 "&#8364;</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>"$average38 "&#8364;</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>"$average100 "&#8364;</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>"$lastStochasticQuoteRounded "</b></span>" >> $indexSymbolFile
-	echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>"$lastRSIQuoteRounded "</b></span></p>" >> $indexSymbolFile
+    echo "Date:<b>"$(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
+    echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
+    echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>"$average18 "&#8364;</b></span>" >> $indexSymbolFile
+    echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>"$average38 "&#8364;</b></span>" >> $indexSymbolFile
+    echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>"$average100 "&#8364;</b></span>" >> $indexSymbolFile
+    echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>"$lastStochasticQuoteRounded "</b></span>" >> $indexSymbolFile
+    echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>"$lastRSIQuoteRounded "</b></span></p>" >> $indexSymbolFile
 
-	# Strategies output
-	# +
-	echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieOverratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
-	# -
-	echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
-	echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedLowStochastic "</b></p>" >> $indexSymbolFile
-	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
-	echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowStochasticLowRSI "</b></p>" >> $indexSymbolFile
-	#echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
-	echo "Good Luck!" >> $indexSymbolFile
+    # Strategies output
+    # +
+    echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieOverratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
+    # -
+    echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
+    echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedLowStochastic "</b></p>" >> $indexSymbolFile
+    echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
+    echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowStochasticLowRSI "</b></p>" >> $indexSymbolFile
+    #echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
+    echo "Good Luck!" >> $indexSymbolFile
 
-	cat js/indexPart12.html >> $indexSymbolFile
+    cat js/indexPart12.html >> $indexSymbolFile
 done
 
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
@@ -319,15 +319,15 @@ rm -rf temp/*.html
 i=1
 for symbolFile in $reportedSymbolFileList
 do
-	#echo symbolFile $symbolFile
-	cp $symbolFile temp/$i.html
-	i=$(( i + 1 ))
+    #echo symbolFile $symbolFile
+    cp $symbolFile temp/$i.html
+    i=$(( i + 1 ))
 done
 # Maximal 5 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
 while [ "$i" -le 5 ];
 do
-	touch temp/$i.html
-	i=$(( i + 1 ))
+    touch temp/$i.html
+    i=$(( i + 1 ))
 done
 
 # Time measurement
