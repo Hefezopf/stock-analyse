@@ -38,7 +38,6 @@ touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 reportedSymbolFileList=""
-#reportedSymbolFileList=$OUT_RESULT_FILE
 TICKER_NAMES_FILE=data/_ticker_names.txt
 # Email header
 HTML_RESULT_FILE_HEADER=$(echo "<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>")
@@ -48,7 +47,7 @@ COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?t
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for duplicate symbol in cmd
-echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Duplicate symbol in parameter list!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE && exit 4
+echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Duplicate symbol in parameter list!!!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE #&& exit 4
 
 # Usage: Check parameter
 UsageCheckParameter "$symbolsParam" $percentageParam $queryParam $ratedParam $stochasticPercentageParam $RSIQuoteParam $OUT_RESULT_FILE
@@ -310,6 +309,8 @@ do
     echo "Good Luck!" >> $indexSymbolFile
 
     cat js/indexPart12.html >> $indexSymbolFile
+
+    WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol "$symbolName" false
 done
 
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
