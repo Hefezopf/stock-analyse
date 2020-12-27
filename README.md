@@ -1,8 +1,11 @@
 # Stock Analyse
 Automated Stock Analysis.
 
-This script checks given stock quotes and their averages of the last 100, 38, 18 days.
+Shell script to check given stock quotes and their averages of the last 100, 38, 18 days.
 
+Calculate Stochastics and RSI.
+
+Alert via email.
 
 # Run
 ![ScreenShotCMD](image/ScreenShotCMD.png "ScreenShotCMD")

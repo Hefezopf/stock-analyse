@@ -246,13 +246,15 @@ WriteComdirectUrlAndStoreFileList() {
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
+        _style=$(echo "style=\"color:black\"")
         _alert=""
         if [ $_alertParam = true ]; then
             # Store list of files for later (tar/zip)
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
-            _alert=$(echo " -> ALERT!!!!!!!!!!")
+            _style=$(echo "style=\"color:red\"")
+            _alert=$(echo " ------------>>>>>>>>>>>> ALERT !!!!!!!!!!!!!!!!!!!!!!!!!")
         fi
-        echo "<a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>"$_symbolName"$_alert</a><br>" >> $_OUT_RESULT_FILE_param
+        echo "<a "$_style " href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>"$_symbolName"$_alert</a><br>" >> $_OUT_RESULT_FILE_param
     fi
     reportedSymbolFileList=$reportedSymbolFileList
 }

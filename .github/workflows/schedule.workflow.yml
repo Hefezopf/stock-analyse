@@ -13,9 +13,9 @@ on:
   # 0 0 */2 * *  
   # On Tue, Thr, Sat
   # 0 0 * * 2,4,6 
-  # On Mon, Tue, Wed, Thr, Fri
-  # 0 2 * * 1,2,3,4,5
-  - cron: "0 2 * * 1,2,3,4,5"
+  # At 04:00 on Mon, Tue, Wed, Thr, Fri
+  # 0 4 * * 1,2,3,4,5
+  - cron: "0 4 * * 1,2,3,4,5"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,7 +36,7 @@ jobs:
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
 
-          #Depot+DAX+Eurostoxx (70). Diese gehen nicht immer (AI3A SEJ1 PPB PER):
+          #Depot+DAX+Eurostoxx (69). Diese gehen nicht immer (AI3A SEJ1 PPB PER):
           symbolsVar='PSM XONA GEC GIS FTE TNE5 CRIN CCAP BEI CBK 1COV DBK LHA EOAN FME FRE HEI HEN IFX SDF MRK RWE TKA VOW MTX DWNI DHER ADS 1N8 AIL AIR ALV 1NBA ASME AXA BSD2 BAS BAYN BMW BNP DAI BSN DPW DTE ENL GZF ENI IBE1 IXD1 INN1 IES PPX AHOG PHI1 LOR LIN MOH MUV2 NOA3 1TY SNW SAP SND SIE TOTB SQU VVU VOW3 VNA'
           percentageVar=1
           queryVar=online
