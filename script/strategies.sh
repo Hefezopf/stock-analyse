@@ -37,7 +37,7 @@ StrategieOverratedByPercentAndStochastic() {
 # Strategie: Underrated by Percent and Stochastic
 # Input -
 # Output: resultStrategieUnderratedByPercentAndStochastic
-StrategieUnderratedByPercentAndStochastic() {	
+StrategieUnderratedByPercentAndStochastic() {    
     if [ "$ratedParam" = 'underrated' ]; then
         if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
             [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
@@ -53,7 +53,7 @@ StrategieUnderratedByPercentAndStochastic() {
 # Input is lastStochasticQuoteRounded($1), stochasticPercentageLower($2)
 # Output: resultStrategieUnderratedVeryLastStochasticIsLowerThen
 StrategieUnderratedVeryLastStochasticIsLowerThen() {
-    if [ "$ratedParam" = 'underrated' ]; then	
+    if [ "$ratedParam" = 'underrated' ]; then    
         if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
             resultStrategieUnderratedVeryLastStochasticIsLowerThen="+ Very last stochastic: last stochastic quote $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
             echo $resultStrategieUnderratedVeryLastStochasticIsLowerThen
@@ -66,8 +66,8 @@ StrategieUnderratedVeryLastStochasticIsLowerThen() {
 # Strategie: Low stochastic 3 last values under lowStochasticValue
 # Input is lowStochasticValue($1), stochasticQuoteList($2)
 # Output: resultStrategieUnderratedLowStochastic
-StrategieUnderratedLowStochastic() {	
-    if [ "$ratedParam" = 'underrated' ]; then	
+StrategieUnderratedLowStochastic() {    
+    if [ "$ratedParam" = 'underrated' ]; then    
         _lowStochasticValue="$1"
         _stochasticQuoteList="$2"
         # Revers and output the last x numbers. Attention only works for single digst numbers!
@@ -106,8 +106,8 @@ StrategieUnderratedLowStochastic() {
 # https://de.wikipedia.org/wiki/Relative_Strength_Index
 # Input is lowRSIValue($1)
 # Output: resultStrategieUnderratedLowRSI
-StrategieUnderratedLowRSI() {	
-    if [ "$ratedParam" = 'underrated' ]; then	
+StrategieUnderratedLowRSI() {    
+    if [ "$ratedParam" = 'underrated' ]; then    
         _lowRSIValue="$1"
         resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
@@ -123,10 +123,10 @@ StrategieUnderratedLowRSI() {
 # Strategie: Low Stochastic and Low RSI last quote under lowRSIValue
 # Input is lowStochasticValue($1), lowRSIQuoteParam($2)
 # Output: resultStrategieLowStochasticUnderratedLowRSI
-StrategieUnderratedLowStochasticLowRSI() {	
+StrategieUnderratedLowStochasticLowRSI() {    
     _lowStochasticValue="$1"
     _lowRSIQuoteParam="$2"
-    if [ "$ratedParam" = 'underrated' ]; then	
+    if [ "$ratedParam" = 'underrated' ]; then    
         resultStrategieUnderratedLowStochasticLowRSI=""
         # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue
         if [ "$lastRSIQuoteRounded" -lt $_lowStochasticValue ] && [ "$lastRSIQuoteRounded" -lt $_lowRSIQuoteParam ]; then

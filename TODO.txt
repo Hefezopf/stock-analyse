@@ -6,6 +6,9 @@ TODO:
 git config --global http.sslVerify false
 
 
+-Alle als link in result
+-Test für doppelte symbols
+-get null bei „ads alv“
 -Cache Dateien für jedes symbol anlegen!! Performence!
 -local vor lokale variablen schreiben. ACHTUNG FEHLER in Linux!!!
 -Wann wird Kurs von XETRA aktuallisiert? Um 00:02 war der Kurs noch alt! um 1 Uhr Nachts neu
@@ -27,8 +30,8 @@ git config --global http.sslVerify false
 -(chart.js not working on iphone https://www.google.de/search?q=chart.js+not+working+on+iphone&ie=UTF-8&oe=UTF-8&hl=de-de&client=safari)
 -(anderen Chart nehmen https://c3js.org/samples/simple_multiple.html)
 -Schneller?
-	i=$(( i + 1 )) <- Ist schneller!!
-	i=$(expr $i + 1)
+    i=$(( i + 1 )) <- Ist schneller!!
+    i=$(expr $i + 1)
 
 
 Depot:
@@ -117,7 +120,7 @@ curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MA
 http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL
 
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL'
-	
+    
 curl GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL'
 
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL' | jq '.'
@@ -134,7 +137,7 @@ https://github.com/dawidd6/action-send-mail
 
 https://jqplay.org/jq?q=.%5B0%5D&j=%5B%7B%22name%22%3A%22JSON%22%2C%20%22good%22%3Atrue%7D%2C%20%7B%22name%22%3A%22XML%22%2C%20%22good%22%3Afalse%7D%5D
 
-	
+    
 curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA'
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=ALV.XETRA' | jq '.'
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].name'
@@ -145,12 +148,12 @@ curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&ex
 Cache:
 cacheFile=$(find data/cache/${symbol}.values18.txt 2> /dev/null -mtime -1 -print)
 if [ "${#cacheFile}" -gt 0 ]; then
-	echo Read from cache file
-	cp data/cache/${symbol}.values18.txt temp/values18.txt
+    echo Read from cache file
+    cp data/cache/${symbol}.values18.txt temp/values18.txt
 else
-	echo Create cache file
-	head -n18 data/${symbol}.txt > data/cache/${symbol}.values18.txt
-	cp data/cache/${symbol}.values18.txt temp/values18.txt
+    echo Create cache file
+    head -n18 data/${symbol}.txt > data/cache/${symbol}.values18.txt
+    cp data/cache/${symbol}.values18.txt temp/values18.txt
 fi
 
 
@@ -207,59 +210,59 @@ fi
 # Input is amountOfDaysParam($1)
 # Output: RSIQuoteList is comma separated list
 RSIOfDays() {
-	amountOfDaysParam=${1}
-	i=1
-	while [ "$i" -le 100 ];
-	do
-	    i=$(( i + 1 ))
-		diffLast2Prices=$(head -n$i data/${symbol}.txt | tail -2 | awk 'p{print p-$0}{p=$0}' )
-		isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
-		if [ ! ${isNegativ} = '-' ]; then
-			RSIwinningDays=$(echo -e $RSIwinningDays $diffLast2Prices"")
-		else
-		    RSIwinningDays=$(echo $RSIwinningDays "0")	
-		fi
+    amountOfDaysParam=${1}
+    i=1
+    while [ "$i" -le 100 ];
+    do
+        i=$(( i + 1 ))
+        diffLast2Prices=$(head -n$i data/${symbol}.txt | tail -2 | awk 'p{print p-$0}{p=$0}' )
+        isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
+        if [ ! ${isNegativ} = '-' ]; then
+            RSIwinningDays=$(echo -e $RSIwinningDays $diffLast2Prices"")
+        else
+            RSIwinningDays=$(echo $RSIwinningDays "0")    
+        fi
 
-		if [ ${isNegativ} = '-' ]; then
-		    withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
-			RSIloosingDays=$(echo -e $RSIloosingDays $withoutMinusSign"")
-		else
-		    RSIloosingDays=$(echo $RSIloosingDays "0")	
-		fi
-	done
+        if [ ${isNegativ} = '-' ]; then
+            withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
+            RSIloosingDays=$(echo -e $RSIloosingDays $withoutMinusSign"")
+        else
+            RSIloosingDays=$(echo $RSIloosingDays "0")    
+        fi
+    done
 
-	i=1
-	while [ "$i" -le 100 ];
-	do
-	    i=$(( i + 1 ))
+    i=1
+    while [ "$i" -le 100 ];
+    do
+        i=$(( i + 1 ))
 
-		# Fill with blank comma seperated data  
-		if [ $i -lt $((amountOfDaysParam + 1 )) ]; then  # <14
-			RSIQuoteList=$(echo $RSIQuoteList ",")
-		else # >14
-			indBegin=$(( 100+2-i ))
-			indEnd=$(( indBegin+1+amountOfDaysParam ))		
-			RSIwinningDaysGap=$(echo "$RSIwinningDays" | cut -f $indBegin-$indEnd -d ' ')	
-		    RSIloosingDaysGap=$(echo "$RSIloosingDays" | cut -f $indBegin-$indEnd -d ' ')	
+        # Fill with blank comma seperated data  
+        if [ $i -lt $((amountOfDaysParam + 1 )) ]; then  # <14
+            RSIQuoteList=$(echo $RSIQuoteList ",")
+        else # >14
+            indBegin=$(( 100+2-i ))
+            indEnd=$(( indBegin+1+amountOfDaysParam ))        
+            RSIwinningDaysGap=$(echo "$RSIwinningDays" | cut -f $indBegin-$indEnd -d ' ')    
+            RSIloosingDaysGap=$(echo "$RSIloosingDays" | cut -f $indBegin-$indEnd -d ' ')    
 
-			OLDIFS=$IFS
-			IFS=" " set -- $RSIwinningDaysGap
-			RSIwinningDaysAvg=$(echo "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}" "${8}" "${9}" "${10}" "${11}" "${12}" "${13}" "${14}" | awk '{print ('${1}'+'${2}'+'${3}'+'${4}'+'${5}'+'${6}'+'${7}'+'${8}'+'${9}'+'${10}'+'${11}'+'${12}'+'${13}'+'${14}')/'${amountOfDaysParam}'}')
-			IFS=" " set -- $RSIloosingDaysGap
-			RSIloosingDaysAvg=$(echo "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}" "${8}" "${9}" "${10}" "${11}" "${12}" "${13}" "${14}" | awk '{print ('${1}'+'${2}'+'${3}'+'${4}'+'${5}'+'${6}'+'${7}'+'${8}'+'${9}'+'${10}'+'${11}'+'${12}'+'${13}'+'${14}')/'${amountOfDaysParam}'}')
-			IFS=$OLDIFS
+            OLDIFS=$IFS
+            IFS=" " set -- $RSIwinningDaysGap
+            RSIwinningDaysAvg=$(echo "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}" "${8}" "${9}" "${10}" "${11}" "${12}" "${13}" "${14}" | awk '{print ('${1}'+'${2}'+'${3}'+'${4}'+'${5}'+'${6}'+'${7}'+'${8}'+'${9}'+'${10}'+'${11}'+'${12}'+'${13}'+'${14}')/'${amountOfDaysParam}'}')
+            IFS=" " set -- $RSIloosingDaysGap
+            RSIloosingDaysAvg=$(echo "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}" "${8}" "${9}" "${10}" "${11}" "${12}" "${13}" "${14}" | awk '{print ('${1}'+'${2}'+'${3}'+'${4}'+'${5}'+'${6}'+'${7}'+'${8}'+'${9}'+'${10}'+'${11}'+'${12}'+'${13}'+'${14}')/'${amountOfDaysParam}'}')
+            IFS=$OLDIFS
 
-	        #RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
-			#RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n$amountOfDaysParam | awk '{ sum += $1; } END { print sum/'$amountOfDaysParam'; }') 
-			if [ "${RSIloosingDaysAvg}" = 0 ]; then
-				RSIQuote=100
-			else
-				RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')
-				#RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
-			fi
+            #RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${1}" | awk '{ sum += $1; } END { print sum/'${1}'; }')
+            #RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n$amountOfDaysParam | awk '{ sum += $1; } END { print sum/'$amountOfDaysParam'; }') 
+            if [ "${RSIloosingDaysAvg}" = 0 ]; then
+                RSIQuote=100
+            else
+                RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')
+                #RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
+            fi
 
-			RoundNumber ${RSIQuote} 0; RSIQuote=$?	
-			RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")			
-		fi
-	done
+            RoundNumber ${RSIQuote} 0; RSIQuote=$?    
+            RSIQuoteList=$(echo $RSIQuoteList $RSIQuote",")            
+        fi
+    done
 }
