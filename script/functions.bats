@@ -85,7 +85,7 @@
 
 @test "WriteComdirectUrlAndStoreFileList" {
   rm -rf temp/_result.html
-  WriteComdirectUrlAndStoreFileList "temp/_result.html" BEI
+  WriteComdirectUrlAndStoreFileList "temp/_result.html" BEI "Beiersdorf AG" true
   [ "$reportedSymbolFileList" == 'out/BEI.html' ]
 }
 

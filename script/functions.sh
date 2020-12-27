@@ -16,7 +16,7 @@ CurlSymbolName() {
         fi
     fi        
     symbolName=$symbolName
-}    
+}
 
 # UsageCheckParameter function:
 # Input is _symbolsParam($1), _percentageParam($2), _queryParam($3), _ratedParam($4), _stochasticPercentageParam($5), _RSIQuoteParam($6), OUT_RESULT_FILE_param($7)
@@ -232,27 +232,33 @@ ProgressBar() {
 # WriteComdirectUrlAndStoreFileList function:
 # - Write Comdirect Url.
 # - Store list of files for later (tar/zip)
-# Input OUT_RESULT_FILE_param($1), symbolParam($2), 
+# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolName($3), _alertParam($4)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
-    OUT_RESULT_FILE_param=${1}
-    symbolParam=${2}
-    ID_NOTATION=$(grep "${symbolParam}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
+    _OUT_RESULT_FILE_param=${1}
+    _symbolParam=${2}
+    _symbolName="${3}"
+    _alertParam=${4}
+    ID_NOTATION=$(grep "${_symbolParam}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
         ID_NOTATION=999999
     fi
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
-        echo "<a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$symbolName</a><br>" >> $OUT_RESULT_FILE_param
-        # Store list of files for later (tar/zip)
-        reportedSymbolFileList=$(echo $reportedSymbolFileList out/${symbolParam}.html)
+        _alert=""
+        if [ $_alertParam = true ]; then
+            # Store list of files for later (tar/zip)
+            reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
+            _alert=$(echo " -> ALERT!!!!!!!!!!")
+        fi
+        echo "<a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>"$_symbolName"$_alert</a><br>" >> $_OUT_RESULT_FILE_param
     fi
     reportedSymbolFileList=$reportedSymbolFileList
 }
 
 # CreateCmdAnalyseHyperlink function:
-# - Write file Hyperlink in CMD
+# - Write file Hyperlink in CMD, Only works for windows
 CreateCmdAnalyseHyperlink() {
     outputText="# Analyse "$symbolName
     if [ $(uname) = 'Linux' ]; then
