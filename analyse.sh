@@ -46,8 +46,8 @@ HTML_RESULT_FILE_END=$(echo "</p><p>Thanks</p></div></body></html>" )
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
 
-# Check for duplicate symbol in cmd
-echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Duplicate symbol in parameter list!!!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE #&& exit 4
+# Check for multiple symbols in cmd
+echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Multiple symbols in parameter list!!!!!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE #&& exit 4
 
 # Usage: Check parameter
 UsageCheckParameter "$symbolsParam" $percentageParam $queryParam $ratedParam $stochasticPercentageParam $RSIQuoteParam $OUT_RESULT_FILE
@@ -77,9 +77,9 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "<br><br># Result<br>" >> $OUT_RESULT_FILE
+echo "<br><br># Workflow Result<br>" >> $OUT_RESULT_FILE
 echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br><br>" >> $OUT_RESULT_FILE
-echo "# URLs<br>" >> $OUT_RESULT_FILE
+echo "# Comdirect Link<br>" >> $OUT_RESULT_FILE
 
 # Analyse data for each symbol
 for symbol in $symbolsParam
