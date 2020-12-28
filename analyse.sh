@@ -290,7 +290,7 @@ do
     echo "RSI14:<b>$RSIQuoteParam</b><br>" >> $indexSymbolFile
 
     dateOfFile=$(stat -c %y $DATA_FILE)
-    echo "Date:<b>"${dateOfFile:1:10} "</b>" >> $indexSymbolFile
+    echo "Date:<b>"${dateOfFile:0:9} "</b>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>"$average18 "&#8364;</b></span>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>"$average38 "&#8364;</b></span>" >> $indexSymbolFile
