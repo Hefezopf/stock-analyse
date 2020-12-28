@@ -234,12 +234,12 @@ ProgressBar() {
 # WriteComdirectUrlAndStoreFileList function:
 # - Write Comdirect Url.
 # - Store list of files for later (tar/zip)
-# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolName($3), _alertParam($4)
+# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _alertParam($4)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
     _OUT_RESULT_FILE_param=${1}
     _symbolParam=${2}
-    _symbolName="${3}"
+    _symbolNameParam="${3}"
     _alertParam=${4}
     ID_NOTATION=$(grep "${_symbolParam}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
@@ -255,8 +255,9 @@ WriteComdirectUrlAndStoreFileList() {
             _alert=" ->ALERT!"
             # Store list of files for later (tar/zip)
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
-        fi
-        echo "<a $_style href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$_symbolName$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
+        fi      
+        echo "<a "$_style " href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
+        #echo "<a $_style href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$_symbolName$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
     fi
     #reportedSymbolFileList=$reportedSymbolFileList
 }

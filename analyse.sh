@@ -213,7 +213,7 @@ do
 
         # -Strategie: UnderratedByPercentAndStochastic
         resultStrategieUnderratedByPercentAndStochastic=""
-        StrategieUnderratedByPercentAndStochastic
+        StrategieUnderratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageLower $lastUnderAgv18 $lastUnderAgv38 $lastUnderAgv100 $agv18UnderAgv38 $agv38UnderAgv100 $agv18UnderAgv100 $last $percentageGreaterFactor $average18 $average38 $average100 $lastStochasticQuoteRounded $stochasticPercentageLower $OUT_RESULT_FILE "$symbol" "$symbolName"
     
         # -Strategie: Low stochastic 3 last values under lowStochasticValue
         resultStrategieUnderratedLowStochastic=""
@@ -233,7 +233,7 @@ do
 
         # +Strategie: OverratedByPercentAndStochastic
         resultStrategieOverratedByPercentAndStochastic=""
-        StrategieOverratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageUpper $lastOverAgv18 $lastOverAgv38 $lastOverAgv100 $agv18OverAgv38 $agv38OverAgv100 $agv18OverAgv100 $last $percentageLesserFactor $average18 $average38 $average100 $lastStochasticQuoteRounded $stochasticPercentageUpper $OUT_RESULT_FILE $symbol
+        StrategieOverratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageUpper $lastOverAgv18 $lastOverAgv38 $lastOverAgv100 $agv18OverAgv38 $agv38OverAgv100 $agv18OverAgv100 $last $percentageLesserFactor $average18 $average38 $average100 $lastStochasticQuoteRounded $stochasticPercentageUpper $OUT_RESULT_FILE "$symbol" "$symbolName"
     else
         echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
@@ -310,7 +310,7 @@ do
 
     cat js/indexPart12.html >> $indexSymbolFile
 
-    WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol "$symbolName" false
+    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" false
 done
 
 echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
