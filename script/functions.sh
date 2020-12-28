@@ -10,7 +10,7 @@ CurlSymbolName() {
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
     symbolName=$(grep -w "$_symbolParam " "$_TICKER_NAMES_FILE_param")
     if [ ! "${#symbolName}" -gt 1 ]; then
-        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
+        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "echo ${X_OPENFIGI_APIKEY}" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
             echo "$symbol $symbolName" | tee -a "$_TICKER_NAMES_FILE_param"
             # Can requested in bulk request as an option!
@@ -34,8 +34,8 @@ UsageCheckParameter() {
 
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
-        ( [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ] ) &&
-        ( [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'underrated' ] ) &&
+        { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
+        { [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'underrated' ]; } &&
         [ -n "${_stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#_stochasticPercentageParam} -gt 1 ] &&
         [ -n "${_RSIQuoteParam##*[!0-9]*}" ]; then
         echo ""
@@ -66,7 +66,7 @@ UsageCheckParameter() {
 # Output: 1 if lesser
 LesserThenWithFactor() {
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if awk "BEGIN {exit !("$_lesserValue" < "$3")}"; then
+    if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
         return 1
     else
         return 0        
@@ -80,7 +80,7 @@ LesserThenWithFactor() {
 # Example 1.1*100>110 -> return 0
 GreaterThenWithFactor() {
     _greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if awk "BEGIN {exit !("$_greaterValue" > "$3")}"; then
+    if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
         return 1
     else
         return 0
@@ -95,7 +95,8 @@ AverageOfDays() {
     dataFileParam=${2}
     i=1
     while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
-        averagePriceList=$(echo $averagePriceList ",")
+        #averagePriceList=$(echo $averagePriceList ",")
+        averagePriceList="$averagePriceList ,"        
         i=$(( i + 1 ))
     done 
 
