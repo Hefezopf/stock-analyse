@@ -186,12 +186,12 @@ StochasticOfDays() {
     while [ "$i" -le $((100-amountOfDaysParam)) ];
     do
         headLines=$((100-i))
-        head -n$headLines $dataFileParam | tail -"${amountOfDaysParam}" > $stochasticFile
+        head -n$headLines "$dataFileParam" | tail -"${amountOfDaysParam}" > $stochasticFile
         lastStochasticRaw=$(head -n 1 $stochasticFile)
         lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
         highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
 
-        if awk 'BEGIN {exit !('$highestStochasticRaw' > '$lowestStochasticRaw')}'; then
+        if awk 'BEGIN {exit !('"$highestStochasticRaw"' > '"$lowestStochasticRaw"')}'; then
             validStochastic=1
         else 
             validStochastic=0 
@@ -204,11 +204,11 @@ StochasticOfDays() {
         fi
 
         lastStochasticQuoteRounded=$(echo "$lastStochasticQuote" | cut -f 1 -d '.')
-        stochasticQuoteList=$(echo $stochasticQuoteList $lastStochasticQuoteRounded",")
+        stochasticQuoteList="$stochasticQuoteList $lastStochasticQuoteRounded,"
         i=$(( i + 1 ))
     done
     rm -rf $stochasticFile
-    stochasticQuoteList=$stochasticQuoteList
+    #stochasticQuoteList=$stochasticQuoteList
 }
 
 # ProgressBar function:
@@ -217,7 +217,8 @@ StochasticOfDays() {
 ProgressBar() {
     currentStateParam=${1}
     totalStateParam=${2}
-    _progress_=$(echo $((currentStateParam*100/totalStateParam*100)))
+    #_progress_=$(echo $((currentStateParam*100/totalStateParam*100)))
+    _progress_="$((currentStateParam*10000/totalStateParam))"
     _progress=$(echo $(($_progress_/100)))
     _done_=$(echo $((${_progress}*4)))
     _done=$(echo $(($_done_/10)))
