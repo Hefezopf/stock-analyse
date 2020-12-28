@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # CurlSymbolName function:
 # Input is _symbolParam($1), _TICKER_NAMES_FILE_param($2), _sleepParam($3)
