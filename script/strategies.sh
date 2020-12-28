@@ -74,10 +74,13 @@ StrategieUnderratedLowStochastic() {
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
         OLDIFS=$IFS
         IFS="," set -- $_stochasticQuoteList
-        # Cut comma, like: ",22" -> "22"
-        value1=$(echo "$1" | cut -b 2-3)
-        value2=$(echo "$2" | cut -b 2-3)
-        value3=$(echo "$3" | cut -b 2-3)
+        # Cut comma, like: ",22" -> "22"        
+        v1=$(echo "$1")
+		value1=${v1:1:2}
+        v2=$(echo "$2")
+		value2=${v2:1:2}
+        v3=$(echo "$3")
+		value3=${v3:1:2}      
         IFS=$OLDIFS
         howManyUnderLowStochasticValue=0
         # Check string length and low stochastic parameter
