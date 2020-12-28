@@ -159,12 +159,12 @@ RSIOfDays() {
             fi
 
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
-            RSIQuoteList=$(echo $RSIQuoteList $lastRSIQuoteRounded",")            
+            RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
     done
     rm -rf $RSIwinningDaysFile
     rm -rf $RSIloosingDaysFile
-    RSIQuoteList=$RSIQuoteList
+    #RSIQuoteList=$RSIQuoteList
 }
 
 # StochasticOfDays function:
@@ -177,7 +177,7 @@ StochasticOfDays() {
     i=1
     # Fill with blank comma seperated data
     while [ "$i" -lt "${1}" ]; do 
-        stochasticQuoteList=$(echo $stochasticQuoteList ",")
+        stochasticQuoteList="$stochasticQuoteList ,"
         i=$(( i + 1 ))
     done 
 
@@ -185,7 +185,7 @@ StochasticOfDays() {
     # TODO optimize not 100 loop?!
     while [ "$i" -le $((100-amountOfDaysParam)) ];
     do
-        headLines=$(echo $((100-$i)))
+        headLines=$((100-i))
         head -n$headLines $dataFileParam | tail -"${amountOfDaysParam}" > $stochasticFile
         lastStochasticRaw=$(head -n 1 $stochasticFile)
         lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
