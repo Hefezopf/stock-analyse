@@ -66,7 +66,7 @@ UsageCheckParameter() {
 # Output: 1 if lesser
 LesserThenWithFactor() {
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
+    if awk 'BEGIN {exit !('"$_lesserValue"' < '"$3"')}'; then
         return 1
     else
         return 0        
@@ -80,7 +80,7 @@ LesserThenWithFactor() {
 # Example 1.1*100>110 -> return 0
 GreaterThenWithFactor() {
     _greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
+    if awk 'BEGIN {exit !('"$_greaterValue"' > '"$3"')}'; then
         return 1
     else
         return 0
@@ -104,11 +104,11 @@ AverageOfDays() {
     while [ "$i" -le $((100-amountOfDaysParam)) ]; 
     do
         headLines=$((100-i))
-        averagePrice=$(head -n"$headLines" "$dataFileParam" | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
-        averagePriceList=$(echo "$averagePriceList" "$averagePrice"",")
+        averagePrice=$(head -n"$headLines" "$dataFileParam" | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')
+        averagePriceList="$averagePriceList $averagePrice,"
         i=$(( i + 1 ))
     done
-    averagePriceList=$averagePriceList
+    #averagePriceList=$averagePriceList
 }
 
 # RSIOfDays function:
