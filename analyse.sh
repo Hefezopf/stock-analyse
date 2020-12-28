@@ -289,11 +289,7 @@ do
     echo "Rated:<b>$ratedParam</b> " >> $indexSymbolFile
     echo "Stochastic14:<b>$stochasticPercentageParam</b> " >> $indexSymbolFile
     echo "RSI14:<b>$RSIQuoteParam</b><br>" >> $indexSymbolFile
-
-    dateOfFile=$(stat -c %y $DATA_FILE)
-    echo dateOfFile $dateOfFile
-    echo dateOfFile "${dateOfFile:0:10}"
-    echo "Date:<b>"${dateOfFile:0:10} "</b>" >> $indexSymbolFile
+    echo "Date:<b>"$(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>"$average18 "&#8364;</b></span>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>"$average38 "&#8364;</b></span>" >> $indexSymbolFile
