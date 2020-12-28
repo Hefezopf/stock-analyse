@@ -252,7 +252,7 @@ WriteComdirectUrlAndStoreFileList() {
             # Store list of files for later (tar/zip)
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
             _style=$(echo "style=\"color:red\"")
-            _alert=$(echo " ------------>>>>>>>>>>>> ALERT !!!!!!!!!!!!!!!!!!!!!!!!!")
+            _alert=$(echo " ->ALERT!")
         fi
         echo "<a "$_style " href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>"$_symbolName"$_alert</a><br>" >> $_OUT_RESULT_FILE_param
     fi

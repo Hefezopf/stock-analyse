@@ -340,7 +340,7 @@ echo "time elapsed."
 # Cleanup
 rm -rf $commaPriceListFile
 rm -rf $stochasticFile
-rm temp/values*.txt
+rm -rf temp/values*.txt
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
 tar -zcf $OUT_ZIP_FILE $reportedSymbolFileList
 mv $OUT_ZIP_FILE out
