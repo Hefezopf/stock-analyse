@@ -7,17 +7,17 @@ CurlSymbolName() {
     _symbolParam=${1}
     _TICKER_NAMES_FILE_param=${2}
     _sleepParam=${3}
-    symbol=$(echo ${_symbolParam} | tr a-z A-Z)
-    symbolName=$(grep -w "$_symbolParam " $_TICKER_NAMES_FILE_param)
+    symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
+    symbolName=$(grep -w "$_symbolParam " "$_TICKER_NAMES_FILE_param")
     if [ ! "${#symbolName}" -gt 1 ]; then
-        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${_symbolParam}'"}]' | jq '.[0].data[0].name')
+        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
-            echo $symbol $symbolName | tee -a $_TICKER_NAMES_FILE_param
+            echo "$symbol $symbolName" | tee -a "$_TICKER_NAMES_FILE_param"
             # Can requested in bulk request as an option!
-            sleep $_sleepParam # 14; Only some requests per minute to openfigi (About 6 per minute).
+            sleep "$_sleepParam" # 14; Only some requests per minute to openfigi (About 6 per minute).
         fi
     fi        
-    symbolName=$symbolName
+    #symbolName=$symbolName
 }
 
 # UsageCheckParameter function:
@@ -32,31 +32,31 @@ UsageCheckParameter() {
     _RSIQuoteParam=${6}
     OUT_RESULT_FILE_param=${7}
 
-    if  [ ! -z "${_symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
-        [ ! -z "${_percentageParam##*[!0-9]*}" ]  && 
+    if  [ -n "${_symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
+        [ -n "${_percentageParam##*[!0-9]*}" ]  && 
         ( [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ] ) &&
         ( [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'underrated' ] ) &&
-        [ ! -z "${_stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#_stochasticPercentageParam} -gt 1 ] &&
-        [ ! -z "${_RSIQuoteParam##*[!0-9]*}" ]; then
+        [ -n "${_stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#_stochasticPercentageParam} -gt 1 ] &&
+        [ -n "${_RSIQuoteParam##*[!0-9]*}" ]; then
         echo ""
     else
-        echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a $OUT_RESULT_FILE_param
-        echo "<br>" >> $OUT_RESULT_FILE_param
-        echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a $OUT_RESULT_FILE_param
-        echo "<br>" >> $OUT_RESULT_FILE_param
-        echo " PERCENTAGE: Percentage number between 0..100" | tee -a $OUT_RESULT_FILE_param
-        echo "<br>" >> $OUT_RESULT_FILE_param
-        echo " QUERY: Query data online|offline" | tee -a $OUT_RESULT_FILE_param
-        echo "<br>" >> $OUT_RESULT_FILE_param
-        echo " RATED: List only overrated|underrated" | tee -a $OUT_RESULT_FILE_param
-        echo "<br>" >> $OUT_RESULT_FILE_param
-        echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a $OUT_RESULT_FILE_param
-        echo "<br>" >> $OUT_RESULT_FILE_param
-        echo " RSI14: Quote for RSI indicator" | tee -a $OUT_RESULT_FILE_param
-        echo "<br>" >> $OUT_RESULT_FILE_param    
-        echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a $OUT_RESULT_FILE_param
-        echo "<br>" >> $OUT_RESULT_FILE_param
-        echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE_param
+        echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a "$OUT_RESULT_FILE_param"
+        echo "<br>" >> "$OUT_RESULT_FILE_param"
+        echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a "$OUT_RESULT_FILE_param"
+        echo "<br>" >> "$OUT_RESULT_FILE_param"
+        echo " PERCENTAGE: Percentage number between 0..100" | tee -a "$OUT_RESULT_FILE_param"
+        echo "<br>" >> "$OUT_RESULT_FILE_param"
+        echo " QUERY: Query data online|offline" | tee -a "$OUT_RESULT_FILE_param"
+        echo "<br>" >> "$OUT_RESULT_FILE_param"
+        echo " RATED: List only overrated|underrated" | tee -a "$OUT_RESULT_FILE_param"
+        echo "<br>" >> "$OUT_RESULT_FILE_param"
+        echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a "$OUT_RESULT_FILE_param"
+        echo "<br>" >> "$OUT_RESULT_FILE_param"
+        echo " RSI14: Quote for RSI indicator" | tee -a "$OUT_RESULT_FILE_param"
+        echo "<br>" >> "$OUT_RESULT_FILE_param"    
+        echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a "$OUT_RESULT_FILE_param"
+        echo "<br>" >> "$OUT_RESULT_FILE_param"
+        echo "$HTML_RESULT_FILE_END" >> "$OUT_RESULT_FILE_param"
         exit 5
     fi
 }
@@ -66,7 +66,7 @@ UsageCheckParameter() {
 # Output: 1 if lesser
 LesserThenWithFactor() {
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if awk 'BEGIN {exit !('$_lesserValue' < '$3')}'; then
+    if awk "BEGIN {exit !("$_lesserValue" < "$3")}"; then
         return 1
     else
         return 0        
@@ -80,7 +80,7 @@ LesserThenWithFactor() {
 # Example 1.1*100>110 -> return 0
 GreaterThenWithFactor() {
     _greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
-    if awk 'BEGIN {exit !('$_greaterValue' > '$3')}'; then
+    if awk "BEGIN {exit !("$_greaterValue" > "$3")}"; then
         return 1
     else
         return 0
@@ -102,9 +102,9 @@ AverageOfDays() {
     i=0
     while [ "$i" -le $((100-amountOfDaysParam)) ]; 
     do
-        headLines=$(echo $((100-$i)))
-        averagePrice=$(head -n$headLines $dataFileParam | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
-        averagePriceList=$(echo $averagePriceList $averagePrice",")
+        headLines=$((100-i))
+        averagePrice=$(head -n"$headLines" "$dataFileParam" | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
+        averagePriceList=$(echo "$averagePriceList" "$averagePrice"",")
         i=$(( i + 1 ))
     done
     averagePriceList=$averagePriceList
@@ -195,7 +195,6 @@ StochasticOfDays() {
         else 
             validStochastic=0 
         fi
-        #GreaterThenWithFactor 1 $highestStochasticRaw $lowestStochasticRaw; validStochastic=$?
         if [ "$validStochastic" = 1 ]; then
             # Formula=((C – Ln )/( Hn – Ln )) * 100
             lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
@@ -266,12 +265,12 @@ WriteComdirectUrlAndStoreFileList() {
 CreateCmdAnalyseHyperlink() {
     outputText="# Analyse "$symbolName
     if [ $(uname) = 'Linux' ]; then
-        echo $outputText
+        echo "$outputText"
     else
         driveLetter=$(pwd | cut -f 2 -d '/')
         suffix=$(pwd)
         suffixPath=${suffix:2:200}
         verzeichnis=$driveLetter":"$suffixPath
-        echo -e "\e]8;;file:///"$verzeichnis"/out/"$symbol".html\a$outputText\e]8;;\a"
+        echo -e "\e]8;;file:///""$verzeichnis""/out/""$symbol"".html\a$outputText\e]8;;\a"
     fi
 }
