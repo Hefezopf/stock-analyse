@@ -6,6 +6,12 @@
 # Import functions
 . ./script/functions.sh
 
+@test "WriteComdirectUrlAndStoreFileList" {
+  rm -rf temp/_result.html
+  WriteComdirectUrlAndStoreFileList "temp/_result.html" BEI "Beiersdorf AG" true
+  [ "$reportedSymbolFileList" == 'out/BEI.html' ]
+}
+
 @test "StochasticOfDays" {
   StochasticOfDays 14 test/BEI.txt
   [ "$stochasticQuoteList" == ' , , , , , , , , , , , , , 0, 4, 6, 25, 52, 88, 100, 76, 82, 100, 100, 100, 51, 66, 47, 87, 67, 54, 64, 45, 44, 0, 0, 11, 24, 0, 0, 47, 65, 76, 82, 79, 78, 87, 80, 91, 100, 100, 100, 100, 66, 100, 93, 100, 58, 47, 65, 77, 79, 0, 0, 0, 6, 13, 34, 33, 30, 83, 93, 100, 100, 100, 100, 87, 66, 59, 56, 27, 4, 22, 12, 16, 1, 0, 0, 0, 7, 0, 7, 3, 0, 5, 27, 24, 97, 69, 56,' ]
@@ -96,12 +102,6 @@
 
   run UsageCheckParameter 'ADS' 1 offline underrated 9 xxx "temp/_result.html"
   [ "$status" -eq 5 ]
-}
-
-@test "WriteComdirectUrlAndStoreFileList" {
-  rm -rf temp/_result.html
-  WriteComdirectUrlAndStoreFileList "temp/_result.html" BEI "Beiersdorf AG" true
-  [ "$reportedSymbolFileList" == 'out/BEI.html' ]
 }
 
 @test "LesserThenWithFactor" {
