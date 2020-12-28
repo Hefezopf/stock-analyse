@@ -2,7 +2,7 @@
 
 # StrategieOverratedByPercentAndStochastic function:
 # Strategie: Overrated by Percent and Stochastic
-# Input: ratedParam($1)lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), lastStochasticQuoteRounded($15), stochasticPercentageUpper($16), OUT_RESULT_FILE_param($17), symbolParam($18)
+# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), lastStochasticQuoteRounded($15), stochasticPercentageUpper($16), OUT_RESULT_FILE_param($17), symbolParam($18), _symbolNameParam($19)
 # Output: resultStrategieOverratedByPercentAndStochastic
 StrategieOverratedByPercentAndStochastic() {
     _ratedParam=${1}
@@ -23,28 +23,48 @@ StrategieOverratedByPercentAndStochastic() {
     _stochasticPercentageUpper=${16}
     _OUT_RESULT_FILE_param=${17}
     _symbolParam=${18}
+    _symbolNameParam=${19}
     if [ "$_ratedParam" = 'overrated' ]; then
         if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
             [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
             resultStrategieOverratedByPercentAndStochastic="- Overrated by percent and stochastic: $_last EUR is $_percentageLesserFactor over Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoc14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
-            echo $resultStrategieOverratedByPercentAndStochastic
-            WriteComdirectUrlAndStoreFileList $_OUT_RESULT_FILE_param $_symbolParam "$symbolName" true
+            echo "$resultStrategieOverratedByPercentAndStochastic"
+            WriteComdirectUrlAndStoreFileList $_OUT_RESULT_FILE_param "$_symbolParam" "$_symbolNameParam" true
         fi
     fi
-    resultStrategieOverratedByPercentAndStochastic=$resultStrategieOverratedByPercentAndStochastic
+    #resultStrategieOverratedByPercentAndStochastic=$resultStrategieOverratedByPercentAndStochastic
 }
 
 # StrategieUnderratedByPercentAndStochastic function:
 # Strategie: Underrated by Percent and Stochastic
-# Input -
+# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageLower($3), lastUnderAgv18($4), lastUnderAgv38($5), lastUnderAgv100($6), agv18UnderAgv38($7), agv38UnderAgv100($8), agv18UnderAgv100($9), last($10), percentageGreaterFactor($11), average18($12), average38($13), average100($14), lastStochasticQuoteRounded($15), stochasticPercentageLower($16), OUT_RESULT_FILE_param($17), symbolParam($18), _symbolNameParam($19)
 # Output: resultStrategieUnderratedByPercentAndStochastic
-StrategieUnderratedByPercentAndStochastic() {    
-    if [ "$ratedParam" = 'underrated' ]; then
-        if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ] && [ "$lastUnderAgv18" = 1 ] && [ "$lastUnderAgv38" = 1 ] && [ "$lastUnderAgv100" = 1 ] && 
-            [ "$agv18UnderAgv38" = 1 ] && [ "$agv38UnderAgv100" = 1 ] && [ "$agv18UnderAgv100" = 1 ]; then
-            resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: $last EUR is $percentageGreaterFactor under Avg18 $average18 EUR and Avg38 $average38 EUR and Avg100 $average100 EUR and Stoch14 $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
+StrategieUnderratedByPercentAndStochastic() { 
+    _ratedParam=${1}
+    _lastStochasticQuoteRounded=${2}
+    _stochasticPercentageLower=${3}
+    _lastUnderAgv18=${4}
+    _lastUnderAgv38=${5}
+    _lastUnderAgv100=${6}
+    _agv18UnderAgv38=${7}
+    _agv38UnderAgv100=${8}
+    _agv18UnderAgv100=${9}
+    _last=${10}
+    _percentageGreaterFactor=${11}
+    _average18=${12}
+    _average38=${13}
+    _average100=${14}
+    _lastStochasticQuoteRounded=${15}
+    _stochasticPercentageLower=${16}
+    _OUT_RESULT_FILE_param=${17}
+    _symbolParam=${18}
+    _symbolNameParam=${19}       
+    if [ "$_ratedParam" = 'underrated' ]; then
+        if [ "$_lastStochasticQuoteRounded" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
+            [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
+            resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: $_last EUR is $_percentageGreaterFactor under Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
             echo $resultStrategieUnderratedByPercentAndStochastic
-            WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol "$symbolName" true
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
         fi
     fi
 }
@@ -58,7 +78,7 @@ StrategieUnderratedVeryLastStochasticIsLowerThen() {
         if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
             resultStrategieUnderratedVeryLastStochasticIsLowerThen="+ Very last stochastic: last stochastic quote $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
             echo $resultStrategieUnderratedVeryLastStochasticIsLowerThen
-            WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol "$symbolName" true
+            WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true
         fi
     fi
 }
