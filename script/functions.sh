@@ -125,17 +125,17 @@ RSIOfDays() {
     while [ "$i" -le 100 ];
     do
         i=$(( i + 1 ))
-        diffLast2Prices=$(head -n$i $dataFileParam | tail -2 | awk 'p{print p-$0}{p=$0}' )
+        diffLast2Prices=$(head -n$i "$dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
         isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
-        if [ ! ${isNegativ} = '-' ]; then
-            echo $diffLast2Prices >> $RSIwinningDaysFile
+        if [ ! "${isNegativ}" = '-' ]; then
+            echo "$diffLast2Prices" >> $RSIwinningDaysFile
         else
             echo 0 >> $RSIwinningDaysFile
         fi
 
-        if [ ${isNegativ} = '-' ]; then
+        if [ "${isNegativ}" = '-' ]; then
             withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
-            echo $withoutMinusSign >> $RSIloosingDaysFile
+            echo "$withoutMinusSign" >> $RSIloosingDaysFile
         else
             echo 0 >> $RSIloosingDaysFile
         fi
@@ -147,10 +147,10 @@ RSIOfDays() {
         i=$(( i + 1 ))
         # Fill with blank comma seperated data  
         if [ $i -lt $(( amountOfDaysParam + 1 )) ]; then # <14
-            RSIQuoteList=$(echo $RSIQuoteList ",")
+            RSIQuoteList="$RSIQuoteList ,"
         else # >14
-            RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }')
-            RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'${amountOfDaysParam}'; }') 
+            RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')
+            RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }') 
             if [ "${RSIloosingDaysAvg}" = 0 ]; then
                 RSIQuote=100
             else
