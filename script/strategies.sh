@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # StrategieOverratedByPercentAndStochastic function:
 # Strategie: Overrated by Percent and Stochastic

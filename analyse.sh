@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC RSI
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS ALV BAS ...'
@@ -291,9 +292,8 @@ do
 
     dateOfFile=$(stat -c %y $DATA_FILE)
     echo dateOfFile $dateOfFile
-    echo dateOfFile ${dateOfFile:1:9}
-    echo dateOfFile ${dateOfFile:1:10}
-    echo "Date:<b>"${dateOfFile:0:9} "</b>" >> $indexSymbolFile
+    echo dateOfFile ${dateOfFile:0:10}
+    echo "Date:<b>"${dateOfFile:0:10} "</b>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>"$average18 "&#8364;</b></span>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>"$average38 "&#8364;</b></span>" >> $indexSymbolFile
