@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Call: ./curl_figi.sh SYMBOL
 # Call example: ./script/curl_figi.sh IBM
 set -x

@@ -1,3 +1,4 @@
 #!/bin/bash
+
 #./analyse.sh 'BMW EOAN' 1 offline underrated 9 30
 ./analyse.sh 'ADS ALV BAS BAYN BMW BEI CBK 1COV DAI DBK DB1 LHA DPW DTE EOAN FME FRE HEI HEN IFX SDF LIN MRK MUV2 RWE SAP SIE TKA VOW VNA MTX DWNI DHER' $1 $2 $3 $4 $5
