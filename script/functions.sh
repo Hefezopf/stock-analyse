@@ -217,18 +217,17 @@ StochasticOfDays() {
 ProgressBar() {
     currentStateParam=${1}
     totalStateParam=${2}
-    #_progress_=$(echo $((currentStateParam*100/totalStateParam*100)))
     _progress_="$((currentStateParam*10000/totalStateParam))"
-    _progress=$(echo $(($_progress_/100)))
-    _done_=$(echo $((${_progress}*4)))
-    _done=$(echo $(($_done_/10)))
-    _left=$(echo $((40-$_done)))
+    _progress=$((_progress_/100))
+    _done_=$((_progress*4))
+    _done=$((_done_/10))
+    _left=$((40-_done))
     # Build progressbar string lengths
     _fill=$(printf "%${_done}s")
     _empty=$(printf "%${_left}s")                         
     # Progress: ######################################## 100%
-    if [ ! $(uname) = 'Linux' ]; then
-        echo -n $(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")
+    if [ ! "$(uname)" = 'Linux' ]; then
+        echo -n "$(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")"
     fi
 }
 
@@ -249,17 +248,17 @@ WriteComdirectUrlAndStoreFileList() {
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
-        _style=$(echo "style=\"color:black\"")
+        _style="style=\"color:black\""
         _alert=""
-        if [ $_alertParam = true ]; then
+        if [ "$_alertParam" = true ]; then
+            _style="style=\"color:red\""
+            _alert=" ->ALERT!"
             # Store list of files for later (tar/zip)
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
-            _style=$(echo "style=\"color:red\"")
-            _alert=$(echo " ->ALERT!")
         fi
-        echo "<a "$_style " href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>"$_symbolName"$_alert</a><br>" >> $_OUT_RESULT_FILE_param
+        echo "<a $_style href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$_symbolName$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
     fi
-    reportedSymbolFileList=$reportedSymbolFileList
+    #reportedSymbolFileList=$reportedSymbolFileList
 }
 
 # CreateCmdAnalyseHyperlink function:
