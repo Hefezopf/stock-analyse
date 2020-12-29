@@ -92,6 +92,7 @@ StrategieUnderratedLowStochastic() {
         # Revers and output the last x numbers. Attention only works for single digst numbers!
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
         OLDIFS=$IFS
+        # Warning do NOT quote this!! "$_stochasticQuoteList"
         IFS="," set -- $_stochasticQuoteList
         # Cut comma, like: ",22" -> "22"        
         # v1=$(echo "$1")
