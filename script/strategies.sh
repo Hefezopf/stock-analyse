@@ -109,13 +109,13 @@ StrategieUnderratedLowStochastic() {
         howManyUnderLowStochasticValue=0
         # Check string length and low stochastic parameter
         if [ ! "${#value1}" -gt 1 ] && [ "$value1" -lt "$_lowStochasticValue" ]; then
-            howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+            howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
         fi
         if [ ! "${#value2}" -gt 1 ] && [ "$value2" -lt "$_lowStochasticValue" ]; then
-            howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+            howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
         fi
         if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValue" ]; then
-            howManyUnderLowStochasticValue=$(($howManyUnderLowStochasticValue + 1))
+            howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
         fi
         resultStrategieUnderratedLowStochastic=""
         # All 3 last values under _lowStochasticValue?
