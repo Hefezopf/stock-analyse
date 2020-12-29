@@ -13,7 +13,6 @@ TICKER_NAMES_FILE="test/_ticker_names.txt"
 SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF AG"
 
-
 @test "CurlSymbolName" {
   rm -rf "$TICKER_NAMES_FILE"
 
@@ -59,12 +58,12 @@ SYMBOL_NAME="BEIERSDORF AG"
   export -f curl 
 
   function jq() {
-    echo "\"Adidas\""
+    echo "\"BEIERSDORF AG\""
   }
   export -f jq   
 
-  CurlSymbolName ADS "$TICKER_NAMES_FILE" 0
-  [ "$symbolName" == '"Adidas"' ]      
+  CurlSymbolName "$SYMBOL" "$TICKER_NAMES_FILE" 0
+  [ "$symbolName" == '"BEIERSDORF AG"' ]      
 }
 
 @test "WriteComdirectUrlAndStoreFileList" {
