@@ -227,7 +227,7 @@ do
 
         # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowStochasticLowRSI=""
-        StrategieUnderratedLowStochasticLowRSI "$stochasticPercentageParam" "$RSIQuoteParam"
+        StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
         # -Strategie: The very last stochastic is lower then stochasticPercentageLower
         #resultStrategieUnderratedVeryLastStochasticIsLowerThen=""

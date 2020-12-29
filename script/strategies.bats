@@ -6,6 +6,28 @@
 # Import functions
 . ./script/strategies.sh
 
+@test "StrategieUnderratedLowStochasticLowRSI" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieUnderratedLowStochasticLowRSI 
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSI underrated 9 90 10 5 "temp/_result.html" GIS "GIS Gilead Sciences"
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSI underrated 9 90 0 91 "temp/_result.html" GIS "GIS Gilead Sciences"
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSI underrated 9 90 10 91 "temp/_result.html" GIS "GIS Gilead Sciences"
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSI underrated 9 90 0 5 "temp/_result.html" GIS "GIS Gilead Sciences"
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '+ Low Stoch & Low RSI: last Stoch quote 0 under 9 and last RSI quote 5 under 90' ]
+}
+
 @test "StrategieUnderratedLowRSI" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
