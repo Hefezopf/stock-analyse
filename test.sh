@@ -11,7 +11,7 @@
 # libexec, bin share und lib
 # bats -version
 
-
+echo shellcheck ...
 cat script/functions.sh | tr -d '\r' > script/functions1.sh
 rm script/functions.sh
 mv script/functions1.sh script/functions.sh
@@ -29,5 +29,6 @@ shellcheck --shell=bash script/strategies.sh
 shellcheck --shell=bash analyse.sh
 
 # /C/Users/xcg4444/bin/bats --tap script/*.bats
+echo bats ...
 bats --tap script/strategies.bats
 bats --tap script/functions.bats
