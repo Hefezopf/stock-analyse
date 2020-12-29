@@ -43,7 +43,7 @@ TICKER_NAMES_FILE=data/_ticker_names.txt
 # Email header
 HTML_RESULT_FILE_HEADER=$(echo "<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>")
 echo $HTML_RESULT_FILE_HEADER > $OUT_RESULT_FILE
-HTML_RESULT_FILE_END=$(echo "</p><p>Thanks</p></div></body></html>" )
+HTML_RESULT_FILE_END=$(echo "</p><p>Good Luck!</p></div></body></html>" )
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
 
