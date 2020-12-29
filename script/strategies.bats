@@ -6,7 +6,7 @@
 # Import functions
 . ./script/strategies.sh
 
-@test "StrategieUnderratedByPercentAndStochastic" {
+@test "StrategieUnderratedByPercentAndStoch" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
   }
@@ -22,7 +22,7 @@
   [ "$resultStrategieUnderratedByPercentAndStochastic" == '+ Underrated by percent and stochastic: 46.95 EUR is 0.99 under Avg18 49.34 EUR and Avg38 50.08 EUR and Avg100 52.87 EUR and Stoch14 0 is lower then 9' ]  
 }
 
-@test "StrategieOverratedByPercentAndStochastic" {
+@test "StrategieOverratedByPercentAndStoch" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
   }
