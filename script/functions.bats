@@ -18,7 +18,7 @@ SYMBOL_NAME="BEIERSDORF AG"
   rm -rf "$TICKER_NAMES_FILE"
 
   function grep() {
-    echo "$SYMBOL_NAME"
+    echo "BEI \"BEIERSDORF AG\""
   }
   export -f grep  
 
