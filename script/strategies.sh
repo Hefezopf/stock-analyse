@@ -71,15 +71,15 @@ StrategieUnderratedByPercentAndStochastic() {
 # Strategie: The very last stochastic is lower then stochasticPercentageLower
 # Input is lastStochasticQuoteRounded($1), stochasticPercentageLower($2)
 # Output: resultStrategieUnderratedVeryLastStochasticIsLowerThen
-StrategieUnderratedVeryLastStochasticIsLowerThen() {
-    if [ "$ratedParam" = 'underrated' ]; then    
-        if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
-            resultStrategieUnderratedVeryLastStochasticIsLowerThen="+ Very last stochastic: last stochastic quote $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
-            echo "$resultStrategieUnderratedVeryLastStochasticIsLowerThen"
-            WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true
-        fi
-    fi
-}
+# StrategieUnderratedVeryLastStochasticIsLowerThen() {
+#     if [ "$ratedParam" = 'underrated' ]; then    
+#         if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
+#             resultStrategieUnderratedVeryLastStochasticIsLowerThen="+ Very last stochastic: last stochastic quote $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
+#             echo "$resultStrategieUnderratedVeryLastStochasticIsLowerThen"
+#             WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true
+#         fi
+#     fi
+# }
 
 # StrategieUnderratedLowStochastic function:
 # Strategie: Low stochastic 3 last values under lowStochasticValue
