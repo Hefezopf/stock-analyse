@@ -222,8 +222,7 @@ ProgressBar() {
     _empty=$(printf "%${_left}s")                         
     # Progress: ######################################## 100%
     if [ ! "$(uname)" = 'Linux' ]; then
-        # shellcheck disable=SC3037
-        # shellcheck disable=SC3060
+        # shellcheck disable=SC3037,SC3060
         echo -n "$(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")"
     fi
 }
