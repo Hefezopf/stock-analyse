@@ -11,6 +11,23 @@
 # libexec, bin share und lib
 # bats -version
 
+
+cat script/functions.sh | tr -d '\r' > script/functions1.sh
+rm script/functions.sh
+mv script/functions1.sh script/functions.sh
+
+cat script/strategies.sh | tr -d '\r' > script/strategies1.sh
+rm script/strategies.sh
+mv script/strategies1.sh script/strategies.sh
+
+cat analyse.sh | tr -d '\r' > analyse1.sh
+rm analyse.sh
+mv analyse1.sh analyse.sh
+
+shellcheck --shell=bash script/functions.sh
+shellcheck --shell=bash script/strategies.sh
+shellcheck --shell=bash analyse.sh
+
 # /C/Users/xcg4444/bin/bats --tap script/*.bats
 bats --tap script/strategies.bats
 bats --tap script/functions.bats

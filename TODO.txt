@@ -6,8 +6,6 @@ TODO:
 git config --global http.sslVerify false
 
 
--local and github execution shellcheck function.sh
-    https://github.com/koalaman/shellcheck   
 -Cache Dateien für jedes symbol anlegen!! Performence!
 -local vor lokale variablen schreiben. ACHTUNG FEHLER in Linux!!!
 -Wann wird Kurs von XETRA aktuallisiert? Um 00:02 war der Kurs noch alt! um 1 Uhr Nachts neu
@@ -44,6 +42,14 @@ sort -k 1 data/_ticker_names.txt > data/_ticker_names_sorted.txt
 
 
 https://www.shellcheck.net
+install with choco
+Powershell as admin 
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+shellcheck functions.sh
+cat functions.sh | tr -d '\r' > functions1.sh
+shellcheck --exclude=SC2039 script/functions.sh
+shellcheck --shell=bash script/functions.sh
+./test.sh
 
 
 REST Api
