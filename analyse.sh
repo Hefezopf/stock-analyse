@@ -113,7 +113,7 @@ do
 
     CreateCmdAnalyseHyperlink
 
-    ProgressBar 1 8
+     ProgressBar 1 8
 
     DATA_FILE=data/${symbol}.txt
     lastRaw=$(head -n1 -q "$DATA_FILE")
@@ -135,39 +135,39 @@ do
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average18"; lastOverAgv18=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average18"; lastUnderAgv18=$?
 
-    head -n38 $DATA_FILE > temp/values38.txt
+    head -n38 "$DATA_FILE" > temp/values38.txt
     average38Raw=$(awk '{ sum += $1; } END { print sum/38; }' < temp/values38.txt)
-    average38=$(printf "%.2f" $average38Raw)
-    GreaterThenWithFactor $percentageGreaterFactor $last $average38; lastOverAgv38=$?
-    LesserThenWithFactor $percentageLesserFactor $last $average38;lastUnderAgv38=$?
+    average38=$(printf "%.2f" "$average38Raw")
+    GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average38"; lastOverAgv38=$?
+    LesserThenWithFactor "$percentageLesserFactor" "$last" "$average38";lastUnderAgv38=$?
     
-    head -n100 $DATA_FILE > temp/values100.txt
+    head -n100 "$DATA_FILE" > temp/values100.txt
     average100Raw=$(awk '{ sum += $1; } END { print sum/100; }' < temp/values100.txt)
-    average100=$(printf "%.2f" $average100Raw)
-    GreaterThenWithFactor $percentageGreaterFactor $last $average100; lastOverAgv100=$?
-    LesserThenWithFactor $percentageLesserFactor $last $average100; lastUnderAgv100=$?
+    average100=$(printf "%.2f" "$average100Raw")
+    GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average100"; lastOverAgv100=$?
+    LesserThenWithFactor "$percentageLesserFactor" "$last" "$average100"; lastUnderAgv100=$?
 
     # Averages
-    GreaterThenWithFactor $percentageGreaterFactor $average18 $average38; agv18OverAgv38=$?
-    LesserThenWithFactor $percentageLesserFactor $average18 $average38; agv18UnderAgv38=$?
-    GreaterThenWithFactor $percentageGreaterFactor $average38 $average100; agv38OverAgv100=$?
-    LesserThenWithFactor $percentageLesserFactor $average38 $average100; agv38UnderAgv100=$?
-    GreaterThenWithFactor $percentageGreaterFactor $average18 $average100; agv18OverAgv100=$?
-    LesserThenWithFactor $percentageLesserFactor $average18 $average100; agv18UnderAgv100=$?
+    GreaterThenWithFactor "$percentageGreaterFactor" "$average18" "$average38"; agv18OverAgv38=$?
+    LesserThenWithFactor "$percentageLesserFactor" "$average18" "$average38"; agv18UnderAgv38=$?
+    GreaterThenWithFactor "$percentageGreaterFactor" "$average38" "$average100"; agv38OverAgv100=$?
+    LesserThenWithFactor "$percentageLesserFactor" "$average38" "$average100"; agv38UnderAgv100=$?
+    GreaterThenWithFactor "$percentageGreaterFactor" "$average18" "$average100"; agv18OverAgv100=$?
+    LesserThenWithFactor "$percentageLesserFactor" "$average18" "$average100"; agv18UnderAgv100=$?
  
     ProgressBar 3 8
 
     # Calculate RSI 14 values
     RSIInDays14=14
     RSIQuoteList=""
-    RSIOfDays $RSIInDays14 $DATA_FILE
+    RSIOfDays $RSIInDays14 "$DATA_FILE"
 
     ProgressBar 4 8
 
     # Calculate Stochastic 14 values
     stochasticInDays14=14
     stochasticQuoteList=""
-    StochasticOfDays $stochasticInDays14 $DATA_FILE
+    StochasticOfDays $stochasticInDays14 "$DATA_FILE"
 
     ProgressBar 5 8
 
@@ -178,7 +178,7 @@ do
     # Average 18
     averageInDays18=18
     averagePriceList=""
-    AverageOfDays $averageInDays18 $DATA_FILE
+    AverageOfDays $averageInDays18 "$DATA_FILE"
     averagePriceList18=$averagePriceList
 
     ProgressBar 6 8
@@ -186,7 +186,7 @@ do
     # Average 38
     averageInDays38=38
     averagePriceList=""
-    AverageOfDays $averageInDays38 $DATA_FILE
+    AverageOfDays $averageInDays38 "$DATA_FILE"
     averagePriceList38=$averagePriceList
 
     ProgressBar 7 8
@@ -194,12 +194,12 @@ do
     # Average 100
     averageInDays100=100
     averagePriceList=""
-    AverageOfDays $averageInDays100 $DATA_FILE
+    AverageOfDays $averageInDays100 "$DATA_FILE"
     averagePriceList100=$averagePriceList
 
     ProgressBar 8 8
 
-    if [ ! $(uname) = 'Linux' ]; then
+    if [ ! "$(uname)" = 'Linux' ]; then
         echo ""
     fi
     
@@ -213,7 +213,7 @@ do
 
         # -Strategie: UnderratedByPercentAndStochastic
         resultStrategieUnderratedByPercentAndStochastic=""
-        StrategieUnderratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageLower $lastUnderAgv18 $lastUnderAgv38 $lastUnderAgv100 $agv18UnderAgv38 $agv38UnderAgv100 $agv18UnderAgv100 $last $percentageGreaterFactor $average18 $average38 $average100 $lastStochasticQuoteRounded $stochasticPercentageLower $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieUnderratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageLower $lastUnderAgv18 $lastUnderAgv38 $lastUnderAgv100 $agv18UnderAgv38 $agv38UnderAgv100 $agv18UnderAgv100 $last $percentageGreaterFactor $average18 $average38 $average100 $stochasticPercentageLower $OUT_RESULT_FILE "$symbol" "$symbolName"
     
         # -Strategie: Low stochastic 3 last values under lowStochasticValue
         resultStrategieUnderratedLowStochastic=""
@@ -233,7 +233,7 @@ do
 
         # +Strategie: OverratedByPercentAndStochastic
         resultStrategieOverratedByPercentAndStochastic=""
-        StrategieOverratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageUpper $lastOverAgv18 $lastOverAgv38 $lastOverAgv100 $agv18OverAgv38 $agv38OverAgv100 $agv18OverAgv100 $last $percentageLesserFactor $average18 $average38 $average100 $lastStochasticQuoteRounded $stochasticPercentageUpper $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieOverratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageUpper $lastOverAgv18 $lastOverAgv38 $lastOverAgv100 $agv18OverAgv38 $agv38OverAgv100 $agv18OverAgv100 $last $percentageLesserFactor $average18 $average38 $average100 $stochasticPercentageUpper $OUT_RESULT_FILE "$symbol" "$symbolName"
     else
         echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
