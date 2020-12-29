@@ -12,6 +12,7 @@
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
 #
 # Set MARKET_STACK_ACCESS_KEY and MARKET_STACK_ACCESS_KEY2 as Env Variable
+# shellcheck disable=SC1091 
 
 # Import functions
 . ./script/functions.sh
@@ -41,22 +42,23 @@ rm -rf $OUT_RESULT_FILE
 reportedSymbolFileList=""
 TICKER_NAMES_FILE=data/_ticker_names.txt
 # Email header
-HTML_RESULT_FILE_HEADER=$(echo "<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>")
-echo $HTML_RESULT_FILE_HEADER > $OUT_RESULT_FILE
-HTML_RESULT_FILE_END=$(echo "</p><p>Good Luck!</p></div></body></html>" )
+HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>"
+#HTML_RESULT_FILE_HEADER=$(echo "<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>")
+echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
+HTML_RESULT_FILE_END="</p><p>Good Luck!</p></div></body></html>"
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple symbols in cmd
-echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo $symbolsParam | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Multiple symbols in parameter list!!!!!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE #&& exit 4
+echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo "$symbolsParam" | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Multiple symbols in parameter list!!!!!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE #&& exit 4
 
 # Usage: Check parameter
-UsageCheckParameter "$symbolsParam" $percentageParam $queryParam $ratedParam $stochasticPercentageParam $RSIQuoteParam $OUT_RESULT_FILE
+UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
 
 if [ -z "$MARKET_STACK_ACCESS_KEY" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ]; then
     echo "Error: MARKET_STACK_ACCESS_KEY or MARKET_STACK_ACCESS_KEY2 not set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
-    echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
+    echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
     exit 6
 fi
 
@@ -78,34 +80,32 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "<br><br># Workflow Result<br>" >> $OUT_RESULT_FILE
-echo "<a href="https://github.com/Hefezopf/stock-analyse/actions" target=_blank>Github Action</a><br><br>" >> $OUT_RESULT_FILE
-echo "# Comdirect Link<br>" >> $OUT_RESULT_FILE
+echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=_blank>Github Action</a><br><br># Comdirect Link<br>" >> $OUT_RESULT_FILE
 
 # Analyse data for each symbol
 for symbol in $symbolsParam
 do
     # Curl symbol name
-    CurlSymbolName $symbol $TICKER_NAMES_FILE 14
+    CurlSymbolName "$symbol" $TICKER_NAMES_FILE 14
 
     # Get stock data
     echo ""
     echo "# Get $symbolName"
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-        evenodd=$(( $tag  % 2 ))
+        evenodd=$((tag % 2))
         if [ "$evenodd" -eq 0 ]; then
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY}
         else
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
         fi
         DATA_FILE=data/${symbol}.txt
-        curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq '.data[].close' > $DATA_FILE
-        fileSize=$(stat -c %s $DATA_FILE)
+        curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq '.data[].close' > "$DATA_FILE"
+        fileSize=$(stat -c %s "$DATA_FILE")
         if [ "${fileSize}" -eq "0" ]; then
             echo "!Symbol NOT found online on marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
             echo "<br>" >> $OUT_RESULT_FILE
-            rm -rf $DATA_FILE
+            rm -rf "$DATA_FILE"
         fi
     fi
 
@@ -116,8 +116,8 @@ do
     ProgressBar 1 8
 
     DATA_FILE=data/${symbol}.txt
-    lastRaw=$(head -n1 -q $DATA_FILE)
-    last=$(printf "%.2f" $lastRaw)
+    lastRaw=$(head -n1 -q "$DATA_FILE")
+    last=$(printf "%.2f" "$lastRaw")
     # Check for unknown or not fetched symbol in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
         echo "!Symbol $symbol NOT found offline in data/$symbol.txt: Try to query 'online'!" | tee -a $OUT_RESULT_FILE
@@ -126,9 +126,9 @@ do
         continue
     fi
 
-    head -n18 $DATA_FILE > temp/values18.txt
+    head -n18 "$DATA_FILE" > temp/values18.txt
     average18Raw=$(cat temp/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
-    average18=$(printf "%.2f" $average18Raw)
+    average18=$(printf "%.2f" "$average18Raw")
 
     ProgressBar 2 8
 
