@@ -218,8 +218,8 @@ do
         StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName"
     
         # -Strategie: Low stochastic 3 last values under lowStochasticValue
-        resultStrategieUnderratedLowStochastic=""
-        StrategieUnderratedLowStochastic "$stochasticPercentageParam" "$stochasticQuoteList"
+        resultStrategieUnderrated3LowStochastic=""
+        StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageParam" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
         # -Strategie: Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowRSI=""
@@ -305,7 +305,7 @@ do
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" 
         # -
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" 
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedLowStochastic" "</b></p>" 
+        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowRSI" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
         #echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" 

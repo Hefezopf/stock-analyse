@@ -6,6 +6,22 @@
 # Import functions
 . ./script/strategies.sh
 
+@test "StrategieUnderrated3LowStochastic" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieUnderrated3LowStochastic 
+  [ "$resultStrategieUnderrated3LowStochastic" == '' ]
+
+  StrategieUnderrated3LowStochastic underrated 9 " , 8, 17, 8," "temp/_result.html" GIS "GIS Gilead Sciences"
+  [ "$resultStrategieUnderrated3LowStochastic" == '' ]
+
+  StrategieUnderrated3LowStochastic underrated 9 " , 0, 0, 0," "temp/_result.html" GIS "GIS Gilead Sciences"
+  [ "$resultStrategieUnderrated3LowStochastic" == '+ Low stochastic: 3 last stochastic quotes are under 9' ]
+}
+
 @test "StrategieUnderratedLowStochasticLowRSI" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""

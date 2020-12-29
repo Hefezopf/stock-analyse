@@ -31,7 +31,6 @@ StrategieOverratedByPercentAndStochastic() {
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
         fi
     fi
-    #resultStrategieOverratedByPercentAndStochastic=$resultStrategieOverratedByPercentAndStochastic
 }
 
 # StrategieUnderratedByPercentAndStochastic function:
@@ -81,14 +80,18 @@ StrategieUnderratedByPercentAndStochastic() {
 #     fi
 # }
 
-# StrategieUnderratedLowStochastic function:
+# StrategieUnderrated3LowStochastic function:
 # Strategie: Low stochastic 3 last values under lowStochasticValue
-# Input is lowStochasticValue($1), stochasticQuoteList($2)
-# Output: resultStrategieUnderratedLowStochastic
-StrategieUnderratedLowStochastic() {    
-    if [ "$ratedParam" = 'underrated' ]; then    
-        _lowStochasticValue=${1}
-        _stochasticQuoteList=${2}
+# Input is _ratedParam($1), lowStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6)
+# Output: resultStrategieUnderrated3LowStochastic
+StrategieUnderrated3LowStochastic() { 
+    _ratedParam=${1}   
+    _lowStochasticValue=${2}
+    _stochasticQuoteList=${3} 
+    _OUT_RESULT_FILE_param=${4}
+    _symbolParam=${5}
+    _symbolNameParam=${6}     
+    if [ "$_ratedParam" = 'underrated' ]; then
         # Revers and output the last x numbers. Attention only works for single digst numbers!
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
         OLDIFS=$IFS
@@ -119,12 +122,12 @@ StrategieUnderratedLowStochastic() {
         if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValue" ]; then
             howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
         fi
-        resultStrategieUnderratedLowStochastic=""
+        resultStrategieUnderrated3LowStochastic=""
         # All 3 last values under _lowStochasticValue?
         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-            resultStrategieUnderratedLowStochastic="+ Low stochastic: 3 last stochastic quotes are under $_lowStochasticValue"
-            echo "$resultStrategieUnderratedLowStochastic"
-            WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true
+            resultStrategieUnderrated3LowStochastic="+ Low stochastic: 3 last stochastic quotes are under $_lowStochasticValue"
+            echo "$resultStrategieUnderrated3LowStochastic"
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
         fi
     fi
 }
