@@ -87,8 +87,8 @@ StrategieUnderratedVeryLastStochasticIsLowerThen() {
 # Output: resultStrategieUnderratedLowStochastic
 StrategieUnderratedLowStochastic() {    
     if [ "$ratedParam" = 'underrated' ]; then    
-        _lowStochasticValue="$1"
-        _stochasticQuoteList="$2"
+        _lowStochasticValue=${1}
+        _stochasticQuoteList=${2}
         # Revers and output the last x numbers. Attention only works for single digst numbers!
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
         OLDIFS=$IFS
@@ -155,18 +155,24 @@ StrategieUnderratedLowRSI() {
 
 # StrategieUnderratedLowStochasticLowRSI function:
 # Strategie: Low Stochastic and Low RSI last quote under lowRSIValue
-# Input is lowStochasticValue($1), lowRSIQuoteParam($2)
+# Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _OUT_RESULT_FILE_param($6), _symbolParam($7), _symbolNameParam($8)
 # Output: resultStrategieLowStochasticUnderratedLowRSI
 StrategieUnderratedLowStochasticLowRSI() {    
-    _lowStochasticValue="$1"
-    _lowRSIQuoteParam="$2"
-    if [ "$ratedParam" = 'underrated' ]; then    
+    _ratedParam=${1}
+    _lowStochasticValue=${2}
+    _lowRSIQuoteParam=${3}
+    _lastStochasticQuoteRounded=${4}
+    _lastRSIQuoteRounded=${5}
+     _OUT_RESULT_FILE_param=${6}
+     _symbolParam=${7}
+     _symbolNameParam=${8}  
+    if [ "$_ratedParam" = 'underrated' ]; then    
         resultStrategieUnderratedLowStochasticLowRSI=""
         # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue
-        if [ "$lastRSIQuoteRounded" -lt "$_lowStochasticValue" ] && [ "$lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ]; then
-            resultStrategieUnderratedLowStochasticLowRSI="+ Low Stoch & Low RSI: last Stoch quote $lastRSIQuoteRounded under $_lowStochasticValue and last RSI quote $lastRSIQuoteRounded under $_lowRSIQuoteParam"
+        if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValue" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ]; then
+            resultStrategieUnderratedLowStochasticLowRSI="+ Low Stoch & Low RSI: last Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and last RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
             echo "$resultStrategieUnderratedLowStochasticLowRSI"
-            WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
         fi
     fi
 }
