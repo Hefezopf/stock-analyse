@@ -2,7 +2,7 @@
 
 # StrategieOverratedByPercentAndStochastic function:
 # Strategie: Overrated by Percent and Stochastic
-# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), stochasticPercentageUpper($15), OUT_RESULT_FILE_param($16), symbolParam($17), _symbolNameParam($18)
+# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), OUT_RESULT_FILE_param($16), symbolParam($17), _symbolNameParam($18)
 # Output: resultStrategieOverratedByPercentAndStochastic
 StrategieOverratedByPercentAndStochastic() {
     _ratedParam=${1}
@@ -19,10 +19,9 @@ StrategieOverratedByPercentAndStochastic() {
     _average18=${12}
     _average38=${13}
     _average100=${14}
-    _stochasticPercentageUpper=${15}
-    _OUT_RESULT_FILE_param=${16}
-    _symbolParam=${17}
-    _symbolNameParam=${18}
+    _OUT_RESULT_FILE_param=${15}
+    _symbolParam=${16}
+    _symbolNameParam=${17}
     if [ "$_ratedParam" = 'overrated' ]; then
         if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
             [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then

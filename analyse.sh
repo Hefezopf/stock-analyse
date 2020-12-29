@@ -175,7 +175,8 @@ do
 
     # Stochastics percentage
     stochasticPercentageLower=$stochasticPercentageParam
-    stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
+    #stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
+    stochasticPercentageUpper=$((100-stochasticPercentageParam))
 
     # Average 18
     averageInDays18=18
@@ -235,12 +236,10 @@ do
 
         # +Strategie: OverratedByPercentAndStochastic
         resultStrategieOverratedByPercentAndStochastic=""
-        StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" "$stochasticPercentageUpper" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
         # +Strategie: Overrated3HighStochastic
         resultStrategieOverrated3HighStochastic=""
-        stochasticPercentageUpper=$((100-stochasticPercentageParam))
-echo stochasticPercentageParam "$stochasticPercentageParam" stochasticPercentageUpper "$stochasticPercentageUpper"
         StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
     else
