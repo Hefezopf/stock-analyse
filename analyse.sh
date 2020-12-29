@@ -208,24 +208,24 @@ do
     #
 
     # Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
-    fileSize=$(stat -c %s $DATA_FILE)
+    fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
 
         # -Strategie: UnderratedByPercentAndStochastic
         resultStrategieUnderratedByPercentAndStochastic=""
-        StrategieUnderratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageLower $lastUnderAgv18 $lastUnderAgv38 $lastUnderAgv100 $agv18UnderAgv38 $agv38UnderAgv100 $agv18UnderAgv100 $last $percentageGreaterFactor $average18 $average38 $average100 $stochasticPercentageLower $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName"
     
         # -Strategie: Low stochastic 3 last values under lowStochasticValue
         resultStrategieUnderratedLowStochastic=""
-        StrategieUnderratedLowStochastic $stochasticPercentageParam "$stochasticQuoteList"
+        StrategieUnderratedLowStochastic "$stochasticPercentageParam" "$stochasticQuoteList"
 
         # -Strategie: Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowRSI=""
-        StrategieUnderratedLowRSI $RSIQuoteParam
+        StrategieUnderratedLowRSI "$RSIQuoteParam"
 
         # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowStochasticLowRSI=""
-        StrategieUnderratedLowStochasticLowRSI $stochasticPercentageParam $RSIQuoteParam
+        StrategieUnderratedLowStochasticLowRSI "$stochasticPercentageParam" "$RSIQuoteParam"
 
         # -Strategie: The very last stochastic is lower then stochasticPercentageLower
         #resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
@@ -233,7 +233,7 @@ do
 
         # +Strategie: OverratedByPercentAndStochastic
         resultStrategieOverratedByPercentAndStochastic=""
-        StrategieOverratedByPercentAndStochastic $ratedParam $lastStochasticQuoteRounded $stochasticPercentageUpper $lastOverAgv18 $lastOverAgv38 $lastOverAgv100 $agv18OverAgv38 $agv38OverAgv100 $agv18OverAgv100 $last $percentageLesserFactor $average18 $average38 $average100 $stochasticPercentageUpper $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" "$stochasticPercentageUpper" $OUT_RESULT_FILE "$symbol" "$symbolName"
     else
         echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
@@ -245,8 +245,8 @@ do
 
     # Writing chart ${symbol}.html
     commaPriceListFile=temp/commaPriceListFile.txt
-    cat $DATA_FILE | tac > $commaPriceListFile
-    commaPriceList=$(cat $commaPriceListFile | awk '{ print $1","; }')
+    cat "$DATA_FILE" | tac > $commaPriceListFile
+    commaPriceList=$(awk '{ print $1","; }' < $commaPriceListFile)
     indexSymbolFile=out/${symbol}.html
     
     rm -rf $indexSymbolFile
