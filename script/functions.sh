@@ -256,7 +256,7 @@ WriteComdirectUrlAndStoreFileList() {
             # Store list of files for later (tar/zip)
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi      
-        echo "<a "$_style " href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
+        echo "<a $_style href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
         #echo "<a $_style href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$_symbolName$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
     fi
     #reportedSymbolFileList=$reportedSymbolFileList
@@ -266,7 +266,7 @@ WriteComdirectUrlAndStoreFileList() {
 # - Write file Hyperlink in CMD, Only works for windows
 CreateCmdAnalyseHyperlink() {
     outputText="# Analyse "$symbolName
-    if [ $(uname) = 'Linux' ]; then
+    if [ "$(uname)" = 'Linux' ]; then
         echo "$outputText"
     else
         driveLetter=$(pwd | cut -f 2 -d '/')
