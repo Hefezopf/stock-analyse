@@ -243,50 +243,49 @@ do
     # Output
     #
 
-
     indexSymbolFile=out/${symbol}.html
-    rm -rf $indexSymbolFile
+    rm -rf "$indexSymbolFile"
     cp js/_chart.min.js out
     cp js/_utils.js out
     cp js/_favicon.ico out
-    cat js/indexPart0.html >> $indexSymbolFile
-    echo "${symbol}" >> $indexSymbolFile
-    cat js/indexPart1.html >> $indexSymbolFile
-    echo "'" ${symbolName} "'," >> $indexSymbolFile
-    cat js/indexPart2.html >> $indexSymbolFile
+    cat js/indexPart0.html >> "$indexSymbolFile"
+    echo "${symbol}" >> "$indexSymbolFile"
+    cat js/indexPart1.html >> "$indexSymbolFile"
+    echo "'" "${symbolName}" "'," >> "$indexSymbolFile"
+    cat js/indexPart2.html >> "$indexSymbolFile"
 
     # Writing chart ${symbol}.html
     commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE" | tac)
-    echo $commaPriceList >> $indexSymbolFile
-    cat js/indexPart3.html >> $indexSymbolFile    
+    echo "$commaPriceList" >> "$indexSymbolFile"
+    cat js/indexPart3.html >> "$indexSymbolFile"    
 
-    echo "'" Average $averageInDays18 "'," >> $indexSymbolFile
-    cat js/indexPart4.html >> $indexSymbolFile
-    echo $averagePriceList18 >> $indexSymbolFile
-    cat js/indexPart5.html >> $indexSymbolFile    
+    echo "'" Average $averageInDays18 "'," >> "$indexSymbolFile"
+    cat js/indexPart4.html >> "$indexSymbolFile"
+    echo "$averagePriceList18" >> "$indexSymbolFile"
+    cat js/indexPart5.html >> "$indexSymbolFile"    
 
-    echo "'" Average $averageInDays38 "'," >> $indexSymbolFile
-    cat js/indexPart6.html >> $indexSymbolFile
-    echo $averagePriceList38 >> $indexSymbolFile
-    cat js/indexPart7.html >> $indexSymbolFile    
+    echo "'" Average $averageInDays38 "'," >> "$indexSymbolFile"
+    cat js/indexPart6.html >> "$indexSymbolFile"
+    echo "$averagePriceList38" >> "$indexSymbolFile"
+    cat js/indexPart7.html >> "$indexSymbolFile"    
 
-    echo "'" Average $averageInDays100 "'," >> $indexSymbolFile
-    cat js/indexPart8.html >> $indexSymbolFile
-    echo $averagePriceList100 >> $indexSymbolFile
-    cat js/indexPart9.html >> $indexSymbolFile
+    echo "'" Average $averageInDays100 "'," >> "$indexSymbolFile"
+    cat js/indexPart8.html >> "$indexSymbolFile"
+    echo "$averagePriceList100" >> "$indexSymbolFile"
+    cat js/indexPart9.html >> "$indexSymbolFile"
 
-    echo $stochasticQuoteList >> $indexSymbolFile
-    cat js/indexPart10.html >> $indexSymbolFile
+    echo "$stochasticQuoteList" >> "$indexSymbolFile"
+    cat js/indexPart10.html >> "$indexSymbolFile"
 
-    echo $RSIQuoteList >> $indexSymbolFile
-    cat js/indexPart11.html >> $indexSymbolFile
+    echo "$RSIQuoteList" >> "$indexSymbolFile"
+    cat js/indexPart11.html >> "$indexSymbolFile"
 
     ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
-    echo "<p><a href="$COMDIRECT_URL_PREFIX$ID_NOTATION " target=_blank>$symbolName</a><br>" >> $indexSymbolFile
-    echo "Percentage:<b>$percentageParam</b> " >> $indexSymbolFile
-    echo "Query:<b>$queryParam</b> " >> $indexSymbolFile
+    echo "<p><a href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$symbolName</a><br>" >> "$indexSymbolFile"
+    echo "Percentage:<b>$percentageParam</b> " >> "$indexSymbolFile"
+    echo "Query:<b>$queryParam</b> " >> "$indexSymbolFile"
     echo "Rated:<b>$ratedParam</b> " >> $indexSymbolFile
-    echo "Stochastic14:<b>$stochasticPercentageParam</b> " >> $indexSymbolFile
+    echo "Stochastic14:<b>$stochasticPercentageParam</b> " >> "$indexSymbolFile"
     echo "RSI14:<b>$RSIQuoteParam</b><br>" >> $indexSymbolFile
     echo "Date:<b>"$(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
     echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
