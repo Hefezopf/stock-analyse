@@ -243,12 +243,8 @@ do
     # Output
     #
 
-    # Writing chart ${symbol}.html
-    commaPriceListFile=temp/commaPriceListFile.txt
-    cat "$DATA_FILE" | tac > $commaPriceListFile
-    commaPriceList=$(awk '{ print $1","; }' < $commaPriceListFile)
+
     indexSymbolFile=out/${symbol}.html
-    
     rm -rf $indexSymbolFile
     cp js/_chart.min.js out
     cp js/_utils.js out
@@ -258,6 +254,9 @@ do
     cat js/indexPart1.html >> $indexSymbolFile
     echo "'" ${symbolName} "'," >> $indexSymbolFile
     cat js/indexPart2.html >> $indexSymbolFile
+
+    # Writing chart ${symbol}.html
+    commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE" | tac)
     echo $commaPriceList >> $indexSymbolFile
     cat js/indexPart3.html >> $indexSymbolFile    
 
@@ -338,7 +337,6 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 echo "time elapsed."
 
 # Cleanup
-rm -rf $commaPriceListFile
 rm -rf $stochasticFile
 rm -rf temp/values*.txt
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
