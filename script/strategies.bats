@@ -11,6 +11,28 @@ OUT_RESULT_FILE=temp/_result.html
 SYMBOL=BEI
 SYMBOL_NAME="BEI BEIERSDORF AG"
 
+@test "StrategieOverrated3HighStochastic" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieOverrated3HighStochastic 
+  [ "$resultStrategieOverrated3HighStochastic" == '' ]
+
+  StrategieOverrated3HighStochastic underrated 81 " , 80, 81, 70," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieOverrated3HighStochastic" == '' ]
+
+  StrategieOverrated3HighStochastic overrated 81 " , 80, 81, 70," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieOverrated3HighStochastic" == '' ]
+
+  StrategieOverrated3HighStochastic overrated 81 " , 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieOverrated3HighStochastic" == '- High stochastic: 3 last stochastic quotes are over 81' ]
+
+  StrategieOverrated3HighStochastic overrated 81 " , 82, 82, 88," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieOverrated3HighStochastic" == '- High stochastic: 3 last stochastic quotes are over 81' ]
+}
+
 @test "StrategieUnderrated3LowStochastic" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
@@ -112,5 +134,5 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieOverratedByPercentAndStochastic" == '' ]  
 
   StrategieOverratedByPercentAndStochastic overrated 100 91 1 1 1 1 1 1 "5.61" "1.01" "4.44" "4.28" "4.03" 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
-  [ "$resultStrategieOverratedByPercentAndStochastic" == '- Overrated by percent and stochastic: 5.61 EUR is 1.01 over Avg18 4.44 EUR and Avg38 4.28 EUR and Avg100 4.03 EUR and Stoc14 is 100 is higher then 91' ]
+  [ "$resultStrategieOverratedByPercentAndStochastic" == '- Overrated by percent and stochastic: 5.61 EUR is 1.01 over Avg18 4.44 EUR and Avg38 4.28 EUR and Avg100 4.03 EUR and Stoch14 is 100 is higher then 91' ]
 }
