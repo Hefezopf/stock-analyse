@@ -159,6 +159,7 @@ do
 
     # Calculate RSI 14 values
     RSIInDays14=14
+    lastRSIQuoteRounded=""
     RSIQuoteList=""
     RSIOfDays $RSIInDays14 "$DATA_FILE"
 
@@ -166,6 +167,7 @@ do
 
     # Calculate Stochastic 14 values
     stochasticInDays14=14
+    lastStochasticQuoteRounded=""
     stochasticQuoteList=""
     StochasticOfDays $stochasticInDays14 "$DATA_FILE"
 
@@ -287,7 +289,7 @@ do
     echo "Rated:<b>$ratedParam</b> " >> "$indexSymbolFile"
     echo "Stochastic14:<b>$stochasticPercentageParam</b> " >> "$indexSymbolFile"
     echo "RSI14:<b>$RSIQuoteParam</b><br>" >> "$indexSymbolFile"
-    echo "Date:<b>"$(stat -c %y "$DATA_FILE" | cut -b 1-10) "</b>" >> "$indexSymbolFile"
+    echo "Date:<b>""$(stat -c %y "$DATA_FILE" | cut -b 1-10)" "</b>" >> "$indexSymbolFile"
     echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>""$last" "&#8364;</b></span>" >> "$indexSymbolFile"
     echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18" "&#8364;</b></span>" >> "$indexSymbolFile"
     echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38" "&#8364;</b></span>" >> "$indexSymbolFile"
