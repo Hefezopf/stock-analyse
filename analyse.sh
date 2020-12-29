@@ -237,6 +237,7 @@ do
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" "$stochasticPercentageUpper" $OUT_RESULT_FILE "$symbol" "$symbolName"
     else
+        # shellcheck disable=SC3037
         echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
     fi

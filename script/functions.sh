@@ -16,8 +16,7 @@ CurlSymbolName() {
             # Can requested in bulk request as an option!
             sleep "$_sleepParam" # 14; Only some requests per minute to openfigi (About 6 per minute).
         fi
-    fi        
-    #symbolName=$symbolName
+    fi
 }
 
 # UsageCheckParameter function:
@@ -95,7 +94,6 @@ AverageOfDays() {
     dataFileParam=${2}
     i=1
     while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
-        #averagePriceList=$(echo $averagePriceList ",")
         averagePriceList="$averagePriceList ,"        
         i=$(( i + 1 ))
     done 
@@ -108,7 +106,6 @@ AverageOfDays() {
         averagePriceList="$averagePriceList $averagePrice,"
         i=$(( i + 1 ))
     done
-    #averagePriceList=$averagePriceList
 }
 
 # RSIOfDays function:
@@ -164,7 +161,6 @@ RSIOfDays() {
     done
     rm -rf $RSIwinningDaysFile
     rm -rf $RSIloosingDaysFile
-    #RSIQuoteList=$RSIQuoteList
 }
 
 # StochasticOfDays function:
@@ -208,7 +204,6 @@ StochasticOfDays() {
         i=$(( i + 1 ))
     done
     rm -rf $stochasticFile
-    #stochasticQuoteList=$stochasticQuoteList
 }
 
 # ProgressBar function:
@@ -227,6 +222,8 @@ ProgressBar() {
     _empty=$(printf "%${_left}s")                         
     # Progress: ######################################## 100%
     if [ ! "$(uname)" = 'Linux' ]; then
+        # shellcheck disable=SC3037
+        # shellcheck disable=SC3060
         echo -n "$(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")"
     fi
 }
@@ -254,12 +251,11 @@ WriteComdirectUrlAndStoreFileList() {
             _style="style=\"color:red\""
             _alert=" ->ALERT!"
             # Store list of files for later (tar/zip)
+            # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi      
         echo "<a $_style href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
-        #echo "<a $_style href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$_symbolName$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
     fi
-    #reportedSymbolFileList=$reportedSymbolFileList
 }
 
 # CreateCmdAnalyseHyperlink function:
@@ -271,8 +267,10 @@ CreateCmdAnalyseHyperlink() {
     else
         driveLetter=$(pwd | cut -f 2 -d '/')
         suffix=$(pwd)
+        # shellcheck disable=SC3057
         suffixPath=${suffix:2:200}
         verzeichnis=$driveLetter":"$suffixPath
+        # shellcheck disable=SC3037
         echo -e "\e]8;;file:///""$verzeichnis""/out/""$symbol"".html\a$outputText\e]8;;\a"
     fi
 }
