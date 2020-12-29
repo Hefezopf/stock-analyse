@@ -223,7 +223,7 @@ do
 
         # -Strategie: Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowRSI=""
-        StrategieUnderratedLowRSI "$RSIQuoteParam"
+        StrategieUnderratedLowRSI "$ratedParam" "$RSIQuoteParam" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
         # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowStochasticLowRSI=""

@@ -132,17 +132,22 @@ StrategieUnderratedLowStochastic() {
 # Strategie: Low RSI last quote under lowRSIValue
 # https://www.charttec.de/html/indikator_rsi_relative_strength_index.php
 # https://de.wikipedia.org/wiki/Relative_Strength_Index
-# Input is lowRSIValue($1)
+# Input is _ratedParam($1), _lowRSIValueParam($2), _lastRSIQuoteRoundedParam($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6)
 # Output: resultStrategieUnderratedLowRSI
 StrategieUnderratedLowRSI() {    
-    if [ "$ratedParam" = 'underrated' ]; then    
-        _lowRSIValue="$1"
+     _ratedParam=${1}
+     _lowRSIValueParam=${2}
+     _lastRSIQuoteRoundedParam=${3}
+     _OUT_RESULT_FILE_param=${4}
+     _symbolParam=${5}
+     _symbolNameParam=${6}
+    if [ "$_ratedParam" = 'underrated' ]; then    
         resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
-        if [ "$lastRSIQuoteRounded" -lt "$_lowRSIValue" ]; then
-            resultStrategieUnderratedLowRSI="+ Low RSI: last RSI quote $lastRSIQuoteRounded under $_lowRSIValue"
+        if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
+            resultStrategieUnderratedLowRSI="+ Low RSI: last RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
             echo "$resultStrategieUnderratedLowRSI"
-            WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
         fi
     fi
 }

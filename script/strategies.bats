@@ -6,6 +6,22 @@
 # Import functions
 . ./script/strategies.sh
 
+@test "StrategieUnderratedLowRSI" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieUnderratedLowRSI underrated 10 20 "temp/_result.html" GIS "GIS Gilead Sciences"
+  [ "$resultStrategieUnderratedLowRSI" == '' ]
+
+  StrategieUnderratedLowRSI underrated 99 5 "temp/_result.html" GIS "GIS Gilead Sciences"
+  [ "$resultStrategieUnderratedLowRSI" == '+ Low RSI: last RSI quote 5 under 99' ]
+
+  StrategieUnderratedLowRSI underrated 10 9 "temp/_result.html" GIS "GIS Gilead Sciences"
+  [ "$resultStrategieUnderratedLowRSI" == '+ Low RSI: last RSI quote 9 under 10' ]
+}
+
 @test "StrategieUnderratedByPercentAndStoch" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
