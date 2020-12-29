@@ -127,22 +127,22 @@ do
     fi
 
     head -n18 "$DATA_FILE" > temp/values18.txt
-    average18Raw=$(cat temp/values18.txt | awk '{ sum += $1; } END { print sum/18; }')
+    average18Raw=$(awk '{ sum += $1; } END { print sum/18; }' < temp/values18.txt)
     average18=$(printf "%.2f" "$average18Raw")
 
     ProgressBar 2 8
 
-    GreaterThenWithFactor $percentageGreaterFactor $last $average18; lastOverAgv18=$?
-    LesserThenWithFactor $percentageLesserFactor $last $average18; lastUnderAgv18=$?
+    GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average18"; lastOverAgv18=$?
+    LesserThenWithFactor "$percentageLesserFactor" "$last" "$average18"; lastUnderAgv18=$?
 
     head -n38 $DATA_FILE > temp/values38.txt
-    average38Raw=$(cat temp/values38.txt | awk '{ sum += $1; } END { print sum/38; }')
+    average38Raw=$(awk '{ sum += $1; } END { print sum/38; }' < temp/values38.txt)
     average38=$(printf "%.2f" $average38Raw)
     GreaterThenWithFactor $percentageGreaterFactor $last $average38; lastOverAgv38=$?
     LesserThenWithFactor $percentageLesserFactor $last $average38;lastUnderAgv38=$?
     
     head -n100 $DATA_FILE > temp/values100.txt
-    average100Raw=$(cat temp/values100.txt | awk '{ sum += $1; } END { print sum/100; }')
+    average100Raw=$(awk '{ sum += $1; } END { print sum/100; }' < temp/values100.txt)
     average100=$(printf "%.2f" $average100Raw)
     GreaterThenWithFactor $percentageGreaterFactor $last $average100; lastOverAgv100=$?
     LesserThenWithFactor $percentageLesserFactor $last $average100; lastUnderAgv100=$?
