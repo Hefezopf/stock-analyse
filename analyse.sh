@@ -236,6 +236,13 @@ do
         # +Strategie: OverratedByPercentAndStochastic
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" "$stochasticPercentageUpper" $OUT_RESULT_FILE "$symbol" "$symbolName"
+
+        # +Strategie: Overrated3HighStochastic
+        resultStrategieOverrated3HighStochastic=""
+        stochasticPercentageUpper=$((100-stochasticPercentageParam))
+echo stochasticPercentageParam "$stochasticPercentageParam" stochasticPercentageUpper "$stochasticPercentageUpper"
+        StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName"
+
     else
         # shellcheck disable=SC3037
         echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
@@ -301,14 +308,17 @@ do
         echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span></p>" 
 
         # Strategies output
-        # +
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" 
         # -
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowRSI" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
         #echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" 
+        
+        # +
+        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" 
+        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>" 
+             
         echo "Good Luck!"
 
         cat js/indexPart12.html

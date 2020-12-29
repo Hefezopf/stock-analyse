@@ -26,7 +26,7 @@ StrategieOverratedByPercentAndStochastic() {
     if [ "$_ratedParam" = 'overrated' ]; then
         if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
             [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
-            resultStrategieOverratedByPercentAndStochastic="- Overrated by percent and stochastic: $_last EUR is $_percentageLesserFactor over Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoc14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
+            resultStrategieOverratedByPercentAndStochastic="- Overrated by percent and stochastic: $_last EUR is $_percentageLesserFactor over Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
             echo "$resultStrategieOverratedByPercentAndStochastic"
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
         fi
@@ -80,6 +80,65 @@ StrategieUnderratedByPercentAndStochastic() {
 #     fi
 # }
 
+# StrategieOverrated3HighStochastic function:
+# Strategie: High stochastic 3 last values over highStochasticValue
+# Input is _ratedParam($1), highStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6)
+# Output: resultStrategieOverrated3HighStochastic
+StrategieOverrated3HighStochastic() { 
+    _ratedParam=${1}   
+    _highStochasticValue=${2}
+    _stochasticQuoteList=${3} 
+    _OUT_RESULT_FILE_param=${4}
+    _symbolParam=${5}
+    _symbolNameParam=${6}     
+    if [ "$_ratedParam" = 'overrated' ]; then
+        # Revers and output the last x numbers. Attention only works for single digst numbers!
+        _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
+        OLDIFS=$IFS
+        # Warning do NOT quote this!! "$_stochasticQuoteList"
+        # shellcheck disable=SC2086
+        IFS="," set -- $_stochasticQuoteList
+        # Cut comma, like: ",22" -> "22"        
+        value1=$(echo "$1" | cut -b 2-3)
+        value2=$(echo "$2" | cut -b 2-3)
+        value3=$(echo "$3" | cut -b 2-3)
+
+        # revsers digits '18' will be '81'
+        value1=$(echo "$value1" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}')
+        value2=$(echo "$value2" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}')
+        value3=$(echo "$value3" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}')
+        IFS=$OLDIFS
+        howManyOverHighStochasticValue=0
+        # Deal with 100
+        if [ "$value1" = '00' ]; then
+            value1=99
+        fi
+        if [ "$value2" = '00' ]; then
+            value2=99
+        fi
+        if [ "$value3" = '00' ]; then
+            value3=99
+        fi
+
+        if [ "${#value1}" -gt 1 ] && [ "$value1" -gt "$_highStochasticValue" ]; then
+            howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
+        fi
+        if [ "${#value2}" -gt 1 ] && [ "$value2" -gt "$_highStochasticValue" ]; then
+            howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
+        fi
+        if [ "${#value3}" -gt 1 ] && [ "$value3" -gt "$_highStochasticValue" ]; then
+            howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
+        fi   
+        resultStrategieOverrated3HighStochastic=""
+        # All 3 last values over _highStochasticValue?
+        if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
+            resultStrategieOverrated3HighStochastic="- High stochastic: 3 last stochastic quotes are over $_highStochasticValue"
+            echo "$resultStrategieOverrated3HighStochastic"
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
+        fi
+    fi
+}
+
 # StrategieUnderrated3LowStochastic function:
 # Strategie: Low stochastic 3 last values under lowStochasticValue
 # Input is _ratedParam($1), lowStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6)
@@ -98,14 +157,7 @@ StrategieUnderrated3LowStochastic() {
         # Warning do NOT quote this!! "$_stochasticQuoteList"
         # shellcheck disable=SC2086
         IFS="," set -- $_stochasticQuoteList
-        # Cut comma, like: ",22" -> "22"        
-        # v1=$(echo "$1")
-		# value1=${v1:1:2}
-        # v2=$(echo "$2")
-		# value2=${v2:1:2}
-        # v3=$(echo "$3")
-		# value3=${v3:1:2}   
-
+        # Cut comma, like: ",22" -> "22"
         value1=$(echo "$1" | cut -b 2-3)
         value2=$(echo "$2" | cut -b 2-3)
         value3=$(echo "$3" | cut -b 2-3)
