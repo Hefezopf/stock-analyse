@@ -121,8 +121,8 @@ StrategieUnderratedLowStochastic() {
         # All 3 last values under _lowStochasticValue?
         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
             resultStrategieUnderratedLowStochastic="+ Low stochastic: 3 last stochastic quotes are under $_lowStochasticValue"
-            echo $resultStrategieUnderratedLowStochastic
-            WriteComdirectUrlAndStoreFileList $OUT_RESULT_FILE $symbol "$symbolName" true
+            echo "$resultStrategieUnderratedLowStochastic"
+            WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true
         fi
     fi
 }
