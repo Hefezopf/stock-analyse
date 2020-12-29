@@ -284,34 +284,34 @@ do
     echo "<p><a href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$symbolName</a><br>" >> "$indexSymbolFile"
     echo "Percentage:<b>$percentageParam</b> " >> "$indexSymbolFile"
     echo "Query:<b>$queryParam</b> " >> "$indexSymbolFile"
-    echo "Rated:<b>$ratedParam</b> " >> $indexSymbolFile
+    echo "Rated:<b>$ratedParam</b> " >> "$indexSymbolFile"
     echo "Stochastic14:<b>$stochasticPercentageParam</b> " >> "$indexSymbolFile"
-    echo "RSI14:<b>$RSIQuoteParam</b><br>" >> $indexSymbolFile
-    echo "Date:<b>"$(stat -c %y $DATA_FILE | cut -b 1-10) "</b>" >> $indexSymbolFile
-    echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>"$last "&#8364;</b></span>" >> $indexSymbolFile
-    echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>"$average18 "&#8364;</b></span>" >> $indexSymbolFile
-    echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>"$average38 "&#8364;</b></span>" >> $indexSymbolFile
-    echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>"$average100 "&#8364;</b></span>" >> $indexSymbolFile
-    echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>"$lastStochasticQuoteRounded "</b></span>" >> $indexSymbolFile
-    echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>"$lastRSIQuoteRounded "</b></span></p>" >> $indexSymbolFile
+    echo "RSI14:<b>$RSIQuoteParam</b><br>" >> "$indexSymbolFile"
+    echo "Date:<b>"$(stat -c %y "$DATA_FILE" | cut -b 1-10) "</b>" >> "$indexSymbolFile"
+    echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>""$last" "&#8364;</b></span>" >> "$indexSymbolFile"
+    echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18" "&#8364;</b></span>" >> "$indexSymbolFile"
+    echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38" "&#8364;</b></span>" >> "$indexSymbolFile"
+    echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>""$average100" "&#8364;</b></span>" >> "$indexSymbolFile"
+    echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>" >> "$indexSymbolFile"
+    echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span></p>" >> "$indexSymbolFile"
 
     # Strategies output
     # +
-    echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieOverratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
+    echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" >> "$indexSymbolFile"
     # -
-    echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedByPercentAndStochastic "</b></p>" >> $indexSymbolFile
-    echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedLowStochastic "</b></p>" >> $indexSymbolFile
-    echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowRSI "</b></p>" >> $indexSymbolFile
-    echo "<p style=\"color:rgb(54, 162, 235);\"><b>" $resultStrategieUnderratedLowStochasticLowRSI "</b></p>" >> $indexSymbolFile
+    echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" >> "$indexSymbolFile"
+    echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedLowStochastic" "</b></p>" >> "$indexSymbolFile"
+    echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowRSI" "</b></p>" >> "$indexSymbolFile"
+    echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" >> "$indexSymbolFile"
     #echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" >> $indexSymbolFile
-    echo "Good Luck!" >> $indexSymbolFile
+    echo "Good Luck!" >> "$indexSymbolFile"
 
-    cat js/indexPart12.html >> $indexSymbolFile
+    cat js/indexPart12.html >> "$indexSymbolFile"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" false
 done
 
-echo $HTML_RESULT_FILE_END >> $OUT_RESULT_FILE
+echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
 
 # Write temp/*.html symbolFile's for later screenshot in github workflow!
 rm -rf temp/*.html
@@ -319,7 +319,7 @@ i=1
 for symbolFile in $reportedSymbolFileList
 do
     #echo symbolFile $symbolFile
-    cp $symbolFile temp/$i.html
+    cp "$symbolFile" temp/$i.html
     i=$(( i + 1 ))
 done
 # Maximal 5 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
@@ -336,8 +336,6 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 echo "time elapsed."
 
 # Cleanup
-rm -rf $stochasticFile
 rm -rf temp/values*.txt
-reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
-tar -zcf $OUT_ZIP_FILE $reportedSymbolFileList
+tar -zcf $OUT_ZIP_FILE "$reportedSymbolFileList" $OUT_RESULT_FILE
 mv $OUT_ZIP_FILE out
