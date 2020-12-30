@@ -77,17 +77,18 @@ jobs:
       - name: Run stock analyse
         run: |
           echo Start analyse...
-          export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+          export MARKET_STACK_ACCESS_KEY1=${{secrets.MARKET_STACK_ACCESS_KEY1}}
           export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
+          export MARKET_STACK_ACCESS_KEY3=${{secrets.MARKET_STACK_ACCESS_KEY3}}
 
-          symbolsEnv=${{env.symbolsEnv}}  
-          percentageEnv=${{env.percentageEnv}}  
+          symbolsEnv=${{env.symbolsEnv}}
+          percentageEnv=${{env.percentageEnv}}
           queryEnv=${{env.queryEnv}}
           ratedEnv=${{env.ratedEnv}}
           stochasticEnv=${{env.stochasticEnv}}
           RSIEnv=${{env.RSIEnv}}
 
-          symbolsDefault='${{github.event.client_payload.symbols}}'   
+          symbolsDefault='${{github.event.client_payload.symbols}}'
           percentageDefault='${{github.event.client_payload.percentage}}'
           queryDefault='${{github.event.client_payload.query}}'
           ratedDefault='${{github.event.client_payload.rated}}'

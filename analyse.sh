@@ -12,7 +12,7 @@
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
 # Call example: ./analyse.sh 'ADS' 1 offline all 9 30
 #
-# Set MARKET_STACK_ACCESS_KEY and MARKET_STACK_ACCESS_KEY2 as Env Variable
+# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 as Env Variable
 # shellcheck disable=SC1091 
 
 # Import functions
@@ -56,8 +56,8 @@ echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo "
 # Usage: Check parameter
 UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
 
-if [ -z "$MARKET_STACK_ACCESS_KEY" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ]; then
-    echo "Error: MARKET_STACK_ACCESS_KEY or MARKET_STACK_ACCESS_KEY2 not set!" | tee -a $OUT_RESULT_FILE
+if [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ]; then
+    echo "Error: MARKET_STACK_ACCESS_KEY1 or MARKET_STACK_ACCESS_KEY2  or MARKET_STACK_ACCESS_KEY3 not set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
     exit 6
@@ -102,12 +102,23 @@ do
     echo "# Get $symbolName"
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-        evenodd=$((tag % 2))
+        # evenodd=$((tag % 2))
+        # if [ "$evenodd" -eq 0 ]; then
+        #     ACCESS_KEY=${MARKET_STACK_ACCESS_KEY1}
+        # else
+        #     ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
+        # fi
+        evenodd=$((tag % 3))
         if [ "$evenodd" -eq 0 ]; then
-            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY}
-        else
+            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY1}
+        fi
+        if [ "$evenodd" -eq 1 ]; then
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
         fi
+        if [ "$evenodd" -eq 2 ]; then
+            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
+        fi
+
         DATA_FILE=data/${symbol}.txt
         DATA_DATE_FILE=data/${symbol}_date.txt
  #       curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq '.data[].close' > "$DATA_FILE"
@@ -120,6 +131,10 @@ do
             rm -rf "$DATA_FILE"
         fi
     fi
+
+
+continue 
+
 
     symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
 
