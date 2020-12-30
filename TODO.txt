@@ -6,10 +6,12 @@ TODO:
 git config --global http.sslVerify false
 
 
+head -n1 data/AHLA.txt | awk '{print $1}'
 -Wann wird Kurs von XETRA aktuallisiert?
     LHA ist erst unter Tags akt. worden?
     curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=LHA.XETRA" | jq '.data[0]'
     curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=LHA.XETRA" | jq '.data[0].close','.data[0].date'
+    curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY2}&exchange=XETRA&symbols=LHA.XETRA" | jq -jr '.data[]|.close, "\t", .date, "\n"'
     {
     "open": 10.63,
     "high": 11.29,
