@@ -132,10 +132,6 @@ do
         fi
     fi
 
-
-continue 
-
-
     symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
 
     CreateCmdAnalyseHyperlink
