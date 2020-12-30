@@ -8,7 +8,8 @@ CurlSymbolName() {
     _TICKER_NAMES_FILE_param=${2}
     _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
-    symbolName=$(grep -w "$_symbolParam " "$_TICKER_NAMES_FILE_param")
+    symbolName=$(grep -w "$symbol " "$_TICKER_NAMES_FILE_param")
+    #symbolName=$(grep -w "$_symbolParam " "$_TICKER_NAMES_FILE_param")
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "echo ${X_OPENFIGI_APIKEY}" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
@@ -34,9 +35,9 @@ UsageCheckParameter() {
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
         { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
-        { [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'underrated' ]; } &&
+        { [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; } &&
         [ -n "${_stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#_stochasticPercentageParam} -gt 1 ] &&
-        [ -n "${_RSIQuoteParam##*[!0-9]*}" ]; then
+        [ -n "${_RSIQuoteParam##*[!0-9]*}" ] && [ ! "${_RSIQuoteParam}" -gt 30 ]; then
         echo ""
     else
         echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a "$OUT_RESULT_FILE_param"
@@ -47,11 +48,11 @@ UsageCheckParameter() {
         echo "<br>" >> "$OUT_RESULT_FILE_param"
         echo " QUERY: Query data online|offline" | tee -a "$OUT_RESULT_FILE_param"
         echo "<br>" >> "$OUT_RESULT_FILE_param"
-        echo " RATED: List only overrated|underrated" | tee -a "$OUT_RESULT_FILE_param"
+        echo " RATED: List stocks which are overrated|underrated|all" | tee -a "$OUT_RESULT_FILE_param"
         echo "<br>" >> "$OUT_RESULT_FILE_param"
         echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a "$OUT_RESULT_FILE_param"
         echo "<br>" >> "$OUT_RESULT_FILE_param"
-        echo " RSI14: Quote for RSI indicator" | tee -a "$OUT_RESULT_FILE_param"
+        echo " RSI14: Quote for RSI indicator (only 30 and less allowed!)" | tee -a "$OUT_RESULT_FILE_param"
         echo "<br>" >> "$OUT_RESULT_FILE_param"    
         echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a "$OUT_RESULT_FILE_param"
         echo "<br>" >> "$OUT_RESULT_FILE_param"
@@ -95,7 +96,7 @@ AverageOfDays() {
     i=1
     while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
         averagePriceList="$averagePriceList ,"        
-        i=$(( i + 1 ))
+        i=$((i + 1))
     done 
 
     i=0
@@ -104,7 +105,7 @@ AverageOfDays() {
         headLines=$((100-i))
         averagePrice=$(head -n"$headLines" "$dataFileParam" | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')
         averagePriceList="$averagePriceList $averagePrice,"
-        i=$(( i + 1 ))
+        i=$((i + 1))
     done
 }
 
@@ -121,7 +122,7 @@ RSIOfDays() {
     i=1
     while [ "$i" -le 100 ];
     do
-        i=$(( i + 1 ))
+        i=$((i + 1))
         diffLast2Prices=$(head -n$i "$dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
         isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
         if [ ! "${isNegativ}" = '-' ]; then
@@ -141,9 +142,9 @@ RSIOfDays() {
     i=1
     while [ "$i" -le 100 ];
     do
-        i=$(( i + 1 ))
+        i=$((i + 1))
         # Fill with blank comma seperated data  
-        if [ $i -lt $(( amountOfDaysParam + 1 )) ]; then # <14
+        if [ $i -lt $((amountOfDaysParam + 1)) ]; then # <14
             RSIQuoteList="$RSIQuoteList ,"
         else # >14
             RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')
@@ -174,7 +175,7 @@ StochasticOfDays() {
     # Fill with blank comma seperated data
     while [ "$i" -lt "${1}" ]; do 
         stochasticQuoteList="$stochasticQuoteList ,"
-        i=$(( i + 1 ))
+        i=$((i + 1))
     done 
 
     i=0
@@ -201,7 +202,7 @@ StochasticOfDays() {
 
         lastStochasticQuoteRounded=$(echo "$lastStochasticQuote" | cut -f 1 -d '.')
         stochasticQuoteList="$stochasticQuoteList $lastStochasticQuoteRounded,"
-        i=$(( i + 1 ))
+        i=$((i + 1))
     done
     rm -rf $stochasticFile
 }
@@ -230,13 +231,14 @@ ProgressBar() {
 # WriteComdirectUrlAndStoreFileList function:
 # - Write Comdirect Url.
 # - Store list of files for later (tar/zip)
-# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _alertParam($4)
+# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _alertParam($4), _linkColorParam($5)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
     _OUT_RESULT_FILE_param=${1}
     _symbolParam=${2}
     _symbolNameParam="${3}"
     _alertParam=${4}
+    _linkColorParam=${5}
     ID_NOTATION=$(grep "${_symbolParam}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
         ID_NOTATION=999999
@@ -244,16 +246,20 @@ WriteComdirectUrlAndStoreFileList() {
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
-        _style="style=\"color:black\""
+        # _style="style=\"color:black\""
         _alert=""
         if [ "$_alertParam" = true ]; then
-            _style="style=\"color:red\""
+            # if [ "$_ratedParam" = 'underrated' ]; then
+            #     _style="style=\"color:red\""
+            # else
+            #     _style="style=\"color:green\""
+            # fi
             _alert=" ->ALERT!"
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi      
-        echo "<a $_style href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
+        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
     fi
 }
 

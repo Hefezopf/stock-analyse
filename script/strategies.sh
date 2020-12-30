@@ -22,12 +22,12 @@ StrategieOverratedByPercentAndStochastic() {
     _OUT_RESULT_FILE_param=${15}
     _symbolParam=${16}
     _symbolNameParam=${17}
-    if [ "$_ratedParam" = 'overrated' ]; then
+    if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
             [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
             resultStrategieOverratedByPercentAndStochastic="- Overrated by percent and stochastic: $_last EUR is $_percentageLesserFactor over Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
             echo "$resultStrategieOverratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green
         fi
     fi
 }
@@ -55,12 +55,12 @@ StrategieUnderratedByPercentAndStochastic() {
     _OUT_RESULT_FILE_param=${16}
     _symbolParam=${17}
     _symbolNameParam=${18}       
-    if [ "$_ratedParam" = 'underrated' ]; then
+    if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
             [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
             resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: $_last EUR is $_percentageGreaterFactor under Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
             echo "$resultStrategieUnderratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red
         fi
     fi
 }
@@ -74,7 +74,7 @@ StrategieUnderratedByPercentAndStochastic() {
 #         if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
 #             resultStrategieUnderratedVeryLastStochasticIsLowerThen="+ Very last stochastic: last stochastic quote $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
 #             echo "$resultStrategieUnderratedVeryLastStochasticIsLowerThen"
-#             WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true
+#             WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true red
 #         fi
 #     fi
 # }
@@ -90,7 +90,7 @@ StrategieOverrated3HighStochastic() {
     _OUT_RESULT_FILE_param=${4}
     _symbolParam=${5}
     _symbolNameParam=${6}     
-    if [ "$_ratedParam" = 'overrated' ]; then
+    if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         # Revers and output the last x numbers. Attention only works for single digst numbers!
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
         OLDIFS=$IFS
@@ -133,7 +133,7 @@ StrategieOverrated3HighStochastic() {
         if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
             resultStrategieOverrated3HighStochastic="- High stochastic: 3 last stochastic quotes are over $_highStochasticValue"
             echo "$resultStrategieOverrated3HighStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green
         fi
     fi
 }
@@ -149,7 +149,7 @@ StrategieUnderrated3LowStochastic() {
     _OUT_RESULT_FILE_param=${4}
     _symbolParam=${5}
     _symbolNameParam=${6}     
-    if [ "$_ratedParam" = 'underrated' ]; then
+    if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         # Revers and output the last x numbers. Attention only works for single digst numbers!
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
         OLDIFS=$IFS
@@ -178,7 +178,7 @@ StrategieUnderrated3LowStochastic() {
         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
             resultStrategieUnderrated3LowStochastic="+ Low stochastic: 3 last stochastic quotes are under $_lowStochasticValue"
             echo "$resultStrategieUnderrated3LowStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red
         fi
     fi
 }
@@ -196,13 +196,13 @@ StrategieUnderratedLowRSI() {
      _OUT_RESULT_FILE_param=${4}
      _symbolParam=${5}
      _symbolNameParam=${6}
-    if [ "$_ratedParam" = 'underrated' ]; then    
+    if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
         if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
             resultStrategieUnderratedLowRSI="+ Low RSI: last RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
             echo "$resultStrategieUnderratedLowRSI"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red
         fi
     fi
 }
@@ -220,13 +220,13 @@ StrategieUnderratedLowStochasticLowRSI() {
      _OUT_RESULT_FILE_param=${6}
      _symbolParam=${7}
      _symbolNameParam=${8}  
-    if [ "$_ratedParam" = 'underrated' ]; then    
+    if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then  
         resultStrategieUnderratedLowStochasticLowRSI=""
         # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue
         if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValue" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ]; then
             resultStrategieUnderratedLowStochasticLowRSI="+ Low Stoch & Low RSI: last Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and last RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
             echo "$resultStrategieUnderratedLowStochasticLowRSI"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red
         fi
     fi
 }
