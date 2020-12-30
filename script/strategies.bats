@@ -29,6 +29,9 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieOverrated3HighStochastic overrated 81 " , 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
   [ "$resultStrategieOverrated3HighStochastic" == '- High stochastic: 3 last stochastic quotes are over 81' ]
 
+  StrategieOverrated3HighStochastic all 81 " , 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieOverrated3HighStochastic" == '- High stochastic: 3 last stochastic quotes are over 81' ]
+
   StrategieOverrated3HighStochastic overrated 81 " , 82, 82, 88," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
   [ "$resultStrategieOverrated3HighStochastic" == '- High stochastic: 3 last stochastic quotes are over 81' ]
 }
@@ -47,6 +50,12 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   StrategieUnderrated3LowStochastic underrated 9 " , 8, 17, 8," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
   [ "$resultStrategieUnderrated3LowStochastic" == '' ]
+
+  StrategieUnderrated3LowStochastic all 9 " , 8, 17, 8," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieUnderrated3LowStochastic" == '' ]
+
+  StrategieUnderrated3LowStochastic all 9 " , 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieUnderrated3LowStochastic" == '+ Low stochastic: 3 last stochastic quotes are under 9' ]
 
   StrategieUnderrated3LowStochastic underrated 9 " , 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
   [ "$resultStrategieUnderrated3LowStochastic" == '+ Low stochastic: 3 last stochastic quotes are under 9' ]
@@ -73,6 +82,9 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieUnderratedLowStochasticLowRSI underrated 9 90 10 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
   [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
 
+  StrategieUnderratedLowStochasticLowRSI all 9 90 0 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '+ Low Stoch & Low RSI: last Stoch quote 0 under 9 and last RSI quote 5 under 90' ]
+
   StrategieUnderratedLowStochasticLowRSI underrated 9 90 0 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
   [ "$resultStrategieUnderratedLowStochasticLowRSI" == '+ Low Stoch & Low RSI: last Stoch quote 0 under 9 and last RSI quote 5 under 90' ]
 }
@@ -93,6 +105,9 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieUnderratedLowRSI" == '' ]
 
   StrategieUnderratedLowRSI underrated 99 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieUnderratedLowRSI" == '+ Low RSI: last RSI quote 5 under 99' ]
+
+  StrategieUnderratedLowRSI all 99 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
   [ "$resultStrategieUnderratedLowRSI" == '+ Low RSI: last RSI quote 5 under 99' ]
 
   StrategieUnderratedLowRSI underrated 10 9 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
@@ -116,6 +131,9 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   StrategieUnderratedByPercentAndStochastic underrated 0 9 1 1 1 1 1 1 "46.95" "0.99" "49.34" "50.08" "52.87" 9 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
   [ "$resultStrategieUnderratedByPercentAndStochastic" == '+ Underrated by percent and stochastic: 46.95 EUR is 0.99 under Avg18 49.34 EUR and Avg38 50.08 EUR and Avg100 52.87 EUR and Stoch14 0 is lower then 9' ]  
+
+  StrategieUnderratedByPercentAndStochastic all 0 9 1 1 1 1 1 1 "46.95" "0.99" "49.34" "50.08" "52.87" 9 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieUnderratedByPercentAndStochastic" == '+ Underrated by percent and stochastic: 46.95 EUR is 0.99 under Avg18 49.34 EUR and Avg38 50.08 EUR and Avg100 52.87 EUR and Stoch14 0 is lower then 9' ]  
 }
 
 @test "StrategieOverratedByPercentAndStoch" {
@@ -134,5 +152,8 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieOverratedByPercentAndStochastic" == '' ]  
 
   StrategieOverratedByPercentAndStochastic overrated 100 91 1 1 1 1 1 1 "5.61" "1.01" "4.44" "4.28" "4.03" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
+  [ "$resultStrategieOverratedByPercentAndStochastic" == '- Overrated by percent and stochastic: 5.61 EUR is 1.01 over Avg18 4.44 EUR and Avg38 4.28 EUR and Avg100 4.03 EUR and Stoch14 is 100 is higher then 91' ]
+
+  StrategieOverratedByPercentAndStochastic all 100 91 1 1 1 1 1 1 "5.61" "1.01" "4.44" "4.28" "4.03" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME"
   [ "$resultStrategieOverratedByPercentAndStochastic" == '- Overrated by percent and stochastic: 5.61 EUR is 1.01 over Avg18 4.44 EUR and Avg38 4.28 EUR and Avg100 4.03 EUR and Stoch14 is 100 is higher then 91' ]
 }

@@ -6,9 +6,38 @@ TODO:
 git config --global http.sslVerify false
 
 
+-Wann wird Kurs von XETRA aktuallisiert?
+    LHA ist erst unter Tags akt. worden?
+    curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=LHA.XETRA" | jq '.data[0]'
+    curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=LHA.XETRA" | jq '.data[0].close','.data[0].date'
+    {
+    "open": 10.63,
+    "high": 11.29,
+    "low": 10.56,
+    "close": 10.96,
+    "volume": 11250341,
+    "adj_high": null,
+    "adj_low": null,
+    "adj_close": 10.96,
+    "adj_open": null,
+    "adj_volume": null,
+    "symbol": "LHA.XETRA",
+    "exchange": "XETRA",
+    "date": "2020-12-29T00:00:00+0000"
+    }
+    Um 00:02 war der Kurs noch alt! um 1 Uhr Nachts neu
+-Im Workflow mehrere Zeilen als Varibalen concatonieren: dax, stoxx, watch, depot
++# Get null bei kleinschreibung
+-RSI14 param begrenzen zb: 40 und nach oben 60. Nicht 99. So wie stoch, da ist er einstellig: 9
+-Kaufsignale unterbinden, wenn Stock ein kauf: ADS
+-all Overrated strategien machen und testen
+-wenn nun auch "all" geht, sind die namen overreated und underrated nicht mehr korrekt!
+-kauf in grün im result
+-3ten key besorgen 
+-MDAX mit aufnehmen?
+
 -Cache Dateien für jedes symbol anlegen!! Performence!
 -local vor lokale variablen schreiben. ACHTUNG FEHLER in Linux!!!
--Wann wird Kurs von XETRA aktuallisiert? Um 00:02 war der Kurs noch alt! um 1 Uhr Nachts neu
 -RSI und andere Beschleunigen!!!
 -Evtl Schalter overrated und underrated raus 
 -Strategie zum Verkauf einbauen?
@@ -25,7 +54,6 @@ git config --global http.sslVerify false
 -(Auflösung: Symbol Ticker zu WKN)
 -(chart.js not working on iphone https://www.google.de/search?q=chart.js+not+working+on+iphone&ie=UTF-8&oe=UTF-8&hl=de-de&client=safari)
 -(anderen Chart nehmen https://c3js.org/samples/simple_multiple.html)
--(get null bei „ads alv“)
 -Schneller?
     i=$(( i + 1 )) <- Ist schneller!!
     i=$(expr $i + 1)
@@ -42,6 +70,7 @@ sort -k 1 data/_ticker_names.txt > data/_ticker_names_sorted.txt
 
 
 https://www.shellcheck.net
+chocolatey
 install with choco
 Powershell as admin 
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -153,64 +182,17 @@ curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MA
 curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
 
 
-Cache:
-cacheFile=$(find data/cache/${symbol}.values18.txt 2> /dev/null -mtime -1 -print)
-if [ "${#cacheFile}" -gt 0 ]; then
-    echo Read from cache file
-    cp data/cache/${symbol}.values18.txt temp/values18.txt
-else
-    echo Create cache file
-    head -n18 data/${symbol}.txt > data/cache/${symbol}.values18.txt
-    cp data/cache/${symbol}.values18.txt temp/values18.txt
-fi
+# Cut comma, like: ",22" -> "22"        
+# v1=$(echo "$1")
+# value1=${v1:1:2}
+# v2=$(echo "$2")
+# value2=${v2:1:2}
+# v3=$(echo "$3")
+# value3=${v3:1:2}   
 
-
-
-      - uses: swinton/screenshot-website@v1.x
-        with:
-          source: out/2.html
-          #source: https://github.com/swinton/screenshot-website
-          destination: screenshot.png   
-
-      - name: Upload Screenshot
-        uses: actions/upload-artifact@v2
-        with:
-          name: screenshot
-          path: screenshot.png
-
-      - name: Download Screenshot 
-        uses: actions/download-artifact@v2
-        with:
-          name: screenshot
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact1
-          path: out/*.html
-    
-      - name: Send result via email
-        uses: dawidd6/action-send-mail@v2
-        with:
-          server_address: smtp.ionos.de
-          server_port: 465
-          #username: github(ä)h...-it.de
-          #password: g*1!
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}          
-          subject: Github stock-analyse result ${{github.event_name}} ${{github.event.action}}
-          # Literal body:
-          #body: Build job of ${{github.repository}} completed successfully!
-          # Read file contents as body:
-          body: file://out/_result.html
-          to: info@hopf-it.de
-          from: Github stock-analyse # <github@hopf-it.de>
-          # Optional content type (defaults to text/plain):
-          content_type: text/html          
-          # Optional attachments:
-          #attachments: out/_out.tar.gz,out/SNW.html,out/index_orig.html,out/1.html
-          #attachments: out/_out.tar.gz,/home/runner/work/stock-analyse/stock-analyse/screenshot.png
-          attachments: out/_out.tar.gz,screenshot.png
-
+value1=$(echo "$1" | cut -b 2-3)
+value2=$(echo "$2" | cut -b 2-3)
+value3=$(echo "$3" | cut -b 2-3)
 
 
 

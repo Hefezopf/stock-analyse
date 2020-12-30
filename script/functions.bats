@@ -13,6 +13,41 @@ TICKER_NAMES_FILE="test/_ticker_names.txt"
 SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF AG"
 
+@test "UsageCheckParameter" {
+  run UsageCheckParameter 'ADS BEI' 1 offline underrated 9 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 0 ]
+
+  run UsageCheckParameter 'ADS BEI' 1 offline overrated 9 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 0 ]
+
+  run UsageCheckParameter 'ADS BEI' 1 offline all 9 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 0 ]
+
+  run UsageCheckParameter 'A.DS' 1 offline underrated 9 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter "$SYMBOL" xxx offline underrated 9 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter "$SYMBOL" 1 xxxline all 9 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter "$SYMBOL" 1 offline xxxunderrated 9 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter "$SYMBOL" 1 offline underrated xxx 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter "$SYMBOL" 1 offline underrated 10 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter "$SYMBOL" 1 offline overrated 9 xxx "$OUT_RESULT_FILE"
+  [ "$status" -eq 5 ]
+
+  run UsageCheckParameter "$SYMBOL" 1 offline underrated 9 31 "$OUT_RESULT_FILE"
+  [ "$status" -eq 5 ]
+}
+
 @test "CurlSymbolName" {
   rm -rf "$TICKER_NAMES_FILE"
 
@@ -68,7 +103,7 @@ SYMBOL_NAME="BEIERSDORF AG"
 
 @test "WriteComdirectUrlAndStoreFileList" {
   rm -rf temp/_result.html
-  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" true
+  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" true green
   [ "$reportedSymbolFileList" == 'out/BEI.html' ]
 }
 
@@ -85,29 +120,6 @@ SYMBOL_NAME="BEIERSDORF AG"
 @test "AverageOfDays" {
   AverageOfDays 14 "$DATA_FILE"
   [ "$averagePriceList" == ' , , , , , , , , , , , , , 97.6086, 97.1421, 96.5629, 96.1479, 95.6471, 95.6329, 95.7471, 95.8257, 95.9357, 95.9543, 96.0971, 96.3714, 96.4757, 96.7186, 96.9129, 97.22, 97.4757, 97.5757, 97.7629, 97.8329, 97.8714, 97.7957, 97.55, 97.3014, 97.0186, 96.5571, 96.2214, 96.0557, 96.0343, 95.8971, 95.8271, 95.7786, 95.6529, 95.6014, 95.4929, 95.5914, 95.9429, 96.2886, 96.5986, 97.1136, 97.5707, 97.9157, 98.1543, 98.4329, 98.5514, 98.6486, 98.8357, 99.0286, 99.2957, 99.0586, 98.5143, 97.87, 97.2543, 96.6207, 96.2679, 95.7929, 95.3114, 95.1357, 95.1686, 95.3279, 95.455, 95.5693, 95.6693, 96.1264, 96.625, 97.1393, 97.6064, 97.8993, 97.8964, 98.005, 98.1036, 97.8507, 97.4421, 96.8786, 96.2486, 95.5143, 94.8271, 94.2029, 93.7757, 93.3686, 92.9429, 92.6486, 92.5486, 92.33, 92.3443, 92.2586, 92.2214,' ]
-}
-
-@test "UsageCheckParameter" {
-  run UsageCheckParameter 'ADS BEI' 1 offline underrated 9 30 "$OUT_RESULT_FILE"
-  [ "$status" -eq 0 ]
-
-  run UsageCheckParameter 'A.DS' 1 offline underrated 9 30 "$OUT_RESULT_FILE"
-  [ "$status" -eq 5 ]
-
-  run UsageCheckParameter "$SYMBOL" xxx offline underrated 9 30 "$OUT_RESULT_FILE"
-  [ "$status" -eq 5 ]
-
-  run UsageCheckParameter "$SYMBOL" 1 xxxline underrated 9 30 "$OUT_RESULT_FILE"
-  [ "$status" -eq 5 ]
-
-  run UsageCheckParameter "$SYMBOL" 1 offline xxxunderrated 9 30 "$OUT_RESULT_FILE"
-  [ "$status" -eq 5 ]
-
-  run UsageCheckParameter "$SYMBOL" 1 offline underrated xxx 30 "$OUT_RESULT_FILE"
-  [ "$status" -eq 5 ]
-
-  run UsageCheckParameter "$SYMBOL" 1 offline underrated 9 xxx "$OUT_RESULT_FILE"
-  [ "$status" -eq 5 ]
 }
 
 @test "LesserThenWithFactor" {

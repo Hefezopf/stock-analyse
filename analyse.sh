@@ -5,11 +5,12 @@
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS ALV BAS ...'
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
-# 4. Parameter: RATED - [overrated|underrated]. Only list low/underrated stocks.
+# 4. Parameter: RATED - [overrated|underrated|all]. Only list overrated/underrated/all stocks.
 # 5. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
-# 6. Parameter: RSI: Quote for RSI indicator.
+# 6. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
 # Call example: ./analyse.sh 'ADS ALV' 3 online underrated 9 30
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
+# Call example: ./analyse.sh 'ADS' 1 offline all 9 30
 #
 # Set MARKET_STACK_ACCESS_KEY and MARKET_STACK_ACCESS_KEY2 as Env Variable
 # shellcheck disable=SC1091 
@@ -65,10 +66,18 @@ fi
 percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
 percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
 
+# RSI percentage
+RSIQuoteLower=$RSIQuoteParam
+#RSIQuoteUpper=$((100-RSIQuoteParam))
+
+# Stochastics percentage
+stochasticPercentageLower=$stochasticPercentageParam
+stochasticPercentageUpper=$((100-stochasticPercentageParam))
+
 echo "# Analyse Parameter" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
-countSymbols=$(( countSymbols + 1 ))
+countSymbols=$((countSymbols + 1))
 echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "Percentage:$percentageParam " | tee -a $OUT_RESULT_FILE
@@ -113,7 +122,7 @@ do
 
     CreateCmdAnalyseHyperlink
 
-     ProgressBar 1 8
+    ProgressBar 1 8
 
     DATA_FILE=data/${symbol}.txt
     lastRaw=$(head -n1 -q "$DATA_FILE")
@@ -173,11 +182,6 @@ do
 
     ProgressBar 5 8
 
-    # Stochastics percentage
-    stochasticPercentageLower=$stochasticPercentageParam
-    #stochasticPercentageUpper=$(echo "$stochasticPercentageLower" | awk '{print (100 - $1)}')
-    stochasticPercentageUpper=$((100-stochasticPercentageParam))
-
     # Average 18
     averageInDays18=18
     averagePriceList=""
@@ -220,15 +224,15 @@ do
     
         # -Strategie: Low stochastic 3 last values under lowStochasticValue
         resultStrategieUnderrated3LowStochastic=""
-        StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageParam" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
         # -Strategie: Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowRSI=""
-        StrategieUnderratedLowRSI "$ratedParam" "$RSIQuoteParam" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieUnderratedLowRSI "$ratedParam" "$RSIQuoteLower" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
         # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowStochasticLowRSI=""
-        StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
         # -Strategie: The very last stochastic is lower then stochasticPercentageLower
         #resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
@@ -292,7 +296,7 @@ do
         cat js/indexPart11.html 
 
         ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
-        echo "<p><a href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$symbolName</a><br>" 
+        echo "<p><a style=font-size:larger; href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$symbolName</a><br>" 
         echo "Percentage:<b>$percentageParam</b> " 
         echo "Query:<b>$queryParam</b> " 
         echo "Rated:<b>$ratedParam</b> " 
@@ -323,7 +327,7 @@ do
         cat js/indexPart12.html
     } >> "$indexSymbolFile"
 
-    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" false
+    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" false black
 done
 
 echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
@@ -335,13 +339,13 @@ for symbolFile in $reportedSymbolFileList
 do
     #echo symbolFile $symbolFile
     cp "$symbolFile" temp/$i.html
-    i=$(( i + 1 ))
+    i=$((i + 1))
 done
 # Maximal 5 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
 while [ "$i" -le 5 ];
 do
     touch temp/$i.html
-    i=$(( i + 1 ))
+    i=$((i + 1))
 done
 
 # Time measurement
@@ -352,5 +356,8 @@ echo "time elapsed."
 
 # Cleanup
 rm -rf temp/values*.txt
-tar -zcf $OUT_ZIP_FILE "$reportedSymbolFileList" $OUT_RESULT_FILE
+# shellcheck disable=SC2116,SC2086
+reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
+# shellcheck disable=SC2086
+tar -zcf $OUT_ZIP_FILE $reportedSymbolFileList
 mv $OUT_ZIP_FILE out
