@@ -40,6 +40,8 @@ UsageCheckParameter() {
         [ -n "${_RSIQuoteParam##*[!0-9]*}" ] && [ ! "${_RSIQuoteParam}" -gt 30 ]; then
         echo ""
     else
+        echo "Given Parameter: Symbols=$_symbolsParam Persentage=$_percentageParam Query=$_queryParam Rated=$_ratedParam Stoch=$_stochasticPercentageParam RSI=$_RSIQuoteParam"
+        echo ""
         echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a "$OUT_RESULT_FILE_param"
         echo "<br>" >> "$OUT_RESULT_FILE_param"
         echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a "$OUT_RESULT_FILE_param"
