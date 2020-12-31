@@ -50,14 +50,14 @@ HTML_RESULT_FILE_END="</p><p>Good Luck!</p></div></body></html>"
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
 
-# Check for multiple symbols in cmd
+# Check for multiple identical symbols in cmd
 echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo "$symbolsParam" | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Multiple symbols in parameter list!!!!!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE #&& exit 4
 
 # Usage: Check parameter
 UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
 
 if [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ]; then
-    echo "Error: MARKET_STACK_ACCESS_KEY1 or MARKET_STACK_ACCESS_KEY2  or MARKET_STACK_ACCESS_KEY3 not set!" | tee -a $OUT_RESULT_FILE
+    echo "Error: MARKET_STACK_ACCESS_KEY1 or MARKET_STACK_ACCESS_KEY2 or MARKET_STACK_ACCESS_KEY3 not set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
     exit 6
@@ -94,8 +94,10 @@ echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-a
 # Analyse data for each symbol
 for symbol in $symbolsParam
 do
-    # Curl symbol name
+    # Curl symbol name with delay of 14sec because of REST API restrictions
     CurlSymbolName "$symbol" $TICKER_NAMES_FILE 14
+
+    #if [ "$queryParam" = 'online' ]; then
 
     # Get stock data
     echo ""
