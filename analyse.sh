@@ -100,6 +100,8 @@ do
     # Get stock data
     echo ""
     echo "# Get $symbolName"
+    DATA_FILE=data/${symbol}.txt
+    DATA_DATE_FILE=data/${symbol}_date.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
         # evenodd=$((tag % 2))
@@ -119,8 +121,6 @@ do
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
         fi
 
-        DATA_FILE=data/${symbol}.txt
-        DATA_DATE_FILE=data/${symbol}_date.txt
  #       curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq '.data[].close' > "$DATA_FILE"
         curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.close, "\t", .date, "\n"' | awk -F'T' '{print $1}' > "$DATA_DATE_FILE"        
         awk '{print $1}' "$DATA_DATE_FILE"  > "$DATA_FILE"
@@ -138,7 +138,7 @@ do
 
     ProgressBar 1 8
 
-    DATA_FILE=data/${symbol}.txt
+    #DATA_FILE=data/${symbol}.txt
     lastRaw=$(head -n1 "$DATA_FILE")
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown or not fetched symbol in cmd or on marketstack.com
@@ -316,7 +316,9 @@ do
         echo "Rated:<b>$ratedParam</b> " 
         echo "Stochastic14:<b>$stochasticPercentageParam</b> " 
         echo "RSI14:<b>$RSIQuoteParam</b><br>" 
-        echo "Date:<b>""$(stat -c %y "$DATA_FILE" | cut -b 1-10)" "</b>" 
+
+        echo "Date:<b>""$(head -n1 $DATA_DATE_FILE | awk '{print $2}')" "</b>" 
+        #echo "Date:<b>""$(stat -c %y "$DATA_FILE" | cut -b 1-10)" "</b>" 
         echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>""$last" "&#8364;</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18" "&#8364;</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38" "&#8364;</b></span>" 
