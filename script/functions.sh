@@ -247,14 +247,8 @@ WriteComdirectUrlAndStoreFileList() {
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
-        # _style="style=\"color:black\""
         _alert=""
         if [ "$_alertParam" = true ]; then
-            # if [ "$_ratedParam" = 'underrated' ]; then
-            #     _style="style=\"color:red\""
-            # else
-            #     _style="style=\"color:green\""
-            # fi
             _alert="->ALERT!"
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086

@@ -317,8 +317,21 @@ do
         echo "Stochastic14:<b>$stochasticPercentageParam</b> " 
         echo "RSI14:<b>$RSIQuoteParam</b><br>" 
 
-        echo "Date:<b>""$(head -n1 $DATA_DATE_FILE | awk '{print $2}')" "</b>" 
-        #echo "Date:<b>""$(stat -c %y "$DATA_FILE" | cut -b 1-10)" "</b>" 
+        # Plausi quote from last trading day
+        yesterday=$(date --date="-1 day" +"%Y-%m-%d")
+        dayOfWeek=$(date +%u)
+        if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
+            yesterday=$(date --date="-2 day" +"%Y-%m-%d")
+        fi
+        if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
+            yesterday=$(date --date="-3 day" +"%Y-%m-%d")
+        fi
+        quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $2}')
+        if [ "$quoteDate" = "$yesterday" ]; then
+            echo "Date:<b>$quoteDate </b>" # OK, quote from last trading day
+        else
+            echo "Date:<b style=\"color:red; font-size:xx-large;\">$quoteDate </b>" 
+        fi
         echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>""$last" "&#8364;</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18" "&#8364;</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38" "&#8364;</b></span>" 
