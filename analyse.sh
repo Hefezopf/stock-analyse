@@ -348,6 +348,8 @@ echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
 
 # Write temp/*.html symbolFile's for later screenshot in github workflow!
 rm -rf temp/*.html
+# Create a file for later screenshots in workflow, so that there will be no error!
+cp "$OUT_RESULT_FILE" temp/1.html
 i=1
 for symbolFile in $reportedSymbolFileList
 do
