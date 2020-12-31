@@ -327,7 +327,7 @@ do
             yesterday=$(date --date="-3 day" +"%Y-%m-%d")
         fi
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $2}')
-        echo yesterday $yesterday dayOfWeek $dayOfWeek quoteDate $quoteDate
+        #echo yesterday $yesterday dayOfWeek $dayOfWeek quoteDate $quoteDate
         if [ "$quoteDate" = "$yesterday" ]; then
             echo "Date:<b>$quoteDate </b>" # OK, quote from last trading day
         else
