@@ -151,11 +151,11 @@ jobs:
       - shell: bash
         run: |  
           fileSize=$(stat -c %s screenshot1.png)
-          if [ "${fileSize}" -gt "100000" ]; then
+          if [ "${fileSize}" -gt "10000" ]; then
             fileList=$(echo $fileList "screenshot1.png")
           fi
           fileSize=$(stat -c %s screenshot2.png)
-          if [ "${fileSize}" -gt "100000" ]; then
+          if [ "${fileSize}" -gt "10000" ]; then
             fileList=$(echo $fileList "screenshot2.png")
           fi
           tar -zcf screenshot.tar.gz $fileList
