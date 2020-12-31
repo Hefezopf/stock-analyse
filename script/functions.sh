@@ -255,7 +255,7 @@ WriteComdirectUrlAndStoreFileList() {
             # else
             #     _style="style=\"color:green\""
             # fi
-            _alert=" ->ALERT!"
+            _alert="->ALERT!"
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
