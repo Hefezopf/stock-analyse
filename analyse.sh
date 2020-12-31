@@ -220,9 +220,9 @@ do
 
     ProgressBar 8 8
 
-    if [ ! "$(uname)" = 'Linux' ]; then
-        echo ""
-    fi
+    # if [ ! "$(uname)" = 'Linux' ]; then
+    #     echo ""
+    # fi
     
     #
     # Apply strategies
@@ -232,31 +232,31 @@ do
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
 
-        # -Strategie: UnderratedByPercentAndStochastic
+        # - Strategie: UnderratedByPercentAndStochastic
         resultStrategieUnderratedByPercentAndStochastic=""
         StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName"
     
-        # -Strategie: Low stochastic 3 last values under lowStochasticValue
+        # - Strategie: Low stochastic 3 last values under lowStochasticValue
         resultStrategieUnderrated3LowStochastic=""
         StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
-        # -Strategie: Low RSI last quote under lowRSIValue
+        # - Strategie: Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowRSI=""
         StrategieUnderratedLowRSI "$ratedParam" "$RSIQuoteLower" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
-        # -Strategie: Low stochastic and Low RSI last quote under lowRSIValue
+        # - Strategie: Low stochastic and Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowStochasticLowRSI=""
         StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
-        # -Strategie: The very last stochastic is lower then stochasticPercentageLower
+        # - Strategie: The very last stochastic is lower then stochasticPercentageLower
         #resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
         #StrategieUnderratedVeryLastStochasticIsLowerThen
 
-        # +Strategie: OverratedByPercentAndStochastic
+        # + Strategie: OverratedByPercentAndStochastic
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
-        # +Strategie: Overrated3HighStochastic
+        # + Strategie: Overrated3HighStochastic
         resultStrategieOverrated3HighStochastic=""
         StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName"
 
@@ -317,7 +317,7 @@ do
         echo "Stochastic14:<b>$stochasticPercentageParam</b> " 
         echo "RSI14:<b>$RSIQuoteParam</b><br>" 
 
-        # Plausi quote from last trading day
+        # Plausi quote day from last trading day
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")
         dayOfWeek=$(date +%u)
         if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
@@ -327,7 +327,6 @@ do
             yesterday=$(date --date="-3 day" +"%Y-%m-%d")
         fi
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $2}')
-        #echo yesterday $yesterday dayOfWeek $dayOfWeek quoteDate $quoteDate
         if [ "$quoteDate" = "$yesterday" ]; then
             echo "Date:<b>$quoteDate </b>" # OK, quote from last trading day
         else
@@ -341,14 +340,14 @@ do
         echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span></p>" 
 
         # Strategies output
-        # -
+        # - buy
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowRSI" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
         #echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" 
         
-        # +
+        # + sell
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>" 
              
