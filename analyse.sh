@@ -43,9 +43,7 @@ rm -rf $OUT_RESULT_FILE
 reportedSymbolFileList=""
 TICKER_NAMES_FILE=data/_ticker_names.txt
 # Email header
-HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
-#HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>"
-#HTML_RESULT_FILE_HEADER=$(echo "<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>")
+HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END="</p><p>Good Luck!</p></div></body></html>"
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=100&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&ID_NOTATION="
@@ -240,31 +238,31 @@ do
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
 
-        # - Strategie: UnderratedByPercentAndStochastic
+        # + Strategie: UnderratedByPercentAndStochastic
         resultStrategieUnderratedByPercentAndStochastic=""
         StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     
-        # - Strategie: Low stochastic 3 last values under lowStochasticValue
+        # + Strategie: Low stochastic 3 last values under lowStochasticValue
         resultStrategieUnderrated3LowStochastic=""
         StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # - Strategie: Low RSI last quote under lowRSIValue
+        # + Strategie: Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowRSI=""
         StrategieUnderratedLowRSI "$ratedParam" "$RSIQuoteLower" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # - Strategie: Low stochastic and Low RSI last quote under lowRSIValue
+        # + Strategie: Low stochastic and Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowStochasticLowRSI=""
         StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # - Strategie: The very last stochastic is lower then stochasticPercentageLower
+        # + Strategie: The very last stochastic is lower then stochasticPercentageLower
         #resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
         #StrategieUnderratedVeryLastStochasticIsLowerThen
 
-        # + Strategie: OverratedByPercentAndStochastic
+        # - Strategie: OverratedByPercentAndStochastic
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # + Strategie: Overrated3HighStochastic
+        # - Strategie: Overrated3HighStochastic
         resultStrategieOverrated3HighStochastic=""
         StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
@@ -317,8 +315,16 @@ do
         echo "$RSIQuoteList" 
         cat js/indexPart11.html 
 
+        # Color result link in Chart
+        styleComdirectLink="style=\"font-size:x-large; color:black\""
+        if [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] ||  [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ]; then
+            styleComdirectLink="style=\"font-size:x-large; color:red\""
+        fi
+        if [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowRSI}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
+            styleComdirectLink="style=\"font-size:x-large; color:green\""
+        fi
         ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
-        echo "<p><a style=font-size:larger; href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$symbolName</a><br>" 
+        echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbolName</a><br>" 
         echo "Percentage:<b>$percentageParam</b> " 
         echo "Query:<b>$queryParam</b> " 
         echo "Rated:<b>$ratedParam</b> " 
@@ -348,14 +354,14 @@ do
         echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span></p>" 
 
         # Strategies output
-        # - buy
+        # + buy
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowRSI" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
         #echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" 
         
-        # + sell
+        # - sell
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>" 
              

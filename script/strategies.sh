@@ -23,6 +23,7 @@ StrategieOverratedByPercentAndStochastic() {
     _symbolParam=${16}
     _symbolNameParam=${17}
     _markerOwnStockParam=${18}
+    resultStrategieOverratedByPercentAndStochastic=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
             [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
@@ -57,6 +58,7 @@ StrategieUnderratedByPercentAndStochastic() {
     _symbolParam=${17}
     _symbolNameParam=${18}
     _markerOwnStockParam=${19}
+    resultStrategieUnderratedByPercentAndStochastic=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
             [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
@@ -93,6 +95,7 @@ StrategieOverrated3HighStochastic() {
     _symbolParam=${5}
     _symbolNameParam=${6}
     _markerOwnStockParam=${7}
+    resultStrategieOverrated3HighStochastic=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         # Revers and output the last x numbers. Attention only works for single digst numbers!
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
@@ -131,7 +134,7 @@ StrategieOverrated3HighStochastic() {
         if [ "${#value3}" -gt 1 ] && [ "$value3" -gt "$_highStochasticValue" ]; then
             howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
         fi   
-        resultStrategieOverrated3HighStochastic=""
+        #resultStrategieOverrated3HighStochastic=""
         # All 3 last values over _highStochasticValue?
         if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
             resultStrategieOverrated3HighStochastic="- High stochastic: 3 last stochastic quotes are over $_highStochasticValue"
@@ -153,6 +156,7 @@ StrategieUnderrated3LowStochastic() {
     _symbolParam=${5}
     _symbolNameParam=${6}
     _markerOwnStockParam=${7}
+    resultStrategieUnderrated3LowStochastic=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         # Revers and output the last x numbers. Attention only works for single digst numbers!
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
@@ -177,7 +181,7 @@ StrategieUnderrated3LowStochastic() {
         if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValue" ]; then
             howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
         fi
-        resultStrategieUnderrated3LowStochastic=""
+        #resultStrategieUnderrated3LowStochastic=""
         # All 3 last values under _lowStochasticValue?
         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
             resultStrategieUnderrated3LowStochastic="+ Low stochastic: 3 last stochastic quotes are under $_lowStochasticValue"
@@ -201,8 +205,9 @@ StrategieUnderratedLowRSI() {
     _symbolParam=${5}
     _symbolNameParam=${6}
     _markerOwnStockParam=${7}
+    resultStrategieUnderratedLowRSI=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
-        resultStrategieUnderratedLowRSI=""
+        #resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
         if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
             resultStrategieUnderratedLowRSI="+ Low RSI: last RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
@@ -226,8 +231,9 @@ StrategieUnderratedLowStochasticLowRSI() {
     _symbolParam=${7}
     _symbolNameParam=${8}  
     _markerOwnStockParam=${9}
+    resultStrategieUnderratedLowStochasticLowRSI=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then  
-        resultStrategieUnderratedLowStochasticLowRSI=""
+        #resultStrategieUnderratedLowStochasticLowRSI=""
         # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue
         if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValue" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ]; then
             resultStrategieUnderratedLowStochasticLowRSI="+ Low Stoch & Low RSI: last Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and last RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
