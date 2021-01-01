@@ -32,7 +32,7 @@ UsageCheckParameter() {
     _RSIQuoteParam=${6}
     OUT_RESULT_FILE_param=${7}
 
-    if  [ -n "${_symbolsParam##*[!a-zA-Z0-9 ]*}" ] &&
+    if  [ -n "${_symbolsParam##*[!a-zA-Z0-9* ]*}" ] && # symbols, blank and '*' allowed
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
         { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
         { [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; } &&
@@ -232,7 +232,7 @@ ProgressBar() {
 # WriteComdirectUrlAndStoreFileList function:
 # - Write Comdirect Url.
 # - Store list of files for later (tar/zip)
-# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _alertParam($4), _linkColorParam($5)
+# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _alertParam($4), _linkColorParam($5), _markerOwnStockParam($6)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
     _OUT_RESULT_FILE_param=${1}
@@ -240,6 +240,7 @@ WriteComdirectUrlAndStoreFileList() {
     _symbolNameParam="${3}"
     _alertParam=${4}
     _linkColorParam=${5}
+    _markerOwnStockParam=${6}
     ID_NOTATION=$(grep "${_symbolParam}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
         ID_NOTATION=999999
@@ -247,22 +248,16 @@ WriteComdirectUrlAndStoreFileList() {
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
-        _alert=""
+        #_alert=""
         if [ "$_alertParam" = true ]; then
-            _alert="->ALERT!"
+            #_alert="->ALERT!"
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
         
-        # TODO marker as PARAMETER!!
-        # if [ "$marker" = true ]; then
-        #     echo xxxxxx TEST with marker!!!
-        #     fontSize="font-size:xx-large;"
-        # fi
-        # echo "<a style=$fontSize color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
-
-        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
+        # TODO markerOwnStock as PARAMETER!!
+        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_markerOwnStockParam$_symbolNameParam</a><br>" >> "$_OUT_RESULT_FILE_param"
     fi
 }
 

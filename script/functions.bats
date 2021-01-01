@@ -103,7 +103,7 @@ SYMBOL_NAME="BEIERSDORF AG"
 
 @test "WriteComdirectUrlAndStoreFileList" {
   rm -rf temp/_result.html
-  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" true green
+  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" true green *
   [ "$reportedSymbolFileList" == 'out/BEI.html' ]
 }
 
