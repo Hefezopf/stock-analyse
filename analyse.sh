@@ -2,13 +2,13 @@
 
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC RSI
-# 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS ALV BAS ...'
+# 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS *ALV BAS ...'; Stocks marked with '*' are treated as own stocks 
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
 # 4. Parameter: RATED - [overrated|underrated|all]. Only list overrated/underrated/all stocks.
 # 5. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
 # 6. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
-# Call example: ./analyse.sh 'ADS ALV' 3 online underrated 9 30
+# Call example: ./analyse.sh 'ADS *ALV' 3 online underrated 9 30
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
 # Call example: ./analyse.sh 'ADS' 1 offline all 9 30
 #
@@ -95,18 +95,15 @@ echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-a
 # Analyse data for each symbol
 for symbol in $symbolsParam
 do
+    # Stocks marked with '*' are treated as own stocks 
+    markerOwnStock=""
+    if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
+        markerOwnStock="*"
+        symbol=$(echo "$symbol" | cut -b 2-6)
+    fi
+
     # Curl symbol name with delay of 14sec because of REST API restrictions
     CurlSymbolName "$symbol" $TICKER_NAMES_FILE 14
-
-    
-    #############
-    # if [ "$symbol" = 'SAP' ]; then
-    #     echo TEST with marker!!!
-    #     marker=true
-    # fi
-    ###############
-
-
 
     # Get stock data
     echo ""
@@ -231,9 +228,9 @@ do
 
     ProgressBar 8 8
 
-    # if [ ! "$(uname)" = 'Linux' ]; then
-    #     echo ""
-    # fi
+    if [ ! "$(uname)" = 'Linux' ]; then
+        echo ""
+    fi
     
     #
     # Apply strategies
@@ -245,19 +242,19 @@ do
 
         # - Strategie: UnderratedByPercentAndStochastic
         resultStrategieUnderratedByPercentAndStochastic=""
-        StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     
         # - Strategie: Low stochastic 3 last values under lowStochasticValue
         resultStrategieUnderrated3LowStochastic=""
-        StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # - Strategie: Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowRSI=""
-        StrategieUnderratedLowRSI "$ratedParam" "$RSIQuoteLower" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieUnderratedLowRSI "$ratedParam" "$RSIQuoteLower" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # - Strategie: Low stochastic and Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowStochasticLowRSI=""
-        StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # - Strategie: The very last stochastic is lower then stochasticPercentageLower
         #resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
@@ -265,11 +262,11 @@ do
 
         # + Strategie: OverratedByPercentAndStochastic
         resultStrategieOverratedByPercentAndStochastic=""
-        StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # + Strategie: Overrated3HighStochastic
         resultStrategieOverrated3HighStochastic=""
-        StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName"
+        StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
     else
         # shellcheck disable=SC3037
@@ -367,7 +364,7 @@ do
         cat js/indexPart12.html
     } >> "$indexSymbolFile"
 
-    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" false black
+    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" false black "$markerOwnStock"
 done
 
 echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE

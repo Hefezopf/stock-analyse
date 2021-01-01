@@ -2,7 +2,7 @@
 
 # StrategieOverratedByPercentAndStochastic function:
 # Strategie: Overrated by Percent and Stochastic
-# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), OUT_RESULT_FILE_param($16), symbolParam($17), _symbolNameParam($18)
+# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), OUT_RESULT_FILE_param($15), symbolParam($16), _symbolNameParam($17), _markerOwnStockParam($18)
 # Output: resultStrategieOverratedByPercentAndStochastic
 StrategieOverratedByPercentAndStochastic() {
     _ratedParam=${1}
@@ -22,19 +22,20 @@ StrategieOverratedByPercentAndStochastic() {
     _OUT_RESULT_FILE_param=${15}
     _symbolParam=${16}
     _symbolNameParam=${17}
+    _markerOwnStockParam=${18}
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
             [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
             resultStrategieOverratedByPercentAndStochastic="- Overrated by percent and stochastic: $_last EUR is $_percentageLesserFactor over Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
             echo "$resultStrategieOverratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red "$_markerOwnStockParam"
         fi
     fi
 }
 
 # StrategieUnderratedByPercentAndStochastic function:
 # Strategie: Underrated by Percent and Stochastic
-# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageLower($3), lastUnderAgv18($4), lastUnderAgv38($5), lastUnderAgv100($6), agv18UnderAgv38($7), agv38UnderAgv100($8), agv18UnderAgv100($9), last($10), percentageGreaterFactor($11), average18($12), average38($13), average100($14), stochasticPercentageLower($15), OUT_RESULT_FILE_param($16), symbolParam($17), _symbolNameParam($18)
+# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageLower($3), lastUnderAgv18($4), lastUnderAgv38($5), lastUnderAgv100($6), agv18UnderAgv38($7), agv38UnderAgv100($8), agv18UnderAgv100($9), last($10), percentageGreaterFactor($11), average18($12), average38($13), average100($14), stochasticPercentageLower($15), OUT_RESULT_FILE_param($16), symbolParam($17), _symbolNameParam($18), _markerOwnStockParam($19)
 # Output: resultStrategieUnderratedByPercentAndStochastic
 StrategieUnderratedByPercentAndStochastic() { 
     _ratedParam=${1}
@@ -54,13 +55,14 @@ StrategieUnderratedByPercentAndStochastic() {
     _stochasticPercentageLower=${15}
     _OUT_RESULT_FILE_param=${16}
     _symbolParam=${17}
-    _symbolNameParam=${18}       
+    _symbolNameParam=${18}
+    _markerOwnStockParam=${19}
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
             [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
             resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: $_last EUR is $_percentageGreaterFactor under Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
             echo "$resultStrategieUnderratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
         fi
     fi
 }
@@ -74,14 +76,14 @@ StrategieUnderratedByPercentAndStochastic() {
 #         if [ "$lastStochasticQuoteRounded" -lt "$stochasticPercentageLower" ]; then
 #             resultStrategieUnderratedVeryLastStochasticIsLowerThen="+ Very last stochastic: last stochastic quote $lastStochasticQuoteRounded is lower then $stochasticPercentageLower"
 #             echo "$resultStrategieUnderratedVeryLastStochasticIsLowerThen"
-#             WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true green
+#             WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" true green $markerOwnStock
 #         fi
 #     fi
 # }
 
 # StrategieOverrated3HighStochastic function:
 # Strategie: High stochastic 3 last values over highStochasticValue
-# Input is _ratedParam($1), highStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6)
+# Input is _ratedParam($1), highStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieOverrated3HighStochastic
 StrategieOverrated3HighStochastic() { 
     _ratedParam=${1}   
@@ -89,7 +91,8 @@ StrategieOverrated3HighStochastic() {
     _stochasticQuoteList=${3} 
     _OUT_RESULT_FILE_param=${4}
     _symbolParam=${5}
-    _symbolNameParam=${6}     
+    _symbolNameParam=${6}
+    _markerOwnStockParam=${7}
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         # Revers and output the last x numbers. Attention only works for single digst numbers!
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
@@ -133,14 +136,14 @@ StrategieOverrated3HighStochastic() {
         if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
             resultStrategieOverrated3HighStochastic="- High stochastic: 3 last stochastic quotes are over $_highStochasticValue"
             echo "$resultStrategieOverrated3HighStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red "$_markerOwnStockParam"
         fi
     fi
 }
 
 # StrategieUnderrated3LowStochastic function:
 # Strategie: Low stochastic 3 last values under lowStochasticValue
-# Input is _ratedParam($1), lowStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6)
+# Input is _ratedParam($1), lowStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieUnderrated3LowStochastic
 StrategieUnderrated3LowStochastic() { 
     _ratedParam=${1}   
@@ -148,7 +151,8 @@ StrategieUnderrated3LowStochastic() {
     _stochasticQuoteList=${3} 
     _OUT_RESULT_FILE_param=${4}
     _symbolParam=${5}
-    _symbolNameParam=${6}     
+    _symbolNameParam=${6}
+    _markerOwnStockParam=${7}
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         # Revers and output the last x numbers. Attention only works for single digst numbers!
         _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
@@ -178,7 +182,7 @@ StrategieUnderrated3LowStochastic() {
         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
             resultStrategieUnderrated3LowStochastic="+ Low stochastic: 3 last stochastic quotes are under $_lowStochasticValue"
             echo "$resultStrategieUnderrated3LowStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
         fi
     fi
 }
@@ -187,29 +191,30 @@ StrategieUnderrated3LowStochastic() {
 # Strategie: Low RSI last quote under lowRSIValue
 # https://www.charttec.de/html/indikator_rsi_relative_strength_index.php
 # https://de.wikipedia.org/wiki/Relative_Strength_Index
-# Input is _ratedParam($1), _lowRSIValueParam($2), _lastRSIQuoteRoundedParam($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6)
+# Input is _ratedParam($1), _lowRSIValueParam($2), _lastRSIQuoteRoundedParam($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieUnderratedLowRSI
 StrategieUnderratedLowRSI() {    
-     _ratedParam=${1}
-     _lowRSIValueParam=${2}
-     _lastRSIQuoteRoundedParam=${3}
-     _OUT_RESULT_FILE_param=${4}
-     _symbolParam=${5}
-     _symbolNameParam=${6}
+    _ratedParam=${1}
+    _lowRSIValueParam=${2}
+    _lastRSIQuoteRoundedParam=${3}
+    _OUT_RESULT_FILE_param=${4}
+    _symbolParam=${5}
+    _symbolNameParam=${6}
+    _markerOwnStockParam=${7}
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
         if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
             resultStrategieUnderratedLowRSI="+ Low RSI: last RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
             echo "$resultStrategieUnderratedLowRSI"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
         fi
     fi
 }
 
 # StrategieUnderratedLowStochasticLowRSI function:
 # Strategie: Low Stochastic and Low RSI last quote under lowRSIValue
-# Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _OUT_RESULT_FILE_param($6), _symbolParam($7), _symbolNameParam($8)
+# Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _OUT_RESULT_FILE_param($6), _symbolParam($7), _symbolNameParam($8), _markerOwnStockParam($9)
 # Output: resultStrategieLowStochasticUnderratedLowRSI
 StrategieUnderratedLowStochasticLowRSI() {    
     _ratedParam=${1}
@@ -217,16 +222,17 @@ StrategieUnderratedLowStochasticLowRSI() {
     _lowRSIQuoteParam=${3}
     _lastStochasticQuoteRounded=${4}
     _lastRSIQuoteRounded=${5}
-     _OUT_RESULT_FILE_param=${6}
-     _symbolParam=${7}
-     _symbolNameParam=${8}  
+    _OUT_RESULT_FILE_param=${6}
+    _symbolParam=${7}
+    _symbolNameParam=${8}  
+    _markerOwnStockParam=${9}
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then  
         resultStrategieUnderratedLowStochasticLowRSI=""
         # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue
         if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValue" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ]; then
             resultStrategieUnderratedLowStochasticLowRSI="+ Low Stoch & Low RSI: last Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and last RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
             echo "$resultStrategieUnderratedLowStochasticLowRSI"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
         fi
     fi
 }
