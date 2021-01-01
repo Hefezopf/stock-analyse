@@ -248,15 +248,11 @@ WriteComdirectUrlAndStoreFileList() {
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
-        #_alert=""
         if [ "$_alertParam" = true ]; then
-            #_alert="->ALERT!"
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
-        
-        # TODO markerOwnStock as PARAMETER!!
         echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_markerOwnStockParam$_symbolNameParam</a><br>" >> "$_OUT_RESULT_FILE_param"
     fi
 }
