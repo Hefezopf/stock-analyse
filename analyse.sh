@@ -43,7 +43,8 @@ rm -rf $OUT_RESULT_FILE
 reportedSymbolFileList=""
 TICKER_NAMES_FILE=data/_ticker_names.txt
 # Email header
-HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>"
+HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
+#HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>"
 #HTML_RESULT_FILE_HEADER=$(echo "<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color: blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>Stock Analyse,</p><p>")
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END="</p><p>Good Luck!</p></div></body></html>"
@@ -97,7 +98,15 @@ do
     # Curl symbol name with delay of 14sec because of REST API restrictions
     CurlSymbolName "$symbol" $TICKER_NAMES_FILE 14
 
-    #if [ "$queryParam" = 'online' ]; then
+    
+    #############
+    # if [ "$symbol" = 'SAP' ]; then
+    #     echo TEST with marker!!!
+    #     marker=true
+    # fi
+    ###############
+
+
 
     # Get stock data
     echo ""

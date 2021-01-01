@@ -253,7 +253,15 @@ WriteComdirectUrlAndStoreFileList() {
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
-        fi      
+        fi
+        
+        # TODO marker as PARAMETER!!
+        # if [ "$marker" = true ]; then
+        #     echo xxxxxx TEST with marker!!!
+        #     fontSize="font-size:xx-large;"
+        # fi
+        # echo "<a style=$fontSize color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
+
         echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_symbolNameParam$_alert</a><br>" >> "$_OUT_RESULT_FILE_param"
     fi
 }
