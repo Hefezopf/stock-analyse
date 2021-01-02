@@ -10,7 +10,7 @@
 # 6. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
 # Call example: ./analyse.sh 'ADS *ALV' 3 online underrated 9 30
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
-# Call example: ./analyse.sh 'ADS' 1 offline all 9 30
+# Call example: ./analyse.sh '*ADS' 1 offline all 9 30
 #
 # Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 as Env Variable
 # shellcheck disable=SC1091 
