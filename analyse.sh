@@ -11,7 +11,7 @@
 # Call example: ./analyse.sh 'ADS *ALV' 3 online underrated 9 30
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
 # Call example: ./analyse.sh '*ADS' 1 offline all 9 30
-#
+# Precondition:
 # Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 as Env Variable
 # shellcheck disable=SC1091 
 
@@ -23,6 +23,9 @@
 
 # Settings for currency formating with 'printf'
 export LC_ALL=en_IN.UTF-8
+#export LC_ALL=de_DE.UTF-8
+#export LANG=de_DE.UTF-8
+#export LANGUAGE=de_DE.UTF-8
 
 # Parameter
 symbolsParam=$1
@@ -327,10 +330,10 @@ do
         else
             echo "Date:<b style=\"color:red; font-size:xx-large;\">$quoteDate </b>" 
         fi
-        echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>""$last" "&#8364;</b></span>" 
-        echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18" "&#8364;</b></span>" 
-        echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38" "&#8364;</b></span>" 
-        echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>""$average100" "&#8364;</b></span>" 
+        echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>""$last""€</b></span>" 
+        echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18""€</b></span>" 
+        echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38""€</b></span>" 
+        echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>""$average100""€</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span></p>" 
 
