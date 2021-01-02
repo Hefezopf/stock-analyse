@@ -9,7 +9,7 @@ env:
   percentageEnv: '1'
   queryEnv: 'offline'
   ratedEnv: 'all'
-  stochasticEnv: '8'
+  stochasticEnv: '9'
   RSIEnv: '30'
 
 # Controls when the action will run. 
@@ -28,7 +28,7 @@ on:
   workflow_dispatch:
     inputs:
       symbolsParam:
-        description: 'SYMBOLS - List of stock symbols like: "*GIS ADS"'     
+        description: 'SYMBOLS - List of stock symbols like: "*GIS ADS". Own stocks marked *'
         required: true
         default: '*GIS ADS'
       percentageParam:
@@ -40,7 +40,7 @@ on:
         required: true
         default: 'offline'
       ratedParam:
-        description: 'RATED - [overrated|underrated|all]. List low/underrated/all stocks'     
+        description: 'RATED - [overrated|underrated|all]. List low/high/all stocks'     
         required: true
         default: 'all'
       stochasticParam:
@@ -48,7 +48,7 @@ on:
         required: true
         default: '9'
       RSIParam:
-        description: 'RSI14 - "30" means 30/70 quote'     
+        description: 'RSI14 - "30" means 30/70 quote. (only 30 and less allowed!)'
         required: true
         default: '30'
 
@@ -70,8 +70,6 @@ jobs:
           /home/runner/.local/bin/bats -version
           mkdir temp
           /home/runner/.local/bin/bats --tap script/*.bats
-          #chmod +x ./test.sh
-          #sh ./test.sh
 
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
