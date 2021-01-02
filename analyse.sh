@@ -2,7 +2,7 @@
 
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC RSI
-# 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS *ALV BAS ...'; Stocks marked with '*' are treated as own stocks 
+# 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
 # 4. Parameter: RATED - [overrated|underrated|all]. Only list overrated/underrated/all stocks.
@@ -42,7 +42,6 @@ OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 reportedSymbolFileList=""
 TICKER_NAMES_FILE=data/_ticker_names.txt
-# Email header
 HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END="</p><p>Good Luck!</p></div></body></html>"
@@ -93,7 +92,7 @@ echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-a
 # Analyse data for each symbol
 for symbol in $symbolsParam
 do
-    # Stocks marked with '*' are treated as own stocks 
+    # Stocks with prefix '*' are marked as own stocks
     markerOwnStock=""
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
         markerOwnStock="*"
@@ -110,12 +109,6 @@ do
     DATA_DATE_FILE=data/${symbol}_date.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-        # evenodd=$((tag % 2))
-        # if [ "$evenodd" -eq 0 ]; then
-        #     ACCESS_KEY=${MARKET_STACK_ACCESS_KEY1}
-        # else
-        #     ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
-        # fi
         evenodd=$((tag % 3))
         if [ "$evenodd" -eq 0 ]; then
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY1}
@@ -127,7 +120,6 @@ do
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
         fi
 
- #       curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq '.data[].close' > "$DATA_FILE"
         curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.close, "\t", .date, "\n"' | awk -F'T' '{print $1}' > "$DATA_DATE_FILE"        
         awk '{print $1}' "$DATA_DATE_FILE"  > "$DATA_FILE"
         fileSize=$(stat -c %s "$DATA_FILE")
@@ -144,7 +136,6 @@ do
 
     ProgressBar 1 8
 
-    #DATA_FILE=data/${symbol}.txt
     lastRaw=$(head -n1 "$DATA_FILE")
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown or not fetched symbol in cmd or on marketstack.com
@@ -225,10 +216,6 @@ do
     averagePriceList100=$averagePriceList
 
     ProgressBar 8 8
-
-    if [ ! "$(uname)" = 'Linux' ]; then
-        echo ""
-    fi
     
     #
     # Apply strategies
@@ -278,8 +265,6 @@ do
 
     indexSymbolFile=out/${symbol}.html
     rm -rf "$indexSymbolFile"
-    #cp js/_chart.min.js out
-    #cp js/_utils.js out
     cp js/_favicon.ico out
 
     {
@@ -382,7 +367,6 @@ cp "$OUT_RESULT_FILE" temp/1.html
 i=1
 for symbolFile in $reportedSymbolFileList
 do
-    #echo symbolFile $symbolFile
     cp "$symbolFile" temp/$i.html
     i=$((i + 1))
 done

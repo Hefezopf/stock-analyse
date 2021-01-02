@@ -9,7 +9,6 @@ CurlSymbolName() {
     _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
     symbolName=$(grep -w "$symbol " "$_TICKER_NAMES_FILE_param")
-    #symbolName=$(grep -w "$_symbolParam " "$_TICKER_NAMES_FILE_param")
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "echo ${X_OPENFIGI_APIKEY}" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
@@ -226,6 +225,9 @@ ProgressBar() {
     if [ ! "$(uname)" = 'Linux' ]; then
         # shellcheck disable=SC3037,SC3060
         echo -n "$(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")"
+        if [ "$currentStateParam" = "$totalStateParam" ]; then
+            echo ""
+        fi
     fi
 }
 
