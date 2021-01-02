@@ -105,8 +105,9 @@ do
     # Get stock data
     echo ""
     echo "# Get $symbolName"
-    DATA_FILE=data/${symbol}.txt
-    DATA_DATE_FILE=data/${symbol}_date.txt
+    DATA_FILE=temp/${symbol}_data.txt
+    rm -rf "$DATA_FILE"
+    DATA_DATE_FILE=data/${symbol}.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
         evenodd=$((tag % 3))
@@ -119,14 +120,12 @@ do
         if [ "$evenodd" -eq 2 ]; then
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
         fi
-
-        curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.close, "\t", .date, "\n"' | awk -F'T' '{print $1}' > "$DATA_DATE_FILE"        
-        awk '{print $1}' "$DATA_DATE_FILE"  > "$DATA_FILE"
-        fileSize=$(stat -c %s "$DATA_FILE")
+        curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.close, "\t", .date, "\n"' | awk -F'T' '{print $1}' > "$DATA_DATE_FILE"
+        fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "${fileSize}" -eq "0" ]; then
             echo "!Symbol NOT found online on marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
             echo "<br>" >> $OUT_RESULT_FILE
-            rm -rf "$DATA_FILE"
+            rm -rf "$DATA_DATE_FILE"
         fi
     fi
 
@@ -136,6 +135,7 @@ do
 
     ProgressBar 1 8
 
+awk '{print $1}' "$DATA_DATE_FILE" > "$DATA_FILE"
     lastRaw=$(head -n1 "$DATA_FILE")
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown or not fetched symbol in cmd or on marketstack.com
@@ -384,7 +384,9 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 echo "time elapsed."
 
 # Cleanup
+rm -rf temp/*.html
 rm -rf temp/values*.txt
+rm -rf temp/*_data.txt
 # shellcheck disable=SC2116,SC2086
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
 # shellcheck disable=SC2086
