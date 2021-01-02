@@ -133,10 +133,10 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieUnderratedByPercentAndStochastic" == '' ]
 
   StrategieUnderratedByPercentAndStochastic underrated 0 9 1 1 1 1 1 1 "46.95" "0.99" "49.34" "50.08" "52.87" 9 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedByPercentAndStochastic" == '+ Low by percent & stochastic: 46.95 EUR is 0.99 under Avg18 49.34 EUR and Avg38 50.08 EUR and Avg100 52.87 EUR and Stoch14 0 is lower then 9' ]  
+  [ "$resultStrategieUnderratedByPercentAndStochastic" == '+ Low by percent & stochastic: 46.95&#8364;is 0.99 under Avg18 49.34&#8364;and Avg38 50.08&#8364;and Avg100 52.87&#8364;and Stoch14 0 is lower then 9' ]  
 
   StrategieUnderratedByPercentAndStochastic all 0 9 1 1 1 1 1 1 "46.95" "0.99" "49.34" "50.08" "52.87" 9 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedByPercentAndStochastic" == '+ Low by percent & stochastic: 46.95 EUR is 0.99 under Avg18 49.34 EUR and Avg38 50.08 EUR and Avg100 52.87 EUR and Stoch14 0 is lower then 9' ]  
+  [ "$resultStrategieUnderratedByPercentAndStochastic" == '+ Low by percent & stochastic: 46.95&#8364;is 0.99 under Avg18 49.34&#8364;and Avg38 50.08&#8364;and Avg100 52.87&#8364;and Stoch14 0 is lower then 9' ]  
 }
 
 @test "StrategieOverratedByPercentAndStoch" {
@@ -155,8 +155,8 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieOverratedByPercentAndStochastic" == '' ]  
 
   StrategieOverratedByPercentAndStochastic overrated 100 91 1 1 1 1 1 1 "5.61" "1.01" "4.44" "4.28" "4.03" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedByPercentAndStochastic" == '- High by percent & stochastic: 5.61 EUR is 1.01 over Avg18 4.44 EUR and Avg38 4.28 EUR and Avg100 4.03 EUR and Stoch14 is 100 is higher then 91' ]
+  [ "$resultStrategieOverratedByPercentAndStochastic" == '- High by percent & stochastic: 5.61&#8364;is 1.01 over Avg18 4.44&#8364;and Avg38 4.28&#8364;and Avg100 4.03&#8364;and Stoch14 is 100 is higher then 91' ]
 
   StrategieOverratedByPercentAndStochastic all 100 91 1 1 1 1 1 1 "5.61" "1.01" "4.44" "4.28" "4.03" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedByPercentAndStochastic" == '- High by percent & stochastic: 5.61 EUR is 1.01 over Avg18 4.44 EUR and Avg38 4.28 EUR and Avg100 4.03 EUR and Stoch14 is 100 is higher then 91' ]
+  [ "$resultStrategieOverratedByPercentAndStochastic" == '- High by percent & stochastic: 5.61&#8364;is 1.01 over Avg18 4.44&#8364;and Avg38 4.28&#8364;and Avg100 4.03&#8364;and Stoch14 is 100 is higher then 91' ]
 }
