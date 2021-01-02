@@ -11,6 +11,62 @@ OUT_RESULT_FILE=temp/_result.html
 SYMBOL=BEI
 SYMBOL_NAME="BEI BEIERSDORF AG"
 
+@test "StrategieOverratedHighStochasticHighRSI" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieOverratedHighStochasticHighRSI 
+  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+
+  StrategieOverratedHighStochasticHighRSI underrated 91 70 92 71 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+
+  StrategieOverratedHighStochasticHighRSI overrated 91 70 90 69 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+
+  StrategieOverratedHighStochasticHighRSI overrated 91 70 92 69 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+
+  StrategieOverratedHighStochasticHighRSI overrated 91 70 90 71 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+
+  StrategieOverratedHighStochasticHighRSI all 91 70 92 71 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSI" == '- High last Stoch & RSI: Stoch quote 92 over 91 and RSI quote 71 over 70' ]
+
+  StrategieOverratedHighStochasticHighRSI overrated 91 70 92 71 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSI" == '- High last Stoch & RSI: Stoch quote 92 over 91 and RSI quote 71 over 70' ]
+}
+
+@test "StrategieUnderratedLowStochasticLowRSI" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieUnderratedLowStochasticLowRSI 
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSI overrated 9 90 10 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSI underrated 9 90 10 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSI underrated 9 90 0 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSI underrated 9 90 10 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSI all 9 90 0 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '+ Low last Stoch & RSI: Stoch quote 0 under 9 and RSI quote 5 under 90' ]
+
+  StrategieUnderratedLowStochasticLowRSI underrated 9 90 0 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '+ Low last Stoch & RSI: Stoch quote 0 under 9 and RSI quote 5 under 90' ]
+}
+
 @test "StrategieOverrated3HighStochastic" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
@@ -59,59 +115,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   StrategieUnderrated3LowStochastic underrated 9 " , 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieUnderrated3LowStochastic" == '+ Low 3 last stochastic: 3 last quotes are under 9' ]
-}
-
-@test "StrategieUnderratedLowStochasticLowRSI" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
-  StrategieUnderratedLowStochasticLowRSI 
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
-
-  StrategieUnderratedLowStochasticLowRSI overrated 9 90 10 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
-
-  StrategieUnderratedLowStochasticLowRSI underrated 9 90 10 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
-
-  StrategieUnderratedLowStochasticLowRSI underrated 9 90 0 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
-
-  StrategieUnderratedLowStochasticLowRSI underrated 9 90 10 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
-
-  StrategieUnderratedLowStochasticLowRSI all 9 90 0 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '+ Low last Stoch & RSI: Stoch quote 0 under 9 and RSI quote 5 under 90' ]
-
-  StrategieUnderratedLowStochasticLowRSI underrated 9 90 0 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '+ Low last Stoch & RSI: Stoch quote 0 under 9 and RSI quote 5 under 90' ]
-}
-
-@test "StrategieUnderratedLowRSI" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
-  StrategieUnderratedLowRSI
-  [ "$resultStrategieUnderratedLowRSI" == '' ]
-
-  StrategieUnderratedLowRSI overrated 10 20 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowRSI" == '' ]
-
-  StrategieUnderratedLowRSI underrated 10 20 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowRSI" == '' ]
-
-  StrategieUnderratedLowRSI underrated 99 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowRSI" == '+ Low last RSI: RSI quote 5 under 99' ]
-
-  StrategieUnderratedLowRSI all 99 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowRSI" == '+ Low last RSI: RSI quote 5 under 99' ]
-
-  StrategieUnderratedLowRSI underrated 10 9 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowRSI" == '+ Low last RSI: RSI quote 9 under 10' ]
 }
 
 @test "StrategieUnderratedByPercentAndStoch" {

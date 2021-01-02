@@ -66,7 +66,7 @@ percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/10
 
 # RSI percentage
 RSIQuoteLower=$RSIQuoteParam
-#RSIQuoteUpper=$((100-RSIQuoteParam))
+RSIQuoteUpper=$((100-RSIQuoteParam))
 
 # Stochastics percentage
 stochasticPercentageLower=$stochasticPercentageParam
@@ -233,17 +233,9 @@ do
         resultStrategieUnderrated3LowStochastic=""
         StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # + Strategie: Low RSI last quote under lowRSIValue
-        resultStrategieUnderratedLowRSI=""
-        StrategieUnderratedLowRSI "$ratedParam" "$RSIQuoteLower" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
-
         # + Strategie: Low stochastic and Low RSI last quote under lowRSIValue
         resultStrategieUnderratedLowStochasticLowRSI=""
         StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
-
-        # + Strategie: The very last stochastic is lower then stochasticPercentageLower
-        #resultStrategieUnderratedVeryLastStochasticIsLowerThen=""
-        #StrategieUnderratedVeryLastStochasticIsLowerThen
 
         # - Strategie: OverratedByPercentAndStochastic
         resultStrategieOverratedByPercentAndStochastic=""
@@ -252,6 +244,10 @@ do
         # - Strategie: Overrated3HighStochastic
         resultStrategieOverrated3HighStochastic=""
         StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+
+        # + Strategie: High stochastic and High RSI last quote over lowRSIValue
+        resultStrategieOverratedHighStochasticHighRSI=""
+        StrategieOverratedHighStochasticHighRSI "$ratedParam" "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
     else
         # shellcheck disable=SC3037
@@ -302,10 +298,10 @@ do
 
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
-        if [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] ||  [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ]; then
+        if [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedHighStochasticHighRSI}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:red\""
-        fi
-        if [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowRSI}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
+        fi 
+        if [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
         ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
@@ -342,13 +338,12 @@ do
         # + buy
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>" 
-        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowRSI" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
-        #echo "<p style=\"color:rgb(255, 159, 64);\"><b>" $resultStrategieUnderratedVeryLastStochasticIsLowerThen "</b></p>" 
         
         # - sell
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>" 
+        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedHighStochasticHighRSI" "</b></p>" 
              
         echo "Good Luck!"
 
