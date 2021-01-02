@@ -327,9 +327,9 @@ do
         fi
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
         if [ "$quoteDate" = "$yesterday" ]; then
-            echo "Date:<b>$quoteDate </b>" # OK, quote from last trading day
+            echo "Date:<b>$quoteDate</b>" # OK, quote from last trading day
         else
-            echo "Date:<b style=\"color:red; font-size:xx-large;\">$quoteDate </b>" 
+            echo "Date:<b style=\"color:red; font-size:xx-large;\">$quoteDate</b>" 
         fi
         echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>""$last""€</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18""€</b></span>" 
