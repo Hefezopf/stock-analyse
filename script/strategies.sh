@@ -29,7 +29,13 @@ StrategieOverratedByPercentAndStochastic() {
             [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
             resultStrategieOverratedByPercentAndStochastic="- High by percent & stochastic: $_last€ is $_percentageLesserFactor over Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
             echo "$resultStrategieOverratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red "$_markerOwnStockParam"
+
+            # Red link only for stocks that are marked as own 
+            _linkColor=red
+            if [ "${_markerOwnStockParam}" = '' ]; then
+                _linkColor=black
+            fi
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true "$_linkColor" "$_markerOwnStockParam"
         fi
     fi
 }
@@ -124,7 +130,13 @@ StrategieOverrated3HighStochastic() {
         if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
             resultStrategieOverrated3HighStochastic="- High 3 last stochastic: 3 last quotes are over $_highStochasticValue"
             echo "$resultStrategieOverrated3HighStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red "$_markerOwnStockParam"
+
+            # Red link only for stocks that are marked as own 
+            _linkColor=red
+            if [ "${_markerOwnStockParam}" = '' ]; then
+                _linkColor=black
+            fi
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true "$_linkColor" "$_markerOwnStockParam"
         fi
     fi
 }
