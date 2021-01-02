@@ -207,7 +207,13 @@ StrategieOverratedHighStochasticHighRSI() {
         if [ "$_lastStochasticQuoteRounded" -gt "$_highStochasticValue" ] && [ "$_lastRSIQuoteRounded" -gt "$_highRSIQuoteParam" ]; then
             resultStrategieOverratedHighStochasticHighRSI="- High last Stoch & RSI: Stoch quote $_lastStochasticQuoteRounded over $_highStochasticValue and RSI quote $_lastRSIQuoteRounded over $_highRSIQuoteParam"
             echo "$resultStrategieOverratedHighStochasticHighRSI"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
+
+            # Red link only for stocks that are marked as own 
+            _linkColor=red
+            if [ "${_markerOwnStockParam}" = '' ]; then
+                _linkColor=black
+            fi            
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true "$_linkColor" "$_markerOwnStockParam"
         fi
     fi
 }
