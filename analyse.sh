@@ -384,7 +384,6 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 echo "time elapsed."
 
 # Cleanup
-rm -rf temp/*.html
 rm -rf temp/values*.txt
 rm -rf temp/*_data.txt
 # shellcheck disable=SC2116,SC2086
