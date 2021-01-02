@@ -120,7 +120,7 @@ do
         if [ "$evenodd" -eq 2 ]; then
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
         fi
-        curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.close, "\t", .date, "\n"' | awk -F'T' '{print $1}' > "$DATA_DATE_FILE"
+        curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "${fileSize}" -eq "0" ]; then
             echo "!Symbol NOT found online on marketstack.com: $symbol" | tee -a $OUT_RESULT_FILE
@@ -135,7 +135,7 @@ do
 
     ProgressBar 1 8
 
-awk '{print $1}' "$DATA_DATE_FILE" > "$DATA_FILE"
+    awk '{print $2}' "$DATA_DATE_FILE" > "$DATA_FILE"
     lastRaw=$(head -n1 "$DATA_FILE")
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown or not fetched symbol in cmd or on marketstack.com
@@ -325,7 +325,7 @@ awk '{print $1}' "$DATA_DATE_FILE" > "$DATA_FILE"
         if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
             yesterday=$(date --date="-3 day" +"%Y-%m-%d")
         fi
-        quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $2}')
+        quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
         if [ "$quoteDate" = "$yesterday" ]; then
             echo "Date:<b>$quoteDate </b>" # OK, quote from last trading day
         else
