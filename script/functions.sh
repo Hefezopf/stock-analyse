@@ -127,7 +127,7 @@ touch RSIqouteListFileParam
 touch RSIqouteListFileParam
 
 # 2nd line!
-lastDatedataDateFile=$(head -n1 "$dataDateFileParam" | tail -1 | awk '{print $1}')  
+lastDatedataDateFile=$(head -n2 "$dataDateFileParam" | tail -1 | awk '{print $1}')  
 # 1st line! 
 #echo 11111111111
 lastDateRSIwinningDaysFile=$(head -n1 "$RSIwinningDaysFileParam" | tail -1 | awk '{print $1}')   
