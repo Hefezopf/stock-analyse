@@ -27,7 +27,7 @@ StrategieOverratedByPercentAndStochastic() {
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
             [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
-            resultStrategieOverratedByPercentAndStochastic="- High by percent & stochastic: $_last EUR is $_percentageLesserFactor over Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
+            resultStrategieOverratedByPercentAndStochastic="- High by percent & stochastic: $_last€ is $_percentageLesserFactor over Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
             echo "$resultStrategieOverratedByPercentAndStochastic"
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red "$_markerOwnStockParam"
         fi
@@ -62,7 +62,7 @@ StrategieUnderratedByPercentAndStochastic() {
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
             [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
-            resultStrategieUnderratedByPercentAndStochastic="+ Low by percent & stochastic: $_last EUR is $_percentageGreaterFactor under Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
+            resultStrategieUnderratedByPercentAndStochastic="+ Low by percent & stochastic: $_last€ is $_percentageGreaterFactor under Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
             echo "$resultStrategieUnderratedByPercentAndStochastic"
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
         fi
