@@ -225,7 +225,7 @@ do
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
 
-        # + Strategie: UnderratedByPercentAndStochastic
+        # + Strategie: Low by Percent & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
         StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     
@@ -233,19 +233,19 @@ do
         resultStrategieUnderrated3LowStochastic=""
         StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # + Strategie: Low stochastic and Low RSI last quote under lowRSIValue
+        # + Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
         resultStrategieUnderratedLowStochasticLowRSI=""
         StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # - Strategie: OverratedByPercentAndStochastic
+        # - Strategie: High by Percent & Stochastic
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # - Strategie: Overrated3HighStochastic
+        # - Strategie: High stochastic 3 last values over highStochasticValue
         resultStrategieOverrated3HighStochastic=""
         StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # + Strategie: High stochastic and High RSI last quote over lowRSIValue
+        # + Strategie: High stochastic and High RSI last quote over stochasticPercentageUpper and RSIQuoteUpper
         resultStrategieOverratedHighStochasticHighRSI=""
         StrategieOverratedHighStochasticHighRSI "$ratedParam" "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
