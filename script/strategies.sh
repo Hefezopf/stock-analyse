@@ -27,7 +27,7 @@ StrategieOverratedByPercentAndStochastic() {
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
             [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
-            resultStrategieOverratedByPercentAndStochastic="- Overrated by percent and stochastic: $_last EUR is $_percentageLesserFactor over Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
+            resultStrategieOverratedByPercentAndStochastic="- High by percent & stochastic: $_last EUR is $_percentageLesserFactor over Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
             echo "$resultStrategieOverratedByPercentAndStochastic"
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red "$_markerOwnStockParam"
         fi
@@ -62,7 +62,7 @@ StrategieUnderratedByPercentAndStochastic() {
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "$_lastStochasticQuoteRounded" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
             [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
-            resultStrategieUnderratedByPercentAndStochastic="+ Underrated by percent and stochastic: $_last EUR is $_percentageGreaterFactor under Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
+            resultStrategieUnderratedByPercentAndStochastic="+ Low by percent & stochastic: $_last EUR is $_percentageGreaterFactor under Avg18 $_average18 EUR and Avg38 $_average38 EUR and Avg100 $_average100 EUR and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
             echo "$resultStrategieUnderratedByPercentAndStochastic"
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
         fi
@@ -137,7 +137,7 @@ StrategieOverrated3HighStochastic() {
         #resultStrategieOverrated3HighStochastic=""
         # All 3 last values over _highStochasticValue?
         if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
-            resultStrategieOverrated3HighStochastic="- High stochastic: 3 last stochastic quotes are over $_highStochasticValue"
+            resultStrategieOverrated3HighStochastic="- High 3 last stochastic: 3 last quotes are over $_highStochasticValue"
             echo "$resultStrategieOverrated3HighStochastic"
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true red "$_markerOwnStockParam"
         fi
@@ -184,7 +184,7 @@ StrategieUnderrated3LowStochastic() {
         #resultStrategieUnderrated3LowStochastic=""
         # All 3 last values under _lowStochasticValue?
         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-            resultStrategieUnderrated3LowStochastic="+ Low stochastic: 3 last stochastic quotes are under $_lowStochasticValue"
+            resultStrategieUnderrated3LowStochastic="+ Low 3 last stochastic: 3 last quotes are under $_lowStochasticValue"
             echo "$resultStrategieUnderrated3LowStochastic"
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
         fi
@@ -210,7 +210,7 @@ StrategieUnderratedLowRSI() {
         #resultStrategieUnderratedLowRSI=""
         # Last RSI quote under _lowRSIValue
         if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
-            resultStrategieUnderratedLowRSI="+ Low RSI: last RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
+            resultStrategieUnderratedLowRSI="+ Low last RSI: RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
             echo "$resultStrategieUnderratedLowRSI"
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
         fi
@@ -236,7 +236,7 @@ StrategieUnderratedLowStochasticLowRSI() {
         #resultStrategieUnderratedLowStochasticLowRSI=""
         # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue
         if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValue" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ]; then
-            resultStrategieUnderratedLowStochasticLowRSI="+ Low Stoch & Low RSI: last Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and last RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
+            resultStrategieUnderratedLowStochasticLowRSI="+ Low last Stoch & RSI: Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
             echo "$resultStrategieUnderratedLowStochasticLowRSI"
             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
         fi
