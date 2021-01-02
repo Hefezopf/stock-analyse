@@ -110,35 +110,59 @@ AverageOfDays() {
 }
 
 # RSIOfDays function:
-# Input is amountOfDaysParam($1), dataFileParam($2)
+# Input is amountOfDaysParam($1), dataDateFileParam($2)
 # Output: RSIQuoteList is comma separted list
 RSIOfDays() {
     amountOfDaysParam=${1}
-    dataFileParam=${2}
-    RSIwinningDaysFile=temp/RSI_WinningDays.txt
-    RSIloosingDaysFile=temp/RSI_LoosingDays.txt
-    rm -rf $RSIwinningDaysFile
-    rm -rf $RSIloosingDaysFile
+    dataDateFileParam=${2}
+RSIwinningDaysFileParam=${3}
+RSIqouteListFileParam=${4}
+
+   # RSIwinningDaysFile=data/"$symbol"_RSI_WinningDays.txt
+    RSIloosingDaysFile=data/"$symbol"_RSI_LoosingDays.txt
+
+touch RSIwinningDaysFileParam
+touch RSIqouteListFileParam
+#RSIqouteListFile=data/"$symbol"_RSIQuoteList.txt
+touch RSIqouteListFileParam
+
+# 2nd line!
+lastDatedataDateFile=$(head -n1 "$dataDateFileParam" | tail -1 | awk '{print $1}')  
+# 1st line! 
+#echo 11111111111
+lastDateRSIwinningDaysFile=$(head -n1 "$RSIwinningDaysFileParam" | tail -1 | awk '{print $1}')   
+echo xxxxxxx
+echo dataDateFileParam "$dataDateFileParam" lastDatedataDateFile "$lastDatedataDateFile" lastDateRSIwinningDaysFile "$lastDateRSIwinningDaysFile"
+if [ "$lastDatedataDateFile" = "$lastDateRSIwinningDaysFile" ]; then
+    echo RSI from cache!
+    RSIQuoteList=$(head -n1 "$RSIqouteListFileParam")
+else
+    rm -rf "$RSIwinningDaysFileParam"
+    rm -rf "$RSIloosingDaysFile"
+
+    # Prepare RSI
     i=1
     while [ "$i" -le 100 ];
     do
         i=$((i + 1))
-        diffLast2Prices=$(head -n$i "$dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
+        diffLast2Prices=$(head -n$i "$dataDateFileParam" | tail -2 | awk 'p{print p-$2}{p=$2}' )
+        lastDate=$(head -n$i "$dataDateFileParam" | tail -1 | awk '{print $1}')   
         isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
         if [ ! "${isNegativ}" = '-' ]; then
-            echo "$diffLast2Prices" >> $RSIwinningDaysFile
-        else
-            echo 0 >> $RSIwinningDaysFile
+            echo "$lastDate" "$diffLast2Prices" >> "$RSIwinningDaysFileParam"
+        else  
+            echo "$lastDate 0" >> "$RSIwinningDaysFileParam"
         fi
 
         if [ "${isNegativ}" = '-' ]; then
             withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
-            echo "$withoutMinusSign" >> $RSIloosingDaysFile
+            echo "$lastDate" "$withoutMinusSign" >> "$RSIloosingDaysFile"
         else
-            echo 0 >> $RSIloosingDaysFile
+            echo "$lastDate 0" >> "$RSIloosingDaysFile"
         fi
     done
 
+    # Calculate RSI
     i=1
     while [ "$i" -le 100 ];
     do
@@ -147,21 +171,23 @@ RSIOfDays() {
         if [ $i -lt $((amountOfDaysParam + 1)) ]; then # <14
             RSIQuoteList="$RSIQuoteList ,"
         else # >14
-            RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')
-            RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }') 
+            RSIwinningDaysAvg=$(tail -"${i}" "$RSIwinningDaysFileParam" | head -n"${amountOfDaysParam}" | awk '{ sum += $2; } END { print sum/'"${amountOfDaysParam}"'; }')
+            RSIloosingDaysAvg=$(tail -"${i}" "$RSIloosingDaysFile" | head -n"${amountOfDaysParam}" | awk '{ sum += $2; } END { print sum/'"${amountOfDaysParam}"'; }') 
             if [ "${RSIloosingDaysAvg}" = 0 ]; then
                 RSIQuote=100
             else
                 RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')
                 #RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
             fi
-
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
     done
-    rm -rf $RSIwinningDaysFile
-    rm -rf $RSIloosingDaysFile
+    echo "$RSIQuoteList" > "$RSIqouteListFileParam"
+    #rm -rf "$RSIwinningDaysFileParam"
+    #rm -rf "$RSIloosingDaysFile"
+fi       
+
 }
 
 # StochasticOfDays function:
@@ -229,6 +255,12 @@ ProgressBar() {
             echo ""
         fi
     fi
+
+# # Time measurement
+# END_TIME_MEASUREMENT=$(date +%s);
+# echo ""
+# echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
+# echo "time elapsed."    
 }
 
 # WriteComdirectUrlAndStoreFileList function:

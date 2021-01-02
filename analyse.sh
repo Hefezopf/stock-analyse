@@ -179,13 +179,13 @@ do
     LesserThenWithFactor "$percentageLesserFactor" "$average18" "$average100"; agv18UnderAgv100=$?
  
     ProgressBar 3 8
-
+#echo start RSIOfDays
     # Calculate RSI 14 values
     RSIInDays14=14
     lastRSIQuoteRounded=""
     RSIQuoteList=""
-    RSIOfDays $RSIInDays14 "$DATA_FILE"
-
+    RSIOfDays $RSIInDays14 "$DATA_DATE_FILE" data/"$symbol"_RSI_WinningDays.txt data/"$symbol"_RSIQuoteList.txt
+#echo ende RSIOfDays
     ProgressBar 4 8
 
     # Calculate Stochastic 14 values
