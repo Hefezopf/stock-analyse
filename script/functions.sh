@@ -146,8 +146,8 @@ RSIOfDays() {
         if [ $i -lt $((amountOfDaysParam + 1)) ]; then # <14
             RSIQuoteList="$RSIQuoteList ,"
         else # >14
-            RSIwinningDaysAvg=$(tail -"${i}" $RSIwinningDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')
-            RSIloosingDaysAvg=$(tail -"${i}" $RSIloosingDaysFile | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }') 
+            RSIwinningDaysAvg=$(tail -"${i}" "$RSIwinningDaysFile" | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')
+            RSIloosingDaysAvg=$(tail -"${i}" "$RSIloosingDaysFile" | head -n"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }') 
             if [ "${RSIloosingDaysAvg}" = 0 ]; then
                 RSIQuote=100
             else
