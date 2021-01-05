@@ -35,7 +35,7 @@ StrategieOverratedByPercentAndStochastic() {
             if [ "${_markerOwnStockParam}" = '' ]; then
                 _linkColor=black
             fi
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true "$_linkColor" "$_markerOwnStockParam"
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam"
         fi
     fi
 }
@@ -70,7 +70,7 @@ StrategieUnderratedByPercentAndStochastic() {
             [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
             resultStrategieUnderratedByPercentAndStochastic="+ Low by percent & stochastic: $_last€ is $_percentageGreaterFactor under Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
             echo "$resultStrategieUnderratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
         fi
     fi
 }
@@ -136,7 +136,7 @@ StrategieOverrated3HighStochastic() {
             if [ "${_markerOwnStockParam}" = '' ]; then
                 _linkColor=black
             fi
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true "$_linkColor" "$_markerOwnStockParam"
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam"
         fi
     fi
 }
@@ -182,7 +182,7 @@ StrategieUnderrated3LowStochastic() {
         if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
             resultStrategieUnderrated3LowStochastic="+ Low 3 last stochastic: 3 last quotes are under $_lowStochasticValue"
             echo "$resultStrategieUnderrated3LowStochastic"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
         fi
     fi
 }
@@ -213,7 +213,7 @@ StrategieOverratedHighStochasticHighRSI() {
             if [ "${_markerOwnStockParam}" = '' ]; then
                 _linkColor=black
             fi            
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true "$_linkColor" "$_markerOwnStockParam"
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam"
         fi
     fi
 }
@@ -238,7 +238,7 @@ StrategieUnderratedLowStochasticLowRSI() {
         if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValue" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ]; then
             resultStrategieUnderratedLowStochasticLowRSI="+ Low last Stoch & RSI: Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
             echo "$resultStrategieUnderratedLowStochasticLowRSI"
-            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" true green "$_markerOwnStockParam"
+            WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
         fi
     fi
 }
