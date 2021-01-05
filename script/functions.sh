@@ -243,7 +243,8 @@ WriteComdirectUrlAndStoreFileList() {
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
-        if [ "$_alertParam" = true ]; then
+        #if [ "$_alertParam" = true ]; then
+        if [ "$_linkColorParam" = "red" ] || [ "$_linkColorParam" = "green" ]; then
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)

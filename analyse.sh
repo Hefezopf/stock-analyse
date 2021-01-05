@@ -127,7 +127,7 @@ do
         curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "${fileSize}" -eq "0" ]; then
-            echo "$symbol !Symbol NOT found online on marketstack.com" | tee -a $OUT_RESULT_FILE
+            echo "!$symbol NOT found online!" | tee -a $OUT_RESULT_FILE
             echo "<br>" >> $OUT_RESULT_FILE
             rm -rf "$DATA_DATE_FILE"
         fi
@@ -144,7 +144,7 @@ do
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown or not fetched symbol in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
-        echo "$symbol !Symbol NOT found offline in data/$symbol.txt: Try 'online'!" | tee -a $OUT_RESULT_FILE
+        echo "!$symbol NOT found in data/$symbol.txt!" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
         # continue with next symbol in the list
         continue
