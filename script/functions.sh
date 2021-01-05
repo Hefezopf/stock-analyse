@@ -227,15 +227,14 @@ ProgressBar() {
 # WriteComdirectUrlAndStoreFileList function:
 # - Write Comdirect Url.
 # - Store list of files for later (tar/zip)
-# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _alertParam($4), _linkColorParam($5), _markerOwnStockParam($6)
+# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($5), _markerOwnStockParam($6)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
     _OUT_RESULT_FILE_param=${1}
     _symbolParam=${2}
     _symbolNameParam="${3}"
-    _alertParam=${4}
-    _linkColorParam=${5}
-    _markerOwnStockParam=${6}
+    _linkColorParam=${4}
+    _markerOwnStockParam=${5}
     ID_NOTATION=$(grep "${_symbolParam}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
         ID_NOTATION=999999

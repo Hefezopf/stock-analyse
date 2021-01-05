@@ -7,7 +7,7 @@
 . ./script/functions.sh
 
 # Constants
-OUT_RESULT_FILE="temp/_result.html"
+OUT_RESULT_FILE="test/_result.html"
 DATA_FILE="test/BEI.txt"
 TICKER_NAMES_FILE="test/_ticker_names.txt"
 SYMBOL=BEI
@@ -103,7 +103,7 @@ SYMBOL_NAME="BEIERSDORF AG"
 
 @test "WriteComdirectUrlAndStoreFileList" {
   rm -rf temp/_result.html
-  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" true green *
+  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" green *
   [ "$reportedSymbolFileList" == 'out/BEI.html' ]
 }
 
