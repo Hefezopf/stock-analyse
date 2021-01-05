@@ -115,27 +115,26 @@ AverageOfDays() {
 RSIOfDays() {
     amountOfDaysParam=${1}
     dataFileParam=${2}
-    RSIwinningDaysFile=temp/RSI_WinningDays.txt
-    RSIloosingDaysFile=temp/RSI_LoosingDays.txt
-    rm -rf $RSIwinningDaysFile
-    rm -rf $RSIloosingDaysFile
+#     ramtempW="$(mktemp -p /dev/shm/)"
+#     ramtempL="$(mktemp -p /dev/shm/)"
+
+    RSIwinningDaysFile="$(mktemp -p /dev/shm/)"
+    RSIloosingDaysFile="$(mktemp -p /dev/shm/)"
+    #rm -rf $RSIwinningDaysFile
+    #rm -rf $RSIloosingDaysFile
     i=1
     while [ "$i" -le 100 ];
     do
         i=$((i + 1))
         diffLast2Prices=$(head -n$i "$dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
         isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
-        if [ ! "${isNegativ}" = '-' ]; then
-            echo "$diffLast2Prices" >> $RSIwinningDaysFile
-        else
-            echo 0 >> $RSIwinningDaysFile
-        fi
-
         if [ "${isNegativ}" = '-' ]; then
             withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
-            echo "$withoutMinusSign" >> $RSIloosingDaysFile
+            echo "$lastDate" "$withoutMinusSign" >> "$RSIloosingDaysFile"
+            echo "$lastDate 0" >> "$RSIwinningDaysFile"
         else
-            echo 0 >> $RSIloosingDaysFile
+            echo "$lastDate 0" >> "$RSIloosingDaysFile"
+            echo "$lastDate" "$diffLast2Prices" >> "$RSIwinningDaysFile"
         fi
     done
 
@@ -160,8 +159,8 @@ RSIOfDays() {
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
     done
-    rm -rf $RSIwinningDaysFile
-    rm -rf $RSIloosingDaysFile
+    #rm -rf $RSIwinningDaysFile
+    #rm -rf $RSIloosingDaysFile
 }
 
 # StochasticOfDays function:
@@ -170,7 +169,7 @@ RSIOfDays() {
 StochasticOfDays() {
     amountOfDaysParam=${1}
     dataFileParam=${2}
-    stochasticFile=temp/stochastic.txt
+    stochasticFile="$(mktemp -p /dev/shm/)"
     i=1
     # Fill with blank comma seperated data
     while [ "$i" -lt "${1}" ]; do 
@@ -189,22 +188,16 @@ StochasticOfDays() {
         highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
 
         if awk 'BEGIN {exit !('"$highestStochasticRaw"' > '"$lowestStochasticRaw"')}'; then
-            validStochastic=1
-        else 
-            validStochastic=0 
-        fi
-        if [ "$validStochastic" = 1 ]; then
             # Formula=((C – Ln )/( Hn – Ln )) * 100
             lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
-        else
+        else 
             lastStochasticQuote=100
         fi
-
         lastStochasticQuoteRounded=$(echo "$lastStochasticQuote" | cut -f 1 -d '.')
         stochasticQuoteList="$stochasticQuoteList $lastStochasticQuoteRounded,"
         i=$((i + 1))
     done
-    rm -rf $stochasticFile
+    #rm -rf $stochasticFile
 }
 
 # ProgressBar function:

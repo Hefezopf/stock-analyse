@@ -108,8 +108,9 @@ do
     # Get stock data
     echo ""
     echo "# Get $symbolName"
-    DATA_FILE=temp/${symbol}_data.txt
-    rm -rf "$DATA_FILE"
+    #DATA_FILE=temp/${symbol}_data.txt
+    DATA_FILE="$(mktemp -p /dev/shm/)"
+    #rm -rf "$DATA_FILE"
     DATA_DATE_FILE=data/${symbol}.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
@@ -149,8 +150,9 @@ do
         continue
     fi
 
-    head -n18 "$DATA_FILE" > temp/values18.txt
-    average18Raw=$(awk '{ sum += $1; } END { print sum/18; }' < temp/values18.txt)
+    #head -n18 "$DATA_FILE" > temp/values18.txt
+    #average18Raw=$(awk '{ sum += $1; } END { print sum/18; }' < temp/values18.txt)
+    average18Raw=$(head -n18 "$DATA_FILE" | awk '{sum += $1;} END {print sum/18;}')
     average18=$(printf "%.2f" "$average18Raw")
 
     ProgressBar 2 8
@@ -158,14 +160,14 @@ do
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average18"; lastOverAgv18=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average18"; lastUnderAgv18=$?
 
-    head -n38 "$DATA_FILE" > temp/values38.txt
-    average38Raw=$(awk '{ sum += $1; } END { print sum/38; }' < temp/values38.txt)
+    #head -n38 "$DATA_FILE" > temp/values38.txt
+    average38Raw=$(head -n38 "$DATA_FILE" |awk '{sum += $1;} END {print sum/38;}')
     average38=$(printf "%.2f" "$average38Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average38"; lastOverAgv38=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average38";lastUnderAgv38=$?
     
-    head -n100 "$DATA_FILE" > temp/values100.txt
-    average100Raw=$(awk '{ sum += $1; } END { print sum/100; }' < temp/values100.txt)
+    #head -n100 "$DATA_FILE" > temp/values100.txt
+    average100Raw=$(head -n100 "$DATA_FILE" | awk '{sum += $1;} END {print sum/100;}')
     average100=$(printf "%.2f" "$average100Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average100"; lastOverAgv100=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average100"; lastUnderAgv100=$?
@@ -382,9 +384,9 @@ echo ""
 echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
 echo "time elapsed."
 
-# Cleanup
-rm -rf temp/values*.txt
-rm -rf temp/*_data.txt
+# Zip 
+#rm -rf temp/values*.txt
+#rm -rf temp/*_data.txt
 # shellcheck disable=SC2116,SC2086
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
 # shellcheck disable=SC2086
