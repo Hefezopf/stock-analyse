@@ -130,11 +130,15 @@ RSIOfDays() {
         isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
         if [ "${isNegativ}" = '-' ]; then
             withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
-            echo "$lastDate" "$withoutMinusSign" >> "$RSIloosingDaysFile"
-            echo "$lastDate 0" >> "$RSIwinningDaysFile"
+            echo "$withoutMinusSign" >> "$RSIloosingDaysFile"
+            echo "0" >> "$RSIwinningDaysFile"
+            #echo "$lastDate" "$withoutMinusSign" >> "$RSIloosingDaysFile"
+            #echo "$lastDate 0" >> "$RSIwinningDaysFile"
         else
-            echo "$lastDate 0" >> "$RSIloosingDaysFile"
-            echo "$lastDate" "$diffLast2Prices" >> "$RSIwinningDaysFile"
+            echo "0" >> "$RSIloosingDaysFile"
+            echo "$diffLast2Prices" >> "$RSIwinningDaysFile"
+            #echo "$lastDate 0" >> "$RSIloosingDaysFile"
+            #echo "$lastDate" "$diffLast2Prices" >> "$RSIwinningDaysFile"
         fi
     done
 
@@ -182,10 +186,10 @@ StochasticOfDays() {
     while [ "$i" -le $((100-amountOfDaysParam)) ];
     do
         headLines=$((100-i))
-        head -n$headLines "$dataFileParam" | tail -"${amountOfDaysParam}" > $stochasticFile
-        lastStochasticRaw=$(head -n 1 $stochasticFile)
-        lowestStochasticRaw=$(sort -g $stochasticFile | head -n 1)
-        highestStochasticRaw=$(sort -gr $stochasticFile | head -n 1)
+        head -n$headLines "$dataFileParam" | tail -"${amountOfDaysParam}" > "$stochasticFile"
+        lastStochasticRaw=$(head -n 1 "$stochasticFile")
+        lowestStochasticRaw=$(sort -g "$stochasticFile" | head -n 1)
+        highestStochasticRaw=$(sort -gr "$stochasticFile" | head -n 1)
 
         if awk 'BEGIN {exit !('"$highestStochasticRaw"' > '"$lowestStochasticRaw"')}'; then
             # Formula=((C – Ln )/( Hn – Ln )) * 100
