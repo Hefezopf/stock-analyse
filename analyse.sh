@@ -150,23 +150,50 @@ do
         continue
     fi
 
-    #head -n18 "$DATA_FILE" > temp/values18.txt
-    #average18Raw=$(awk '{ sum += $1; } END { print sum/18; }' < temp/values18.txt)
+
+
+
+# EMAverage 12
+averageInDays12=12
+averagePriceList=""
+EMAverageOfDays $averageInDays12 "$DATA_FILE"
+averagePriceList12=$averagePriceList
+
+# EMAverage 26
+averageInDays26=26
+averagePriceList=""
+EMAverageOfDays $averageInDays26 "$DATA_FILE"
+averagePriceList26=$averagePriceList
+
+# MACD 12, 26
+averagePricemacd12List=$(echo "$averagePriceList12" | cut -b 24-10000)
+averagePricemacd26List=$(echo "$averagePriceList26" | cut -b 52-10000)
+averagePricemacd12Array=(${averagePricemacd12List//', '/ })
+averagePricemacd26Array=(${averagePricemacd26List//', '/ })
+
+for k in "${!averagePricemacd26Array[@]}"
+do
+    differ=$(echo "${averagePricemacd12Array[$k+14]} ${averagePricemacd26Array[$k]}" | awk '{print ($1 - $2)}')
+    #echo differ "$differ"
+    macdList="$macdList $differ,"
+done
+macdList=" , , , , , , , , , , , , , , , , , , , , , , , , , $macdList"
+echo macdList "$macdList"
+
+
+
     average18Raw=$(head -n18 "$DATA_FILE" | awk '{sum += $1;} END {print sum/18;}')
     average18=$(printf "%.2f" "$average18Raw")
-
-    ProgressBar 2 8
-
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average18"; lastOverAgv18=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average18"; lastUnderAgv18=$?
 
-    #head -n38 "$DATA_FILE" > temp/values38.txt
-    average38Raw=$(head -n38 "$DATA_FILE" |awk '{sum += $1;} END {print sum/38;}')
+    ProgressBar 2 8
+
+    average38Raw=$(head -n38 "$DATA_FILE" | awk '{sum += $1;} END {print sum/38;}')
     average38=$(printf "%.2f" "$average38Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average38"; lastOverAgv38=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average38";lastUnderAgv38=$?
-    
-    #head -n100 "$DATA_FILE" > temp/values100.txt
+
     average100Raw=$(head -n100 "$DATA_FILE" | awk '{sum += $1;} END {print sum/100;}')
     average100=$(printf "%.2f" "$average100Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average100"; lastOverAgv100=$?
@@ -211,6 +238,24 @@ do
     averagePriceList=""
     AverageOfDays $averageInDays38 "$DATA_FILE"
     averagePriceList38=$averagePriceList
+
+
+# # MACD 18, 38
+# macd18List=$(echo "$averagePriceList18" | cut -b 36-10000)
+# macd38List=$(echo "$averagePriceList38" | cut -b 76-10000)
+# #set -f # avoid globbing (expansion of *).
+# macd18Array=(${macd18List//,/ })
+# macd38Array=(${macd38List//,/ })
+# for k in "${!macd38Array[@]}"
+# do
+#     differ=$(echo "${macd18Array[k+20]} ${macd38Array[k]}" | awk '{print ($1 - $2)}')
+# #    differ=$(echo "${macd38Array[k]} ${macd18Array[k+20]}" | awk '{print ($1 - $2)}')
+#     macdList="$macdList $differ,"
+# done
+# macdList=" , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , $macdList"
+# #echo macdList $macdList
+
+
 
     ProgressBar 7 8
 
@@ -301,6 +346,9 @@ do
         echo "$RSIQuoteList" 
         cat js/indexPart11.html 
 
+        echo "$macdList"
+        cat js/indexPart12.html 
+
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
         if [ "${markerOwnStock}" = '*' ] && # Red link only for stocks that are marked as own
@@ -353,7 +401,7 @@ do
              
         echo "Good Luck!"
 
-        cat js/indexPart12.html
+        cat js/indexPart13.html
     } >> "$indexSymbolFile"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" black "$markerOwnStock"

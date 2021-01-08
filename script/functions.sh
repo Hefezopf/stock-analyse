@@ -87,6 +87,37 @@ GreaterThenWithFactor() {
     fi
 }
 
+
+# EMAverageOfDays function:
+# Input is amountOfDaysParam($1), dataFileParam($2)
+# Output: averagePriceList is comma separted list
+EMAverageOfDays() {
+    amountOfDaysParam=${1}
+    dataFileParam=${2}
+    i=1
+    while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
+        averagePriceList="$averagePriceList ,"        
+        i=$((i + 1))
+    done 
+
+    i=0
+    while [ "$i" -le $((100-amountOfDaysParam)) ]; 
+    do
+        if [ "$i" = 0 ]; then # Erster Durchlauf
+            headLines=$((100-i))
+            ema=$(head -n"$headLines" "$dataFileParam" | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')         
+        else
+            #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
+            headLinesLastPrice=$((101-i-amountOfDaysParam))
+            lastPrice=$(head -n"$headLinesLastPrice" "$dataFileParam" | tail -1)
+            # shellcheck disable=SC2086
+            ema=$(echo "$lastPrice $ema" | awk '{print ($1*(2/('${amountOfDaysParam}'+1))+$2*(1-(2/('${amountOfDaysParam}'+1))))}')          
+        fi
+        averagePriceList="$averagePriceList $ema,"
+        i=$((i + 1))
+    done
+}
+
 # AverageOfDays function:
 # Input is amountOfDaysParam($1), dataFileParam($2)
 # Output: averagePriceList is comma separted list
