@@ -115,13 +115,8 @@ AverageOfDays() {
 RSIOfDays() {
     amountOfDaysParam=${1}
     dataFileParam=${2}
-#     ramtempW="$(mktemp -p /dev/shm/)"
-#     ramtempL="$(mktemp -p /dev/shm/)"
-
     RSIwinningDaysFile="$(mktemp -p /dev/shm/)"
     RSIloosingDaysFile="$(mktemp -p /dev/shm/)"
-    #rm -rf $RSIwinningDaysFile
-    #rm -rf $RSIloosingDaysFile
     i=1
     while [ "$i" -le 100 ];
     do
@@ -132,13 +127,9 @@ RSIOfDays() {
             withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
             echo "$withoutMinusSign" >> "$RSIloosingDaysFile"
             echo "0" >> "$RSIwinningDaysFile"
-            #echo "$lastDate" "$withoutMinusSign" >> "$RSIloosingDaysFile"
-            #echo "$lastDate 0" >> "$RSIwinningDaysFile"
         else
             echo "0" >> "$RSIloosingDaysFile"
             echo "$diffLast2Prices" >> "$RSIwinningDaysFile"
-            #echo "$lastDate 0" >> "$RSIloosingDaysFile"
-            #echo "$lastDate" "$diffLast2Prices" >> "$RSIwinningDaysFile"
         fi
     done
 
@@ -163,8 +154,6 @@ RSIOfDays() {
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
     done
-    #rm -rf $RSIwinningDaysFile
-    #rm -rf $RSIloosingDaysFile
 }
 
 # StochasticOfDays function:
@@ -201,7 +190,6 @@ StochasticOfDays() {
         stochasticQuoteList="$stochasticQuoteList $lastStochasticQuoteRounded,"
         i=$((i + 1))
     done
-    #rm -rf $stochasticFile
 }
 
 # ProgressBar function:
