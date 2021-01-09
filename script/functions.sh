@@ -1,5 +1,74 @@
 #!/bin/sh
 
+# MACD_12_26 function:
+# Input is averagePriceList12Param($1) averagePriceList26Param($2)
+# Output: RSIQuoteList is comma separted list
+MACD_12_26() {
+    averagePriceList12Param=${1}
+    averagePriceList26Param=${2}
+
+    # MACD 12, 26
+    averagePriceMACD12List=$(echo "$averagePriceList12Param" | cut -b 24-10000)
+    averagePriceMACD26List=$(echo "$averagePriceList26Param" | cut -b 52-10000)
+
+    #hard coded!!!!
+    #averagePricemacd26List="232.269, 232.212, 232.381, 232.353, 232.179, 232.499, 232.758, 233.887, 234.932, 235.826, 236.431, 237.436, 238.552, 239.77, 240.861, 242.242, 243.743, 245.132, 245.826, 246.95, 248.065, 249.023, 249.873, 250.549, 251.101, 251.723, 252.855, 253.532, 254.381, 254.871, 255.695, 255.199, 255.036, 254.033, 253.512, 253.363, 251.41, 249.713, 247.956, 245.774, 243.865, 241.838, 239.813, 238.16, 237.074, 236.513, 236.179, 235.906, 235.839, 235.481, 234.482, 233.335, 232.162, 231.224, 230.393, 229.475, 228.773, 228.123, 227.484, 226.744, 225.652, 224.344, 223.615, 222.829, 222.138, 221.387, 220.544, 219.652, 216.967, 215.147, 213.877, 211.708, 210.367, 209.036, 206.944,"
+    #echo aaaaaaaaaaaaa averagePricemacd26List: $averagePricemacd26List
+    #echo uuuuuuuuuuuuuuu uname!!
+    #averagePricemacd26Array=$(echo "$averagePricemacd26List" | awk 'BEGIN{RS=","}{$1=$1}1')
+    #averagePricemacd26Array=$(echo $averagePricemacd26List)
+    #echo aaaaaaaaaaaaa averagePricemacd26Array: "$averagePricemacd26Array"
+    #echo "two=${averagePricemacd26Array[2]} four=${averagePricemacd26Array[4]}"
+    #if [ "$(uname)" = 'Linux' ]; then
+        #myarray=($myvar)
+        #echo llllllllllllllllllllllll linux!!
+        #averagePricemacd12Array=($averagePricemacd12List)
+        #averagePricemacd26Array=($averagePricemacd26List)
+    #else
+        #echo wwwwwwwwwwwwwwwwwwwwww windows!!
+        #averagePricemacd12Array=(${averagePricemacd12List//', '/ })
+        #averagePricemacd26Array=(${averagePricemacd26List//', '/ })
+    #fi
+
+    jj_index=0
+    # for value26 in ${$averagePricemacd26List | sed "s/,/ /g"}
+    # shellcheck disable=SC2001
+    for value26 in $(echo "$averagePriceMACD26List" | sed "s/,/ /g")
+    do
+    # echo iiiiiiiiiiiii "$value26"
+        kk_index=0
+        # for kk in ${$averagePricemacd12List | sed "s/,/ /g"}
+        # shellcheck disable=SC2001
+        for kk in $(echo "$averagePriceMACD12List" | sed "s/,/ /g")
+        do
+            #echo kkkkkkkkkk "$kk"
+            index=$((14 + jj_index))
+            if [ "$kk_index" = "$index" ]; then
+                #echo kk_index "$kk_index"
+                value12="$kk"
+                #echo value12 "$value12"
+            fi
+            kk_index=$((kk_index + 1))
+        done 
+    
+        jj_index=$((jj_index + 1))
+    
+        #echo value26 "$value26" value12 "$value12"
+        difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
+        #echo differ "$differ"
+        macdList="$macdList $difference,"
+    done
+
+    # for k in "${!averagePricemacd26Array[@]}"
+    # do
+    #     differ=$(echo "${averagePricemacd12Array[$k+14]} ${averagePricemacd26Array[$k]}" | awk '{print ($1 - $2)}')
+    #     #echo differ "$differ"
+    #     macdList="$macdList $differ,"
+    # done
+    macdList=" , , , , , , , , , , , , , , , , , , , , , , , , , $macdList"
+    echo macdList "$macdList"    
+}
+
 # CurlSymbolName function:
 # Input is _symbolParam($1), _TICKER_NAMES_FILE_param($2), _sleepParam($3)
 # Output: TICKER_NAMES_FILE
