@@ -155,6 +155,32 @@ curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MA
 curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
 
 
+
+
+
+#if [ "$(uname)" = 'Linux' ]; then
+    #myarray=($myvar)
+    #echo llllllllllllllllllllllll linux!!
+    #averagePricemacd12Array=($averagePricemacd12List)
+    #averagePricemacd26Array=($averagePricemacd26List)
+#else
+    #echo wwwwwwwwwwwwwwwwwwwwww windows!!
+    #averagePricemacd12Array=(${averagePricemacd12List//', '/ })
+    #averagePricemacd26Array=(${averagePricemacd26List//', '/ })
+#fi
+
+# for k in "${!averagePricemacd26Array[@]}"
+# do
+#     differ=$(echo "${averagePricemacd12Array[$k+14]} ${averagePricemacd26Array[$k]}" | awk '{print ($1 - $2)}')
+#     #echo differ "$differ"
+#     macdList="$macdList $differ,"
+# done
+macdList=" , , , , , , , , , , , , , , , , , , , , , , , , , $macdList"
+echo macdList "$macdList"
+
+
+
+
 # Cut comma, like: ",22" -> "22"        
 # v1=$(echo "$1")
 # value1=${v1:1:2}

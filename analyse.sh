@@ -189,13 +189,15 @@ averagePricemacd26List=$(echo "$averagePriceList26" | cut -b 52-10000)
 #fi
 
 jj_index=0
-for value26 in ${$averagePricemacd26List | sed "s/,/ /g"}
-#for value26 in $(echo "$averagePricemacd26List" | sed "s/,/ /g")
+# for value26 in ${$averagePricemacd26List | sed "s/,/ /g"}
+# shellcheck disable=SC2001
+for value26 in $(echo "$averagePricemacd26List" | sed "s/,/ /g")
 do
    # echo iiiiiiiiiiiii "$value26"
     kk_index=0
-    for kk in ${$averagePricemacd12List | sed "s/,/ /g"}
-#    for kk in $(echo "$averagePricemacd12List" | sed "s/,/ /g")
+    # for kk in ${$averagePricemacd12List | sed "s/,/ /g"}
+    # shellcheck disable=SC2001
+    for kk in $(echo "$averagePricemacd12List" | sed "s/,/ /g")
     do
         #echo kkkkkkkkkk "$kk"
         index=$((14 + jj_index))
