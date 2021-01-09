@@ -169,6 +169,9 @@ averagePriceList26=$averagePriceList
 averagePricemacd12List=$(echo "$averagePriceList12" | cut -b 24-10000)
 averagePricemacd26List=$(echo "$averagePriceList26" | cut -b 52-10000)
 
+#hard coded!!!!
+averagePricemacd26List="232.269, 232.212, 232.381, 232.353, 232.179, 232.499, 232.758, 233.887, 234.932, 235.826, 236.431, 237.436, 238.552, 239.77, 240.861, 242.242, 243.743, 245.132, 245.826, 246.95, 248.065, 249.023, 249.873, 250.549, 251.101, 251.723, 252.855, 253.532, 254.381, 254.871, 255.695, 255.199, 255.036, 254.033, 253.512, 253.363, 251.41, 249.713, 247.956, 245.774, 243.865, 241.838, 239.813, 238.16, 237.074, 236.513, 236.179, 235.906, 235.839, 235.481, 234.482, 233.335, 232.162, 231.224, 230.393, 229.475, 228.773, 228.123, 227.484, 226.744, 225.652, 224.344, 223.615, 222.829, 222.138, 221.387, 220.544, 219.652, 216.967, 215.147, 213.877, 211.708, 210.367, 209.036, 206.944,"
+
 echo uuuuuuuuuuuuuuu uname!!
 if [ "$(uname)" = 'Linux' ]; then
     #myarray=($myvar)
@@ -177,9 +180,12 @@ if [ "$(uname)" = 'Linux' ]; then
     #averagePricemacd26Array=($averagePricemacd26List)
 else
     echo wwwwwwwwwwwwwwwwwwwwww windows!!
-    #averagePricemacd12Array=(${averagePricemacd12List//', '/ })
-    #averagePricemacd26Array=(${averagePricemacd26List//', '/ })
+    averagePricemacd12Array=(${averagePricemacd12List//', '/ })
+    averagePricemacd26Array=(${averagePricemacd26List//', '/ })
 fi
+
+echo eeeeeeeeee element0: ${averagePricemacd26Array[0]}
+echo eeeeeeeeee element1: ${averagePricemacd26Array[1]}
 
 for k in "${!averagePricemacd26Array[@]}"
 do
