@@ -30,5 +30,5 @@ shellcheck --shell=bash analyse.sh
 
 # /C/Users/xcg4444/bin/bats --tap script/*.bats
 echo bats ...
-bats --tap script/functions.bats
 bats --tap script/strategies.bats
+bats --tap script/functions.bats
