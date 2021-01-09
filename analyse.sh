@@ -21,11 +21,16 @@
 # Import strategies
 . ./script/strategies.sh
 
-# Settings for currency formating with 'printf'
+# Calculate charts and underlying strategies. Default should be true
+CalculateStochastic=true
+CalculateRSI=true
+CalculateMACD=true
+# CalculateStochastic=true
+# CalculateRSI=true
+# CalculateMACD=true
+
+# Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_IN.UTF-8
-#export LC_ALL=de_DE.UTF-8
-#export LANG=de_DE.UTF-8
-#export LANGUAGE=de_DE.UTF-8
 
 # Parameter
 symbolsParam=$1
@@ -150,27 +155,22 @@ do
         continue
     fi
 
-
-
-
-# EMAverage 12
-averageInDays12=12
-averagePriceList=""
-EMAverageOfDays $averageInDays12 "$DATA_FILE"
-averagePriceList12=$averagePriceList
-
-# EMAverage 26
-averageInDays26=26
-averagePriceList=""
-EMAverageOfDays $averageInDays26 "$DATA_FILE"
-averagePriceList26=$averagePriceList
-
-macdList=""
-#echo averagePriceList12 "$averagePriceList12"
-#echo averagePriceList26 "$averagePriceList26"
-MACD_12_26 "$averagePriceList12" "$averagePriceList26"
-
-
+    # Calculate MACD 12, 26 values
+    if [ "$CalculateMACD" = true ]; then
+        # EMAverage 12
+        averageInDays12=12
+        averagePriceList=""
+        EMAverageOfDays $averageInDays12 "$DATA_FILE"
+        averagePriceList12=$averagePriceList
+        # EMAverage 26
+        averageInDays26=26
+        averagePriceList=""
+        EMAverageOfDays $averageInDays26 "$DATA_FILE"
+        averagePriceList26=$averagePriceList
+        # MACD
+        MACDList=""
+        MACD_12_26 "$averagePriceList12" "$averagePriceList26"
+    fi
 
     average18Raw=$(head -n18 "$DATA_FILE" | awk '{sum += $1;} END {print sum/18;}')
     average18=$(printf "%.2f" "$average18Raw")
@@ -189,7 +189,7 @@ MACD_12_26 "$averagePriceList12" "$averagePriceList26"
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average100"; lastOverAgv100=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average100"; lastUnderAgv100=$?
 
-    # Averages
+    # Percentage on averages
     GreaterThenWithFactor "$percentageGreaterFactor" "$average18" "$average38"; agv18OverAgv38=$?
     LesserThenWithFactor "$percentageLesserFactor" "$average18" "$average38"; agv18UnderAgv38=$?
     GreaterThenWithFactor "$percentageGreaterFactor" "$average38" "$average100"; agv38OverAgv100=$?
@@ -203,7 +203,9 @@ MACD_12_26 "$averagePriceList12" "$averagePriceList26"
     RSIInDays14=14
     lastRSIQuoteRounded=""
     RSIQuoteList=""
-    RSIOfDays $RSIInDays14 "$DATA_FILE"
+    if [ "$CalculateRSI" = true ]; then
+        RSIOfDays $RSIInDays14 "$DATA_FILE"
+    fi
 
     ProgressBar 4 8
 
@@ -211,7 +213,9 @@ MACD_12_26 "$averagePriceList12" "$averagePriceList26"
     stochasticInDays14=14
     lastStochasticQuoteRounded=""
     stochasticQuoteList=""
-    StochasticOfDays $stochasticInDays14 "$DATA_FILE"
+    if [ "$CalculateStochastic" = true ]; then
+        StochasticOfDays $stochasticInDays14 "$DATA_FILE"
+    fi
 
     ProgressBar 5 8
 
@@ -228,24 +232,6 @@ MACD_12_26 "$averagePriceList12" "$averagePriceList26"
     averagePriceList=""
     AverageOfDays $averageInDays38 "$DATA_FILE"
     averagePriceList38=$averagePriceList
-
-
-# # MACD 18, 38
-# macd18List=$(echo "$averagePriceList18" | cut -b 36-10000)
-# macd38List=$(echo "$averagePriceList38" | cut -b 76-10000)
-# #set -f # avoid globbing (expansion of *).
-# macd18Array=(${macd18List//,/ })
-# macd38Array=(${macd38List//,/ })
-# for k in "${!macd38Array[@]}"
-# do
-#     differ=$(echo "${macd18Array[k+20]} ${macd38Array[k]}" | awk '{print ($1 - $2)}')
-# #    differ=$(echo "${macd38Array[k]} ${macd18Array[k+20]}" | awk '{print ($1 - $2)}')
-#     macdList="$macdList $differ,"
-# done
-# macdList=" , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , $macdList"
-# #echo macdList $macdList
-
-
 
     ProgressBar 7 8
 
@@ -336,7 +322,7 @@ MACD_12_26 "$averagePriceList12" "$averagePriceList26"
         echo "$RSIQuoteList" 
         cat js/indexPart11.html 
 
-        echo "$macdList"
+        echo "$MACDList"
         cat js/indexPart12.html 
 
         # Color result link in Chart
@@ -371,7 +357,7 @@ MACD_12_26 "$averagePriceList12" "$averagePriceList26"
         else
             echo "Date:<b style=\"color:red; font-size:xx-large;\">$quoteDate</b>" 
         fi
-        echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>""$last""€</b></span>" 
+        echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Price:<b>""$last""€</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18""€</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38""€</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>""$average100""€</b></span>" 
