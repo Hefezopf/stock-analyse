@@ -168,8 +168,17 @@ averagePriceList26=$averagePriceList
 # MACD 12, 26
 averagePricemacd12List=$(echo "$averagePriceList12" | cut -b 24-10000)
 averagePricemacd26List=$(echo "$averagePriceList26" | cut -b 52-10000)
-averagePricemacd12Array=(${averagePricemacd12List//', '/ })
-averagePricemacd26Array=(${averagePricemacd26List//', '/ })
+
+if [ "$(uname)" = 'Linux' ]; then
+#myarray=($myvar)
+echo ----------------------linux 
+    averagePricemacd12Array=(${averagePricemacd12List//,/ })
+    averagePricemacd26Array=(${averagePricemacd26List//,/ })
+else
+    averagePricemacd12Array=(${averagePricemacd12List//', '/ })
+    averagePricemacd26Array=(${averagePricemacd26List//', '/ })
+fi
+
 
 for k in "${!averagePricemacd26Array[@]}"
 do
