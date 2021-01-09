@@ -170,10 +170,10 @@ averagePricemacd12List=$(echo "$averagePriceList12" | cut -b 24-10000)
 averagePricemacd26List=$(echo "$averagePriceList26" | cut -b 52-10000)
 
 if [ "$(uname)" = 'Linux' ]; then
-#myarray=($myvar)
-echo ----------------------linux 
-    averagePricemacd12Array=(${averagePricemacd12List//,/ })
-    averagePricemacd26Array=(${averagePricemacd26List//,/ })
+    #myarray=($myvar)
+    echo lllllllllllllllllllllllllinux 
+    averagePricemacd12Array=($averagePricemacd12List)
+    averagePricemacd26Array=($averagePricemacd26List)
 else
     averagePricemacd12Array=(${averagePricemacd12List//', '/ })
     averagePricemacd26Array=(${averagePricemacd26List//', '/ })
