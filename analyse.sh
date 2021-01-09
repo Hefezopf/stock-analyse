@@ -177,8 +177,8 @@ if [ "$(uname)" = 'Linux' ]; then
     #averagePricemacd26Array=($averagePricemacd26List)
 else
     echo wwwwwwwwwwwwwwwwwwwwww windows!!
-    averagePricemacd12Array=(${averagePricemacd12List//', '/ })
-    averagePricemacd26Array=(${averagePricemacd26List//', '/ })
+    #averagePricemacd12Array=(${averagePricemacd12List//', '/ })
+    #averagePricemacd26Array=(${averagePricemacd26List//', '/ })
 fi
 
 for k in "${!averagePricemacd26Array[@]}"
