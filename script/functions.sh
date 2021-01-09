@@ -2,7 +2,7 @@
 
 # MACD_12_26 function:
 # Input is averagePriceList12Param($1) averagePriceList26Param($2)
-# Output: RSIQuoteList is comma separted list
+# Output: MACDList is comma separted list
 MACD_12_26() {
     averagePriceList12Param=${1}
     averagePriceList26Param=${2}
@@ -56,17 +56,17 @@ MACD_12_26() {
         #echo value26 "$value26" value12 "$value12"
         difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
         #echo differ "$differ"
-        macdList="$macdList $difference,"
+        MACDList="$MACDList $difference,"
     done
 
     # for k in "${!averagePricemacd26Array[@]}"
     # do
     #     differ=$(echo "${averagePricemacd12Array[$k+14]} ${averagePricemacd26Array[$k]}" | awk '{print ($1 - $2)}')
     #     #echo differ "$differ"
-    #     macdList="$macdList $differ,"
+    #     MACDList="$MACDList $differ,"
     # done
-    macdList=" , , , , , , , , , , , , , , , , , , , , , , , , , $macdList"
-    echo macdList "$macdList"    
+    MACDList=" , , , , , , , , , , , , , , , , , , , , , , , , , $MACDList"
+    #echo MACDList "$MACDList"    
 }
 
 # CurlSymbolName function:
@@ -172,7 +172,7 @@ EMAverageOfDays() {
     i=0
     while [ "$i" -le $((100-amountOfDaysParam)) ]; 
     do
-        if [ "$i" = 0 ]; then # Erster Durchlauf
+        if [ "$i" = 0 ]; then # Frist Loop
             headLines=$((100-i))
             ema=$(head -n"$headLines" "$dataFileParam" | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')         
         else
