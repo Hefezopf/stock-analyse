@@ -11,6 +11,31 @@ OUT_RESULT_FILE=temp/_result.html
 SYMBOL=BEI
 SYMBOL_NAME="BEI BEIERSDORF AG"
 
+@test "StrategieUnderratedLowHorizontalMACD" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieUnderratedLowHorizontalMACD 
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == '' ]
+
+  StrategieUnderratedLowHorizontalMACD overrated " , , -7.865, -8.615, -8.658, -9.662, -9.62, -9.573, -10.353, -9.841," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == '' ]
+
+  StrategieUnderratedLowHorizontalMACD underrated " , , -7.865, -8.615, -8.658, -9.662, -9.62, -9.573, -10.353, -9.841," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == '+ Low Horizontal MACD: ---' ]
+
+  StrategieUnderratedLowHorizontalMACD all " , , -7.865, -8.615, -8.658, -9.662, -9.62, -9.573, -10.353, -9.841," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == '+ Low Horizontal MACD: ---' ]
+
+  StrategieUnderratedLowHorizontalMACD all " , , -7.865, -8.615, -8.658, -9.662, -9.62, -9.573, -10.353, -9.841," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == '+ Low Horizontal MACD: ---' ]
+
+  StrategieUnderratedLowHorizontalMACD underrated " , , -7.865, -8.615, -8.658, -9.662, -9.62, -9.573, -10.353, -9.841," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == '+ Low Horizontal MACD: ---' ]
+}
+
 @test "StrategieOverratedHighStochasticHighRSI" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""

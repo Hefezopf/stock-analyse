@@ -22,8 +22,8 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default should be true
-CalculateStochastic=true
-CalculateRSI=true
+#CalculateStochastic=true
+#CalculateRSI=true
 CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
@@ -248,6 +248,10 @@ do
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
 
+        # + Strategie: Low stochastic 3 last values under lowStochasticValue
+        resultStrategieUnderratedLowHorizontalMACD=""
+        StrategieUnderratedLowHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+
         # + Strategie: Low by Percent & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
         StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
@@ -328,7 +332,7 @@ do
           { [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedHighStochasticHighRSI}" -gt 1 ]; } then
             styleComdirectLink="style=\"font-size:x-large; color:red\""
         fi 
-        if [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
+        if [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
         ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
@@ -363,6 +367,7 @@ do
 
         # Strategies output
         # + buy
+        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
