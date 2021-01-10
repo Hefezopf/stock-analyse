@@ -1,7 +1,75 @@
 #!/bin/sh
 
+# StrategieOverratedHighHorizontalMACD function:
+# Strategie: MACD value high approch horizontal level. MACD must be in the positiv/upper half
+# Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
+# Output: resultStrategieOverratedHighHorizontalMACD
+StrategieOverratedHighHorizontalMACD() { 
+    _ratedParam=${1}   
+    _MACDQuoteList=${2} 
+    _OUT_RESULT_FILE_param=${3}
+    _symbolParam=${4}
+    _symbolNameParam=${5}
+    _markerOwnStockParam=${6}
+    resultStrategieOverratedHighHorizontalMACD=""  
+    if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
+        if [ "${#_MACDQuoteList}" -gt 1 ]; then # Check if value makes sense
+            # Remove leading commas
+            _MACDQuoteList=$(echo "$_MACDQuoteList" | cut -b 52-10000)
+            jj_index=0
+            # shellcheck disable=SC2001
+            for valueMACD in $(echo "$_MACDQuoteList" | sed "s/,/ /g")
+            do
+                if [ "$jj_index" = 72 ]; then
+                    valueMACDLast_2="$valueMACD" 
+                fi
+                if [ "$jj_index" = 73 ]; then
+                    valueMACDLast_1="$valueMACD" 
+                fi
+                if [ "$jj_index" = 74 ]; then
+                    valueMACDLast_0="$valueMACD" 
+                fi
+                jj_index=$((jj_index + 1))
+            done
+#echo valueMACDLast_2 $valueMACDLast_2 valueMACDLast_1 $valueMACDLast_1 valueMACDLast_0 $valueMACDLast_0
+            isMACDHorizontalAlarm=false
+            # Check if MACD is horizontal?
+            # BeforeLast Value
+            difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
+            
+            isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+        #echo 111difference $difference isNegativ $isNegativ
+            # Positiv -> up
+            if [ ! "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then # If first criterium positiv -> first step Alarm!
+        #echo alarm1111
+                isMACDHorizontalAlarm=true
+            fi
+
+            # Last Value
+            difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
+            isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+            isMACDGenerellPositiv=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
+        #echo 222difference $difference isNegativ $isNegativ isMACDGenerellPositiv $isMACDGenerellPositiv    
+            if { [ "${difference}" = 0 ] || [ "${isNegativ}" = '-' ]; } &&
+               { [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isMACDGenerellPositiv}" = '-' ]; } then # If second criterium negativ -> Alarm!
+                isMACDHorizontalAlarm=true
+        #echo Alarm222
+            else
+                isMACDHorizontalAlarm=false
+            fi
+
+            # is MACD horizontal?
+            if [ "$isMACDHorizontalAlarm" = true ]; then
+                resultStrategieOverratedHighHorizontalMACD="- High Horizontal MACD: ---"
+                echo "$resultStrategieOverratedHighHorizontalMACD"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
+            fi
+        fi            
+    fi
+}
+
 # StrategieUnderratedLowHorizontalMACD function:
-# Strategie: MACD value approch horizontal level
+# Strategie: MACD value low approch horizontal level. MACD must be in the negativ/lower half
 # Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
 # Output: resultStrategieUnderratedLowHorizontalMACD
 StrategieUnderratedLowHorizontalMACD() { 

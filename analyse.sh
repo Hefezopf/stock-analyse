@@ -254,7 +254,7 @@ do
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
 
-        # + Strategie: Low stochastic 3 last values under lowStochasticValue
+        # + Strategie: Low horizontal MACD
         resultStrategieUnderratedLowHorizontalMACD=""
         StrategieUnderratedLowHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
@@ -269,6 +269,10 @@ do
         # + Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
         resultStrategieUnderratedLowStochasticLowRSI=""
         StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+
+        # - Strategie: High horizontal MACD
+        resultStrategieOverratedHighHorizontalMACD=""
+        StrategieOverratedHighHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # - Strategie: High by Percent & Stochastic
         resultStrategieOverratedByPercentAndStochastic=""
@@ -335,7 +339,7 @@ do
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
         if [ "${markerOwnStock}" = '*' ] && # Red link only for stocks that are marked as own
-          { [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedHighStochasticHighRSI}" -gt 1 ]; } then
+          { [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedHighStochasticHighRSI}" -gt 1 ]; } then
             styleComdirectLink="style=\"font-size:x-large; color:red\""
         fi 
         if [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
@@ -379,6 +383,7 @@ do
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
         
         # - sell
+        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedHighStochasticHighRSI" "</b></p>" 
