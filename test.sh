@@ -28,6 +28,8 @@ shellcheck --shell=bash script/functions.sh
 shellcheck --shell=bash script/strategies.sh
 shellcheck --shell=bash analyse.sh
 
+rm -rf test/_result.html
+
 # /C/Users/xcg4444/bin/bats --tap script/*.bats
 echo bats ...
 bats --tap script/strategies.bats

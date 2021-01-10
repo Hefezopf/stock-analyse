@@ -1,5 +1,38 @@
 #!/bin/sh
 
+# MACD_12_26 function:
+# Input is averagePriceList12Param($1) averagePriceList26Param($2)
+# Output: MACDList is comma separted list
+MACD_12_26() {
+    averagePriceList12Param=${1}
+    averagePriceList26Param=${2}
+
+    # Remove leading commas
+    averagePriceMACD12List=$(echo "$averagePriceList12Param" | cut -b 24-10000)
+    averagePriceMACD26List=$(echo "$averagePriceList26Param" | cut -b 52-10000)
+
+    jj_index=0
+    # shellcheck disable=SC2001
+    for value26 in $(echo "$averagePriceMACD26List" | sed "s/,/ /g")
+    do
+        index=$((14 + jj_index))
+        kk_index=-1
+        # shellcheck disable=SC2001
+        for kk in $(echo "$averagePriceMACD12List" | sed "s/,/ /g")
+        do
+            kk_index=$((kk_index + 1))
+            if [ "$kk_index" = "$index" ]; then
+                value12="$kk"
+                break
+            fi
+        done 
+        jj_index=$((jj_index + 1))
+        difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
+        MACDList="$MACDList $difference,"
+    done
+    MACDList=" , , , , , , , , , , , , , , , , , , , , , , , , , $MACDList" 
+}
+
 # CurlSymbolName function:
 # Input is _symbolParam($1), _TICKER_NAMES_FILE_param($2), _sleepParam($3)
 # Output: TICKER_NAMES_FILE
@@ -87,6 +120,37 @@ GreaterThenWithFactor() {
     fi
 }
 
+
+# EMAverageOfDays function:
+# Input is amountOfDaysParam($1), dataFileParam($2)
+# Output: averagePriceList is comma separted list
+EMAverageOfDays() {
+    amountOfDaysParam=${1}
+    dataFileParam=${2}
+    i=1
+    while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
+        averagePriceList="$averagePriceList ,"        
+        i=$((i + 1))
+    done 
+
+    i=0
+    while [ "$i" -le $((100-amountOfDaysParam)) ]; 
+    do
+        if [ "$i" = 0 ]; then # Frist Loop
+            headLines=$((100-i))
+            ema=$(head -n"$headLines" "$dataFileParam" | tail -"${amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${amountOfDaysParam}"'; }')         
+        else
+            #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
+            headLinesLastPrice=$((101-i-amountOfDaysParam))
+            lastPrice=$(head -n"$headLinesLastPrice" "$dataFileParam" | tail -1)
+            # shellcheck disable=SC2086
+            ema=$(echo "$lastPrice $ema" | awk '{print ($1*(2/('${amountOfDaysParam}'+1))+$2*(1-(2/('${amountOfDaysParam}'+1))))}')          
+        fi
+        averagePriceList="$averagePriceList $ema,"
+        i=$((i + 1))
+    done
+}
+
 # AverageOfDays function:
 # Input is amountOfDaysParam($1), dataFileParam($2)
 # Output: averagePriceList is comma separted list
@@ -115,13 +179,8 @@ AverageOfDays() {
 RSIOfDays() {
     amountOfDaysParam=${1}
     dataFileParam=${2}
-#     ramtempW="$(mktemp -p /dev/shm/)"
-#     ramtempL="$(mktemp -p /dev/shm/)"
-
     RSIwinningDaysFile="$(mktemp -p /dev/shm/)"
     RSIloosingDaysFile="$(mktemp -p /dev/shm/)"
-    #rm -rf $RSIwinningDaysFile
-    #rm -rf $RSIloosingDaysFile
     i=1
     while [ "$i" -le 100 ];
     do
@@ -132,13 +191,9 @@ RSIOfDays() {
             withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
             echo "$withoutMinusSign" >> "$RSIloosingDaysFile"
             echo "0" >> "$RSIwinningDaysFile"
-            #echo "$lastDate" "$withoutMinusSign" >> "$RSIloosingDaysFile"
-            #echo "$lastDate 0" >> "$RSIwinningDaysFile"
         else
             echo "0" >> "$RSIloosingDaysFile"
             echo "$diffLast2Prices" >> "$RSIwinningDaysFile"
-            #echo "$lastDate 0" >> "$RSIloosingDaysFile"
-            #echo "$lastDate" "$diffLast2Prices" >> "$RSIwinningDaysFile"
         fi
     done
 
@@ -163,8 +218,6 @@ RSIOfDays() {
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
     done
-    #rm -rf $RSIwinningDaysFile
-    #rm -rf $RSIloosingDaysFile
 }
 
 # StochasticOfDays function:
@@ -201,7 +254,6 @@ StochasticOfDays() {
         stochasticQuoteList="$stochasticQuoteList $lastStochasticQuoteRounded,"
         i=$((i + 1))
     done
-    #rm -rf $stochasticFile
 }
 
 # ProgressBar function:

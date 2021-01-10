@@ -21,11 +21,13 @@
 # Import strategies
 . ./script/strategies.sh
 
-# Settings for currency formating with 'printf'
+# Calculate charts and underlying strategies. Default should be true
+CalculateStochastic=true
+CalculateRSI=true
+CalculateMACD=true
+
+# Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_IN.UTF-8
-#export LC_ALL=de_DE.UTF-8
-#export LANG=de_DE.UTF-8
-#export LANGUAGE=de_DE.UTF-8
 
 # Parameter
 symbolsParam=$1
@@ -56,6 +58,12 @@ echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo "
 
 # Usage: Check parameter
 UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
+
+if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$CalculateMACD" = true ]; then
+    echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD not set!" | tee -a $OUT_RESULT_FILE
+    echo "<br>" >> $OUT_RESULT_FILE
+    echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
+fi
 
 if [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ]; then
     echo "Error: MARKET_STACK_ACCESS_KEY1 or MARKET_STACK_ACCESS_KEY2 or MARKET_STACK_ACCESS_KEY3 not set!" | tee -a $OUT_RESULT_FILE
@@ -150,29 +158,41 @@ do
         continue
     fi
 
-    #head -n18 "$DATA_FILE" > temp/values18.txt
-    #average18Raw=$(awk '{ sum += $1; } END { print sum/18; }' < temp/values18.txt)
+    # Calculate MACD 12, 26 values
+    if [ "$CalculateMACD" = true ]; then
+        # EMAverage 12
+        averageInDays12=12
+        averagePriceList=""
+        EMAverageOfDays $averageInDays12 "$DATA_FILE"
+        averagePriceList12=$averagePriceList
+        # EMAverage 26
+        averageInDays26=26
+        averagePriceList=""
+        EMAverageOfDays $averageInDays26 "$DATA_FILE"
+        averagePriceList26=$averagePriceList
+        # MACD
+        MACDList=""
+        MACD_12_26 "$averagePriceList12" "$averagePriceList26"
+    fi
+
     average18Raw=$(head -n18 "$DATA_FILE" | awk '{sum += $1;} END {print sum/18;}')
     average18=$(printf "%.2f" "$average18Raw")
-
-    ProgressBar 2 8
-
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average18"; lastOverAgv18=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average18"; lastUnderAgv18=$?
 
-    #head -n38 "$DATA_FILE" > temp/values38.txt
-    average38Raw=$(head -n38 "$DATA_FILE" |awk '{sum += $1;} END {print sum/38;}')
+    ProgressBar 2 8
+
+    average38Raw=$(head -n38 "$DATA_FILE" | awk '{sum += $1;} END {print sum/38;}')
     average38=$(printf "%.2f" "$average38Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average38"; lastOverAgv38=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average38";lastUnderAgv38=$?
-    
-    #head -n100 "$DATA_FILE" > temp/values100.txt
+
     average100Raw=$(head -n100 "$DATA_FILE" | awk '{sum += $1;} END {print sum/100;}')
     average100=$(printf "%.2f" "$average100Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average100"; lastOverAgv100=$?
     LesserThenWithFactor "$percentageLesserFactor" "$last" "$average100"; lastUnderAgv100=$?
 
-    # Averages
+    # Percentage on averages
     GreaterThenWithFactor "$percentageGreaterFactor" "$average18" "$average38"; agv18OverAgv38=$?
     LesserThenWithFactor "$percentageLesserFactor" "$average18" "$average38"; agv18UnderAgv38=$?
     GreaterThenWithFactor "$percentageGreaterFactor" "$average38" "$average100"; agv38OverAgv100=$?
@@ -186,7 +206,9 @@ do
     RSIInDays14=14
     lastRSIQuoteRounded=""
     RSIQuoteList=""
-    RSIOfDays $RSIInDays14 "$DATA_FILE"
+    if [ "$CalculateRSI" = true ]; then
+        RSIOfDays $RSIInDays14 "$DATA_FILE"
+    fi
 
     ProgressBar 4 8
 
@@ -194,7 +216,9 @@ do
     stochasticInDays14=14
     lastStochasticQuoteRounded=""
     stochasticQuoteList=""
-    StochasticOfDays $stochasticInDays14 "$DATA_FILE"
+    if [ "$CalculateStochastic" = true ]; then
+        StochasticOfDays $stochasticInDays14 "$DATA_FILE"
+    fi
 
     ProgressBar 5 8
 
@@ -229,6 +253,10 @@ do
     # Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
+
+        # + Strategie: Low stochastic 3 last values under lowStochasticValue
+        resultStrategieUnderratedLowHorizontalMACD=""
+        StrategieUnderratedLowHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # + Strategie: Low by Percent & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
@@ -301,13 +329,16 @@ do
         echo "$RSIQuoteList" 
         cat js/indexPart11.html 
 
+        echo "$MACDList"
+        cat js/indexPart12.html 
+
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
         if [ "${markerOwnStock}" = '*' ] && # Red link only for stocks that are marked as own
           { [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedHighStochasticHighRSI}" -gt 1 ]; } then
             styleComdirectLink="style=\"font-size:x-large; color:red\""
         fi 
-        if [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
+        if [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
         ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
@@ -333,7 +364,7 @@ do
         else
             echo "Date:<b style=\"color:red; font-size:xx-large;\">$quoteDate</b>" 
         fi
-        echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Last price:<b>""$last""€</b></span>" 
+        echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Price:<b>""$last""€</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18""€</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38""€</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>""$average100""€</b></span>" 
@@ -342,6 +373,7 @@ do
 
         # Strategies output
         # + buy
+        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
@@ -353,7 +385,7 @@ do
              
         echo "Good Luck!"
 
-        cat js/indexPart12.html
+        cat js/indexPart13.html
     } >> "$indexSymbolFile"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" black "$markerOwnStock"

@@ -5,7 +5,7 @@
 name: Dev
 
 env:
-  symbolsEnv: '*GIS'
+  symbolsEnv: '*AHLA'
   percentageEnv: '1'
   queryEnv: 'offline'
   ratedEnv: 'all'
@@ -16,7 +16,7 @@ env:
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ main, macd ]
   #pull_request:
     #branches: [ main ]
 
@@ -69,6 +69,7 @@ jobs:
           sh ./script/install-bats.sh
           /home/runner/.local/bin/bats -version
           mkdir temp
+          rm -rf test/_result.html
           /home/runner/.local/bin/bats --tap script/*.bats
 
       # Runs a set of commands using the runners shell
@@ -145,6 +146,16 @@ jobs:
         with:
           name: screenshot2
 
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/3.html
+          destination: screenshot3.png   
+          full-page: true
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot3
+
       # Compress screenshot.tar.gz at the end
       - shell: bash
         run: |  
@@ -155,6 +166,10 @@ jobs:
           fileSize=$(stat -c %s screenshot2.png)
           if [ "${fileSize}" -gt "10000" ]; then
             fileList=$(echo $fileList "screenshot2.png")
+          fi
+          fileSize=$(stat -c %s screenshot3.png)
+          if [ "${fileSize}" -gt "10000" ]; then
+            fileList=$(echo $fileList "screenshot3.png")
           fi
           tar -zcf screenshot.tar.gz $fileList
     
