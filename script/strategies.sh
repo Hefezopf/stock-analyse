@@ -1,5 +1,57 @@
 #!/bin/sh
 
+# StrategieUnderratedLowHorizontalMACD function:
+# Strategie: MACD value approch horizontal level
+# Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
+# Output: resultStrategieUnderratedLowHorizontalMACD
+StrategieUnderratedLowHorizontalMACD() { 
+    _ratedParam=${1}   
+    _MACDQuoteList=${2} 
+    _OUT_RESULT_FILE_param=${3}
+    _symbolParam=${4}
+    _symbolNameParam=${5}
+    _markerOwnStockParam=${6}
+    resultStrategieUnderratedLowHorizontalMACD=""
+    if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
+        if [ "${#_MACDQuoteList}" -gt 1 ]; then # Check if value makes sense
+
+echo _MACDQuoteList "$_MACDQuoteList"
+            # Revers and output the last x numbers. Attention only works for single digst numbers!
+            _MACDQuoteList=$(echo "$_MACDQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
+echo revere _MACDQuoteList "$_MACDQuoteList"
+            OLDIFS=$IFS
+            # Warning do NOT quote this!! "$_MACDQuoteList"
+            # shellcheck disable=SC2086
+            IFS="," set -- $_MACDQuoteList
+            # Cut comma, like: ",22" -> "22"
+            value1=$(echo "$1" | cut -b 2-3)
+            value2=$(echo "$2" | cut -b 2-3)
+            value3=$(echo "$3" | cut -b 2-3)
+            IFS=$OLDIFS
+
+            #howManyUnderLowStochasticValue=0
+            # # Check string length and low stochastic parameter
+            # if [ ! "${#value1}" -gt 1 ] && [ "$value1" -lt "$_lowStochasticValue" ]; then
+            #     howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
+            # fi
+            # if [ ! "${#value2}" -gt 1 ] && [ "$value2" -lt "$_lowStochasticValue" ]; then
+            #     howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
+            # fi
+            # if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValue" ]; then
+            #     howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
+            # fi
+
+            howManyUnderLowStochasticValue=3
+            # All 3 last values under _lowStochasticValue?
+            if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
+                resultStrategieUnderratedLowHorizontalMACD="+ Low Horizontal MACD: ---"
+                echo "$resultStrategieUnderratedLowHorizontalMACD"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
+            fi
+        fi            
+    fi
+}
+
 # StrategieOverratedByPercentAndStochastic function:
 # Strategie: High by Percent & Stochastic
 # Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), OUT_RESULT_FILE_param($15), symbolParam($16), _symbolNameParam($17), _markerOwnStockParam($18)
@@ -172,7 +224,6 @@ StrategieUnderrated3LowStochastic() {
             value1=$(echo "$1" | cut -b 2-3)
             value2=$(echo "$2" | cut -b 2-3)
             value3=$(echo "$3" | cut -b 2-3)
-
             IFS=$OLDIFS
             howManyUnderLowStochasticValue=0
             # Check string length and low stochastic parameter
