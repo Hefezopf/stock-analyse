@@ -22,8 +22,8 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default should be true
-CalculateStochastic=true
-CalculateRSI=true
+#CalculateStochastic=true
+#CalculateRSI=true
 CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
@@ -60,7 +60,7 @@ echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo "
 UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
 
 if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$CalculateMACD" = true ]; then
-    echo "Warning: CalculateXXX not set!" | tee -a $OUT_RESULT_FILE
+    echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD not set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
 fi

@@ -14,36 +14,47 @@ StrategieUnderratedLowHorizontalMACD() {
     resultStrategieUnderratedLowHorizontalMACD=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_MACDQuoteList}" -gt 1 ]; then # Check if value makes sense
+            # Remove leading commas
+            _MACDQuoteList=$(echo "$_MACDQuoteList" | cut -b 52-10000)
+            jj_index=0
+            # shellcheck disable=SC2001
+            for valueMACD in $(echo "$_MACDQuoteList" | sed "s/,/ /g")
+            do
+                if [ "$jj_index" = 72 ]; then
+                    valueMACDLast_2="$valueMACD" 
+                fi
+                if [ "$jj_index" = 73 ]; then
+                    valueMACDLast_1="$valueMACD" 
+                fi
+                if [ "$jj_index" = 74 ]; then
+                    valueMACDLast_0="$valueMACD" 
+                fi
+                jj_index=$((jj_index + 1))
+            done
 
-echo _MACDQuoteList "$_MACDQuoteList"
-            # Revers and output the last x numbers. Attention only works for single digst numbers!
-            _MACDQuoteList=$(echo "$_MACDQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
-echo revere _MACDQuoteList "$_MACDQuoteList"
-            OLDIFS=$IFS
-            # Warning do NOT quote this!! "$_MACDQuoteList"
-            # shellcheck disable=SC2086
-            IFS="," set -- $_MACDQuoteList
-            # Cut comma, like: ",22" -> "22"
-            value1=$(echo "$1" | cut -b 2-3)
-            value2=$(echo "$2" | cut -b 2-3)
-            value3=$(echo "$3" | cut -b 2-3)
-            IFS=$OLDIFS
+            isMACDHorizontalAlarm=false
+            # Check if MACD is horizontal?
 
-            #howManyUnderLowStochasticValue=0
-            # # Check string length and low stochastic parameter
-            # if [ ! "${#value1}" -gt 1 ] && [ "$value1" -lt "$_lowStochasticValue" ]; then
-            #     howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
-            # fi
-            # if [ ! "${#value2}" -gt 1 ] && [ "$value2" -lt "$_lowStochasticValue" ]; then
-            #     howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
-            # fi
-            # if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValue" ]; then
-            #     howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
-            # fi
+            # Last - 1 Value
+            difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
+            #echo 111difference "$difference"
+            isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+            if [ "${isNegativ}" = '-' ]; then # If first criterium negativ -> first step Alarm!
+                #echo 1. Alarm!!!!!!!
+                isMACDHorizontalAlarm=true
+            fi
 
-            howManyUnderLowStochasticValue=3
-            # All 3 last values under _lowStochasticValue?
-            if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
+            # Last Value
+            difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
+            #echo 222difference "$difference"
+            isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+            if [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isNegativ}" = '-' ]; then # If second criterium positiv -> Alarm!
+                #echo 2. Alarm!!!!!!!
+                isMACDHorizontalAlarm=true
+            fi
+
+            # is MACD horizontal?
+            if [ "$isMACDHorizontalAlarm" = true ]; then
                 resultStrategieUnderratedLowHorizontalMACD="+ Low Horizontal MACD: ---"
                 echo "$resultStrategieUnderratedLowHorizontalMACD"
                 WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
