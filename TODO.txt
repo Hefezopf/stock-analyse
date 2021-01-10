@@ -6,10 +6,18 @@ TODO:
 git config --global http.sslVerify false
 
 
+-keine email von github mehr?!
+-Strategie für MACD unten
+-Strategie für MACD oben
+-MACD signal line?
+-MACD Histogramm line?
+-12 durchschnitt einzeichen?
+-26 durchschnitt einzeichen?
+-Die anderen Averages 18, 38, 100 auch als EMA? -> evtl schneller?!
+
 -Wann wird Kurs von XETRA aktuallisiert?
     LHA ist erst unter Tags akt. worden?
     Um 00:02 war der Kurs noch alt! um 1 Uhr Nachts neu
-
 
 -Cache Dateien für jedes Symbol anlegen!! Performance!
 
@@ -153,6 +161,32 @@ curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MA
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].name'
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].close'
 curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
+
+
+
+
+
+#if [ "$(uname)" = 'Linux' ]; then
+    #myarray=($myvar)
+    #echo llllllllllllllllllllllll linux!!
+    #averagePricemacd12Array=($averagePricemacd12List)
+    #averagePricemacd26Array=($averagePricemacd26List)
+#else
+    #echo wwwwwwwwwwwwwwwwwwwwww windows!!
+    #averagePricemacd12Array=(${averagePricemacd12List//', '/ })
+    #averagePricemacd26Array=(${averagePricemacd26List//', '/ })
+#fi
+
+# for k in "${!averagePricemacd26Array[@]}"
+# do
+#     differ=$(echo "${averagePricemacd12Array[$k+14]} ${averagePricemacd26Array[$k]}" | awk '{print ($1 - $2)}')
+#     #echo differ "$differ"
+#     macdList="$macdList $differ,"
+# done
+macdList=" , , , , , , , , , , , , , , , , , , , , , , , , , $macdList"
+echo macdList "$macdList"
+
+
 
 
 # Cut comma, like: ",22" -> "22"        

@@ -30,7 +30,7 @@
 	<script>
 		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		var config = {
-			type: 'line',
+			type: 'bar',
 			data: {
 				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'January', 'February', 'March', 'April', 'May', 'June', 'January', 'February', 'March', 'April', 'May', 'June', 'January', 'February', 'March', 'April', 'May', 'June', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
 				datasets: [{
@@ -38,9 +38,9 @@
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
 					data: [
-					1596,1606,1593.5,1594,1633.5,1629.5,1639,1634,1641,1557.5,1584.5,1606.5,1616.5,1621,1517,1455,1445.5,1505,1537,1577,1538.5,1568.5,1566,1588.5,1598.5,1630.5,1623.5,1642,1682,1721,1734.5,1700.5,1675,1612.5,1590.5,1631,1604,1598.5,1577,1602.5,1601.5,1596,1581,1578,1581,1514.5,1516.5,1445,1438,1399,1383.5,1374,1376,1310.5,1347,1307.5,1329,1428,1417,1391.5,1412,1469.5,1465.5,1417,1378.5,1367.5,1418,1466.5,1449,1449,1415.5,1457.5,1416,1403.5,1423,1488,1471.5,1472.5,1441,1464,1417,1382,1414.5,1381,1397.5,1351.5,1430.5,1424.5,1414,1437.5,1402,1364.5,1380,1357.5,1405,1379,1401.5,1405.5,1401.5,1372.5
+					0.5261,0.462,0.4256,0.3525,0.2847,0.188,0.0759,0.0074,-0.0748,-0.079,-0.1045,-0.1294,-0.0819,-0.0621,-0.0559,-0.0257,-0.0336,0.0024,-0.0261,-0.0006,0.0214,0.0703,0.0646,0.0303,0.0442,0.0979,0.2125,0.2399,0.2702,0.3475,0.3882,0.4576,0.4828,0.4991,0.5744,0.6303,0.7512,0.8635,0.9708,0.9985,1.0201,1.037,1.1132,1.1898,1.1159,1.0285,0.8771,0.7801,0.6826,0.5369,0.4505,0.3505,0.258,0.1432,0.0182,-0.13,-0.2557,-0.332,-0.3755,-0.3464,-0.3978,-0.439,-0.4601,44.4108,44.2664,44.2258,44.1814,44.0911,44.0267,43.9572,43.9567,43.9,43.8625,43.7775,43.6908,43.6414,43.6031,43.6753,43.7347,43.8061,43.7731,43.7122,43.5964,
 					],
-					fill: false,
+					fill: true,
 				}
 				/*
 				, {
@@ -57,7 +57,8 @@
 			]
 			},
 			options: {
-				responsive: true,
+                responsive: true,
+                maintainAspectRatio: true,
 				plugins: {
 					title: {
 						display: true,
@@ -116,7 +117,7 @@
 				backgroundColor: newColor,
 				borderColor: newColor,
 				data: [],
-				fill: false
+				fill: true
 			};
 
 			for (var index = 0; index < config.data.labels.length; ++index) {
