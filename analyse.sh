@@ -54,7 +54,7 @@ COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?t
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd
-echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo "$symbolsParam" | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Multiple symbols in parameter list!!!!!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE #&& exit 4
+echo "$symbolsParam" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' && echo "$symbolsParam" | tr " " "\n" | sort | uniq -c  | tee -a $OUT_RESULT_FILE && echo "Multiple symbols in parameter list!!!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE #&& exit 4
 
 # Usage: Check parameter
 UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
@@ -135,7 +135,7 @@ do
         curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "${fileSize}" -eq "0" ]; then
-            echo "!!!$symbol NOT found online" | tee -a $OUT_RESULT_FILE
+            echo "!!! $symbol NOT found online" | tee -a $OUT_RESULT_FILE
             echo "<br>" >> $OUT_RESULT_FILE
             rm -rf "$DATA_DATE_FILE"
         fi
@@ -152,7 +152,7 @@ do
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown or not fetched symbol in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
-        echo "!!!$symbol NOT found in data/$symbol.txt" | tee -a $OUT_RESULT_FILE
+        echo "!!! $symbol NOT found in data/$symbol.txt" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
         # continue with next symbol in the list
         continue
@@ -254,35 +254,35 @@ do
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
 
-        # + Strategie: Low horizontal MACD
+        # Buy Strategie: Low horizontal MACD
         resultStrategieUnderratedLowHorizontalMACD=""
         StrategieUnderratedLowHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # + Strategie: Low by Percent & Stochastic
+        # Buy Strategie: Low by Percent & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
         StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     
-        # + Strategie: Low stochastic 3 last values under lowStochasticValue
+        # Buy Strategie: Low stochastic 3 last values under lowStochasticValue
         resultStrategieUnderrated3LowStochastic=""
         StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # + Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
+        # Buy Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
         resultStrategieUnderratedLowStochasticLowRSI=""
         StrategieUnderratedLowStochasticLowRSI "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # - Strategie: High horizontal MACD
+        # Sell Strategie: High horizontal MACD
         resultStrategieOverratedHighHorizontalMACD=""
         StrategieOverratedHighHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # - Strategie: High by Percent & Stochastic
+        # Sell Strategie: High by Percent & Stochastic
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # - Strategie: High stochastic 3 last values over highStochasticValue
+        # Sell Strategie: High stochastic 3 last values over highStochasticValue
         resultStrategieOverrated3HighStochastic=""
         StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # + Strategie: High stochastic and High RSI last quote over stochasticPercentageUpper and RSIQuoteUpper
+        # Sell Strategie: High stochastic and High RSI last quote over stochasticPercentageUpper and RSIQuoteUpper
         resultStrategieOverratedHighStochasticHighRSI=""
         StrategieOverratedHighStochasticHighRSI "$ratedParam" "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
