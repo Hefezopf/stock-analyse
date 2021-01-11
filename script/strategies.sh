@@ -62,6 +62,12 @@ StrategieOverratedHighHorizontalMACD() {
             if [ "$isMACDHorizontalAlarm" = true ]; then
                 resultStrategieOverratedHighHorizontalMACD="Sell: High Horizontal MACD: ---"
                 echo "$resultStrategieOverratedHighHorizontalMACD"
+                # Red link only for stocks that are marked as own 
+                _linkColor=red
+                if [ "${_markerOwnStockParam}" = '' ]; then
+                    _linkColor=black
+                fi
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam"
                 WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
             fi
         fi            
@@ -160,7 +166,6 @@ StrategieOverratedByPercentAndStochastic() {
                 [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
                 resultStrategieOverratedByPercentAndStochastic="Sell: High by percent & stochastic: $_last€ is $_percentageLesserFactor over Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
                 echo "$resultStrategieOverratedByPercentAndStochastic"
-
                 # Red link only for stocks that are marked as own 
                 _linkColor=red
                 if [ "${_markerOwnStockParam}" = '' ]; then
@@ -265,7 +270,6 @@ StrategieOverrated3HighStochastic() {
             if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
                 resultStrategieOverrated3HighStochastic="Sell: High 3 last stochastic: 3 last quotes are over $_highStochasticValue"
                 echo "$resultStrategieOverrated3HighStochastic"
-
                 # Red link only for stocks that are marked as own 
                 _linkColor=red
                 if [ "${_markerOwnStockParam}" = '' ]; then
@@ -345,7 +349,6 @@ StrategieOverratedHighStochasticHighRSI() {
             if [ "$_lastStochasticQuoteRounded" -gt "$_highStochasticValue" ] && [ "$_lastRSIQuoteRounded" -gt "$_highRSIQuoteParam" ]; then
                 resultStrategieOverratedHighStochasticHighRSI="Sell: High last Stoch & RSI: Stoch quote $_lastStochasticQuoteRounded over $_highStochasticValue and RSI quote $_lastRSIQuoteRounded over $_highRSIQuoteParam"
                 echo "$resultStrategieOverratedHighStochasticHighRSI"
-
                 # Red link only for stocks that are marked as own 
                 _linkColor=red
                 if [ "${_markerOwnStockParam}" = '' ]; then
