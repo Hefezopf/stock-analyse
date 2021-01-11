@@ -3,7 +3,7 @@ Automated Stock Analysis.
 
 Shell script to check given stock quotes and their averages of the last 100, 38, 18 days.
 
-Calculate Stochastics and RSI.
+Stochastic, RSI and MACD are calculated as well.
 
 Alert via email.
 

@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # This script checks given stock quotes and their averages of the last 100, 38, 18 days.
+# Stochastic, RSI and MACD are calculated as well
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC RSI
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
@@ -116,9 +117,7 @@ do
     # Get stock data
     echo ""
     echo "# Get $symbolName"
-    #DATA_FILE=temp/${symbol}_data.txt
     DATA_FILE="$(mktemp -p /dev/shm/)"
-    #rm -rf "$DATA_FILE"
     DATA_DATE_FILE=data/${symbol}.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
@@ -338,7 +337,8 @@ do
 
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
-        if [ "${markerOwnStock}" = '*' ] && # Red link only for stocks that are marked as own
+        # Red link only for stocks that are marked as own stocks
+        if [ "${markerOwnStock}" = '*' ] && 
           { [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedHighStochasticHighRSI}" -gt 1 ]; } then
             styleComdirectLink="style=\"font-size:x-large; color:red\""
         fi 
@@ -353,7 +353,7 @@ do
         echo "Stochastic14:<b>$stochasticPercentageParam</b> " 
         echo "RSI14:<b>$RSIQuoteParam</b><br>" 
 
-        # Plausi quote day from last trading day
+        # Check, if quote day is from last trading day, including weekend
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")
         dayOfWeek=$(date +%u)
         if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
@@ -376,13 +376,13 @@ do
         echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span></p>" 
 
         # Strategies output
-        # + buy
+        # Buy
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
         
-        # - sell
+        # Sell
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" 
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>" 
@@ -422,8 +422,6 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 echo "time elapsed."
 
 # Zip 
-#rm -rf temp/values*.txt
-#rm -rf temp/*_data.txt
 # shellcheck disable=SC2116,SC2086
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
 # shellcheck disable=SC2086

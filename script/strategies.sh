@@ -1,5 +1,31 @@
 #!/bin/sh
 
+# StrategieUnderratedLowRSI function:
+# Strategie: Low RSI last quote under lowRSIValue
+# https://www.charttec.de/html/indikator_rsi_relative_strength_index.php
+# https://de.wikipedia.org/wiki/Relative_Strength_Index
+# Input is _ratedParam($1), _lowRSIValueParam($2), _lastRSIQuoteRoundedParam($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
+# Output: resultStrategieUnderratedLowRSI
+# StrategieUnderratedLowRSI() {    
+#     _ratedParam=${1}
+#     _lowRSIValueParam=${2}
+#     _lastRSIQuoteRoundedParam=${3}
+#     _OUT_RESULT_FILE_param=${4}
+#     _symbolParam=${5}
+#     _symbolNameParam=${6}
+#     _markerOwnStockParam=${7}
+#     resultStrategieUnderratedLowRSI=""
+#     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
+#         #resultStrategieUnderratedLowRSI=""
+#         # Last RSI quote under _lowRSIValue
+#         if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
+#             resultStrategieUnderratedLowRSI="+ Low last RSI: RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
+#             echo "$resultStrategieUnderratedLowRSI"
+#             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
+#         fi
+#     fi
+# }
+
 # StrategieOverratedHighHorizontalMACD function:
 # Strategie: MACD value high approch horizontal level. MACD must be in the positiv/upper half
 # Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
@@ -38,7 +64,8 @@ StrategieOverratedHighHorizontalMACD() {
             
             isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
             # Positiv -> up
-            if [ ! "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then # If first criterium positiv -> first step Alarm!
+            # If first criterium positiv -> first step Alarm!
+            if [ ! "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then
                 isMACDHorizontalAlarm=true
             fi
 
@@ -46,8 +73,9 @@ StrategieOverratedHighHorizontalMACD() {
             difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
             isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
             isMACDGenerellPositiv=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
+            # If second criterium negativ -> Alarm!
             if { [ "${difference}" = 0 ] || [ "${isNegativ}" = '-' ]; } &&
-               { [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isMACDGenerellPositiv}" = '-' ]; } then # If second criterium negativ -> Alarm!
+               { [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isMACDGenerellPositiv}" = '-' ]; } then
                 isMACDHorizontalAlarm=true
             else
                 isMACDHorizontalAlarm=false
@@ -55,7 +83,7 @@ StrategieOverratedHighHorizontalMACD() {
 
             # is MACD horizontal?
             if [ "$isMACDHorizontalAlarm" = true ]; then
-                resultStrategieOverratedHighHorizontalMACD="Sell: High Horizontal MACD: ---"
+                resultStrategieOverratedHighHorizontalMACD="Sell: High Horizontal MACD"
                 echo "$resultStrategieOverratedHighHorizontalMACD"
                 # Red link only for stocks that are marked as own 
                 _linkColor=red
@@ -106,7 +134,8 @@ StrategieUnderratedLowHorizontalMACD() {
             difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
             isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
             # Negativ -> down
-            if [ "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then # If first criterium negativ -> first step Alarm!
+            # If first criterium negativ -> first step Alarm!
+            if [ "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then
                 isMACDHorizontalAlarm=true
             fi
 
@@ -114,7 +143,8 @@ StrategieUnderratedLowHorizontalMACD() {
             difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
             isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
             isMACDGenerellNegativ=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
-            if [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isNegativ}" = '-' ] && [ "${isMACDGenerellNegativ}" = '-' ]; then # If second criterium positiv -> Alarm!
+            # If second criterium positiv -> Alarm!
+            if [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isNegativ}" = '-' ] && [ "${isMACDGenerellNegativ}" = '-' ]; then
                 isMACDHorizontalAlarm=true
             else
                 isMACDHorizontalAlarm=false
@@ -122,7 +152,7 @@ StrategieUnderratedLowHorizontalMACD() {
 
             # is MACD horizontal?
             if [ "$isMACDHorizontalAlarm" = true ]; then
-                resultStrategieUnderratedLowHorizontalMACD="Buy: Low Horizontal MACD: ---"
+                resultStrategieUnderratedLowHorizontalMACD="Buy: Low Horizontal MACD"
                 echo "$resultStrategieUnderratedLowHorizontalMACD"
                 WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
             fi
