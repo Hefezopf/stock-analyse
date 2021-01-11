@@ -18,11 +18,11 @@ MACD_12_26() {
         index=$((14 + jj_index))
         kk_index=-1
         # shellcheck disable=SC2001
-        for kk in $(echo "$averagePriceMACD12List" | sed "s/,/ /g")
+        for valueMACD12 in $(echo "$averagePriceMACD12List" | sed "s/,/ /g")
         do
             kk_index=$((kk_index + 1))
             if [ "$kk_index" = "$index" ]; then
-                value12="$kk"
+                value12="$valueMACD12"
                 break
             fi
         done 

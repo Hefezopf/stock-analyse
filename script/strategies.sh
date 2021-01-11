@@ -1,7 +1,75 @@
 #!/bin/sh
 
+# StrategieOverratedHighHorizontalMACD function:
+# Strategie: MACD value high approch horizontal level. MACD must be in the positiv/upper half
+# Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
+# Output: resultStrategieOverratedHighHorizontalMACD
+StrategieOverratedHighHorizontalMACD() { 
+    _ratedParam=${1}   
+    _MACDQuoteList=${2} 
+    _OUT_RESULT_FILE_param=${3}
+    _symbolParam=${4}
+    _symbolNameParam=${5}
+    _markerOwnStockParam=${6}
+    resultStrategieOverratedHighHorizontalMACD=""  
+    if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
+        if [ "${#_MACDQuoteList}" -gt 1 ]; then # Check if value makes sense
+            # Remove leading commas
+            _MACDQuoteList=$(echo "$_MACDQuoteList" | cut -b 52-10000)
+            jj_index=0
+            # shellcheck disable=SC2001
+            for valueMACD in $(echo "$_MACDQuoteList" | sed "s/,/ /g")
+            do
+                if [ "$jj_index" = 72 ]; then
+                    valueMACDLast_2="$valueMACD" 
+                fi
+                if [ "$jj_index" = 73 ]; then
+                    valueMACDLast_1="$valueMACD" 
+                fi
+                if [ "$jj_index" = 74 ]; then
+                    valueMACDLast_0="$valueMACD" 
+                fi
+                jj_index=$((jj_index + 1))
+            done
+#echo valueMACDLast_2 $valueMACDLast_2 valueMACDLast_1 $valueMACDLast_1 valueMACDLast_0 $valueMACDLast_0
+            isMACDHorizontalAlarm=false
+            # Check if MACD is horizontal?
+            # BeforeLast Value
+            difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
+            
+            isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+        #echo 111difference $difference isNegativ $isNegativ
+            # Positiv -> up
+            if [ ! "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then # If first criterium positiv -> first step Alarm!
+        #echo alarm1111
+                isMACDHorizontalAlarm=true
+            fi
+
+            # Last Value
+            difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
+            isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+            isMACDGenerellPositiv=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
+        #echo 222difference $difference isNegativ $isNegativ isMACDGenerellPositiv $isMACDGenerellPositiv    
+            if { [ "${difference}" = 0 ] || [ "${isNegativ}" = '-' ]; } &&
+               { [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isMACDGenerellPositiv}" = '-' ]; } then # If second criterium negativ -> Alarm!
+                isMACDHorizontalAlarm=true
+        #echo Alarm222
+            else
+                isMACDHorizontalAlarm=false
+            fi
+
+            # is MACD horizontal?
+            if [ "$isMACDHorizontalAlarm" = true ]; then
+                resultStrategieOverratedHighHorizontalMACD="Sell: High Horizontal MACD: ---"
+                echo "$resultStrategieOverratedHighHorizontalMACD"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
+            fi
+        fi            
+    fi
+}
+
 # StrategieUnderratedLowHorizontalMACD function:
-# Strategie: MACD value approch horizontal level
+# Strategie: MACD value low approch horizontal level. MACD must be in the negativ/lower half
 # Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
 # Output: resultStrategieUnderratedLowHorizontalMACD
 StrategieUnderratedLowHorizontalMACD() { 
@@ -54,7 +122,7 @@ StrategieUnderratedLowHorizontalMACD() {
 
             # is MACD horizontal?
             if [ "$isMACDHorizontalAlarm" = true ]; then
-                resultStrategieUnderratedLowHorizontalMACD="+ Low Horizontal MACD: ---"
+                resultStrategieUnderratedLowHorizontalMACD="Buy: Low Horizontal MACD: ---"
                 echo "$resultStrategieUnderratedLowHorizontalMACD"
                 WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
             fi
@@ -90,7 +158,7 @@ StrategieOverratedByPercentAndStochastic() {
         if [ "${#_lastStochasticQuoteRounded}" -gt 0 ]; then # Check if value makes sense
             if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
                 [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
-                resultStrategieOverratedByPercentAndStochastic="- High by percent & stochastic: $_last€ is $_percentageLesserFactor over Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
+                resultStrategieOverratedByPercentAndStochastic="Sell: High by percent & stochastic: $_last€ is $_percentageLesserFactor over Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
                 echo "$resultStrategieOverratedByPercentAndStochastic"
 
                 # Red link only for stocks that are marked as own 
@@ -133,7 +201,7 @@ StrategieUnderratedByPercentAndStochastic() {
         if [ "${#_lastStochasticQuoteRounded}" -gt 0 ]; then # Check if value makes sense
             if [ "$_lastStochasticQuoteRounded" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
                 [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
-                resultStrategieUnderratedByPercentAndStochastic="+ Low by percent & stochastic: $_last€ is $_percentageGreaterFactor under Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
+                resultStrategieUnderratedByPercentAndStochastic="Buy: Low by percent & stochastic: $_last€ is $_percentageGreaterFactor under Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
                 echo "$resultStrategieUnderratedByPercentAndStochastic"
                 WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
             fi
@@ -195,7 +263,7 @@ StrategieOverrated3HighStochastic() {
             fi   
             # All 3 last values over _highStochasticValue?
             if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
-                resultStrategieOverrated3HighStochastic="- High 3 last stochastic: 3 last quotes are over $_highStochasticValue"
+                resultStrategieOverrated3HighStochastic="Sell: High 3 last stochastic: 3 last quotes are over $_highStochasticValue"
                 echo "$resultStrategieOverrated3HighStochastic"
 
                 # Red link only for stocks that are marked as own 
@@ -248,7 +316,7 @@ StrategieUnderrated3LowStochastic() {
             fi
             # All 3 last values under _lowStochasticValue?
             if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-                resultStrategieUnderrated3LowStochastic="+ Low 3 last stochastic: 3 last quotes are under $_lowStochasticValue"
+                resultStrategieUnderrated3LowStochastic="Buy: Low 3 last stochastic: 3 last quotes are under $_lowStochasticValue"
                 echo "$resultStrategieUnderrated3LowStochastic"
                 WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
             fi
@@ -275,7 +343,7 @@ StrategieOverratedHighStochasticHighRSI() {
         if [ "${#_lastStochasticQuoteRounded}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ]; then # Check if value makes sense
             # Last Stoch quote under _highStochasticValue and Last RSI quote under _highRSIValue
             if [ "$_lastStochasticQuoteRounded" -gt "$_highStochasticValue" ] && [ "$_lastRSIQuoteRounded" -gt "$_highRSIQuoteParam" ]; then
-                resultStrategieOverratedHighStochasticHighRSI="- High last Stoch & RSI: Stoch quote $_lastStochasticQuoteRounded over $_highStochasticValue and RSI quote $_lastRSIQuoteRounded over $_highRSIQuoteParam"
+                resultStrategieOverratedHighStochasticHighRSI="Sell: High last Stoch & RSI: Stoch quote $_lastStochasticQuoteRounded over $_highStochasticValue and RSI quote $_lastRSIQuoteRounded over $_highRSIQuoteParam"
                 echo "$resultStrategieOverratedHighStochasticHighRSI"
 
                 # Red link only for stocks that are marked as own 
@@ -308,7 +376,7 @@ StrategieUnderratedLowStochasticLowRSI() {
         if [ "${#_lastStochasticQuoteRounded}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ]; then # Check if value makes sense
             # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue
             if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValue" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ]; then
-                resultStrategieUnderratedLowStochasticLowRSI="+ Low last Stoch & RSI: Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
+                resultStrategieUnderratedLowStochasticLowRSI="Buy: Low last Stoch & RSI: Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
                 echo "$resultStrategieUnderratedLowStochasticLowRSI"
                 WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
             fi
