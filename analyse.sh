@@ -101,7 +101,7 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=_blank>Github Action</a><br><br># Comdirect Link<br>" >> $OUT_RESULT_FILE
 
-# Analyse data for each symbol
+# Analyse stock data for each symbol
 for symbol in $symbolsParam
 do
     # Stocks with prefix '*' are marked as own stocks
@@ -284,7 +284,6 @@ do
         # Sell Strategie: High stochastic and High RSI last quote over stochasticPercentageUpper and RSIQuoteUpper
         resultStrategieOverratedHighStochasticHighRSI=""
         StrategieOverratedHighStochasticHighRSI "$ratedParam" "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
-
     else
         # shellcheck disable=SC3037
         echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
@@ -292,13 +291,11 @@ do
     fi
 
     #
-    # Output
+    # Write Chart
     #
-
     indexSymbolFile=out/${symbol}.html
     rm -rf "$indexSymbolFile"
     cp js/_favicon.ico out
-
     {
         cat js/indexPart0.html 
         echo "${symbol}" 
@@ -341,17 +338,17 @@ do
         if [ "${markerOwnStock}" = '*' ] && 
           { [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedHighStochasticHighRSI}" -gt 1 ]; } then
             styleComdirectLink="style=\"font-size:x-large; color:red\""
-        fi 
+        fi
         if [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
         ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
-        echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbolName</a><br>" 
-        echo "Percentage:<b>$percentageParam</b> " 
-        echo "Query:<b>$queryParam</b> " 
-        echo "Rated:<b>$ratedParam</b> " 
-        echo "Stochastic14:<b>$stochasticPercentageParam</b> " 
-        echo "RSI14:<b>$RSIQuoteParam</b><br>" 
+        echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbolName</a><br>"
+        echo "Percentage:<b>$percentageParam</b> "
+        echo "Query:<b>$queryParam</b> "
+        echo "Rated:<b>$ratedParam</b> "
+        echo "Stochastic14:<b>$stochasticPercentageParam</b> "
+        echo "RSI14:<b>$RSIQuoteParam</b><br>"
 
         # Check, if quote day is from last trading day, including weekend
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")
@@ -366,28 +363,27 @@ do
         if [ "$quoteDate" = "$yesterday" ]; then
             echo "Date:<b>$quoteDate</b>" # OK, quote from last trading day
         else
-            echo "Date:<b style=\"color:orange; font-size:xx-large;\">$quoteDate</b>" 
+            echo "Date:<b style=\"color:orange; font-size:xx-large;\">$quoteDate</b>"
         fi
         echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Price:<b>""$last""€</b></span>" 
-        echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18""€</b></span>" 
-        echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38""€</b></span>" 
-        echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>""$average100""€</b></span>" 
-        echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>" 
-        echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span></p>" 
+        echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18""€</b></span>"
+        echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38""€</b></span>"
+        echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg100:<b>""$average100""€</b></span>"
+        echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
+        echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span></p>"
 
         # Strategies output
         # Buy
-        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>" 
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>" 
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>" 
-        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>" 
+        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
+        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
+        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>"
+        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSI" "</b></p>"
         
         # Sell
-        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>" 
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>" 
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>" 
-        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedHighStochasticHighRSI" "</b></p>" 
-             
+        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
+        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
+        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>"
+        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedHighStochasticHighRSI" "</b></p>"
         echo "Good Luck!"
 
         cat js/indexPart13.html
