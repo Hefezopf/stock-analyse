@@ -281,7 +281,7 @@ ProgressBar() {
 }
 
 # WriteComdirectUrlAndStoreFileList function:
-# - Write Comdirect Url.
+# - Write Comdirect Url. Link can have 3 color: black (neutral), red (sell) and green (buy)
 # - Store list of files for later (tar/zip)
 # Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($5), _markerOwnStockParam($6)
 # Output: echo to file

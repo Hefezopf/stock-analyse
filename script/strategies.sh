@@ -31,17 +31,14 @@ StrategieOverratedHighHorizontalMACD() {
                 fi
                 jj_index=$((jj_index + 1))
             done
-#echo valueMACDLast_2 $valueMACDLast_2 valueMACDLast_1 $valueMACDLast_1 valueMACDLast_0 $valueMACDLast_0
             isMACDHorizontalAlarm=false
             # Check if MACD is horizontal?
             # BeforeLast Value
             difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
             
             isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
-        #echo 111difference $difference isNegativ $isNegativ
             # Positiv -> up
             if [ ! "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then # If first criterium positiv -> first step Alarm!
-        #echo alarm1111
                 isMACDHorizontalAlarm=true
             fi
 
@@ -49,11 +46,9 @@ StrategieOverratedHighHorizontalMACD() {
             difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
             isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
             isMACDGenerellPositiv=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
-        #echo 222difference $difference isNegativ $isNegativ isMACDGenerellPositiv $isMACDGenerellPositiv    
             if { [ "${difference}" = 0 ] || [ "${isNegativ}" = '-' ]; } &&
                { [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isMACDGenerellPositiv}" = '-' ]; } then # If second criterium negativ -> Alarm!
                 isMACDHorizontalAlarm=true
-        #echo Alarm222
             else
                 isMACDHorizontalAlarm=false
             fi
@@ -68,7 +63,6 @@ StrategieOverratedHighHorizontalMACD() {
                     _linkColor=black
                 fi
                 WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam"
-                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam"
             fi
         fi            
     fi
