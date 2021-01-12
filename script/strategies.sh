@@ -6,7 +6,7 @@
 # https://de.wikipedia.org/wiki/Relative_Strength_Index
 # Input is _ratedParam($1), _lowRSIValueParam($2), _lastRSIQuoteRoundedParam($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieUnderratedLowRSI
-# StrategieUnderratedLowRSI() {    
+# StrategieUnderratedLowRSI() {
 #     _ratedParam=${1}
 #     _lowRSIValueParam=${2}
 #     _lastRSIQuoteRoundedParam=${3}
@@ -30,7 +30,7 @@
 # Strategie: MACD value high approch horizontal level. MACD must be in the positiv/upper half
 # Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
 # Output: resultStrategieOverratedHighHorizontalMACD
-StrategieOverratedHighHorizontalMACD() { 
+StrategieOverratedHighHorizontalMACD() {
     _ratedParam=${1}   
     _MACDQuoteList=${2} 
     _OUT_RESULT_FILE_param=${3}
@@ -100,7 +100,7 @@ StrategieOverratedHighHorizontalMACD() {
 # Strategie: MACD value low approch horizontal level. MACD must be in the negativ/lower half
 # Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
 # Output: resultStrategieUnderratedLowHorizontalMACD
-StrategieUnderratedLowHorizontalMACD() { 
+StrategieUnderratedLowHorizontalMACD() {
     _ratedParam=${1}   
     _MACDQuoteList=${2} 
     _OUT_RESULT_FILE_param=${3}
@@ -116,6 +116,9 @@ StrategieUnderratedLowHorizontalMACD() {
             # shellcheck disable=SC2001
             for valueMACD in $(echo "$_MACDQuoteList" | sed "s/,/ /g")
             do
+                # if [ "$jj_index" = 71 ]; then
+                #     valueMACDLast_3="$valueMACD" 
+                # fi
                 if [ "$jj_index" = 72 ]; then
                     valueMACDLast_2="$valueMACD" 
                 fi
@@ -205,7 +208,7 @@ StrategieOverratedByPercentAndStochastic() {
 # Strategie: Low by Percent & Stochastic
 # Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageLower($3), lastUnderAgv18($4), lastUnderAgv38($5), lastUnderAgv100($6), agv18UnderAgv38($7), agv38UnderAgv100($8), agv18UnderAgv100($9), last($10), percentageGreaterFactor($11), average18($12), average38($13), average100($14), stochasticPercentageLower($15), OUT_RESULT_FILE_param($16), symbolParam($17), _symbolNameParam($18), _markerOwnStockParam($19)
 # Output: resultStrategieUnderratedByPercentAndStochastic
-StrategieUnderratedByPercentAndStochastic() { 
+StrategieUnderratedByPercentAndStochastic() {
     _ratedParam=${1}
     _lastStochasticQuoteRounded=${2}
     _stochasticPercentageLower=${3}
@@ -242,7 +245,7 @@ StrategieUnderratedByPercentAndStochastic() {
 # Strategie: High stochastic 3 last values over highStochasticValue
 # Input is _ratedParam($1), highStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieOverrated3HighStochastic
-StrategieOverrated3HighStochastic() { 
+StrategieOverrated3HighStochastic() {
     _ratedParam=${1}   
     _highStochasticValue=${2}
     _stochasticQuoteList=${3} 
@@ -309,7 +312,7 @@ StrategieOverrated3HighStochastic() {
 # Strategie: Low stochastic 3 last values under lowStochasticValue
 # Input is _ratedParam($1), lowStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieUnderrated3LowStochastic
-StrategieUnderrated3LowStochastic() { 
+StrategieUnderrated3LowStochastic() {
     _ratedParam=${1}   
     _lowStochasticValue=${2}
     _stochasticQuoteList=${3} 
@@ -356,7 +359,7 @@ StrategieUnderrated3LowStochastic() {
 # Strategie: High Stochastic and High RSI last quote over highRSIValue
 # Input is _ratedParam($1), highStochasticValue($2), highRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _OUT_RESULT_FILE_param($6), _symbolParam($7), _symbolNameParam($8), _markerOwnStockParam($9)
 # Output: resultStrategieOverratedHighStochasticHighRSI
-StrategieOverratedHighStochasticHighRSI() {    
+StrategieOverratedHighStochasticHighRSI() {
     _ratedParam=${1}
     _highStochasticValue=${2}
     _highRSIQuoteParam=${3}
@@ -388,7 +391,7 @@ StrategieOverratedHighStochasticHighRSI() {
 # Strategie: Low Stochastic and Low RSI last quote under lowRSIValue
 # Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _OUT_RESULT_FILE_param($6), _symbolParam($7), _symbolNameParam($8), _markerOwnStockParam($9)
 # Output: resultStrategieLowStochasticUnderratedLowRSI
-StrategieUnderratedLowStochasticLowRSI() {    
+StrategieUnderratedLowStochasticLowRSI() {
     _ratedParam=${1}
     _lowStochasticValue=${2}
     _lowRSIQuoteParam=${3}
