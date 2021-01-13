@@ -115,11 +115,11 @@ do
     CurlSymbolName "$symbol" $TICKER_ID_NAMES_FILE 14
 
     # Write ticker_id_names.txt
-    symbolNameFound=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE)
-    if [ ! "${#symbolNameFound}" -gt 1 ]; then 
-        ID_NOTATION=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
-        echo "${symbol}""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" >> $TICKER_ID_NAMES_FILE
-    fi
+    # symbolNameFound=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE)
+    # if [ ! "${#symbolNameFound}" -gt 1 ]; then 
+    #     ID_NOTATION=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
+    #     echo "${symbol}""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" >> $TICKER_ID_NAMES_FILE
+    # fi
 
     # Get stock data
     echo ""
