@@ -159,6 +159,13 @@ jobs:
       # Compress screenshot.tar.gz at the end
       - shell: bash
         run: |  
+          i=1
+          while [ "$i" -le 3 ];
+          do
+              i=$((i + 1))
+              echo SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+          done
+
           fileSize=$(stat -c %s screenshot1.png)
           if [ "${fileSize}" -gt "10000" ]; then
             fileList=$(echo $fileList "screenshot1.png")
