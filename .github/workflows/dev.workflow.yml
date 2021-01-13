@@ -5,7 +5,7 @@
 name: Dev
 
 env:
-  symbolsEnv: '*AHLA'
+  symbolsEnv: '*ENI'
   percentageEnv: '1'
   queryEnv: 'offline'
   ratedEnv: 'all'
@@ -162,7 +162,10 @@ jobs:
           i=1
           while [ "$i" -le 3 ];
           do
-              fileList=$(echo $fileList "screenshot$i.png")
+              fileSize=$(stat -c %s screenshot$1.png)
+              if [ "${fileSize}" -gt "10000" ]; then
+                fileList=$(echo $fileList "screenshot$1.png")
+              fi          
               i=$((i + 1))
           done
           tar -zcf screenshot.tar.gz $fileList
