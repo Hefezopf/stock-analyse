@@ -121,7 +121,7 @@ do
         ID_NOTATION=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
         echo "${symbol}""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" >> $TICKER_ID_NAMES_FILE
     fi
-continue    
+#continue
 
     # Get stock data
     echo ""
