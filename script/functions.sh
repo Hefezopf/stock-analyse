@@ -34,22 +34,22 @@ MACD_12_26() {
 }
 
 # CurlSymbolName function:
-# Input is _symbolParam($1), _TICKER_ID_NAMES_FILE_param($2), _sleepParam($3)
+# Input is _symbolParam($1), _TICKER_NAME_ID_FILE_param($2), _sleepParam($3)
 # Output: -
 CurlSymbolName() {
     _symbolParam=${1}
-    _TICKER_ID_NAMES_FILE_param=${2}
+    _TICKER_NAME_ID_FILE_param=${2}
     _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
-    symbolName=$(grep -P "$symbol\t" "$_TICKER_ID_NAMES_FILE_param" | cut -f 2)
+    symbolName=$(grep -P "$symbol\t" "$_TICKER_NAME_ID_FILE_param" | cut -f 2)
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "echo ${X_OPENFIGI_APIKEY}" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
-            ID_NOTATION=999999      
-            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" | tee -a "$_TICKER_ID_NAMES_FILE_param"
-            TEMP_TICKER_ID_NAMES_FILE="$(mktemp -p /dev/shm/)"
-            sort -k 1 "$_TICKER_ID_NAMES_FILE_param" > "$TEMP_TICKER_ID_NAMES_FILE"
-            mv "$TEMP_TICKER_ID_NAMES_FILE" "$_TICKER_ID_NAMES_FILE_param"
+            ID_NOTATION=999999
+            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" | tee -a "$_TICKER_NAME_ID_FILE_param"
+            TEMP_TICKER_NAME_ID_FILE="$(mktemp -p /dev/shm/)"
+            sort -k 1 "$_TICKER_NAME_ID_FILE_param" > "$TEMP_TICKER_NAME_ID_FILE"
+            mv "$TEMP_TICKER_NAME_ID_FILE" "$_TICKER_NAME_ID_FILE_param"
             # Can requested in bulk request as an option!
             sleep "$_sleepParam" # 14; Only some requests per minute to openfigi (About 6 per minute).
         fi
@@ -295,28 +295,26 @@ WriteComdirectUrlAndStoreFileList() {
     _symbolNameParam="${3}"
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
-     ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3)
-        
+    ID_NOTATION=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
         ID_NOTATION=999999
     fi
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
-        #if [ "$_alertParam" = true ]; then
         if [ "$_linkColorParam" = "red" ] || [ "$_linkColorParam" = "green" ]; then
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
-        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_markerOwnStockParam$_symbolNameParam</a><br>" >> "$_OUT_RESULT_FILE_param"
+        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_OUT_RESULT_FILE_param"
     fi
 }
 
 # CreateCmdAnalyseHyperlink function:
 # - Write file Hyperlink in CMD, Only works for windows
 CreateCmdAnalyseHyperlink() {
-    outputText="# Analyse "$symbolName
+    outputText="# Analyse $symbol $symbolName"
     if [ "$(uname)" = 'Linux' ]; then
         echo "$outputText"
     else
