@@ -34,18 +34,20 @@ MACD_12_26() {
 }
 
 # CurlSymbolName function:
-# Input is _symbolParam($1), _TICKER_NAMES_FILE_param($2), _sleepParam($3)
-# Output: TICKER_NAMES_FILE
+# Input is _symbolParam($1), _TICKER_NAMES_ID_FILE_param($2), _sleepParam($3)
+# Output: -
 CurlSymbolName() {
     _symbolParam=${1}
-    _TICKER_NAMES_FILE_param=${2}
+    _TICKER_NAMES_ID_FILE_param=${2}
     _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
-    symbolName=$(grep -w "$symbol " "$_TICKER_NAMES_FILE_param")
+    symbolName=$(grep -P "$symbol\t" "$_TICKER_NAMES_ID_FILE_param" | cut -f 2 -d$'\t')
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "echo ${X_OPENFIGI_APIKEY}" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
-            echo "$symbol $symbolName" | tee -a "$_TICKER_NAMES_FILE_param"
+            #ID_NOTATION=$(grep "$_symbolParam " data/___ticker_idnotation.txt | cut -f 2 -d ' ')
+            ID_NOTATION=9999999
+            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" | tee -a "$_TICKER_NAMES_ID_FILE_param"
             # Can requested in bulk request as an option!
             sleep "$_sleepParam" # 14; Only some requests per minute to openfigi (About 6 per minute).
         fi
@@ -291,7 +293,9 @@ WriteComdirectUrlAndStoreFileList() {
     _symbolNameParam="${3}"
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
-    ID_NOTATION=$(grep "${_symbolParam}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
+    ID_NOTATION=$(grep "${_symbolParam}" "$TICKER_ID_NAMES_FILE" | cut -f 3 -d$'\t')
+    # ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
+        
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
         ID_NOTATION=999999
     fi

@@ -23,9 +23,9 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default should be true
-CalculateStochastic=true
-CalculateRSI=true
-CalculateMACD=true
+# CalculateStochastic=true
+# CalculateRSI=true
+# CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_IN.UTF-8
@@ -39,7 +39,7 @@ stochasticPercentageParam=$5
 RSIQuoteParam=$6
 
 # Prepare
-rm /dev/shm/*
+rm -rf /dev/shm/*
 mkdir -p out
 mkdir -p temp
 OUT_ZIP_FILE=_out.tar.gz
@@ -48,7 +48,7 @@ touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 reportedSymbolFileList=""
-TICKER_NAMES_FILE=data/_ticker_names.txt
+TICKER_ID_NAMES_FILE=data/_ticker_id_names.txt
 HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END="</p><p>Good Luck!</p></div></body></html>"
@@ -63,8 +63,7 @@ UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedPara
 
 if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$CalculateMACD" = true ]; then
     echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD not set!" | tee -a $OUT_RESULT_FILE
-    echo "<br>" >> $OUT_RESULT_FILE
-    echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
+    echo "<br><br>" >> $OUT_RESULT_FILE
 fi
 
 if [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ]; then
@@ -113,7 +112,16 @@ do
     fi
 
     # Curl symbol name with delay of 14sec because of REST API restrictions
-    CurlSymbolName "$symbol" $TICKER_NAMES_FILE 14
+    CurlSymbolName "$symbol" $TICKER_ID_NAMES_FILE 14
+
+    # Write ticker_id_names.txt
+    symbolNameFound=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE)
+    if [ ! "${#symbolNameFound}" -gt 1 ]; then 
+        #ID_NOTATION=$(grep -w "$symbol\t" data/___ticker_idnotation.txt | cut -f 2 -d' ')
+        ID_NOTATION=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
+        echo "${symbol}""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" >> $TICKER_ID_NAMES_FILE
+    fi
+continue    
 
     # Get stock data
     echo ""
@@ -133,17 +141,17 @@ do
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
         fi
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
-        cp $DATA_DATE_FILE $DATA_DATE_FILE_TEMP
+        cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "${fileSize}" -eq "0" ]; then
             echo "!!! $symbol NOT found online" | tee -a $OUT_RESULT_FILE
             echo "<br>" >> $OUT_RESULT_FILE
-            mv $DATA_DATE_FILE_TEMP $DATA_DATE_FILE
+            mv "$DATA_DATE_FILE_TEMP" "$DATA_DATE_FILE"
         fi
     fi
 
-    symbolName=$(grep -w "$symbol " $TICKER_NAMES_FILE)
+    symbolName=$(grep -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2 -d$'\t')
 
     CreateCmdAnalyseHyperlink
 
@@ -345,7 +353,7 @@ do
         if [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
-        ID_NOTATION=$(grep "${symbol}" data/_ticker_idnotation.txt | cut -f 2 -d ' ')
+        ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
         echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbolName</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
