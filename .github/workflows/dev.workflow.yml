@@ -162,22 +162,9 @@ jobs:
           i=1
           while [ "$i" -le 3 ];
           do
+              fileList=$(echo $fileList "screenshot$i.png")
               i=$((i + 1))
-              echo SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
           done
-
-          fileSize=$(stat -c %s screenshot1.png)
-          if [ "${fileSize}" -gt "10000" ]; then
-            fileList=$(echo $fileList "screenshot1.png")
-          fi
-          fileSize=$(stat -c %s screenshot2.png)
-          if [ "${fileSize}" -gt "10000" ]; then
-            fileList=$(echo $fileList "screenshot2.png")
-          fi
-          fileSize=$(stat -c %s screenshot3.png)
-          if [ "${fileSize}" -gt "10000" ]; then
-            fileList=$(echo $fileList "screenshot3.png")
-          fi
           tar -zcf screenshot.tar.gz $fileList
     
       - name: Send result via email
