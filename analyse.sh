@@ -39,7 +39,7 @@ stochasticPercentageParam=$5
 RSIQuoteParam=$6
 
 # Prepare
-rm -rf /dev/shm/*
+rm -rf /dev/shm/tmp.*
 mkdir -p out
 mkdir -p temp
 OUT_ZIP_FILE=_out.tar.gz
@@ -117,7 +117,7 @@ do
     # Write ticker_id_names.txt
     # symbolNameFound=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE)
     # if [ ! "${#symbolNameFound}" -gt 1 ]; then 
-    #     ID_NOTATION=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
+    #     ID_NOTATION=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'	')
     #     echo "${symbol}""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" >> $TICKER_ID_NAMES_FILE
     # fi
 
@@ -149,7 +149,7 @@ do
         fi
     fi
 
-    symbolName=$(grep -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2 -d$'\t')
+    symbolName=$(grep -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2 -d$'	')
 
     CreateCmdAnalyseHyperlink
 
@@ -351,7 +351,7 @@ do
         if [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
-        ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
+        ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'	')
         echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbolName</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
