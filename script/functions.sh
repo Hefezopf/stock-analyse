@@ -41,11 +41,11 @@ CurlSymbolName() {
     _TICKER_ID_NAMES_FILE_param=${2}
     _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
-    symbolName=$(grep -P "$symbol\t" "$_TICKER_ID_NAMES_FILE_param" | cut -f 2 -d$'\t')
+    symbolName=$(grep -P "$symbol\t" "$_TICKER_ID_NAMES_FILE_param" | cut -f 2 -d$'	')
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "echo ${X_OPENFIGI_APIKEY}" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
-            ID_NOTATION=9999999      
+            ID_NOTATION=999999      
             echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" | tee -a "$_TICKER_ID_NAMES_FILE_param"
             TEMP_TICKER_ID_NAMES_FILE="$(mktemp -p /dev/shm/)"
             sort -k 1 "$_TICKER_ID_NAMES_FILE_param" > "$TEMP_TICKER_ID_NAMES_FILE"
@@ -295,8 +295,8 @@ WriteComdirectUrlAndStoreFileList() {
     _symbolNameParam="${3}"
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
-    ID_NOTATION=$(grep "${_symbolParam}" "$TICKER_ID_NAMES_FILE" | cut -f 3 -d$'\t')
-    # ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
+    #ID_NOTATION=$(grep "${_symbolParam}" "$TICKER_ID_NAMES_FILE" | cut -f 3 -d$'	')
+     ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'	')
         
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
         ID_NOTATION=999999
