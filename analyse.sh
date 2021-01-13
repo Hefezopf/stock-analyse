@@ -116,7 +116,7 @@ do
 
     # Get stock data
     echo ""
-    echo "# Get $symbolName"
+    echo "# Get $symbol $symbolName"
     DATA_FILE="$(mktemp -p /dev/shm/)"
     DATA_DATE_FILE=data/${symbol}.txt
     if [ "$queryParam" = 'online' ]; then
@@ -345,7 +345,7 @@ do
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
         ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3)
-        echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbolName</a><br>"
+        echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbol $symbolName</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
         echo "Rated:<b>$ratedParam</b> "
