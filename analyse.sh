@@ -23,9 +23,9 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default should be true
-# CalculateStochastic=true
-# CalculateRSI=true
-# CalculateMACD=true
+CalculateStochastic=true
+CalculateRSI=true
+CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_IN.UTF-8
@@ -117,11 +117,9 @@ do
     # Write ticker_id_names.txt
     symbolNameFound=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE)
     if [ ! "${#symbolNameFound}" -gt 1 ]; then 
-        #ID_NOTATION=$(grep -w "$symbol\t" data/___ticker_idnotation.txt | cut -f 2 -d' ')
         ID_NOTATION=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'\t')
         echo "${symbol}""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" >> $TICKER_ID_NAMES_FILE
     fi
-#continue
 
     # Get stock data
     echo ""
@@ -429,7 +427,7 @@ echo ""
 echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
 echo "time elapsed."
 
-# Zip 
+# Tar 
 # shellcheck disable=SC2116,SC2086
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
 # shellcheck disable=SC2086

@@ -45,7 +45,6 @@ CurlSymbolName() {
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "echo ${X_OPENFIGI_APIKEY}" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
-            #ID_NOTATION=$(grep "$_symbolParam " data/___ticker_idnotation.txt | cut -f 2 -d ' ')
             ID_NOTATION=9999999      
             echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" | tee -a "$_TICKER_NAMES_ID_FILE_param"
             # Can requested in bulk request as an option!
