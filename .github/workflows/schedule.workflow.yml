@@ -106,30 +106,69 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: screenshot5
+           
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/6.html
+          destination: screenshot6.png   
+          full-page: true
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot6
+           
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/7.html
+          destination: screenshot7.png   
+          full-page: true
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot7
+           
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/8.html
+          destination: screenshot8.png   
+          full-page: true
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot8
+           
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/9.html
+          destination: screenshot9.png   
+          full-page: true
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot9
+           
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/10.html
+          destination: screenshot10.png   
+          full-page: true
+      - name: Download Screenshot 
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot10
 
       # Compress screenshot.tar.gz at the end
       - shell: bash
         run: |  
-          fileSize=$(stat -c %s screenshot1.png)
-          if [ "${fileSize}" -gt "10000" ]; then
-            fileList=$(echo $fileList "screenshot1.png")
-          fi
-          fileSize=$(stat -c %s screenshot2.png)
-          if [ "${fileSize}" -gt "10000" ]; then
-            fileList=$(echo $fileList "screenshot2.png")
-          fi
-          fileSize=$(stat -c %s screenshot3.png)
-          if [ "${fileSize}" -gt "10000" ]; then
-            fileList=$(echo $fileList "screenshot3.png")
-          fi
-          fileSize=$(stat -c %s screenshot4.png)
-          if [ "${fileSize}" -gt "10000" ]; then
-            fileList=$(echo $fileList "screenshot4.png")
-          fi
-          fileSize=$(stat -c %s screenshot5.png)
-          if [ "${fileSize}" -gt "10000" ]; then
-            fileList=$(echo $fileList "screenshot5.png")
-          fi
+          i=1
+          while [ "$i" -le 5 ];
+          do
+              fileSize=$(stat -c %s screenshot$i.png)
+              if [ "${fileSize}" -gt "1000" ]; then
+                fileList=$(echo $fileList "screenshot$i.png")
+              fi          
+              i=$((i + 1))
+          done
           tar -zcf screenshot.tar.gz $fileList
 
       - name: Send result via email
