@@ -162,9 +162,9 @@ jobs:
           i=1
           while [ "$i" -le 3 ];
           do
-              fileSize=$(stat -c %s screenshot$1.png)
+              fileSize=$(stat -c %s screenshot$i.png)
               if [ "${fileSize}" -gt "10000" ]; then
-                fileList=$(echo $fileList "screenshot$1.png")
+                fileList=$(echo $fileList "screenshot$i.png")
               fi          
               i=$((i + 1))
           done
