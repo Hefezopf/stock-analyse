@@ -9,7 +9,7 @@
 # Constants
 OUT_RESULT_FILE="test/_result.html"
 DATA_FILE="test/BEI.txt"
-TICKER_NAMES_FILE="test/_ticker_names.txt"
+TICKER_NAMES_FILE="test/_ticker_id_names.txt"
 SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF AG"
 
