@@ -114,13 +114,6 @@ do
     # Curl symbol name with delay of 14sec because of REST API restrictions
     CurlSymbolName "$symbol" $TICKER_ID_NAMES_FILE 14
 
-    # Write ticker_id_names.txt
-    # symbolNameFound=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE)
-    # if [ ! "${#symbolNameFound}" -gt 1 ]; then 
-    #     ID_NOTATION=$(grep -P "$symbol\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'	')
-    #     echo "${symbol}""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" >> $TICKER_ID_NAMES_FILE
-    # fi
-
     # Get stock data
     echo ""
     echo "# Get $symbolName"
@@ -149,7 +142,7 @@ do
         fi
     fi
 
-    symbolName=$(grep -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2 -d$'	')
+    symbolName=$(grep -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2)
 
     CreateCmdAnalyseHyperlink
 
@@ -351,7 +344,7 @@ do
         if [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedLowStochasticLowRSI}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
-        ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3 -d$'	')
+        ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3)
         echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbolName</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
