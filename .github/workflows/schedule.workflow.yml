@@ -164,7 +164,7 @@ jobs:
           while [ "$i" -le 5 ];
           do
               fileSize=$(stat -c %s screenshot$i.png)
-              if [ "${fileSize}" -gt "1000" ]; then
+              if [ "${fileSize}" -gt 20000 ]; then              
                 fileList=$(echo $fileList "screenshot$i.png")
               fi          
               i=$((i + 1))
