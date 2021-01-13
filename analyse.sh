@@ -39,6 +39,7 @@ stochasticPercentageParam=$5
 RSIQuoteParam=$6
 
 # Prepare
+rm /dev/shm/*
 mkdir -p out
 mkdir -p temp
 OUT_ZIP_FILE=_out.tar.gz
@@ -131,12 +132,14 @@ do
         if [ "$evenodd" -eq 2 ]; then
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
         fi
+        DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
+        cp $DATA_DATE_FILE $DATA_DATE_FILE_TEMP
         curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "${fileSize}" -eq "0" ]; then
             echo "!!! $symbol NOT found online" | tee -a $OUT_RESULT_FILE
             echo "<br>" >> $OUT_RESULT_FILE
-            rm -rf "$DATA_DATE_FILE"
+            mv $DATA_DATE_FILE_TEMP $DATA_DATE_FILE
         fi
     fi
 
