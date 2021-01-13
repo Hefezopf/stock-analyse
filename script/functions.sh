@@ -34,19 +34,22 @@ MACD_12_26() {
 }
 
 # CurlSymbolName function:
-# Input is _symbolParam($1), _TICKER_NAMES_ID_FILE_param($2), _sleepParam($3)
+# Input is _symbolParam($1), _TICKER_ID_NAMES_FILE_param($2), _sleepParam($3)
 # Output: -
 CurlSymbolName() {
     _symbolParam=${1}
-    _TICKER_NAMES_ID_FILE_param=${2}
+    _TICKER_ID_NAMES_FILE_param=${2}
     _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
-    symbolName=$(grep -P "$symbol\t" "$_TICKER_NAMES_ID_FILE_param" | cut -f 2 -d$'\t')
+    symbolName=$(grep -P "$symbol\t" "$_TICKER_ID_NAMES_FILE_param" | cut -f 2 -d$'\t')
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "echo ${X_OPENFIGI_APIKEY}" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
             ID_NOTATION=9999999      
-            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" | tee -a "$_TICKER_NAMES_ID_FILE_param"
+            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" | tee -a "$_TICKER_ID_NAMES_FILE_param"
+            TEMP_TICKER_ID_NAMES_FILE="$(mktemp -p /dev/shm/)"
+            sort -k 1 "$_TICKER_ID_NAMES_FILE_param" > "$TEMP_TICKER_ID_NAMES_FILE"
+            mv "$TEMP_TICKER_ID_NAMES_FILE" "$_TICKER_ID_NAMES_FILE_param"
             # Can requested in bulk request as an option!
             sleep "$_sleepParam" # 14; Only some requests per minute to openfigi (About 6 per minute).
         fi
