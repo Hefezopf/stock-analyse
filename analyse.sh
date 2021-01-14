@@ -16,10 +16,9 @@
 # Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 as Env Variable
 # shellcheck disable=SC1091 
 
-# Import functions
+# Import
 . ./script/functions.sh
-
-# Import strategies
+. ./script/averages.sh
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default should be true

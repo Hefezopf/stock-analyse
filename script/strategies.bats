@@ -3,7 +3,7 @@
 # https://github.com/bats-core/bats-core
 # load '/d/code/bats-assert/load.bash'
 
-# Import functions
+# Import
 . ./script/strategies.sh
 
 # Constants
