@@ -407,8 +407,8 @@ do
     cp "$symbolFile" temp/$i.html
     i=$((i + 1))
 done
-# Maximal 10 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
-while [ "$i" -le 10 ];
+# Maximal 15 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
+while [ "$i" -le 15 ];
 do
     touch temp/$i.html
     i=$((i + 1))
