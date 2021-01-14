@@ -2,7 +2,7 @@
 
 # MACD_12_26 function:
 # Input is averagePriceList12Param($1) averagePriceList26Param($2)
-# Output: MACDList is comma separted list
+# Output: MACDList is comma separted list, lastMACDValue
 MACD_12_26() {
     averagePriceList12Param=${1}
     averagePriceList26Param=${2}
@@ -30,6 +30,7 @@ MACD_12_26() {
         difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
         MACDList="$MACDList $difference,"
     done
+    lastMACDValue=$difference
     MACDList=" , , , , , , , , , , , , , , , , , , , , , , , , , $MACDList" 
 }
 

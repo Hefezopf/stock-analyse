@@ -107,62 +107,74 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 #   [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low Horizontal MACD' ]
 }
 
-@test "StrategieOverratedHighStochasticHighRSI" {
+@test "StrategieOverratedHighStochasticHighRSIHighMACD" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
   }
   export -f WriteComdirectUrlAndStoreFileList
 
-  StrategieOverratedHighStochasticHighRSI 
-  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+  StrategieOverratedHighStochasticHighRSIHighMACD 
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
-  StrategieOverratedHighStochasticHighRSI underrated 91 70 92 71 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+  StrategieOverratedHighStochasticHighRSIHighMACD underrated 91 70 92 71 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
-  StrategieOverratedHighStochasticHighRSI overrated 91 70 90 69 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+  StrategieOverratedHighStochasticHighRSIHighMACD overrated 91 70 90 69 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
-  StrategieOverratedHighStochasticHighRSI overrated 91 70 92 69 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+  StrategieOverratedHighStochasticHighRSIHighMACD overrated 91 70 92 69 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
-  StrategieOverratedHighStochasticHighRSI overrated 91 70 90 71 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSI" == '' ]
+  StrategieOverratedHighStochasticHighRSIHighMACD overrated 91 70 90 71 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
-  StrategieOverratedHighStochasticHighRSI all 91 70 92 71 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSI" == 'Sell: High last Stoch & RSI: Stoch quote 92 over 91 and RSI quote 71 over 70' ]
+  StrategieOverratedHighStochasticHighRSIHighMACD overrated 91 70 90 71 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
-  resultStrategieOverratedHighStochasticHighRSI=""
-  StrategieOverratedHighStochasticHighRSI overrated 91 70 92 71 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSI" == 'Sell: High last Stoch & RSI: Stoch quote 92 over 91 and RSI quote 71 over 70' ]  
+  StrategieOverratedHighStochasticHighRSIHighMACD all 91 70 92 71 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
+
+  StrategieOverratedHighStochasticHighRSIHighMACD all 91 70 92 71 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High last Stoch & RSI & MACD positiv: Stoch quote 92 over 91 and RSI quote 71 over 70' ]
+
+  resultStrategieOverratedHighStochasticHighRSIHighMACD=""
+  StrategieOverratedHighStochasticHighRSIHighMACD overrated 91 70 92 71 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High last Stoch & RSI & MACD positiv: Stoch quote 92 over 91 and RSI quote 71 over 70' ]  
 }
 
-@test "StrategieUnderratedLowStochasticLowRSI" {
+@test "StrategieUnderratedLowStochasticLowRSILowMACD" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
   }
   export -f WriteComdirectUrlAndStoreFileList
 
-  StrategieUnderratedLowStochasticLowRSI 
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+  StrategieUnderratedLowStochasticLowRSILowMACD 
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
-  StrategieUnderratedLowStochasticLowRSI overrated 9 90 10 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+  StrategieUnderratedLowStochasticLowRSILowMACD overrated 9 90 10 5 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
-  StrategieUnderratedLowStochasticLowRSI underrated 9 90 10 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+  StrategieUnderratedLowStochasticLowRSILowMACD underrated 9 90 10 5 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
-  StrategieUnderratedLowStochasticLowRSI underrated 9 90 0 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+  StrategieUnderratedLowStochasticLowRSILowMACD underrated 9 90 0 91 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
-  StrategieUnderratedLowStochasticLowRSI underrated 9 90 10 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == '' ]
+  StrategieUnderratedLowStochasticLowRSILowMACD underrated 9 90 10 91 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
-  StrategieUnderratedLowStochasticLowRSI all 9 90 0 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == 'Buy: Low last Stoch & RSI: Stoch quote 0 under 9 and RSI quote 5 under 90' ]
+  StrategieUnderratedLowStochasticLowRSILowMACD underrated 9 90 10 91 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
-  resultStrategieUnderratedLowStochasticLowRSI=""
-  StrategieUnderratedLowStochasticLowRSI underrated 9 90 0 5 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSI" == 'Buy: Low last Stoch & RSI: Stoch quote 0 under 9 and RSI quote 5 under 90' ]
+  StrategieUnderratedLowStochasticLowRSILowMACD all 9 90 0 5 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
+
+  StrategieUnderratedLowStochasticLowRSILowMACD all 9 90 0 5 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low last Stoch & RSI & MACD negativ: Stoch quote 0 under 9 and RSI quote 5 under 90' ]
+
+  resultStrategieUnderratedLowStochasticLowRSILowMACD=""
+  StrategieUnderratedLowStochasticLowRSILowMACD underrated 9 90 0 5 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low last Stoch & RSI & MACD negativ: Stoch quote 0 under 9 and RSI quote 5 under 90' ]
 }
 
 @test "StrategieOverrated3HighStochastic" {
