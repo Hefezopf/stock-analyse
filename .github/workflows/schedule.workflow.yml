@@ -59,9 +59,9 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/1.html
-          destination: screenshot1.png   
+          destination: screenshot1.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot1
@@ -69,9 +69,9 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/2.html
-          destination: screenshot2.png   
+          destination: screenshot2.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot2
@@ -79,9 +79,9 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/3.html
-          destination: screenshot3.png   
+          destination: screenshot3.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot3
@@ -89,9 +89,9 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/4.html
-          destination: screenshot4.png   
+          destination: screenshot4.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot4
@@ -99,9 +99,9 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/5.html
-          destination: screenshot5.png   
+          destination: screenshot5.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot5
@@ -109,9 +109,9 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/6.html
-          destination: screenshot6.png   
+          destination: screenshot6.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot6
@@ -119,9 +119,9 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/7.html
-          destination: screenshot7.png   
+          destination: screenshot7.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot7
@@ -129,9 +129,9 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/8.html
-          destination: screenshot8.png   
+          destination: screenshot8.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot8
@@ -139,9 +139,9 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/9.html
-          destination: screenshot9.png   
+          destination: screenshot9.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot9
@@ -149,18 +149,68 @@ jobs:
       - uses: swinton/screenshot-website@v1.x
         with:
           source: temp/10.html
-          destination: screenshot10.png   
+          destination: screenshot10.png
           full-page: true
-      - name: Download Screenshot 
+      - name: Download Screenshot
         uses: actions/download-artifact@v2
         with:
           name: screenshot10
+
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/11.html
+          destination: screenshot11.png
+          full-page: true
+      - name: Download Screenshot
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot11
+
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/12.html
+          destination: screenshot12.png
+          full-page: true
+      - name: Download Screenshot
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot12
+
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/13.html
+          destination: screenshot13.png
+          full-page: true
+      - name: Download Screenshot
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot13
+
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/14.html
+          destination: screenshot14.png
+          full-page: true
+      - name: Download Screenshot
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot14
+
+      - uses: swinton/screenshot-website@v1.x
+        with:
+          source: temp/15.html
+          destination: screenshot15.png
+          full-page: true
+      - name: Download Screenshot
+        uses: actions/download-artifact@v2
+        with:
+          name: screenshot15
 
       # Compress screenshot.tar.gz at the end
       - shell: bash
         run: |  
           i=1
-          while [ "$i" -le 5 ];
+          while [ "$i" -le 15 ];
           do
               fileSize=$(stat -c %s screenshot$i.png)
               if [ "${fileSize}" -gt 20000 ]; then              
