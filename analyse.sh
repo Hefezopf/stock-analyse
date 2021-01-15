@@ -13,7 +13,7 @@
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
 # Call example: ./analyse.sh '*ADS' 1 offline all 9 30
 # Precondition:
-# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 as Env Variable
+# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 and MARKET_STACK_ACCESS_KEY4 as Env Variable
 # shellcheck disable=SC1091 
 
 # Import
@@ -65,8 +65,8 @@ if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$
     echo "<br><br>" >> $OUT_RESULT_FILE
 fi
 
-if [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ]; then
-    echo "Error: MARKET_STACK_ACCESS_KEY1 or MARKET_STACK_ACCESS_KEY2 or MARKET_STACK_ACCESS_KEY3 not set!" | tee -a $OUT_RESULT_FILE
+if [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ]; then
+    echo "Error: MARKET_STACK_ACCESS_KEY1 or MARKET_STACK_ACCESS_KEY2 or MARKET_STACK_ACCESS_KEY3 or MARKET_STACK_ACCESS_KEY4 not set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
     exit 6
@@ -111,7 +111,8 @@ do
     fi
 
     # Curl symbol name with delay of 14sec because of REST API restrictions
-    CurlSymbolName "$symbol" $TICKER_ID_NAMES_FILE 14
+    CurlSymbolName "$symbol" $TICKER_ID_NAMES_FILE 1
+#continue
 
     # Get stock data
     echo ""

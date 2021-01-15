@@ -6,8 +6,25 @@ TODO:
 git config --global http.sslVerify false
 
 
--RSI Grenzen 9/81 in Chart einzeichnen
-+Schedule: Mehr Screenshots 15 im Result abe r nur 5 in email?!
+
+-Rounded Ausgabe der macd
+
+-# Get SAX "STROEER" Stern vorne ran 
+Überlegen wie in der Übersicht die Alarme ausgegeben werden können 
+
+-Evtl. Symbole Alpha sortieren 
+
+-4.key
+
+-Bwxhleunigen durch weniger als 100 Tage ?
+
+-Dow symbols
+
+-Quellensteuer für die Werte ?
+
+-Kurzfassung unter symbol ausgehen ?
+# Analyse NEM "Nemetschek" 
+Buy: Low by percent & stochastic
 
 -Warum ist keine einzelne Strategie für RSI da?
 Vorhandene Strategieren:
@@ -100,13 +117,18 @@ https://github.com/Hefezopf/stock-analyse/actions
 https://www.chartjs.org/docs/latest/charts/line.html
 https://www.chartjs.org/docs/latest/
 
-export MARKET_STACK_ACCESS_KEY1="55c6c3ff-77a0-40a2-b1c4-23c636bc7ce3-1"
+
+export X_OPENFIGI_APIKEY="X-OPENFIGI-APIKEY:55c6c3ff-77a0-40a2-b1c4-23c636bc7ce3-1"
+
+export MARKET_STACK_ACCESS_KEY1="a310b2410e8ca3c818a281b4eca0b86f-0"
 export MARKET_STACK_ACCESS_KEY2="f70ea4e0135d55aa08c920c800c26cb5-1"
 export MARKET_STACK_ACCESS_KEY3="5de6ae7da6a17492cac55a4a8383b851-1"
+export MARKET_STACK_ACCESS_KEY4="a128320aba7f109f98ef2c6ea61017c8-1"
+
 
 https://www.openfigi.com/api#rate-limit
 
-export X_OPENFIGI_APIKEY="X-OPENFIGI-APIKEY: 55c6c3ff-77a0-40a2-b1c4-23c636bc7ce3-1"
+export X_OPENFIGI_APIKEY="X-OPENFIGI-APIKEY:55c6c3ff-77a0-40a2-b1c4-23c636bc7ce3-1"
 echo $X_OPENFIGI_APIKEY
 export TICKER=IBM
 curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${TICKER}'"}]' | jq '.[0].data[0].name'
@@ -155,6 +177,7 @@ http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=
 
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL'
     
+export MARKET_STACK_ACCESS_KEY="a128320aba7f109f98ef2c6ea61017c8-1"    
 curl GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL'
 
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL' | jq '.'
