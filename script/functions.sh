@@ -119,7 +119,7 @@ ProgressBar() {
 # WriteComdirectUrlAndStoreFileList function:
 # - Write Comdirect Url. Link can have 3 color: black (neutral), red (sell) and green (buy)
 # - Store list of files for later (tar/zip)
-# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($5), _markerOwnStockParam($6)
+# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($4), _markerOwnStockParam($5), _reasonParam($6)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
     _OUT_RESULT_FILE_param=${1}
@@ -127,6 +127,7 @@ WriteComdirectUrlAndStoreFileList() {
     _symbolNameParam="${3}"
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
+    _reasonParam=${6}
     ID_NOTATION=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
         ID_NOTATION=999999
@@ -140,7 +141,9 @@ WriteComdirectUrlAndStoreFileList() {
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
         echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_OUT_RESULT_FILE_param"
+        #echo "$_reasonParam" >> "$_OUT_RESULT_FILE_param"
     fi
+    echo "$_reasonParam<br>" >> "$_OUT_RESULT_FILE_param"
 }
 
 # CreateCmdAnalyseHyperlink function:
