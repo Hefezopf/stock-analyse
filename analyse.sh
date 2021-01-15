@@ -121,7 +121,7 @@ do
     DATA_DATE_FILE=data/${symbol}.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-        evenodd=$((tag % 3))
+        evenodd=$((tag % 4))
         if [ "$evenodd" -eq 0 ]; then
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY1}
         fi
@@ -130,6 +130,9 @@ do
         fi
         if [ "$evenodd" -eq 2 ]; then
             ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
+        fi
+        if [ "$evenodd" -eq 3 ]; then
+            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY4}
         fi
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
