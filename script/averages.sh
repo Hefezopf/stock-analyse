@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export LC_NUMERIC=en_US.UTF-8
+#export LC_ALL=en_US.UTF-8
+
 # MACD_12_26 function:
 # Input is averagePriceList12Param($1) averagePriceList26Param($2)
 # Output: MACDList is comma separted list, lastMACDValue
@@ -28,10 +31,15 @@ MACD_12_26() {
         done 
         jj_index=$((jj_index + 1))
         difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
+    #LC_NUMERIC="en_US.UTF-8"
+    #difference=-0.1
+        #difference=$(printf "%.2f" $difference)
         MACDList="$MACDList $difference,"
     done
+    difference=$(printf "%.2f" $difference)
     lastMACDValue=$difference
     MACDList=" , , , , , , , , , , , , , , , , , , , , , , , , , $MACDList" 
+#echo ----MACDList$MACDList"xxxx"
 }
 
 # EMAverageOfDays function:
