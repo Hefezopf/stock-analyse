@@ -56,9 +56,10 @@ COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?t
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd. Do not ignore '*'' 
-searchString=$(echo "$symbolsParam" | tr '*' ' ')
-searchString=$(echo "$searchString" | tr '[:lower:]' '[:upper:]')
-echo "$searchString" | tr " " "\n" | sort | uniq -c | grep -qv '^ *1 ' | tee -a $OUT_RESULT_FILE && echo "WARNING: Multiple symbols in parameter list!" | tee -a $OUT_RESULT_FILE && echo "<br>" >> $OUT_RESULT_FILE #&& exit 4
+if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -v '^ *1 '; then
+    echo "WARNING: Multiple symbols in parameter list!" | tee -a $OUT_RESULT_FILE #&& exit 4
+    echo "<br><br>" >> $OUT_RESULT_FILE
+fi
 
 # Usage: Check parameter
 UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
