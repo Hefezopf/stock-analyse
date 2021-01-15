@@ -27,7 +27,8 @@ CalculateRSI=true
 CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
-export LC_ALL=en_IN.UTF-8
+export LC_ALL=en_US.UTF-8
+#export LC_NUMERIC="en_US.UTF-8"
 
 # Parameter
 symbolsParam=$1
@@ -111,8 +112,7 @@ do
     fi
 
     # Curl symbol name with delay of 14sec because of REST API restrictions
-    CurlSymbolName "$symbol" $TICKER_ID_NAMES_FILE 1
-#continue
+    CurlSymbolName "$symbol" $TICKER_ID_NAMES_FILE 14
 
     # Get stock data
     echo ""
