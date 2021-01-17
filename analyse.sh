@@ -372,7 +372,7 @@ do
         if [ "$quoteDate" = "$yesterday" ]; then
             echo "Date:<b>$quoteDate</b>" # OK, quote from last trading day
         else
-            echo "<b style=\"color:orange; font-size:large;\">->OLD DATA:$markerOwnStock$symbolName</b><br>" >> $OUT_RESULT_FILE
+            echo "<b style=\"color:orange; font-size:large;\">->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
             echo "Date:<b style=\"color:orange; font-size:xx-large;\">$quoteDate</b>"
         fi
         echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Price:<b>""$last""€</b></span>" 
