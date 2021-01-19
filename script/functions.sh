@@ -4,9 +4,9 @@
 # Input is _symbolParam($1), _TICKER_NAME_ID_FILE_param($2), _sleepParam($3)
 # Output: -
 CurlSymbolName() {
-    _symbolParam=${1}
-    _TICKER_NAME_ID_FILE_param=${2}
-    _sleepParam=${3}
+    local _symbolParam=${1}
+    local _TICKER_NAME_ID_FILE_param=${2}
+    local _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
     symbolName=$(grep -P "$symbol\t" "$_TICKER_NAME_ID_FILE_param" | cut -f 2)
     if [ ! "${#symbolName}" -gt 1 ]; then
