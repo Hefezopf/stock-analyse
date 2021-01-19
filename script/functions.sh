@@ -136,7 +136,7 @@ WriteComdirectUrlAndStoreFileList() {
         id_notation=999999
     fi
     # Only write URL once into result file
-    if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
+    if [ ! "${id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$id_notation
         if [ "$_linkColorParam" = "red" ] || [ "$_linkColorParam" = "green" ]; then
             # Store list of files for later (tar/zip)
