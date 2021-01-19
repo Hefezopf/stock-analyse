@@ -361,14 +361,14 @@ StrategieUnderrated3LowStochastic() {
 
 # StrategieOverratedHighStochasticHighRSIHighMACD function:
 # Strategie: High Stochastic and High RSI last quote over highRSIValue
-# Input is _ratedParam($1), highStochasticValue($2), highRSIQuoteParam($3), _lastStochasticQuoteRoundedParam($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _outResultFileParam($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
+# Input is _ratedParam($1), highStochasticValue($2), highRSIQuoteParam($3), _lastStochasticQuoteRoundedParam($4), _lastRSIQuoteRoundedParam($5), _lastMACDValueParam=($6) _outResultFileParam($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
 # Output: resultStrategieOverratedHighStochasticHighRSIHighMACD
 StrategieOverratedHighStochasticHighRSIHighMACD() {
     _ratedParam=${1}
     _highStochasticValueParam=${2}
     _highRSIQuoteParam=${3}
     _lastStochasticQuoteRoundedParam=${4}
-    _lastRSIQuoteRounded=${5}
+    _lastRSIQuoteRoundedParam=${5}
     _lastMACDValueParam=${6}
     _outResultFileParam=${7}
     _symbolParam=${8}
@@ -376,12 +376,12 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
     _markerOwnStockParam=${10}
     resultStrategieOverratedHighStochasticHighRSIHighMACD=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
-        if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
+        if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRoundedParam}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
             _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
             # Last Stoch quote over _highStochasticValueParam and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
-            if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRounded" -gt "$_highRSIQuoteParam" ] && [ ! "${_lastMACDValueParamSign}" = '-' ]; then
+            if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -gt "$_highRSIQuoteParam" ] && [ ! "${_lastMACDValueParamSign}" = '-' ]; then
                 reasonPrefix="Sell: High last Stoch & RSI & MACD positiv"
-                resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRoundedParam over $_highStochasticValueParam and RSI quote $_lastRSIQuoteRounded over $_highRSIQuoteParam"
+                resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRoundedParam over $_highStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam over $_highRSIQuoteParam"
                 echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"
                 # Red link only for stocks that are marked as own 
                 _linkColor=red
@@ -396,14 +396,14 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
 
 # StrategieUnderratedLowStochasticLowRSILowMACD function:
 # Strategie: Low Stochastic and Low RSI last quote under lowRSIValue
-# Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRoundedParam($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _outResultFileParam($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
+# Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRoundedParam($4), _lastRSIQuoteRoundedParam($5), _lastMACDValueParam=($6) _outResultFileParam($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
 # Output: resultStrategieLowStochasticUnderratedLowRSI
 StrategieUnderratedLowStochasticLowRSILowMACD() {
     _ratedParam=${1}
     _lowStochasticValueParam=${2}
     _lowRSIQuoteParam=${3}
     _lastStochasticQuoteRoundedParam=${4}
-    _lastRSIQuoteRounded=${5}
+    _lastRSIQuoteRoundedParam=${5}
     _lastMACDValueParam=${6}
     _outResultFileParam=${7}
     _symbolParam=${8}
@@ -411,12 +411,12 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
     _markerOwnStockParam=${10}
     resultStrategieUnderratedLowStochasticLowRSILowMACD=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then 
-        if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
+        if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRoundedParam}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
             _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
             # Last Stoch quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
-            if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
+            if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
                 reasonPrefix="Buy: Low last Stoch & RSI & MACD negativ"
-                resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRoundedParam under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
+                resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRoundedParam under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIQuoteParam"
                 echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
