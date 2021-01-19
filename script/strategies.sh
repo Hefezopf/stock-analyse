@@ -169,7 +169,7 @@ StrategieUnderratedLowHorizontalMACD() {
 # Output: resultStrategieOverratedByPercentAndStochastic
 StrategieOverratedByPercentAndStochastic() {
     _ratedParam=${1}
-    _lastStochasticQuoteRounded=${2}
+    _lastStochasticQuoteRoundedParam=${2}
     _stochasticPercentageUpper=${3}
     _lastOverAgv18=${4}
     _lastOverAgv38=${5}
@@ -188,11 +188,11 @@ StrategieOverratedByPercentAndStochastic() {
     _markerOwnStockParam=${18}
     resultStrategieOverratedByPercentAndStochastic=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
-        if [ "${#_lastStochasticQuoteRounded}" -gt 0 ]; then # Check if value makes sense
-            if [ "$_lastStochasticQuoteRounded" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
+        if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
+            if [ "$_lastStochasticQuoteRoundedParam" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
                 [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
                 reasonPrefix="Sell: High by percent & stochastic"
-                resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_last€ is $_percentageLesserFactor over Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 is $_lastStochasticQuoteRounded is higher then $_stochasticPercentageUpper"
+                resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_last€ is $_percentageLesserFactor over Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 is $_lastStochasticQuoteRoundedParam is higher then $_stochasticPercentageUpper"
                 echo "$resultStrategieOverratedByPercentAndStochastic"
                 # Red link only for stocks that are marked as own 
                 _linkColor=red
@@ -211,7 +211,7 @@ StrategieOverratedByPercentAndStochastic() {
 # Output: resultStrategieUnderratedByPercentAndStochastic
 StrategieUnderratedByPercentAndStochastic() {
     _ratedParam=${1}
-    _lastStochasticQuoteRounded=${2}
+    _lastStochasticQuoteRoundedParam=${2}
     _stochasticPercentageLower=${3}
     _lastUnderAgv18=${4}
     _lastUnderAgv38=${5}
@@ -231,11 +231,11 @@ StrategieUnderratedByPercentAndStochastic() {
     _markerOwnStockParam=${19}
     resultStrategieUnderratedByPercentAndStochastic=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
-        if [ "${#_lastStochasticQuoteRounded}" -gt 0 ]; then # Check if value makes sense
-            if [ "$_lastStochasticQuoteRounded" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
+        if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
+            if [ "$_lastStochasticQuoteRoundedParam" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
                 [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
                 reasonPrefix="Buy: Low by percent & stochastic"
-                resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_last€ is $_percentageGreaterFactor under Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
+                resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_last€ is $_percentageGreaterFactor under Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 $_lastStochasticQuoteRoundedParam is lower then $_stochasticPercentageLower"
                 echo "$resultStrategieUnderratedByPercentAndStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
@@ -249,21 +249,21 @@ StrategieUnderratedByPercentAndStochastic() {
 # Output: resultStrategieOverrated3HighStochastic
 StrategieOverrated3HighStochastic() {
     _ratedParam=${1}   
-    _highStochasticValue=${2}
-    _stochasticQuoteList=${3} 
+    _highStochasticValueParam=${2}
+    _stochasticQuoteListParam=${3} 
     _outResultFileParam=${4}
     _symbolParam=${5}
     _symbolNameParam=${6}
     _markerOwnStockParam=${7}
     resultStrategieOverrated3HighStochastic=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
-        if [ "${#_stochasticQuoteList}" -gt 1 ]; then # Check if value makes sense
+        if [ "${#_stochasticQuoteListParam}" -gt 1 ]; then # Check if value makes sense
             # Revers and output the last x numbers. Attention only works for single digst numbers!
-            _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
+            _stochasticQuoteListParam=$(echo "$_stochasticQuoteListParam" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
             OLDIFS=$IFS
-            # Warning do NOT quote this!! "$_stochasticQuoteList"
+            # Warning do NOT quote this!! "$_stochasticQuoteListParam"
             # shellcheck disable=SC2086
-            IFS="," set -- $_stochasticQuoteList
+            IFS="," set -- $_stochasticQuoteListParam
             # Cut comma, like: ",22" -> "22"        
             value1=$(echo "$1" | cut -b 2-3)
             value2=$(echo "$2" | cut -b 2-3)
@@ -286,19 +286,19 @@ StrategieOverrated3HighStochastic() {
                 value3=99
             fi
 
-            if [ "${#value1}" -gt 1 ] && [ "$value1" -gt "$_highStochasticValue" ]; then
+            if [ "${#value1}" -gt 1 ] && [ "$value1" -gt "$_highStochasticValueParam" ]; then
                 howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
             fi
-            if [ "${#value2}" -gt 1 ] && [ "$value2" -gt "$_highStochasticValue" ]; then
+            if [ "${#value2}" -gt 1 ] && [ "$value2" -gt "$_highStochasticValueParam" ]; then
                 howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
             fi
-            if [ "${#value3}" -gt 1 ] && [ "$value3" -gt "$_highStochasticValue" ]; then
+            if [ "${#value3}" -gt 1 ] && [ "$value3" -gt "$_highStochasticValueParam" ]; then
                 howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
             fi   
-            # All 3 last values over _highStochasticValue?
+            # All 3 last values over _highStochasticValueParam?
             if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
                 reasonPrefix="Sell: High 3 last stochastic"
-                resultStrategieOverrated3HighStochastic="$reasonPrefix: 3 last quotes are over $_highStochasticValue"
+                resultStrategieOverrated3HighStochastic="$reasonPrefix: 3 last quotes are over $_highStochasticValueParam"
                 echo "$resultStrategieOverrated3HighStochastic"
                 # Red link only for stocks that are marked as own 
                 _linkColor=red
@@ -318,20 +318,20 @@ StrategieOverrated3HighStochastic() {
 StrategieUnderrated3LowStochastic() {
     _ratedParam=${1}   
     _lowStochasticValueParam=${2}
-    _stochasticQuoteList=${3} 
+    _stochasticQuoteListParam=${3} 
     _outResultFileParam=${4}
     _symbolParam=${5}
     _symbolNameParam=${6}
     _markerOwnStockParam=${7}
     resultStrategieUnderrated3LowStochastic=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
-        if [ "${#_stochasticQuoteList}" -gt 1 ]; then # Check if value makes sense
+        if [ "${#_stochasticQuoteListParam}" -gt 1 ]; then # Check if value makes sense
             # Revers and output the last x numbers. Attention only works for single digst numbers!
-            _stochasticQuoteList=$(echo "$_stochasticQuoteList" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
+            _stochasticQuoteListParam=$(echo "$_stochasticQuoteListParam" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
             OLDIFS=$IFS
-            # Warning do NOT quote this!! "$_stochasticQuoteList"
+            # Warning do NOT quote this!! "$_stochasticQuoteListParam"
             # shellcheck disable=SC2086
-            IFS="," set -- $_stochasticQuoteList
+            IFS="," set -- $_stochasticQuoteListParam
             # Cut comma, like: ",22" -> "22"
             value1=$(echo "$1" | cut -b 2-3)
             value2=$(echo "$2" | cut -b 2-3)
@@ -361,13 +361,13 @@ StrategieUnderrated3LowStochastic() {
 
 # StrategieOverratedHighStochasticHighRSIHighMACD function:
 # Strategie: High Stochastic and High RSI last quote over highRSIValue
-# Input is _ratedParam($1), highStochasticValue($2), highRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _outResultFileParam($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
+# Input is _ratedParam($1), highStochasticValue($2), highRSIQuoteParam($3), _lastStochasticQuoteRoundedParam($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _outResultFileParam($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
 # Output: resultStrategieOverratedHighStochasticHighRSIHighMACD
 StrategieOverratedHighStochasticHighRSIHighMACD() {
     _ratedParam=${1}
-    _highStochasticValue=${2}
+    _highStochasticValueParam=${2}
     _highRSIQuoteParam=${3}
-    _lastStochasticQuoteRounded=${4}
+    _lastStochasticQuoteRoundedParam=${4}
     _lastRSIQuoteRounded=${5}
     _lastMACDValueParam=${6}
     _outResultFileParam=${7}
@@ -376,12 +376,12 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
     _markerOwnStockParam=${10}
     resultStrategieOverratedHighStochasticHighRSIHighMACD=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
-        if [ "${#_lastStochasticQuoteRounded}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
+        if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
             _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
-            # Last Stoch quote over _highStochasticValue and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
-            if [ "$_lastStochasticQuoteRounded" -gt "$_highStochasticValue" ] && [ "$_lastRSIQuoteRounded" -gt "$_highRSIQuoteParam" ] && [ ! "${_lastMACDValueParamSign}" = '-' ]; then
+            # Last Stoch quote over _highStochasticValueParam and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
+            if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRounded" -gt "$_highRSIQuoteParam" ] && [ ! "${_lastMACDValueParamSign}" = '-' ]; then
                 reasonPrefix="Sell: High last Stoch & RSI & MACD positiv"
-                resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRounded over $_highStochasticValue and RSI quote $_lastRSIQuoteRounded over $_highRSIQuoteParam"
+                resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRoundedParam over $_highStochasticValueParam and RSI quote $_lastRSIQuoteRounded over $_highRSIQuoteParam"
                 echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"
                 # Red link only for stocks that are marked as own 
                 _linkColor=red
@@ -396,13 +396,13 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
 
 # StrategieUnderratedLowStochasticLowRSILowMACD function:
 # Strategie: Low Stochastic and Low RSI last quote under lowRSIValue
-# Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _outResultFileParam($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
+# Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRoundedParam($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _outResultFileParam($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
 # Output: resultStrategieLowStochasticUnderratedLowRSI
 StrategieUnderratedLowStochasticLowRSILowMACD() {
     _ratedParam=${1}
     _lowStochasticValueParam=${2}
     _lowRSIQuoteParam=${3}
-    _lastStochasticQuoteRounded=${4}
+    _lastStochasticQuoteRoundedParam=${4}
     _lastRSIQuoteRounded=${5}
     _lastMACDValueParam=${6}
     _outResultFileParam=${7}
@@ -411,12 +411,12 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
     _markerOwnStockParam=${10}
     resultStrategieUnderratedLowStochasticLowRSILowMACD=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then 
-        if [ "${#_lastStochasticQuoteRounded}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
+        if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
             _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
             # Last Stoch quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
-            if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
+            if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
                 reasonPrefix="Buy: Low last Stoch & RSI & MACD negativ"
-                resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
+                resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRoundedParam under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
                 echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
