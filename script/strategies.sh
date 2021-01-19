@@ -32,12 +32,12 @@
 # Input is _ratedParam($1), _MACDQuoteListParam($2), _outResultFileParam($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
 # Output: resultStrategieOverratedHighHorizontalMACD
 StrategieOverratedHighHorizontalMACD() {
-    local _ratedParam=${1}   
-    local _MACDQuoteListParam=${2} 
-    local _outResultFileParam=${3}
-    local _symbolParam=${4}
-    local _symbolNameParam=${5}
-    local _markerOwnStockParam=${6}
+    _ratedParam=${1}   
+    _MACDQuoteListParam=${2} 
+    _outResultFileParam=${3}
+    _symbolParam=${4}
+    _symbolNameParam=${5}
+    _markerOwnStockParam=${6}
     resultStrategieOverratedHighHorizontalMACD=""  
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
@@ -103,12 +103,12 @@ StrategieOverratedHighHorizontalMACD() {
 # Input is _ratedParam($1), _MACDQuoteListParam($2), _outResultFileParam($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
 # Output: resultStrategieUnderratedLowHorizontalMACD
 StrategieUnderratedLowHorizontalMACD() {
-    local _ratedParam=${1}   
-    local _MACDQuoteListParam=${2} 
-    local _outResultFileParam=${3}
-    local _symbolParam=${4}
-    local _symbolNameParam=${5}
-    local _markerOwnStockParam=${6}
+    _ratedParam=${1}   
+    _MACDQuoteListParam=${2} 
+    _outResultFileParam=${3}
+    _symbolParam=${4}
+    _symbolNameParam=${5}
+    _markerOwnStockParam=${6}
     resultStrategieUnderratedLowHorizontalMACD=""  
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
