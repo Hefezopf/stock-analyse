@@ -4,13 +4,13 @@
 # Strategie: Low RSI last quote under lowRSIValue
 # https://www.charttec.de/html/indikator_rsi_relative_strength_index.php
 # https://de.wikipedia.org/wiki/Relative_Strength_Index
-# Input is _ratedParam($1), _lowRSIValueParam($2), _lastRSIQuoteRoundedParam($3), _out_result_file_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
+# Input is _ratedParam($1), _lowRSIValueParam($2), _lastRSIQuoteRoundedParam($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieUnderratedLowRSI
 # StrategieUnderratedLowRSI() {
 #     _ratedParam=${1}
 #     _lowRSIValueParam=${2}
 #     _lastRSIQuoteRoundedParam=${3}
-#     _out_result_file_param=${4}
+#     _OUT_RESULT_FILE_param=${4}
 #     _symbolParam=${5}
 #     _symbolNameParam=${6}
 #     _markerOwnStockParam=${7}
@@ -22,30 +22,30 @@
              # reasonPrefix="Buy: Low last RSI"
 #             resultStrategieUnderratedLowRSI="$reasonPrefix: RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
 #             echo "$resultStrategieUnderratedLowRSI"
-#             WriteComdirectUrlAndStoreFileList "$_out_result_file_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+#             WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
 #         fi
 #     fi
 # }
 
 # StrategieOverratedHighHorizontalMACD function:
 # Strategie: MACD value high approch horizontal level. MACD must be in the positiv/upper half
-# Input is _ratedParam($1), _MACDQuoteList($2), _out_result_file_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
+# Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
 # Output: resultStrategieOverratedHighHorizontalMACD
 StrategieOverratedHighHorizontalMACD() {
-    local _ratedParam=${1}   
-    local _MACDQuoteListParam=${2} 
-    local _out_result_file_param=${3}
-    local _symbolParam=${4}
-    local _symbolNameParam=${5}
-    local _markerOwnStockParam=${6}
+    _ratedParam=${1}   
+    _MACDQuoteList=${2} 
+    _OUT_RESULT_FILE_param=${3}
+    _symbolParam=${4}
+    _symbolNameParam=${5}
+    _markerOwnStockParam=${6}
     resultStrategieOverratedHighHorizontalMACD=""  
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
-        if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
+        if [ "${#_MACDQuoteList}" -gt 1 ]; then # Check if value makes sense
             # Remove leading commas
-            _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 52-10000)
+            _MACDQuoteList=$(echo "$_MACDQuoteList" | cut -b 52-10000)
             jj_index=0
             # shellcheck disable=SC2001
-            for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
+            for valueMACD in $(echo "$_MACDQuoteList" | sed "s/,/ /g")
             do
                 if [ "$jj_index" = 72 ]; then
                     valueMACDLast_2="$valueMACD" 
@@ -92,7 +92,7 @@ StrategieOverratedHighHorizontalMACD() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
-                WriteComdirectUrlAndStoreFileList "$_out_result_file_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
     fi
@@ -100,23 +100,23 @@ StrategieOverratedHighHorizontalMACD() {
 
 # StrategieUnderratedLowHorizontalMACD function:
 # Strategie: MACD value low approch horizontal level. MACD must be in the negativ/lower half
-# Input is _ratedParam($1), _MACDQuoteListParam($2), _out_result_file_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
+# Input is _ratedParam($1), _MACDQuoteList($2), _OUT_RESULT_FILE_param($3), _symbolParam($4), _symbolNameParam($5), _markerOwnStockParam($6)
 # Output: resultStrategieUnderratedLowHorizontalMACD
 StrategieUnderratedLowHorizontalMACD() {
-    local _ratedParam=${1}   
-    local _MACDQuoteListParam=${2} 
-    local _out_result_file_param=${3}
-    local _symbolParam=${4}
-    local _symbolNameParam=${5}
-    local _markerOwnStockParam=${6}
+    _ratedParam=${1}   
+    _MACDQuoteList=${2} 
+    _OUT_RESULT_FILE_param=${3}
+    _symbolParam=${4}
+    _symbolNameParam=${5}
+    _markerOwnStockParam=${6}
     resultStrategieUnderratedLowHorizontalMACD=""  
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
-        if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
+        if [ "${#_MACDQuoteList}" -gt 1 ]; then # Check if value makes sense
             # Remove leading commas
-            _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 52-10000)
+            _MACDQuoteList=$(echo "$_MACDQuoteList" | cut -b 52-10000)
             jj_index=0
             # shellcheck disable=SC2001
-            for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
+            for valueMACD in $(echo "$_MACDQuoteList" | sed "s/,/ /g")
             do
                 if [ "$jj_index" = 72 ]; then
                     valueMACDLast_2="$valueMACD" 
@@ -157,7 +157,7 @@ StrategieUnderratedLowHorizontalMACD() {
                 reasonPrefix="Buy: Low Horizontal MACD"
                 resultStrategieUnderratedLowHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
                 echo "$resultStrategieUnderratedLowHorizontalMACD"
-                WriteComdirectUrlAndStoreFileList "$_out_result_file_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
     fi
@@ -168,24 +168,24 @@ StrategieUnderratedLowHorizontalMACD() {
 # Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), OUT_RESULT_FILE_param($15), symbolParam($16), _symbolNameParam($17), _markerOwnStockParam($18)
 # Output: resultStrategieOverratedByPercentAndStochastic
 StrategieOverratedByPercentAndStochastic() {
-    local _ratedParam=${1}
-    local _lastStochasticQuoteRounded=${2}
-    local _stochasticPercentageUpper=${3}
-    local _lastOverAgv18=${4}
-    local _lastOverAgv38=${5}
-    local _lastOverAgv100=${6}
-    local _agv18OverAgv38=${7}
-    local _agv38OverAgv100=${8}
-    local _agv18OverAgv100=${9}
-    local _last=${10}
-    local _percentageLesserFactor=${11}
-    local _average18=${12}
-    local _average38=${13}
-    local _average100=${14}
-    local _out_result_file_param=${15}
-    local _symbolParam=${16}
-    local _symbolNameParam=${17}
-    local _markerOwnStockParam=${18}
+    _ratedParam=${1}
+    _lastStochasticQuoteRounded=${2}
+    _stochasticPercentageUpper=${3}
+    _lastOverAgv18=${4}
+    _lastOverAgv38=${5}
+    _lastOverAgv100=${6}
+    _agv18OverAgv38=${7}
+    _agv38OverAgv100=${8}
+    _agv18OverAgv100=${9}
+    _last=${10}
+    _percentageLesserFactor=${11}
+    _average18=${12}
+    _average38=${13}
+    _average100=${14}
+    _OUT_RESULT_FILE_param=${15}
+    _symbolParam=${16}
+    _symbolNameParam=${17}
+    _markerOwnStockParam=${18}
     resultStrategieOverratedByPercentAndStochastic=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_lastStochasticQuoteRounded}" -gt 0 ]; then # Check if value makes sense
@@ -199,7 +199,7 @@ StrategieOverratedByPercentAndStochastic() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
-                WriteComdirectUrlAndStoreFileList "$_out_result_file_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
     fi
@@ -210,25 +210,25 @@ StrategieOverratedByPercentAndStochastic() {
 # Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageLower($3), lastUnderAgv18($4), lastUnderAgv38($5), lastUnderAgv100($6), agv18UnderAgv38($7), agv38UnderAgv100($8), agv18UnderAgv100($9), last($10), percentageGreaterFactor($11), average18($12), average38($13), average100($14), stochasticPercentageLower($15), OUT_RESULT_FILE_param($16), symbolParam($17), _symbolNameParam($18), _markerOwnStockParam($19)
 # Output: resultStrategieUnderratedByPercentAndStochastic
 StrategieUnderratedByPercentAndStochastic() {
-    local _ratedParam=${1}
-    local _lastStochasticQuoteRounded=${2}
-    local _stochasticPercentageLower=${3}
-    local _lastUnderAgv18=${4}
-    local _lastUnderAgv38=${5}
-    local _lastUnderAgv100=${6}
-    local _agv18UnderAgv38=${7}
-    local _agv38UnderAgv100=${8}
-    local _agv18UnderAgv100=${9}
-    local _last=${10}
-    local _percentageGreaterFactor=${11}
-    local _average18=${12}
-    local _average38=${13}
-    local _average100=${14}
-    local _stochasticPercentageLower=${15}
-    local _out_result_file_param=${16}
-    local _symbolParam=${17}
-    local _symbolNameParam=${18}
-    local _markerOwnStockParam=${19}
+    _ratedParam=${1}
+    _lastStochasticQuoteRounded=${2}
+    _stochasticPercentageLower=${3}
+    _lastUnderAgv18=${4}
+    _lastUnderAgv38=${5}
+    _lastUnderAgv100=${6}
+    _agv18UnderAgv38=${7}
+    _agv38UnderAgv100=${8}
+    _agv18UnderAgv100=${9}
+    _last=${10}
+    _percentageGreaterFactor=${11}
+    _average18=${12}
+    _average38=${13}
+    _average100=${14}
+    _stochasticPercentageLower=${15}
+    _OUT_RESULT_FILE_param=${16}
+    _symbolParam=${17}
+    _symbolNameParam=${18}
+    _markerOwnStockParam=${19}
     resultStrategieUnderratedByPercentAndStochastic=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_lastStochasticQuoteRounded}" -gt 0 ]; then # Check if value makes sense
@@ -237,7 +237,7 @@ StrategieUnderratedByPercentAndStochastic() {
                 reasonPrefix="Buy: Low by percent & stochastic"
                 resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_last€ is $_percentageGreaterFactor under Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 $_lastStochasticQuoteRounded is lower then $_stochasticPercentageLower"
                 echo "$resultStrategieUnderratedByPercentAndStochastic"
-                WriteComdirectUrlAndStoreFileList "$_out_result_file_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
     fi
@@ -245,16 +245,16 @@ StrategieUnderratedByPercentAndStochastic() {
 
 # StrategieOverrated3HighStochastic function:
 # Strategie: High stochastic 3 last values over highStochasticValue
-# Input is _ratedParam($1), highStochasticValue($2), stochasticQuoteList($3), _out_result_file_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
+# Input is _ratedParam($1), highStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieOverrated3HighStochastic
 StrategieOverrated3HighStochastic() {
-    local _ratedParam=${1}   
-    local _highStochasticValue=${2}
-    local _stochasticQuoteList=${3} 
-    local _out_result_file_param=${4}
-    local _symbolParam=${5}
-    local _symbolNameParam=${6}
-    local _markerOwnStockParam=${7}
+    _ratedParam=${1}   
+    _highStochasticValue=${2}
+    _stochasticQuoteList=${3} 
+    _OUT_RESULT_FILE_param=${4}
+    _symbolParam=${5}
+    _symbolNameParam=${6}
+    _markerOwnStockParam=${7}
     resultStrategieOverrated3HighStochastic=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_stochasticQuoteList}" -gt 1 ]; then # Check if value makes sense
@@ -305,7 +305,7 @@ StrategieOverrated3HighStochastic() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
-                WriteComdirectUrlAndStoreFileList "$_out_result_file_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
     fi
@@ -313,16 +313,16 @@ StrategieOverrated3HighStochastic() {
 
 # StrategieUnderrated3LowStochastic function:
 # Strategie: Low stochastic 3 last values under lowStochasticValue
-# Input is _ratedParam($1), lowStochasticValue($2), stochasticQuoteList($3), _out_result_file_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
+# Input is _ratedParam($1), lowStochasticValue($2), stochasticQuoteList($3), _OUT_RESULT_FILE_param($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieUnderrated3LowStochastic
 StrategieUnderrated3LowStochastic() {
-    local _ratedParam=${1}   
-    local _lowStochasticValue=${2}
-    local _stochasticQuoteList=${3} 
-    local _out_result_file_param=${4}
-    local _symbolParam=${5}
-    local _symbolNameParam=${6}
-    local _markerOwnStockParam=${7}
+    _ratedParam=${1}   
+    _lowStochasticValue=${2}
+    _stochasticQuoteList=${3} 
+    _OUT_RESULT_FILE_param=${4}
+    _symbolParam=${5}
+    _symbolNameParam=${6}
+    _markerOwnStockParam=${7}
     resultStrategieUnderrated3LowStochastic=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_stochasticQuoteList}" -gt 1 ]; then # Check if value makes sense
@@ -353,7 +353,7 @@ StrategieUnderrated3LowStochastic() {
                 reasonPrefix="Buy: Low 3 last stochastic"
                 resultStrategieUnderrated3LowStochastic="$reasonPrefix: 3 last quotes are under $_lowStochasticValue"
                 echo "$resultStrategieUnderrated3LowStochastic"
-                WriteComdirectUrlAndStoreFileList "$_out_result_file_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
     fi
@@ -361,19 +361,19 @@ StrategieUnderrated3LowStochastic() {
 
 # StrategieOverratedHighStochasticHighRSIHighMACD function:
 # Strategie: High Stochastic and High RSI last quote over highRSIValue
-# Input is _ratedParam($1), highStochasticValue($2), highRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _out_result_file_param($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
+# Input is _ratedParam($1), highStochasticValue($2), highRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _OUT_RESULT_FILE_param($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
 # Output: resultStrategieOverratedHighStochasticHighRSIHighMACD
 StrategieOverratedHighStochasticHighRSIHighMACD() {
-    local _ratedParam=${1}
-    local _highStochasticValue=${2}
-    local _highRSIQuoteParam=${3}
-    local _lastStochasticQuoteRounded=${4}
-    local _lastRSIQuoteRounded=${5}
-    local _lastMACDValueParam=${6}
-    local _out_result_file_param=${7}
-    local _symbolParam=${8}
-    local _symbolNameParam=${9}  
-    local _markerOwnStockParam=${10}
+    _ratedParam=${1}
+    _highStochasticValue=${2}
+    _highRSIQuoteParam=${3}
+    _lastStochasticQuoteRounded=${4}
+    _lastRSIQuoteRounded=${5}
+    _lastMACDValueParam=${6}
+    _OUT_RESULT_FILE_param=${7}
+    _symbolParam=${8}
+    _symbolNameParam=${9}  
+    _markerOwnStockParam=${10}
     resultStrategieOverratedHighStochasticHighRSIHighMACD=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_lastStochasticQuoteRounded}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
@@ -388,7 +388,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi            
-                WriteComdirectUrlAndStoreFileList "$_out_result_file_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
     fi
@@ -396,19 +396,19 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
 
 # StrategieUnderratedLowStochasticLowRSILowMACD function:
 # Strategie: Low Stochastic and Low RSI last quote under lowRSIValue
-# Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _out_result_file_param($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
+# Input is _ratedParam($1), lowStochasticValue($2), lowRSIQuoteParam($3), _lastStochasticQuoteRounded($4), _lastRSIQuoteRounded($5), _lastMACDValueParam=($6) _OUT_RESULT_FILE_param($7), _symbolParam($8), _symbolNameParam($9), _markerOwnStockParam($10)
 # Output: resultStrategieLowStochasticUnderratedLowRSI
 StrategieUnderratedLowStochasticLowRSILowMACD() {
-    local _ratedParam=${1}
-    local _lowStochasticValue=${2}
-    local _lowRSIQuoteParam=${3}
-    local _lastStochasticQuoteRounded=${4}
-    local _lastRSIQuoteRounded=${5}
-    local _lastMACDValueParam=${6}
-    local _out_result_file_param=${7}
-    local _symbolParam=${8}
-    local _symbolNameParam=${9}  
-    local _markerOwnStockParam=${10}
+    _ratedParam=${1}
+    _lowStochasticValue=${2}
+    _lowRSIQuoteParam=${3}
+    _lastStochasticQuoteRounded=${4}
+    _lastRSIQuoteRounded=${5}
+    _lastMACDValueParam=${6}
+    _OUT_RESULT_FILE_param=${7}
+    _symbolParam=${8}
+    _symbolNameParam=${9}  
+    _markerOwnStockParam=${10}
     resultStrategieUnderratedLowStochasticLowRSILowMACD=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then 
         if [ "${#_lastStochasticQuoteRounded}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
@@ -418,7 +418,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
                 reasonPrefix="Buy: Low last Stoch & RSI & MACD negativ"
                 resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
                 echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"
-                WriteComdirectUrlAndStoreFileList "$_out_result_file_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+                WriteComdirectUrlAndStoreFileList "$_OUT_RESULT_FILE_param" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
     fi
