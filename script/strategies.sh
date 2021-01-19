@@ -317,7 +317,7 @@ StrategieOverrated3HighStochastic() {
 # Output: resultStrategieUnderrated3LowStochastic
 StrategieUnderrated3LowStochastic() {
     _ratedParam=${1}   
-    _lowStochasticValue=${2}
+    _lowStochasticValueParam=${2}
     _stochasticQuoteList=${3} 
     _outResultFileParam=${4}
     _symbolParam=${5}
@@ -339,19 +339,19 @@ StrategieUnderrated3LowStochastic() {
             IFS=$OLDIFS
             howManyUnderLowStochasticValue=0
             # Check string length and low stochastic parameter
-            if [ ! "${#value1}" -gt 1 ] && [ "$value1" -lt "$_lowStochasticValue" ]; then
+            if [ ! "${#value1}" -gt 1 ] && [ "$value1" -lt "$_lowStochasticValueParam" ]; then
                 howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
             fi
-            if [ ! "${#value2}" -gt 1 ] && [ "$value2" -lt "$_lowStochasticValue" ]; then
+            if [ ! "${#value2}" -gt 1 ] && [ "$value2" -lt "$_lowStochasticValueParam" ]; then
                 howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
             fi
-            if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValue" ]; then
+            if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValueParam" ]; then
                 howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
             fi
-            # All 3 last values under _lowStochasticValue?
+            # All 3 last values under _lowStochasticValueParam?
             if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
                 reasonPrefix="Buy: Low 3 last stochastic"
-                resultStrategieUnderrated3LowStochastic="$reasonPrefix: 3 last quotes are under $_lowStochasticValue"
+                resultStrategieUnderrated3LowStochastic="$reasonPrefix: 3 last quotes are under $_lowStochasticValueParam"
                 echo "$resultStrategieUnderrated3LowStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
@@ -400,7 +400,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
 # Output: resultStrategieLowStochasticUnderratedLowRSI
 StrategieUnderratedLowStochasticLowRSILowMACD() {
     _ratedParam=${1}
-    _lowStochasticValue=${2}
+    _lowStochasticValueParam=${2}
     _lowRSIQuoteParam=${3}
     _lastStochasticQuoteRounded=${4}
     _lastRSIQuoteRounded=${5}
@@ -413,10 +413,10 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then 
         if [ "${#_lastStochasticQuoteRounded}" -gt 0 ] && [ "${#_lastRSIQuoteRounded}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
             _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
-            # Last Stoch quote under _lowStochasticValue and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
-            if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValue" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
+            # Last Stoch quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
+            if [ "$_lastStochasticQuoteRounded" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRounded" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
                 reasonPrefix="Buy: Low last Stoch & RSI & MACD negativ"
-                resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValue and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
+                resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stoch quote $_lastStochasticQuoteRounded under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRounded under $_lowRSIQuoteParam"
                 echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
