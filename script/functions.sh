@@ -1,23 +1,23 @@
 #!/bin/sh
 
 # CurlSymbolName function:
-# Input is _symbolParam($1), _TICKER_NAME_ID_FILE_param($2), _sleepParam($3)
+# Input is _symbolParam($1), _ticker_name_id_file_param($2), _sleepParam($3)
 # Output: -
 CurlSymbolName() {
     local _symbolParam=${1}
-    local _TICKER_NAME_ID_FILE_param=${2}
+    local _ticker_name_id_file_param=${2}
     local _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
-    symbolName=$(grep -P "$symbol\t" "$_TICKER_NAME_ID_FILE_param" | cut -f 2)
+    symbolName=$(grep -P "$symbol\t" "$_ticker_name_id_file_param" | cut -f 2)
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
 #        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
-            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999" | tee -a "$_TICKER_NAME_ID_FILE_param"
-            local TEMP_TICKER_NAME_ID_FILE
-            TEMP_TICKER_NAME_ID_FILE="$(mktemp -p /dev/shm/)"
-            sort -k 1 "$_TICKER_NAME_ID_FILE_param" > "$TEMP_TICKER_NAME_ID_FILE"
-            mv "$TEMP_TICKER_NAME_ID_FILE" "$_TICKER_NAME_ID_FILE_param"
+            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999" | tee -a "$_ticker_name_id_file_param"
+            local temp_ticker_name_id_file
+            temp_ticker_name_id_file="$(mktemp -p /dev/shm/)"
+            sort -k 1 "$_ticker_name_id_file_param" > "$temp_ticker_name_id_file"
+            mv "$temp_ticker_name_id_file" "$_ticker_name_id_file_param"
             # Can requested in bulk request as an option!
             sleep "$_sleepParam" # 14; Only some requests per minute to openfigi (About 6 per minute).
         fi
@@ -121,40 +121,39 @@ ProgressBar() {
 # WriteComdirectUrlAndStoreFileList function:
 # - Write Comdirect Url. Link can have 3 color: black (neutral), red (sell) and green (buy)
 # - Store list of files for later (tar/zip)
-# Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($4), _markerOwnStockParam($5), _reasonParam($6)
+# Input _out_result_file_param($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($4), _markerOwnStockParam($5), _reasonParam($6)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
-    local _OUT_RESULT_FILE_param=${1}
+    local _out_result_file_param=${1}
     local _symbolParam=${2}
     local _symbolNameParam="${3}"
     local _linkColorParam=${4}
     local _markerOwnStockParam=${5}
     local _reasonParam=${6}
-    local ID_NOTATION
-    ID_NOTATION=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
-    if [ ! "${#ID_NOTATION}" -gt 1 ]; then
-        ID_NOTATION=999999
+    local id_notation
+    id_notation=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
+    if [ ! "${#id_notation}" -gt 1 ]; then
+        id_notation=999999
     fi
     # Only write URL once into result file
     if [ ! "${ID_NOTATION}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
-        ID_NOTATION_STORE_FOR_NEXT_TIME=$ID_NOTATION
+        ID_NOTATION_STORE_FOR_NEXT_TIME=$id_notation
         if [ "$_linkColorParam" = "red" ] || [ "$_linkColorParam" = "green" ]; then
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
-        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$ID_NOTATION " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_OUT_RESULT_FILE_param"
-        #echo "$_reasonParam" >> "$_OUT_RESULT_FILE_param"
+        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$id_notation " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_out_result_file_param"
     fi
-    echo "$_reasonParam<br>" >> "$_OUT_RESULT_FILE_param"
+    echo "$_reasonParam<br>" >> "$_out_result_file_param"
 }
 
 # CreateCmdAnalyseHyperlink function:
 # - Write file Hyperlink in CMD, Only works for windows
 CreateCmdAnalyseHyperlink() {
-    local outputText="# Analyse $symbol $symbolName"
+    local _outputText="# Analyse $symbol $symbolName"
     if [ "$(uname)" = 'Linux' ]; then
-        echo "$outputText"
+        echo "$_outputText"
     else
         local driveLetter
         driveLetter=$(pwd | cut -f 2 -d '/')
@@ -164,6 +163,6 @@ CreateCmdAnalyseHyperlink() {
         local suffixPath=${suffix:2:200}
         local directory=$driveLetter":"$suffixPath
         # shellcheck disable=SC3037
-        echo -e "\e]8;;file:///""$directory""/out/""$symbol"".html\a$outputText\e]8;;\a"
+        echo -e "\e]8;;file:///""$directory""/out/""$symbol"".html\a$_outputText\e]8;;\a"
     fi
 }
