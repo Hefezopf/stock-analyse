@@ -13,8 +13,8 @@ CurlSymbolName() {
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
 #        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
-            ID_NOTATION=999999
-            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""$ID_NOTATION" | tee -a "$_TICKER_NAME_ID_FILE_param"
+            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999" | tee -a "$_TICKER_NAME_ID_FILE_param"
+            local TEMP_TICKER_NAME_ID_FILE
             TEMP_TICKER_NAME_ID_FILE="$(mktemp -p /dev/shm/)"
             sort -k 1 "$_TICKER_NAME_ID_FILE_param" > "$TEMP_TICKER_NAME_ID_FILE"
             mv "$TEMP_TICKER_NAME_ID_FILE" "$_TICKER_NAME_ID_FILE_param"
@@ -28,13 +28,13 @@ CurlSymbolName() {
 # Input is _symbolsParam($1), _percentageParam($2), _queryParam($3), _ratedParam($4), _stochasticPercentageParam($5), _RSIQuoteParam($6), OUT_RESULT_FILE_param($7)
 # Output: OUT_RESULT_FILE
 UsageCheckParameter() {
-    _symbolsParam=${1}
-    _percentageParam=${2}
-    _queryParam=${3}
-    _ratedParam=${4}
-    _stochasticPercentageParam=${5}
-    _RSIQuoteParam=${6}
-    OUT_RESULT_FILE_param=${7}
+    local _symbolsParam=${1}
+    local _percentageParam=${2}
+    local _queryParam=${3}
+    local _ratedParam=${4}
+    local _stochasticPercentageParam=${5}
+    local _RSIQuoteParam=${6}
+    local OUT_RESULT_FILE_param=${7}
 
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9* ]*}" ] && # symbols, blank and '*' allowed
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
@@ -70,6 +70,7 @@ UsageCheckParameter() {
 # Input is factor($1), firstCompareValue($2), secondCompareValue($3)
 # Output: 1 if lesser
 LesserThenWithFactor() {
+    local _lesserValue
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('"$_lesserValue"' < '"$3"')}'; then
         return 1
@@ -84,6 +85,7 @@ LesserThenWithFactor() {
 # Example 1.1*100>109 -> return 1
 # Example 1.1*100>110 -> return 0
 GreaterThenWithFactor() {
+    local _greaterValue
     _greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('"$_greaterValue"' > '"$3"')}'; then
         return 1
@@ -96,13 +98,13 @@ GreaterThenWithFactor() {
 # Input is currentStateParam($1) and totalStateParam($2)
 # Output: echo
 ProgressBar() {
-    currentStateParam=${1}
-    totalStateParam=${2}
-    _progress_="$((currentStateParam*10000/totalStateParam))"
-    _progress=$((_progress_/100))
-    _done_=$((_progress*4))
-    _done=$((_done_/10))
-    _left=$((40-_done))
+    local currentStateParam=${1}
+    local totalStateParam=${2}
+    local _progress_="$((currentStateParam*10000/totalStateParam))"
+    local _progress=$((_progress_/100))
+    local _done_=$((_progress*4))
+    local _done=$((_done_/10))
+    local _left=$((40-_done))
     # Build progressbar string lengths
     _fill=$(printf "%${_done}s")
     _empty=$(printf "%${_left}s")                         
@@ -122,12 +124,13 @@ ProgressBar() {
 # Input _OUT_RESULT_FILE_param($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($4), _markerOwnStockParam($5), _reasonParam($6)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
-    _OUT_RESULT_FILE_param=${1}
-    _symbolParam=${2}
-    _symbolNameParam="${3}"
-    _linkColorParam=${4}
-    _markerOwnStockParam=${5}
-    _reasonParam=${6}
+    local _OUT_RESULT_FILE_param=${1}
+    local _symbolParam=${2}
+    local _symbolNameParam="${3}"
+    local _linkColorParam=${4}
+    local _markerOwnStockParam=${5}
+    local _reasonParam=${6}
+    local ID_NOTATION
     ID_NOTATION=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
     if [ ! "${#ID_NOTATION}" -gt 1 ]; then
         ID_NOTATION=999999
@@ -149,16 +152,18 @@ WriteComdirectUrlAndStoreFileList() {
 # CreateCmdAnalyseHyperlink function:
 # - Write file Hyperlink in CMD, Only works for windows
 CreateCmdAnalyseHyperlink() {
-    outputText="# Analyse $symbol $symbolName"
+    local outputText="# Analyse $symbol $symbolName"
     if [ "$(uname)" = 'Linux' ]; then
         echo "$outputText"
     else
+        local driveLetter
         driveLetter=$(pwd | cut -f 2 -d '/')
+        local suffix
         suffix=$(pwd)
         # shellcheck disable=SC3057
-        suffixPath=${suffix:2:200}
-        verzeichnis=$driveLetter":"$suffixPath
+        local suffixPath=${suffix:2:200}
+        local directory=$driveLetter":"$suffixPath
         # shellcheck disable=SC3037
-        echo -e "\e]8;;file:///""$verzeichnis""/out/""$symbol"".html\a$outputText\e]8;;\a"
+        echo -e "\e]8;;file:///""$directory""/out/""$symbol"".html\a$outputText\e]8;;\a"
     fi
 }
