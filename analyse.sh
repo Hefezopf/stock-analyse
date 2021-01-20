@@ -28,7 +28,6 @@ CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
-#export LC_NUMERIC="en_US.UTF-8"
 
 # Parameter
 symbolsParam=$1
