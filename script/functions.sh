@@ -14,7 +14,6 @@ CurlSymbolName() {
 #        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
             echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999" | tee -a "$_ticker_name_id_file_param"
-            temp_ticker_name_id_file
             temp_ticker_name_id_file="$(mktemp -p /dev/shm/)"
             sort -k 1 "$_ticker_name_id_file_param" > "$temp_ticker_name_id_file"
             mv "$temp_ticker_name_id_file" "$_ticker_name_id_file_param"
@@ -35,7 +34,6 @@ UsageCheckParameter() {
     _stochasticPercentageParam=${5}
     _RSIQuoteParam=${6}
     OUT_RESULT_FILE_param=${7}
-
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9* ]*}" ] && # symbols, blank and '*' allowed
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
         { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
@@ -70,7 +68,6 @@ UsageCheckParameter() {
 # Input is factor($1), firstCompareValue($2), secondCompareValue($3)
 # Output: 1 if lesser
 LesserThenWithFactor() {
-    _lesserValue
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('"$_lesserValue"' < '"$3"')}'; then
         return 1
@@ -85,7 +82,6 @@ LesserThenWithFactor() {
 # Example 1.1*100>109 -> return 1
 # Example 1.1*100>110 -> return 0
 GreaterThenWithFactor() {
-    _greaterValue
     _greaterValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('"$_greaterValue"' > '"$3"')}'; then
         return 1
@@ -130,7 +126,6 @@ WriteComdirectUrlAndStoreFileList() {
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
     _reasonParam=${6}
-    id_notation
     id_notation=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
     if [ ! "${#id_notation}" -gt 1 ]; then
         id_notation=999999
@@ -155,9 +150,7 @@ CreateCmdAnalyseHyperlink() {
     if [ "$(uname)" = 'Linux' ]; then
         echo "$_outputText"
     else
-        driveLetter
         driveLetter=$(pwd | cut -f 2 -d '/')
-        suffix
         suffix=$(pwd)
         # shellcheck disable=SC3057
         suffixPath=${suffix:2:200}
