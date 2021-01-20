@@ -1,22 +1,22 @@
 #!/bin/sh
 
 # CurlSymbolName function:
-# Input is _symbolParam($1), _ticker_name_id_file_param($2), _sleepParam($3)
+# Input is _symbolParam($1), _tickerNameIdFileParam($2), _sleepParam($3)
 # Output: -
 CurlSymbolName() {
     _symbolParam=${1}
-    _ticker_name_id_file_param=${2}
+    _tickerNameIdFileParam=${2}
     _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
-    symbolName=$(grep -P "$symbol\t" "$_ticker_name_id_file_param" | cut -f 2)
+    symbolName=$(grep -P "$symbol\t" "$_tickerNameIdFileParam" | cut -f 2)
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
 #        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
-            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999" | tee -a "$_ticker_name_id_file_param"
-            temp_ticker_name_id_file="$(mktemp -p /dev/shm/)"
-            sort -k 1 "$_ticker_name_id_file_param" > "$temp_ticker_name_id_file"
-            mv "$temp_ticker_name_id_file" "$_ticker_name_id_file_param"
+            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999" | tee -a "$_tickerNameIdFileParam"
+            tempTickerNameIdFile="$(mktemp -p /dev/shm/)"
+            sort -k 1 "$_tickerNameIdFileParam" > "$tempTickerNameIdFile"
+            mv "$tempTickerNameIdFile" "$_tickerNameIdFileParam"
             # Can requested in bulk request as an option!
             sleep "$_sleepParam" # 14; Only some requests per minute to openfigi (About 6 per minute).
         fi
@@ -24,7 +24,7 @@ CurlSymbolName() {
 }
 
 # UsageCheckParameter function:
-# Input is _symbolsParam($1), _percentageParam($2), _queryParam($3), _ratedParam($4), _stochasticPercentageParam($5), _RSIQuoteParam($6), OUT_RESULT_FILE_param($7)
+# Input is _symbolsParam($1), _percentageParam($2), _queryParam($3), _ratedParam($4), _stochasticPercentageParam($5), _RSIQuoteParam($6), _outResultFileParam($7)
 # Output: OUT_RESULT_FILE
 UsageCheckParameter() {
     _symbolsParam=${1}
@@ -33,7 +33,7 @@ UsageCheckParameter() {
     _ratedParam=${4}
     _stochasticPercentageParam=${5}
     _RSIQuoteParam=${6}
-    OUT_RESULT_FILE_param=${7}
+    _outResultFileParam=${7}
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9* ]*}" ] && # symbols, blank and '*' allowed
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
         { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
@@ -43,23 +43,23 @@ UsageCheckParameter() {
         echo ""
     else
         echo "Given Parameter: Symbols=$_symbolsParam Persentage=$_percentageParam Query=$_queryParam Rated=$_ratedParam Stoch=$_stochasticPercentageParam RSI=$_RSIQuoteParam"
-        echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a "$OUT_RESULT_FILE_param"
-        echo "<br>" >> "$OUT_RESULT_FILE_param"
-        echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a "$OUT_RESULT_FILE_param"
-        echo "<br>" >> "$OUT_RESULT_FILE_param"
-        echo " PERCENTAGE: Percentage number between 0..100" | tee -a "$OUT_RESULT_FILE_param"
-        echo "<br>" >> "$OUT_RESULT_FILE_param"
-        echo " QUERY: Query data online|offline" | tee -a "$OUT_RESULT_FILE_param"
-        echo "<br>" >> "$OUT_RESULT_FILE_param"
-        echo " RATED: List stocks which are overrated|underrated|all" | tee -a "$OUT_RESULT_FILE_param"
-        echo "<br>" >> "$OUT_RESULT_FILE_param"
-        echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a "$OUT_RESULT_FILE_param"
-        echo "<br>" >> "$OUT_RESULT_FILE_param"
-        echo " RSI14: Quote for RSI indicator (only 30 and less allowed!)" | tee -a "$OUT_RESULT_FILE_param"
-        echo "<br>" >> "$OUT_RESULT_FILE_param"    
-        echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a "$OUT_RESULT_FILE_param"
-        echo "<br>" >> "$OUT_RESULT_FILE_param"
-        echo "$HTML_RESULT_FILE_END" >> "$OUT_RESULT_FILE_param"
+        echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a "$_outResultFileParam"
+        echo "<br>" >> "$_outResultFileParam"
+        echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a "$_outResultFileParam"
+        echo "<br>" >> "$_outResultFileParam"
+        echo " PERCENTAGE: Percentage number between 0..100" | tee -a "$_outResultFileParam"
+        echo "<br>" >> "$_outResultFileParam"
+        echo " QUERY: Query data online|offline" | tee -a "$_outResultFileParam"
+        echo "<br>" >> "$_outResultFileParam"
+        echo " RATED: List stocks which are overrated|underrated|all" | tee -a "$_outResultFileParam"
+        echo "<br>" >> "$_outResultFileParam"
+        echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a "$_outResultFileParam"
+        echo "<br>" >> "$_outResultFileParam"
+        echo " RSI14: Quote for RSI indicator (only 30 and less allowed!)" | tee -a "$_outResultFileParam"
+        echo "<br>" >> "$_outResultFileParam"    
+        echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a "$_outResultFileParam"
+        echo "<br>" >> "$_outResultFileParam"
+        echo "$HTML_RESULT_FILE_END" >> "$_outResultFileParam"
         exit 5
     fi
 }
@@ -91,12 +91,12 @@ GreaterThenWithFactor() {
 }
 
 # ProgressBar function:
-# Input is currentStateParam($1) and totalStateParam($2)
+# Input is _currentStateParam($1) and totalStateParam($2)
 # Output: echo
 ProgressBar() {
-    currentStateParam=${1}
-    totalStateParam=${2}
-    _progress_="$((currentStateParam*10000/totalStateParam))"
+    _currentStateParam=${1}
+    _totalStateParam=${2}
+    _progress_="$((_currentStateParam*10000/_totalStateParam))"
     _progress=$((_progress_/100))
     _done_=$((_progress*4))
     _done=$((_done_/10))
@@ -108,7 +108,7 @@ ProgressBar() {
     if [ ! "$(uname)" = 'Linux' ]; then
         # shellcheck disable=SC3037,SC3060
         echo -n "$(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")"
-        if [ "$currentStateParam" = "$totalStateParam" ]; then
+        if [ "$_currentStateParam" = "$_totalStateParam" ]; then
             echo ""
         fi
     fi
@@ -117,10 +117,10 @@ ProgressBar() {
 # WriteComdirectUrlAndStoreFileList function:
 # - Write Comdirect Url. Link can have 3 color: black (neutral), red (sell) and green (buy)
 # - Store list of files for later (tar/zip)
-# Input _out_result_file_param($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($4), _markerOwnStockParam($5), _reasonParam($6)
+# Input _outResultFileParam($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($4), _markerOwnStockParam($5), _reasonParam($6)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
-    _out_result_file_param=${1}
+    _outResultFileParam=${1}
     _symbolParam=${2}
     _symbolNameParam="${3}"
     _linkColorParam=${4}
@@ -138,9 +138,9 @@ WriteComdirectUrlAndStoreFileList() {
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
-        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$id_notation " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_out_result_file_param"
+        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$id_notation " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_outResultFileParam"
     fi
-    echo "$_reasonParam<br>" >> "$_out_result_file_param"
+    echo "$_reasonParam<br>" >> "$_outResultFileParam"
 }
 
 # CreateCmdAnalyseHyperlink function:
