@@ -126,19 +126,19 @@ WriteComdirectUrlAndStoreFileList() {
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
     _reasonParam=${6}
-    id_notation=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
-    if [ ! "${#id_notation}" -gt 1 ]; then
-        id_notation=999999
+    _id_notation=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
+    if [ ! "${#_id_notation}" -gt 1 ]; then
+        _id_notation=999999
     fi
     # Only write URL once into result file
-    if [ ! "${id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
-        ID_NOTATION_STORE_FOR_NEXT_TIME=$id_notation
+    if [ ! "${_id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
+        ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
         if [ "$_linkColorParam" = "red" ] || [ "$_linkColorParam" = "green" ]; then
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
-        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$id_notation " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_outResultFileParam"
+        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$_id_notation " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_outResultFileParam"
     fi
     echo "$_reasonParam<br>" >> "$_outResultFileParam"
 }
@@ -150,12 +150,12 @@ CreateCmdAnalyseHyperlink() {
     if [ "$(uname)" = 'Linux' ]; then
         echo "$_outputText"
     else
-        driveLetter=$(pwd | cut -f 2 -d '/')
-        suffix=$(pwd)
+        _driveLetter=$(pwd | cut -f 2 -d '/')
+        _suffix=$(pwd)
         # shellcheck disable=SC3057
-        suffixPath=${suffix:2:200}
-        directory=$driveLetter":"$suffixPath
+        _suffixPath=${_suffix:2:200}
+        _directory=$_driveLetter":"$_suffixPath
         # shellcheck disable=SC3037
-        echo -e "\e]8;;file:///""$directory""/out/""$symbol"".html\a$_outputText\e]8;;\a"
+        echo -e "\e]8;;file:///""$_directory""/out/""$symbol"".html\a$_outputText\e]8;;\a"
     fi
 }
