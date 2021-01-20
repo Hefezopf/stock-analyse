@@ -148,7 +148,8 @@ do
         fi
     fi
 
-    symbolName=$(grep -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2)
+    symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2)
+#    symbolName=$(grep -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2)
 
     CreateCmdAnalyseHyperlink
 
