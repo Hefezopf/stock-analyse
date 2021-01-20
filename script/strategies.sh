@@ -165,23 +165,23 @@ StrategieUnderratedLowHorizontalMACD() {
 
 # StrategieOverratedByPercentAndStochastic function:
 # Strategie: High by Percent & Stochastic
-# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageUpper($3), lastOverAgv18($4), lastOverAgv38($5), lastOverAgv100($6), agv18OverAgv38($7), agv38OverAgv100($8), agv18OverAgv100($9), last($10), percentageLesserFactor($11), average18($12), average38($13), average100($14), _outResultFileParam($15), symbolParam($16), _symbolNameParam($17), _markerOwnStockParam($18)
+# Input: _ratedParam($1), _lastStochasticQuoteRoundedParam($2), _stochasticPercentageUpperParam($3), _lastOverAgv18Param($4), _lastOverAgv38Param($5), _lastOverAgv100Param($6), _agv18OverAgv38Param($7), _agv38OverAgv100Param($8), _agv18OverAgv100Param($9), _lastPriceParam($10), _percentageLesserFactorParam($11), _average18Param($12), _average38Param($13), _average100Param($14), _outResultFileParam($15), _symbolParam($16), _symbolNameParam($17), _markerOwnStockParam($18)
 # Output: resultStrategieOverratedByPercentAndStochastic
 StrategieOverratedByPercentAndStochastic() {
     _ratedParam=${1}
     _lastStochasticQuoteRoundedParam=${2}
-    _stochasticPercentageUpper=${3}
-    _lastOverAgv18=${4}
-    _lastOverAgv38=${5}
-    _lastOverAgv100=${6}
-    _agv18OverAgv38=${7}
-    _agv38OverAgv100=${8}
-    _agv18OverAgv100=${9}
-    _last=${10}
-    _percentageLesserFactor=${11}
-    _average18=${12}
-    _average38=${13}
-    _average100=${14}
+    _stochasticPercentageUpperParam=${3}
+    _lastOverAgv18Param=${4}
+    _lastOverAgv38Param=${5}
+    _lastOverAgv100Param=${6}
+    _agv18OverAgv38Param=${7}
+    _agv38OverAgv100Param=${8}
+    _agv18OverAgv100Param=${9}
+    _lastPriceParam=${10}
+    _percentageLesserFactorParam=${11}
+    _average18Param=${12}
+    _average38Param=${13}
+    _average100Param=${14}
     _outResultFileParam=${15}
     _symbolParam=${16}
     _symbolNameParam=${17}
@@ -189,10 +189,10 @@ StrategieOverratedByPercentAndStochastic() {
     resultStrategieOverratedByPercentAndStochastic=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
-            if [ "$_lastStochasticQuoteRoundedParam" -gt "$_stochasticPercentageUpper" ] && [ "$_lastOverAgv18" = 1 ] && [ "$_lastOverAgv38" = 1 ] && [ "$_lastOverAgv100" = 1 ] && 
-                [ "$_agv18OverAgv38" = 1 ] && [ "$_agv38OverAgv100" = 1 ] && [ "$_agv18OverAgv100" = 1 ]; then
+            if [ "$_lastStochasticQuoteRoundedParam" -gt "$_stochasticPercentageUpperParam" ] && [ "$_lastOverAgv18Param" = 1 ] && [ "$_lastOverAgv38Param" = 1 ] && [ "$_lastOverAgv100Param" = 1 ] && 
+                [ "$_agv18OverAgv38Param" = 1 ] && [ "$_agv38OverAgv100Param" = 1 ] && [ "$_agv18OverAgv100Param" = 1 ]; then
                 reasonPrefix="Sell: High by percent & stochastic"
-                resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_last€ is $_percentageLesserFactor over Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 is $_lastStochasticQuoteRoundedParam is higher then $_stochasticPercentageUpper"
+                resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 $_average18Param€ and Avg38 $_average38Param€ and Avg100 $_average100Param€ and Stoch14 is $_lastStochasticQuoteRoundedParam is higher then $_stochasticPercentageUpperParam"
                 echo "$resultStrategieOverratedByPercentAndStochastic"
                 # Red link only for stocks that are marked as own 
                 _linkColor=red
@@ -207,24 +207,24 @@ StrategieOverratedByPercentAndStochastic() {
 
 # StrategieUnderratedByPercentAndStochastic function:
 # Strategie: Low by Percent & Stochastic
-# Input: ratedParam($1), lastStochasticQuoteRounded($2), stochasticPercentageLower($3), lastUnderAgv18($4), lastUnderAgv38($5), lastUnderAgv100($6), agv18UnderAgv38($7), agv38UnderAgv100($8), agv18UnderAgv100($9), last($10), percentageGreaterFactor($11), average18($12), average38($13), average100($14), stochasticPercentageLower($15), _outResultFileParam($16), symbolParam($17), _symbolNameParam($18), _markerOwnStockParam($19)
+# Input: _ratedParam($1), _lastStochasticQuoteRoundedParam($2), _stochasticPercentageLowerParam($3), _lastUnderAgv18Param($4), _lastUnderAgv38Param($5), _lastUnderAgv100Param($6), _agv18UnderAgv38Param($7), _agv38UnderAgv100Param($8), _agv18UnderAgv100Param($9), _lastPriceParam($10), _percentageGreaterFactorParam($11), _average18Param($12), _average38Param($13), _average100Param($14), _stochasticPercentageLowerParam($15), _outResultFileParam($16), _symbolParam($17), _symbolNameParam($18), _markerOwnStockParam($19)
 # Output: resultStrategieUnderratedByPercentAndStochastic
 StrategieUnderratedByPercentAndStochastic() {
     _ratedParam=${1}
     _lastStochasticQuoteRoundedParam=${2}
-    _stochasticPercentageLower=${3}
-    _lastUnderAgv18=${4}
-    _lastUnderAgv38=${5}
-    _lastUnderAgv100=${6}
-    _agv18UnderAgv38=${7}
-    _agv38UnderAgv100=${8}
-    _agv18UnderAgv100=${9}
-    _last=${10}
-    _percentageGreaterFactor=${11}
-    _average18=${12}
-    _average38=${13}
-    _average100=${14}
-    _stochasticPercentageLower=${15}
+    _stochasticPercentageLowerParam=${3}
+    _lastUnderAgv18Param=${4}
+    _lastUnderAgv38Param=${5}
+    _lastUnderAgv100Param=${6}
+    _agv18UnderAgv38Param=${7}
+    _agv38UnderAgv100Param=${8}
+    _agv18UnderAgv100Param=${9}
+    _lastPriceParam=${10}
+    _percentageGreaterFactorParam=${11}
+    _average18Param=${12}
+    _average38Param=${13}
+    _average100Param=${14}
+    _stochasticPercentageLowerParam=${15}
     _outResultFileParam=${16}
     _symbolParam=${17}
     _symbolNameParam=${18}
@@ -232,10 +232,10 @@ StrategieUnderratedByPercentAndStochastic() {
     resultStrategieUnderratedByPercentAndStochastic=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
-            if [ "$_lastStochasticQuoteRoundedParam" -lt "$_stochasticPercentageLower" ] && [ "$_lastUnderAgv18" = 1 ] && [ "$_lastUnderAgv38" = 1 ] && [ "$_lastUnderAgv100" = 1 ] && 
-                [ "$_agv18UnderAgv38" = 1 ] && [ "$_agv38UnderAgv100" = 1 ] && [ "$_agv18UnderAgv100" = 1 ]; then
+            if [ "$_lastStochasticQuoteRoundedParam" -lt "$_stochasticPercentageLowerParam" ] && [ "$_lastUnderAgv18Param" = 1 ] && [ "$_lastUnderAgv38Param" = 1 ] && [ "$_lastUnderAgv100Param" = 1 ] && 
+                [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv100Param" = 1 ] && [ "$_agv18UnderAgv100Param" = 1 ]; then
                 reasonPrefix="Buy: Low by percent & stochastic"
-                resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_last€ is $_percentageGreaterFactor under Avg18 $_average18€ and Avg38 $_average38€ and Avg100 $_average100€ and Stoch14 $_lastStochasticQuoteRoundedParam is lower then $_stochasticPercentageLower"
+                resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 $_average18Param€ and Avg38 $_average38Param€ and Avg100 $_average100Param€ and Stoch14 $_lastStochasticQuoteRoundedParam is lower then $_stochasticPercentageLowerParam"
                 echo "$resultStrategieUnderratedByPercentAndStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
