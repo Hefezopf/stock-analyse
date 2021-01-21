@@ -307,7 +307,7 @@ do
     cp js/_favicon.ico out
     {
         cat js/indexPart0.html 
-        echo "${symbol}" 
+        echo "${markerOwnStock}${symbol}" 
         cat js/indexPart1.html 
         echo "'" "${symbolName}" "',"
         cat js/indexPart2.html
