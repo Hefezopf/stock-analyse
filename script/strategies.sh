@@ -1,5 +1,68 @@
 #!/bin/sh
 
+# StrategieOverrated3HighRSI function:
+# Strategie: High RSI 3 last values over highRSIValue
+# Input is _ratedParam($1), _highRSIValueParam($2), _RSIQuoteListParam($3), _outResultFileParam($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
+# Output: resultStrategieOverrated3HighRSI
+StrategieOverrated3HighRSI() {
+    _ratedParam=${1}   
+    _highRSIValueParam=${2}
+    _RSIQuoteListParam=${3} 
+    _outResultFileParam=${4}
+    _symbolParam=${5}
+    _symbolNameParam=${6}
+    _markerOwnStockParam=${7}
+    resultStrategieOverrated3HighRSI=""
+    if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
+        if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
+            value_98=$(echo "$_RSIQuoteListParam" | cut -f 98 -d ',')
+            value_99=$(echo "$_RSIQuoteListParam" | cut -f 99 -d ',')
+            value_100=$(echo "$_RSIQuoteListParam" | cut -f 100 -d ',')
+            # All 3 last values over _highRSIValueParam?
+            if [ "$value_98" -gt "$_highRSIValueParam" ] && [ "$value_99" -gt "$_highRSIValueParam" ] && [ "$value_100" -gt "$_highRSIValueParam" ]; then
+                reasonPrefix="Buy: High 3 last RSI"
+                resultStrategieOverrated3HighRSI="$reasonPrefix: 3 last quotes are over $_highRSIValueParam"
+                echo "$resultStrategieOverrated3HighRSI"
+                # Red link only for stocks that are marked as own 
+                _linkColor=red
+                if [ "${_markerOwnStockParam}" = '' ]; then
+                    _linkColor=black
+                fi
+                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
+            fi
+        fi            
+    fi
+}
+
+# StrategieUnderrated3LowRSI function:
+# Strategie: Low RSI 3 last values under lowRSIValue
+# Input is _ratedParam($1), _lowRSIValueParam($2), _RSIQuoteListParam($3), _outResultFileParam($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
+# Output: resultStrategieUnderrated3LowRSI
+StrategieUnderrated3LowRSI() {
+    _ratedParam=${1}   
+    _lowRSIValueParam=${2}
+    _RSIQuoteListParam=${3} 
+    _outResultFileParam=${4}
+    _symbolParam=${5}
+    _symbolNameParam=${6}
+    _markerOwnStockParam=${7}
+    resultStrategieUnderrated3LowRSI=""
+    if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
+        if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
+            value_98=$(echo "$_RSIQuoteListParam" | cut -f 98 -d ',')
+            value_99=$(echo "$_RSIQuoteListParam" | cut -f 99 -d ',')
+            value_100=$(echo "$_RSIQuoteListParam" | cut -f 100 -d ',')
+            # All 3 last values under _lowRSIValueParam?
+            if [ "$value_98" -lt "$_lowRSIValueParam" ] && [ "$value_99" -lt "$_lowRSIValueParam" ] && [ "$value_100" -lt "$_lowRSIValueParam" ]; then
+                reasonPrefix="Buy: Low 3 last RSI"
+                resultStrategieUnderrated3LowRSI="$reasonPrefix: 3 last quotes are under $_lowRSIValueParam"
+                echo "$resultStrategieUnderrated3LowRSI"
+                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+            fi
+        fi            
+    fi
+}
+
 # StrategieUnderratedLowRSI function:
 # Strategie: Low RSI last quote under lowRSIValue
 # https://www.charttec.de/html/indikator_rsi_relative_strength_index.php
@@ -258,7 +321,7 @@ StrategieOverrated3HighStochastic() {
     resultStrategieOverrated3HighStochastic=""
     if [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_stochasticQuoteListParam}" -gt 1 ]; then # Check if value makes sense
-            # Revers and output the last x numbers. Attention only works for single digst numbers!
+            # Revers and output the last x numbers. Attention only works for SINGLE digst numbers!
             _stochasticQuoteListParam=$(echo "$_stochasticQuoteListParam" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 }' )
             OLDIFS=$IFS
             # Warning do NOT quote this!! "$_stochasticQuoteListParam"
@@ -313,7 +376,7 @@ StrategieOverrated3HighStochastic() {
 
 # StrategieUnderrated3LowStochastic function:
 # Strategie: Low stochastic 3 last values under lowStochasticValue
-# Input is _ratedParam($1), lowStochasticValue($2), stochasticQuoteList($3), _outResultFileParam($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
+# Input is _ratedParam($1), _lowStochasticValueParam($2), _stochasticQuoteListParam($3), _outResultFileParam($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
 # Output: resultStrategieUnderrated3LowStochastic
 StrategieUnderrated3LowStochastic() {
     _ratedParam=${1}   
