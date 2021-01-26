@@ -9,10 +9,8 @@ CurlSymbolName() {
     _sleepParam=${3}
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
     symbolName=$(grep -m1 -P "$symbol\t" "$_tickerNameIdFileParam" | cut -f 2)
-#    symbolName=$(grep -P "$symbol\t" "$_tickerNameIdFileParam" | cut -f 2)   
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
-#        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
             echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999" | tee -a "$_tickerNameIdFileParam"
             tempTickerNameIdFile="$(mktemp -p /dev/shm/)"
@@ -116,8 +114,8 @@ ProgressBar() {
 }
 
 # WriteComdirectUrlAndStoreFileList function:
-# - Write Comdirect Url. Link can have 3 color: black (neutral), red (sell) and green (buy)
-# - Store list of files for later (tar/zip)
+# Write Comdirect Url. Link can have 3 color: black (neutral), red (sell) and green (buy)
+# Store list of files for later (tar/zip)
 # Input _outResultFileParam($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($4), _markerOwnStockParam($5), _reasonParam($6)
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
@@ -145,7 +143,7 @@ WriteComdirectUrlAndStoreFileList() {
 }
 
 # CreateCmdAnalyseHyperlink function:
-# - Write file Hyperlink in CMD, Only works for windows
+# Write file Hyperlink in CMD, Only works for windows
 CreateCmdAnalyseHyperlink() {
     _outputText="# Analyse $symbol $symbolName"
     if [ "$(uname)" = 'Linux' ]; then

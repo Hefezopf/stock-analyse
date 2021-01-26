@@ -64,12 +64,13 @@ fi
 UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
 
 if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$CalculateMACD" = true ]; then
-    echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD not set!" | tee -a $OUT_RESULT_FILE
+    echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!" | tee -a $OUT_RESULT_FILE
     echo "<br><br>" >> $OUT_RESULT_FILE
 fi
 
-if [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ]; then
-    echo "Error: MARKET_STACK_ACCESS_KEY1 or MARKET_STACK_ACCESS_KEY2 or MARKET_STACK_ACCESS_KEY3 or MARKET_STACK_ACCESS_KEY4 not set!" | tee -a $OUT_RESULT_FILE
+if { [ "$queryParam" = 'online' ]; } &&
+   { [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ]; } then
+    echo "Error 'online' query: MARKET_STACK_ACCESS_KEY1 ... 4 NOT set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
     exit 6
@@ -148,7 +149,6 @@ do
     fi
 
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2)
-#    symbolName=$(grep -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2)
 
     CreateCmdAnalyseHyperlink
 
