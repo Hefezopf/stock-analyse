@@ -30,11 +30,11 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieOverrated3HighRSI" == '' ]
 
   StrategieOverrated3HighRSI all 75 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 76, 77, 76," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighRSI" == 'Buy: High 3 last RSI: 3 last quotes are over 75' ]
+  [ "$resultStrategieOverrated3HighRSI" == 'Sell: High 3 last RSI: 3 last quotes are over 75' ]
 
   resultStrategieOverrated3HighRSI=""
   StrategieOverrated3HighRSI overrated 98 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 99, 100, 99," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighRSI" == 'Buy: High 3 last RSI: 3 last quotes are over 98' ]
+  [ "$resultStrategieOverrated3HighRSI" == 'Sell: High 3 last RSI: 3 last quotes are over 98' ]
 }
 
 @test "StrategieUnderrated3LowRSI" {
@@ -89,22 +89,22 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   # , 0.1, 0.2, 0.2,
   resultStrategieOverratedHighHorizontalMACD=""
   StrategieOverratedHighHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -9.62, 0.1, 0.2, 0.2," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighHorizontalMACD" == 'Sell: High Horizontal MACD: last MACD 0.2' ]
+  [ "$resultStrategieOverratedHighHorizontalMACD" == 'Sell: High horizontal MACD: last MACD 0.2' ]
 
   # , 0.2, 0.2, 0.2,
   resultStrategieOverratedHighHorizontalMACD=""
   StrategieOverratedHighHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -9.62, 0.2, 0.2, 0.2," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighHorizontalMACD" == 'Sell: High Horizontal MACD: last MACD 0.2' ]
+  [ "$resultStrategieOverratedHighHorizontalMACD" == 'Sell: High horizontal MACD: last MACD 0.2' ]
 
   # , 0.2, 0.2, 0.1,
   resultStrategieOverratedHighHorizontalMACD=""
   StrategieOverratedHighHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -9.62, 0.2, 0.2, 0.1," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighHorizontalMACD" == 'Sell: High Horizontal MACD: last MACD 0.1' ]
+  [ "$resultStrategieOverratedHighHorizontalMACD" == 'Sell: High horizontal MACD: last MACD 0.1' ]
 
   # , 0.2, 0.3, 0.2,
   resultStrategieOverratedHighHorizontalMACD=""
   StrategieOverratedHighHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -9.62, 0.2, 0.3, 0.2," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighHorizontalMACD" == 'Sell: High Horizontal MACD: last MACD 0.2' ]
+  [ "$resultStrategieOverratedHighHorizontalMACD" == 'Sell: High horizontal MACD: last MACD 0.2' ]
 }
 
 @test "StrategieUnderratedLowHorizontalMACD" {
@@ -131,32 +131,32 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   # , -0.1, -0.2, -0.2,
   resultStrategieUnderratedLowHorizontalMACD=""
   StrategieUnderratedLowHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -9.62, -0.1, -0.2, -0.2," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low Horizontal MACD: last MACD -0.2' ]
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low horizontal MACD: last MACD -0.2' ]
 
   # , -0.2, -0.2, -0.2,
   resultStrategieUnderratedLowHorizontalMACD=""
   StrategieUnderratedLowHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -9.62, -0.2, -0.2, -0.2," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low Horizontal MACD: last MACD -0.2' ]
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low horizontal MACD: last MACD -0.2' ]
 
   # , -0.2, -0.2, -0.1,
   resultStrategieUnderratedLowHorizontalMACD=""
   StrategieUnderratedLowHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -9.62, -0.2, -0.2, -0.1," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low Horizontal MACD: last MACD -0.1' ]
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low horizontal MACD: last MACD -0.1' ]
 
   # , -0.2, -0.3, -0.2,
   resultStrategieUnderratedLowHorizontalMACD=""
   StrategieUnderratedLowHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -9.62, -0.2, -0.3, -0.2," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low Horizontal MACD: last MACD -0.2' ]
+  [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low horizontal MACD: last MACD -0.2' ]
 
   # , -0.2, -0.3, -0.2, -0.1,
 #   resultStrategieUnderratedLowHorizontalMACD=""
 #   StrategieUnderratedLowHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -0.2, -0.3, -0.2, -0.1," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low Horizontal MACD' ]
+#   [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low horizontal MACD' ]
 
   # , -0.2, -0.3, -0.2, -0.2,
 #   resultStrategieUnderratedLowHorizontalMACD=""
 #   StrategieUnderratedLowHorizontalMACD all " , , , , , , , , , , , , , , , , , , , , , , , , ,  -1.189, -0.879, -0.825, -0.933, -0.488, -0.174, 1.031, 1.964, 2.592, 2.815, 3.437, 4.084, 4.744, 5.167, 5.838, 6.537, 7.01, 6.663, 6.834, 6.969, 6.916, 6.756, 6.434, 6.028, 5.762, 6.085, 5.87, 5.874, 5.491, 5.528, 4.138, 3.32, 1.724, 0.892, 0.589, -1.609, -3.193, -4.597, -6.243, -7.342, -8.398, -9.29, -9.643, -9.331, -8.502, -7.556, -6.689, -5.734, -5.239, -5.51, -5.899, -6.256, -6.305, -6.232, -6.263, -6.056, -5.825, -5.618, -5.551, -5.874, -6.379, -6.183, -6.079, -5.888, -5.792, -5.81, -5.877, -7.865, -8.615, -8.658, -9.662, -0.2, -0.3, -0.2, -0.2," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low Horizontal MACD' ]
+#   [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low horizontal MACD' ]
 }
 
 @test "StrategieOverratedHighStochasticHighRSIHighMACD" {
@@ -245,15 +245,15 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieOverrated3HighStochastic" == '' ]
 
   StrategieOverrated3HighStochastic overrated 81 " , 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighStochastic" == 'Sell: High 3 last stochastic: 3 last quotes are over 81' ]
+  [ "$resultStrategieOverrated3HighStochastic" == 'Sell: High 3 last Stochastic: 3 last quotes are over 81' ]
 
   resultStrategieOverrated3HighStochastic=""
   StrategieOverrated3HighStochastic all 81 " , 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighStochastic" == 'Sell: High 3 last stochastic: 3 last quotes are over 81' ]
+  [ "$resultStrategieOverrated3HighStochastic" == 'Sell: High 3 last Stochastic: 3 last quotes are over 81' ]
 
   resultStrategieOverrated3HighStochastic=""
   StrategieOverrated3HighStochastic overrated 81 " , 82, 82, 88," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighStochastic" == 'Sell: High 3 last stochastic: 3 last quotes are over 81' ]
+  [ "$resultStrategieOverrated3HighStochastic" == 'Sell: High 3 last Stochastic: 3 last quotes are over 81' ]
 }
 
 @test "StrategieUnderrated3LowStochastic" {
@@ -275,11 +275,11 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieUnderrated3LowStochastic" == '' ]
 
   StrategieUnderrated3LowStochastic all 9 " , 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowStochastic" == 'Buy: Low 3 last stochastic: 3 last quotes are under 9' ]
+  [ "$resultStrategieUnderrated3LowStochastic" == 'Buy: Low 3 last Stochastic: 3 last quotes are under 9' ]
 
   resultStrategieUnderrated3LowStochastic=""
   StrategieUnderrated3LowStochastic underrated 9 " , 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowStochastic" == 'Buy: Low 3 last stochastic: 3 last quotes are under 9' ]
+  [ "$resultStrategieUnderrated3LowStochastic" == 'Buy: Low 3 last Stochastic: 3 last quotes are under 9' ]
 }
 
 @test "StrategieUnderratedByPercentAndStoch" {

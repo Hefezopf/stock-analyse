@@ -20,7 +20,7 @@ StrategieOverrated3HighRSI() {
             value_100=$(echo "$_RSIQuoteListParam" | cut -f 100 -d ',')
             # All 3 last values over _highRSIValueParam?
             if [ "$value_98" -gt "$_highRSIValueParam" ] && [ "$value_99" -gt "$_highRSIValueParam" ] && [ "$value_100" -gt "$_highRSIValueParam" ]; then
-                reasonPrefix="Buy: High 3 last RSI"
+                reasonPrefix="Sell: High 3 last RSI"
                 resultStrategieOverrated3HighRSI="$reasonPrefix: 3 last quotes are over $_highRSIValueParam"
                 echo "$resultStrategieOverrated3HighRSI"
                 # Red link only for stocks that are marked as own 
@@ -147,7 +147,7 @@ StrategieOverratedHighHorizontalMACD() {
 
             # is MACD horizontal?
             if [ "$isMACDHorizontalAlarm" = true ]; then
-                reasonPrefix="Sell: High Horizontal MACD"
+                reasonPrefix="Sell: High horizontal MACD"
                 resultStrategieOverratedHighHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
                 echo "$resultStrategieOverratedHighHorizontalMACD"
                 # Red link only for stocks that are marked as own 
@@ -217,7 +217,7 @@ StrategieUnderratedLowHorizontalMACD() {
 
             # is MACD horizontal?
             if [ "$isMACDHorizontalAlarm" = true ]; then
-                reasonPrefix="Buy: Low Horizontal MACD"
+                reasonPrefix="Buy: Low horizontal MACD"
                 resultStrategieUnderratedLowHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
                 echo "$resultStrategieUnderratedLowHorizontalMACD"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
@@ -360,7 +360,7 @@ StrategieOverrated3HighStochastic() {
             fi   
             # All 3 last values over _highStochasticValueParam?
             if [ "$howManyOverHighStochasticValue" -gt 2 ]; then   
-                reasonPrefix="Sell: High 3 last stochastic"
+                reasonPrefix="Sell: High 3 last Stochastic"
                 resultStrategieOverrated3HighStochastic="$reasonPrefix: 3 last quotes are over $_highStochasticValueParam"
                 echo "$resultStrategieOverrated3HighStochastic"
                 # Red link only for stocks that are marked as own 
@@ -413,7 +413,7 @@ StrategieUnderrated3LowStochastic() {
             fi
             # All 3 last values under _lowStochasticValueParam?
             if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
-                reasonPrefix="Buy: Low 3 last stochastic"
+                reasonPrefix="Buy: Low 3 last Stochastic"
                 resultStrategieUnderrated3LowStochastic="$reasonPrefix: 3 last quotes are under $_lowStochasticValueParam"
                 echo "$resultStrategieUnderrated3LowStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
