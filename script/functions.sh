@@ -139,7 +139,10 @@ WriteComdirectUrlAndStoreFileList() {
         fi
         echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$_id_notation " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_outResultFileParam"
     fi
-    echo "$_reasonParam<br>" >> "$_outResultFileParam"
+    # Show in result only, if marked as own stock or a 'buy' recommendation
+    if [ "${markerOwnStock}" = '*' ] || [ "$_linkColorParam" = "green" ]; then
+        echo "$_reasonParam<br>" >> "$_outResultFileParam"
+    fi
 }
 
 # CreateCmdAnalyseHyperlink function:

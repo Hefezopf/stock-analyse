@@ -12,8 +12,8 @@
 # Call example: ./analyse.sh 'ADS *ALV' 3 online underrated 9 30
 # Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
 # Call example: ./analyse.sh '*ADS' 1 offline all 9 30
-# Precondition:
-# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 and MARKET_STACK_ACCESS_KEY4 as Env Variable
+# Online Precondition:
+# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 and MARKET_STACK_ACCESS_KEY4 as ENV Variable
 # shellcheck disable=SC1091 
 
 # Import
@@ -21,7 +21,7 @@
 . ./script/averages.sh
 . ./script/strategies.sh
 
-# Calculate charts and underlying strategies. Default should be true
+# Calculate charts and underlying strategies. Default should be 'true'
 CalculateStochastic=true
 CalculateRSI=true
 CalculateMACD=true
@@ -266,11 +266,11 @@ do
         resultStrategieUnderratedLowHorizontalMACD=""
         StrategieUnderratedLowHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # Buy Strategie: Low by Percent & Stochastic
+        # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
         StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     
-        # Buy Strategie: Low stochastic 3 last values under lowStochasticValue
+        # Buy Strategie: Low Stochastic 3 last values under lowStochasticValue
         resultStrategieUnderrated3LowStochastic=""
         StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
@@ -286,11 +286,11 @@ do
         resultStrategieOverratedHighHorizontalMACD=""
         StrategieOverratedHighHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # Sell Strategie: High by Percent & Stochastic
+        # Sell Strategie: High Percentage & Stochastic
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv100" "$agv18OverAgv38" "$agv38OverAgv100" "$agv18OverAgv100" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # Sell Strategie: High stochastic 3 last values over highStochasticValue
+        # Sell Strategie: High Stochastic 3 last values over highStochasticValue
         resultStrategieOverrated3HighStochastic=""
         StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
