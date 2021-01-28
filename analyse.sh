@@ -23,8 +23,8 @@
 
 # Calculate charts and underlying strategies. Default should be 'true'
 CalculateStochastic=true
-CalculateRSI=true
-CalculateMACD=true
+# CalculateRSI=true
+# CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8

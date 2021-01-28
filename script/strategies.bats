@@ -187,11 +187,11 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
   StrategieOverratedHighStochasticHighRSIHighMACD all 91 70 92 71 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High last Stochastic & RSI & MACD positiv: Stochastic quote 92 over 91 and RSI quote 71 over 70' ]
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic & RSI & MACD positiv: Stochastic quote 92 over 91 and RSI quote 71 over 70' ]
 
   resultStrategieOverratedHighStochasticHighRSIHighMACD=""
   StrategieOverratedHighStochasticHighRSIHighMACD overrated 91 70 92 71 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High last Stochastic & RSI & MACD positiv: Stochastic quote 92 over 91 and RSI quote 71 over 70' ]  
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic & RSI & MACD positiv: Stochastic quote 92 over 91 and RSI quote 71 over 70' ]  
 }
 
 @test "StrategieUnderratedLowStochasticLowRSILowMACD" {
@@ -222,11 +222,11 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
   StrategieUnderratedLowStochasticLowRSILowMACD all 9 90 0 5 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low last Stochastic & RSI & MACD negativ: Stochastic quote 0 under 9 and RSI quote 5 under 90' ]
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic & RSI & MACD negativ: Stochastic quote 0 under 9 and RSI quote 5 under 90' ]
 
   resultStrategieUnderratedLowStochasticLowRSILowMACD=""
   StrategieUnderratedLowStochasticLowRSILowMACD underrated 9 90 0 5 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low last Stochastic & RSI & MACD negativ: Stochastic quote 0 under 9 and RSI quote 5 under 90' ]
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic & RSI & MACD negativ: Stochastic quote 0 under 9 and RSI quote 5 under 90' ]
 }
 
 @test "StrategieOverrated3HighStochastic" {
