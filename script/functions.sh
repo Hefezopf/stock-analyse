@@ -129,6 +129,7 @@ WriteComdirectUrlAndStoreFileList() {
     if [ ! "${#_id_notation}" -gt 1 ]; then
         _id_notation=999999
     fi
+    
     # Only write URL once into result file
     if [ ! "${_id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
@@ -137,12 +138,13 @@ WriteComdirectUrlAndStoreFileList() {
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
-        echo "<br><a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$_id_notation " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>" >> "$_outResultFileParam"
+        echo "<a style=color:$_linkColorParam href=""$COMDIRECT_URL_PREFIX"$_id_notation " target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a><br>" >> "$_outResultFileParam"
     fi
     # Show in result only, if marked as own stock or a 'buy' recommendation
-    if [ "${markerOwnStock}" = '*' ] || [ "$_linkColorParam" = "green" ]; then
-        echo "<br>$_reasonParam" >> "$_outResultFileParam"
+    if [ "${_markerOwnStockParam}" = '*' ] || [ "$_linkColorParam" = "green" ]; then
+        echo "$_reasonParam" >> "$_outResultFileParam"
     fi
+    echo "<br>" >> "$_outResultFileParam"
 }
 
 # CreateCmdAnalyseHyperlink function:
