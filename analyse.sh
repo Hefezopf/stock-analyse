@@ -414,7 +414,7 @@ do
         cat js/indexPart13.html
     } >> "$indexSymbolFile"
 
-    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" black "$markerOwnStock"
+    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" black "$markerOwnStock" ""
 done
 
 echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
