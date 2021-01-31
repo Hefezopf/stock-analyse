@@ -53,6 +53,7 @@ jobs:
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add data/*
+          git add out/*
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
 
