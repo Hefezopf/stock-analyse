@@ -443,7 +443,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
             _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
             # Last Stochastic quote over _highStochasticValueParam and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
             if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -gt "$_highRSIQuoteParam" ] && [ ! "${_lastMACDValueParamSign}" = '-' ]; then
-                reasonPrefix="Sell: High Stochastic & RSI & MACD positiv"
+                reasonPrefix="Sell: High Stochastic & RSI & MACD+"
                 resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam over $_highStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam over $_highRSIQuoteParam"
                 echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"
                 # Red link only for stocks that are marked as own 
@@ -478,7 +478,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
             _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
             # Last Stochastic quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
             if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
-                reasonPrefix="Buy: Low Stochastic & RSI & MACD negativ"
+                reasonPrefix="Buy: Low Stochastic & RSI & MACD-"
                 resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIQuoteParam"
                 echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
