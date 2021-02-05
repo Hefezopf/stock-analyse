@@ -125,7 +125,6 @@ StrategieOverratedHighHorizontalMACD() {
             # Check if MACD is horizontal?
             # BeforeLast Value
             difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
-            
             isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
             # Positiv -> up
             # If first criterium positiv -> first step Alarm!
