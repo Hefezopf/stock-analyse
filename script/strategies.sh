@@ -27,6 +27,7 @@ StrategieOverrated3HighRSI() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
+                echo "$resultStrategieOverrated3HighRSI"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -55,6 +56,7 @@ StrategieUnderrated3LowRSI() {
             if [ "$value_98" -lt "$_lowRSIValueParam" ] && [ "$value_99" -lt "$_lowRSIValueParam" ] && [ "$value_100" -lt "$_lowRSIValueParam" ]; then
                 reasonPrefix="Buy: Low 3 last RSI"
                 resultStrategieUnderrated3LowRSI="$reasonPrefix: 3 last quotes are under $_lowRSIValueParam"
+                echo "$resultStrategieUnderrated3LowRSI"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -82,6 +84,7 @@ StrategieUnderrated3LowRSI() {
 #         if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
              # reasonPrefix="Buy: Low last RSI"
 #             resultStrategieUnderratedLowRSI="$reasonPrefix: RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
+        # echo "$resultStrategieUnderratedLowRSI"
 #             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
 #         fi
 #     fi
@@ -150,6 +153,7 @@ StrategieOverratedHighHorizontalMACD() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
+                echo "$resultStrategieOverratedHighHorizontalMACD"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -167,6 +171,13 @@ StrategieUnderratedLowHorizontalMACD() {
     _symbolParam=${4}
     _symbolNameParam=${5}
     _markerOwnStockParam=${6}
+
+    horizontalBeforeLastPercentageMACD=8
+    horizontalLastPercentageMACD=$(echo "$horizontalBeforeLastPercentageMACD 2" | awk '{print ($1 / $2)}')
+
+
+    #echo _MACDQuoteListParam $_MACDQuoteListParam
+    #exit
     export resultStrategieUnderratedLowHorizontalMACD=""  
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
@@ -176,6 +187,9 @@ StrategieUnderratedLowHorizontalMACD() {
             # shellcheck disable=SC2001
             for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
             do
+                if [ "$jj_index" = 71 ]; then
+                    valueMACDLast_3="$valueMACD" 
+                fi
                 if [ "$jj_index" = 72 ]; then
                     valueMACDLast_2="$valueMACD" 
                 fi
@@ -190,30 +204,57 @@ StrategieUnderratedLowHorizontalMACD() {
 
             isMACDHorizontalAlarm=false
             # Check if MACD is horizontal?
-            # BeforeLast Value
-            difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
+            # BeforeBeforeLast Value
+            difference=$(echo "$valueMACDLast_2 $valueMACDLast_3" | awk '{print ($1 - $2)}')
             isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+            #echo difference $difference 
+            #echo isNegativ $isNegativ 
             # Negativ -> down
-            # If first criterium negativ -> first step Alarm!
+            # If first criterium negativ or 0 -> first step Alarm!
             if [ "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then
                 isMACDHorizontalAlarm=true
             fi
+            echo isMACDHorizontalAlarm $isMACDHorizontalAlarm 
 
-            # Last Value
-            difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
-            isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
-            isMACDGenerellNegativ=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
             # If second criterium positiv -> Alarm!
-            if [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isNegativ}" = '-' ] && [ "${isMACDGenerellNegativ}" = '-' ]; then
+            # percentageBeforeLast=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print (($1 / $2 - 1)*100)}')
+            # intPercentageBeforeLast=$(echo "$percentageBeforeLast" | cut -f 1 -d '.')
+            # percentageLast=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print (($1 / $2 - 1)*100)}')
+            # intPercentageLast=$(echo "$percentageLast" | cut -f 1 -d '.')
+            # echo valueMACDLast_2 $valueMACDLast_2 valueMACDLast_1 $valueMACDLast_1 valueMACDLast_0 $valueMACDLast_0
+            # echo intPercentageBeforeLast $intPercentageBeforeLast intPercentageLast $intPercentageLast
+            # if [ ${isMACDHorizontalAlarm} = true ] && [ "${intPercentageBeforeLast}" -gt "$horizontalBeforeLastPercentageMACD" ] && 
+            #    [ "${intPercentageLast}" -lt "$horizontalLastPercentageMACD" ]; then
+            #     isMACDHorizontalAlarm=true
+            # else
+            #     isMACDHorizontalAlarm=false
+            # fi
+            # echo isMACDHorizontalAlarm $isMACDHorizontalAlarm 
+
+
+            # If second criterium positiv -> Alarm!
+            percentageBeforeBeforeLast=$(echo "$valueMACDLast_2 $valueMACDLast_3" | awk '{print (($1 / $2 - 1)*100)}')
+            intPercentageBeforeBeforeLast=$(echo "$percentageBeforeBeforeLast" | cut -f 1 -d '.')
+            percentageBeforeLast=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print (($1 / $2 - 1)*100)}')
+            intPercentageBeforeLast=$(echo "$percentageBeforeLast" | cut -f 1 -d '.')
+            percentageLast=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print (($1 / $2 - 1)*100)}')
+            intPercentageLast=$(echo "$percentageLast" | cut -f 1 -d '.')
+            echo valueMACDLast_3 $valueMACDLast_3 valueMACDLast_2 $valueMACDLast_2 valueMACDLast_1 $valueMACDLast_1 valueMACDLast_0 $valueMACDLast_0
+            echo intPercentageBeforeBeforeLast $intPercentageBeforeBeforeLast intPercentageBeforeLast $intPercentageBeforeLast intPercentageLast $intPercentageLast
+            if [ ${isMACDHorizontalAlarm} = true ] && [ "${intPercentageBeforeLast}" -le "$intPercentageBeforeBeforeLast" ] && 
+               [ "${intPercentageLast}" -le "$intPercentageBeforeLast" ]; then
                 isMACDHorizontalAlarm=true
             else
                 isMACDHorizontalAlarm=false
             fi
+            echo isMACDHorizontalAlarm $isMACDHorizontalAlarm 
+
 
             # is MACD horizontal?
             if [ "$isMACDHorizontalAlarm" = true ]; then
                 reasonPrefix="Buy: Low horizontal MACD"
                 resultStrategieUnderratedLowHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
+                echo "$resultStrategieUnderratedLowHorizontalMACD"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -255,6 +296,7 @@ StrategieOverratedByPercentAndStochastic() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
+                echo "$resultStrategieOverratedByPercentAndStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
@@ -292,6 +334,7 @@ StrategieUnderratedByPercentAndStochastic() {
                 [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv100Param" = 1 ] && [ "$_agv18UnderAgv100Param" = 1 ]; then
                 reasonPrefix="Buy: Low Percentage & Stochastic"
                 resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 $_average18Param€ and Avg38 $_average38Param€ and Avg100 $_average100Param€ and Stoch14 $_lastStochasticQuoteRoundedParam is lower then $_stochasticPercentageLowerParam"
+                echo "$resultStrategieUnderratedByPercentAndStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
@@ -359,6 +402,7 @@ StrategieOverrated3HighStochastic() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
+                echo "$resultStrategieOverrated3HighStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
@@ -406,6 +450,7 @@ StrategieUnderrated3LowStochastic() {
             if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
                 reasonPrefix="Buy: Low 3 last Stochastic"
                 resultStrategieUnderrated3LowStochastic="$reasonPrefix: 3 last quotes are under $_lowStochasticValueParam"
+                echo "$resultStrategieUnderrated3LowStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -439,7 +484,8 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
                 _linkColor=red
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
-                fi            
+                fi     
+                echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"                       
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
@@ -469,6 +515,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
             if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
                 reasonPrefix="Buy: Low Stochastic & RSI & MACD-"
                 resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIQuoteParam"
+                echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"                       
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
