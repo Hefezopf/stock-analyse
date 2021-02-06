@@ -27,6 +27,7 @@ StrategieOverrated3HighRSI() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
+                echo "$resultStrategieOverrated3HighRSI"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -55,6 +56,7 @@ StrategieUnderrated3LowRSI() {
             if [ "$value_98" -lt "$_lowRSIValueParam" ] && [ "$value_99" -lt "$_lowRSIValueParam" ] && [ "$value_100" -lt "$_lowRSIValueParam" ]; then
                 reasonPrefix="Buy: Low 3 last RSI"
                 resultStrategieUnderrated3LowRSI="$reasonPrefix: 3 last quotes are under $_lowRSIValueParam"
+                echo "$resultStrategieUnderrated3LowRSI"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -82,6 +84,7 @@ StrategieUnderrated3LowRSI() {
 #         if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
              # reasonPrefix="Buy: Low last RSI"
 #             resultStrategieUnderratedLowRSI="$reasonPrefix: RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
+        # echo "$resultStrategieUnderratedLowRSI"
 #             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
 #         fi
 #     fi
@@ -150,6 +153,7 @@ StrategieOverratedHighHorizontalMACD() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
+                echo "$resultStrategieOverratedHighHorizontalMACD"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -214,6 +218,7 @@ StrategieUnderratedLowHorizontalMACD() {
             if [ "$isMACDHorizontalAlarm" = true ]; then
                 reasonPrefix="Buy: Low horizontal MACD"
                 resultStrategieUnderratedLowHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
+                echo "$resultStrategieUnderratedLowHorizontalMACD"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -255,6 +260,7 @@ StrategieOverratedByPercentAndStochastic() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
+                echo "$resultStrategieOverratedByPercentAndStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
@@ -292,6 +298,7 @@ StrategieUnderratedByPercentAndStochastic() {
                 [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv100Param" = 1 ] && [ "$_agv18UnderAgv100Param" = 1 ]; then
                 reasonPrefix="Buy: Low Percentage & Stochastic"
                 resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 $_average18Param€ and Avg38 $_average38Param€ and Avg100 $_average100Param€ and Stoch14 $_lastStochasticQuoteRoundedParam is lower then $_stochasticPercentageLowerParam"
+                echo "$resultStrategieUnderratedByPercentAndStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
@@ -359,6 +366,7 @@ StrategieOverrated3HighStochastic() {
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
                 fi
+                echo "$resultStrategieOverrated3HighStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
@@ -406,6 +414,7 @@ StrategieUnderrated3LowStochastic() {
             if [ "$howManyUnderLowStochasticValue" -gt 2 ]; then
                 reasonPrefix="Buy: Low 3 last Stochastic"
                 resultStrategieUnderrated3LowStochastic="$reasonPrefix: 3 last quotes are under $_lowStochasticValueParam"
+                echo "$resultStrategieUnderrated3LowStochastic"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi            
@@ -439,7 +448,8 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
                 _linkColor=red
                 if [ "${_markerOwnStockParam}" = '' ]; then
                     _linkColor=black
-                fi            
+                fi     
+                echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"                       
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
@@ -469,6 +479,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
             if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
                 reasonPrefix="Buy: Low Stochastic & RSI & MACD-"
                 resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIQuoteParam"
+                echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"                       
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
             fi
         fi
