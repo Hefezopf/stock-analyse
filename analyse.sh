@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default is 'true'
-# CalculateStochastic=true
-# CalculateRSI=true
-# CalculateMACD=true
+CalculateStochastic=true
+CalculateRSI=true
+CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
