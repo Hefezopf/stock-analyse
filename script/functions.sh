@@ -1,5 +1,31 @@
 #!/bin/sh
 
+# DetermineTendence function:
+# Input is _list($1)
+# Output: tendence
+DetermineTendence() {
+    _list=${1}
+    echo _list "$_list"
+    export tendence=""
+    value_95=$(echo "$_list" | cut -f 95 -d ',')
+    value_100=$(echo "$_list" | cut -f 100 -d ',')
+
+    echo value_95 "$value_95" value_100 "$value_100"
+
+    difference=$(echo "$value_100 $value_95" | awk '{print ($1 - $2)}')
+    echo difference "$difference" 
+    isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+    echo isNegativ "$isNegativ" 
+#TODO level
+    if [ "${isNegativ}" = '-' ];  then
+        tendence="falling"
+    else
+        tendence="rising"
+    fi
+
+    tendence="falling"
+}
+
 # CurlSymbolName function:
 # Input is _symbolParam($1), _tickerNameIdFileParam($2), _sleepParam($3)
 # Output: -

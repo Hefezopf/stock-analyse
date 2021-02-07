@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default is 'true'
-CalculateStochastic=true
-CalculateRSI=true
-CalculateMACD=true
+# CalculateStochastic=true
+# CalculateRSI=true
+# CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -246,12 +246,15 @@ do
 
     ProgressBar 7 8
 
-    # Average 100
-    averageInDays100=100
+    # Average 95
+    averageInDays95=95
     averagePriceList=""
-    AverageOfDays $averageInDays100 "$DATA_FILE"
-    averagePriceList100=$averagePriceList
+    AverageOfDays $averageInDays95 "$DATA_FILE"
+    averagePriceList95=$averagePriceList
 
+    DetermineTendence "$averagePriceList95"
+    echo tendence "$tendence"
+#exit
     ProgressBar 8 8
     
     #
@@ -335,9 +338,9 @@ do
         echo "$averagePriceList38" 
         cat js/indexPart7.html  
 
-        echo "'" Average $averageInDays100 "'," 
+        echo "'" Average $averageInDays95 "'," 
         cat js/indexPart8.html 
-        echo "$averagePriceList100" 
+        echo "$averagePriceList95" 
         cat js/indexPart9.html 
 
         echo "$stochasticQuoteList" 
@@ -413,6 +416,8 @@ do
 
         cat js/indexPart13.html
     } >> "$indexSymbolFile"
+
+echo $tendence >> "$OUT_RESULT_FILE"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" black "$markerOwnStock" ""
 done
