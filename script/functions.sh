@@ -24,7 +24,7 @@ DetermineTendency() {
 # echo valueBeforeComma "$valueBeforeComma" valueAfterComma "$valueAfterComma" 
 # echo isLevelPos1 "$isLevelPos1" 
 
-    if [ "${isLevelPos1}" -lt 3 ] && # < 0.03 %
+    if [ "${isLevelPos1}" -lt 2 ] && # < 0.02 %
        { [ "${valueBeforeComma}" = "0" ] || [ "${valueBeforeComma}" = "-0" ]; } then
         tendency="level"
     else
@@ -175,7 +175,7 @@ WriteComdirectUrlAndStoreFileList() {
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
         echo "<a style=color:$_linkColorParam href=$COMDIRECT_URL_PREFIX$_id_notation target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a> " >> "$_outResultFileParam"
-        echo "<a href=D:/code/stock-analyse/out/$_symbolParam.html target=_blank>&lt/&gt</a><br>" >> "$_outResultFileParam"
+        echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=_blank>&lt/&gt</a><br>" >> "$_outResultFileParam"
     fi
     # Show reason in result only, if marked as own stock or a 'buy' recommendation
     if [ "${_markerOwnStockParam}" = '*' ] || [ "$_linkColorParam" = "green" ]; then
