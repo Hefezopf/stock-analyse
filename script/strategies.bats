@@ -61,8 +61,8 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieUnderratedByTendency" == '' ]
 
   resultStrategieUnderratedByTendency=""
-  StrategieUnderratedByTendency 95 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedByTendency" == 'Buy: Low Quote by Tendency: 95€ is under Avg100 100€ with Tendency falling' ]
+  StrategieUnderratedByTendency 93 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedByTendency" == 'Buy: Low Quote by Tendency: 93€ is under Avg100 100€ with Tendency falling' ]
 
   resultStrategieUnderratedByTendency=""
   StrategieUnderratedByTendency 97 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
