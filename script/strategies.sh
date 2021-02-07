@@ -269,7 +269,7 @@ StrategieOverratedByPercentAndStochastic() {
 
 # StrategieUnderratedByPercentAndStochastic function:
 # Strategie: Low Percentage & Stochastic
-# Input: _ratedParam($1), _lastStochasticQuoteRoundedParam($2), _stochasticPercentageLowerParam($3), _lastUnderAgv18Param($4), _lastUnderAgv38Param($5), _lastUnderAgv100Param($6), _agv18UnderAgv38Param($7), _agv38UnderAgv100Param($8), _agv18UnderAgv100Param($9), _lastPriceParam($10), _percentageGreaterFactorParam($11), _average18Param($12), _average38Param($13), _average100Param($14), _stochasticPercentageLowerParam($15), _outResultFileParam($16), _symbolParam($17), _symbolNameParam($18), _markerOwnStockParam($19)
+# Input: _ratedParam($1), _lastStochasticQuoteRoundedParam($2), _stochasticPercentageLowerParam($3), _lastUnderAgv18Param($4), _lastUnderAgv38Param($5), _lastUnderAgv100Param($6), _agv18UnderAgv38Param($7), _agv38UnderAgv100Param($8), _agv18UnderAgv100Param($9), _lastPriceParam($10), _percentageGreaterFactorParam($11), _average18Param($12), _average38Param($13), _average100Param($14), _outResultFileParam($15), _symbolParam($16), _symbolNameParam($17), _markerOwnStockParam($18)
 # Output: resultStrategieUnderratedByPercentAndStochastic
 StrategieUnderratedByPercentAndStochastic() {
     _ratedParam=${1}
@@ -286,11 +286,10 @@ StrategieUnderratedByPercentAndStochastic() {
     _average18Param=${12}
     _average38Param=${13}
     _average100Param=${14}
-    _stochasticPercentageLowerParam=${15}
-    _outResultFileParam=${16}
-    _symbolParam=${17}
-    _symbolNameParam=${18}
-    _markerOwnStockParam=${19}
+    _outResultFileParam=${15}
+    _symbolParam=${16}
+    _symbolNameParam=${17}
+    _markerOwnStockParam=${18}
     export resultStrategieUnderratedByPercentAndStochastic=""
     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
         if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense

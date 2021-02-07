@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default is 'true'
-CalculateStochastic=true
-CalculateRSI=true
-CalculateMACD=true
+# CalculateStochastic=true
+# CalculateRSI=true
+# CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -272,7 +272,7 @@ do
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
-        StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" "$stochasticPercentageLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv100" "$agv18UnderAgv38" "$agv38UnderAgv100" "$agv18UnderAgv100" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     
         # Buy Strategie: Low Stochastic 3 last values under lowStochasticValue
         resultStrategieUnderrated3LowStochastic=""
