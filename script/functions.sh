@@ -1,5 +1,41 @@
 #!/bin/sh
 
+# DetermineTendency function: 
+# Tendency of the last 5 value of a comma seperated list
+# Input is _list($1)
+# Output: tendency [falling|rising|level]
+DetermineTendency() {
+    _list=${1}
+    export tendency=""
+    value_95=$(echo "$_list" | cut -f 95 -d ',')
+    value_100=$(echo "$_list" | cut -f 100 -d ',')
+    difference=$(echo "$value_100 $value_95" | awk '{print ($1 - $2)}')
+    isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+    relative=$(echo "$value_100 $value_95" | awk '{print (($1 / $2)-1)*100}')
+    valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
+    valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
+    isLevelPos1=$(echo "${valueAfterComma}" | awk '{print substr ($0, 0, 1)}')
+
+# echo _list "$_list"
+# echo value_95 "$value_95" value_100 "$value_100"
+# echo difference "$difference" 
+# echo isNegativ "$isNegativ" 
+# echo relative "$relative" 
+# echo valueBeforeComma "$valueBeforeComma" valueAfterComma "$valueAfterComma" 
+# echo isLevelPos1 "$isLevelPos1" 
+
+    if [ "${isLevelPos1}" -lt 2 ] && # < 0.02 %
+       { [ "${valueBeforeComma}" = "0" ] || [ "${valueBeforeComma}" = "-0" ]; } then
+        tendency="level"
+    else
+        if [ "${isNegativ}" = '-' ]; then
+            tendency="falling"
+        else
+            tendency="rising"
+        fi
+    fi
+}
+
 # CurlSymbolName function:
 # Input is _symbolParam($1), _tickerNameIdFileParam($2), _sleepParam($3)
 # Output: -
@@ -139,7 +175,7 @@ WriteComdirectUrlAndStoreFileList() {
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
         echo "<a style=color:$_linkColorParam href=$COMDIRECT_URL_PREFIX$_id_notation target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a> " >> "$_outResultFileParam"
-        echo "<a href=D:/code/stock-analyse/out/$_symbolParam.html target=_blank>&lt/&gt</a><br>" >> "$_outResultFileParam"
+        echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=_blank>&lt/&gt</a><br>" >> "$_outResultFileParam"
     fi
     # Show reason in result only, if marked as own stock or a 'buy' recommendation
     if [ "${_markerOwnStockParam}" = '*' ] || [ "$_linkColorParam" = "green" ]; then

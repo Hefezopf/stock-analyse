@@ -13,6 +13,29 @@ TICKER_NAMES_FILE="test/_ticker_id_names.txt"
 SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF AG"
 
+@test "DetermineTendency" {
+  DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 92.6132, 92.5305, 92.4579, 92.3874, 92.3326, 92.3184,"
+  [ "$tendency" == 'falling' ]
+
+  DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 67.9032, 67.8147, 67.7474, 67.6842, 67.6, 67.5095,"
+  [ "$tendency" == 'falling' ]
+
+  DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 32.672, 32.7368, 32.7992, 32.8838, 32.9635, 33.053,"
+  [ "$tendency" == 'rising' ]
+
+  DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 45.9983, 46.0558, 46.1133, 46.1728, 46.2373, 46.3183,"
+  [ "$tendency" == 'rising' ]
+
+  DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 6.12202, 6.16208, 6.20124, 6.24516, 6.28693, 6.33078,"
+  [ "$tendency" == 'rising' ]
+
+  DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 7.61869, 7.61285, 7.60964, 7.60801, 7.61092, 7.61816,"
+  [ "$tendency" == 'level' ]
+
+  DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 9.76287, 9.76511, 9.76757, 9.76948, 9.77083, 9.7742,"
+  [ "$tendency" == 'level' ]
+}
+
 @test "UsageCheckParameter" {
   run UsageCheckParameter 'ADS BEI' 1 offline underrated 9 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 0 ]
@@ -110,7 +133,6 @@ SYMBOL_NAME="BEIERSDORF AG"
 @test "LesserThenWithFactor" {
   run LesserThenWithFactor 0 99 100
   [ "$status" -eq 1 ]
-  #assert_output ''
   [ "$output" == '' ]  
 
   run LesserThenWithFactor 1 100 99
@@ -149,6 +171,14 @@ SYMBOL_NAME="BEIERSDORF AG"
 
   run GreaterThenWithFactor 1 100 100
   [ "$status" -eq 0 ]
+  [ "$output" == '' ]  
+
+  run GreaterThenWithFactor 1 100.0 100.0
+  [ "$status" -eq 0 ]
+  [ "$output" == '' ]  
+
+  run GreaterThenWithFactor 1 100.1 100.0
+  [ "$status" -eq 1 ]
   [ "$output" == '' ]  
 
   run GreaterThenWithFactor 1 101 100
