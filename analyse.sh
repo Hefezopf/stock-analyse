@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default is 'true'
-# CalculateStochastic=true
-# CalculateRSI=true
-# CalculateMACD=true
+CalculateStochastic=true
+CalculateRSI=true
+CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -253,8 +253,9 @@ do
     averagePriceList95=$averagePriceList
 
     DetermineTendence "$averagePriceList95"
+    # shellcheck disable=SC2154 
     echo tendence "$tendence"
-#exit
+
     ProgressBar 8 8
     
     #
@@ -417,7 +418,8 @@ do
         cat js/indexPart13.html
     } >> "$indexSymbolFile"
 
-echo "$tendence" >> "$OUT_RESULT_FILE"
+
+echo tendence "$tendence" >> "$OUT_RESULT_FILE"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" black "$markerOwnStock" ""
 done

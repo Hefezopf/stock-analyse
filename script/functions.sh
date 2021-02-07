@@ -5,33 +5,29 @@
 # Output: tendence [falling|rising|level]
 DetermineTendence() {
     _list=${1}
-#echo _list "$_list"
     export tendence=""
     value_95=$(echo "$_list" | cut -f 95 -d ',')
     value_100=$(echo "$_list" | cut -f 100 -d ',')
-
-#echo value_95 "$value_95" value_100 "$value_100"
-
     difference=$(echo "$value_100 $value_95" | awk '{print ($1 - $2)}')
-#echo difference "$difference" 
-
-    relative=$(echo "$value_100 $value_95" | awk '{print (($1 / $2)-1)*100}')
-    #relative=$(echo "$value_100 $value_95" | awk '{print ($1 / $2)-1}')
-    valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
-#echo relative "$relative" 
-#echo valueAfterComma "$valueAfterComma" 
-    isLevelPos1=$(echo "${valueAfterComma}" | awk '{print substr ($0, 0, 1)}')
-#echo isLevelPos1 "$isLevelPos1" 
-    isLevelPos2=$(echo "${valueAfterComma}" | awk '{print substr ($0, 2, 1)}')
-#echo isLevelPos2 "$isLevelPos2" 
-
     isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
-#echo isNegativ "$isNegativ" 
+    relative=$(echo "$value_100 $value_95" | awk '{print (($1 / $2)-1)*100}')
+    valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
+    valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
+    isLevelPos1=$(echo "${valueAfterComma}" | awk '{print substr ($0, 0, 1)}')
 
-    if [ "${isLevelPos1}" = 0 ] && [ "${isLevelPos2}" = 0 ] ;  then
+# echo _list "$_list"
+# echo value_95 "$value_95" value_100 "$value_100"
+# echo difference "$difference" 
+# echo isNegativ "$isNegativ" 
+# echo relative "$relative" 
+# echo valueBeforeComma "$valueBeforeComma" valueAfterComma "$valueAfterComma" 
+# echo isLevelPos1 "$isLevelPos1" 
+
+    if [ "${isLevelPos1}" -lt 3 ] && # < 0.03 %
+       { [ "${valueBeforeComma}" = "0" ] || [ "${valueBeforeComma}" = "-0" ]; } then
         tendence="level"
     else
-        if [ "${isNegativ}" = '-' ];  then
+        if [ "${isNegativ}" = '-' ]; then
             tendence="falling"
         else
             tendence="rising"
