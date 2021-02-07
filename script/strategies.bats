@@ -20,6 +20,14 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieOverratedByTendency
   [ "$resultStrategieOverratedByTendency" == '' ]
 
+  StrategieOverratedByTendency 100 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedByTendency" == '' ]
+
+  resultStrategieOverratedByTendency=""
+  StrategieOverratedByTendency 102 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedByTendency" == 'Sell: High Quote by Tendency: 102€ is over 100€ with Tendency level' ]
+
+  resultStrategieOverratedByTendency=""
   StrategieOverratedByTendency 99 "falling" 1 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieOverratedByTendency" == '' ]
 
@@ -37,6 +45,14 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieUnderratedByTendency
   [ "$resultStrategieUnderratedByTendency" == '' ]
 
+  StrategieUnderratedByTendency 100 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedByTendency" == '' ]
+
+  resultStrategieUnderratedByTendency=""
+  StrategieUnderratedByTendency 97 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedByTendency" == 'Buy: Low Quote by Tendency: 97€ is under 100€ with Tendency level' ]
+
+  resultStrategieUnderratedByTendency=""
   StrategieUnderratedByTendency 100 "rising" 1 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieUnderratedByTendency" == '' ]
 

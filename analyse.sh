@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default is 'true'
-# CalculateStochastic=true
-# CalculateRSI=true
-# CalculateMACD=true
+CalculateStochastic=true
+CalculateRSI=true
+CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -252,9 +252,10 @@ do
     AverageOfDays $averageInDays95 "$DATA_FILE"
     averagePriceList95=$averagePriceList
 
+    tendency=""
     DetermineTendency "$averagePriceList95"
     # shellcheck disable=SC2154 
-    echo tendency "$tendency"
+    #echo tendency "$tendency"
 
     ProgressBar 8 8
     
