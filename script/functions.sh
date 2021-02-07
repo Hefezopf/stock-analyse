@@ -1,29 +1,42 @@
 #!/bin/sh
 
-# DetermineTendence function:
+# DetermineTendence function: Tendence of the last 5 value of a comma seperated list
 # Input is _list($1)
-# Output: tendence
+# Output: tendence [falling|rising|level]
 DetermineTendence() {
     _list=${1}
-    echo _list "$_list"
+#echo _list "$_list"
     export tendence=""
     value_95=$(echo "$_list" | cut -f 95 -d ',')
     value_100=$(echo "$_list" | cut -f 100 -d ',')
 
-    echo value_95 "$value_95" value_100 "$value_100"
+#echo value_95 "$value_95" value_100 "$value_100"
 
     difference=$(echo "$value_100 $value_95" | awk '{print ($1 - $2)}')
-    echo difference "$difference" 
-    isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
-    echo isNegativ "$isNegativ" 
-#TODO level
-    if [ "${isNegativ}" = '-' ];  then
-        tendence="falling"
-    else
-        tendence="rising"
-    fi
+#echo difference "$difference" 
 
-    tendence="falling"
+    relative=$(echo "$value_100 $value_95" | awk '{print (($1 / $2)-1)*100}')
+    #relative=$(echo "$value_100 $value_95" | awk '{print ($1 / $2)-1}')
+    valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
+#echo relative "$relative" 
+#echo valueAfterComma "$valueAfterComma" 
+    isLevelPos1=$(echo "${valueAfterComma}" | awk '{print substr ($0, 0, 1)}')
+#echo isLevelPos1 "$isLevelPos1" 
+    isLevelPos2=$(echo "${valueAfterComma}" | awk '{print substr ($0, 2, 1)}')
+#echo isLevelPos2 "$isLevelPos2" 
+
+    isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+#echo isNegativ "$isNegativ" 
+
+    if [ "${isLevelPos1}" = 0 ] && [ "${isLevelPos2}" = 0 ] ;  then
+        tendence="level"
+    else
+        if [ "${isNegativ}" = '-' ];  then
+            tendence="falling"
+        else
+            tendence="rising"
+        fi
+    fi
 }
 
 # CurlSymbolName function:
