@@ -252,9 +252,9 @@ do
     AverageOfDays $averageInDays95 "$DATA_FILE"
     averagePriceList95=$averagePriceList
 
-    DetermineTendence "$averagePriceList95"
+    DetermineTendency "$averagePriceList95"
     # shellcheck disable=SC2154 
-    echo tendence "$tendence"
+    echo tendency "$tendency"
 
     ProgressBar 8 8
     
@@ -265,6 +265,10 @@ do
     # Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
+
+        # Buy Strategie: Low Quote by Tendency
+        resultStrategieUnderratedByTendency=""
+        StrategieUnderratedByTendency "$last" "$tendency" "$percentageLesserFactor" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low horizontal MACD
         resultStrategieUnderratedLowHorizontalMACD=""
@@ -285,6 +289,11 @@ do
         # Buy Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
         resultStrategieUnderratedLowStochasticLowRSILowMACD=""
         StrategieUnderratedLowStochasticLowRSILowMACD "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+
+
+        # Sell Strategie: High Quote by Tendency
+        resultStrategieOverratedByTendency=""
+        StrategieOverratedByTendency "$last" "$tendency" "$percentageGreaterFactor" "$average100" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High horizontal MACD
         resultStrategieOverratedHighHorizontalMACD=""
@@ -357,12 +366,16 @@ do
         styleComdirectLink="style=\"font-size:x-large; color:black\""
         # Red link only for stocks that are marked as own stocks
         if [ "${markerOwnStock}" = '*' ] && 
-          { [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || 
+          { 
+            [ "${#resultStrategieOverratedByTendency}" -gt 1 ] || 
+            [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || 
             [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighRSI}" -gt 1 ] || 
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
             styleComdirectLink="style=\"font-size:x-large; color:red\""
         fi
-        if [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || 
+
+        if [ "${#resultStrategieUnderratedByTendency}" -gt 1 ] || 
+           [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || 
            [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowRSI}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:green\""
@@ -401,6 +414,7 @@ do
 
         # Strategies output
         # Buy
+        echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieUnderratedByTendency" "</b></p>"
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>"
@@ -408,6 +422,7 @@ do
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
         
         # Sell
+        echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieOverratedByTendency" "</b></p>"
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>"
@@ -419,7 +434,7 @@ do
     } >> "$indexSymbolFile"
 
 
-echo tendence "$tendence" >> "$OUT_RESULT_FILE"
+echo tendency "$tendency" >> "$OUT_RESULT_FILE"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" black "$markerOwnStock" ""
 done

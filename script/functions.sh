@@ -1,11 +1,12 @@
 #!/bin/sh
 
-# DetermineTendence function: Tendence of the last 5 value of a comma seperated list
+# DetermineTendency function: 
+# Tendency of the last 5 value of a comma seperated list
 # Input is _list($1)
-# Output: tendence [falling|rising|level]
-DetermineTendence() {
+# Output: tendency [falling|rising|level]
+DetermineTendency() {
     _list=${1}
-    export tendence=""
+    export tendency=""
     value_95=$(echo "$_list" | cut -f 95 -d ',')
     value_100=$(echo "$_list" | cut -f 100 -d ',')
     difference=$(echo "$value_100 $value_95" | awk '{print ($1 - $2)}')
@@ -25,12 +26,12 @@ DetermineTendence() {
 
     if [ "${isLevelPos1}" -lt 3 ] && # < 0.03 %
        { [ "${valueBeforeComma}" = "0" ] || [ "${valueBeforeComma}" = "-0" ]; } then
-        tendence="level"
+        tendency="level"
     else
         if [ "${isNegativ}" = '-' ]; then
-            tendence="falling"
+            tendency="falling"
         else
-            tendence="rising"
+            tendency="rising"
         fi
     fi
 }

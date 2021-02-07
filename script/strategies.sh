@@ -1,5 +1,75 @@
 #!/bin/sh
 
+# StrategieOverratedByTendency function:
+# Strategie: last quote under tendency
+# Input: _lastPriceParam($1), _tendencyParam($2), _percentageGreaterFactorParam($3), _lastAvg100PriceParam${4}, _outResultFileParam($5), _symbolParam($6), _symbolNameParam($7), _markerOwnStockParam($8)
+# Output: resultStrategieOverratedByTendency
+StrategieOverratedByTendency() {
+    _lastPriceParam=${1}
+    _tendencyParam=${2}
+    _percentageGreaterFactorParam=${3}
+    _lastAverage100Param=${4}
+    _outResultFileParam=${5}
+    _symbolParam=${6}
+    _symbolNameParam=${7}
+    _markerOwnStockParam=${8}
+    export resultStrategieOverratedByTendency=""
+    _alarmStrategieOverratedByTendency=0
+
+#echo _lastPriceParam "$_lastPriceParam" _tendencyParam "$_tendencyParam" _lastAverage100Param "$_lastAverage100Param"
+
+    retGreater=0
+    if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_lastAverage100Param"')}'; then
+        retGreater=1
+    fi    
+#echo retGreater "$retGreater"    
+    if [ "$_tendencyParam" = "falling" ] && [ "$retGreater" = 1 ]; then
+        _alarmStrategieOverratedByTendency=1
+    fi
+    if [ "$_alarmStrategieOverratedByTendency" = 1 ]; then
+        reasonPrefix="Sell: High Quote by Tendency"
+        resultStrategieOverratedByTendency="$reasonPrefix: $_lastPriceParam€ is over $_lastAverage100Param€ with Tendency $_tendencyParam"
+        echo "$resultStrategieOverratedByTendency"
+        WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+    fi
+    #echo resultStrategieOverratedByTendency "$resultStrategieOverratedByTendency"
+}
+
+# StrategieUnderratedByTendency function:
+# Strategie: last quote under tendency
+# Input: _lastPriceParam($1), _tendencyParam($2), _percentageLesserFactorParam($3), _lastAvg100PriceParam${4}, _outResultFileParam($5), _symbolParam($6), _symbolNameParam($7), _markerOwnStockParam($8)
+# Output: resultStrategieUnderratedByTendency
+StrategieUnderratedByTendency() {
+    _lastPriceParam=${1}
+    _tendencyParam=${2}
+    _percentageLesserFactorParam=${3}
+    _lastAverage100Param=${4}
+    _outResultFileParam=${5}
+    _symbolParam=${6}
+    _symbolNameParam=${7}
+    _markerOwnStockParam=${8}
+    export resultStrategieUnderratedByTendency=""
+    _alarmStrategieUnderratedByTendency=0
+
+#echo _lastPriceParam "$_lastPriceParam" _tendencyParam "$_tendencyParam" _lastAverage100Param "$_lastAverage100Param"
+
+    #LesserThenWithFactor 1 "$_lastPriceParam" "$_lastAverage100Param"; retLesser=$?
+    retLesser=0
+    if awk 'BEGIN {exit !('"$_lastPriceParam"' < '"$_lastAverage100Param"')}'; then
+        retLesser=1
+    fi     
+    if [ "$_tendencyParam" = "rising" ] && [ "$retLesser" = 1 ]; then
+        _alarmStrategieUnderratedByTendency=1
+    fi
+    if [ "$_alarmStrategieUnderratedByTendency" = 1 ]; then
+        reasonPrefix="Buy: Low Quote by Tendency"
+        resultStrategieUnderratedByTendency="$reasonPrefix: $_lastPriceParam€ is under $_lastAverage100Param€ with Tendency $_tendencyParam"
+        echo "$resultStrategieUnderratedByTendency"
+        WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+    fi
+   #echo resultStrategieUnderratedByTendency "$resultStrategieUnderratedByTendency"
+}
+
 # StrategieOverrated3HighRSI function:
 # Strategie: High RSI 3 last values over highRSIValue
 # Input is _ratedParam($1), _highRSIValueParam($2), _RSIQuoteListParam($3), _outResultFileParam($4), _symbolParam($5), _symbolNameParam($6), _markerOwnStockParam($7)
