@@ -59,26 +59,24 @@ CurlSymbolName() {
 }
 
 # UsageCheckParameter function:
-# Input is _symbolsParam($1), _percentageParam($2), _queryParam($3), _ratedParam($4), _stochasticPercentageParam($5), _RSIQuoteParam($6), _outResultFileParam($7)
+# Input is _symbolsParam($1), _percentageParam($2), _queryParam($3), _stochasticPercentageParam($4), _RSIQuoteParam($5), _outResultFileParam($6)
 # Output: OUT_RESULT_FILE
 UsageCheckParameter() {
     _symbolsParam=${1}
     _percentageParam=${2}
     _queryParam=${3}
-    _ratedParam=${4}
-    _stochasticPercentageParam=${5}
-    _RSIQuoteParam=${6}
-    _outResultFileParam=${7}
+    _stochasticPercentageParam=${4}
+    _RSIQuoteParam=${5}
+    _outResultFileParam=${6}
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9* ]*}" ] && # symbols, blank and '*' allowed
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
         { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
-        { [ "$_ratedParam" = 'overrated' ] || [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; } &&
         [ -n "${_stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#_stochasticPercentageParam} -gt 1 ] &&
         [ -n "${_RSIQuoteParam##*[!0-9]*}" ] && [ ! "${_RSIQuoteParam}" -gt 30 ]; then
         echo ""
     else
-        echo "Given Parameter: Symbols=$_symbolsParam Persentage=$_percentageParam Query=$_queryParam Rated=$_ratedParam Stoch=$_stochasticPercentageParam RSI=$_RSIQuoteParam"
-        echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED" | tee -a "$_outResultFileParam"
+        echo "Given Parameter: Symbols=$_symbolsParam Persentage=$_percentageParam Query=$_queryParam Stoch=$_stochasticPercentageParam RSI=$_RSIQuoteParam"
+        echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY STOCH RSI" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
@@ -86,13 +84,11 @@ UsageCheckParameter() {
         echo "<br>" >> "$_outResultFileParam"
         echo " QUERY: Query data online|offline" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
-        echo " RATED: List stocks which are overrated|underrated|all" | tee -a "$_outResultFileParam"
-        echo "<br>" >> "$_outResultFileParam"
         echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo " RSI14: Quote for RSI indicator (only 30 and less allowed!)" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"    
-        echo "Example: ./analyse.sh 'ADS ALV' 3 offline underrated 9 30" | tee -a "$_outResultFileParam"
+        echo "Example: ./analyse.sh 'ADS ALV' 3 offline 9 30" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo "$HTML_RESULT_FILE_END" >> "$_outResultFileParam"
         exit 5

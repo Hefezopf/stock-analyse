@@ -1,17 +1,16 @@
 #!/bin/sh
 
-# This script checks given stock quotes and their averages of the last 100, 38, 18 days.
+# This script checks given stock quotes and their averages of the last 95, 38, 18 days.
 # Stochastic, RSI and MACD are calculated as well
-# Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY RATED STOCHASTIC RSI
+# Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
-# 4. Parameter: RATED - [overrated|underrated|all]. Only list overrated/underrated/all stocks.
-# 5. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
-# 6. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
-# Call example: ./analyse.sh 'ADS *ALV' 3 online underrated 9 30
-# Call example: ./analyse.sh 'ADS' 1 offline underrated 9 30
-# Call example: ./analyse.sh '*ADS' 1 offline all 9 30
+# 4. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
+# 5. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
+# Call example: ./analyse.sh 'ADS *ALV' 3 online 9 30
+# Call example: ./analyse.sh 'ADS' 1 offline 9 30
+# Call example: ./analyse.sh '*ADS' 1 offline 9 30
 # Online Precondition:
 # Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 and MARKET_STACK_ACCESS_KEY4 as ENV Variable
 # shellcheck disable=SC1091 
@@ -33,9 +32,8 @@ export LC_ALL=en_US.UTF-8
 symbolsParam=$1
 percentageParam=$2
 queryParam=$3
-ratedParam=$4
-stochasticPercentageParam=$5
-RSIQuoteParam=$6
+stochasticPercentageParam=$4
+RSIQuoteParam=$5
 
 # Prepare
 rm -rf /dev/shm/tmp.*
@@ -61,7 +59,7 @@ if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" |
 fi
 
 # Usage: Check parameter
-UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$ratedParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
+UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
 
 if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$CalculateMACD" = true ]; then
     echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!" | tee -a $OUT_RESULT_FILE
@@ -96,8 +94,6 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Percentage:$percentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "Query:$queryParam " | tee -a $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo "Rated:$ratedParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
@@ -273,23 +269,23 @@ do
 
         # Buy Strategie: Low horizontal MACD
         resultStrategieUnderratedLowHorizontalMACD=""
-        StrategieUnderratedLowHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedLowHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
-        StrategieUnderratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv95" "$agv18UnderAgv38" "$agv38UnderAgv95" "$agv18UnderAgv95" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv95" "$agv18UnderAgv38" "$agv38UnderAgv95" "$agv18UnderAgv95" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     
         # Buy Strategie: Low Stochastic 3 last values under lowStochasticValue
         resultStrategieUnderrated3LowStochastic=""
-        StrategieUnderrated3LowStochastic "$ratedParam" "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderrated3LowStochastic "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low RSI 3 last values under RSIQuoteLower
         resultStrategieUnderrated3LowRSI=""
-        StrategieUnderrated3LowRSI "$ratedParam" "$RSIQuoteLower" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderrated3LowRSI "$RSIQuoteLower" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
         resultStrategieUnderratedLowStochasticLowRSILowMACD=""
-        StrategieUnderratedLowStochasticLowRSILowMACD "$ratedParam" "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedLowStochasticLowRSILowMACD "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High Quote by Tendency
         resultStrategieOverratedByTendency=""
@@ -297,23 +293,23 @@ do
 
         # Sell Strategie: High horizontal MACD
         resultStrategieOverratedHighHorizontalMACD=""
-        StrategieOverratedHighHorizontalMACD "$ratedParam" "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedHighHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High Percentage & Stochastic
         resultStrategieOverratedByPercentAndStochastic=""
-        StrategieOverratedByPercentAndStochastic "$ratedParam" "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv95" "$agv18OverAgv38" "$agv38OverAgv95" "$agv18OverAgv95" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv95" "$agv18OverAgv38" "$agv38OverAgv95" "$agv18OverAgv95" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High Stochastic 3 last values over highStochasticValue
         resultStrategieOverrated3HighStochastic=""
-        StrategieOverrated3HighStochastic "$ratedParam" "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverrated3HighStochastic "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High RSI 3 last values over RSIQuoteUpper
         resultStrategieOverrated3HighRSI=""
-        StrategieOverrated3HighRSI "$ratedParam" "$RSIQuoteUpper" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverrated3HighRSI "$RSIQuoteUpper" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High stochastic and High RSI last quote over stochasticPercentageUpper and RSIQuoteUpper
         resultStrategieOverratedHighStochasticHighRSIHighMACD=""
-        StrategieOverratedHighStochasticHighRSIHighMACD "$ratedParam" "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedHighStochasticHighRSIHighMACD "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     else
         # shellcheck disable=SC3037
         echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
@@ -384,7 +380,6 @@ do
         echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbol $symbolName</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
-        echo "Rated:<b>$ratedParam</b> "
         echo "Stochastic14:<b>$stochasticPercentageParam</b> "
         echo "RSI14:<b>$RSIQuoteParam</b><br>"
 

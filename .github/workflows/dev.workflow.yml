@@ -8,7 +8,6 @@ env:
   symbolsEnv: '*PPX' # If more then 1 symbol -> Error!
   percentageEnv: '1'
   queryEnv: 'offline'
-  ratedEnv: 'all'
   stochasticEnv: '9'
   RSIEnv: '30'
 
@@ -39,10 +38,6 @@ on:
         description: 'QUERY - [online|offline]'     
         required: true
         default: 'offline'
-      ratedParam:
-        description: 'RATED - [overrated|underrated|all]. List low/high/all stocks'     
-        required: true
-        default: 'all'
       stochasticParam:
         description: 'STOCHASTIC14 - "9" means 9/91 percent (only single digit allowed!)'     
         required: true
@@ -85,41 +80,36 @@ jobs:
           symbolsEnv=${{env.symbolsEnv}}
           percentageEnv=${{env.percentageEnv}}
           queryEnv=${{env.queryEnv}}
-          ratedEnv=${{env.ratedEnv}}
           stochasticEnv=${{env.stochasticEnv}}
           RSIEnv=${{env.RSIEnv}}
 
           symbolsDefault='${{github.event.client_payload.symbols}}'
           percentageDefault='${{github.event.client_payload.percentage}}'
           queryDefault='${{github.event.client_payload.query}}'
-          ratedDefault='${{github.event.client_payload.rated}}'
           stochasticDefault='${{github.event.client_payload.stochastic}}'
           RSIDefault='${{github.event.client_payload.RSI}}'
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           percentageInput=${{github.event.inputs.percentageParam}}
           queryInput=${{github.event.inputs.queryParam}}
-          ratedInput=${{github.event.inputs.ratedParam}}
           stochasticInput=${{github.event.inputs.stochasticParam}}
           RSIInput=${{github.event.inputs.RSIParam}}
           
           symbolsVar=${symbolsInput:-$symbolsDefault}
           percentageVar=${percentageInput:-$percentageDefault}
-          queryVar=${queryInput:-$queryDefault}
-          ratedVar=${ratedInput:-$ratedDefault}          
+          queryVar=${queryInput:-$queryDefault}         
           stochasticVar=${stochasticInput:-$stochasticDefault}          
           RSIVar=${RSIInput:-$RSIDefault}   
 
           symbolsVar=${symbolsVar:-$symbolsEnv}
           percentageVar=${percentageVar:-$percentageEnv}
-          queryVar=${queryVar:-$queryEnv}
-          ratedVar=${ratedVar:-$ratedEnv}          
+          queryVar=${queryVar:-$queryEnv}         
           stochasticVar=${stochasticVar:-$stochasticEnv}          
           RSIVar=${RSIVar:-$RSIEnv}
 
           chmod +x ./analyse.sh
 
-          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $ratedVar $stochasticVar $RSIVar
+          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"

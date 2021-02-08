@@ -37,37 +37,37 @@ SYMBOL_NAME="BEIERSDORF AG"
 }
 
 @test "UsageCheckParameter" {
-  run UsageCheckParameter 'ADS BEI' 1 offline underrated 9 30 "$OUT_RESULT_FILE"
+  run UsageCheckParameter 'ADS BEI' 1 offline 9 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 0 ]
 
-  run UsageCheckParameter 'ADS BEI' 1 offline overrated 9 30 "$OUT_RESULT_FILE"
+  run UsageCheckParameter 'ADS BEI' 1 offline 9 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 0 ]
 
-  run UsageCheckParameter 'ADS BEI' 1 offline all 9 30 "$OUT_RESULT_FILE"
+  run UsageCheckParameter 'ADS BEI' 1 offline 9 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 0 ]
 
-  run UsageCheckParameter 'A.DS' 1 offline underrated 9 30 "$OUT_RESULT_FILE"
+  run UsageCheckParameter 'A.DS' 1 offline 9 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 5 ]
 
-  run UsageCheckParameter "$SYMBOL" xxx offline underrated 9 30 "$OUT_RESULT_FILE"
+  run UsageCheckParameter "$SYMBOL" xxx offline 9 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 5 ]
 
-  run UsageCheckParameter "$SYMBOL" 1 xxxline all 9 30 "$OUT_RESULT_FILE"
+  run UsageCheckParameter "$SYMBOL" 1 xxxline 9 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 5 ]
 
-  run UsageCheckParameter "$SYMBOL" 1 offline xxxunderrated 9 30 "$OUT_RESULT_FILE"
+  run UsageCheckParameter "$SYMBOL" 1 offline 9 30 "$OUT_RESULT_FILE"
+  [ "$status" -eq 0 ]
+
+  run UsageCheckParameter "$SYMBOL" 1 offline xxx 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 5 ]
 
-  run UsageCheckParameter "$SYMBOL" 1 offline underrated xxx 30 "$OUT_RESULT_FILE"
+  run UsageCheckParameter "$SYMBOL" 1 offline 10 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 5 ]
 
-  run UsageCheckParameter "$SYMBOL" 1 offline underrated 10 30 "$OUT_RESULT_FILE"
+  run UsageCheckParameter "$SYMBOL" 1 offline 9 xxx "$OUT_RESULT_FILE"
   [ "$status" -eq 5 ]
 
-  run UsageCheckParameter "$SYMBOL" 1 offline overrated 9 xxx "$OUT_RESULT_FILE"
-  [ "$status" -eq 5 ]
-
-  run UsageCheckParameter "$SYMBOL" 1 offline underrated 9 31 "$OUT_RESULT_FILE"
+  run UsageCheckParameter "$SYMBOL" 1 offline 9 31 "$OUT_RESULT_FILE"
   [ "$status" -eq 5 ]
 }
 
