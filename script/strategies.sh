@@ -16,35 +16,42 @@ StrategieOverratedByTendency() {
     export resultStrategieOverratedByTendency=""
     _alarmStrategieOverratedByTendency=0
 
+#echo O11111
+
     # 0 times _percentageFactorParam
     _retRiseOverFalling=0
     if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_lastAverage100Param"')}'; then
         _retRiseOverFalling=1
+        #echo O222
     fi     
     if [ "$_tendencyParam" = "falling" ] && [ "$_retRiseOverFalling" = 1 ]; then
         _alarmStrategieOverratedByTendency=1
     fi
 
-    # 2 times _percentageFactorParam
-    _percentagePowOf=$(echo "$_percentageFactorParam 2" | awk '{print $1 ^ $2}')
+    # 3 times _percentageFactorParam
+    _percentagePowOf=$(echo "$_percentageFactorParam 3" | awk '{print $1 ^ $2}')
     _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage100Param" | awk '{print $1 * $2}')
     _retRiseOverLevel=0
     if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_valueWithFactor"')}'; then
         _retRiseOverLevel=1
+        #echo O333
     fi     
     if [ "$_tendencyParam" = "level" ] && [ "$_retRiseOverLevel" = 1 ]; then
         _alarmStrategieOverratedByTendency=1
     fi
 
-    # 6 times _percentageFactorParam
-    _percentagePowOf=$(echo "$_percentageFactorParam 6" | awk '{print $1 ^ $2}')
+    # 10 times _percentageFactorParam
+    _percentagePowOf=$(echo "$_percentageFactorParam 10" | awk '{print $1 ^ $2}')
     _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage100Param" | awk '{print $1 * $2}')
+#echo _valueWithFactor "$_valueWithFactor"
     _retRiseWayOverRising=0
     if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_valueWithFactor"')}'; then
         _retRiseWayOverRising=1
+        #echo O44444
     fi     
     if [ "$_tendencyParam" = "rising" ] && [ "$_retRiseWayOverRising" = 1 ]; then
         _alarmStrategieOverratedByTendency=1
+         #echo O555
     fi
 
     if [ "$_alarmStrategieOverratedByTendency" = 1 ]; then
@@ -75,33 +82,38 @@ StrategieUnderratedByTendency() {
     export resultStrategieUnderratedByTendency=""
     _alarmStrategieUnderratedByTendency=0
 
+#echo U11111
+
     # 0 times _percentageFactorParam
     _retDropUnderRising=0
     if awk 'BEGIN {exit !('"$_lastPriceParam"' < '"$_lastAverage100Param"')}'; then
         _retDropUnderRising=1
+        #echo U2222
     fi     
     if [ "$_tendencyParam" = "rising" ] && [ "$_retDropUnderRising" = 1 ]; then
         _alarmStrategieUnderratedByTendency=1
     fi
 
     _retDropUnderLevel=0
-    # 2 times _percentageFactorParam
-    _percentagePowOf=$(echo "$_percentageFactorParam 2" | awk '{print $1 ^ $2}')
+    # 3 times _percentageFactorParam
+    _percentagePowOf=$(echo "$_percentageFactorParam 3" | awk '{print $1 ^ $2}')
     _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')
     #_valueWithFactor=$(echo "$_percentageFactorParam $_valueWithFactor" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('"$_valueWithFactor"' < '"$_lastAverage100Param"')}'; then
         _retDropUnderLevel=1
+        #echo U333
     fi     
     if [ "$_tendencyParam" = "level" ] && [ "$_retDropUnderLevel" = 1 ]; then
         _alarmStrategieUnderratedByTendency=1
     fi
 
-    # 6 times _percentageFactorParam    
-    _percentagePowOf=$(echo "$_percentageFactorParam 6" | awk '{print $1 ^ $2}')
+    # 10 times _percentageFactorParam    
+    _percentagePowOf=$(echo "$_percentageFactorParam 10" | awk '{print $1 ^ $2}')
     _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')
     _retDropWayUnderFalling=0
     if awk 'BEGIN {exit !('"$_valueWithFactor"' < '"$_lastAverage100Param"')}'; then
         _retDropWayUnderFalling=1
+        #echo U444
     fi     
     if [ "$_tendencyParam" = "falling" ] && [ "$_retDropWayUnderFalling" = 1 ]; then
         _alarmStrategieUnderratedByTendency=1

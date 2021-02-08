@@ -25,7 +25,11 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   resultStrategieOverratedByTendency=""
   StrategieOverratedByTendency 110 "rising" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedByTendency" == 'Sell: High Quote by Tendency: 110€ is over Avg100 100€ with Tendency rising' ]
+  [ "$resultStrategieOverratedByTendency" == '' ]
+
+  resultStrategieOverratedByTendency=""
+  StrategieOverratedByTendency 113 "rising" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedByTendency" == 'Sell: High Quote by Tendency: 113€ is over Avg100 100€ with Tendency rising' ]
 
   resultStrategieOverratedByTendency=""
   StrategieOverratedByTendency 100 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
@@ -37,7 +41,11 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   resultStrategieOverratedByTendency=""
   StrategieOverratedByTendency 103 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedByTendency" == 'Sell: High Quote by Tendency: 103€ is over Avg100 100€ with Tendency level' ]
+  [ "$resultStrategieOverratedByTendency" == '' ]
+
+  resultStrategieOverratedByTendency=""
+  StrategieOverratedByTendency 104 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedByTendency" == 'Sell: High Quote by Tendency: 104€ is over Avg100 100€ with Tendency level' ]
 
   resultStrategieOverratedByTendency=""
   StrategieOverratedByTendency 99 "falling" 1 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
@@ -62,7 +70,11 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   resultStrategieUnderratedByTendency=""
   StrategieUnderratedByTendency 93 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedByTendency" == 'Buy: Low Quote by Tendency: 93€ is under Avg100 100€ with Tendency falling' ]
+  [ "$resultStrategieUnderratedByTendency" == '' ]
+
+  resultStrategieUnderratedByTendency=""
+  StrategieUnderratedByTendency 88 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedByTendency" == 'Buy: Low Quote by Tendency: 88€ is under Avg100 100€ with Tendency falling' ]
 
   resultStrategieUnderratedByTendency=""
   StrategieUnderratedByTendency 97 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
