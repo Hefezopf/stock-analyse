@@ -2,8 +2,8 @@
 
 # DetermineTendency function: 
 # Tendency of the last 5 value of a comma seperated list
-# Input is _list($1)
-# Output: tendency [falling|rising|level]
+# Input: ${x}
+# Output: tendency [FALLING|RISING|LEVEL]
 DetermineTendency() {
     _list=${1}
     export tendency=""
@@ -26,18 +26,18 @@ DetermineTendency() {
 
     if [ "${isLevelPos1}" -lt 2 ] && # < 0.02 %
        { [ "${valueBeforeComma}" = "0" ] || [ "${valueBeforeComma}" = "-0" ]; } then
-        tendency="level"
+        tendency="$LEVEL"
     else
         if [ "${isNegativ}" = '-' ]; then
-            tendency="falling"
+            tendency="$FALLING"
         else
-            tendency="rising"
+            tendency="$RISING"
         fi
     fi
 }
 
 # CurlSymbolName function:
-# Input is _symbolParam($1), _tickerNameIdFileParam($2), _sleepParam($3)
+# Input: ${x}
 # Output: -
 CurlSymbolName() {
     _symbolParam=${1}
@@ -59,7 +59,7 @@ CurlSymbolName() {
 }
 
 # UsageCheckParameter function:
-# Input is _symbolsParam($1), _percentageParam($2), _queryParam($3), _stochasticPercentageParam($4), _RSIQuoteParam($5), _outResultFileParam($6)
+# Input: ${x}
 # Output: OUT_RESULT_FILE
 UsageCheckParameter() {
     _symbolsParam=${1}
@@ -96,7 +96,7 @@ UsageCheckParameter() {
 }
 
 # LesserThenWithFactor function:
-# Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+# Input: ${x}
 # Output: 1 if lesser
 LesserThenWithFactor() {
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
@@ -108,7 +108,7 @@ LesserThenWithFactor() {
 }
 
 # GreaterThenWithFactor function:
-# Input is factor($1), firstCompareValue($2), secondCompareValue($3)
+# Input: ${x}
 # Output: 1 if 'factor'*'firstCompareValue'>'secondCompareValue' else 0
 # Example 1.1*100>109 -> return 1
 # Example 1.1*100>110 -> return 0
@@ -122,7 +122,7 @@ GreaterThenWithFactor() {
 }
 
 # ProgressBar function:
-# Input is _currentStateParam($1) and totalStateParam($2)
+# Input: ${x}
 # Output: echo
 ProgressBar() {
     _currentStateParam=${1}
@@ -148,7 +148,7 @@ ProgressBar() {
 # WriteComdirectUrlAndStoreFileList function:
 # Write Comdirect Url. Link can have 3 color: black (neutral), red (sell) and green (buy)
 # Store list of files for later (tar/zip)
-# Input _outResultFileParam($1), _symbolParam($2), _symbolNameParam($3), _linkColorParam($4), _markerOwnStockParam($5), _reasonParam($6)
+# Input: ${x}
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
     _outResultFileParam=${1}
@@ -165,7 +165,7 @@ WriteComdirectUrlAndStoreFileList() {
     # Only write URL once into result file
     if [ ! "${_id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
-        if [ "$_linkColorParam" = "red" ] || [ "$_linkColorParam" = "green" ]; then
+        if [ "$_linkColorParam" = "$RED" ] || [ "$_linkColorParam" = "$GREEN" ]; then
             # Store list of files for later (tar/zip)
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
@@ -174,7 +174,7 @@ WriteComdirectUrlAndStoreFileList() {
         echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=_blank>&lt/&gt</a><br>" >> "$_outResultFileParam"
     fi
     # Show reason in result only, if marked as own stock or a 'buy' recommendation
-    if [ "${_markerOwnStockParam}" = '*' ] || [ "$_linkColorParam" = "green" ]; then
+    if [ "${_markerOwnStockParam}" = '*' ] || [ "$_linkColorParam" = "$GREEN" ]; then
         echo "$_reasonParam<br>" >> "$_outResultFileParam"
     fi
 }

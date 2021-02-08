@@ -16,6 +16,7 @@
 # shellcheck disable=SC1091 
 
 # Import
+. ./script/constants.sh
 . ./script/functions.sh
 . ./script/averages.sh
 . ./script/strategies.sh
@@ -442,10 +443,7 @@ do
         cat js/indexPart13.html
     } >> "$indexSymbolFile"
 
-
-#echo tendency "$tendency" >> "$OUT_RESULT_FILE"
-
-    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" black "$markerOwnStock" ""
+    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 done
 
 echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE

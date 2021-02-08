@@ -3,7 +3,7 @@
 export LC_NUMERIC=en_US.UTF-8
 
 # MACD_12_26 function:
-# Input is _averagePriceList12Param($1) _averagePriceList26Param($2)
+# Input: ${x}
 # Output: MACDList is comma separted list, lastMACDValue
 MACD_12_26() {
     _averagePriceList12Param=${1}
@@ -39,7 +39,7 @@ MACD_12_26() {
 }
 
 # EMAverageOfDays function:
-# Input is _amountOfDaysParam($1), _dataFileParam($2)
+# Input: ${x}
 # Output: averagePriceList is comma separted list
 EMAverageOfDays() {
     _amountOfDaysParam=${1}
@@ -69,7 +69,7 @@ EMAverageOfDays() {
 }
 
 # AverageOfDays function:
-# Input is _amountOfDaysParam($1), _dataFileParam($2)
+# Input: ${x}
 # Output: averagePriceList is comma separted list
 AverageOfDays() {
     _amountOfDaysParam=${1}
@@ -91,7 +91,7 @@ AverageOfDays() {
 }
 
 # RSIOfDays function:
-# Input is _amountOfDaysParam($1), _dataFileParam($2)
+# Input: ${x}
 # Output: RSIQuoteList is comma separted list
 RSIOfDays() {
     _amountOfDaysParam=${1}
@@ -138,7 +138,7 @@ RSIOfDays() {
 }
 
 # StochasticOfDays function:
-# Input is _amountOfDaysParam($1), _dataFileParam($2)
+# Input: ${x}
 # Output: stochasticQuoteList is comma separted list
 StochasticOfDays() {
     _amountOfDaysParam=${1}

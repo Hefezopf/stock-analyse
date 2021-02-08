@@ -24,6 +24,7 @@ cat analyse.sh | tr -d '\r' > analyse1.sh
 rm analyse.sh
 mv analyse1.sh analyse.sh
 
+shellcheck --shell=bash script/constants.sh
 shellcheck --shell=bash script/functions.sh
 shellcheck --shell=bash script/strategies.sh
 shellcheck --shell=bash analyse.sh

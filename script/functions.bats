@@ -4,6 +4,7 @@
 # load '/d/code/bats-assert/load.bash'
 
 # Import
+. ./script/constants.sh
 . ./script/functions.sh
 
 # Constants
@@ -15,25 +16,25 @@ SYMBOL_NAME="BEIERSDORF AG"
 
 @test "DetermineTendency" {
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 92.6132, 92.5305, 92.4579, 92.3874, 92.3326, 92.3184,"
-  [ "$tendency" == 'falling' ]
+  [ "$tendency" == $FALLING ]
 
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 67.9032, 67.8147, 67.7474, 67.6842, 67.6, 67.5095,"
-  [ "$tendency" == 'falling' ]
+  [ "$tendency" == $FALLING ]
 
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 32.672, 32.7368, 32.7992, 32.8838, 32.9635, 33.053,"
-  [ "$tendency" == 'rising' ]
+  [ "$tendency" == $RISING ]
 
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 45.9983, 46.0558, 46.1133, 46.1728, 46.2373, 46.3183,"
-  [ "$tendency" == 'rising' ]
+  [ "$tendency" == $RISING ]
 
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 6.12202, 6.16208, 6.20124, 6.24516, 6.28693, 6.33078,"
-  [ "$tendency" == 'rising' ]
+  [ "$tendency" == $RISING ]
 
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 7.61869, 7.61285, 7.60964, 7.60801, 7.61092, 7.61816,"
-  [ "$tendency" == 'level' ]
+  [ "$tendency" == $LEVEL ]
 
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 9.76287, 9.76511, 9.76757, 9.76948, 9.77083, 9.7742,"
-  [ "$tendency" == 'level' ]
+  [ "$tendency" == $LEVEL ]
 }
 
 @test "UsageCheckParameter" {
@@ -126,7 +127,7 @@ SYMBOL_NAME="BEIERSDORF AG"
 
 @test "WriteComdirectUrlAndStoreFileList" {
   rm -rf temp/_result.html
-  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" green *
+  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "$GREEN" *
   [ "$reportedSymbolFileList" == 'out/BEI.html' ]
 }
 
