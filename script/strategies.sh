@@ -1,8 +1,111 @@
 #!/bin/sh
 
+
+# StrategieByTendency function:
+# Strategie: last quote in relation to tendency
+# Input: ${x}
+# Output: resultStrategieByTendency
+StrategieByTendency() {
+    _lastPriceParam=${1}
+    _tendencyParam=${2}
+    _percentageFactorParam=${3} # 1.01
+    _lastAverage95Param=${4}
+    _outResultFileParam=${5}
+    _symbolParam=${6}
+    _symbolNameParam=${7}
+    _markerOwnStockParam=${8}
+    export resultStrategieByTendency=""
+
+#echo _percentageFactorParam "$_percentageFactorParam"
+
+    if [ "$_tendencyParam" = "rising" ]; then
+        #echo 1_tendencyParam "$_tendencyParam"
+
+        # 0 times _percentageFactorParam
+        if awk 'BEGIN {exit !('"$_lastPriceParam"' < '"$_lastAverage95Param"')}'; then
+            reasonPrefix="Buy: Low Quote by Tendency"
+            resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
+            echo "$resultStrategieByTendency"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+        fi
+
+        # 10 times _percentageFactorParam
+        _percentagePowOf=$(echo "$_percentageFactorParam 10" | awk '{print $1 ^ $2}')
+        _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage95Param" | awk '{print $1 * $2}')
+       # echo _valueWithFactor "$_valueWithFactor"
+        
+        if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_valueWithFactor"')}'; then
+            #echo O222
+            reasonPrefix="Sell: High Quote by Tendency"
+            resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is over Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
+            _linkColor=red
+            if [ "${_markerOwnStockParam}" = '' ]; then
+                _linkColor=black
+            fi
+            echo "$resultStrategieByTendency"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"           
+        fi
+    elif [ "$_tendencyParam" = "level" ]; then 
+        #echo 2_tendencyParam "$_tendencyParam"
+        # 3 times _percentageFactorParam
+        _percentagePowOf=$(echo "$_percentageFactorParam 3" | awk '{print $1 ^ $2}')
+        #echo _percentagePowOf "$_percentagePowOf" 
+        _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage95Param" | awk '{print $1 * $2}')
+        #echo _valueWithFactor "$_valueWithFactor" 
+        if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_valueWithFactor"')}'; then
+        #echo O8888kkkk
+             reasonPrefix="Sell: High Quote by Tendency"
+            resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is over Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
+            _linkColor=red
+            if [ "${_markerOwnStockParam}" = '' ]; then
+                _linkColor=black
+            fi
+            echo "$resultStrategieByTendency"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"           
+        fi
+        _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')
+       # echo _valueWithFactor "$_valueWithFactor" 
+        if awk 'BEGIN {exit !('"$_valueWithFactor"' < '"$_lastAverage95Param"')}'; then
+            #echo O8888jjjjj
+            reasonPrefix="Buy: Low Quote by Tendency"
+            resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
+            echo "$resultStrategieByTendency"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+        fi        
+    elif [ "$_tendencyParam" = "falling" ]; then 
+       # echo 3_tendencyParam "$_tendencyParam"
+        # 0 times _percentageFactorParam
+        if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_lastAverage95Param"')}'; then
+            reasonPrefix="Sell: High Quote by Tendency"
+            resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is over Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
+            _linkColor=red
+            if [ "${_markerOwnStockParam}" = '' ]; then
+                _linkColor=black
+            fi
+            echo "$resultStrategieByTendency"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$_linkColor" "$_markerOwnStockParam" "$reasonPrefix"           
+        fi
+
+        # 10 times _percentageFactorParam
+        _percentagePowOf=$(echo "$_percentageFactorParam 10" | awk '{print $1 ^ $2}')
+        #echo _percentagePowOf "$_percentagePowOf"
+        _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')
+        #echo _valueWithFactor "$_valueWithFactor" 
+        if awk 'BEGIN {exit !('"$_valueWithFactor"' < '"$_lastAverage95Param"')}'; then
+            #echo O8888
+            reasonPrefix="Buy: Low Quote by Tendency"
+            resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
+            echo "$resultStrategieByTendency"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" green "$_markerOwnStockParam" "$reasonPrefix"
+        fi
+    else
+        exit 1
+    fi
+}
+
 # StrategieOverratedByTendency function:
 # Strategie: last quote under tendency
-# Input: _lastPriceParam($1), _tendencyParam($2), _percentageFactorParam($3), _lastAverage95Param${4}, _outResultFileParam($5), _symbolParam($6), _symbolNameParam($7), _markerOwnStockParam($8)
+# Input: ${x}
 # Output: resultStrategieOverratedByTendency
 StrategieOverratedByTendency() {
     _lastPriceParam=${1}
@@ -68,7 +171,7 @@ StrategieOverratedByTendency() {
 
 # StrategieUnderratedByTendency function:
 # Strategie: last quote under tendency
-# Input: _lastPriceParam($1), _tendencyParam($2), _percentageFactorParam($3), _lastAverage95Param${4}, _outResultFileParam($5), _symbolParam($6), _symbolNameParam($7), _markerOwnStockParam($8)
+# Input: ${x}
 # Output: resultStrategieUnderratedByTendency
 StrategieUnderratedByTendency() {
     _lastPriceParam=${1}

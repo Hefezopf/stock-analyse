@@ -263,9 +263,13 @@ do
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
 
-        # Buy Strategie: Low Quote by Tendency
-        resultStrategieUnderratedByTendency=""
-        StrategieUnderratedByTendency "$last" "$tendency" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        # Strategie: Quote by Tendency
+        resultStrategieByTendency=""
+        StrategieByTendency "$last" "$tendency" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+       #  resultStrategieUnderratedByTendency=""
+#        StrategieUnderratedByTendency "$last" "$tendency" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+
+
 
         # Buy Strategie: Low horizontal MACD
         resultStrategieUnderratedLowHorizontalMACD=""
@@ -288,8 +292,8 @@ do
         StrategieUnderratedLowStochasticLowRSILowMACD "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High Quote by Tendency
-        resultStrategieOverratedByTendency=""
-        StrategieOverratedByTendency "$last" "$tendency" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        #resultStrategieOverratedByTendency=""
+        #StrategieOverratedByTendency "$last" "$tendency" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High horizontal MACD
         resultStrategieOverratedHighHorizontalMACD=""
@@ -363,14 +367,19 @@ do
         # Red link only for stocks that are marked as own stocks
         if [ "${markerOwnStock}" = '*' ] && 
           { 
-            [ "${#resultStrategieOverratedByTendency}" -gt 1 ] || 
+            # TODO
+            [ "${#resultStrategieByTendency}" -gt 1 ] || 
+           # [ "${#resultStrategieOverratedByTendency}" -gt 1 ] || 
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || 
             [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighRSI}" -gt 1 ] || 
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
             styleComdirectLink="style=\"font-size:x-large; color:red\""
         fi
 
-        if [ "${#resultStrategieUnderratedByTendency}" -gt 1 ] || 
+        if 
+           # TODO
+           [ "${#resultStrategieByTendency}" -gt 1 ] || 
+        #[ "${#resultStrategieUnderratedByTendency}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || 
            [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowRSI}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
@@ -409,8 +418,12 @@ do
         echo "&nbsp;<span style=\"color:rgb(255, 205, 86);\">MACD:<b>""$lastMACDValue" "</b></span></p>"
 
         # Strategies output
+
+        # Sell/Buy
+        echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieByTendency" "</b></p>"
+        
         # Buy
-        echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieUnderratedByTendency" "</b></p>"
+        #echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieUnderratedByTendency" "</b></p>"
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>"
@@ -418,7 +431,7 @@ do
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
         
         # Sell
-        echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieOverratedByTendency" "</b></p>"
+      #  echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieOverratedByTendency" "</b></p>"
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>"

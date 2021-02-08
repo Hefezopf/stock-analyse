@@ -11,6 +11,67 @@ OUT_RESULT_FILE=temp/_result.html
 SYMBOL=BEI
 SYMBOL_NAME="BEI BEIERSDORF AG"
 
+@test "StrategieByTendency" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieByTendency
+  [ "$resultStrategieByTendency" == '' ]
+
+  StrategieByTendency 100 "rising" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == '' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 99 "rising" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == 'Buy: Low Quote by Tendency: 99€ is under Avg95 100€ with Tendency rising' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 110 "rising" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == '' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 111 "rising" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == 'Sell: High Quote by Tendency: 111€ is over Avg95 100€ with Tendency rising' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 96 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == 'Buy: Low Quote by Tendency: 96€ is under Avg95 100€ with Tendency level' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 98 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == '' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 100 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == '' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 103 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == '' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 104 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == 'Sell: High Quote by Tendency: 104€ is over Avg95 100€ with Tendency level' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 90 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == 'Buy: Low Quote by Tendency: 90€ is under Avg95 100€ with Tendency falling' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 91 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == '' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 100 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == '' ]
+
+  resultStrategieByTendency=""
+  StrategieByTendency 101 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieByTendency" == 'Sell: High Quote by Tendency: 101€ is over Avg95 100€ with Tendency falling' ]
+}
+
 @test "StrategieOverratedByTendency" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
