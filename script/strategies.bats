@@ -12,6 +12,69 @@ OUT_RESULT_FILE=temp/_result.html
 SYMBOL=BEI
 SYMBOL_NAME="BEI BEIERSDORF AG"
 
+@test "StrategieOverratedXHighStochastic" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieOverratedXHighStochastic 
+  [ "$resultStrategieOverratedXHighStochastic" == '' ]
+
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 80, 81, 70," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighStochastic" == '' ]
+
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 3 last Stochastic: 3 last quotes are over 81' ]
+
+  resultStrategieOverratedXHighStochastic=""
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 3 last Stochastic: 3 last quotes are over 81' ]
+
+  resultStrategieOverratedXHighStochastic=""
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 82, 82, 88," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 3 last Stochastic: 3 last quotes are over 81' ]
+
+  resultStrategieOverratedXHighStochastic=""
+  StrategieOverratedXHighStochastic 81 " , , 11, 85, 84, 83, 82," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 4 last Stochastic: 4 last quotes are over 81' ]
+
+  resultStrategieOverratedXHighStochastic=""
+  StrategieOverratedXHighStochastic 81 " , , 86, 85, 84, 83, 82," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 5 last Stochastic: 5 last quotes are over 81' ]
+}
+
+@test "StrategieUnderratedXLowStochastic" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieUnderratedXLowStochastic 
+  [ "$resultStrategieUnderratedXLowStochastic" == '' ]
+
+  StrategieUnderratedXLowStochastic 9 " , , 11, 11, 8, 17, 8," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowStochastic" == '' ]
+
+  StrategieUnderratedXLowStochastic 9 " , , 11, 11, 8, 17, 8," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowStochastic" == '' ]
+
+  StrategieUnderratedXLowStochastic 9 " , , 11, 11, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 3 last Stochastic: 3 last quotes are under 9' ]
+
+  resultStrategieUnderratedXLowStochastic=""
+  StrategieUnderratedXLowStochastic 9 " , , 11, 11, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 3 last Stochastic: 3 last quotes are under 9' ]
+
+  resultStrategieUnderratedXLowStochastic=""
+  StrategieUnderratedXLowStochastic 9 " , , 11, 1, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 4 last Stochastic: 4 last quotes are under 9' ]
+
+  resultStrategieUnderratedXLowStochastic=""
+  StrategieUnderratedXLowStochastic 9 " , , 1, 1, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 5 last Stochastic: 5 last quotes are under 9' ]
+}
+
 @test "StrategieByTendency" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
@@ -73,136 +136,66 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   [ "$resultStrategieByTendency" == 'Sell: High Quote by Tendency: 101€ is over Avg95 100€ with Tendency FALLING' ]
 }
 
-# @test "StrategieOverratedByTendency" {
-#   function WriteComdirectUrlAndStoreFileList() {
-#     echo ""
-#   }
-#   export -f WriteComdirectUrlAndStoreFileList
-
-#   StrategieOverratedByTendency
-#   [ "$resultStrategieOverratedByTendency" == '' ]
-
-#   StrategieOverratedByTendency 101 "rising" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieOverratedByTendency" == '' ]
-
-#   resultStrategieOverratedByTendency=""
-#   StrategieOverratedByTendency 110 "rising" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieOverratedByTendency" == '' ]
-
-#   resultStrategieOverratedByTendency=""
-#   StrategieOverratedByTendency 113 "rising" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieOverratedByTendency" == 'Sell: High Quote by Tendency: 113€ is over Avg95 100€ with Tendency rising' ]
-
-#   resultStrategieOverratedByTendency=""
-#   StrategieOverratedByTendency 100 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieOverratedByTendency" == '' ]
-
-#   resultStrategieOverratedByTendency=""
-#   StrategieOverratedByTendency 102 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieOverratedByTendency" == '' ]
-
-#   resultStrategieOverratedByTendency=""
-#   StrategieOverratedByTendency 103 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieOverratedByTendency" == '' ]
-
-#   resultStrategieOverratedByTendency=""
-#   StrategieOverratedByTendency 104 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieOverratedByTendency" == 'Sell: High Quote by Tendency: 104€ is over Avg95 100€ with Tendency level' ]
-
-#   resultStrategieOverratedByTendency=""
-#   StrategieOverratedByTendency 99 "falling" 1 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieOverratedByTendency" == '' ]
-
-#   resultStrategieOverratedByTendency=""
-#   StrategieOverratedByTendency 101 "falling" 1 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieOverratedByTendency" == 'Sell: High Quote by Tendency: 101€ is over Avg95 100€ with Tendency falling' ]
-# }
-
-# @test "StrategieUnderratedByTendency" {
-#   function WriteComdirectUrlAndStoreFileList() {
-#     echo ""
-#   }
-#   export -f WriteComdirectUrlAndStoreFileList
-
-#   StrategieUnderratedByTendency
-#   [ "$resultStrategieUnderratedByTendency" == '' ]
-
-#   StrategieUnderratedByTendency 99 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedByTendency" == '' ]
-
-#   resultStrategieUnderratedByTendency=""
-#   StrategieUnderratedByTendency 93 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedByTendency" == '' ]
-
-#   resultStrategieUnderratedByTendency=""
-#   StrategieUnderratedByTendency 88 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedByTendency" == 'Buy: Low Quote by Tendency: 88€ is under Avg95 100€ with Tendency falling' ]
-
-#   resultStrategieUnderratedByTendency=""
-#   StrategieUnderratedByTendency 97 "falling" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedByTendency" == '' ]
-
-#   resultStrategieUnderratedByTendency=""
-#   StrategieUnderratedByTendency 100 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedByTendency" == '' ]
-
-#   resultStrategieUnderratedByTendency=""
-#   StrategieUnderratedByTendency 97 "level" "1.01" 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedByTendency" == 'Buy: Low Quote by Tendency: 97€ is under Avg95 100€ with Tendency level' ]
-
-#   resultStrategieUnderratedByTendency=""
-#   StrategieUnderratedByTendency 100 "rising" 1 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedByTendency" == '' ]
-
-#   resultStrategieUnderratedByTendency=""
-#   StrategieUnderratedByTendency 99 "rising" 1 100 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-#   [ "$resultStrategieUnderratedByTendency" == 'Buy: Low Quote by Tendency: 99€ is under Avg95 100€ with Tendency rising' ]
-# }
-
-@test "StrategieOverrated3HighRSI" {
+@test "StrategieOverratedXHighRSI" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
   }
   export -f WriteComdirectUrlAndStoreFileList
 
-  StrategieOverrated3HighRSI 
-  [ "$resultStrategieOverrated3HighRSI" == '' ]
+  StrategieOverratedXHighRSI 
+  [ "$resultStrategieOverratedXHighRSI" == '' ]
 
-  StrategieOverrated3HighRSI overrated 75 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 71, 62, 62," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighRSI" == '' ]
+  StrategieOverratedXHighRSI overrated 75 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 71, 62, 62," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighRSI" == '' ]
 
-  StrategieOverrated3HighRSI 75 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 71, 22, 62," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighRSI" == '' ]
+  StrategieOverratedXHighRSI 75 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 71, 22, 62," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighRSI" == '' ]
 
-  StrategieOverrated3HighRSI 75 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 76, 77, 76," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighRSI" == 'Sell: High 3 last RSI: 3 last quotes are over 75' ]
+  StrategieOverratedXHighRSI 75 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 73, 74, 76, 77, 76," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighRSI" == 'Sell: High 3 last RSI: 3 last quotes are over 75' ]
 
-  resultStrategieOverrated3HighRSI=""
-  StrategieOverrated3HighRSI 98 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 99, 100, 99," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighRSI" == 'Sell: High 3 last RSI: 3 last quotes are over 98' ]
+  resultStrategieOverratedXHighRSI=""
+  StrategieOverratedXHighRSI 98 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 99, 100, 99," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighRSI" == 'Sell: High 3 last RSI: 3 last quotes are over 98' ]
+
+  resultStrategieOverratedXHighRSI=""
+  StrategieOverratedXHighRSI 75 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 75, 76, 99, 100, 99," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighRSI" == 'Sell: High 4 last RSI: 4 last quotes are over 75' ]
+
+  resultStrategieOverratedXHighRSI=""
+  StrategieOverratedXHighRSI 75 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 75, 76, 77, 99, 100, 99," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighRSI" == 'Sell: High 5 last RSI: 5 last quotes are over 75' ]
 }
 
-@test "StrategieUnderrated3LowRSI" {
+@test "StrategieUnderratedXLowRSI" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
   }
   export -f WriteComdirectUrlAndStoreFileList
 
-  StrategieUnderrated3LowRSI 
-  [ "$resultStrategieUnderrated3LowRSI" == '' ]
+  StrategieUnderratedXLowRSI 
+  [ "$resultStrategieUnderratedXLowRSI" == '' ]
 
-  StrategieUnderrated3LowRSI 25 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 71, 62, 62," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowRSI" == '' ]
+  StrategieUnderratedXLowRSI 25 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 71, 62, 62," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowRSI" == '' ]
 
-  StrategieUnderrated3LowRSI 25 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 71, 22, 62," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowRSI" == '' ]
+  StrategieUnderratedXLowRSI 25 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 71, 22, 62," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowRSI" == '' ]
 
-  StrategieUnderrated3LowRSI 25 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 23, 22, 22," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowRSI" == 'Buy: Low 3 last RSI: 3 last quotes are under 25' ]
+  StrategieUnderratedXLowRSI 25 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 23, 22, 22," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowRSI" == 'Buy: Low 3 last RSI: 3 last quotes are under 25' ]
 
-  resultStrategieUnderrated3LowStochastic=""
-  StrategieUnderrated3LowRSI 2 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowRSI" == 'Buy: Low 3 last RSI: 3 last quotes are under 2' ]
+  StrategieUnderratedXLowRSI=""
+  StrategieUnderratedXLowRSI 2 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 74, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowRSI" == 'Buy: Low 3 last RSI: 3 last quotes are under 2' ]
+
+  StrategieUnderratedXLowRSI=""
+  StrategieUnderratedXLowRSI 9 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 80, 8, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowRSI" == 'Buy: Low 4 last RSI: 4 last quotes are under 9' ]
+
+  StrategieUnderratedXLowRSI=""
+  StrategieUnderratedXLowRSI 9 " , , , , , , , , , , , , , 29, 25, 23, 27, 33, 29, 33, 31, 31, 33, 40, 30, 40, 44, 40, 44, 52, 44, 41, 48, 43, 47, 54, 56, 41, 45, 28, 34, 35, 49, 45, 49, 44, 42, 63, 66, 65, 58, 65, 72, 76, 75, 68, 63, 68, 74, 75, 76, 64, 56, 56, 63, 63, 61, 58, 61, 70, 74, 66, 51, 52, 59, 62, 67, 58, 56, 58, 48, 49, 42, 39, 43, 53, 60, 64, 62, 69, 74, 88, 77, 72, 79, 8, 8, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowRSI" == 'Buy: Low 5 last RSI: 5 last quotes are under 9' ]
 }
 
 @test "StrategieOverratedHighHorizontalMACD" {
@@ -345,53 +338,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   resultStrategieUnderratedLowStochasticLowRSILowMACD=""
   StrategieUnderratedLowStochasticLowRSILowMACD 9 90 0 5 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic & RSI & MACD-: Stochastic quote 0 under 9 and RSI quote 5 under 90' ]
-}
-
-@test "StrategieOverrated3HighStochastic" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
-  StrategieOverrated3HighStochastic 
-  [ "$resultStrategieOverrated3HighStochastic" == '' ]
-
-  StrategieOverrated3HighStochastic 81 " , 80, 81, 70," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighStochastic" == '' ]
-
-  StrategieOverrated3HighStochastic 81 " , 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighStochastic" == 'Sell: High 3 last Stochastic: 3 last quotes are over 81' ]
-
-  resultStrategieOverrated3HighStochastic=""
-  StrategieOverrated3HighStochastic 81 " , 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighStochastic" == 'Sell: High 3 last Stochastic: 3 last quotes are over 81' ]
-
-  resultStrategieOverrated3HighStochastic=""
-  StrategieOverrated3HighStochastic 81 " , 82, 82, 88," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverrated3HighStochastic" == 'Sell: High 3 last Stochastic: 3 last quotes are over 81' ]
-}
-
-@test "StrategieUnderrated3LowStochastic" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
-  StrategieUnderrated3LowStochastic 
-  [ "$resultStrategieUnderrated3LowStochastic" == '' ]
-
-  StrategieUnderrated3LowStochastic 9 " , 8, 17, 8," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowStochastic" == '' ]
-
-  StrategieUnderrated3LowStochastic 9 " , 8, 17, 8," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowStochastic" == '' ]
-
-  StrategieUnderrated3LowStochastic 9 " , 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowStochastic" == 'Buy: Low 3 last Stochastic: 3 last quotes are under 9' ]
-
-  resultStrategieUnderrated3LowStochastic=""
-  StrategieUnderrated3LowStochastic 9 " , 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderrated3LowStochastic" == 'Buy: Low 3 last Stochastic: 3 last quotes are under 9' ]
 }
 
 @test "StrategieUnderratedByPercentAndStoch" {

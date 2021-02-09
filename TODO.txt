@@ -6,19 +6,29 @@ TODO:
 git config --global http.sslVerify false
 
 
++3 last RSI/Stoch: erweitern auf 4, 5, dynamisch
++Auslagern von funtion Rund um: WriteComdirectUrlAndStoreFileList...
+
+-Eher auf RSI konzentrieren?
+-Auch z.b. 5 der letzten 7 RSI under... alarmieren
+
+-Meine Durchschnitte sind XETRA Schnitte nicht L&S. Siehe BC8; verfolgen um zu verstehen; ID ist anderst
+-Evtl Kombi Strategien entkoppeln
+-Punkte je Stategie vergeben
+-Warum kommt Alarm low by Percentage so selten?
+
+-Evtl. die Ersten 18 Kursdaten nicht darstellen (sind eh keine Averages), auch wegen sonst gestauchter x-Achse bei so vielen Werten
+-Evtl. History in Diagrammen mit aufnehmen. Z.b. anstatt 1..100 in X Achse -> PS oder R oder M als Kürzel der Strategien
 -Alle Strategien nur jeweils einmal, siehe Tendency
--Evtl. stark fallend, stark steigend einbauen, also 5 Zustände!
+-Evtl. Tendency: stark fallend, stark steigend einbauen, also 5 Zustände!
 -Dynamic Analyse: Alarme je nach 95 Tage Linie anpassen 
--Wenn dyn., dann braucht man kein oberes und unteres RSI und Stoch Limit 
+-Wenn dyn., dann braucht man kein festes oberes und unteres RSI und Stoch Limit 
 
 -Evtl. horizontal MACD verbesssern, so das nicht die ganz geraden Wendepunkte alarmiert werden. Also nur wenn von steil kommend!
 -MACD horizontal überarbeiten/neue Strategie: wenn MACD von steil in die Horizontale geht - Prozente berechnen
     z.b.: PPX.html pos 35 am 5.2.2021. Hier kann man die Abflachung gut sehen.
     MACD von -8,77 auf -11,44 sind 30% minus und auf -13,49 sind 17% minus und dann auf -14,25 sind 5 % minus.
 -Evtl. Neue Stoch Strategie wenn 6 (oder x) unter den letzten Werten unter dem Schwellwert
--Evtl. die Ersten 18 Kursdaten nicht darstellen, wegen sonst gestauchter x-Achse 
--Evtl. History in Diagrammen mit aufnehmen. Z.b. anstatt 1..100 in X Achse -> PS oder R oder M als Kürzel der Strategien
--Konstanten für green und red?
 -Wie kann ich die Umschichtungen im Depot besser pflegen ohne commit? ENV?
 -Simulation einer Strategie Mit Geld
 -Beschleunigen durch weniger als 100 Tage?
@@ -35,9 +45,9 @@ git config --global http.sslVerify false
 -Evtl mehr wie 3 Werte in MACD Bewertung/Alarm einbeziehen 4 Werte? -> Nachkauf? zu kompliziert
 
 Vorhandene Strategieren:
-    RSI StrategieOverrated3HighRSI
+    RSI StrategieOverratedXHighRSI
     Percentage/Stochastic StrategieOverratedByPercentAndStochastic
-    Stochastic StrategieOverrated3HighStochastic
+    Stochastic StrategieOverratedXHighStochastic
     Stochastic/RSI StrategieOverratedHighStochasticHighRSIHighMACD
     MACD StrategieOverratedHighHorizontalMACD
 
@@ -176,3 +186,31 @@ curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MA
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].name'
 curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].close'
 curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
+
+
+# StrategieUnderratedLowRSI function:
+# Strategie: Low RSI last quote under lowRSIValue
+# https://www.charttec.de/html/indikator_rsi_relative_strength_index.php
+# https://de.wikipedia.org/wiki/Relative_Strength_Index
+# Input: ${x}
+# Output: resultStrategieUnderratedLowRSI
+# StrategieUnderratedLowRSI() {
+#     _ratedParam=${1}
+#     _lowRSIValueParam=${2}
+#     _lastRSIQuoteRoundedParam=${3}
+#     _outResultFileParam=${4}
+#     _symbolParam=${5}
+#     _symbolNameParam=${6}
+#     _markerOwnStockParam=${7}
+#     export resultStrategieUnderratedLowRSI=""
+#     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
+#         #resultStrategieUnderratedLowRSI=""
+#         # Last RSI quote under _lowRSIValue
+#         if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
+             # reasonPrefix="Buy: Low last RSI"
+#             resultStrategieUnderratedLowRSI="$reasonPrefix: RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
+        # echo "$resultStrategieUnderratedLowRSI"
+#             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"
+#         fi
+#     fi
+# }

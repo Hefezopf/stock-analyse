@@ -157,6 +157,13 @@ WriteComdirectUrlAndStoreFileList() {
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
     _reasonParam=${6}
+    export reportedSymbolFileList=""
+    
+    # Red link only for stocks that are marked as own
+    if [ "$_linkColorParam" = "$RED" ] && [ "${_markerOwnStockParam}" = '' ]; then
+        _linkColorParam="$BLACK"
+    fi
+
     _id_notation=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
     if [ ! "${#_id_notation}" -gt 1 ]; then
         _id_notation=999999

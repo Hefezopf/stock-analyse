@@ -127,8 +127,24 @@ SYMBOL_NAME="BEIERSDORF AG"
 
 @test "WriteComdirectUrlAndStoreFileList" {
   rm -rf temp/_result.html
+
+  reportedSymbolFileList=""
   WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "$GREEN" *
   [ "$reportedSymbolFileList" == 'out/BEI.html' ]
+
+  reportedSymbolFileList=""
+  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "$BLACK" *
+  [ "$reportedSymbolFileList" == '' ]
+  
+  ID_NOTATION_STORE_FOR_NEXT_TIME=""
+  reportedSymbolFileList=""
+  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "$RED" *
+  [ "$reportedSymbolFileList" == 'out/BEI.html' ]  
+
+  ID_NOTATION_STORE_FOR_NEXT_TIME=""
+  reportedSymbolFileList=""
+  WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "$RED" ""
+  [ "$reportedSymbolFileList" == '' ]
 }
 
 @test "LesserThenWithFactor" {

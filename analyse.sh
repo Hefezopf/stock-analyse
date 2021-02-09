@@ -280,13 +280,13 @@ do
         resultStrategieUnderratedByPercentAndStochastic=""
         StrategieUnderratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv95" "$agv18UnderAgv38" "$agv38UnderAgv95" "$agv18UnderAgv95" "$last" "$percentageGreaterFactor" "$average18" "$average38" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     
-        # Buy Strategie: Low Stochastic 3 last values under lowStochasticValue
-        resultStrategieUnderrated3LowStochastic=""
-        StrategieUnderrated3LowStochastic "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        # Buy Strategie: Low Stochastic X last values under lowStochasticValue
+        resultStrategieUnderratedXLowStochastic=""
+        StrategieUnderratedXLowStochastic "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # Buy Strategie: Low RSI 3 last values under RSIQuoteLower
-        resultStrategieUnderrated3LowRSI=""
-        StrategieUnderrated3LowRSI "$RSIQuoteLower" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        # Buy Strategie: Low RSI X last values under RSIQuoteLower
+        resultStrategieUnderratedXLowRSI=""
+        StrategieUnderratedXLowRSI "$RSIQuoteLower" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
         resultStrategieUnderratedLowStochasticLowRSILowMACD=""
@@ -304,13 +304,13 @@ do
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv95" "$agv18OverAgv38" "$agv38OverAgv95" "$agv18OverAgv95" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # Sell Strategie: High Stochastic 3 last values over highStochasticValue
-        resultStrategieOverrated3HighStochastic=""
-        StrategieOverrated3HighStochastic "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        # Sell Strategie: High Stochastic X last values over highStochasticValue
+        resultStrategieOverratedXHighStochastic=""
+        StrategieOverratedXHighStochastic "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
-        # Sell Strategie: High RSI 3 last values over RSIQuoteUpper
-        resultStrategieOverrated3HighRSI=""
-        StrategieOverrated3HighRSI "$RSIQuoteUpper" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        # Sell Strategie: High RSI X last values over RSIQuoteUpper
+        resultStrategieOverratedXHighRSI=""
+        StrategieOverratedXHighRSI "$RSIQuoteUpper" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High stochastic and High RSI last quote over stochasticPercentageUpper and RSIQuoteUpper
         resultStrategieOverratedHighStochasticHighRSIHighMACD=""
@@ -372,7 +372,7 @@ do
             [ "${#resultStrategieByTendency}" -gt 1 ] || 
            # [ "${#resultStrategieOverratedByTendency}" -gt 1 ] || 
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || 
-            [ "${#resultStrategieOverrated3HighStochastic}" -gt 1 ] || [ "${#resultStrategieOverrated3HighRSI}" -gt 1 ] || 
+            [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] || 
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
             styleComdirectLink="style=\"font-size:x-large; color:red\""
         fi
@@ -382,7 +382,7 @@ do
            [ "${#resultStrategieByTendency}" -gt 1 ] || 
         #[ "${#resultStrategieUnderratedByTendency}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || 
-           [ "${#resultStrategieUnderrated3LowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderrated3LowRSI}" -gt 1 ] || 
+           [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
@@ -427,16 +427,16 @@ do
         #echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieUnderratedByTendency" "</b></p>"
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderrated3LowStochastic" "</b></p>"
-        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderrated3LowRSI" "</b></p>"
+        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedXLowStochastic" "</b></p>"
+        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedXLowRSI" "</b></p>"
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
         
         # Sell
       #  echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieOverratedByTendency" "</b></p>"
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverrated3HighStochastic" "</b></p>"
-        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverrated3HighRSI" "</b></p>"
+        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"
+        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
         echo "Good Luck!"
 

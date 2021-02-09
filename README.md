@@ -5,7 +5,9 @@ Shell script to check given stock quotes and their averages of the last 95, 38, 
 
 Stochastic, RSI and MACD are calculated as well.
 
-Alert via email.
+Values are calculated on XETRA end-of-day quotes
+
+Alerts via email.
 
 # Run
 ![ScreenShotCMD](image/ScreenShotCMD.png "ScreenShotCMD")
