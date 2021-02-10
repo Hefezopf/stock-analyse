@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default is 'true'
-# CalculateStochastic=true
-# CalculateRSI=true
-# CalculateMACD=true
+CalculateStochastic=true
+CalculateRSI=true
+CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -366,39 +366,20 @@ do
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
         # Red link only for stocks that are marked as own stocks
-
-
-# resultStrategieByTendency='Sell: Low'
-# SUBSTRING=$(echo $resultStrategieByTendency| cut -d':' -f 1)
-# echo $SUBSTRING
-#  if [ "${#resultStrategieByTendency}" -gt 1 ] &&  [[ $SUBSTRING = "Sell" ]]; then
-#     echo Sell!!!!!!!!!!!!!!!!!!!!
-#  fi
-
-#  if [ "${#resultStrategieByTendency}" -gt 1 ] &&  [[ $resultStrategieByTendency == *"Sell: "* ]]; then
-#     echo SellSellSellSellSellSellSell
-#  fi
-#  if [ "${#resultStrategieByTendency}" -gt 1 ] &&  [[ $resultStrategieByTendency == *"Buy: "* ]]; then
-#     echo BuyBuyBuyBuyBuyBuyBuyBuy
-#  fi
-
-
         if [ "${markerOwnStock}" = '*' ] && 
            { 
-           { [ "${#resultStrategieByTendency}" -gt 1 ] &&  [ $(echo $resultStrategieByTendency| cut -d':' -f 1) = "Sell" ]; } || 
+           { [ "${#resultStrategieByTendency}" -gt 1 ] && [ $(echo $resultStrategieByTendency | cut -f 1 -d ':') = "Sell" ]; } || 
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || 
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] || 
-            [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
-echo SellSellSellSellSellSellSell            
+            [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then          
             styleComdirectLink="style=\"font-size:x-large; color:red\""
         fi
 
         if 
-           { [ "${#resultStrategieByTendency}" -gt 1 ] &&  [ $(echo $resultStrategieByTendency| cut -d':' -f 1) = "Buy" ]; } || 
+           { [ "${#resultStrategieByTendency}" -gt 1 ] && [ $(echo $resultStrategieByTendency | cut -f 1 -d ':') = "Buy" ]; } || 
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
-echo BuyBuyBuyBuyBuyBuyBuyBuy
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
 
