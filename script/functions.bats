@@ -14,6 +14,12 @@ TICKER_NAMES_FILE="test/_ticker_id_names.txt"
 SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF AG"
 
+@test "WriteAlarmAbbrevXAxisFile" {
+  mkdir -p test/alarm
+  run WriteAlarmAbbrevXAxisFile XAxis1 "$SYMBOL" "test/BEI_2021-02-09.txt" "test/alarm"
+  [ "$status" -eq 0 ]
+}
+
 @test "DetermineTendency" {
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 92.6132, 92.5305, 92.4579, 92.3874, 92.3326, 92.3184,"
   [ "$tendency" == $FALLING ]

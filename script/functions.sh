@@ -1,29 +1,51 @@
 #!/bin/sh
 
+# WriteAlarmAbbrevXAxisFile function: 
+# Write the alarm x-axis file into alarm dir. E.g: alarm/BEI.txt
+# Keep history in datefile. E.g: alarm/BEI_2021-02-09.txt
+# Input: ${x}
+# Output: alarm/$symbol.txt file. E.g: alarm/BEI.txt
+WriteAlarmAbbrevXAxisFile() {
+    _newAlarmAbbrevTextParam=${1}
+    _symbolParam=${2}
+    _dataDateFile=${3}
+    _dataDateOutputDir=${4}
+    lastDateInDataFile=$(head -n1 "$_dataDateFile" | cut -f 1)
+    beforeDateInDataFile=$(head -n2 "$_dataDateFile" | tail -1 | cut -f 1)
+    alarmSymbolFile=$_dataDateOutputDir/${_symbolParam}.txt
+    alarmSymbolDateFile=$_dataDateOutputDir/${_symbolParam}_$lastDateInDataFile.txt
+    alarmSymbolDateBeforeFile=$_dataDateOutputDir/${_symbolParam}_$beforeDateInDataFile.txt
+    if [ ! -f "$alarmSymbolDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
+        if [ -f "$alarmSymbolDateBeforeFile" ]; then # Last datefile exists. Take the last datefile e.g: alarm/BEI_2021-02-08.txt
+            commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolDateBeforeFile")
+            commaListAlarm="${commaListAlarm},'$_newAlarmAbbrevTextParam'"
+            echo "$commaListAlarm" > "$alarmSymbolDateFile"
+            rm -rf "$alarmSymbolDateBeforeFile"
+        else # Last datefile File doesn't exists. Create actual datefile from scratch e.g: alarm/BEI_2021-02-09.txt
+            rm -rf "$_dataDateOutputDir"/"${_symbolParam}"*.txt
+            alarmAbbrevTemplate="'1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
+            commaListAlarm="$alarmAbbrevTemplate,'$_newAlarmAbbrevTextParam'"
+            echo "$commaListAlarm" > "$alarmSymbolDateFile"
+        fi
+    fi
+    cp -f "$alarmSymbolDateFile" "$alarmSymbolFile" # Copy e.g: alarm/BEI_2021-02-0X.tx to alarm/BEI.txt
+}
+
 # DetermineTendency function: 
 # Tendency of the last 5 value of a comma seperated list
 # Input: ${x}
 # Output: tendency [FALLING|RISING|LEVEL]
 DetermineTendency() {
-    _list=${1}
+    _listParam=${1}
     export tendency=""
-    value_95=$(echo "$_list" | cut -f 95 -d ',')
-    value_100=$(echo "$_list" | cut -f 100 -d ',')
+    value_95=$(echo "$_listParam" | cut -f 95 -d ',')
+    value_100=$(echo "$_listParam" | cut -f 100 -d ',')
     difference=$(echo "$value_100 $value_95" | awk '{print ($1 - $2)}')
     isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
     relative=$(echo "$value_100 $value_95" | awk '{print (($1 / $2)-1)*100}')
     valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
     valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
     isLevelPos1=$(echo "${valueAfterComma}" | awk '{print substr ($0, 0, 1)}')
-
-# echo _list "$_list"
-# echo value_95 "$value_95" value_100 "$value_100"
-# echo difference "$difference" 
-# echo isNegativ "$isNegativ" 
-# echo relative "$relative" 
-# echo valueBeforeComma "$valueBeforeComma" valueAfterComma "$valueAfterComma" 
-# echo isLevelPos1 "$isLevelPos1" 
-
     if [ "${isLevelPos1}" -lt 2 ] && # < 0.02 %
        { [ "${valueBeforeComma}" = "0" ] || [ "${valueBeforeComma}" = "-0" ]; } then
         tendency="$LEVEL"
@@ -157,8 +179,8 @@ WriteComdirectUrlAndStoreFileList() {
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
     _reasonParam=${6}
-    export reportedSymbolFileList
-    
+    export reportedSymbolFileList # Do not initialize this global list with ="" !
+
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "${_markerOwnStockParam}" = '' ]; then
         _linkColorParam="$BLACK"
@@ -179,7 +201,7 @@ WriteComdirectUrlAndStoreFileList() {
         echo "<a style=color:$_linkColorParam href=$COMDIRECT_URL_PREFIX$_id_notation target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a> " >> "$_outResultFileParam"
         echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=_blank>&lt/&gt</a><br>" >> "$_outResultFileParam"
     fi
-    # Show reason in result only, if marked as own stock or a 'buy' recommendation
+    # Show reason in result file only, if marked as own stock or a 'buy' recommendation
     if [ "${_markerOwnStockParam}" = '*' ] || [ "$_linkColorParam" = "$GREEN" ]; then
         echo "$_reasonParam<br>" >> "$_outResultFileParam"
     fi
