@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Calculate charts and underlying strategies. Default is 'true'
-# CalculateStochastic=true
-# CalculateRSI=true
-# CalculateMACD=true
+CalculateStochastic=true
+CalculateRSI=true
+CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -332,8 +332,8 @@ do
         echo "${markerOwnStock}${symbol}" 
         cat js/indexPart1.html
 
-        alarmAbbrevValue=xx
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm"
+        alarmAbbrevValue=""
         cat alarm/"${symbol}".txt
         cat js/indexPart1a.html
 
