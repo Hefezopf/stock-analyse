@@ -374,15 +374,15 @@ do
         # Red link only for stocks that are marked as own stocks
         if [ "${markerOwnStock}" = '*' ] && 
            { 
-           { [ "${#resultStrategieByTendency}" -gt 1 ] &&  [[ $resultStrategieByTendency == *"Sell: "* ]]; } || 
+           { [ "${#resultStrategieByTendency}" -gt 1 ] && [ "$(echo "$resultStrategieByTendency" | cut -f 1 -d ':')" = "Sell" ]; } || 
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] || 
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] || 
-            [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
+            [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then          
             styleComdirectLink="style=\"font-size:x-large; color:red\""
         fi
 
         if 
-           { [ "${#resultStrategieByTendency}" -gt 1 ] &&  [[ $resultStrategieByTendency == *"Buy: "* ]]; } || 
+           { [ "${#resultStrategieByTendency}" -gt 1 ] && [ "$(echo "$resultStrategieByTendency" | cut -f 1 -d ':')" = "Buy" ]; } || 
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then

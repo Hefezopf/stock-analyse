@@ -181,7 +181,7 @@ WriteComdirectUrlAndStoreFileList() {
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
     _reasonParam=${6}
-    export reportedSymbolFileList=""
+    export reportedSymbolFileList
     
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "${_markerOwnStockParam}" = '' ]; then
@@ -192,7 +192,6 @@ WriteComdirectUrlAndStoreFileList() {
     if [ ! "${#_id_notation}" -gt 1 ]; then
         _id_notation=999999
     fi
-    
     # Only write URL once into result file
     if [ ! "${_id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
