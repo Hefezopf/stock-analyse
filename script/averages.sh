@@ -118,15 +118,16 @@ RSIOfDays() {
         fi
     done
 
+    RSIQuoteList=" , , ,"
     i=1
     while [ "$i" -le 100 ];
     do
-        minusCommas=$((_amountOfDaysParam - 10)) # display from 11 on till 100
         i=$((i + 1))
         # Fill with blank comma seperated data  
-        if [ $i -lt $((minusCommas + 1)) ]; then # <14
-            RSIQuoteList="$RSIQuoteList ,"
-        else # >14
+        if [ $i -lt $((_amountOfDaysParam + 1)) ]; then # < 14
+            # RSIQuoteList="$RSIQuoteList ,"
+J=1
+        else # > 14
             RSIwinningDaysAvg=$(tail -"${i}" "$RSIwinningDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')
             RSIloosingDaysAvg=$(tail -"${i}" "$RSIloosingDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }') 
             if [ "${RSIloosingDaysAvg}" = 0 ]; then
@@ -140,7 +141,7 @@ RSIOfDays() {
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
-    done
+    done  
 }
 
 # StochasticOfDays function:

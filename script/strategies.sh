@@ -83,7 +83,7 @@ StrategieByTendency() {
 }
 
 # StrategieOverratedXHighRSI function:
-# At least 3 high values out of 7 and one of the last 3 must be over
+# At least 3 high values out of 7 and one of the last 3 must be over. List of 90 comma seperated values
 # Strategie: High RSI X last values over highRSIValue
 # Input: ${x}
 # Output: resultStrategieOverratedXHighRSI
@@ -96,38 +96,38 @@ StrategieOverratedXHighRSI() {
     _markerOwnStockParam=${6}
     export resultStrategieOverratedXHighRSI=""
     if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
-        value_94=$(echo "$_RSIQuoteListParam" | cut -f 94 -d ',')
-        value_95=$(echo "$_RSIQuoteListParam" | cut -f 95 -d ',')
-        value_96=$(echo "$_RSIQuoteListParam" | cut -f 96 -d ',')
-        value_97=$(echo "$_RSIQuoteListParam" | cut -f 97 -d ',')
-        value_98=$(echo "$_RSIQuoteListParam" | cut -f 98 -d ',')
-        value_99=$(echo "$_RSIQuoteListParam" | cut -f 99 -d ',')
-        value_100=$(echo "$_RSIQuoteListParam" | cut -f 100 -d ',')
+        value_84=$(echo "$_RSIQuoteListParam" | cut -f 84 -d ',')
+        value_85=$(echo "$_RSIQuoteListParam" | cut -f 85 -d ',')
+        value_86=$(echo "$_RSIQuoteListParam" | cut -f 86 -d ',')
+        value_87=$(echo "$_RSIQuoteListParam" | cut -f 87 -d ',')
+        value_88=$(echo "$_RSIQuoteListParam" | cut -f 88 -d ',')
+        value_89=$(echo "$_RSIQuoteListParam" | cut -f 89 -d ',')
+        value_90=$(echo "$_RSIQuoteListParam" | cut -f 90 -d ',')
 
         countHighRSI=0
         oneOfTheLastRSIHigh=0
-        if [ "$value_100" -gt "$_highRSIValueParam" ]; then
+        if [ "$value_90" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
             oneOfTheLastRSIHigh=1
         fi           
-        if [ "$value_99" -gt "$_highRSIValueParam" ]; then
+        if [ "$value_89" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
             oneOfTheLastRSIHigh=1
         fi      
              
-        if [ "$value_98" -gt "$_highRSIValueParam" ]; then
+        if [ "$value_88" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
         fi           
-        if [ "$value_97" -gt "$_highRSIValueParam" ]; then
+        if [ "$value_87" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
         fi           
-        if [ "$value_96" -gt "$_highRSIValueParam" ]; then
+        if [ "$value_86" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
         fi
-        if [ "$value_95" -gt "$_highRSIValueParam" ]; then
+        if [ "$value_85" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
         fi
-        if [ "$value_94" -gt "$_highRSIValueParam" ]; then
+        if [ "$value_84" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
         fi
         # At least 3 high values out of 7 and one of the last 3 must be over
@@ -142,7 +142,7 @@ StrategieOverratedXHighRSI() {
 }
 
 # StrategieUnderratedXLowRSI function:
-# At least 3 low values out of 7 and one of the last 3 must be under
+# At least 3 low values out of 7 and one of the last 3 must be under. List of 90 comma seperated values
 # Strategie: Low RSI X last values under lowRSIValue
 # Input: ${x}
 # Output: resultStrategieUnderratedXLowRSI
@@ -155,38 +155,38 @@ StrategieUnderratedXLowRSI() {
     _markerOwnStockParam=${6}
     export resultStrategieUnderratedXLowRSI=""
     if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
-        value_94=$(echo "$_RSIQuoteListParam" | cut -f 94 -d ',')
-        value_95=$(echo "$_RSIQuoteListParam" | cut -f 95 -d ',')
-        value_96=$(echo "$_RSIQuoteListParam" | cut -f 96 -d ',')
-        value_97=$(echo "$_RSIQuoteListParam" | cut -f 97 -d ',')
-        value_98=$(echo "$_RSIQuoteListParam" | cut -f 98 -d ',')
-        value_99=$(echo "$_RSIQuoteListParam" | cut -f 99 -d ',')
-        value_100=$(echo "$_RSIQuoteListParam" | cut -f 100 -d ',')
+        value_84=$(echo "$_RSIQuoteListParam" | cut -f 84 -d ',')
+        value_85=$(echo "$_RSIQuoteListParam" | cut -f 85 -d ',')
+        value_86=$(echo "$_RSIQuoteListParam" | cut -f 86 -d ',')
+        value_87=$(echo "$_RSIQuoteListParam" | cut -f 87 -d ',')
+        value_88=$(echo "$_RSIQuoteListParam" | cut -f 88 -d ',')
+        value_89=$(echo "$_RSIQuoteListParam" | cut -f 89 -d ',')
+        value_90=$(echo "$_RSIQuoteListParam" | cut -f 90 -d ',')
       
         countLowRSI=0
         oneOfTheLastRSILow=0
-        if [ "$value_100" -lt "$_lowRSIValueParam" ]; then
+        if [ "$value_90" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
             oneOfTheLastRSILow=1
         fi           
-        if [ "$value_99" -lt "$_lowRSIValueParam" ]; then
+        if [ "$value_89" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
             oneOfTheLastRSILow=1
         fi
 
-        if [ "$value_98" -lt "$_lowRSIValueParam" ]; then
+        if [ "$value_88" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
         fi           
-        if [ "$value_97" -lt "$_lowRSIValueParam" ]; then
+        if [ "$value_87" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
         fi           
-        if [ "$value_96" -lt "$_lowRSIValueParam" ]; then
+        if [ "$value_86" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
         fi
-        if [ "$value_95" -lt "$_lowRSIValueParam" ]; then
+        if [ "$value_85" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
         fi
-        if [ "$value_94" -lt "$_lowRSIValueParam" ]; then
+        if [ "$value_84" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
         fi
         # At least 3 low values out of 7 and one of the last 3 must be under
