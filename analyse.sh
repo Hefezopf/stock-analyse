@@ -21,7 +21,7 @@
 . ./script/averages.sh
 . ./script/strategies.sh
 
-# Switches to calculate charts and underlying strategies. Default is 'true'
+# Switches for calculating charts and underlying strategies. Default is 'true'
 CalculateStochastic=true
 CalculateRSI=true
 CalculateMACD=true

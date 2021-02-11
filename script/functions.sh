@@ -32,20 +32,24 @@ WriteAlarmAbbrevXAxisFile() {
 }
 
 # DetermineTendency function: 
-# Tendency of the last 5 value of a comma seperated list
+# Tendency of the last 5 value of a comma seperated list of 90 values
 # Input: ${x}
 # Output: tendency [FALLING|RISING|LEVEL]
 DetermineTendency() {
     _listParam=${1}
     export tendency=""
-    value_95=$(echo "$_listParam" | cut -f 95 -d ',')
-    value_100=$(echo "$_listParam" | cut -f 100 -d ',')
-    difference=$(echo "$value_100 $value_95" | awk '{print ($1 - $2)}')
+    value_85=$(echo "$_listParam" | cut -f 85 -d ',')
+    value_90=$(echo "$_listParam" | cut -f 90 -d ',')
+    difference=$(echo "$value_90 $value_85" | awk '{print ($1 - $2)}')
     isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
-    relative=$(echo "$value_100 $value_95" | awk '{print (($1 / $2)-1)*100}')
+    relative=$(echo "$value_90 $value_85" | awk '{print (($1 / $2)-1)*100}')
     valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
     valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
     isLevelPos1=$(echo "${valueAfterComma}" | awk '{print substr ($0, 0, 1)}')
+
+echo _listParam $_listParam
+echo isLevelPos1 $isLevelPos1
+
     if [ "${isLevelPos1}" -lt 2 ] && # < 0.02 %
        { [ "${valueBeforeComma}" = "0" ] || [ "${valueBeforeComma}" = "-0" ]; } then
         tendency="$LEVEL"
