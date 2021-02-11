@@ -35,7 +35,7 @@ MACD_12_26() {
     done
     difference=$(printf "%.2f" $difference)
     lastMACDValue=$difference
-    MACDList=" , , , , , , , , , , , , , , , , , , , , , , , , ,$MACDList"
+    MACDList=" , , , , , , , , , , , , , , ,$MACDList"
 }
 
 # EMAverageOfDays function:
@@ -44,8 +44,10 @@ MACD_12_26() {
 EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+
+    minusCommas=$((_amountOfDaysParam - 10)) # display from 11 on till 100
     i=1
-    while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
+    while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
         averagePriceList="$averagePriceList ,"        
         i=$((i + 1))
     done 
@@ -74,14 +76,16 @@ EMAverageOfDays() {
 AverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+
+    minusCommas=$((_amountOfDaysParam - 10)) # display from 11 on till 100
     i=1
-    while [ "$i" -lt "${1}" ]; do # Fill with blank comma seperated data
-        averagePriceList="$averagePriceList ,"        
+    while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
+        averagePriceList="$averagePriceList ,"
         i=$((i + 1))
-    done 
+    done
 
     i=0
-    while [ "$i" -le $((100-_amountOfDaysParam)) ]; 
+    while [ "$i" -le $((100-_amountOfDaysParam)) ];
     do
         headLines=$((100-i))
         averagePrice=$(head -n"$headLines" "$_dataFileParam" | tail -"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')
@@ -117,9 +121,10 @@ RSIOfDays() {
     i=1
     while [ "$i" -le 100 ];
     do
+        minusCommas=$((_amountOfDaysParam - 10)) # display from 11 on till 100
         i=$((i + 1))
         # Fill with blank comma seperated data  
-        if [ $i -lt $((_amountOfDaysParam + 1)) ]; then # <14
+        if [ $i -lt $((minusCommas + 1)) ]; then # <14
             RSIQuoteList="$RSIQuoteList ,"
         else # >14
             RSIwinningDaysAvg=$(tail -"${i}" "$RSIwinningDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')
@@ -128,6 +133,7 @@ RSIOfDays() {
                 RSIQuote=100
             else
                 RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')
+                # slightly differant algorithm
                 #RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
             fi
 
@@ -143,10 +149,12 @@ RSIOfDays() {
 StochasticOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+
     stochasticFile="$(mktemp -p /dev/shm/)"
+    minusCommas=$((_amountOfDaysParam - 10)) # display from 11 on till 100
     i=1
     # Fill with blank comma seperated data
-    while [ "$i" -lt "${1}" ]; do 
+    while [ "$i" -lt "$minusCommas" ]; do 
         stochasticQuoteList="$stochasticQuoteList ,"
         i=$((i + 1))
     done 
