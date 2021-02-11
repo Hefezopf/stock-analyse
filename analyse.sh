@@ -46,7 +46,7 @@ touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 reportedSymbolFileList=""
-alarmAbbrevValue="777"
+alarmAbbrevValue=""
 TICKER_ID_NAMES_FILE=data/_ticker_id_names.txt
 HTML_RESULT_FILE_HEADER="<html><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE

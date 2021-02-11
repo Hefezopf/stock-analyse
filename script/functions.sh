@@ -13,8 +13,17 @@ WriteAlarmAbbrevXAxisFile() {
     lastDateInDataFile=$(head -n1 "$_dataDateFile" | cut -f 1)
     beforeDateInDataFile=$(head -n2 "$_dataDateFile" | tail -1 | cut -f 1)
     alarmSymbolFile=$_dataDateOutputDir/${_symbolParam}.txt
-    alarmSymbolDateFile=$_dataDateOutputDir/${_symbolParam}_$lastDateInDataFile.txt
-    alarmSymbolDateBeforeFile=$_dataDateOutputDir/${_symbolParam}_$beforeDateInDataFile.txt
+    alarmSymbolDateFile=$_dataDateOutputDir/${_symbolParam}_$lastDateInDataFile.txt 
+    alarmSymbolDateBeforeFile=$_dataDateOutputDir/${_symbolParam}_$beforeDateInDataFile.txt 
+    
+#echo 1_newAlarmAbbrevTextParam $_newAlarmAbbrevTextParam 
+# ???????????????????????   
+    if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
+        _newAlarmAbbrevTextParam="100"
+    fi
+# ???????????????????????
+#echo 2_newAlarmAbbrevTextParam $_newAlarmAbbrevTextParam
+
     if [ ! -f "$alarmSymbolDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
         if [ -f "$alarmSymbolDateBeforeFile" ]; then # Last datefile exists. Take the last datefile e.g: alarm/BEI_2021-02-08.txt
             commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolDateBeforeFile")
@@ -38,6 +47,7 @@ WriteAlarmAbbrevXAxisFile() {
 DetermineTendency() {
     _listParam=${1}
     export tendency=""
+
     value_85=$(echo "$_listParam" | cut -f 85 -d ',')
     value_90=$(echo "$_listParam" | cut -f 90 -d ',')
     difference=$(echo "$value_90 $value_85" | awk '{print ($1 - $2)}')
@@ -46,9 +56,6 @@ DetermineTendency() {
     valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
     valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
     isLevelPos1=$(echo "${valueAfterComma}" | awk '{print substr ($0, 0, 1)}')
-
-echo _listParam $_listParam
-echo isLevelPos1 $isLevelPos1
 
     if [ "${isLevelPos1}" -lt 2 ] && # < 0.02 %
        { [ "${valueBeforeComma}" = "0" ] || [ "${valueBeforeComma}" = "-0" ]; } then
