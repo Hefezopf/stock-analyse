@@ -1,11 +1,13 @@
 # Stock Analyse
 Automated Stock Analysis.
 
-Shell script to check given stock quotes and their averages of the last 95, 38, 18 days.
+Shell script to check a list of given stock quotes and their averages of the last 95, 38, 18 days.
 
 Stochastic, RSI and MACD are calculated as well.
 
-Values are calculated on XETRA end-of-day quotes
+Values are calculated on XETRA end-of-day quotes.
+
+Html outputs with charts and alerts.
 
 Alerts via email.
 
@@ -17,10 +19,8 @@ Alerts via email.
 ![ScreenShotResult](image/ScreenShotResult.png "ScreenShotResult")
 
 ## Outputs:
-- data/SYMBOL.txt
 - out/SYMBOL.html
 - out/_result.html
-- out/_out.tar.gz
 
 
 # Execute
@@ -37,7 +37,9 @@ Alerts via email.
 https://github.com/Hefezopf/stock-analyse/actions
 
 
-## Schedule pre configured in 
+## Scheduled Cron Job
+Scheduled Cron Jobs is pre configured in this action
+
 https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.workflow.yml
 
 
@@ -49,7 +51,7 @@ or Example
 curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "BEI", "percentage": "1", "query": "offline", "stochastic": "20", "RSI": "30"}'
 
 
-# REST Call
+# REST Calls
 
 REST calls to external services
 ## Marketstack
