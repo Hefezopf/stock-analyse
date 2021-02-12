@@ -38,6 +38,7 @@ MACD_12_26() {
  
  # TODO why are the first 3 MACD value not calculated correctly?
 
+#TODO 3More
         # Ignore first incorrect number?!
         if [ "$kk_index" -eq 15 ]; then 
             MACDList="$MACDList , $difference, $difference, $difference, $difference,"
@@ -48,7 +49,7 @@ MACD_12_26() {
     done
     difference=$(printf "%.2f" $difference)
     lastMACDValue=$difference
-    MACDList=" , , , , , , , , , , , , , ,$MACDList"
+    MACDList=" , , , , , , , , , , ,$MACDList"
 }
 
 # EMAverageOfDays function:
@@ -58,7 +59,7 @@ EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
 
-    minusCommas=$((_amountOfDaysParam - 10)) # display from 11 on till 100
+    minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
     while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
         averagePriceList="$averagePriceList ,"        
@@ -80,7 +81,7 @@ EMAverageOfDays() {
         fi
         averagePriceList="$averagePriceList $ema,"
         i=$((i + 1))
-    done
+    done   
 }
 
 # AverageOfDays function:
@@ -90,7 +91,7 @@ AverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
 
-    minusCommas=$((_amountOfDaysParam - 10)) # display from 11 on till 100
+    minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
     while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
         averagePriceList="$averagePriceList ,"
@@ -131,7 +132,9 @@ RSIOfDays() {
         fi
     done
 
-    RSIQuoteList=" , , ,"
+#TODO 3More weg?
+    RSIQuoteList=""
+
     i=1
     while [ "$i" -le 100 ];
     do
@@ -162,7 +165,7 @@ StochasticOfDays() {
     _dataFileParam=${2}
 
     stochasticFile="$(mktemp -p /dev/shm/)"
-    minusCommas=$((_amountOfDaysParam - 10)) # display from 11 on till 100
+    minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
     # Fill with blank comma seperated data
     while [ "$i" -lt "$minusCommas" ]; do 

@@ -76,7 +76,7 @@ StrategieByTendency() {
 }
 
 # StrategieOverratedXHighRSI function:
-# At least 3 high values out of 7 and one of the last 3 must be over. List of 90 comma seperated values
+# At least 3 high values out of 7 and one of the last 3 must be over. List of 87 comma seperated values
 # Strategie: High RSI X last values over highRSIValue
 # Input: ${x}
 # Output: resultStrategieOverratedXHighRSI
@@ -90,37 +90,37 @@ StrategieOverratedXHighRSI() {
     export resultStrategieOverratedXHighRSI=""
 
     if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
+        value_81=$(echo "$_RSIQuoteListParam" | cut -f 81 -d ',')
+        value_82=$(echo "$_RSIQuoteListParam" | cut -f 82 -d ',')
+        value_83=$(echo "$_RSIQuoteListParam" | cut -f 83 -d ',')
         value_84=$(echo "$_RSIQuoteListParam" | cut -f 84 -d ',')
         value_85=$(echo "$_RSIQuoteListParam" | cut -f 85 -d ',')
         value_86=$(echo "$_RSIQuoteListParam" | cut -f 86 -d ',')
-        value_87=$(echo "$_RSIQuoteListParam" | cut -f 87 -d ',')
-        value_88=$(echo "$_RSIQuoteListParam" | cut -f 88 -d ',')
-        value_89=$(echo "$_RSIQuoteListParam" | cut -f 89 -d ',')
-        value_90=$(echo "$_RSIQuoteListParam" | cut -f 90 -d ',')   
+        value_87=$(echo "$_RSIQuoteListParam" | cut -f 87 -d ',')   
         countHighRSI=0
         oneOfTheLastRSIHigh=0
-        if [ "$value_90" -gt "$_highRSIValueParam" ]; then
+        if [ "$value_87" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
             oneOfTheLastRSIHigh=1
         fi           
-        if [ "$value_89" -gt "$_highRSIValueParam" ]; then
+        if [ "$value_86" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
             oneOfTheLastRSIHigh=1
         fi      
              
-        if [ "$value_88" -gt "$_highRSIValueParam" ]; then
-            countHighRSI=$((countHighRSI + 1))
-        fi           
-        if [ "$value_87" -gt "$_highRSIValueParam" ]; then
-            countHighRSI=$((countHighRSI + 1))
-        fi           
-        if [ "$value_86" -gt "$_highRSIValueParam" ]; then
-            countHighRSI=$((countHighRSI + 1))
-        fi
         if [ "$value_85" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
-        fi
+        fi           
         if [ "$value_84" -gt "$_highRSIValueParam" ]; then
+            countHighRSI=$((countHighRSI + 1))
+        fi           
+        if [ "$value_83" -gt "$_highRSIValueParam" ]; then
+            countHighRSI=$((countHighRSI + 1))
+        fi
+        if [ "$value_82" -gt "$_highRSIValueParam" ]; then
+            countHighRSI=$((countHighRSI + 1))
+        fi
+        if [ "$value_81" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
         fi
         # At least 3 high values out of 7 and one of the last 3 must be over
@@ -135,7 +135,7 @@ StrategieOverratedXHighRSI() {
 }
 
 # StrategieUnderratedXLowRSI function:
-# At least 3 low values out of 7 and one of the last 3 must be under. List of 90 comma seperated values
+# At least 3 low values out of 7 and one of the last 3 must be under. List of 87 comma seperated values
 # Strategie: Low RSI X last values under lowRSIValue
 # Input: ${x}
 # Output: resultStrategieUnderratedXLowRSI
@@ -149,37 +149,37 @@ StrategieUnderratedXLowRSI() {
     export resultStrategieUnderratedXLowRSI=""
 
     if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
+        value_81=$(echo "$_RSIQuoteListParam" | cut -f 81 -d ',')
+        value_82=$(echo "$_RSIQuoteListParam" | cut -f 82 -d ',')
+        value_83=$(echo "$_RSIQuoteListParam" | cut -f 83 -d ',')
         value_84=$(echo "$_RSIQuoteListParam" | cut -f 84 -d ',')
         value_85=$(echo "$_RSIQuoteListParam" | cut -f 85 -d ',')
         value_86=$(echo "$_RSIQuoteListParam" | cut -f 86 -d ',')
         value_87=$(echo "$_RSIQuoteListParam" | cut -f 87 -d ',')
-        value_88=$(echo "$_RSIQuoteListParam" | cut -f 88 -d ',')
-        value_89=$(echo "$_RSIQuoteListParam" | cut -f 89 -d ',')
-        value_90=$(echo "$_RSIQuoteListParam" | cut -f 90 -d ',')
         countLowRSI=0
         oneOfTheLastRSILow=0
-        if [ "$value_90" -lt "$_lowRSIValueParam" ]; then
+        if [ "$value_87" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
             oneOfTheLastRSILow=1
         fi           
-        if [ "$value_89" -lt "$_lowRSIValueParam" ]; then
+        if [ "$value_86" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
             oneOfTheLastRSILow=1
         fi
 
-        if [ "$value_88" -lt "$_lowRSIValueParam" ]; then
-            countLowRSI=$((countLowRSI + 1))
-        fi           
-        if [ "$value_87" -lt "$_lowRSIValueParam" ]; then
-            countLowRSI=$((countLowRSI + 1))
-        fi           
-        if [ "$value_86" -lt "$_lowRSIValueParam" ]; then
-            countLowRSI=$((countLowRSI + 1))
-        fi
         if [ "$value_85" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
-        fi
+        fi           
         if [ "$value_84" -lt "$_lowRSIValueParam" ]; then
+            countLowRSI=$((countLowRSI + 1))
+        fi           
+        if [ "$value_83" -lt "$_lowRSIValueParam" ]; then
+            countLowRSI=$((countLowRSI + 1))
+        fi
+        if [ "$value_82" -lt "$_lowRSIValueParam" ]; then
+            countLowRSI=$((countLowRSI + 1))
+        fi
+        if [ "$value_81" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
         fi
         # At least 3 low values out of 7 and one of the last 3 must be under
@@ -212,13 +212,13 @@ StrategieOverratedHighHorizontalMACD() {
         # shellcheck disable=SC2001
         for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
-            if [ "$jj_index" = 69 ]; then
+            if [ "$jj_index" = 66 ]; then
                 valueMACDLast_2="$valueMACD" 
             fi
-            if [ "$jj_index" = 70 ]; then
+            if [ "$jj_index" = 67 ]; then
                 valueMACDLast_1="$valueMACD" 
             fi
-            if [ "$jj_index" = 71 ]; then
+            if [ "$jj_index" = 68 ]; then
                 valueMACDLast_0="$valueMACD" 
             fi
             jj_index=$((jj_index + 1))
@@ -255,6 +255,7 @@ StrategieOverratedHighHorizontalMACD() {
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"
         fi
     fi
+echo resultStrategieOverratedHighHorizontalMACD $resultStrategieOverratedHighHorizontalMACD    
 }
 
 # StrategieUnderratedLowHorizontalMACD function:
@@ -275,13 +276,13 @@ StrategieUnderratedLowHorizontalMACD() {
         # shellcheck disable=SC2001
         for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
-            if [ "$jj_index" = 69 ]; then
+            if [ "$jj_index" = 66 ]; then
                 valueMACDLast_2="$valueMACD" 
             fi
-            if [ "$jj_index" = 70 ]; then
+            if [ "$jj_index" = 67 ]; then
                 valueMACDLast_1="$valueMACD" 
             fi
-            if [ "$jj_index" = 71 ]; then
+            if [ "$jj_index" = 68 ]; then
                 valueMACDLast_0="$valueMACD" 
             fi
             jj_index=$((jj_index + 1))

@@ -17,7 +17,7 @@ WriteAlarmAbbrevXAxisFile() {
     alarmSymbolDateBeforeFile=$_dataDateOutputDir/${_symbolParam}_$beforeDateInDataFile.txt 
     
 #echo 1_newAlarmAbbrevTextParam $_newAlarmAbbrevTextParam 
-# ???????????????????????   
+# ???????????????????????
     if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
         _newAlarmAbbrevTextParam="100"
     fi
@@ -32,7 +32,7 @@ WriteAlarmAbbrevXAxisFile() {
             rm -rf "$alarmSymbolDateBeforeFile"
         else # Last datefile File doesn't exists. Create actual datefile from scratch e.g: alarm/BEI_2021-02-09.txt
             rm -rf "$_dataDateOutputDir"/"${_symbolParam}"*.txt
-            alarmAbbrevTemplate="'11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
+            alarmAbbrevTemplate="'14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
             commaListAlarm="$alarmAbbrevTemplate,'$_newAlarmAbbrevTextParam'"
             echo "$commaListAlarm" > "$alarmSymbolDateFile"
         fi
@@ -41,18 +41,18 @@ WriteAlarmAbbrevXAxisFile() {
 }
 
 # DetermineTendency function: 
-# Tendency of the last 5 value of a comma seperated list of 90 values
+# Tendency of the last 5 value of a comma seperated list of 87 values
 # Input: ${x}
 # Output: tendency [FALLING|RISING|LEVEL]
 DetermineTendency() {
     _listParam=${1}
     export tendency=""
 
-    value_85=$(echo "$_listParam" | cut -f 85 -d ',')
-    value_90=$(echo "$_listParam" | cut -f 90 -d ',')
-    difference=$(echo "$value_90 $value_85" | awk '{print ($1 - $2)}')
+    value_82=$(echo "$_listParam" | cut -f 82 -d ',')
+    value_87=$(echo "$_listParam" | cut -f 87 -d ',')
+    difference=$(echo "$value_87 $value_82" | awk '{print ($1 - $2)}')
     isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
-    relative=$(echo "$value_90 $value_85" | awk '{print (($1 / $2)-1)*100}')
+    relative=$(echo "$value_87 $value_82" | awk '{print (($1 / $2)-1)*100}')
     valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
     valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
     isLevelPos1=$(echo "${valueAfterComma}" | awk '{print substr ($0, 0, 1)}')
