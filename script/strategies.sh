@@ -15,7 +15,6 @@ StrategieByTendency() {
     _markerOwnStockParam=${8}
     export resultStrategieByTendency=""
 
-#echo _tendencyParam $_tendencyParam
     if [ "$_tendencyParam" = "$RISING" ]; then
         # 0 times _percentageFactorParam
         if awk 'BEGIN {exit !('"$_lastPriceParam"' < '"$_lastAverage95Param"')}'; then
@@ -39,8 +38,6 @@ StrategieByTendency() {
         # 3 times _percentageFactorParam
         _percentagePowOf=$(echo "$_percentageFactorParam 3" | awk '{print $1 ^ $2}')
         _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage95Param" | awk '{print $1 * $2}')
-#echo _valueWithFactor1 $_valueWithFactor
-#echo _lastPriceParam $_lastPriceParam
         if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_valueWithFactor"')}'; then
             alarmAbbrevValue=T.$alarmAbbrevValue
             reasonPrefix="Sell: High Quote by Tendency (T)"
@@ -48,9 +45,7 @@ StrategieByTendency() {
             echo "$resultStrategieByTendency"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"
         fi
-        _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')
-#echo _valueWithFactor2 $_valueWithFactor
-#echo _lastAverage95Param $_lastAverage95Param        
+        _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')       
         if awk 'BEGIN {exit !('"$_valueWithFactor"' < '"$_lastAverage95Param"')}'; then
             alarmAbbrevValue=T.$alarmAbbrevValue
             reasonPrefix="Buy: Low Quote by Tendency (T)"
@@ -78,8 +73,6 @@ StrategieByTendency() {
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"            
         fi
     fi
-
-#echo reasonPrefix $reasonPrefix
 }
 
 # StrategieOverratedXHighRSI function:
@@ -95,6 +88,7 @@ StrategieOverratedXHighRSI() {
     _symbolNameParam=${5}
     _markerOwnStockParam=${6}
     export resultStrategieOverratedXHighRSI=""
+
     if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         value_84=$(echo "$_RSIQuoteListParam" | cut -f 84 -d ',')
         value_85=$(echo "$_RSIQuoteListParam" | cut -f 85 -d ',')
@@ -102,8 +96,7 @@ StrategieOverratedXHighRSI() {
         value_87=$(echo "$_RSIQuoteListParam" | cut -f 87 -d ',')
         value_88=$(echo "$_RSIQuoteListParam" | cut -f 88 -d ',')
         value_89=$(echo "$_RSIQuoteListParam" | cut -f 89 -d ',')
-        value_90=$(echo "$_RSIQuoteListParam" | cut -f 90 -d ',')
-
+        value_90=$(echo "$_RSIQuoteListParam" | cut -f 90 -d ',')   
         countHighRSI=0
         oneOfTheLastRSIHigh=0
         if [ "$value_90" -gt "$_highRSIValueParam" ]; then
@@ -154,6 +147,7 @@ StrategieUnderratedXLowRSI() {
     _symbolNameParam=${5}
     _markerOwnStockParam=${6}
     export resultStrategieUnderratedXLowRSI=""
+
     if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         value_84=$(echo "$_RSIQuoteListParam" | cut -f 84 -d ',')
         value_85=$(echo "$_RSIQuoteListParam" | cut -f 85 -d ',')
@@ -162,7 +156,6 @@ StrategieUnderratedXLowRSI() {
         value_88=$(echo "$_RSIQuoteListParam" | cut -f 88 -d ',')
         value_89=$(echo "$_RSIQuoteListParam" | cut -f 89 -d ',')
         value_90=$(echo "$_RSIQuoteListParam" | cut -f 90 -d ',')
-      
         countLowRSI=0
         oneOfTheLastRSILow=0
         if [ "$value_90" -lt "$_lowRSIValueParam" ]; then

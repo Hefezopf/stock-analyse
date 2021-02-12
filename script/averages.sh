@@ -9,7 +9,11 @@ MACD_12_26() {
     _averagePriceList12Param=${1}
     _averagePriceList26Param=${2}
 
-    # Remove leading commas
+# TODO
+#export lastMACDValue
+#export MACDList
+
+    # Remove leading commas  
     averagePriceMACD12List=$(echo "$_averagePriceList12Param" | cut -b 24-10000)
     averagePriceMACD26List=$(echo "$_averagePriceList26Param" | cut -b 52-10000)
 
@@ -30,12 +34,21 @@ MACD_12_26() {
         done 
         jj_index=$((jj_index + 1))
         difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
-        difference=$(printf "%.2f" $difference)
-        MACDList="$MACDList $difference,"     
+        difference=$(printf "%.2f" $difference)  
+ 
+ # TODO why are the first 3 MACD value not calculated correctly?
+
+        # Ignore first incorrect number?!
+        if [ "$kk_index" -eq 15 ]; then 
+            MACDList="$MACDList , $difference, $difference, $difference, $difference,"
+        fi           
+        if [ "$kk_index" -gt 15 ]; then 
+            MACDList="$MACDList $difference,"
+        fi           
     done
     difference=$(printf "%.2f" $difference)
     lastMACDValue=$difference
-    MACDList=" , , , , , , , , , , , , , , ,$MACDList"
+    MACDList=" , , , , , , , , , , , , , ,$MACDList"
 }
 
 # EMAverageOfDays function:
@@ -124,10 +137,7 @@ RSIOfDays() {
     do
         i=$((i + 1))
         # Fill with blank comma seperated data  
-        if [ $i -lt $((_amountOfDaysParam + 1)) ]; then # < 14
-            # RSIQuoteList="$RSIQuoteList ,"
-J=1
-        else # > 14
+        if [ $i -ge $((_amountOfDaysParam + 1)) ]; then # >= 14
             RSIwinningDaysAvg=$(tail -"${i}" "$RSIwinningDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')
             RSIloosingDaysAvg=$(tail -"${i}" "$RSIloosingDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }') 
             if [ "${RSIloosingDaysAvg}" = 0 ]; then
@@ -135,7 +145,7 @@ J=1
             else
                 RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')
                 # slightly differant algorithm
-                #RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
+                # RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
             fi
 
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
