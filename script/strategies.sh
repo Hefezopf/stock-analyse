@@ -203,7 +203,8 @@ StrategieOverratedHighHorizontalMACD() {
     _symbolParam=${3}
     _symbolNameParam=${4}
     _markerOwnStockParam=${5}
-    export resultStrategieOverratedHighHorizontalMACD=""  
+    export resultStrategieOverratedHighHorizontalMACD="" 
+   
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
         _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 52-10000)
@@ -211,13 +212,13 @@ StrategieOverratedHighHorizontalMACD() {
         # shellcheck disable=SC2001
         for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
-            if [ "$jj_index" = 72 ]; then
+            if [ "$jj_index" = 69 ]; then
                 valueMACDLast_2="$valueMACD" 
             fi
-            if [ "$jj_index" = 73 ]; then
+            if [ "$jj_index" = 70 ]; then
                 valueMACDLast_1="$valueMACD" 
             fi
-            if [ "$jj_index" = 74 ]; then
+            if [ "$jj_index" = 71 ]; then
                 valueMACDLast_0="$valueMACD" 
             fi
             jj_index=$((jj_index + 1))
@@ -274,13 +275,13 @@ StrategieUnderratedLowHorizontalMACD() {
         # shellcheck disable=SC2001
         for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
-            if [ "$jj_index" = 72 ]; then
+            if [ "$jj_index" = 69 ]; then
                 valueMACDLast_2="$valueMACD" 
             fi
-            if [ "$jj_index" = 73 ]; then
+            if [ "$jj_index" = 70 ]; then
                 valueMACDLast_1="$valueMACD" 
             fi
-            if [ "$jj_index" = 74 ]; then
+            if [ "$jj_index" = 71 ]; then
                 valueMACDLast_0="$valueMACD" 
             fi
             jj_index=$((jj_index + 1))
