@@ -22,8 +22,8 @@
 . ./script/strategies.sh
 
 # Switches for calculating charts and underlying strategies. Default is 'true'
-CalculateStochastic=true
-CalculateRSI=true
+# CalculateStochastic=true
+# CalculateRSI=true
 CalculateMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'

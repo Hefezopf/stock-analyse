@@ -205,38 +205,45 @@ StrategieOverratedHighHorizontalMACD() {
     _markerOwnStockParam=${5}
     export resultStrategieOverratedHighHorizontalMACD="" 
    
+echo _MACDQuoteListParam "$_MACDQuoteListParam"
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
-        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 52-10000)
+        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
+echo _MACDQuoteListParam "$_MACDQuoteListParam"        
         jj_index=0
         # shellcheck disable=SC2001
         for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
-            if [ "$jj_index" = 66 ]; then
+            if [ "$jj_index" = 71 ]; then
                 valueMACDLast_2="$valueMACD" 
             fi
-            if [ "$jj_index" = 67 ]; then
+            if [ "$jj_index" = 72 ]; then
                 valueMACDLast_1="$valueMACD" 
             fi
-            if [ "$jj_index" = 68 ]; then
+            if [ "$jj_index" = 73 ]; then
                 valueMACDLast_0="$valueMACD" 
             fi
             jj_index=$((jj_index + 1))
         done
+echo valueMACDLast_2 $valueMACDLast_2 valueMACDLast_1 $valueMACDLast_1 valueMACDLast_0 $valueMACDLast_0
         isMACDHorizontalAlarm=false
         # Check if MACD is horizontal?
         # BeforeLast Value
         difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
+echo 1difference $difference        
         isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+echo 1isNegativ $isNegativ        
         # Positiv -> up
         # If first criterium positiv -> first step Alarm!
         if [ ! "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then
             isMACDHorizontalAlarm=true
         fi
-
+echo isMACDHorizontalAlarm $isMACDHorizontalAlarm 
         # Last Value
         difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
+echo 2difference $difference        
         isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+echo 2isNegativ $isNegativ        
         isMACDGenerellPositiv=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
         # If second criterium negativ -> Alarm!
         if { [ "${difference}" = 0 ] || [ "${isNegativ}" = '-' ]; } &&
