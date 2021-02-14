@@ -332,9 +332,9 @@ do
         cat js/indexPart2.html
     
         # Writing quotes
-        DATA_FILE_90="$(mktemp -p /dev/shm/)"
-        head -n90 "$DATA_FILE" > "$DATA_FILE_90"
-        commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_90" | tac)
+        DATA_FILE_87="$(mktemp -p /dev/shm/)"
+        head -n87 "$DATA_FILE" > "$DATA_FILE_87"
+        commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
 
         echo "$commaPriceList"
         cat js/indexPart3.html

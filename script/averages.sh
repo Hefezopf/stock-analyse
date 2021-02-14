@@ -13,8 +13,10 @@ MACD_12_26() {
 #export lastMACDValue
 #export MACDList
 
+#echo averagePriceMACD12List $averagePriceMACD12List
     # Remove leading commas  
     averagePriceMACD12List=$(echo "$_averagePriceList12Param" | cut -b 24-10000)
+#echo averagePriceMACD12List $averagePriceMACD12List
     averagePriceMACD26List=$(echo "$_averagePriceList26Param" | cut -b 52-10000)
 
     jj_index=0
@@ -41,7 +43,7 @@ MACD_12_26() {
 #TODO 3More
         # Ignore first incorrect number?!
         if [ "$kk_index" -eq 15 ]; then 
-            MACDList="$MACDList , $difference, $difference, $difference, $difference,"
+            MACDList="$MACDList , $difference, $difference,"
         fi           
         if [ "$kk_index" -gt 15 ]; then 
             MACDList="$MACDList $difference,"
@@ -50,6 +52,7 @@ MACD_12_26() {
     difference=$(printf "%.2f" $difference)
     lastMACDValue=$difference
     MACDList=" , , , , , , , , , , ,$MACDList"
+#echo MACDList $MACDList
 }
 
 # EMAverageOfDays function:
@@ -59,13 +62,15 @@ EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
 
-    minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
+  #  minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
+#echo _amountOfDaysParam $_amountOfDaysParam 
+#echo minusCommas $minusCommas     
     i=1
-    while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
+    while [ "$i" -lt "$_amountOfDaysParam" ]; do # Fill with blank comma seperated data
         averagePriceList="$averagePriceList ,"        
         i=$((i + 1))
     done 
-
+#echo wwwwwaveragePriceList$_amountOfDaysParam $averagePriceList    
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; 
     do
@@ -82,6 +87,7 @@ EMAverageOfDays() {
         averagePriceList="$averagePriceList $ema,"
         i=$((i + 1))
     done   
+#echo averagePriceList$_amountOfDaysParam $averagePriceList    
 }
 
 # AverageOfDays function:
