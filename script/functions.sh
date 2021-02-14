@@ -10,6 +10,8 @@ WriteAlarmAbbrevXAxisFile() {
     _symbolParam=${2}
     _dataDateFile=${3}
     _dataDateOutputDir=${4}
+    
+    mkdir -p $_dataDateOutputDir
     lastDateInDataFile=$(head -n1 "$_dataDateFile" | cut -f 1)
     beforeDateInDataFile=$(head -n2 "$_dataDateFile" | tail -1 | cut -f 1)
     alarmSymbolFile=$_dataDateOutputDir/${_symbolParam}.txt
