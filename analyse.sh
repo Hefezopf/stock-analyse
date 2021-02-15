@@ -184,27 +184,27 @@ do
     average18Raw=$(head -n18 "$DATA_FILE" | awk '{sum += $1;} END {print sum/18;}')
     average18=$(printf "%.2f" "$average18Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average18"; lastOverAgv18=$?
-    LesserThenWithFactor "$percentageLesserFactor" "$last" "$average18"; lastUnderAgv18=$?
+    LessThenWithFactor "$percentageLesserFactor" "$last" "$average18"; lastUnderAgv18=$?
 
     ProgressBar 2 8
 
     average38Raw=$(head -n38 "$DATA_FILE" | awk '{sum += $1;} END {print sum/38;}')
     average38=$(printf "%.2f" "$average38Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average38"; lastOverAgv38=$?
-    LesserThenWithFactor "$percentageLesserFactor" "$last" "$average38";lastUnderAgv38=$?
+    LessThenWithFactor "$percentageLesserFactor" "$last" "$average38";lastUnderAgv38=$?
 
     average95Raw=$(head -n95 "$DATA_FILE" | awk '{sum += $1;} END {print sum/95;}')
     average95=$(printf "%.2f" "$average95Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average95"; lastOverAgv95=$?
-    LesserThenWithFactor "$percentageLesserFactor" "$last" "$average95"; lastUnderAgv95=$?
+    LessThenWithFactor "$percentageLesserFactor" "$last" "$average95"; lastUnderAgv95=$?
 
     # Percentage on averages
     GreaterThenWithFactor "$percentageGreaterFactor" "$average18" "$average38"; agv18OverAgv38=$?
-    LesserThenWithFactor "$percentageLesserFactor" "$average18" "$average38"; agv18UnderAgv38=$?
+    LessThenWithFactor "$percentageLesserFactor" "$average18" "$average38"; agv18UnderAgv38=$?
     GreaterThenWithFactor "$percentageGreaterFactor" "$average38" "$average95"; agv38OverAgv95=$?
-    LesserThenWithFactor "$percentageLesserFactor" "$average38" "$average95"; agv38UnderAgv95=$?
+    LessThenWithFactor "$percentageLesserFactor" "$average38" "$average95"; agv38UnderAgv95=$?
     GreaterThenWithFactor "$percentageGreaterFactor" "$average18" "$average95"; agv18OverAgv95=$?
-    LesserThenWithFactor "$percentageLesserFactor" "$average18" "$average95"; agv18UnderAgv95=$?
+    LessThenWithFactor "$percentageLesserFactor" "$average18" "$average95"; agv18UnderAgv95=$?
  
     ProgressBar 3 8
 

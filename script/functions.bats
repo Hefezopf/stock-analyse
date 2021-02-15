@@ -153,32 +153,32 @@ SYMBOL_NAME="BEIERSDORF AG"
   [ "$reportedSymbolFileList" == '' ]
 }
 
-@test "LesserThenWithFactor" {
-  run LesserThenWithFactor 0 99 100
+@test "LessThenWithFactor" {
+  run LessThenWithFactor 0 99 100
   [ "$status" -eq 1 ]
   [ "$output" == '' ]  
 
-  run LesserThenWithFactor 1 100 99
+  run LessThenWithFactor 1 100 99
   [ "$status" -eq 0 ]
   [ "$output" == '' ]  
 
-  run LesserThenWithFactor 1 100 100
+  run LessThenWithFactor 1 100 100
   [ "$status" -eq 0 ]
   [ "$output" == '' ]  
 
-  run LesserThenWithFactor 1 99 100
+  run LessThenWithFactor 1 99 100
   [ "$status" -eq 1 ]
   [ "$output" == '' ]  
 
-  run LesserThenWithFactor 1.1 100 111
+  run LessThenWithFactor 1.1 100 111
   [ "$status" -eq 1 ]
   [ "$output" == '' ]  
 
-  run LesserThenWithFactor 1.1 100 109
+  run LessThenWithFactor 1.1 100 109
   [ "$status" -eq 0 ]
   [ "$output" == '' ]  
 
-  run LesserThenWithFactor 1.1 100 110
+  run LessThenWithFactor 1.1 100 110
   [ "$status" -eq 0 ]
   [ "$output" == '' ]  
 }

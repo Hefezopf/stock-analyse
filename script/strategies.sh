@@ -26,7 +26,7 @@ StrategieByTendency() {
         fi
         # 10 times _percentageFactorParam
         _percentagePowOf=$(echo "$_percentageFactorParam 10" | awk '{print $1 ^ $2}')
-        _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage95Param" | awk '{print $1 * $2}')        
+        _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage95Param" | awk '{print $1 * $2}')
         if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_valueWithFactor"')}'; then
             alarmAbbrevValue=T.$alarmAbbrevValue
             reasonPrefix="Sell: High Quote by Tendency (T)"

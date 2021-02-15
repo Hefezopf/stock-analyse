@@ -130,10 +130,10 @@ UsageCheckParameter() {
     fi
 }
 
-# LesserThenWithFactor function:
+# LessThenWithFactor function:
 # Input: ${x}
-# Output: 1 if lesser
-LesserThenWithFactor() {
+# Output: 1 if less
+LessThenWithFactor() {
     _lesserValue=$(echo "$1 $2" | awk '{print $1 * $2}')
     if awk 'BEGIN {exit !('"$_lesserValue"' < '"$3"')}'; then
         return 1
