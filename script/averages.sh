@@ -8,10 +8,8 @@ export LC_NUMERIC=en_US.UTF-8
 MACD_12_26() {
     _averagePriceList12Param=${1}
     _averagePriceList26Param=${2}
-
-# TODO
-#export lastMACDValue
-#export MACDList
+    export MACDList
+    export lastMACDValue
 
     # Remove leading commas  
     averagePriceMACD12List=$(echo "$_averagePriceList12Param" | cut -b 24-10000)
@@ -57,6 +55,7 @@ MACD_12_26() {
 EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+    export averagePriceList
 
     i=1
     while [ "$i" -lt "$_amountOfDaysParam" ]; do # Fill with blank comma seperated data
@@ -87,6 +86,7 @@ EMAverageOfDays() {
 AverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+    export averagePriceList
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
@@ -111,6 +111,7 @@ AverageOfDays() {
 RSIOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+    export RSIQuoteList
     RSIwinningDaysFile="$(mktemp -p /dev/shm/)"
     RSIloosingDaysFile="$(mktemp -p /dev/shm/)"
     i=1
@@ -129,9 +130,6 @@ RSIOfDays() {
         fi
     done
 
-#TODO 3More weg?
-    RSIQuoteList=""
-    
     i=1
     while [ "$i" -le 100 ];
     do
@@ -160,6 +158,7 @@ RSIOfDays() {
 StochasticOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+    export stochasticQuoteList
 
     stochasticFile="$(mktemp -p /dev/shm/)"
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
