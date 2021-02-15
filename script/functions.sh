@@ -213,8 +213,8 @@ WriteComdirectUrlAndStoreFileList() {
         fi
         {
             echo "<a style=color:$_linkColorParam href=$COMDIRECT_URL_PREFIX$_id_notation target=_blank>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a> "
-            echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=_blank>&lt/&gt</a>"
-            echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html\" target=_blank>&ltweb&gt</a><br>"
+            echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=_blank>&lt;/&gt;</a>"
+            echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html\" target=_blank>&lt;web&gt;</a><br>"
         } >> "$_outResultFileParam"
     fi
     # Show reason in result file only, if marked as own stock or a 'buy' recommendation
