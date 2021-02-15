@@ -319,50 +319,6 @@ do
     rm -rf "$indexSymbolFile"
     cp js/_favicon.ico out
     {
-        cat js/indexPart0.html
-        echo "${markerOwnStock}${symbol}"
-        cat js/indexPart1.html
-
-        WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm"
-        alarmAbbrevValue=""
-        cat alarm/"${symbol}".txt
-        cat js/indexPart1a.html
-
-        echo "'" "${symbolName}" "',"
-        cat js/indexPart2.html
-    
-        # Writing quotes
-        DATA_FILE_87="$(mktemp -p /dev/shm/)"
-        head -n87 "$DATA_FILE" > "$DATA_FILE_87"
-        commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
-
-        echo "$commaPriceList"
-        cat js/indexPart3.html
-
-        echo "'" Average $averageInDays18 "',"
-        cat js/indexPart4.html
-        echo "$averagePriceList18"
-        cat js/indexPart5.html
-
-        echo "'" Average $averageInDays38 "'," 
-        cat js/indexPart6.html 
-        echo "$averagePriceList38" 
-        cat js/indexPart7.html  
-
-        echo "'" Average $averageInDays95 "',"
-        cat js/indexPart8.html
-        echo "$averagePriceList95"
-        cat js/indexPart9.html
-
-        echo "$stochasticQuoteList"
-        cat js/indexPart10.html
-
-        echo "$RSIQuoteList"
-        cat js/indexPart11.html
-
-        echo "$MACDList"
-        cat js/indexPart12.html
-
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
         # Red link only for stocks that are marked as own stocks
@@ -412,8 +368,8 @@ do
         echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg95:<b>""$average95""€</b></span>"
         echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Tendency:<b>""$tendency""</b></span>"
         echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
-        echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
-        echo "&nbsp;<span style=\"color:rgb(255, 205, 86);\">MACD:<b>""$lastMACDValue" "</b></span></p>"
+        echo "&nbsp;<span style=\"color:rgb(255, 205, 86);\">RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
+        echo "&nbsp;<span style=\"color:rgb(54, 162, 235);\">MACD:<b>""$lastMACDValue" "</b></span></p>"
 
         # Strategies output
 
@@ -421,21 +377,65 @@ do
         echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieByTendency" "</b></p>"
         
         # Buy
-        #echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieUnderratedByTendency" "</b></p>"
-        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
+        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
+        echo "<p style=\"color:rgb(205, 205, 0);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedXLowStochastic" "</b></p>"
-        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedXLowRSI" "</b></p>"
-        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
+        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieUnderratedXLowRSI" "</b></p>"
+        echo "<p style=\"color:rgb(139, 126, 102);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
         
         # Sell
-      #  echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieOverratedByTendency" "</b></p>"
-        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
-        echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
+        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
+        echo "<p style=\"color:rgb(205, 205, 0);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"
-        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
-        echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
-        echo "Good Luck!"
+        echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
+        echo "<p style=\"color:rgb(139, 126, 102);\"><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
+
+        cat js/indexPart0.html
+        echo "${markerOwnStock}${symbol}"
+        cat js/indexPart1.html
+
+        WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm"
+        alarmAbbrevValue=""
+        cat alarm/"${symbol}".txt
+        cat js/indexPart1a.html
+
+        echo "'" "${symbolName}" "',"
+        cat js/indexPart2.html
+    
+        # Writing quotes
+        DATA_FILE_87="$(mktemp -p /dev/shm/)"
+        head -n87 "$DATA_FILE" > "$DATA_FILE_87"
+        commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
+
+        echo "$commaPriceList"
+        cat js/indexPart3.html
+
+        echo "'" Average $averageInDays18 "',"
+        cat js/indexPart4.html
+        echo "$averagePriceList18"
+        cat js/indexPart5.html
+
+        echo "'" Average $averageInDays38 "'," 
+        cat js/indexPart6.html 
+        echo "$averagePriceList38" 
+        cat js/indexPart7.html  
+
+        echo "'" Average $averageInDays95 "',"
+        cat js/indexPart8.html
+        echo "$averagePriceList95"
+        cat js/indexPart9.html
+
+        echo "$stochasticQuoteList"
+        cat js/indexPart10.html
+
+        echo "$RSIQuoteList"
+        cat js/indexPart11.html
+
+        echo "$MACDList"
+        cat js/indexPart12.html
+
+        echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbol $symbolName</a><br>"
+        echo "Good Luck!<p>"
 
         cat js/indexPart13.html
     } >> "$indexSymbolFile"

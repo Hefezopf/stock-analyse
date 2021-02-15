@@ -2,60 +2,34 @@ TODO:
 -----
 
 
++MACD XETRA blau ist meine MACD. Evtl Farbe mit RSI tauschen
+
++Ausgabe Link und Ergebnisse ganz nach oben, dann erst Charts.
+
+-Link einbauen: Html bei github ansehen 
+    http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/BEI.html
+
 -Soc. General nicht L&S als Börse in comdirect wegen RSI Fehler
+    L&S Stoch stimmt komplett nicht! Immer XETRA verwenden
 
--nur noch test: StrategieOverratedHighHorizontalMACD
 
--Remove nochmal 3
+-Evtl. low/high RSI alarm nur bei aktuellem Tief/Höchststwert ausgeben?
 
--Noch ein Wert mit RSI und Stoch alarm Testen vor Merge: *6MK
-    Warum kommt: Sell: High horizontal MACD (M): last MACD
-
-+Wegen Umbau 10: ./script/functions.sh: line 49: [: : integer expression expected
-+Wegen Umbau 10: Warum kommt Alarm kürzel nicht mehr bei der 100? BSN? 11.2.
-+Wegen Umbau 10: RSI Kurve stimmt nicht mehr!!!
-    todo J=1 if umbauen
-+Wegen Umbau 10: MACD Kurve stimmt nicht mehr!!!
-+Wegen Umbau 10: Tests einkommentieren
+-Abbrev? S+ oder 5S+
+-Strategie/Alarm für horizontal MACD verbessern (AT1 "Aroundtown") am 11.2.
 
 -Alles in SA nachbilden:
     Depotwert
     Einstandskurrs 
     5% Verkaufskurs
-    ...
-    
+    ...    
 -"Low Percentage & Stocha" hat selbe Farbe wie "Low 6 last Stochastic"
--Wegen Umbau 10: # TODO why are the first 3 MACD value not calculated correctly?
 -Export bei alles averages.sh functionen
 -DetermineTendency parametrisieren
 -Neue function: LesserThenWith, ...
 -Bei Stoch Y-Achse max. 99 setzen statt 100, da der Chart leicht eingerückt ist. Also nicht linksbündig!
     Aber wenn obere Kurve auch 3 stellig oder sogar 4 stellig?
-+Ersten 10 leere X-Achsen Zahlen weg nehmen
 
--MACD XETRA blau ist meine MACD. Evtl Farbe nmit RSI tauschen
-
--L&S Stoch stimmt komplett nicht! Immer XETRA verwenden
-
--Wie Kann das sein buy und sell? 12.2
-    *FTE "ORANGE" </>
-    Buy: Low Quote by Tendency (T)
-    Sell: High 3 last Stochastic
-
--Evtl. low/high RSI alarm nur bei aktuellem Tief/Höchststwert ausgeben?
-
--Ersten 10 leere X-Achsen Zahlen weg nehmen
-
--Link einbauen: Html bei github ansehen 
-    http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/BEI.html
--Html nach FTP hochladen 
-    https://stackoverflow.com/questions/1894347/how-to-upload-ftp-files-to-server-in-a-bash-script/1894479
-
--Abbrev? S+ oder 5S+
--Strategie/Alarm für horizontal MACD verbessern (AT1 "Aroundtown") am 11.2.
-
--History in Diagrammen mit aufnehmen. Z.b. anstatt 1..100 in X Achse -> PS oder R oder M als Kürzel der Strategien
--Die Ersten 18 Kursdaten nicht darstellen (sind eh keine Averages), auch wegen sonst gestauchter x-Achse bei so vielen Werten
 -Alle Strategien nur jeweils einmal, siehe Tendency
 -Tendency: stark fallend, stark steigend einbauen, also 5 Zustände!
 
@@ -66,6 +40,9 @@ TODO:
 -Kombi Strategien entkoppeln
 -Punkte je Stategie vergeben
 -Warum kommt Alarm low by Percentage so selten?
+
+-Html nach FTP hochladen 
+    https://stackoverflow.com/questions/1894347/how-to-upload-ftp-files-to-server-in-a-bash-script/1894479
 
 -Horizontal MACD verbesssern, so das nicht die ganz geraden Wendepunkte alarmiert werden. Also nur wenn von steil kommend!
 -MACD horizontal überarbeiten/neue Strategie: wenn MACD von steil in die Horizontale geht - Prozente berechnen
