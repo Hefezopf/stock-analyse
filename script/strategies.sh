@@ -18,7 +18,7 @@ StrategieByTendency() {
     if [ "$_tendencyParam" = "$RISING" ]; then
         # 0 times _percentageFactorParam
         if awk 'BEGIN {exit !('"$_lastPriceParam"' < '"$_lastAverage95Param"')}'; then
-            alarmAbbrevValue=T.$alarmAbbrevValue
+            alarmAbbrevValue=T+$alarmAbbrevValue
             reasonPrefix="Buy: Low Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
@@ -28,7 +28,7 @@ StrategieByTendency() {
         _percentagePowOf=$(echo "$_percentageFactorParam 10" | awk '{print $1 ^ $2}')
         _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage95Param" | awk '{print $1 * $2}')
         if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_valueWithFactor"')}'; then
-            alarmAbbrevValue=T.$alarmAbbrevValue
+            alarmAbbrevValue=T-$alarmAbbrevValue
             reasonPrefix="Sell: High Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is over Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
@@ -39,7 +39,7 @@ StrategieByTendency() {
         _percentagePowOf=$(echo "$_percentageFactorParam 3" | awk '{print $1 ^ $2}')
         _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage95Param" | awk '{print $1 * $2}')
         if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_valueWithFactor"')}'; then
-            alarmAbbrevValue=T.$alarmAbbrevValue
+            alarmAbbrevValue=T-$alarmAbbrevValue
             reasonPrefix="Sell: High Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is over Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
@@ -47,7 +47,7 @@ StrategieByTendency() {
         fi
         _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')       
         if awk 'BEGIN {exit !('"$_valueWithFactor"' < '"$_lastAverage95Param"')}'; then
-            alarmAbbrevValue=T.$alarmAbbrevValue
+            alarmAbbrevValue=T+$alarmAbbrevValue
             reasonPrefix="Buy: Low Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
@@ -56,7 +56,7 @@ StrategieByTendency() {
     elif [ "$_tendencyParam" = "$FALLING" ]; then 
         # 0 times _percentageFactorParam
         if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_lastAverage95Param"')}'; then
-            alarmAbbrevValue=T.$alarmAbbrevValue
+            alarmAbbrevValue=T-$alarmAbbrevValue
             reasonPrefix="Sell: High Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is over Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
@@ -66,7 +66,7 @@ StrategieByTendency() {
         _percentagePowOf=$(echo "$_percentageFactorParam 10" | awk '{print $1 ^ $2}')
         _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')
         if awk 'BEGIN {exit !('"$_valueWithFactor"' < '"$_lastAverage95Param"')}'; then
-            alarmAbbrevValue=T.$alarmAbbrevValue
+            alarmAbbrevValue=T+$alarmAbbrevValue
             reasonPrefix="Buy: Low Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
@@ -125,7 +125,7 @@ StrategieOverratedXHighRSI() {
         fi
         # At least 3 high values out of 7 and one of the last 3 must be over
         if [ "$countHighRSI" -ge 3 ] && [ "$oneOfTheLastRSIHigh" = 1 ]; then 
-            alarmAbbrevValue=R.$alarmAbbrevValue      
+            alarmAbbrevValue=$countHighRSI"R-"$alarmAbbrevValue      
             reasonPrefix="Sell: High $countHighRSI last RSI (R)"
             resultStrategieOverratedXHighRSI="$reasonPrefix: $countHighRSI last quotes are over $_highRSIValueParam"
             echo "$resultStrategieOverratedXHighRSI"
@@ -184,7 +184,7 @@ StrategieUnderratedXLowRSI() {
         fi
         # At least 3 low values out of 7 and one of the last 3 must be under
         if [ "$countLowRSI" -ge 3 ] && [ "$oneOfTheLastRSILow" = 1 ]; then
-            alarmAbbrevValue=R.$alarmAbbrevValue
+            alarmAbbrevValue=$countLowRSI"R+"$alarmAbbrevValue
             reasonPrefix="Buy: Low $countLowRSI last RSI (R)"
             resultStrategieUnderratedXLowRSI="$reasonPrefix: $countLowRSI last quotes are under $_lowRSIValueParam"
             echo "$resultStrategieUnderratedXLowRSI"
@@ -247,7 +247,7 @@ StrategieOverratedHighHorizontalMACD() {
 
         # is MACD horizontal?
         if [ "$isMACDHorizontalAlarm" = true ]; then
-            alarmAbbrevValue=M.$alarmAbbrevValue
+            alarmAbbrevValue=M-$alarmAbbrevValue
             reasonPrefix="Sell: High horizontal MACD (M)"
             resultStrategieOverratedHighHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
             echo "$resultStrategieOverratedHighHorizontalMACD"
@@ -310,7 +310,7 @@ StrategieUnderratedLowHorizontalMACD() {
 
         # is MACD horizontal?
         if [ "$isMACDHorizontalAlarm" = true ]; then
-            alarmAbbrevValue=M.$alarmAbbrevValue
+            alarmAbbrevValue=M+$alarmAbbrevValue
             reasonPrefix="Buy: Low horizontal MACD (M)"
             resultStrategieUnderratedLowHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
             echo "$resultStrategieUnderratedLowHorizontalMACD"
@@ -345,7 +345,7 @@ StrategieOverratedByPercentAndStochastic() {
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
         if [ "$_lastStochasticQuoteRoundedParam" -gt "$_stochasticPercentageUpperParam" ] && [ "$_lastOverAgv18Param" = 1 ] && [ "$_lastOverAgv38Param" = 1 ] && [ "$_lastOverAgv95Param" = 1 ] && 
             [ "$_agv18OverAgv38Param" = 1 ] && [ "$_agv38OverAgv95Param" = 1 ] && [ "$_agv18OverAgv95Param" = 1 ]; then
-            alarmAbbrevValue=P.$alarmAbbrevValue
+            alarmAbbrevValue=P-$alarmAbbrevValue
             reasonPrefix="Sell: High Percentage & Stochastic (P)"
             resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 $_average18Param€ and Avg38 $_average38Param€ and Avg95 $_average95Param€ and Stoch14 is $_lastStochasticQuoteRoundedParam is higher then $_stochasticPercentageUpperParam"
             echo "$resultStrategieOverratedByPercentAndStochastic"
@@ -380,7 +380,7 @@ StrategieUnderratedByPercentAndStochastic() {
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
         if [ "$_lastStochasticQuoteRoundedParam" -lt "$_stochasticPercentageLowerParam" ] && [ "$_lastUnderAgv18Param" = 1 ] && [ "$_lastUnderAgv38Param" = 1 ] && [ "$_lastUnderAgv95Param" = 1 ] && 
             [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv95Param" = 1 ] && [ "$_agv18UnderAgv95Param" = 1 ]; then
-            alarmAbbrevValue=P.$alarmAbbrevValue
+            alarmAbbrevValue=P+$alarmAbbrevValue
             reasonPrefix="Buy: Low Percentage & Stochastic (P)"
             resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 $_average18Param€ and Avg38 $_average38Param€ and Avg95 $_average95Param€ and Stoch14 $_lastStochasticQuoteRoundedParam is lower then $_stochasticPercentageLowerParam"
             echo "$resultStrategieUnderratedByPercentAndStochastic"
@@ -480,7 +480,7 @@ StrategieOverratedXHighStochastic() {
 
         # X last values over _highStochasticValueParam and one of the last is over?
         if [ "$howManyOverHighStochasticValue" -ge 3 ] && [ "$oneOfTheLastStochasticHigh" = 1 ]; then
-            alarmAbbrevValue=S.$alarmAbbrevValue
+            alarmAbbrevValue=$howManyOverHighStochasticValue"S-"$alarmAbbrevValue
             reasonPrefix="Sell: High $howManyOverHighStochasticValue last Stochastic (S)"
             resultStrategieOverratedXHighStochastic="$reasonPrefix: $howManyOverHighStochasticValue last quotes are over $_highStochasticValueParam"
             echo "$resultStrategieOverratedXHighStochastic"
@@ -548,7 +548,7 @@ StrategieUnderratedXLowStochastic() {
 
         # X last values under _lowStochasticValueParam and one of the last is under?
         if [ "$howManyUnderLowStochasticValue" -ge 3 ] && [ "$oneOfTheLastStochasticLow" = 1 ]; then          
-            alarmAbbrevValue=S.$alarmAbbrevValue
+            alarmAbbrevValue=$howManyUnderLowStochasticValue"S+"$alarmAbbrevValue
             reasonPrefix="Buy: Low $howManyUnderLowStochasticValue last Stochastic (S)"
             resultStrategieUnderratedXLowStochastic="$reasonPrefix: $howManyUnderLowStochasticValue last quotes are under $_lowStochasticValueParam"
             echo "$resultStrategieUnderratedXLowStochastic"
@@ -576,7 +576,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
         _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
         # Last Stochastic quote over _highStochasticValueParam and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
         if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -gt "$_highRSIQuoteParam" ] && [ ! "${_lastMACDValueParamSign}" = '-' ]; then
-            alarmAbbrevValue=C.$alarmAbbrevValue
+            alarmAbbrevValue=C-$alarmAbbrevValue
             reasonPrefix="Sell: High Stochastic & RSI & MACD+ (C)"
             resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam over $_highStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam over $_highRSIQuoteParam"    
             echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"                       
@@ -604,7 +604,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
         _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
         # Last Stochastic quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
         if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
-            alarmAbbrevValue=C.$alarmAbbrevValue
+            alarmAbbrevValue=C+$alarmAbbrevValue
             reasonPrefix="Buy: Low Stochastic & RSI & MACD- (C)"
             resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIQuoteParam"
             echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"                       
