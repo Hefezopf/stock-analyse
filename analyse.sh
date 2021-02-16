@@ -321,7 +321,7 @@ do
     {
         cat js/indexPart0.html
         echo "${markerOwnStock}${symbol}"
-        cat js/indexPart0a.html
+        cat js/indexPart1.html
 
 
 
@@ -398,13 +398,13 @@ do
 
 
         
-        cat js/indexPart1.html
+        cat js/indexPart1a.html
 
 
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm"
         alarmAbbrevValue=""
         cat alarm/"${symbol}".txt
-        cat js/indexPart1a.html
+        cat js/indexPart1b.html
 
         echo "'" "${symbolName}" "',"
         cat js/indexPart2.html
