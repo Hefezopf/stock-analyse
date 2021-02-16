@@ -223,6 +223,7 @@ StrategieOverratedHighHorizontalMACD() {
             fi
             jj_index=$((jj_index + 1))
         done
+
         isMACDHorizontalAlarm=false
         # Check if MACD is horizontal?
         # BeforeLast Value
@@ -231,20 +232,16 @@ StrategieOverratedHighHorizontalMACD() {
         # Positiv -> up
         # If first criterium positiv -> first step Alarm!
         if [ ! "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then
-            isMACDHorizontalAlarm=true
+            # Last Value
+            difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
+            isMACDGenerellPositiv=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
+            # If second criterium negativ -> Alarm!
+            if [ "${difference}" = 0 ] && [ ! "${isMACDGenerellPositiv}" = '-' ]; then
+                isMACDHorizontalAlarm=true
+            else
+                isMACDHorizontalAlarm=false
+            fi
         fi
-        # Last Value
-        difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
-        isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
-        isMACDGenerellPositiv=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
-        # If second criterium negativ -> Alarm!
-        if { [ "${difference}" = 0 ] || [ "${isNegativ}" = '-' ]; } &&
-            { [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isMACDGenerellPositiv}" = '-' ]; } then
-            isMACDHorizontalAlarm=true
-        else
-            isMACDHorizontalAlarm=false
-        fi
-
         # is MACD horizontal?
         if [ "$isMACDHorizontalAlarm" = true ]; then
             alarmAbbrevValue=M-$alarmAbbrevValue
@@ -266,7 +263,8 @@ StrategieUnderratedLowHorizontalMACD() {
     _symbolParam=${3}
     _symbolNameParam=${4}
     _markerOwnStockParam=${5}
-    export resultStrategieUnderratedLowHorizontalMACD=""  
+    export resultStrategieUnderratedLowHorizontalMACD=""
+
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
         _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
@@ -294,20 +292,16 @@ StrategieUnderratedLowHorizontalMACD() {
         # Negativ -> down
         # If first criterium negativ -> first step Alarm!
         if [ "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then
-            isMACDHorizontalAlarm=true
+            # Last Value
+            difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
+            isMACDGenerellNegativ=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
+            # If second criterium positiv -> Alarm!
+            if [ "${difference}" = 0 ] && [ "${isMACDGenerellNegativ}" = '-' ]; then
+                isMACDHorizontalAlarm=true
+            else
+                isMACDHorizontalAlarm=false
+            fi
         fi
-
-        # Last Value
-        difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
-        isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
-        isMACDGenerellNegativ=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
-        # If second criterium positiv -> Alarm!
-        if [ ${isMACDHorizontalAlarm} = true ] && [ ! "${isNegativ}" = '-' ] && [ "${isMACDGenerellNegativ}" = '-' ]; then
-            isMACDHorizontalAlarm=true
-        else
-            isMACDHorizontalAlarm=false
-        fi
-
         # is MACD horizontal?
         if [ "$isMACDHorizontalAlarm" = true ]; then
             alarmAbbrevValue=M+$alarmAbbrevValue
