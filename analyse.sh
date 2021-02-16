@@ -319,6 +319,12 @@ do
     rm -rf "$indexSymbolFile"
     cp js/_favicon.ico out
     {
+        cat js/indexPart0.html
+        echo "${markerOwnStock}${symbol}"
+        cat js/indexPart0a.html
+
+
+
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
         # Red link only for stocks that are marked as own stocks
@@ -390,9 +396,10 @@ do
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
         echo "<p style=\"color:rgb(139, 126, 102);\"><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
 
-        cat js/indexPart0.html
-        echo "${markerOwnStock}${symbol}"
+
+        
         cat js/indexPart1.html
+
 
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm"
         alarmAbbrevValue=""
