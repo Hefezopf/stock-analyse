@@ -115,38 +115,38 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieOverratedXHighStochastic 
   [ "$resultStrategieOverratedXHighStochastic" == '' ]
 
-  StrategieOverratedXHighStochastic 81 " , , 11, 11, 80, 81, 70," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 11, 11, 80, 81, 70," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieOverratedXHighStochastic" == '' ]
 
-  StrategieOverratedXHighStochastic 81 " , , 11, 11, 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 3 last Stochastic (S): 3 last quotes are over 81' ]
-
-  resultStrategieOverratedXHighStochastic=""
-  StrategieOverratedXHighStochastic 81 " , , 11, 11, 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 3 last Stochastic (S): 3 last quotes are over 81' ]
-
-  resultStrategieOverratedXHighStochastic=""
-  StrategieOverratedXHighStochastic 81 " , , 11, 11, 82, 82, 88," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 3 last Stochastic (S): 3 last quotes are over 81' ]
-
-  resultStrategieOverratedXHighStochastic=""
-  StrategieOverratedXHighStochastic 81 " , , 11, 85, 84, 83, 82," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 11, 83, 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 4 last Stochastic (S): 4 last quotes are over 81' ]
 
   resultStrategieOverratedXHighStochastic=""
-  StrategieOverratedXHighStochastic 81 " , , 86, 85, 84, 83, 82," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  StrategieOverratedXHighStochastic 81 " , , 84, 11, 11, 11, 100, 82, 100," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 4 last Stochastic (S): 4 last quotes are over 81' ]
+
+  resultStrategieOverratedXHighStochastic=""
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 99, 11, 82, 82, 88," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 4 last Stochastic (S): 4 last quotes are over 81' ]
+
+  resultStrategieOverratedXHighStochastic=""
+  StrategieOverratedXHighStochastic 81 " , , 88, 11, 11, 85, 84, 77, 82," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 4 last Stochastic (S): 4 last quotes are over 81' ]
+
+  resultStrategieOverratedXHighStochastic=""
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 86, 85, 84, 83, 82," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 5 last Stochastic (S): 5 last quotes are over 81' ]
 
   resultStrategieOverratedXHighStochastic=""
-  StrategieOverratedXHighStochastic 81 " , , 87, 80, 86, 85, 84, 80, 82," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 87, 80, 86, 85, 84, 80, 82," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 5 last Stochastic (S): 5 last quotes are over 81' ]
 
   resultStrategieOverratedXHighStochastic=""
-  StrategieOverratedXHighStochastic 81 " , , 87, 80, 86, 85, 84, 83, 80," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 87, 80, 86, 85, 82, 83, 80," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieOverratedXHighStochastic" == 'Sell: High 5 last Stochastic (S): 5 last quotes are over 81' ]
 
   resultStrategieOverratedXHighStochastic=""
-  StrategieOverratedXHighStochastic 81 " , , 80, 87, 86, 85, 80, 80, 80," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  StrategieOverratedXHighStochastic 81 " , , 11, 11, 80, 87, 86, 85, 80, 80, 80," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieOverratedXHighStochastic" == '' ]
 }
 
@@ -165,12 +165,12 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieUnderratedXLowStochastic 9 " , , 11, 11, 11, 11, 8, 17, 8," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieUnderratedXLowStochastic" == '' ]
 
-  StrategieUnderratedXLowStochastic 9 " , , 11, 11, 11, 11, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 3 last Stochastic (S): 3 last quotes are under 9' ]
+  StrategieUnderratedXLowStochastic 9 " , , 11, 11, 11, 0, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 4 last Stochastic (S): 4 last quotes are under 9' ]
 
   resultStrategieUnderratedXLowStochastic=""
-  StrategieUnderratedXLowStochastic 9 " , , 11, 11, 11, 11, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 3 last Stochastic (S): 3 last quotes are under 9' ]
+  StrategieUnderratedXLowStochastic 9 " , , 0, 11, 0, 11, 0, 11, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 4 last Stochastic (S): 4 last quotes are under 9' ]
 
   resultStrategieUnderratedXLowStochastic=""
   StrategieUnderratedXLowStochastic 9 " , , 11, 11, 11, 1, 0, 0, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
@@ -183,6 +183,10 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   resultStrategieUnderratedXLowStochastic=""
   StrategieUnderratedXLowStochastic 9 " , , 1, 1, 1, 1, 0, 9, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 6 last Stochastic (S): 6 last quotes are under 9' ]
+
+  resultStrategieUnderratedXLowStochastic=""
+  StrategieUnderratedXLowStochastic 9 " , , 1, 9, 1, 1, 0, 9, 0," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedXLowStochastic" == 'Buy: Low 5 last Stochastic (S): 5 last quotes are under 9' ]
 
   resultStrategieUnderratedXLowStochastic=""
   StrategieUnderratedXLowStochastic 9 " , , 1, 9, 1, 9, 0, 0, 9," "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *

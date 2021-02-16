@@ -390,7 +390,7 @@ StrategieUnderratedByPercentAndStochastic() {
 }
 
 # StrategieOverratedXHighStochastic function:
-# X last values over _highStochasticValueParam and one of the last is over?
+# 4 last values over _highStochasticValueParam and one of the last is over?
 # Strategie: High Stochastic X last values over highStochasticValue
 # Input: ${x}
 # Output: resultStrategieOverratedXHighStochastic
@@ -478,8 +478,8 @@ StrategieOverratedXHighStochastic() {
             howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
         fi
 
-        # X last values over _highStochasticValueParam and one of the last is over?
-        if [ "$howManyOverHighStochasticValue" -ge 3 ] && [ "$oneOfTheLastStochasticHigh" = 1 ]; then
+        # 4 last values over _highStochasticValueParam and one of the last is over?
+        if [ "$howManyOverHighStochasticValue" -ge 4 ] && [ "$oneOfTheLastStochasticHigh" = 1 ]; then
             alarmAbbrevValue=$howManyOverHighStochasticValue"S-"$alarmAbbrevValue
             reasonPrefix="Sell: High $howManyOverHighStochasticValue last Stochastic (S)"
             resultStrategieOverratedXHighStochastic="$reasonPrefix: $howManyOverHighStochasticValue last quotes are over $_highStochasticValueParam"
@@ -490,7 +490,7 @@ StrategieOverratedXHighStochastic() {
 }
 
 # StrategieUnderratedXLowStochastic function:
-# X last values under _lowStochasticValueParam and one of the last is under?
+# 4 last values under _lowStochasticValueParam and one of the last is under?
 # Strategie: Low Stochastic X last values under lowStochasticValue
 # Input: ${x}
 # Output: resultStrategieUnderratedXLowStochastic
@@ -546,8 +546,8 @@ StrategieUnderratedXLowStochastic() {
             howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
         fi
 
-        # X last values under _lowStochasticValueParam and one of the last is under?
-        if [ "$howManyUnderLowStochasticValue" -ge 3 ] && [ "$oneOfTheLastStochasticLow" = 1 ]; then          
+        # 4 last values under _lowStochasticValueParam and one of the last is under?
+        if [ "$howManyUnderLowStochasticValue" -ge 4 ] && [ "$oneOfTheLastStochasticLow" = 1 ]; then          
             alarmAbbrevValue=$howManyUnderLowStochasticValue"S+"$alarmAbbrevValue
             reasonPrefix="Buy: Low $howManyUnderLowStochasticValue last Stochastic (S)"
             resultStrategieUnderratedXLowStochastic="$reasonPrefix: $howManyUnderLowStochasticValue last quotes are under $_lowStochasticValueParam"
