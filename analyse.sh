@@ -26,6 +26,10 @@ CalculateStochastic=true
 CalculateRSI=true
 CalculateMACD=true
 
+# Switches to turn on/off Strategies. Default is 'true'
+ApplyStrategieByTendency=false
+ApplyStrategieHorizontalMACD=false
+
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
 
@@ -264,12 +268,16 @@ do
     if [ "$fileSize" -gt 200 ]; then
 
         # Strategie: Quote by Tendency
-        resultStrategieByTendency=""
-        StrategieByTendency "$last" "$tendency" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        if [ "$ApplyStrategieByTendency" = true ]; then
+            resultStrategieByTendency=""
+            StrategieByTendency "$last" "$tendency" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        fi
 
         # Buy Strategie: Low horizontal MACD
-        resultStrategieUnderratedLowHorizontalMACD=""
-        StrategieUnderratedLowHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        if [ "$ApplyStrategieHorizontalMACD" = true ]; then
+            resultStrategieUnderratedLowHorizontalMACD=""
+            StrategieUnderratedLowHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        fi
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
@@ -288,8 +296,10 @@ do
         StrategieUnderratedLowStochasticLowRSILowMACD "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High horizontal MACD
-        resultStrategieOverratedHighHorizontalMACD=""
-        StrategieOverratedHighHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        if [ "$ApplyStrategieHorizontalMACD" = true ]; then
+            resultStrategieOverratedHighHorizontalMACD=""
+            StrategieOverratedHighHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        fi
 
         # Sell Strategie: High Percentage & Stochastic
         resultStrategieOverratedByPercentAndStochastic=""
