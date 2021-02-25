@@ -490,4 +490,4 @@ echo "time elapsed."
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
 # shellcheck disable=SC2086
 #tar -zcf $OUT_ZIP_FILE $reportedSymbolFileList
-mv $OUT_ZIP_FILE out
+#mv $OUT_ZIP_FILE out
