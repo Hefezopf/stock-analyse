@@ -489,5 +489,5 @@ echo "time elapsed."
 # shellcheck disable=SC2116,SC2086
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
 # shellcheck disable=SC2086
-tar -zcf $OUT_ZIP_FILE $reportedSymbolFileList
+#tar -zcf $OUT_ZIP_FILE $reportedSymbolFileList
 mv $OUT_ZIP_FILE out
