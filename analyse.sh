@@ -104,7 +104,7 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=_blank>Github Action</a><br><br># Comdirect Link<br>" >> $OUT_RESULT_FILE
+echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=_blank>Github Action</a><br><br># Links (Comdirect, 'PC', 'Github')<br>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
