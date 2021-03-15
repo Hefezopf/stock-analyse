@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # WriteAlarmAbbrevXAxisFile function: 
-# Write the alarm x-axis file into alarm dir. E.g: alarm/BEI.txt
+# Write the alarm x-axis file into 'alarm' dir. E.g: alarm/BEI.txt
 # Keep history in datefile. E.g: alarm/BEI_2021-02-09.txt
 # Input: ${x}
 # Output: alarm/$symbol.txt file. E.g: alarm/BEI.txt
@@ -10,6 +10,7 @@ WriteAlarmAbbrevXAxisFile() {
     _symbolParam=${2}
     _dataDateFile=${3}
     _dataDateOutputDir=${4}
+    _markerOwnStockParam=${5}
     
     mkdir -p "$_dataDateOutputDir"
     lastDateInDataFile=$(head -n1 "$_dataDateFile" | cut -f 1)
@@ -21,6 +22,9 @@ WriteAlarmAbbrevXAxisFile() {
     if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
         _newAlarmAbbrevTextParam=$(echo "$lastDateInDataFile" | cut -f 3 -d '-') # 2021-02-16 -> 16
     fi
+
+    _newAlarmAbbrevTextParam="${_markerOwnStockParam}""$_newAlarmAbbrevTextParam"
+    
 
     if [ ! -f "$alarmSymbolDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
         if [ -f "$alarmSymbolDateBeforeFile" ]; then # Last datefile exists. Take the last datefile e.g: alarm/BEI_2021-02-08.txt

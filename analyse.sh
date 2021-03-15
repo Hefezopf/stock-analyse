@@ -8,11 +8,11 @@
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
 # 4. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
 # 5. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
-# Call example: ./analyse.sh 'ADS *ALV' 3 online 9 30
-# Call example: ./analyse.sh 'ADS' 1 offline 9 30
+# Call example: ./analyse.sh 'ADS *ALV' 1 online 9 30
+# Call example: ./analyse.sh 'ADS' 2 offline 9 30
 # Call example: ./analyse.sh '*ADS' 1 offline 9 30
 # Online Precondition:
-# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2 and MARKET_STACK_ACCESS_KEY3 and MARKET_STACK_ACCESS_KEY4 as ENV Variable
+# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2, MARKET_STACK_ACCESS_KEY3, MARKET_STACK_ACCESS_KEY4 and MARKET_STACK_ACCESS_KEY5 as ENV Variable
 # shellcheck disable=SC1091 
 
 # Import
@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Switches for calculating charts and underlying strategies. Default is 'true'
-CalculateStochastic=true
-CalculateRSI=true
-CalculateMACD=true
+# CalculateStochastic=true
+# CalculateRSI=true
+# CalculateMACD=true
 
 # Switches to turn on/off Strategies. Default is 'true'
 ApplyStrategieByTendency=false
@@ -73,8 +73,8 @@ if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$
 fi
 
 if { [ "$queryParam" = 'online' ]; } &&
-   { [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ]; } then
-    echo "Error 'online' query: MARKET_STACK_ACCESS_KEY1 ... 4 NOT set!" | tee -a $OUT_RESULT_FILE
+   { [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ] || [ -z "$MARKET_STACK_ACCESS_KEY5" ]; } then
+    echo "Error 'online' query: MARKET_STACK_ACCESS_KEY1...5 NOT set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
     exit 6
@@ -126,7 +126,7 @@ do
     DATA_DATE_FILE=data/${symbol}.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-        evenodd=$((tag % 4))
+        evenodd=$((tag % 5))
         if [ "$evenodd" -eq 0 ]; then
             MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY1}
         fi
@@ -138,6 +138,9 @@ do
         fi
         if [ "$evenodd" -eq 3 ]; then
             MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY4}
+        fi
+        if [ "$evenodd" -eq 4 ]; then
+            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY5}
         fi
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
@@ -405,13 +408,10 @@ do
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
         echo "<p style=\"color:rgb(139, 126, 102);\"><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
-
-
         
         cat js/indexPart1a.html
 
-
-        WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm"
+        WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm" "$markerOwnStock"
         alarmAbbrevValue=""
         cat alarm/"${symbol}".txt
         cat js/indexPart1b.html
