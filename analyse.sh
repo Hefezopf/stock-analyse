@@ -128,20 +128,20 @@ do
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
         evenodd=$((tag % 4))
         if [ "$evenodd" -eq 0 ]; then
-            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY1}
+            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY1}
         fi
         if [ "$evenodd" -eq 1 ]; then
-            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
+            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
         fi
         if [ "$evenodd" -eq 2 ]; then
-            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
+            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
         fi
         if [ "$evenodd" -eq 3 ]; then
-            ACCESS_KEY=${MARKET_STACK_ACCESS_KEY4}
+            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY4}
         fi
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
-        curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
+        curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "${fileSize}" -eq "0" ]; then
             echo "!!! $symbol NOT found online" | tee -a $OUT_RESULT_FILE
