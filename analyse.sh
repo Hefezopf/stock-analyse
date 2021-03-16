@@ -336,8 +336,6 @@ do
         echo "${markerOwnStock}${symbol}"
         cat js/indexPart1.html
 
-
-
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
         # Red link only for stocks that are marked as own stocks
