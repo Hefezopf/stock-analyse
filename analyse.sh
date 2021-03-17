@@ -412,6 +412,7 @@ do
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm" "$markerOwnStock"
         alarmAbbrevValue=""
         cat alarm/"${symbol}".txt
+        rm alarm/"${symbol}".txt
         cat js/indexPart1b.html
 
         echo "'" "${symbolName}" "',"

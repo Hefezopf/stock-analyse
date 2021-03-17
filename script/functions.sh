@@ -25,7 +25,6 @@ WriteAlarmAbbrevXAxisFile() {
 
     _newAlarmAbbrevTextParam="${_markerOwnStockParam}""$_newAlarmAbbrevTextParam"
     
-
     if [ ! -f "$alarmSymbolDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
         if [ -f "$alarmSymbolDateBeforeFile" ]; then # Last datefile exists. Take the last datefile e.g: alarm/BEI_2021-02-08.txt
             commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolDateBeforeFile")
@@ -39,7 +38,7 @@ WriteAlarmAbbrevXAxisFile() {
             echo "$commaListAlarm" > "$alarmSymbolDateFile"
         fi
     fi
-    cp -f "$alarmSymbolDateFile" "$alarmSymbolFile" # Copy e.g: alarm/BEI_2021-02-0X.tx to alarm/BEI.txt
+    cp -f "$alarmSymbolDateFile" "$alarmSymbolFile" # Copy e.g: alarm/BEI_2021-02-09.txt to alarm/BEI.txt
 }
 
 # DetermineTendency function: 
