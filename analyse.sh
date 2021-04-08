@@ -159,6 +159,19 @@ do
 
     ProgressBar 1 8
 
+    #Check if 100 last quotes are availible, otherwise fill up to 100 
+    numOfQuotes=$(grep "" -c "$DATA_DATE_FILE")
+    if [ "$numOfQuotes" -lt 100 ]; then
+        echo "!!! LESS then 100 quotes for $symbol" | tee -a $OUT_RESULT_FILE
+        lastQuoteInFile=$(tail -1 "$DATA_DATE_FILE" | cut -f 2)
+        numOfQuotesToAdd=$((100 - "$numOfQuotes"))
+        while [[ $indexWhile -lt $numOfQuotesToAdd ]]
+        do
+            echo "9999-99-99	"$lastQuoteInFile"" >> "$DATA_DATE_FILE"
+            ((indexWhile = indexWhile + 1))
+        done
+    fi
+
     awk '{print $2}' "$DATA_DATE_FILE" > "$DATA_FILE"
     lastRaw=$(head -n1 "$DATA_FILE")
     last=$(printf "%.2f" "$lastRaw")
