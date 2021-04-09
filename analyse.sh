@@ -164,7 +164,7 @@ do
     if [ "$numOfQuotes" -lt 100 ]; then
         echo "!!! LESS then 100 quotes for $symbol" | tee -a $OUT_RESULT_FILE
         lastQuoteInFile=$(tail -1 "$DATA_DATE_FILE" | cut -f 2)
-        numOfQuotesToAdd=$((100 - "$numOfQuotes"))
+        numOfQuotesToAdd=$((100 - $numOfQuotes))
         while [[ $indexWhile -lt $numOfQuotesToAdd ]]
         do
             echo "9999-99-99	"$lastQuoteInFile"" >> "$DATA_DATE_FILE"
