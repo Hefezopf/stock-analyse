@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Switches for calculating charts and underlying strategies. Default is 'true'
-CalculateStochastic=true
-CalculateRSI=true
-CalculateMACD=true
+# CalculateStochastic=true
+# CalculateRSI=true
+# CalculateMACD=true
 
 # Switches to turn on/off Strategies. Default is 'true'
 ApplyStrategieByTendency=false
@@ -165,7 +165,7 @@ do
         echo "!!! LESS then 100 quotes for $symbol" | tee -a $OUT_RESULT_FILE
         lastQuoteInFile=$(tail -1 "$DATA_DATE_FILE" | cut -f 2)
         numOfQuotesToAdd=$((100 - $numOfQuotes))
-        while [ "$indexWhile" -lt "$numOfQuotesToAdd" ]; do
+        while [ "$indexWhile" = $numOfQuotesToAdd ]; do
             echo "9999-99-99	"$lastQuoteInFile"" >> "$DATA_DATE_FILE"
             ((indexWhile = indexWhile + 1))
         done
