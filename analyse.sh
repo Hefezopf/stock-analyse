@@ -165,8 +165,7 @@ do
         echo "!!! LESS then 100 quotes for $symbol" | tee -a $OUT_RESULT_FILE
         lastQuoteInFile=$(tail -1 "$DATA_DATE_FILE" | cut -f 2)
         numOfQuotesToAdd=$((100 - $numOfQuotes))
-        while [ $indexWhile -lt $numOfQuotesToAdd ];
-        do
+        while [ $indexWhile -lt $numOfQuotesToAdd ]; do
             echo "9999-99-99	"$lastQuoteInFile"" >> "$DATA_DATE_FILE"
             ((indexWhile = indexWhile + 1))
         done
@@ -485,8 +484,7 @@ do
     i=$((i + 1))
 done
 # Maximal 15 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
-while [ "$i" -le 15 ];
-do
+while [ "$i" -le 15 ]; do
     touch temp/$i.html
     i=$((i + 1))
 done

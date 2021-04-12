@@ -58,14 +58,12 @@ EMAverageOfDays() {
     export averagePriceList
 
     i=1
-    while [ "$i" -lt "$_amountOfDaysParam" ]; # Fill with blank comma seperated data
-    do
+    while [ "$i" -lt "$_amountOfDaysParam" ]; do # Fill with blank comma seperated data
         averagePriceList="$averagePriceList ,"        
         i=$((i + 1))
     done 
     i=0
-    while [ "$i" -le $((100-_amountOfDaysParam)) ]; 
-    do
+    while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         if [ "$i" = 0 ]; then # Frist Loop
             headLines=$((100-i))
             ema=$(head -n"$headLines" "$_dataFileParam" | tail -"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')         
@@ -91,15 +89,13 @@ AverageOfDays() {
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
-    while [ "$i" -lt "$minusCommas" ]; # Fill with blank comma seperated data
-    do
+    while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
         averagePriceList="$averagePriceList ,"
         i=$((i + 1))
     done
 
     i=0
-    while [ "$i" -le $((100-_amountOfDaysParam)) ];
-    do
+    while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         headLines=$((100-i))
         averagePrice=$(head -n"$headLines" "$_dataFileParam" | tail -"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')
         averagePriceList="$averagePriceList $averagePrice,"
@@ -117,8 +113,7 @@ RSIOfDays() {
     RSIwinningDaysFile="$(mktemp -p /dev/shm/)"
     RSIloosingDaysFile="$(mktemp -p /dev/shm/)"
     i=1
-    while [ "$i" -le 100 ];
-    do
+    while [ "$i" -le 100 ]; do
         i=$((i + 1))
         diffLast2Prices=$(head -n$i "$_dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
         isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
@@ -133,8 +128,7 @@ RSIOfDays() {
     done
 
     i=1
-    while [ "$i" -le 100 ];
-    do
+    while [ "$i" -le 100 ]; do
         i=$((i + 1))
         # Fill with blank comma seperated data  
         if [ $i -ge $((_amountOfDaysParam + 1)) ]; then # >= 14
@@ -166,16 +160,14 @@ StochasticOfDays() {
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
     # Fill with blank comma seperated data
-    while [ "$i" -lt "$minusCommas" ];
-    do 
+    while [ "$i" -lt "$minusCommas" ]; do 
         stochasticQuoteList="$stochasticQuoteList ,"
         i=$((i + 1))
     done 
 
     i=0
     # TODO optimize not 100 loop?!
-    while [ "$i" -le $((100-_amountOfDaysParam)) ];
-    do
+    while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         headLines=$((100-i))
         head -n$headLines "$_dataFileParam" | tail -"${_amountOfDaysParam}" > "$stochasticFile"
         lastStochasticRaw=$(head -n 1 "$stochasticFile")
