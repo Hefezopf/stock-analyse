@@ -168,7 +168,7 @@ do
         indexWhile=0
         while [ "$indexWhile" -lt "$numOfQuotesToAdd" ]; do
             echo "9999-99-99	"$lastQuoteInFile"" >> "$DATA_DATE_FILE"
-            ((indexWhile = indexWhile + 1))
+            indexWhile=$((indexWhile + 1))
         done
     fi
 
