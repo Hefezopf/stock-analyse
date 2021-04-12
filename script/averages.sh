@@ -58,7 +58,8 @@ EMAverageOfDays() {
     export averagePriceList
 
     i=1
-    while [ "$i" -lt "$_amountOfDaysParam" ]; do # Fill with blank comma seperated data
+    while [ "$i" -lt "$_amountOfDaysParam" ]; # Fill with blank comma seperated data
+    do
         averagePriceList="$averagePriceList ,"        
         i=$((i + 1))
     done 
@@ -90,7 +91,8 @@ AverageOfDays() {
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
-    while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
+    while [ "$i" -lt "$minusCommas" ]; # Fill with blank comma seperated data
+    do
         averagePriceList="$averagePriceList ,"
         i=$((i + 1))
     done
@@ -164,7 +166,8 @@ StochasticOfDays() {
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
     # Fill with blank comma seperated data
-    while [ "$i" -lt "$minusCommas" ]; do 
+    while [ "$i" -lt "$minusCommas" ];
+    do 
         stochasticQuoteList="$stochasticQuoteList ,"
         i=$((i + 1))
     done 
