@@ -1,6 +1,19 @@
 TODO:
 -----
 
+symbolForSED=BEI
+symbolForSED=CCC3
+
+Buy-Stock
+sed -i "0,/^/s//*$symbolForSED /" data/_own_symbols.txt
+sed -i "s/$symbolForSED //" data/_stock_symbols.txt
+
+Sell-Stock
+sed -i "s/*$symbolForSED //" data/_own_symbols.txt
+sed -i "0,/^/s//$symbolForSED /" data/_stock_symbols.txt
+
+
+
 
 -MACD arlarmiert nicht früh genug, wenn dann muss der z.b. 4 letzte höher gewesen sein
 

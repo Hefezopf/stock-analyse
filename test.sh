@@ -7,8 +7,8 @@
 # git clone https://github.com/bats-core/bats-assert.git
 # cd bats-core
 # ./install.sh ~
-# Es werden 4 dirs in ~ angelegt 
-# libexec, bin share und lib
+# 4 dirs are created in ~ 
+# libexec, bin share and lib
 # bats -version
 
 echo shellcheck ...
