@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#alias usa='sh /c/max/sa/script/pull-and-open-from-laptop.sh'
+#alias usa='sh /c/code/stock-analyse/script/pull-and-open-from-laptop-lenovo.sh'
 
 cd /c/code/stock-analyse
 git pull
