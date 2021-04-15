@@ -11,3 +11,6 @@ echo buy ${1} ...
 
 sed -i "0,/^/s//*${1} /" data/_own_symbols.txt
 sed -i "s/${1} //" data/_stock_symbols.txt
+git add data/_own_symbols.txt data/_stock_symbols.txt
+git commit -m "buy ${1}"
+git push
