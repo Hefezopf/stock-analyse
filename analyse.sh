@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Switches for calculating charts and underlying strategies. Default is 'true'
-CalculateStochastic=true
-CalculateRSI=true
-CalculateMACD=true
+# CalculateStochastic=true
+# CalculateRSI=true
+# CalculateMACD=true
 
 # Switches to turn on/off Strategies. Default is 'true'
 ApplyStrategieByTendency=false
