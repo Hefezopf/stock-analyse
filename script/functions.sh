@@ -122,7 +122,7 @@ UsageCheckParameter() {
         echo "<br>" >> "$_outResultFileParam"
         echo " RSI14: Quote for RSI indicator (only 30 and less allowed!)" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"    
-        echo "Example: ./analyse.sh 'ADS ALV' 3 offline 9 30" | tee -a "$_outResultFileParam"
+        echo "Example: ./analyse.sh 'BEI ALV' 3 offline 9 30" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo "$HTML_RESULT_FILE_END" >> "$_outResultFileParam"
         exit 5

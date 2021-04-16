@@ -3,14 +3,14 @@
 # This script checks given stock quotes and their averages of the last 95, 38, 18 days.
 # Stochastic, RSI and MACD are calculated as well
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
-# 1. Parameter: SYMBOLS - List of stock symbols like: 'ADS *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
+# 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
 # 4. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
 # 5. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
-# Call example: ./analyse.sh 'ADS *ALV' 1 online 9 30
-# Call example: ./analyse.sh 'ADS' 2 offline 9 30
-# Call example: ./analyse.sh '*ADS' 1 offline 9 30
+# Call example: ./analyse.sh 'BEI *ALV' 1 online 9 30
+# Call example: ./analyse.sh 'BEI' 2 offline 9 30
+# Call example: ./analyse.sh '*BEI' 1 offline 9 30
 # Online Precondition:
 # Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2, MARKET_STACK_ACCESS_KEY3, MARKET_STACK_ACCESS_KEY4 and MARKET_STACK_ACCESS_KEY5 as ENV Variable
 # shellcheck disable=SC1091 
