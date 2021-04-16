@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Switches for calculating charts and underlying strategies. Default is 'true'
-CalculateStochastic=true
-CalculateRSI=true
-CalculateMACD=true
+# CalculateStochastic=true
+# CalculateRSI=true
+# CalculateMACD=true
 
 # Switches to turn on/off Strategies. Default is 'true'
 ApplyStrategieByTendency=false
@@ -104,7 +104,7 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=_blank>Github Action</a><br><br># Links (Comdirect, PC, Github)<br>" >> $OUT_RESULT_FILE
+echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><br># Links (Comdirect, PC, Github)<br>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
@@ -371,7 +371,7 @@ do
         fi
 
         ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3)
-        echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbol $symbolName</a><br>"
+        echo "<p><a $styleComdirectLink href="\""$COMDIRECT_URL_PREFIX""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
         echo "Stochastic14:<b>$stochasticPercentageParam</b> "
@@ -464,7 +464,7 @@ do
         echo "$MACDList"
         cat js/indexPart12.html
 
-        echo "<p><a $styleComdirectLink href=""$COMDIRECT_URL_PREFIX""$ID_NOTATION" " target=_blank>$markerOwnStock$symbol $symbolName</a><br>"
+        echo "<p><a $styleComdirectLink href="\""$COMDIRECT_URL_PREFIX""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a><br>"
         echo "Good Luck!<p>"
 
         cat js/indexPart13.html
