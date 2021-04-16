@@ -453,6 +453,26 @@ do
         echo "'" Average $averageInDays95 "',"
         cat js/indexPart8.html
         echo "$averagePriceList95"
+
+        # Draw buyingRate
+        if [ "${markerOwnStock}" = '*' ]; then
+            cat js/indexPart8a.html
+            buyingRate=$(grep "${symbol}" data/_buying_rate.txt  | cut -f2 -d ' ')
+            i=1
+            while [ "$i" -le 87 ]; do
+                echo "$buyingRate,"
+                i=$((i + 1))
+            done
+
+            cat js/indexPart8b.html
+            percentOverBuyingRate=$(echo "$buyingRate 1.05" | awk '{print $1 * $2}')
+            i=1
+            while [ "$i" -le 87 ]; do
+                echo "$percentOverBuyingRate,"
+                i=$((i + 1))
+            done
+        fi
+
         cat js/indexPart9.html
 
         echo "$stochasticQuoteList"
