@@ -6,6 +6,7 @@
 
 # Call: sh ./sell.sh SYMBOL
 # Example: sh ./sell.sh IBM
+# alias sell='/d/code/stock-analyse/script/sell.sh $1'
 
 echo sell ${1} ...
 
