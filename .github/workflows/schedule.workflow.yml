@@ -4,18 +4,11 @@ name: Schedule
 on:       
   schedule:
   # Every 10 minutes
-  # */10 * * * *  
+  - cron: "*/10 * * * *"
   # Every Monday at 13:00
-  # 0 13 * * 1
-  # At 00:00 on Saturday
-  # 0 0 * * 6 
-  # Every 2nd day
-  # 0 0 */2 * *  
-  # On Tue, Thr, Sat
-  # 0 0 * * 2,4,6 
+  #- cron: "0 13 * * 1"
   # At 05:00 on Mon, Tue, Wed, Thr, Fri (MEST: run is 2 hours delayed)
-  # 0 5 * * 1,2,3,4,5
-  - cron: "0 5 * * 1,2,3,4,5"
+  #- cron: "0 5 * * 1,2,3,4,5"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -40,11 +33,15 @@ jobs:
           export MARKET_STACK_ACCESS_KEY5=${{secrets.MARKET_STACK_ACCESS_KEY5}}
 
           #Depot+DAX+MDAX+Eurostoxx (147). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
-          ownSymbolsVar=$(cat config/own_symbols.txt)
+          
+          ownSymbolsVar=$(sed 's/^/*/' config/buying_rate.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          #ownSymbolsVar=$(cat config/own_symbols.txt)
+
           stockSymbolsVar=$(cat config/stock_symbols.txt)
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
           percentageVar=1
-          queryVar=online
+          #queryVar=online
+          queryVar=offline
           stochasticVar=9
           RSIVar=25
 
