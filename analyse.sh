@@ -49,7 +49,7 @@ rm -rf out/$OUT_ZIP_FILE
 touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
-cp js/favicon.ico out
+cp template/favicon.ico out
 reportedSymbolFileList=""
 alarmAbbrevValue=""
 TICKER_ID_NAMES_FILE=config/ticker_id_names.txt
@@ -346,9 +346,9 @@ do
     indexSymbolFile=out/${symbol}.html
     rm -rf "$indexSymbolFile"
     {
-        cat js/indexPart0.html
+        cat template/indexPart0.html
         echo "${markerOwnStock}${symbol}"
-        cat js/indexPart1.html
+        cat template/indexPart1.html
 
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
@@ -421,16 +421,16 @@ do
         echo "<p style=\"color:rgb(255, 205, 86);\"><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
         echo "<p style=\"color:rgb(139, 126, 102);\"><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
         
-        cat js/indexPart1a.html
+        cat template/indexPart1a.html
 
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm" "$markerOwnStock"
         alarmAbbrevValue=""
         cat alarm/"${symbol}".txt
         rm alarm/"${symbol}".txt
-        cat js/indexPart1b.html
+        cat template/indexPart1b.html
 
         echo "'" "${symbolName}" "',"
-        cat js/indexPart2.html
+        cat template/indexPart2.html
     
         # Writing quotes
         DATA_FILE_87="$(mktemp -p /dev/shm/)"
@@ -438,25 +438,25 @@ do
         commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
 
         echo "$commaPriceList"
-        cat js/indexPart3.html
+        cat template/indexPart3.html
 
         echo "'" Average $averageInDays18 "',"
-        cat js/indexPart4.html
+        cat template/indexPart4.html
         echo "$averagePriceList18"
-        cat js/indexPart5.html
+        cat template/indexPart5.html
 
         echo "'" Average $averageInDays38 "'," 
-        cat js/indexPart6.html 
+        cat template/indexPart6.html 
         echo "$averagePriceList38" 
-        cat js/indexPart7.html  
+        cat template/indexPart7.html  
 
         echo "'" Average $averageInDays95 "',"
-        cat js/indexPart8.html
+        cat template/indexPart8.html
         echo "$averagePriceList95"
 
         # Draw buyingRate
         if [ "${markerOwnStock}" = '*' ]; then
-            cat js/indexPart8a.html
+            cat template/indexPart8a.html
             buyingRate=$(grep "${symbol}" config/buying_rate.txt  | cut -f2 -d ' ')
             i=1
             while [ "$i" -le 87 ]; do
@@ -464,7 +464,7 @@ do
                 i=$((i + 1))
             done
 
-            cat js/indexPart8b.html
+            cat template/indexPart8b.html
             percentOverBuyingRate=$(echo "$buyingRate 1.05" | awk '{print $1 * $2}')
             i=1
             while [ "$i" -le 87 ]; do
@@ -473,21 +473,21 @@ do
             done
         fi
 
-        cat js/indexPart9.html
+        cat template/indexPart9.html
 
         echo "$stochasticQuoteList"
-        cat js/indexPart10.html
+        cat template/indexPart10.html
 
         echo "$RSIQuoteList"
-        cat js/indexPart11.html
+        cat template/indexPart11.html
 
         echo "$MACDList"
-        cat js/indexPart12.html
+        cat template/indexPart12.html
 
         echo "<p><a $styleComdirectLink href="\""$COMDIRECT_URL_PREFIX""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a><br>"
         echo "Good Luck!<p>"
 
-        cat js/indexPart13.html
+        cat template/indexPart13.html
     } >> "$indexSymbolFile"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
