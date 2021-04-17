@@ -490,6 +490,10 @@ do
         cat template/indexPart13.html
     } >> "$indexSymbolFile"
 
+    # Minify 1
+    sed -i "s/^[ \t]*//g" "$indexSymbolFile"
+    sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile"
+
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 done
 
