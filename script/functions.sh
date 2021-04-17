@@ -198,7 +198,7 @@ WriteComdirectUrlAndStoreFileList() {
         _linkColorParam="$BLACK"
     fi
 
-    _id_notation=$(grep -P "${symbol}\t" "$TICKER_ID_NAMES_FILE" | cut -f 3)
+    _id_notation=$(grep -P "${symbol}\t" "$TICKER_NAME_ID_FILE" | cut -f 3)
     if [ ! "${#_id_notation}" -gt 1 ]; then
         _id_notation=999999
     fi

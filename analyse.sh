@@ -52,7 +52,7 @@ rm -rf $OUT_RESULT_FILE
 cp template/favicon.ico out
 reportedSymbolFileList=""
 alarmAbbrevValue=""
-TICKER_ID_NAMES_FILE=config/ticker_name_id.txt
+TICKER_NAME_ID_FILE=config/ticker_name_id.txt
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result</title><style>.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END="</p><p>Good Luck!</p></div></body></html>"
@@ -118,7 +118,7 @@ do
     fi
 
     # Curl symbol name with delay of 14sec because of REST API restrictions
-    CurlSymbolName "$symbol" $TICKER_ID_NAMES_FILE 14
+    CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14
 
     # Get stock data
     echo ""
@@ -154,7 +154,7 @@ do
         fi
     fi
 
-    symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_ID_NAMES_FILE" | cut -f 2)
+    symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
 
     CreateCmdAnalyseHyperlink
 
@@ -370,7 +370,7 @@ do
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
 
-        ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_ID_NAMES_FILE | cut -f 3)
+        ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_NAME_ID_FILE | cut -f 3)
         echo "<p><a $styleComdirectLink href="\""$COMDIRECT_URL_PREFIX""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
