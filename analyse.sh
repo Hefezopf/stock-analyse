@@ -457,7 +457,7 @@ do
         # Draw buyingRate
         if [ "${markerOwnStock}" = '*' ]; then
             cat template/indexPart8a.html
-            buyingRate=$(grep "${symbol}" config/buying_rate.txt  | cut -f2 -d ' ')
+            buyingRate=$(grep "${symbol}" config/own_symbols.txt  | cut -f2 -d ' ')
             i=1
             while [ "$i" -le 87 ]; do
                 echo "$buyingRate,"
