@@ -460,7 +460,7 @@ do
             buyingRate=$(grep "${symbol}" config/own_symbols.txt  | cut -f2 -d ' ')
             i=1
             while [ "$i" -le 87 ]; do
-                echo "$buyingRate,"
+                echo -n "$buyingRate,"
                 i=$((i + 1))
             done
 
@@ -468,7 +468,7 @@ do
             percentOverBuyingRate=$(echo "$buyingRate 1.05" | awk '{print $1 * $2}')
             i=1
             while [ "$i" -le 87 ]; do
-                echo "$percentOverBuyingRate,"
+                echo -n "$percentOverBuyingRate,"
                 i=$((i + 1))
             done
         fi
