@@ -52,7 +52,7 @@ rm -rf $OUT_RESULT_FILE
 cp template/favicon.ico out
 reportedSymbolFileList=""
 alarmAbbrevValue=""
-TICKER_ID_NAMES_FILE=config/ticker_id_names.txt
+TICKER_ID_NAMES_FILE=config/ticker_name_id.txt
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result</title><style>.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END="</p><p>Good Luck!</p></div></body></html>"
