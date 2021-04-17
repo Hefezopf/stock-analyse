@@ -49,10 +49,11 @@ rm -rf out/$OUT_ZIP_FILE
 touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
+cp js/favicon.ico out
 reportedSymbolFileList=""
 alarmAbbrevValue=""
-TICKER_ID_NAMES_FILE=data/_ticker_id_names.txt
-HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"_favicon.ico\" /><title>Result</title><style>.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
+TICKER_ID_NAMES_FILE=config/ticker_id_names.txt
+HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result</title><style>.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px)</style></head><body><div><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 HTML_RESULT_FILE_END="</p><p>Good Luck!</p></div></body></html>"
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
@@ -344,7 +345,6 @@ do
     #
     indexSymbolFile=out/${symbol}.html
     rm -rf "$indexSymbolFile"
-    cp js/_favicon.ico out
     {
         cat js/indexPart0.html
         echo "${markerOwnStock}${symbol}"
@@ -457,7 +457,7 @@ do
         # Draw buyingRate
         if [ "${markerOwnStock}" = '*' ]; then
             cat js/indexPart8a.html
-            buyingRate=$(grep "${symbol}" data/_buying_rate.txt  | cut -f2 -d ' ')
+            buyingRate=$(grep "${symbol}" config/buying_rate.txt  | cut -f2 -d ' ')
             i=1
             while [ "$i" -le 87 ]; do
                 echo "$buyingRate,"

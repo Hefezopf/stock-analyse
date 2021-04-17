@@ -40,8 +40,8 @@ jobs:
           export MARKET_STACK_ACCESS_KEY5=${{secrets.MARKET_STACK_ACCESS_KEY5}}
 
           #Depot+DAX+MDAX+Eurostoxx (147). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
-          ownSymbolsVar=$(cat data/_own_symbols.txt)
-          stockSymbolsVar=$(cat data/_stock_symbols.txt)
+          ownSymbolsVar=$(cat config/own_symbols.txt)
+          stockSymbolsVar=$(cat config/stock_symbols.txt)
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
           percentageVar=1
           queryVar=online
