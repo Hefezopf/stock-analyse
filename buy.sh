@@ -11,7 +11,7 @@
 
 echo buy ${1} ${2} ...
 
-sed -i "0,/^/s//*${1} /" config/own_symbols.txt
+#sed -i "0,/^/s//*${1} /" config/own_symbols.txt
 sed -i "s/${1} //" config/stock_symbols.txt
 
 sed -i '1 i\'${1}' '${2}'' config/buying_rate.txt
