@@ -27,7 +27,7 @@ on:
   workflow_dispatch:
     inputs:
       symbolParam:
-        description: 'SYMBOL - stock symbol to delete like: "GIS"'
+        description: 'SYMBOL - stock symbol to delete from own stocks list: "GIS"'
         required: true
         default: 'GIS'
 
@@ -62,7 +62,7 @@ jobs:
           #RSIDefault='${{github.event.client_payload.RSI}}'
 
           symbolInput="${{github.event.inputs.symbolParam}}"
-          
+
           symbolVar=${symbolInput:-$symbolDefault}  
 
           symbolVar=${symbolVar:-$symbolEnv}
