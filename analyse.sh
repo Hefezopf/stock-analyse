@@ -48,9 +48,9 @@ cp template/favicon.ico out
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
-echo "00000000000"
+echo "00000000000-$GPG_PASSPHRASE"
 
-gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
+gpg --batch --passphrase $GPG_PASSPHRASE -c config/test.txt
 #gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
 
 echo "11111111"
