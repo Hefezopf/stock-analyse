@@ -56,7 +56,7 @@ echo $GPG_PASSPHRASE | gpg --batch --yes --passphrase-fd 0 -c config/test.txt
 echo "1ALLLLLLLLLLLL"
 ls -lisa config/*
 
-echo $GPG_PASSPHRASE | gpg --batch --yes --passphrase-fd 0 config/test.gpg
+echo $GPG_PASSPHRASE | gpg --batch --yes --passphrase-fd 0 config/test.txt.gpg
 
 ls -lisa config/*
 echo "2SSSSSSSSSSSSS"
