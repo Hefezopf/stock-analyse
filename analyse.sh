@@ -51,7 +51,7 @@ OWN_SYMBOLS_FILE=config/own_symbols.txt
 echo "1LLLLLLLLLLLL"
 ls -lisa config/*
 echo "2SSSSSSSSSSSSS"
-gpg --no-tty --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg" 2>/dev/null
+gpg --no-tty --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg"
 echo "3LLLLLLLLLLLL"
 ls $OWN_SYMBOLS_FILE
 echo "4SSSSSSSSSSSSS"
