@@ -50,10 +50,10 @@ rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
 echo "00000000000"
 
-echo $GPG_PASSPHRASE | gpg --batch --yes --passphrase-fd 0 -c config/test.txt
+gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
 #gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
 
-echo "1ALLLLLLLLLLLL"
+echo "11111111"
 ls -lisa config/*
 
 echo $GPG_PASSPHRASE | gpg --batch --yes --passphrase-fd 0 config/test.txt.gpg
@@ -62,7 +62,7 @@ ls -lisa config/*
 echo "2SSSSSSSSSSSSS"
 gpg --list-keys
 gpg --list-secret-keys
-echo "2A listtttt"
+echo "2Aaaaaaaaaa"
 gpg  --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg"
 #gpg --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg" 2>/dev/null
 echo "333333333"
