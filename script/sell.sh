@@ -5,8 +5,9 @@
 # Adding symbol to config/stock_symbols.txt
 
 # Call: sh ./sell.sh SYMBOL
-# Example: sh ./sell.sh IBM
+# Example: sh ./sell.sh BEI
 # alias sell='/d/code/stock-analyse/script/sell.sh $1'
+# {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
 echo sell ${1} ...
 

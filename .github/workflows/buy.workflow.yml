@@ -2,10 +2,11 @@
 #   1. on each push
 #   2. curl 
 #   3. manuell 
-name: Sell
+name: Buy
 
 env:
   symbolEnv: 'BEI' # If more then 1 symbol -> Error!
+  avgEnv: '9.99'
 
 # Controls when the action will run. 
 on:
@@ -23,9 +24,13 @@ on:
   workflow_dispatch:
     inputs:
       symbolParam:
-        description: 'SYMBOL - stock symbol to delete from own stocks list: "BEI"'
+        description: 'SYMBOL - stock symbol to add to own stocks list: "BEI"'
         required: true
         default: 'BEI'
+      avgParam:
+        description: 'AVERAGE - "9.99" means average buying rate 9.99'     
+        required: true
+        default: '9.99'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -40,21 +45,26 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a set of commands using the runners shell
-      - name: Run stock analyse after curl sell
+      - name: Run stock analyse after curl buy
         run: |
-          echo "Start sell..."
+          echo "Start buy..."
 
           symbolEnv=${{env.symbolEnv}}
+          avgEnv=${{env.avgEnv}}
 
           symbolDefault='${{github.event.client_payload.symbol}}'
+          avgDefault='${{github.event.client_payload.avg}}'
 
           symbolInput="${{github.event.inputs.symbolParam}}"
+          avgInput="${{github.event.inputs.avgParam}}"
 
           symbolVar=${symbolInput:-$symbolDefault}  
+          avgVar=${avgInput:-$avgDefault}  
 
           symbolVar=${symbolVar:-$symbolEnv}
+          avgVar=${avgVar:-$avgEnv}
 
-          sh ./script/sell.sh "$symbolVar"
+          sh ./script/buy.sh "$symbolVar" "$avgVar"
 
           chmod +x ./analyse.sh
 
