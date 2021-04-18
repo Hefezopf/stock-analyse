@@ -3,7 +3,7 @@
 # POST Request to run action in GitHub and trigger workflow
 # Call: sh ./curl_github_dispatch_sell.sh SYMBOL
 # Example: sh ./script/curl/curl_github_dispatch_sell.sh "CEC"
-# !!Only one symbol can be passed as parameter!! For example: This list is NOT possible: "CEC BMW" 
+# !!Only ONE symbol can be passed as parameter!! For example: This list is NOT possible: "CEC BMW" 
 
 if { [ -z "$1" ]; } then
   echo "Not all parameters specified!"
