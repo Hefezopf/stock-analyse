@@ -49,7 +49,7 @@ OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
 echo "1LLLLLLLLLLLL"
-ls $OWN_SYMBOLS_FILE
+ls -lisa config/*
 echo "2SSSSSSSSSSSSS"
 gpg --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg" 2>/dev/null
 echo "3LLLLLLLLLLLL"
