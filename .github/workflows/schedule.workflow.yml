@@ -48,7 +48,8 @@ jobs:
           sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
 
           cp out/_result.html out/_result_schedule.html
-          
+          sed -i 's/Result SA/Result Schedule SA/g' out/_result_schedule.html
+
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add data/*
