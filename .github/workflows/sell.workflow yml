@@ -1,81 +1,127 @@
---- 
-env: 
-  RSIEnv: "30"
-  percentageEnv: "1"
-  queryEnv: offline
-  stochasticEnv: "9"
-  symbolEnv: BEI
-jobs: 
-  build: 
+# Is triggered:
+#   1. on each push
+#   2. curl 
+#   3. manuell 
+name: Sell
+
+env:
+  symbolsEnv: 'GIS' # If more then 1 symbol -> Error!
+  percentageEnv: '1'
+  queryEnv: 'offline'
+  stochasticEnv: '9'
+  RSIEnv: '30'
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Can be triggered with cURL
+  repository_dispatch:
+    types: [sell] 
+       
+  # Can be triggered manually
+  workflow_dispatch:
+    inputs:
+      symbolsParam:
+        description: 'SYMBOLS - List of stock symbols like: "*GIS ADS". Own stocks marked *'
+        required: true
+        default: '*GIS ADS'
+      percentageParam:
+        description: 'PERCENTAGE - "1" means 1 percent'     
+        required: true
+        default: '1'
+      queryParam:
+        description: 'QUERY - [online|offline]'     
+        required: true
+        default: 'offline'
+      stochasticParam:
+        description: 'STOCHASTIC14 - "9" means 9/91 percent (only single digit allowed!)'     
+        required: true
+        default: '9'
+      RSIParam:
+        description: 'RSI14 - "30" means 30/70 quote. (only 30 and less allowed!)'
+        required: true
+        default: '30'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    steps: 
-      - 
-        uses: actions/checkout@v2
-      - 
-        name: "Run stock analyse"
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a set of commands using the runners shell
+      - name: Run stock analyse
         run: |
-            echo "Start analyse..."
-            export MARKET_STACK_ACCESS_KEY1=${{secrets.MARKET_STACK_ACCESS_KEY1}}
-            export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
-            export MARKET_STACK_ACCESS_KEY3=${{secrets.MARKET_STACK_ACCESS_KEY3}}
-            export MARKET_STACK_ACCESS_KEY4=${{secrets.MARKET_STACK_ACCESS_KEY4}}
-            export MARKET_STACK_ACCESS_KEY5=${{secrets.MARKET_STACK_ACCESS_KEY5}}
-            
-            symbolEnv=${{env.symbolEnv}}
-            
-            symbolsDefault='${{github.event.client_payload.symbols}}'
-            percentageDefault='${{github.event.client_payload.percentage}}'
-            queryDefault='${{github.event.client_payload.query}}'
-            stochasticDefault='${{github.event.client_payload.stochastic}}'
-            RSIDefault='${{github.event.client_payload.RSI}}'
-            
-            symbolInput="${{github.event.inputs.symbolParam}}"
-            
-            symbolVar=${symbolInput:-$symbolDefault}  
-            
-            symbolVar=${symbolVar:-$symbolEnv}
-            percentageVar=${percentageVar:-$percentageEnv}
-            queryVar=${queryVar:-$queryEnv}         
-            stochasticVar=${stochasticVar:-$stochasticEnv}          
-            RSIVar=${RSIVar:-$RSIEnv}
-            
-            
-            sh ./script/sell.sh "$symbolVar"
-            symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')     
-            
-            
-            chmod +x ./analyse.sh
-            
-            sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
-            
-            git config user.email ${{secrets.MAIL_ADRESS}}
-            git config user.name "Markus Hopf"
-            git add data/*
-            git add alarm/*
-            git add out/*.html
-            git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
-            git push
-      - 
-        name: "Send result via email"
+          echo "Start analyse..."
+          export MARKET_STACK_ACCESS_KEY1=${{secrets.MARKET_STACK_ACCESS_KEY1}}
+          export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
+          export MARKET_STACK_ACCESS_KEY3=${{secrets.MARKET_STACK_ACCESS_KEY3}}
+          export MARKET_STACK_ACCESS_KEY4=${{secrets.MARKET_STACK_ACCESS_KEY4}}
+          export MARKET_STACK_ACCESS_KEY5=${{secrets.MARKET_STACK_ACCESS_KEY5}}
+
+          symbolsEnv=${{env.symbolsEnv}}
+          percentageEnv=${{env.percentageEnv}}
+          queryEnv=${{env.queryEnv}}
+          stochasticEnv=${{env.stochasticEnv}}
+          RSIEnv=${{env.RSIEnv}}
+
+          symbolsDefault='${{github.event.client_payload.symbols}}'
+          percentageDefault='${{github.event.client_payload.percentage}}'
+          queryDefault='${{github.event.client_payload.query}}'
+          stochasticDefault='${{github.event.client_payload.stochastic}}'
+          RSIDefault='${{github.event.client_payload.RSI}}'
+
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
+          percentageInput=${{github.event.inputs.percentageParam}}
+          queryInput=${{github.event.inputs.queryParam}}
+          stochasticInput=${{github.event.inputs.stochasticParam}}
+          RSIInput=${{github.event.inputs.RSIParam}}
+          
+          symbolsVar=${symbolsInput:-$symbolsDefault}
+          percentageVar=${percentageInput:-$percentageDefault}
+          queryVar=${queryInput:-$queryDefault}         
+          stochasticVar=${stochasticInput:-$stochasticDefault}          
+          RSIVar=${RSIInput:-$RSIDefault}   
+
+          symbolsVar=${symbolsVar:-$symbolsEnv}
+          percentageVar=${percentageVar:-$percentageEnv}
+          queryVar=${queryVar:-$queryEnv}         
+          stochasticVar=${stochasticVar:-$stochasticEnv}          
+          RSIVar=${RSIVar:-$RSIEnv}
+
+          chmod +x ./analyse.sh
+
+          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
+
+          git config user.email ${{secrets.MAIL_ADRESS}}
+          git config user.name "Markus Hopf"
+          git add data/*
+          git add alarm/*
+          git add out/*.html
+          git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
+          git push
+    
+      - name: Send result via email
         uses: dawidd6/action-send-mail@v2
-        with: 
-          body: "file://out/_result.html"
-          content_type: text/html
-          from: "Github stock-analyse"
-          password: "${{secrets.MAIL_PASSWORD}}"
+        with:
           server_address: smtp.ionos.de
           server_port: 465
-          subject: "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}"
-          to: "${{secrets.MAIL_ADRESS}}"
-          username: "${{secrets.MAIL_USERNAME}}"
-name: Sell
-on: 
-  repository_dispatch: 
-    types: 
-      - sell
-  workflow_dispatch: 
-    inputs: 
-      symbolParam: 
-        default: GIS
-        description: "SYMBOL - stock symbol to delete like: \"GIS\""
-        required: true
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Github stock-analyse result ${{github.event_name}} ${{github.event.action}}
+          # Literal body:
+          #body: Build job of ${{github.repository}} completed successfully!
+          # Read file contents as body:
+          body: file://out/_result.html
+          to: ${{secrets.MAIL_ADRESS}}
+          from: Github stock-analyse # <githubÄhopf-...de>
+          # Optional content type (defaults to text/plain):
+          content_type: text/html
