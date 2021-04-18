@@ -46,7 +46,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run stock analyse
         run: |
-          echo "Start analyse..."
+          echo "Start sell..."
           export MARKET_STACK_ACCESS_KEY1=${{secrets.MARKET_STACK_ACCESS_KEY1}}
           export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
           export MARKET_STACK_ACCESS_KEY3=${{secrets.MARKET_STACK_ACCESS_KEY3}}
@@ -71,10 +71,8 @@ jobs:
           stochasticVar=${stochasticVar:-$stochasticEnv}          
           RSIVar=${RSIVar:-$RSIEnv}
 
-
           sh ./script/sell.sh "$symbolVar"
-          symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')     
-
+          symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
 
           chmod +x ./analyse.sh
 
@@ -82,6 +80,7 @@ jobs:
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
+          git add config/own_symbols.txt config/stock_symbols.txt
           git add data/*
           git add alarm/*
           git add out/*.html

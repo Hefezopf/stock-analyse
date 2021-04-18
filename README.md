@@ -45,11 +45,11 @@ https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.w
 
 
 ## cURL
-./curl_github_dispatch.sh "BEI" 1 offline 9 30
+./curl_github_dispatch_analyse.sh "BEI" 1 offline 9 30
 
 or Example cURL
 
-curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "BEI", "percentage": "1", "query": "offline", "stochastic": "20", "RSI": "30"}}'
+curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "analyse", "client_payload": {"symbols": "BEI", "percentage": "1", "query": "offline", "stochastic": "20", "RSI": "30"}}'
 
 or via Apps
 
@@ -57,7 +57,7 @@ https://apps.apple.com/de/app/icurlhttp/id611943891
 
 http://www.smallscreensystems.com/iCurl
 
-{"event_type": "curl", "client_payload": {"symbols": "BEI", "percentage": "1", "query": "offline", "stochastic": "9", "RSI":"30"}}
+{"event_type": "analyse", "client_payload": {"symbols": "BEI", "percentage": "1", "query": "offline", "stochastic": "9", "RSI":"30"}}
 
 {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
