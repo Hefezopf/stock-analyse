@@ -511,8 +511,8 @@ do
         stocksValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
         stocksPerformance=$(echo "$stocksValue $buyingValue" | awk '{print (($1 / $2)-1)*100}')
         stocksPerformance=$(printf "%.2f" "$stocksPerformance")
-        echo ""$stocksDate": "$stocksPieces"pc Buy:"$buyingValue"€ Curr:"$stocksValue"€ "$stocksPerformance"%" | tee -a $OUT_RESULT_FILE
-        echo "<br><br>" >> $OUT_RESULT_FILE
+        #echo ""$stocksDate": "$stocksPieces"pc Buy:"$buyingValue"€ Curr:"$stocksValue"€ "$stocksPerformance"%" | tee -a $OUT_RESULT_FILE
+        #echo "<br><br>" >> $OUT_RESULT_FILE
     fi
 
 done
