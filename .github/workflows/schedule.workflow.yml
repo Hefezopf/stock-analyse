@@ -32,7 +32,8 @@ jobs:
           export MARKET_STACK_ACCESS_KEY2=${{secrets.MARKET_STACK_ACCESS_KEY2}}
           export MARKET_STACK_ACCESS_KEY3=${{secrets.MARKET_STACK_ACCESS_KEY3}}
           export MARKET_STACK_ACCESS_KEY4=${{secrets.MARKET_STACK_ACCESS_KEY4}}
-          export MARKET_STACK_ACCESS_KEY5=${{secrets.MARKET_STACK_ACCESS_KEY5}}
+
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
           #Depot+DAX+MDAX+Eurostoxx (147). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
           gpg --batch --yes --passphrase $GPG_PASSPHRASE config/own_symbols.txt.gpg

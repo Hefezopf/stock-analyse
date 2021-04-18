@@ -54,6 +54,8 @@ jobs:
         run: |
           echo "Start (re)buy..."
 
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
+
           symbolEnv=${{env.symbolEnv}}
           avgEnv=${{env.avgEnv}}
           piecesEnv=${{env.piecesEnv}}
