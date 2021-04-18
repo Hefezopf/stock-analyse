@@ -181,7 +181,7 @@ ProgressBar() {
 
 # WriteComdirectUrlAndStoreFileList function:
 # Write Comdirect Url. Link can have 3 color: black (neutral), red (sell) and green (buy)
-# Store list of files for later (tar/zip)
+# Store list of files for later
 # Input: ${x}
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
@@ -206,7 +206,7 @@ WriteComdirectUrlAndStoreFileList() {
     if [ ! "${_id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
         if [ "$_linkColorParam" = "$RED" ] || [ "$_linkColorParam" = "$GREEN" ]; then
-            # Store list of files for later (tar/zip)
+            # Store list of files for later
             # shellcheck disable=SC2116,SC2086
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi

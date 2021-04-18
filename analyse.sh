@@ -44,9 +44,6 @@ RSIQuoteParam=$5
 rm -rf /dev/shm/tmp.*
 mkdir -p out
 mkdir -p temp
-OUT_ZIP_FILE=_out.tar.gz
-rm -rf out/$OUT_ZIP_FILE
-touch out/$OUT_ZIP_FILE
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 cp template/favicon.ico out
@@ -61,7 +58,7 @@ START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd. Do not ignore '*'' 
 if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -v '^ *1 '; then
-    echo "WARNING: Multiple symbols in parameter list!" | tee -a $OUT_RESULT_FILE #&& exit 4
+    echo "WARNING: Multiple symbols in parameter list!" | tee -a $OUT_RESULT_FILE
     echo "<br><br>" >> $OUT_RESULT_FILE
 fi
 
@@ -491,11 +488,12 @@ do
         cat template/indexPart13.html
     } >> "$indexSymbolFile"
 
-    # Minify Symbol file
+    # Minify Symbol.html file
     sed -i "s/^[ \t]*//g" "$indexSymbolFile"
     sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
+    
 done
 
 echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
@@ -514,5 +512,3 @@ echo "time elapsed."
 # shellcheck disable=SC2116,SC2086
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
 # shellcheck disable=SC2086
-#tar -zcf $OUT_ZIP_FILE $reportedSymbolFileList
-#mv $OUT_ZIP_FILE out
