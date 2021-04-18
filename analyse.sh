@@ -50,7 +50,10 @@ rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
 echo "1LLLLLLLLLLLL"
 
-gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
+gpg --symmetric --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
+
+echo "1ALLLLLLLLLLLL"
+ls -lisa config/*
 
 gpg --batch --yes --passphrase $GPG_PASSPHRASE config/test.txt.gpg
 
@@ -59,11 +62,14 @@ echo "2SSSSSSSSSSSSS"
 gpg --list-keys
 gpg --list-secret-keys
 echo "2A listtttt"
-gpg  --decrypt --pinentry-mode=loopback --no-tty --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg"
+gpg  --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg"
 #gpg --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg" 2>/dev/null
 echo "3LLLLLLLLLLLL"
 ls $OWN_SYMBOLS_FILE
 echo "4SSSSSSSSSSSSS"
+
+exit
+
 reportedSymbolFileList=""
 alarmAbbrevValue=""
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
