@@ -11,12 +11,17 @@
 
 echo sell ${1} ...
 
-#sed -i "s/*${1} //" config/own_symbols.txt
+if { [ -z "$1" ]; } then
+  echo "Not all parameters specified!"
+  echo "Example: curl_github_dispatch_sell.sh BEI"
+  exit 1
+fi
+
+# Add in front of overall list
 sed -i "0,/^/s//${1} /" config/stock_symbols.txt
 
-sed "/^${1} /d" config/own_symbols.txt > config/own_symbols_temp.txt
-rm -rf config/own_symbols.txt
-mv config/own_symbols_temp.txt config/own_symbols.txt
+# Remove from own list
+sed -i "/^${1} /d" config/own_symbols.txt
 
 #git add config/own_symbols.txt config/stock_symbols.txt
 #git commit -m "sell ${1}"
