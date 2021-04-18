@@ -1,11 +1,9 @@
 TODO:
 -----
 
--sell curl
 
--buy curl
+-Minify erneut!
 
--im handy für curl -> analyse
 
 -check 2 Sell worklflows
     https://github.com/Hefezopf/stock-analyse/actions
@@ -231,29 +229,69 @@ http://api.marketstack.com/v1/tickers/AAPL/eod/2021-03-12?access_key=${MARKET_ST
 git config --global http.sslVerify false
 
 
-# StrategieUnderratedLowRSI function:
-# Strategie: Low RSI last quote under lowRSIValue
-# https://www.charttec.de/html/indikator_rsi_relative_strength_index.php
-# https://de.wikipedia.org/wiki/Relative_Strength_Index
-# Input: ${x}
-# Output: resultStrategieUnderratedLowRSI
-# StrategieUnderratedLowRSI() {
-#     _ratedParam=${1}
-#     _lowRSIValueParam=${2}
-#     _lastRSIQuoteRoundedParam=${3}
-#     _outResultFileParam=${4}
-#     _symbolParam=${5}
-#     _symbolNameParam=${6}
-#     _markerOwnStockParam=${7}
-#     export resultStrategieUnderratedLowRSI=""
-#     if [ "$_ratedParam" = 'underrated' ] || [ "$_ratedParam" = 'all' ]; then
-#         #resultStrategieUnderratedLowRSI=""
-#         # Last RSI quote under _lowRSIValue
-#         if [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIValueParam" ]; then
-             # reasonPrefix="Buy: Low last RSI"
-#             resultStrategieUnderratedLowRSI="$reasonPrefix: RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIValueParam"
-        # echo "$resultStrategieUnderratedLowRSI"
-#             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"
-#         fi
-#     fi
-# }
+Screenshot Code:
+
+analyse.sh
+...
+# Write temp/*.html symbolFile's for later screenshot in github workflow!
+rm -rf temp/*.html
+# Create a file for later screenshots in workflow, so that there will be no error!
+cp "$OUT_RESULT_FILE" temp/1.html
+i=1
+for symbolFile in $reportedSymbolFileList
+do
+    cp "$symbolFile" temp/$i.html
+    i=$((i + 1))
+done
+# Maximal 15 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
+while [ "$i" -le 15 ]; do
+    touch temp/$i.html
+    i=$((i + 1))
+done
+...
+
+workflow file:
+      # Maximal 3 hardcoded screenshot. See analyse.sh line 361 as well!
+      # - uses: swinton/screenshot-website@v1.x
+      #   with:
+      #     source: temp/1.html
+      #     destination: screenshot1.png
+      #     full-page: true
+      # - name: Download Screenshot 
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: screenshot1
+
+      # - uses: swinton/screenshot-website@v1.x
+      #   with:
+      #     source: temp/2.html
+      #     destination: screenshot2.png   
+      #     full-page: true
+      # - name: Download Screenshot 
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: screenshot2
+
+      # - uses: swinton/screenshot-website@v1.x
+      #   with:
+      #     source: temp/3.html
+      #     destination: screenshot3.png   
+      #     full-page: true
+      # - name: Download Screenshot 
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: screenshot3
+
+      # # Compress screenshot.tar.gz at the end
+      # - shell: bash
+      #   run: |  
+      #     echo "Tar Screenshots"
+      #     i=1
+      #     while [ "$i" -le 3 ]; do
+      #         fileSize=$(stat -c %s screenshot$i.png)
+      #         if [ "${fileSize}" -gt 20000 ]; then              
+      #           fileList=$(echo $fileList "screenshot$i.png")
+      #         fi          
+      #         i=$((i + 1))
+      #     done
+      #     tar -zcf screenshot.tar.gz $fileList

@@ -119,51 +119,6 @@ jobs:
           git add out/*.html
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push
-           
-      # Maximal 3 hardcoded screenshot. See analyse.sh line 361 as well!
-      # - uses: swinton/screenshot-website@v1.x
-      #   with:
-      #     source: temp/1.html
-      #     destination: screenshot1.png
-      #     full-page: true
-      # - name: Download Screenshot 
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: screenshot1
-
-      # - uses: swinton/screenshot-website@v1.x
-      #   with:
-      #     source: temp/2.html
-      #     destination: screenshot2.png   
-      #     full-page: true
-      # - name: Download Screenshot 
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: screenshot2
-
-      # - uses: swinton/screenshot-website@v1.x
-      #   with:
-      #     source: temp/3.html
-      #     destination: screenshot3.png   
-      #     full-page: true
-      # - name: Download Screenshot 
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: screenshot3
-
-      # # Compress screenshot.tar.gz at the end
-      # - shell: bash
-      #   run: |  
-      #     echo "Tar Screenshots"
-      #     i=1
-      #     while [ "$i" -le 3 ]; do
-      #         fileSize=$(stat -c %s screenshot$i.png)
-      #         if [ "${fileSize}" -gt 20000 ]; then              
-      #           fileList=$(echo $fileList "screenshot$i.png")
-      #         fi          
-      #         i=$((i + 1))
-      #     done
-      #     tar -zcf screenshot.tar.gz $fileList
     
       - name: Send result via email
         uses: dawidd6/action-send-mail@v2
@@ -173,14 +128,11 @@ jobs:
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
           subject: Github stock-analyse result ${{github.event_name}} ${{github.event.action}}
-          # Literal body:
-          #body: Build job of ${{github.repository}} completed successfully!
           # Read file contents as body:
           body: file://out/_result.html
           to: ${{secrets.MAIL_ADRESS}}
           from: Github stock-analyse # <githubÄhopf-...de>
           # Optional content type (defaults to text/plain):
-          content_type: text/html          
+          content_type: text/html
           # Optional attachments:
           #attachments: out/_out.tar.gz
-#          attachments: out/_out.tar.gz,screenshot.tar.gz

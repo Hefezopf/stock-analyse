@@ -105,7 +105,7 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><br># Links (Comdirect, PC, Github)<br>" >> $OUT_RESULT_FILE
+echo "<br><br># Workflow Result<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Github Result Schedule SA</a><br><br># Links (Comdirect, PC, Github)<br>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
@@ -454,7 +454,7 @@ do
         cat template/indexPart8.html
         echo "$averagePriceList95"
 
-        # Draw buyingRate
+        # Draw Buying Rate
         if [ "${markerOwnStock}" = '*' ]; then
             cat template/indexPart8a.html
             buyingRate=$(grep "${symbol}" config/own_symbols.txt  | cut -f2 -d ' ')
@@ -464,6 +464,7 @@ do
                 i=$((i + 1))
             done
 
+            # Draw 5 % over Buying Rate
             cat template/indexPart8b.html
             percentOverBuyingRate=$(echo "$buyingRate 1.05" | awk '{print $1 * $2}')
             i=1
@@ -490,7 +491,7 @@ do
         cat template/indexPart13.html
     } >> "$indexSymbolFile"
 
-    # Minify 1
+    # Minify Symbol file
     sed -i "s/^[ \t]*//g" "$indexSymbolFile"
     sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile"
 
@@ -499,21 +500,9 @@ done
 
 echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
 
-# Write temp/*.html symbolFile's for later screenshot in github workflow!
-rm -rf temp/*.html
-# Create a file for later screenshots in workflow, so that there will be no error!
-cp "$OUT_RESULT_FILE" temp/1.html
-i=1
-for symbolFile in $reportedSymbolFileList
-do
-    cp "$symbolFile" temp/$i.html
-    i=$((i + 1))
-done
-# Maximal 15 hardcoded screenshot. If this value is increased, then increase it in github workflow as well! (swinton/screenshot-website)
-while [ "$i" -le 15 ]; do
-    touch temp/$i.html
-    i=$((i + 1))
-done
+# Minify _result.html file
+sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE"
+sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE"
 
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);
