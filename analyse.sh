@@ -48,29 +48,7 @@ cp template/favicon.ico out
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
-#echo "GPG_PASSPHRASE"
-#echo "$GPG_PASSPHRASE"
-#echo "00000000000-$GPG_PASSPHRASE"
-
-#gpg --batch --passphrase "$GPG_PASSPHRASE" -c config/test.txt
-#gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
-
-#echo "11111111"
-#ls -lisa config/*
-
-#echo "$GPG_PASSPHRASE" | gpg --batch --yes --passphrase-fd 0 config/test.txt.gpg
-
-#ls -lisa config/*
-#echo "2SSSSSSSSSSSSS"
-#gpg --list-keys
-#gpg --list-secret-keys
-#echo "2Aaaaaaaaaa"
 gpg  --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
-#gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "config/own_symbols.txt.gpg" 2>/dev/null
-#echo "333333333"
-#ls $OWN_SYMBOLS_FILE
-#echo "44444444444444"
-
 reportedSymbolFileList=""
 alarmAbbrevValue=""
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
@@ -485,9 +463,7 @@ do
         # Draw Buying Rate
         if [ "${markerOwnStock}" = '*' ]; then
             cat template/indexPart8a.html
-#echo "VVVVVVVVVVVVVVVVVVV"
             buyingRate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')
-#echo "NNNNNNNNNNNNNNN"
             i=1
             while [ "$i" -le 87 ]; do
                 echo -n "$buyingRate,"
@@ -547,9 +523,6 @@ sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE"
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE"
 
 # Delete readable file
-#echo "LLLLLLLLLLLL"
-#ls $OWN_SYMBOLS_FILE
-#echo "SSSSSSSSSSSSS"
 rm -rf $OWN_SYMBOLS_FILE
 
 # Time measurement
@@ -561,4 +534,3 @@ echo "time elapsed."
 # Tar 
 # shellcheck disable=SC2116,SC2086
 reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
-# shellcheck disable=SC2086
