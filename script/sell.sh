@@ -9,7 +9,7 @@
 # alias sell='/d/code/stock-analyse/script/sell.sh $1'
 # {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
-echo sell ${1} ...
+echo "sell ${1} ..."
 
 if { [ -z "$1" ]; } then
   echo "Not all parameters specified!"

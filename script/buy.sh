@@ -10,7 +10,7 @@
 # alias buy='/d/code/stock-analyse/script/buy.sh $1 $2'
 # {"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "9.99"}}
 
-echo (re)buy ${1} ${2} ...
+echo "(re)buy ${1} ${2} ..."
 
 if { [ -z "$1" ] || [ -z "$2" ]; } then
   echo "Not all parameters specified!"
