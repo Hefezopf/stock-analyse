@@ -68,6 +68,23 @@ http://www.smallscreensystems.com/iCurl
 
 {"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "9.99"}}
 
+# Available Stock Symbols
+
+Available stock symbols are listed in config/stock_symbols.txt
+
+# Own Stocks
+
+Own stocks and average buying rate are listed in config/own_symbols.txt
+
+Example:
+
+HLE 45.29
+DBK 14.741
+...
+
+# Change Portfolio
+
+To change your portfolio edit the files in config dir or run the above cURL commands
 
 # REST Calls
 
