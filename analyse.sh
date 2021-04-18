@@ -94,7 +94,7 @@ if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$
     echo "<br><br>" >> $OUT_RESULT_FILE
 fi
 
-if { -z "$GPG_PASSPHRASE" ; } then
+if { [ -z "$GPG_PASSPHRASE" ]; } then
     echo "Error GPG_PASSPHRASE NOT set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
