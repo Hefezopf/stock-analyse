@@ -76,7 +76,9 @@ Available stock symbols are listed in config/stock_symbols.txt
 
 Own stock symbols, average buying rates, dates and pieces are listed in config/own_symbols.txt.gpg
 
-This file in encrypted
+This file in encrypted. Decrypt and view with:
+
+gpg --decrypt --pinentry-mode=loopback --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
 
 # Change Portfolio
 

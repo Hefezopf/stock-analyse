@@ -52,7 +52,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run Stock Analyse after curl (re)buy
         run: |
-          echo "Start (re)buy..."
+          echo "Start (re)buy ..."
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
@@ -80,7 +80,7 @@ jobs:
 
           chmod +x ./analyse.sh
 
-          gpg --batch --yes --passphrase $GPG_PASSPHRASE config/own_symbols.txt.gpg
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
 

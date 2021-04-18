@@ -42,10 +42,10 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run Stock Analyse after curl sell
         run: |
-          echo "Start sell..."
+          echo "Start sell ..."
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
-          
+
           symbolEnv=${{env.symbolEnv}}
 
           symbolDefault='${{github.event.client_payload.symbol}}'
@@ -60,7 +60,7 @@ jobs:
 
           chmod +x ./analyse.sh
 
-          gpg --batch --yes --passphrase $GPG_PASSPHRASE config/own_symbols.txt.gpg
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
 

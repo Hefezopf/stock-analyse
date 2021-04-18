@@ -22,7 +22,7 @@ fi
 sed -i "s/${1} //" config/stock_symbols.txt
 
 # Decript
-gpg --batch --yes --passphrase $GPG_PASSPHRASE config/own_symbols.txt.gpg 2>/dev/null
+gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
 
 # Rebuy: Remove from own list, if not there do nothing
 sed -i "/^${1} /d" config/own_symbols.txt
@@ -32,7 +32,7 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 sed -i '1 i\'${1}' '${2}' '$today' '${3}'' config/own_symbols.txt
 
 # Encript
-gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/own_symbols.txt
+gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
 
 # Delete readable file
 rm -rf config/own_symbols.txt

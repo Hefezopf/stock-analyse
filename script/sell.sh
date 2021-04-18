@@ -21,13 +21,13 @@ fi
 sed -i "0,/^/s//${1} /" config/stock_symbols.txt
 
 # Encrypt
-gpg --batch --yes --passphrase $GPG_PASSPHRASE config/own_symbols.txt.gpg 2>/dev/null
+gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
 
 # Remove from own list
 sed -i "/^${1} /d" config/own_symbols.txt
 
 # Decrypt
-gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/own_symbols.txt
+gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
 
 # Delete readable file
 rm -rf config/own_symbols.txt
