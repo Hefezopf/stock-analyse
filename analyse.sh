@@ -456,7 +456,9 @@ do
         # Draw Buying Rate
         if [ "${markerOwnStock}" = '*' ]; then
             cat template/indexPart8a.html
+            echo "VVVVVVVVVVVVVVVVVVV"
             buyingRate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')
+            echo "NNNNNNNNNNNNNNN"
             i=1
             while [ "$i" -le 87 ]; do
                 echo -n "$buyingRate,"
@@ -516,6 +518,9 @@ sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE"
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE"
 
 # Delete readable file
+echo "LLLLLLLLLLLL"
+ls $OWN_SYMBOLS_FILE
+echo "SSSSSSSSSSSSS"
 rm -rf $OWN_SYMBOLS_FILE
 
 # Time measurement
