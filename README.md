@@ -79,6 +79,7 @@ Own stocks and average buying rate are listed in config/own_symbols.txt
 Example:
 
 HLE 45.29
+
 DBK 14.741
 ...
 
