@@ -7,6 +7,7 @@ name: Buy
 env:
   symbolEnv: 'BEI' # If more then 1 symbol -> Error!
   avgEnv: '9.99'
+  pieces: '100'
 
 # Controls when the action will run. 
 on:
@@ -31,6 +32,10 @@ on:
         description: 'AVERAGE - "9.99" means average buying rate 9.99'     
         required: true
         default: '9.99'
+      piecesParam:
+        description: 'PIECES - "100" means amount of stocks are 100'     
+        required: true
+        default: '100'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -51,20 +56,25 @@ jobs:
 
           symbolEnv=${{env.symbolEnv}}
           avgEnv=${{env.avgEnv}}
+          piecesEnv=${{env.piecesEnv}}
 
           symbolDefault='${{github.event.client_payload.symbol}}'
           avgDefault='${{github.event.client_payload.avg}}'
+          piecesDefault='${{github.event.client_payload.pieces}}'
 
           symbolInput="${{github.event.inputs.symbolParam}}"
           avgInput="${{github.event.inputs.avgParam}}"
+          piecesInput="${{github.event.inputs.piecesParam}}"
 
           symbolVar=${symbolInput:-$symbolDefault}  
-          avgVar=${avgInput:-$avgDefault}  
+          avgVar=${avgInput:-$avgDefault}
+          piecesVar=${piecesInput:-$piecesDefault}
 
           symbolVar=${symbolVar:-$symbolEnv}
           avgVar=${avgVar:-$avgEnv}
+          piecesVar=${piecesVar:-$piecesEnv}
 
-          sh ./script/buy.sh "$symbolVar" "$avgVar"
+          sh ./script/buy.sh "$symbolVar" "$avgVar" "$piecesVar"
 
           chmod +x ./analyse.sh
 
