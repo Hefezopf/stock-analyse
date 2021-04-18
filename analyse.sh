@@ -50,7 +50,7 @@ rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
 echo "1LLLLLLLLLLLL"
 
-gpg --symmetric --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
+gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
 
 echo "1ALLLLLLLLLLLL"
 ls -lisa config/*
