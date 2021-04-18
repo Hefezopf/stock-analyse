@@ -45,11 +45,18 @@ https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.w
 
 
 ## cURL
-./curl_github_dispatch_analyse.sh "BEI" 1 offline 9 30
+./curl_github_dispatch_analyse.sh "BEI ALV" 1 offline 9 30
 
 or Example cURL
 
-curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "analyse", "client_payload": {"symbols": "BEI", "percentage": "1", "query": "offline", "stochastic": "20", "RSI": "30"}}'
+curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "analyse", "client_payload": {"symbols": "BEI ALV", "percentage": "1", "query": "offline", "stochastic": "20", "RSI": "30"}}'
+
+other cURLs
+
+./curl_github_dispatch_buy.sh BEI 9.99
+
+./curl_github_dispatch_sell.sh BEI
+
 
 or via Apps
 
@@ -61,7 +68,7 @@ http://www.smallscreensystems.com/iCurl
 
 {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
-{"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "111"}}
+{"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "9.99"}}
 
 
 # REST Calls
