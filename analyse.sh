@@ -13,6 +13,7 @@
 # Call example: ./analyse.sh '*BEI' 1 offline 9 30
 # Online Precondition:
 # Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2, MARKET_STACK_ACCESS_KEY3, MARKET_STACK_ACCESS_KEY4 and MARKET_STACK_ACCESS_KEY5 as ENV Variable
+# Set GPG_PASSPHRASE as ENV Variable
 # shellcheck disable=SC1091 
 
 # Import
@@ -22,9 +23,9 @@
 . ./script/strategies.sh
 
 # Switches for calculating charts and underlying strategies. Default is 'true'
-# CalculateStochastic=true
-# CalculateRSI=true
-# CalculateMACD=true
+CalculateStochastic=true
+CalculateRSI=true
+CalculateMACD=true
 
 # Switches to turn on/off Strategies. Default is 'true'
 ApplyStrategieByTendency=false
