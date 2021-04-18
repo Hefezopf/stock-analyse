@@ -74,15 +74,9 @@ Available stock symbols are listed in config/stock_symbols.txt
 
 # Own Stocks
 
-Own stocks and average buying rate are listed in config/own_symbols.txt
+Own stock symbols, average buying rates, dates and pieces are listed in config/own_symbols.txt.gpg
 
-Example:
-
-HLE 45.29
-
-DBK 14.74
-
-...
+This file in encrypted
 
 # Change Portfolio
 

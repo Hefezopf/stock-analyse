@@ -58,13 +58,15 @@ jobs:
 
           chmod +x ./analyse.sh
 
+          gpg --batch --yes --passphrase $GPG_PASSPHRASE config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          rm -rf config/own_symbols.txt
 
           sh ./analyse.sh "$symbolsVar" 1 offline 9 30
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
-          git add config/own_symbols.txt config/stock_symbols.txt
+          git add config/own_symbols.txt.gpg config/stock_symbols.txt
           git add data/*
           git add alarm/*
           git add out/*.html

@@ -20,9 +20,14 @@ fi
 # Add in front of overall list
 sed -i "0,/^/s//${1} /" config/stock_symbols.txt
 
+# Encrypt
+gpg --batch --yes --passphrase $GPG_PASSPHRASE config/own_symbols.txt.gpg 2>/dev/null
+
 # Remove from own list
 sed -i "/^${1} /d" config/own_symbols.txt
 
-#git add config/own_symbols.txt config/stock_symbols.txt
-#git commit -m "sell ${1}"
-#git push
+# Decrypt
+gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/own_symbols.txt
+
+# Delete readable file
+rm -rf config/own_symbols.txt

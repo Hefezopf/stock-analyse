@@ -44,9 +44,11 @@ RSIQuoteParam=$5
 rm -rf /dev/shm/tmp.*
 mkdir -p out
 mkdir -p temp
+cp template/favicon.ico out
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
-cp template/favicon.ico out
+OWN_SYMBOLS_FILE=config/own_symbols.txt
+gpg --batch --yes --passphrase $GPG_PASSPHRASE $OWN_SYMBOLS_FILE.gpg 2>/dev/null
 reportedSymbolFileList=""
 alarmAbbrevValue=""
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
@@ -454,7 +456,7 @@ do
         # Draw Buying Rate
         if [ "${markerOwnStock}" = '*' ]; then
             cat template/indexPart8a.html
-            buyingRate=$(grep "${symbol}" config/own_symbols.txt  | cut -f2 -d ' ')
+            buyingRate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')
             i=1
             while [ "$i" -le 87 ]; do
                 echo -n "$buyingRate,"
@@ -493,7 +495,18 @@ do
     sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
-    
+
+    # if [ "${markerOwnStock}" = '*' ]; then
+    #     stocksDate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
+    #     stocksPieces=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
+    #     buyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
+    #     stocksValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
+    #     stocksPerformance=$(echo "$stocksValue $buyingValue" | awk '{print (($1 / $2)-1)*100}')
+    #     stocksPerformance=$(printf "%.2f" "$stocksPerformance")
+    #     echo ""$stocksDate": "$stocksPieces"pc Buy:"$buyingValue"€ Curr:"$stocksValue"€ "$stocksPerformance"%" | tee -a $OUT_RESULT_FILE
+    #     echo "<br><br>" >> $OUT_RESULT_FILE
+    # fi
+
 done
 
 echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
@@ -501,6 +514,9 @@ echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
 # Minify _result.html file
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE"
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE"
+
+# Delete readable file
+rm -rf $OWN_SYMBOLS_FILE
 
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);
