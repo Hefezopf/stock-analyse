@@ -22,9 +22,9 @@
 . ./script/strategies.sh
 
 # Switches for calculating charts and underlying strategies. Default is 'true'
-CalculateStochastic=true
-CalculateRSI=true
-CalculateMACD=true
+# CalculateStochastic=true
+# CalculateRSI=true
+# CalculateMACD=true
 
 # Switches to turn on/off Strategies. Default is 'true'
 ApplyStrategieByTendency=false
@@ -65,7 +65,7 @@ OWN_SYMBOLS_FILE=config/own_symbols.txt
 #gpg --list-keys
 #gpg --list-secret-keys
 #echo "2Aaaaaaaaaa"
-gpg  --batch --yes --passphrase "$GPG_PASSPHRASE" "config/own_symbols.txt.gpg"
+gpg  --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 #gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "config/own_symbols.txt.gpg" 2>/dev/null
 #echo "333333333"
 #ls $OWN_SYMBOLS_FILE
@@ -485,9 +485,9 @@ do
         # Draw Buying Rate
         if [ "${markerOwnStock}" = '*' ]; then
             cat template/indexPart8a.html
-            echo "VVVVVVVVVVVVVVVVVVV"
+#echo "VVVVVVVVVVVVVVVVVVV"
             buyingRate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')
-            echo "NNNNNNNNNNNNNNN"
+#echo "NNNNNNNNNNNNNNN"
             i=1
             while [ "$i" -le 87 ]; do
                 echo -n "$buyingRate,"
@@ -527,16 +527,16 @@ do
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
-    # if [ "${markerOwnStock}" = '*' ]; then
-    #     stocksDate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
-    #     stocksPieces=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
-    #     buyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
-    #     stocksValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
-    #     stocksPerformance=$(echo "$stocksValue $buyingValue" | awk '{print (($1 / $2)-1)*100}')
-    #     stocksPerformance=$(printf "%.2f" "$stocksPerformance")
-    #     echo ""$stocksDate": "$stocksPieces"pc Buy:"$buyingValue"€ Curr:"$stocksValue"€ "$stocksPerformance"%" | tee -a $OUT_RESULT_FILE
-    #     echo "<br><br>" >> $OUT_RESULT_FILE
-    # fi
+    if [ "${markerOwnStock}" = '*' ]; then
+        stocksDate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
+        stocksPieces=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
+        buyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
+        stocksValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
+        stocksPerformance=$(echo "$stocksValue $buyingValue" | awk '{print (($1 / $2)-1)*100}')
+        stocksPerformance=$(printf "%.2f" "$stocksPerformance")
+        echo ""$stocksDate": "$stocksPieces"pc Buy:"$buyingValue"€ Curr:"$stocksValue"€ "$stocksPerformance"%" | tee -a $OUT_RESULT_FILE
+        echo "<br><br>" >> $OUT_RESULT_FILE
+    fi
 
 done
 
@@ -547,9 +547,9 @@ sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE"
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE"
 
 # Delete readable file
-echo "LLLLLLLLLLLL"
-ls $OWN_SYMBOLS_FILE
-echo "SSSSSSSSSSSSS"
+#echo "LLLLLLLLLLLL"
+#ls $OWN_SYMBOLS_FILE
+#echo "SSSSSSSSSSSSS"
 rm -rf $OWN_SYMBOLS_FILE
 
 # Time measurement
