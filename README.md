@@ -81,6 +81,7 @@ Example:
 HLE 45.29
 
 DBK 14.741
+
 ...
 
 # Change Portfolio
