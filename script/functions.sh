@@ -211,7 +211,7 @@ WriteComdirectUrlAndStoreFileList() {
             reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
         fi
         {
-            echo "<a style=color:$_linkColorParam href=\"$COMDIRECT_URL_PREFIX$_id_notation\" target=\"_blank\">$_markerOwnStockParam$_symbolParam $_symbolNameParam</a> "
+            echo "<a class=\"$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX$_id_notation\" target=\"_blank\">$_markerOwnStockParam$_symbolParam $_symbolNameParam</a> "
             echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=\"_blank\">PC</a>"
             echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html\" target=\"_blank\">Github</a><br>"
         } >> "$_outResultFileParam"
