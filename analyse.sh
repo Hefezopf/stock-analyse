@@ -48,14 +48,15 @@ cp template/favicon.ico out
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
-echo "1LLLLLLLLLLLL"
+echo "00000000000"
 
-gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
+echo $GPG_PASSPHRASE | gpg --batch --yes --passphrase-fd 0 -c config/test.txt
+#gpg --batch --yes --passphrase $GPG_PASSPHRASE -c config/test.txt
 
 echo "1ALLLLLLLLLLLL"
 ls -lisa config/*
 
-gpg --batch --yes --passphrase $GPG_PASSPHRASE config/test.txt.gpg
+echo $GPG_PASSPHRASE | gpg --batch --yes --passphrase-fd 0 config/test.gpg
 
 ls -lisa config/*
 echo "2SSSSSSSSSSSSS"
@@ -64,9 +65,9 @@ gpg --list-secret-keys
 echo "2A listtttt"
 gpg  --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg"
 #gpg --batch --yes --passphrase $GPG_PASSPHRASE "config/own_symbols.txt.gpg" 2>/dev/null
-echo "3LLLLLLLLLLLL"
+echo "333333333"
 ls $OWN_SYMBOLS_FILE
-echo "4SSSSSSSSSSSSS"
+echo "44444444444444"
 
 exit
 
