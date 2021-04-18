@@ -11,10 +11,6 @@ Html outputs with charts and alerts.
 
 Alerts via email.
 
-# Run
-![ScreenShotCMD](image/ScreenShotCMD.png "ScreenShotCMD")
-
-
 # Result
 ![ScreenShotResult](image/ScreenShotResult.png "ScreenShotResult")
 
@@ -26,13 +22,15 @@ Alerts via email.
 
 # Execute
 
-## CMD CLI
+## Run CMD CLI
 ./analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
 
 ./analyse.sh 'BEI' 1 online 9 30
 
 ./analyse.sh 'BEI ALV BAS' 2 offline 9 30
 
+# CMD Output
+![ScreenShotCMD](image/ScreenShotCMD.png "ScreenShotCMD")
 
 ## Github Action
 https://github.com/Hefezopf/stock-analyse/actions
