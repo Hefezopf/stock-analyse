@@ -24,9 +24,9 @@ echo "Sellrate: $4"€
 buyValue=$(echo "$1 $2" | awk '{print ($1 * $2)}')
 
 # 3.000 EUR Minimumprovision 8,90 EUR 8,01 EUR 7,12 EUR
-# 5.000 EUR 0,25 % vom Kurswert 12,50 EUR 11,25 EUR 10,00 EUR
-# 10.000 EUR 0,25 % vom Kurswert 25,00 EUR 22,50 EUR 20,00 EUR
-# 15.000 EUR 0,25 % vom Kurswert 37,50 EUR 33,75 EUR 30,00 EUR
+# 5.000 EUR 0,25 % from order value 12,50 EUR 11,25 EUR 10,00 EUR
+# 10.000 EUR 0,25 % from order value 25,00 EUR 22,50 EUR 20,00 EUR
+# 15.000 EUR 0,25 % from order value 37,50 EUR 33,75 EUR 30,00 EUR
 # 25.000 EUR Maximalprovision 58,90 EUR 53,01 EUR 47,12 EUR
 
 txValue=7,12
