@@ -66,15 +66,15 @@ http://www.smallscreensystems.com/iCurl
 
 {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
-{"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "9.99"}}
+{"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "9.99", "pieces": "100"}}
 
-# Available Stock Symbols
+# Stock Symbols
 
-Available stock symbols are listed in config/stock_symbols.txt
+All available stock symbols are listed in config/stock_symbols.txt
 
-# Own Stocks
+# Portfolio Stocks
 
-Own stock symbols, average buying rates, dates and pieces are listed in config/own_symbols.txt.gpg
+Own Portfolio stock symbols, average buying rates, dates and pieces are listed in config/own_symbols.txt.gpg
 
 This file in encrypted. Decrypt and view with:
 
@@ -82,7 +82,7 @@ gpg --decrypt --pinentry-mode=loopback --batch --yes --passphrase "$GPG_PASSPHRA
 
 # Change Portfolio
 
-To change your portfolio edit the files in config dir or run the above cURL commands
+To change your own portfolio edit the files in config dir or run the above cURL commands; buy or sell
 
 # REST Calls
 
