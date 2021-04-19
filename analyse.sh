@@ -533,5 +533,5 @@ echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":
 echo "time elapsed."
 
 # Tar 
-# shellcheck dis____________________able=SC2116,SC2086
+# shell______check dis____________________able=SC2116,SC2086
 #reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
