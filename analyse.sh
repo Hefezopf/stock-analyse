@@ -50,7 +50,7 @@ OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
-reportedSymbolFileList=""
+#reportedSymbolFileList=""
 alarmAbbrevValue=""
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px){}</style></head><body><div><p>"
@@ -534,4 +534,4 @@ echo "time elapsed."
 
 # Tar 
 # shellcheck disable=SC2116,SC2086
-reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
+#reportedSymbolFileList=$(echo $reportedSymbolFileList $OUT_RESULT_FILE)
