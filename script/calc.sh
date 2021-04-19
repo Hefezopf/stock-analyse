@@ -22,13 +22,14 @@ echo "Spread:    $3"%
 echo "Sellrate:  $4"€
 
 orderValue=$(echo "$1 $2" | awk '{print ($1 * $2)}')
+# Float to integer
+orderValue=${orderValue%.*}
 
 # 3.000 EUR Minimumprovision 8,90 EUR 8,01 EUR 7,12 EUR
 # 5.000 EUR 0,25 % from order value 12,50 EUR 11,25 EUR 10,00 EUR
 # 10.000 EUR 0,25 % from order value 25,00 EUR 22,50 EUR 20,00 EUR
 # 15.000 EUR 0,25 % from order value 37,50 EUR 33,75 EUR 30,00 EUR
 # 25.000 EUR Maximalprovision 58,90 EUR 53,01 EUR 47,12 EUR
-
 txFee=7,12
 if [ "$orderValue" -gt 25000 ]; then 
     txFee=47.12
@@ -39,6 +40,7 @@ elif [ "$orderValue" -gt 10000 ]; then
 elif [ "$orderValue" -gt 5000 ]; then
     txFee=10.0
 fi
+txFee=$(echo "$txFee 2" | awk '{print $1 * $2}')
 
 spreadFee=$(echo "$1 $2 $3" | awk '{print ($1 * $2 * $3 / 100)}')
 sellValue=$(echo "$2 $4" | awk '{print $1 * $2}')
