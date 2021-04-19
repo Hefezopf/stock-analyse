@@ -93,4 +93,5 @@ curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MA
 ## OpenFIGI
 curl --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${1}'"}]' | jq '.[0].data[0].name'
 
-
+## Honor Open Source
+Donate? [Link](https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8 "Donate?").
