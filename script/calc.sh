@@ -45,6 +45,7 @@ txFee=$(echo "$txFee 2" | awk '{print $1 * $2}')
 spreadFee=$(echo "$1 $2 $3" | awk '{print ($1 * $2 * $3 / 100)}')
 sellValue=$(echo "$2 $4" | awk '{print $1 * $2}')
 diffValue=$(echo "$sellValue $orderValue $txFee $spreadValue" | awk '{print ($1 - $2 - $3 -$4)}')
+percentValue=$(echo "$sellValue $orderValue" | awk '{print (($1 / $2 * 100) - 100)}')
 afterTaxValue=$(echo "$diffValue 1.25" | awk '{print $1 / $2}')
 
 echo ""
@@ -53,6 +54,7 @@ echo "Tx Fee:     -"$txFee€
 echo "Spread Fee: -"$spreadFee€
 echo "Sell Value:  $sellValue"€
 echo "Difference:  $diffValue"€
+echo "Percent:     $percentValue"%
 
 isNegativ=$(echo "${afterTaxValue}" | awk '{print substr ($0, 0, 1)}')
 if [ "${isNegativ}" != '-' ]; then
