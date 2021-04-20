@@ -191,7 +191,6 @@ WriteComdirectUrlAndStoreFileList() {
     _linkColorParam=${4}
     _markerOwnStockParam=${5}
     _reasonParam=${6}
-    #export reportedSymbolFileList # Do not initialize this global list with ="" !
 
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "${_markerOwnStockParam}" = '' ]; then
@@ -205,11 +204,6 @@ WriteComdirectUrlAndStoreFileList() {
     # Only write URL once into result file
     if [ ! "${_id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
-        #if [ "$_linkColorParam" = "$RED" ] || [ "$_linkColorParam" = "$GREEN" ]; then
-            # Store list of files for later
-            # shellcheck disable=SC2116,SC2086
-           # reportedSymbolFileList=$(echo $reportedSymbolFileList out/${_symbolParam}.html)
-        #fi
         {
             echo "<a class=\"$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX$_id_notation\" target=\"_blank\">$_markerOwnStockParam$_symbolParam $_symbolNameParam</a> "
             echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=\"_blank\">PC</a>"
