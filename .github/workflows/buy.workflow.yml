@@ -64,25 +64,17 @@ jobs:
           avgDefault='${{github.event.client_payload.avg}}'
           piecesDefault='${{github.event.client_payload.pieces}}'
 
-          echo "avgDefault $avgDefault"
-
           symbolInput="${{github.event.inputs.symbolParam}}"
           avgInput="${{github.event.inputs.avgParam}}"
           piecesInput="${{github.event.inputs.piecesParam}}"
-
-          echo "avgInput $avgInput"
 
           symbolVar=${symbolInput:-$symbolDefault}  
           avgVar=${avgInput:-$avgDefault}
           piecesVar=${piecesInput:-$piecesDefault}
 
-          echo "avgVar $avgVar"
-
-          symbolVar=${symbolVar:-$symbolEnv}
-          avgVar=${avgVar:-$avgEnv}
-          piecesVar=${piecesVar:-$piecesEnv}
-
-          #echo "avgInput $avgInput"
+          #symbolVar=${symbolVar:-$symbolEnv}
+          #avgVar=${avgVar:-$avgEnv}
+          #piecesVar=${piecesVar:-$piecesEnv}
 
           sh ./script/buy.sh "$symbolVar" "$avgVar" "$piecesVar"
 
