@@ -14,7 +14,13 @@ if { [ -z "$GPG_PASSPHRASE" ] ; } then
   exit 1
 fi
 
-gpg --decrypt --pinentry-mode=loopback --batch --yes --passphrase $GPG_PASSPHRASE config/own_symbols.txt.gpg
+gpg --decrypt --pinentry-mode=loopback --batch --yes --passphrase $GPG_PASSPHRASE config/own_symbols.txt.gpg > config/own_symbols_format.txt
+
+echo ""
+
+sed 's/ /\t/g' config/own_symbols_format.txt
+
+rm -rf config/own_symbols_format.txt
 
 # Read TX
 echo ""
