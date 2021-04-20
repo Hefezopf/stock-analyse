@@ -5,7 +5,7 @@
 # Removing symbol from config/stock_symbols.txt
 # Covers rebuy scenario as well!
 
-# Call: sh ./buy.sh SYMBOL BUYING_RATE
+# Call: sh ./buy.sh SYMBOL BUYING_RATE PIECES
 # Example: sh ./buy.sh BEI 9.99 100
 # alias buy='/d/code/stock-analyse/script/buy.sh $1 $2 $3'
 # {"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "9.99", "pieces": "100"}}
