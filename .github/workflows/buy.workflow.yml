@@ -64,6 +64,8 @@ jobs:
           avgDefault='${{github.event.client_payload.avg}}'
           piecesDefault='${{github.event.client_payload.pieces}}'
 
+          echo "avgDefault $avgDefault"
+
           symbolInput="${{github.event.inputs.symbolParam}}"
           avgInput="${{github.event.inputs.avgParam}}"
           piecesInput="${{github.event.inputs.piecesParam}}"
@@ -76,9 +78,9 @@ jobs:
 
           echo "avgVar $avgVar"
 
-          #symbolVar=${symbolVar:-$symbolEnv}
-          #avgVar=${avgVar:-$avgEnv}
-          #piecesVar=${piecesVar:-$piecesEnv}
+          symbolVar=${symbolVar:-$symbolEnv}
+          avgVar=${avgVar:-$avgEnv}
+          piecesVar=${piecesVar:-$piecesEnv}
 
           #echo "avgInput $avgInput"
 
