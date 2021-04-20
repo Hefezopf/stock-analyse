@@ -1,22 +1,10 @@
 # Is triggered:
-#   1. on each push
-#   2. curl 
-#   3. manuell 
+#   1. curl 
+#   2. manuell 
 name: Buy
-
-#env:
-  #symbolEnv: 'BEI' # If more then 1 symbol -> Error!
-  #avgEnv: '9.99'
-  #pieces: '100'
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  #push:
-  #  branches: [ main ]
-  #pull_request:
-    #branches: [ main ]
-
   # Can be triggered with cURL
   repository_dispatch:
     types: [buy] 
