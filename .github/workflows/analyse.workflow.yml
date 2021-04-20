@@ -2,7 +2,7 @@
 #   1. on each push
 #   2. curl 
 #   3. manuell 
-name: Dev
+name: Analyse
 
 env:
   symbolsEnv: '*HLE' # If more then 1 symbol -> Error!
@@ -121,4 +121,3 @@ jobs:
           git add out/*.html
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push
-          
