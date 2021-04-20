@@ -3,14 +3,14 @@ name: Schedule
 # Controls when the action will run. 
 on:       
   schedule:
-  # Every 20 minutes
-  #- cron: "*/20 * * * *"
+  # Every 30 minutes
+  - cron: "*/30 * * * *"
   # Every Monday at 13:00
   #- cron: "0 13 * * 1"
   # At 05:00 on Mon, Tue, Wed, Thr, Fri (MEST: run is 2 hours delayed: --> 7:00)
   #- cron: "0 5 * * 1,2,3,4,5"
   # At 05:00 on Tue, Wed, Thr, Fri, Sat (MEST: run is 2 hours delayed: --> 7:00)
-  - cron: "0 5 * * 2,3,4,5,6"
+  #- cron: "0 5 * * 2,3,4,5,6"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,7 +36,7 @@ jobs:
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
           #Depot+DAX+MDAX+Eurostoxx (147). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
-          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
           stockSymbolsVar=$(cat config/stock_symbols.txt)
