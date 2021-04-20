@@ -1,12 +1,12 @@
 #!/bin/sh
 
-# Encrypt and view own portfolio in config/own_symbols.txt
+# Encrypt and view portfolio in config/own_symbols.txt
 
 # Call: sh ./view_own_symbols.sh
 # Example: sh ./view_own_symbols.sh
 # alias vp='/d/code/stock-analyse/script/view_own_symbols.sh'
 
-echo "view own portfolio ..."
+echo "view portfolio ..."
 
 if { [ -z "$GPG_PASSPHRASE" ] ; } then
   echo "GPG_PASSPHRASE Not specified!"
