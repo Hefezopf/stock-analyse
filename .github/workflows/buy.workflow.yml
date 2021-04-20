@@ -4,10 +4,10 @@
 #   3. manuell 
 name: Buy
 
-env:
-  symbolEnv: 'BEI' # If more then 1 symbol -> Error!
-  avgEnv: '9.99'
-  pieces: '100'
+#env:
+  #symbolEnv: 'BEI' # If more then 1 symbol -> Error!
+  #avgEnv: '9.99'
+  #pieces: '100'
 
 # Controls when the action will run. 
 on:
@@ -56,9 +56,9 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          symbolEnv=${{env.symbolEnv}}
-          avgEnv=${{env.avgEnv}}
-          piecesEnv=${{env.piecesEnv}}
+          #symbolEnv=${{env.symbolEnv}}
+          #avgEnv=${{env.avgEnv}}
+          #piecesEnv=${{env.piecesEnv}}
 
           symbolDefault='${{github.event.client_payload.symbol}}'
           avgDefault='${{github.event.client_payload.avg}}'
@@ -68,13 +68,19 @@ jobs:
           avgInput="${{github.event.inputs.avgParam}}"
           piecesInput="${{github.event.inputs.piecesParam}}"
 
+          echo "avgInput $avgInput"
+
           symbolVar=${symbolInput:-$symbolDefault}  
           avgVar=${avgInput:-$avgDefault}
           piecesVar=${piecesInput:-$piecesDefault}
 
-          symbolVar=${symbolVar:-$symbolEnv}
-          avgVar=${avgVar:-$avgEnv}
-          piecesVar=${piecesVar:-$piecesEnv}
+          echo "avgVar $avgVar"
+
+          #symbolVar=${symbolVar:-$symbolEnv}
+          #avgVar=${avgVar:-$avgEnv}
+          #piecesVar=${piecesVar:-$piecesEnv}
+
+          #echo "avgInput $avgInput"
 
           sh ./script/buy.sh "$symbolVar" "$avgVar" "$piecesVar"
 
