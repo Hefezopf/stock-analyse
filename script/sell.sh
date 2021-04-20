@@ -31,3 +31,12 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/de
 
 # Delete readable file
 rm -rf config/own_symbols.txt
+
+# Increment TX
+count=$(cat config/transaction_count.txt)
+count=$((count + 1))
+rm -rf config/transaction_count.txt
+echo "$count" >> config/transaction_count.txt
+echo "Transactions: "$count" (150/250)"
+echo "Quali Phase: 01.04. bis 30.09. and"
+echo "Quali Phase: 01.10. bis 31.03."
