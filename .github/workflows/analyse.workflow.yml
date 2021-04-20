@@ -14,14 +14,14 @@ env:
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
+  #push:
+  #  branches: [ main ]
   #pull_request:
     #branches: [ main ]
 
   # Can be triggered with cURL
-  #repository_dispatch:
-  #  types: [analyse] 
+  repository_dispatch:
+    types: [analyse] 
        
   # Can be triggered manually
   workflow_dispatch:
@@ -86,11 +86,11 @@ jobs:
           stochasticEnv=${{env.stochasticEnv}}
           RSIEnv=${{env.RSIEnv}}
 
-          #symbolsDefault='${{github.event.client_payload.symbols}}'
-          #percentageDefault='${{github.event.client_payload.percentage}}'
-          #queryDefault='${{github.event.client_payload.query}}'
-          #stochasticDefault='${{github.event.client_payload.stochastic}}'
-          #RSIDefault='${{github.event.client_payload.RSI}}'
+          symbolsDefault='${{github.event.client_payload.symbols}}'
+          percentageDefault='${{github.event.client_payload.percentage}}'
+          queryDefault='${{github.event.client_payload.query}}'
+          stochasticDefault='${{github.event.client_payload.stochastic}}'
+          RSIDefault='${{github.event.client_payload.RSI}}'
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           percentageInput=${{github.event.inputs.percentageParam}}
@@ -121,20 +121,4 @@ jobs:
           git add out/*.html
           git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push
-    
-      - name: Send result via email
-        uses: dawidd6/action-send-mail@v2
-        with:
-          server_address: smtp.ionos.de
-          server_port: 465
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
-          subject: Github stock-analyse result ${{github.event_name}} ${{github.event.action}}
-          # Read file contents as body:
-          body: file://out/_result.html
-          to: ${{secrets.MAIL_ADRESS}}
-          from: Github stock-analyse # <githubÄhopf-...de>
-          # Optional content type (defaults to text/plain):
-          content_type: text/html
-          # Optional attachments:
-          #attachments: out/_out.tar.gz
+          
