@@ -44,10 +44,6 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #symbolEnv=${{env.symbolEnv}}
-          #avgEnv=${{env.avgEnv}}
-          #piecesEnv=${{env.piecesEnv}}
-
           symbolDefault='${{github.event.client_payload.symbol}}'
           avgDefault='${{github.event.client_payload.avg}}'
           piecesDefault='${{github.event.client_payload.pieces}}'
@@ -59,10 +55,6 @@ jobs:
           symbolVar=${symbolInput:-$symbolDefault}  
           avgVar=${avgInput:-$avgDefault}
           piecesVar=${piecesInput:-$piecesDefault}
-
-          #symbolVar=${symbolVar:-$symbolEnv}
-          #avgVar=${avgVar:-$avgEnv}
-          #piecesVar=${piecesVar:-$piecesEnv}
 
           sh ./script/buy.sh "$symbolVar" "$avgVar" "$piecesVar"
 
