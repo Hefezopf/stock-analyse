@@ -20,7 +20,9 @@ WriteAlarmAbbrevXAxisFile() {
     alarmSymbolDateBeforeFile=$_dataDateOutputDir/${_symbolParam}_$beforeDateInDataFile.txt 
     
     if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
-        _newAlarmAbbrevTextParam=$(echo "$lastDateInDataFile" | cut -f 3 -d '-') # 2021-02-16 -> 16
+        lastDay=$(echo "$lastDateInDataFile" | cut -f 3 -d '-') # 2021-02-16 -> 16
+        lastMonth=$(echo "$lastDateInDataFile" | cut -f 2 -d '-') # 2021-02-16 -> 02
+        _newAlarmAbbrevTextParam=$(echo "$lastDay"-"$lastMonth")
     fi
 
     _newAlarmAbbrevTextParam="${_markerOwnStockParam}""$_newAlarmAbbrevTextParam"

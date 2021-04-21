@@ -36,15 +36,11 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #symbolEnv=${{env.symbolEnv}}
-
           symbolDefault='${{github.event.client_payload.symbol}}'
 
           symbolInput="${{github.event.inputs.symbolParam}}"
 
           symbolVar=${symbolInput:-$symbolDefault}  
-
-          #symbolVar=${symbolVar:-$symbolEnv}
 
           sh ./script/sell.sh "$symbolVar"
 
