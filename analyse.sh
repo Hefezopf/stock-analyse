@@ -57,7 +57,7 @@ alarmAbbrevValue=""
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px){}</style></head><body><div><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
-GOOD_LUCK="<p style=\"text-align: right; padding-right: 55px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a></p>"
+GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a></p>"
 HTML_RESULT_FILE_END="</p>"$GOOD_LUCK"<br></div></body></html>"
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
