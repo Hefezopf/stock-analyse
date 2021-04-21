@@ -9,28 +9,32 @@
 # alias sell='/d/code/stock-analyse/script/sell.sh $1'
 # {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
-echo "sell ${1} ..."
+# To uppercase
+symbolParam=${1^^}
+echo "sell ${symbolParam} ..."
 
-if { [ -z "$1" ]; } then
+if { [ -z "$symbolParam" ]; } then
   echo "Not all parameters specified!"
   echo "Example: curl_github_dispatch_sell.sh BEI"
   exit 1
 fi
 
 # Add in front of overall list
-sed -i "0,/^/s//${1} /" config/stock_symbols.txt
+sed -i "0,/^/s//${symbolParam} /" config/stock_symbols.txt
 
 # Encrypt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
 
 # Remove from own list
-sed -i "/^${1} /d" config/own_symbols.txt
+sed -i "/^${symbolParam} /d" config/own_symbols.txt
 
 # Decrypt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
 
 # Delete readable file
 rm -rf config/own_symbols.txt
+
+echo ""
 
 # Increment TX
 count=$(cat config/transaction_count.txt)

@@ -10,8 +10,8 @@ echo "calc ${1} ${2} ${3} ${4} ..."
 
 if { [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; } then
   echo "Not all parameters specified!"
-  echo "Call: ./calc.sh ORDERRATE PIECES SPREAD_IN_PERCENT SELLRATE"
-  echo "Example: ./calc.sh 9.99 100 0.1 10.1"
+  echo "Call: sh ./calc.sh ORDERRATE PIECES SPREAD_IN_PERCENT SELLRATE"
+  echo "Example: sh ./calc.sh 9.99 100 0.1 10.1"
   exit 1
 fi
 

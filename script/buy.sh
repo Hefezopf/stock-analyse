@@ -10,32 +10,37 @@
 # alias buy='/d/code/stock-analyse/script/buy.sh $1 $2 $3'
 # {"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "9.99", "pieces": "100"}}
 
-echo "(re)buy ${1} ${2} ${3} ..."
+# To uppercase
+symbolParam=${1^^}
+echo "(re)buy ${symbolParam} ${2} ${3} ..."
 
-if { [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; } then
+if { [ -z "$symbolParam" ] || [ -z "$2" ] || [ -z "$3" ]; } then
   echo "Not all parameters specified!"
-  echo "Example: buy.sh BEI 9.99 100"
+  echo "Call: sh ./buy.sh SYMBOL BUYING_RATE PIECES"
+  echo "Example: sh ./buy.sh BEI 9.99 100"
   exit 1
 fi
 
 # Remove from overall list, if not there do nothing
-sed -i "s/${1} //" config/stock_symbols.txt
+sed -i "s/${symbolParam} //" config/stock_symbols.txt
 
 # Decript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
 
 # Rebuy: Remove from own list, if not there do nothing
-sed -i "/^${1} /d" config/own_symbols.txt
+sed -i "/^${symbolParam} /d" config/own_symbols.txt
 
 # Add in front of own list
 today=$(date --date="-0 day" +"%Y-%m-%d")
-sed -i '1 i\'${1}' '${2}' '$today' '${3}'' config/own_symbols.txt
+sed -i '1 i\'${symbolParam}' '${2}' '$today' '${3}'' config/own_symbols.txt
 
 # Encript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
 
 # Delete readable file
 rm -rf config/own_symbols.txt
+
+echo ""
 
 # Increment TX
 count=$(cat config/transaction_count.txt)
