@@ -5,7 +5,7 @@
 # Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
-# 3. Parameter: QUERY - [online|offline] 'offline' do not query over REST API.
+# 3. Parameter: QUERY - [online|offline] 'offline' do not query via REST API.
 # 4. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
 # 5. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
 # Call example: ./analyse.sh 'BEI *ALV' 1 online 9 30
