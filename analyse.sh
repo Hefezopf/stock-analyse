@@ -540,7 +540,7 @@ do
         stocksPerformance=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print (($1 / $2)-1)*100}')
         stocksPerformance=$(printf "%.2f" "$stocksPerformance")
         # shellcheck disable=SC2027,SC2086,SC2116
-        obfuscatedValue=$(echo ""$stockLastBuyingDate" "$stocksPieces"pc Value:"$stocksBuyingValue"/"$stocksCurrentValue"€ "$stocksPerformance"%")
+        obfuscatedValue=$(echo ""$stocksPieces"pc "$stocksBuyingValue"/"$stocksCurrentValue"€ "$stocksPerformance"%")
         obfuscatedValue=$(echo "$obfuscatedValue" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
         echo "<span ondblclick=\"doubleClick(this)\" id=\"obfuscatedValue$symbol\">$obfuscatedValue</span><br><br>" >> $OUT_RESULT_FILE
     fi
