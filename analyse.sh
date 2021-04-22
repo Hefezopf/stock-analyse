@@ -64,6 +64,7 @@ echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a></p>"
 HTML_RESULT_FILE_END="</p>"$GOOD_LUCK"<br></div></body></html>"
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
+COMDIRECT_URL_PREFIX_5Y="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd. Do not ignore '*'' 
@@ -386,6 +387,7 @@ do
 
         ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_NAME_ID_FILE | cut -f 3)
         echo "<p><a $styleComdirectLink href="\""$COMDIRECT_URL_PREFIX""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a><br>"
+        #echo "<a href="\""$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">5Y</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
         echo "Stochastic14:<b>$stochasticPercentageParam</b> "
@@ -500,6 +502,7 @@ do
         cat template/indexPart12.html
 
         echo "<p><a $styleComdirectLink href="\""$COMDIRECT_URL_PREFIX""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a></p><br>"
+        #echo "<p><a href="\""$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">5Y</a></p><br>"
         echo ""$GOOD_LUCK"<br>"
 
         cat template/indexPart13.html
