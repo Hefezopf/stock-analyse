@@ -120,7 +120,8 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><br># Analyse<br>" >> $OUT_RESULT_FILE
+#echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><br># Analyse<br>" >> $OUT_RESULT_FILE
+echo "<br><br># Analyse<br>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
@@ -502,7 +503,6 @@ do
         cat template/indexPart12.html
 
         echo "<p><a $styleComdirectLink href="\""$COMDIRECT_URL_PREFIX""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a></p><br>"
-        #echo "<p><a href="\""$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">5Y</a></p><br>"
         echo ""$GOOD_LUCK"<br>"
 
         cat template/indexPart13.html
@@ -526,6 +526,8 @@ do
     fi
 
 done
+
+echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br>" >> $OUT_RESULT_FILE
 
 echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
 
