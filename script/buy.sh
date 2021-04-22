@@ -5,10 +5,10 @@
 # Removing symbol from config/stock_symbols.txt
 # Covers rebuy scenario as well!
 
-# Call: sh ./buy.sh SYMBOL BUYING_RATE PIECES
+# Call: sh ./buy.sh SYMBOL PRICE PIECES
 # Example: sh ./buy.sh BEI 9.99 100
 # alias buy='/d/code/stock-analyse/script/buy.sh $1 $2 $3'
-# {"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "9.99", "pieces": "100"}}
+# {"event_type": "buy", "client_payload": {"symbol": "BEI", "price": "9.99", "pieces": "100"}}
 
 # To uppercase
 symbolParam=${1^^}
@@ -16,7 +16,7 @@ echo "(re)buy ${symbolParam} ${2} ${3} ..."
 
 if { [ -z "$symbolParam" ] || [ -z "$2" ] || [ -z "$3" ]; } then
   echo "Not all parameters specified!"
-  echo "Call: sh ./buy.sh SYMBOL BUYING_RATE PIECES"
+  echo "Call: sh ./buy.sh SYMBOL PRICE PIECES"
   echo "Example: sh ./buy.sh BEI 9.99 100"
   exit 1
 fi

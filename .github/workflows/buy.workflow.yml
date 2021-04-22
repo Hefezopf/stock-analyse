@@ -16,8 +16,8 @@ on:
         description: 'SYMBOL - stock symbol to add to own stocks list: "BEI"'
         required: true
         default: 'BEI'
-      avgParam:
-        description: 'AVERAGE - "9.99" means average buying rate 9.99'     
+      priceParam:
+        description: 'PRICE - "9.99" means price/buying rate 9.99'     
         required: true
         default: '9.99'
       piecesParam:
@@ -45,18 +45,18 @@ jobs:
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
           symbolDefault='${{github.event.client_payload.symbol}}'
-          avgDefault='${{github.event.client_payload.avg}}'
+          priceDefault='${{github.event.client_payload.price}}'
           piecesDefault='${{github.event.client_payload.pieces}}'
 
           symbolInput="${{github.event.inputs.symbolParam}}"
-          avgInput="${{github.event.inputs.avgParam}}"
+          priceInput="${{github.event.inputs.priceParam}}"
           piecesInput="${{github.event.inputs.piecesParam}}"
 
           symbolVar=${symbolInput:-$symbolDefault}  
-          avgVar=${avgInput:-$avgDefault}
+          priceVar=${priceInput:-$priceDefault}
           piecesVar=${piecesInput:-$piecesDefault}
 
-          sh ./script/buy.sh "$symbolVar" "$avgVar" "$piecesVar"
+          sh ./script/buy.sh "$symbolVar" "$priceVar" "$piecesVar"
 
           chmod +x ./analyse.sh
 

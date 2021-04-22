@@ -70,7 +70,7 @@ http://www.smallscreensystems.com/iCurl
 
 {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
-{"event_type": "buy", "client_payload": {"symbol": "BEI", "avg": "9.99", "pieces": "100"}}
+{"event_type": "buy", "client_payload": {"symbol": "BEI", "price": "9.99", "pieces": "100"}}
 
 # Stock Symbols
 
