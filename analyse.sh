@@ -61,22 +61,28 @@ TICKER_NAME_ID_FILE=config/ticker_name_id.txt
 #HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px){}</style></head><body><div><p>"
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}</style></head><body><div style=\"font-size: large;\"><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
+# shellcheck disable=SC2089
 GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a></p>"
-HTML_RESULT_FILE_END="</p>"$GOOD_LUCK"<br></div>
+HTML_RESULT_FILE_END="</p>$GOOD_LUCK<br></div>
 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js\"></script>
 <script>
-function doubleClick(ele) { 
-console.log(ele.id);
-var dec = document.getElementById(ele.id).innerHTML;
-document.getElementById(ele.id).innerHTML = reverseString(dec);
-}
-function reverseString(str){
-    return str.split(\"\").reverse().join(\"\");
-}
+    function doubleClickForAll(ele) {     
+        polls = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
+        Array.prototype.forEach.call(polls, callback);
+    }
+    function callback(ele, iterator) {
+        var dec = document.getElementById(ele.id).innerHTML;
+        document.getElementById(ele.id).innerHTML = reverseString(dec);
+    }
+    function doubleClick(ele) { 
+        var dec = document.getElementById(ele.id).innerHTML;
+        document.getElementById(ele.id).innerHTML = reverseString(dec);
+    }
+    function reverseString(str){
+        return str.split(\"\").reverse().join(\"\");
+    }
 </script>
 </body></html>"
-COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
-COMDIRECT_URL_PREFIX_5Y="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd. Do not ignore '*'' 
@@ -100,6 +106,7 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
     exit 6
 fi
 
+# shellcheck disable=SC2153
 if { [ "$queryParam" = 'online' ]; } &&
    { [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ] || [ -z "$MARKET_STACK_ACCESS_KEY5" ]; } then
     echo "Error 'online' query: MARKET_STACK_ACCESS_KEY1...5 NOT set!" | tee -a $OUT_RESULT_FILE
@@ -133,7 +140,7 @@ echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 #echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><br># Analyse<br>" >> $OUT_RESULT_FILE
-echo "<br><br># Analyse<br>" >> $OUT_RESULT_FILE
+echo "<br><br><span ondblclick=\"doubleClickForAll(this)\"># Analyse</span><br>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
@@ -194,10 +201,10 @@ do
         echo "!!! LESS then 100 quotes for $symbol" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
         lastQuoteInFile=$(tail -1 "$DATA_DATE_FILE" | cut -f 2)
-        numOfQuotesToAdd=$((100 - $numOfQuotes))
+        numOfQuotesToAdd=$((100 - numOfQuotes))
         indexWhile=0
         while [ "$indexWhile" -lt "$numOfQuotesToAdd" ]; do
-            echo "9999-99-99	"$lastQuoteInFile"" >> "$DATA_DATE_FILE"
+            echo "9999-99-99	$lastQuoteInFile" >> "$DATA_DATE_FILE"
             indexWhile=$((indexWhile + 1))
         done
     fi
@@ -399,8 +406,7 @@ do
         fi
 
         ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_NAME_ID_FILE | cut -f 3)
-        echo "<p><a $styleComdirectLink href="\""$COMDIRECT_URL_PREFIX""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a><br>"
-        #echo "<a href="\""$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">5Y</a><br>"
+        echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
         echo "Stochastic14:<b>$stochasticPercentageParam</b> "
@@ -514,8 +520,8 @@ do
         echo "$MACDList"
         cat template/indexPart12.html
 
-        echo "<p><a $styleComdirectLink href="\""$COMDIRECT_URL_PREFIX""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a></p><br>"
-        echo ""$GOOD_LUCK"<br>"
+        echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a></p><br>"
+        echo "$GOOD_LUCK<br>"
 
         cat template/indexPart13.html
     } >> "$indexSymbolFile"
@@ -527,15 +533,16 @@ do
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
-        stocksDate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
+        stockLastBuyingDate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
         stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
-        buyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
-        stocksValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
-        stocksPerformance=$(echo "$stocksValue $buyingValue" | awk '{print (($1 / $2)-1)*100}')
+        stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
+        stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
+        stocksPerformance=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print (($1 / $2)-1)*100}')
         stocksPerformance=$(printf "%.2f" "$stocksPerformance")
-        obfuscatedValue=$(echo "$stocksDate": "$stocksPieces"pc Buy:"$buyingValue"€ Curr:"$stocksValue"€ "$stocksPerformance""%")        
-        obfuscatedValue=$(echo $obfuscatedValue | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-        #echo "<span ondblclick=\"doubleClick(this)\" id=\"obfuscatedValue$symbol\">"$obfuscatedValue"</span><br>" >> $OUT_RESULT_FILE
+        # shellcheck disable=SC2027,SC2086,SC2116
+        obfuscatedValue=$(echo ""$stockLastBuyingDate" "$stocksPieces"pc Value:"$stocksBuyingValue"/"$stocksCurrentValue"€ "$stocksPerformance"%")
+        obfuscatedValue=$(echo "$obfuscatedValue" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
+        echo "<span ondblclick=\"doubleClick(this)\" id=\"obfuscatedValue$symbol\">$obfuscatedValue</span><br><br>" >> $OUT_RESULT_FILE
     fi
 
 done

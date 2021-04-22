@@ -11,6 +11,8 @@
 # libexec, bin share and lib
 # bats -version
 
+# To get rid of carage returns, may run: sed -i 's/\r//g' script/constants.sh
+
 echo shellcheck ...
 cat script/functions.sh | tr -d '\r' > script/functions1.sh
 rm script/functions.sh
