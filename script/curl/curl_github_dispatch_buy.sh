@@ -6,7 +6,6 @@
 # !!Only ONE symbol can be passed as parameter!! For example: This list is NOT possible: "BEI BMW" 9.99 100
 
 # To uppercase
-#symbolParam=${1^^}
 symbolParam=$(echo "${1}" | tr '[:lower:]' '[:upper:]')
 
 echo "(re)buy ${symbolParam} ${2} ${3} ..."

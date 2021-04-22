@@ -10,7 +10,6 @@
 # {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
 # To uppercase
-#symbolParam=${1^^}
 symbolParam=$(echo "${1}" | tr '[:lower:]' '[:upper:]')
 
 if { [ -z "$symbolParam" ]; } then

@@ -11,7 +11,6 @@
 # {"event_type": "buy", "client_payload": {"symbol": "BEI", "price": "9.99", "pieces": "100"}}
 
 # To uppercase
-#symbolParam=${1^^}
 symbolParam=$(echo "${1}" | tr '[:lower:]' '[:upper:]')
 
 echo "(re)buy ${symbolParam} ${2} ${3} ..."
