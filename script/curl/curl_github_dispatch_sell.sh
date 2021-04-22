@@ -11,5 +11,5 @@ if { [ -z "$1" ]; } then
   exit 1
 fi
 
-set -x
+#set -x
 curl -X POST -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "sell", "client_payload": {"symbol": "'$1'"}}'

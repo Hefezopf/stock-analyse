@@ -62,7 +62,19 @@ TICKER_NAME_ID_FILE=config/ticker_name_id.txt
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}</style></head><body><div style=\"font-size: large;\"><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a></p>"
-HTML_RESULT_FILE_END="</p>"$GOOD_LUCK"<br></div></body></html>"
+HTML_RESULT_FILE_END="</p>"$GOOD_LUCK"<br></div>
+<script src=\"https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js\"></script>
+<script>
+function doubleClick(ele) { 
+console.log(ele.id);
+var dec = document.getElementById(ele.id).innerHTML;
+document.getElementById(ele.id).innerHTML = reverseString(dec);
+}
+function reverseString(str){
+    return str.split(\"\").reverse().join(\"\");
+}
+</script>
+</body></html>"
 COMDIRECT_URL_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
 COMDIRECT_URL_PREFIX_5Y="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION="
 START_TIME_MEASUREMENT=$(date +%s);
@@ -514,15 +526,16 @@ do
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
-    if [ "${markerOwnStock}" = '*' ] && [ "$buyingRate" ] ; then
-        stocksDate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
-        stocksPieces=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
+    if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
+        stocksDate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
+        stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
         buyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
         stocksValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
         stocksPerformance=$(echo "$stocksValue $buyingValue" | awk '{print (($1 / $2)-1)*100}')
         stocksPerformance=$(printf "%.2f" "$stocksPerformance")
-        #echo ""$stocksDate": "$stocksPieces"pc Buy:"$buyingValue"€ Curr:"$stocksValue"€ "$stocksPerformance"%" | tee -a $OUT_RESULT_FILE
-        #echo "<br><br>" >> $OUT_RESULT_FILE
+        obfuscatedValue=$(echo "$stocksDate": "$stocksPieces"pc Buy:"$buyingValue"€ Curr:"$stocksValue"€ "$stocksPerformance""%")        
+        obfuscatedValue=$(echo $obfuscatedValue | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
+        #echo "<span ondblclick=\"doubleClick(this)\" id=\"obfuscatedValue$symbol\">"$obfuscatedValue"</span><br>" >> $OUT_RESULT_FILE
     fi
 
 done
