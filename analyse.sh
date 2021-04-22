@@ -16,6 +16,9 @@
 # Set GPG_PASSPHRASE as ENV Variable
 # shellcheck disable=SC1091 
 
+# Debug mode
+#set -x
+
 # Import
 . ./script/constants.sh
 . ./script/functions.sh
@@ -508,7 +511,7 @@ do
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
-    if [ "${markerOwnStock}" = '*' ]; then
+    if [ "${markerOwnStock}" = '*' ] && [ "$buyingRate" ] ; then
         stocksDate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
         stocksPieces=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
         buyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
