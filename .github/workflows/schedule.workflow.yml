@@ -59,7 +59,7 @@ jobs:
           git add data/*
           git add alarm/*
           git add out/*.html
-          git commit -am "Github stock-analyse result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
+          git commit -am "Github Result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
 
       - name: Send result via email
@@ -69,7 +69,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}          
-          subject: Github stock-analyse result ${{github.event_name}} ${{github.event.action}}
+          subject: Result ${{github.event_name}} ${{github.event.action}}
           # Read file contents as body:
           body: file://out/_result.html
           to: ${{secrets.MAIL_ADRESS}}

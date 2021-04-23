@@ -58,7 +58,6 @@ OWN_SYMBOLS_FILE=config/own_symbols.txt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 alarmAbbrevValue=""
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
-#HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}#body {font-size: 14px;}@media screen and (min-width: 500px){}</style></head><body><div><p>"
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}</style></head><body><div style=\"font-size: large;\"><p>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 # shellcheck disable=SC2089
@@ -66,22 +65,26 @@ GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a hre
 HTML_RESULT_FILE_END="</p>$GOOD_LUCK<br></div>
 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js\"></script>
 <script>
-    document.getElementsByTagName('body')[0].ondblclick = doubleClickForAll;
-    function doubleClickForAll(ele) {     
-        polls = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
-        Array.prototype.forEach.call(polls, doubleClick);
+    var toggle = false;
+    document.getElementsByTagName('body')[0].ondblclick = revealAll;
+    function revealAll(ele) { 
+        if (toggle === false) {    
+            values = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
+            Array.prototype.forEach.call(values, revealElement);
+            toggle = true;
+        }
     }
-    function doubleClick(ele) { 
+    function revealElement(ele) { 
         var dec = document.getElementById(ele.id).innerHTML;
         dec = dec.split(\"\").reverse().join(\"\"); // reverseString
         dec = replaceInString(dec);
         document.getElementById(ele.id).innerHTML = dec;
+        ele.style.display = 'block';
     }
     function replaceInString(str1){
         var ret = str1.replace(/X/g, \"pc \");
         var ret = ret.replace(/Y/g, \"€ \");
-        var ret = ret.replace(/Z/g, \"% \");
-        return ret;
+        return ret.replace(/Z/g, \"% \");
     }    
 </script>
 </body></html>"
@@ -141,7 +144,6 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-#echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><br># Analyse<br>" >> $OUT_RESULT_FILE
 echo "<br><br># Analyse<br>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
@@ -541,11 +543,20 @@ do
         stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
         stocksPerformance=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print (($1 / $2)-1)*100}')
         stocksPerformance=$(printf "%.2f" "$stocksPerformance")
-        # shellcheck disable=SC2027,SC2086,SC2116
-        obfuscatedValue=$(echo ""$stocksPieces"X"$stocksBuyingValue"/"$stocksCurrentValue"Y"$stocksPerformance"Z")
-        obfuscatedValue=$(echo "$obfuscatedValue" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-        echo "<span id=\"obfuscatedValue$symbol\">$obfuscatedValue</span><br><br>" >> $OUT_RESULT_FILE
-#        echo "<span ondblclick=\"doubleClick(this)\" id=\"obfuscatedValue$symbol\">$obfuscatedValue</span><br><br>" >> $OUT_RESULT_FILE
+       
+        obfuscatedValueFirst="$stocksPieces"X"$stocksBuyingValue"/"$stocksCurrentValue"Y
+        obfuscatedValueFirst=$(echo "$obfuscatedValueFirst" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
+        echo "<div style=\"display: flex;\"><span id=\"obfuscatedValueFirst$symbol\" style=\"display: none;\">$obfuscatedValueFirst</span>&nbsp;" >> $OUT_RESULT_FILE
+
+        obfuscatedValueGain=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print $1 - $2}')
+        obfuscatedValueGain="$stocksPerformance"Z"$obfuscatedValueGain"Y
+        obfuscatedValueGain=$(echo "$obfuscatedValueGain" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
+        isNegativ=$(echo "${stocksPerformance}" | awk '{print substr ($0, 0, 1)}')
+        _linkColorParam="$GREEN"
+        if [ "${isNegativ}" = '-' ]; then
+            _linkColorParam="$RED"
+        fi
+        echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColorParam\">$obfuscatedValueGain</span></div><br>" >> $OUT_RESULT_FILE
     fi
 
 done
