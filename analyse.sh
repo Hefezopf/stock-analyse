@@ -66,21 +66,23 @@ GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a hre
 HTML_RESULT_FILE_END="</p>$GOOD_LUCK<br></div>
 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js\"></script>
 <script>
+    document.getElementsByTagName('body')[0].ondblclick = doubleClickForAll;
     function doubleClickForAll(ele) {     
         polls = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
-        Array.prototype.forEach.call(polls, callback);
-    }
-    function callback(ele, iterator) {
-        var dec = document.getElementById(ele.id).innerHTML;
-        document.getElementById(ele.id).innerHTML = reverseString(dec);
+        Array.prototype.forEach.call(polls, doubleClick);
     }
     function doubleClick(ele) { 
         var dec = document.getElementById(ele.id).innerHTML;
-        document.getElementById(ele.id).innerHTML = reverseString(dec);
+        dec = dec.split(\"\").reverse().join(\"\"); // reverseString
+        dec = replaceInString(dec);
+        document.getElementById(ele.id).innerHTML = dec;
     }
-    function reverseString(str){
-        return str.split(\"\").reverse().join(\"\");
-    }
+    function replaceInString(str1){
+        var ret = str1.replace(/X/g, \"pc \");
+        var ret = ret.replace(/Y/g, \"€ \");
+        var ret = ret.replace(/Z/g, \"% \");
+        return ret;
+    }    
 </script>
 </body></html>"
 START_TIME_MEASUREMENT=$(date +%s);
@@ -140,7 +142,7 @@ echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 #echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><br># Analyse<br>" >> $OUT_RESULT_FILE
-echo "<br><br><span ondblclick=\"doubleClickForAll(this)\"># Analyse</span><br>" >> $OUT_RESULT_FILE
+echo "<br><br># Analyse<br>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
@@ -533,16 +535,17 @@ do
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
-        stockLastBuyingDate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
+        #stockLastBuyingDate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
         stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
         stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
         stocksPerformance=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print (($1 / $2)-1)*100}')
         stocksPerformance=$(printf "%.2f" "$stocksPerformance")
         # shellcheck disable=SC2027,SC2086,SC2116
-        obfuscatedValue=$(echo ""$stocksPieces"pc "$stocksBuyingValue"/"$stocksCurrentValue"€ "$stocksPerformance"%")
+        obfuscatedValue=$(echo ""$stocksPieces"X"$stocksBuyingValue"/"$stocksCurrentValue"Y"$stocksPerformance"Z")
         obfuscatedValue=$(echo "$obfuscatedValue" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-        echo "<span ondblclick=\"doubleClick(this)\" id=\"obfuscatedValue$symbol\">$obfuscatedValue</span><br><br>" >> $OUT_RESULT_FILE
+        echo "<span id=\"obfuscatedValue$symbol\">$obfuscatedValue</span><br><br>" >> $OUT_RESULT_FILE
+#        echo "<span ondblclick=\"doubleClick(this)\" id=\"obfuscatedValue$symbol\">$obfuscatedValue</span><br><br>" >> $OUT_RESULT_FILE
     fi
 
 done
