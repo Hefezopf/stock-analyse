@@ -81,8 +81,8 @@ HTML_RESULT_FILE_END="</p>$GOOD_LUCK<br></div>
         document.getElementById(ele.id).innerHTML = dec;
         ele.style.display = 'block';
     }
-    function replaceInString(str1){
-        var ret = str1.replace(/X/g, \"pc \");
+    function replaceInString(str){
+        var ret = str.replace(/X/g, \"pc \");
         var ret = ret.replace(/Y/g, \"€ \");
         return ret.replace(/Z/g, \"% \");
     }    
@@ -546,7 +546,7 @@ do
        
         obfuscatedValueFirst="$stocksPieces"X"$stocksBuyingValue"/"$stocksCurrentValue"Y
         obfuscatedValueFirst=$(echo "$obfuscatedValueFirst" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-        echo "<div style=\"display: flex;\"><span id=\"obfuscatedValueFirst$symbol\" style=\"display: none;\">$obfuscatedValueFirst</span>&nbsp;" >> $OUT_RESULT_FILE
+        echo "<div style=\"display: flex; font-size: large;\"><span id=\"obfuscatedValueFirst$symbol\" style=\"display: none;\">$obfuscatedValueFirst</span>&nbsp;" >> $OUT_RESULT_FILE
 
         obfuscatedValueGain=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print $1 - $2}')
         obfuscatedValueGain="$stocksPerformance"Z"$obfuscatedValueGain"Y
