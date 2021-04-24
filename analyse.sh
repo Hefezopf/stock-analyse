@@ -58,20 +58,19 @@ OWN_SYMBOLS_FILE=config/own_symbols.txt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 alarmAbbrevValue=""
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
-HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}</style></head><body><div style=\"font-size: large;\"><p>"
+HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}</style></head><body><div style=\"font-size: large;\">"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 # shellcheck disable=SC2089
 GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a></p>"
-HTML_RESULT_FILE_END="</p>$GOOD_LUCK<br></div>
-<script src=\"https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js\"></script>
+HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
 <script>
-    var toggle = false;
+    var toggleIsVisible = false;
     document.getElementsByTagName('body')[0].ondblclick = revealAll;
     function revealAll(ele) { 
-        if (toggle === false) {    
+        if (toggleIsVisible === false) {    
             values = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
             Array.prototype.forEach.call(values, revealElement);
-            toggle = true;
+            toggleIsVisible = true;
         }
     }
     function revealElement(ele) { 
@@ -144,7 +143,7 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "<br><br># Analyse<br>" >> $OUT_RESULT_FILE
+echo "<br><br># Analyse" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
@@ -546,7 +545,7 @@ do
        
         obfuscatedValueFirst="$stocksPieces"X"$stocksBuyingValue"/"$stocksCurrentValue"Y
         obfuscatedValueFirst=$(echo "$obfuscatedValueFirst" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-        echo "<div style=\"display: flex; font-size: large;\"><span id=\"obfuscatedValueFirst$symbol\" style=\"display: none;\">$obfuscatedValueFirst</span>&nbsp;" >> $OUT_RESULT_FILE
+        echo "<div style=\"display: flex; font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style=\"display: none;\">$obfuscatedValueFirst</span>&nbsp;" >> $OUT_RESULT_FILE
 
         obfuscatedValueGain=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print $1 - $2}')
         obfuscatedValueGain="$stocksPerformance"Z"$obfuscatedValueGain"Y
@@ -556,9 +555,8 @@ do
         if [ "${isNegativ}" = '-' ]; then
             _linkColorParam="$RED"
         fi
-        echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColorParam\">$obfuscatedValueGain</span></div><br>" >> $OUT_RESULT_FILE
+        echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColorParam\">$obfuscatedValueGain</span></div>" >> $OUT_RESULT_FILE
     fi
-
 done
 
 echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br>" >> $OUT_RESULT_FILE

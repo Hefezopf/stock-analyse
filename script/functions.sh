@@ -207,15 +207,15 @@ WriteComdirectUrlAndStoreFileList() {
     if [ ! "${_id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
         {
-            echo "<a style=\"color:$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX_6M$_id_notation\" target=\"_blank\">$_markerOwnStockParam$_symbolParam $_symbolNameParam</a> "
+            echo "<br><a style=\"color:$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX_6M$_id_notation\" target=\"_blank\">$_markerOwnStockParam$_symbolParam $_symbolNameParam</a> "
             echo "<a href=\"$COMDIRECT_URL_PREFIX_5Y$_id_notation\" target=\"_blank\">5Y</a>"
             echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html\" target=\"_blank\">SA</a>"
-            echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=\"_blank\">PC</a><br>"
+            echo "<a href=\"D:/code/stock-analyse/out/$_symbolParam.html\" target=\"_blank\">PC</a>"
         } >> "$_outResultFileParam"
     fi
     # Show reason in result file only, if marked as own stock or a 'buy' recommendation
     if [ "${_markerOwnStockParam}" = '*' ] || [ "$_linkColorParam" = "$GREEN" ]; then
-        echo "$_reasonParam<br>" >> "$_outResultFileParam"
+        echo "<br>$_reasonParam" >> "$_outResultFileParam"
     fi
 }
 
