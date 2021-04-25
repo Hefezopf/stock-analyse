@@ -16,12 +16,12 @@ StockSellLevelParam=$4
 
 HISTORY_FILE=history/"$symbolParam".txt
 wallet=0
+win=0
 piecesHold=0
 
 historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
 historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
 historyRSIs=$(head -n6 "$HISTORY_FILE" | tail -1)
-echo "$historyStochs"
 
 # shellcheck disable=SC2001
 RSIindex=1
@@ -41,16 +41,22 @@ do
     stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
     if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StockSellLevelParam" ]; then
         echo ""
-        echo stochAt "$stochAt" valueRSI "$valueRSI"
+        echo stochAt "$stochAt" valueRSI "$valueRSI" at positon:"$RSIindex"
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         echo sell "$piecesHold" piecesHold: valueRSI:"$valueRSI" at positon:"$RSIindex" Quote:"$quoteAt"€ Amount="$amount"€
         piecesHold=0
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-        echo wallet=$wallet€
+        # Only one action in the early history! If will continue, will might buy at the very end and never sell!
+        break;
     fi
     RSIindex=$((RSIindex + 1))
 done
 echo "-----------"
-echo wallet=$wallet€
+if [ "${piecesHold}" -eq 0 ]; then
+    echo win=$wallet€
+else
+    echo NO TRADE
+    echo wallet=$wallet€
+fi
 echo piecesHold=$piecesHold

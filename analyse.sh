@@ -557,6 +557,21 @@ do
         fi
         echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColorParam\">$obfuscatedValueGain</span></div>" >> $OUT_RESULT_FILE
     fi
+
+    # Write history file
+    HISTORY_FILE=history/"$symbol".txt
+    rm -rf "$HISTORY_FILE"
+    commaPriceList=$(echo "$commaPriceList" | sed -e :a -e 'N;s/\n//g;ta')
+    echo "# Quote oldest,..,newest: 87 Values?" >> "$HISTORY_FILE"
+    echo "$commaPriceList" >> "$HISTORY_FILE"
+    
+    stochasticQuoteList=$(echo "$stochasticQuoteList" | sed 's/ //g')
+    echo "# Stoch oldest,..,newest" >> "$HISTORY_FILE"
+    echo "$stochasticQuoteList" >> "$HISTORY_FILE"
+    
+    RSIQuoteList=$(echo "$RSIQuoteList" | sed 's/ //g')
+    echo "# RSI oldest,..,newest" >> "$HISTORY_FILE"
+    echo "$RSIQuoteList" >> "$HISTORY_FILE"
 done
 
 echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br>" >> $OUT_RESULT_FILE
