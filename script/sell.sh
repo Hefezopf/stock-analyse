@@ -12,6 +12,8 @@
 # To uppercase
 symbolParam=$(echo "${1}" | tr '[:lower:]' '[:upper:]')
 
+echo "Sell $symbolParam"
+
 if { [ -z "$symbolParam" ]; } then
   echo "Not all parameters specified!"
   echo "Example: curl_github_dispatch_sell.sh BEI"
