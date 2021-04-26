@@ -35,6 +35,7 @@ jobs:
           #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW (175). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          ownSymbolsVar=$(echo "$ownSymbolsVar" | sed 's/*//g')
           rm -rf config/own_symbols.txt
           stockSymbolsVar=$(cat config/stock_symbols.txt)
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
