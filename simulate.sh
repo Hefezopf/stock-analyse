@@ -15,7 +15,7 @@ RSIBuyLevelParam=$3
 StockSellLevelParam=$4
 
 winOverall=0
-walletOverall=0
+walletOverAll=0
 
 # Simulate stock for each symbol
 for symbol in $symbolsParam
@@ -28,27 +28,32 @@ do
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
     historyRSIs=$(head -n6 "$HISTORY_FILE" | tail -1)
+    historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
+#echo historyMACDs "$historyMACDs"
 
     # shellcheck disable=SC2001
     RSIindex=1
     for valueRSI in $(echo "$historyRSIs" | sed "s/,/ /g")
     do
         # Buy
-        if [ "$valueRSI" -lt "$RSIBuyLevelParam" ]; then
+        MACDAt="$(echo "$historyMACDs" | cut -f "$RSIindex" -d ',')"
+        #echo MACDAt "$MACDAt"
+        isMACDNegativ=$(echo "${MACDAt}" | awk '{print substr ($0, 0, 1)}')
+        if [ "$valueRSI" -lt "$RSIBuyLevelParam" ] && [ "${isMACDNegativ}" = '-' ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             piecesPerTrade=$(echo "$amountPerTradeParam $quoteAt" | awk '{print ($1 / $2)}')
             piecesPerTrade=${piecesPerTrade%.*}
             amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-            echo Buy "$piecesPerTrade" pieces: valueRSI:"$valueRSI" at positon:"$RSIindex" Quote:"$quoteAt"€ Amount="$amount"€ piecesHold=$piecesHold Wallet=$wallet€
+            echo Buy " "$piecesPerTrade" at positon:"$RSIindex" pieces: valueRSI:"$valueRSI" Quote:"$quoteAt"€ Amount="$amount"€ piecesHold=$piecesHold Wallet=$wallet€"
         fi
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
         if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StockSellLevelParam" ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
-            echo Sell "$piecesHold" piecesHold: valueRSI:"$valueRSI" at positon:"$RSIindex" Quote:"$quoteAt"€ Amount="$amount"€
+            echo Sell "$piecesHold" at positon:"$RSIindex" stochAt:"$stochAt" Quote:"$quoteAt"€ Amount="$amount"€
             piecesHold=0
             wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
             # Only one action in the early history! If will continue, will might buy at the very end and never sell!
@@ -67,7 +72,7 @@ do
     else
         echo NO TRADE
         echo wallet=$wallet€
-        walletOverall=$(echo "$walletOverall $wallet" | awk '{print ($1 + $2)}')
+        walletOverAll=$(echo "$walletOverAll $wallet" | awk '{print ($1 + $2)}')
     fi
     echo piecesHold=$piecesHold
     echo ""
@@ -76,4 +81,4 @@ done
 echo ""
 echo "=========="
 echo winOverAll=$winOverAll
-echo walletOverall=$walletOverall
+echo walletOverAll=$walletOverAll
