@@ -8,11 +8,11 @@ on:
   # Can be triggered manually
   workflow_dispatch:
     inputs:
-      symbolParam:
-        description: 'SYMBOL - stock symbol to delete from own stocks list: "BEI"'
+      symbolsParam:
+        description: 'SYMBOLS - List of stock symbols like: "DBK BEI".'
         required: true
-        default: 'BEI'
-        
+        default: 'DBK CRIN MOR FPE3 BC8 BEI'
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -39,7 +39,20 @@ jobs:
           stockSymbolsVar=$(cat config/stock_symbols.txt)
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
 
-          symbolsVar='BEI HLE'
+          #symbolsVar='BEI HLE'
+
+
+
+          #symbolsEnv=${{env.symbolsEnv}}
+
+
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
+
+          
+          symbolsVar=${symbolsInput:-$symbolsVar}
+ 
+
+          #symbolsVar=${symbolsVar:-$symbolsEnv}          
 
           amountPerTradeVar=2000
           RSIBuyLevelVar=25
