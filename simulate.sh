@@ -1,18 +1,20 @@
 #!/bin/sh
 
 # This script simulates a given stock quote.
-# Call: ./simulate.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL 
+# Call: ./simulate.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI ALV BAS ...'
 # 2. Parameter: AMOUNT_PER_TRADE: How much money will be spent on a single trade; like 2000€
 # 3. Parameter: RSI_BUY_LEVEL: RSI level when the buying trade will be trigged: like 25
 # 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 91
-# Call example: ./simulate.sh 'BEI ALV' 2000 25 91
+# 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
+# Call example: ./simulate.sh 'BEI ALV' 2000 25 91 1.1
 
 # Parameter
 symbolsParam=$1
 amountPerTradeParam=$2
 RSIBuyLevelParam=$3
-StockSellLevelParam=$4
+StochSellLevelParam=$4
+incrementPerTradeParam=$5
 
 OUT_SIMULATE_FILE="out/_simulate.txt"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
@@ -26,7 +28,8 @@ countSymbols=$((countSymbols + 1))
 echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_SIMULATE_FILE
 echo "Amount per Trade:$amountPerTradeParam€" | tee -a $OUT_SIMULATE_FILE
 echo "RSI buy Level:$RSIBuyLevelParam" | tee -a $OUT_SIMULATE_FILE
-echo "Stock sell Level:$StockSellLevelParam" | tee -a $OUT_SIMULATE_FILE
+echo "Stoch sell Level:$StochSellLevelParam" | tee -a $OUT_SIMULATE_FILE
+echo "Increment per Trade:$incrementPerTradeParam" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
 
 echo "# Simulation" | tee -a $OUT_SIMULATE_FILE
@@ -55,6 +58,7 @@ do
         if [ "$valueRSI" -lt "$RSIBuyLevelParam" ] && [ "${isMACDNegativ}" = '-' ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             piecesPerTrade=$(echo "$amountPerTradeParam $quoteAt" | awk '{print ($1 / $2)}')
+            amountPerTradeParam=$(echo "$amountPerTradeParam $incrementPerTradeParam" | awk '{print ($1 * $2)}')
             piecesPerTrade=${piecesPerTrade%.*}
             amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
@@ -63,7 +67,7 @@ do
         fi
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
-        if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StockSellLevelParam" ]; then
+        if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             echo -e "Sell\t"$piecesHold"pc\tpositon:"$RSIindex" stochAt:"$stochAt" Quote:"$quoteAt"€ Amount="$amount"€" | tee -a $OUT_SIMULATE_FILE
@@ -72,11 +76,7 @@ do
             # Only one action in the early history! If will continue, will might buy at the very end and never sell!
             break;
         fi
-        RSIindex=$((RSIindex + 1))
-        # if [ "${RSIindex}" -eq 85 ]; then
-        #     # Abbort 15 before end
-        #     break; 
-        # fi      
+        RSIindex=$((RSIindex + 1))    
     done
 
     # Sell all at the last day to get gid of all stocks for simulation
