@@ -40,6 +40,7 @@ do
     win=0
     wallet=0
     piecesHold=0
+    amountPerTrade=$amountPerTradeParam
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
     echo "$symbol $symbolName" | tee -a $OUT_SIMULATE_FILE
     HISTORY_FILE=history/"$symbol".txt
@@ -57,8 +58,8 @@ do
         isMACDNegativ=$(echo "${MACDAt}" | awk '{print substr ($0, 0, 1)}')
         if [ "$valueRSI" -lt "$RSIBuyLevelParam" ] && [ "${isMACDNegativ}" = '-' ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
-            piecesPerTrade=$(echo "$amountPerTradeParam $quoteAt" | awk '{print ($1 / $2)}')
-            amountPerTradeParam=$(echo "$amountPerTradeParam $incrementPerTradeParam" | awk '{print ($1 * $2)}')
+            piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
+            amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
             piecesPerTrade=${piecesPerTrade%.*}
             amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
