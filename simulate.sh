@@ -14,8 +14,22 @@ amountPerTradeParam=$2
 RSIBuyLevelParam=$3
 StockSellLevelParam=$4
 
+OUT_SIMULATE_FILE="out/_simulate.txt"
+TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
+rm -rf "$OUT_SIMULATE_FILE"
 winOverall=0
 walletOverAll=0
+
+echo "# Parameter" | tee -a $OUT_SIMULATE_FILE
+countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
+countSymbols=$((countSymbols + 1))
+echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_SIMULATE_FILE
+echo "Amount per Trade:$amountPerTradeParam€" | tee -a $OUT_SIMULATE_FILE
+echo "RSI buy Level:$RSIBuyLevelParam" | tee -a $OUT_SIMULATE_FILE
+echo "Stock sell Level:$StockSellLevelParam" | tee -a $OUT_SIMULATE_FILE
+echo "" | tee -a $OUT_SIMULATE_FILE
+
+echo "# Simulation" | tee -a $OUT_SIMULATE_FILE
 
 # Simulate stock for each symbol
 for symbol in $symbolsParam
@@ -23,13 +37,13 @@ do
     win=0
     wallet=0
     piecesHold=0
-    echo "$symbol"
+    symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
+    echo "$symbol $symbolName" | tee -a $OUT_SIMULATE_FILE
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
     historyRSIs=$(head -n6 "$HISTORY_FILE" | tail -1)
     historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
-#echo historyMACDs "$historyMACDs"
 
     # shellcheck disable=SC2001
     RSIindex=1
@@ -37,7 +51,6 @@ do
     do
         # Buy
         MACDAt="$(echo "$historyMACDs" | cut -f "$RSIindex" -d ',')"
-        #echo MACDAt "$MACDAt"
         isMACDNegativ=$(echo "${MACDAt}" | awk '{print substr ($0, 0, 1)}')
         if [ "$valueRSI" -lt "$RSIBuyLevelParam" ] && [ "${isMACDNegativ}" = '-' ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
@@ -46,39 +59,51 @@ do
             amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-            echo Buy " "$piecesPerTrade" at positon:"$RSIindex" pieces: valueRSI:"$valueRSI" Quote:"$quoteAt"€ Amount="$amount"€ piecesHold=$piecesHold Wallet=$wallet€"
+            echo -e "Buy\t"$piecesPerTrade"pc\tpositon:"$RSIindex"\tvalueRSI:"$valueRSI"\tQuote:"$quoteAt"€\tAmount="$amount"€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
         fi
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
         if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StockSellLevelParam" ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
-            echo Sell "$piecesHold" at positon:"$RSIindex" stochAt:"$stochAt" Quote:"$quoteAt"€ Amount="$amount"€
+            echo -e "Sell\t"$piecesHold"pc\tpositon:"$RSIindex" stochAt:"$stochAt" Quote:"$quoteAt"€ Amount="$amount"€" | tee -a $OUT_SIMULATE_FILE
             piecesHold=0
             wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
             # Only one action in the early history! If will continue, will might buy at the very end and never sell!
             break;
         fi
         RSIindex=$((RSIindex + 1))
-        if [ "${RSIindex}" -eq 70 ]; then
-            # Abbort 10 before end
-            break; 
-        fi       
+        # if [ "${RSIindex}" -eq 85 ]; then
+        #     # Abbort 15 before end
+        #     break; 
+        # fi      
     done
-    echo "-----------"
+
+    # Sell all at the last day to get gid of all stocks for simulation
+    if [ "${piecesHold}" -gt 0 ]; then
+        quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
+        echo "Sell all at the last day!!" | tee -a $OUT_SIMULATE_FILE
+        amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
+        echo -e "Sell\t"$piecesHold"pc\tQuote:"$quoteAt"€\tAmount="$amount"€" | tee -a $OUT_SIMULATE_FILE
+        piecesHold=0
+        wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')    
+    fi
+
+    echo "-----------" | tee -a $OUT_SIMULATE_FILE
     if [ "${piecesHold}" -eq 0 ]; then
-        echo win=$wallet€
+        echo win=$wallet€ | tee -a $OUT_SIMULATE_FILE
         winOverAll=$(echo "$winOverAll $wallet" | awk '{print ($1 + $2)}')
     else
-        echo NO TRADE
-        echo wallet=$wallet€
+        echo NO TRADE | tee -a $OUT_SIMULATE_FILE
+        echo wallet=$wallet€ | tee -a $OUT_SIMULATE_FILE
         walletOverAll=$(echo "$walletOverAll $wallet" | awk '{print ($1 + $2)}')
     fi
-    echo piecesHold=$piecesHold
-    echo ""
+    echo "" | tee -a $OUT_SIMULATE_FILE
 done
 
-echo ""
-echo "=========="
-echo winOverAll=$winOverAll
-echo walletOverAll=$walletOverAll
+echo "" | tee -a $OUT_SIMULATE_FILE
+echo "==========" | tee -a $OUT_SIMULATE_FILE
+echo winOverAll=$winOverAll | tee -a $OUT_SIMULATE_FILE
+echo walletOverAll=$walletOverAll | tee -a $OUT_SIMULATE_FILE
+echo "" | tee -a $OUT_SIMULATE_FILE
+echo "" | tee -a $OUT_SIMULATE_FILE
