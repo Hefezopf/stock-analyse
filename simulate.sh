@@ -39,6 +39,7 @@ for symbol in $symbolsParam
 do
     win=0
     wallet=0
+    simulationWin=0
     piecesHold=0
     amountPerTrade=$amountPerTradeParam
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
@@ -72,10 +73,11 @@ do
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             echo -e "Sell\t"$piecesHold"pc\tpositon:"$RSIindex" stochAt:"$stochAt" Quote:"$quoteAt"€ Amount="$amount"€" | tee -a $OUT_SIMULATE_FILE
-            piecesHold=0
             wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-            # Only one action in the early history! If will continue, will might buy at the very end and never sell!
-            break;
+            echo "Intermediate win "$wallet"€"
+            simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
+            piecesHold=0
+            amountPerTrade="$amountPerTradeParam"
         fi
         RSIindex=$((RSIindex + 1))    
     done
@@ -87,24 +89,22 @@ do
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         echo -e "Sell\t"$piecesHold"pc\tQuote:"$quoteAt"€\tAmount="$amount"€" | tee -a $OUT_SIMULATE_FILE
         piecesHold=0
-        wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')    
+        wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
+        echo "Intermediate win "$wallet"€" | tee -a $OUT_SIMULATE_FILE
+        simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')  
     fi
 
     echo "-----------" | tee -a $OUT_SIMULATE_FILE
-    if [ "${piecesHold}" -eq 0 ]; then
-        echo win=$wallet€ | tee -a $OUT_SIMULATE_FILE
-        winOverAll=$(echo "$winOverAll $wallet" | awk '{print ($1 + $2)}')
-    else
-        echo NO TRADE | tee -a $OUT_SIMULATE_FILE
-        echo wallet=$wallet€ | tee -a $OUT_SIMULATE_FILE
-        walletOverAll=$(echo "$walletOverAll $wallet" | awk '{print ($1 + $2)}')
-    fi
+   # if [ "${piecesHold}" -eq 0 ]; then
+        echo "Simulation win="$simulationWin"€" | tee -a $OUT_SIMULATE_FILE
+        winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
+   # fi
     echo "" | tee -a $OUT_SIMULATE_FILE
 done
 
 echo "" | tee -a $OUT_SIMULATE_FILE
 echo "==========" | tee -a $OUT_SIMULATE_FILE
-echo winOverAll=$winOverAll | tee -a $OUT_SIMULATE_FILE
-echo walletOverAll=$walletOverAll | tee -a $OUT_SIMULATE_FILE
+echo "Win over all="$winOverAll"€" | tee -a $OUT_SIMULATE_FILE
+echo "Wallet over all="$walletOverAll"€" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
