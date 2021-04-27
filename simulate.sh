@@ -37,7 +37,6 @@ echo "# Simulation" | tee -a $OUT_SIMULATE_FILE
 # Simulate stock for each symbol
 for symbol in $symbolsParam
 do
-    win=0
     wallet=0
     simulationWin=0
     piecesHold=0
@@ -74,9 +73,10 @@ do
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             echo -e "Sell\t"$piecesHold"pc\tpositon:"$RSIindex" stochAt:"$stochAt" Quote:"$quoteAt"€ Amount="$amount"€" | tee -a $OUT_SIMULATE_FILE
             wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-            echo "Intermediate win "$wallet"€"
+            echo "Intermediate win "$wallet"€" | tee -a $OUT_SIMULATE_FILE
             simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
             piecesHold=0
+            wallet=0
             amountPerTrade="$amountPerTradeParam"
         fi
         RSIindex=$((RSIindex + 1))    
@@ -85,26 +85,23 @@ do
     # Sell all at the last day to get gid of all stocks for simulation
     if [ "${piecesHold}" -gt 0 ]; then
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
-        echo "Sell all at the last day!!" | tee -a $OUT_SIMULATE_FILE
+        echo "Sell all on the last day!!" | tee -a $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         echo -e "Sell\t"$piecesHold"pc\tQuote:"$quoteAt"€\tAmount="$amount"€" | tee -a $OUT_SIMULATE_FILE
-        piecesHold=0
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
         echo "Intermediate win "$wallet"€" | tee -a $OUT_SIMULATE_FILE
         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')  
     fi
 
     echo "-----------" | tee -a $OUT_SIMULATE_FILE
-   # if [ "${piecesHold}" -eq 0 ]; then
-        echo "Simulation win="$simulationWin"€" | tee -a $OUT_SIMULATE_FILE
-        winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
-   # fi
+    echo "Simulation win="$simulationWin"€" | tee -a $OUT_SIMULATE_FILE
+    winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
     echo "" | tee -a $OUT_SIMULATE_FILE
 done
 
 echo "" | tee -a $OUT_SIMULATE_FILE
-echo "==========" | tee -a $OUT_SIMULATE_FILE
-echo "Win over all="$winOverAll"€" | tee -a $OUT_SIMULATE_FILE
-echo "Wallet over all="$walletOverAll"€" | tee -a $OUT_SIMULATE_FILE
+echo "===========" | tee -a $OUT_SIMULATE_FILE
+echo "Win overall="$winOverAll"€" | tee -a $OUT_SIMULATE_FILE
+echo "Wallet overall="$walletOverAll"€" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
