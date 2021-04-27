@@ -42,13 +42,15 @@ jobs:
 
           symbolVar=${symbolInput:-$symbolDefault}  
 
-          sh ./script/sell.sh "$symbolVar"
+          chmod +x ./script/sell.sh
 
-          chmod +x ./analyse.sh
+          sh ./script/sell.sh "$symbolVar"
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
+
+          chmod +x ./analyse.sh
 
           sh ./analyse.sh "$symbolsVar" 1 offline 9 30
 

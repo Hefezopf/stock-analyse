@@ -9,6 +9,12 @@
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # Call example: ./simulate.sh 'BEI ALV' 2000 25 91 1.1
 
+# Debug mode
+#set -x
+
+# Import
+#. ./simulate-strategies.sh
+
 # Parameter
 symbolsParam=$1
 amountPerTradeParam=$2
@@ -54,6 +60,7 @@ do
     for valueRSI in $(echo "$historyRSIs" | sed "s/,/ /g")
     do
         # Buy
+       # SimulateStrategieBuyRSILowMACDNegativ "$historyQuotes" "$historyMACDs" "$amountPerTrade" "$RSIBuyLevelParam" "$incrementPerTradeParam"
         MACDAt="$(echo "$historyMACDs" | cut -f "$RSIindex" -d ',')"
         isMACDNegativ=$(echo "${MACDAt}" | awk '{print substr ($0, 0, 1)}')
         if [ "$valueRSI" -lt "$RSIBuyLevelParam" ] && [ "${isMACDNegativ}" = '-' ]; then
@@ -69,7 +76,9 @@ do
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
             echo -e "Buy\t"$piecesPerTrade"pc\tpositon:"$RSIindex"\tvalueRSI:"$valueRSI"\tQuote:"$quoteAt"€\tAmount="$amount"€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
         fi
+
         # Sell
+        #SimulateStrategieSellStochHigh #"$historyQuotes" "$historyStochs" "$StochSellLevelParam" "$amountPerTradeParam"
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
         if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
@@ -82,10 +91,11 @@ do
             wallet=0
             amountPerTrade="$amountPerTradeParam"
         fi
+
         RSIindex=$((RSIindex + 1))    
     done
 
-    # Sell all at the last day to get gid of all stocks for simulation
+    # Sell all on the last day, to get gid of all stocks for simulation
     if [ "${piecesHold}" -gt 0 ]; then
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
         echo "Sell all on the last day!!" | tee -a $OUT_SIMULATE_FILE
