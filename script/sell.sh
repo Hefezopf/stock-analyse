@@ -20,6 +20,9 @@ if { [ -z "$symbolParam" ]; } then
   exit 1
 fi
 
+# Remove from overall list, if not there do nothing
+#sed -i "s/${symbolParam} //" config/stock_symbols.txt
+
 # Add in front of overall list
 sed -i "0,/^/s//${symbolParam} /" config/stock_symbols.txt
 
