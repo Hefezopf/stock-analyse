@@ -19,6 +19,9 @@ RSIBuyLevelParam=$3
 StochSellLevelParam=$4
 incrementPerTradeParam=$5
 
+# Settings for currency formating like ',' or '.' with 'printf'
+export LC_ALL=en_US.UTF-8
+
 OUT_SIMULATE_FILE="out/_simulate.txt"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 #rm -rf "$OUT_SIMULATE_FILE"
@@ -96,7 +99,7 @@ do
                     amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
                     piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
                     wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-                    echo -e "Buy\t""$piecesPerTrade""pc\tpositon:$RSIindex\tvalueRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
+                    echo -e "Buy\t""$piecesPerTrade""pc\tPosition:$RSIindex\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
         
                     buyingDay=$((buyingDay + RSIindex))
                     amountOfTrades=$((amountOfTrades + 1))
@@ -120,14 +123,14 @@ do
         if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
-            echo -e "Sell\t""$piecesHold""pc\tpositon:$RSIindex stochAt:$stochAt Quote:$quoteAt€ Amount=$amount€" | tee -a $OUT_SIMULATE_FILE
+            echo -e "Sell\t""$piecesHold""pc\tPosition:$RSIindex\tStoch:$stochAt\tQuote:$quoteAt€\tAmount=$amount€" | tee -a $OUT_SIMULATE_FILE
             
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
-            echo "Average holding days: $averageHoldingDays days" | tee -a $OUT_SIMULATE_FILE
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
+            intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
             wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-            echo "Intermediate win=$wallet€ proz=$intermediateProcWin%" | tee -a $OUT_SIMULATE_FILE
+            echo "Intermediate Win=$wallet€ Proz=$intermediateProzWin% Average holding days=$averageHoldingDays days" | tee -a $OUT_SIMULATE_FILE
             simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
             piecesHold=0
             wallet=0
@@ -151,13 +154,14 @@ do
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         echo -e "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€" | tee -a $OUT_SIMULATE_FILE
         intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
+        intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
-        echo "Intermediate win=$wallet€ proz=$intermediateProzWin%" | tee -a $OUT_SIMULATE_FILE
+        echo "Intermediate Win=$wallet€ Proz=$intermediateProzWin%" | tee -a $OUT_SIMULATE_FILE
         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')  
     fi
 
     echo "---------------" | tee -a $OUT_SIMULATE_FILE
-    echo "Simulation win=$simulationWin€" | tee -a $OUT_SIMULATE_FILE
+    echo "Simulation Win=$simulationWin€" | tee -a $OUT_SIMULATE_FILE
     winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
     echo "" | tee -a $OUT_SIMULATE_FILE
 done

@@ -32,7 +32,7 @@ SimulateStrategieBuyRSILowMACDNegativ() {
         amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
         piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
         wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-        echo -e "Buy\t"$piecesPerTrade"pc\tpositon:"$RSIindex"\tvalueRSI:"$valueRSI"\tQuote:"$quoteAt"€\tAmount="$amount"€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
+        echo -e "Buy\t"$piecesPerTrade"pc\tPosition:"$RSIindex"\tvalueRSI:"$valueRSI"\tQuote:"$quoteAt"€\tAmount="$amount"€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
     fi    
 }
 
@@ -53,11 +53,10 @@ export amountPerTrade
 export simulationWin
 
     stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
-    #echo stochAt "$stochAt" piecesHold "$piecesHold"
     if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StochSellLevelParam" ]; then
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
-        echo -e "Sell\t"$piecesHold"pc\tpositon:"$RSIindex" stochAt:"$stochAt" Quote:"$quoteAt"€ Amount="$amount"€" | tee -a $OUT_SIMULATE_FILE
+        echo -e "Sell\t"$piecesHold"pc\tPosition:"$RSIindex" stoch:"$stochAt" Quote:"$quoteAt"€ Amount="$amount"€" | tee -a $OUT_SIMULATE_FILE
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
         echo "Intermediate win "$wallet"€" | tee -a $OUT_SIMULATE_FILE
         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
