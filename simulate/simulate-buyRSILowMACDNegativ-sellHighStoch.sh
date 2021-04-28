@@ -26,7 +26,7 @@ winOverall=0
 walletOverAll=0
 
 echo "# Simulate BuyRSILowMACDNegativ SellHighStoch" | tee -a $OUT_SIMULATE_FILE
-
+echo "#############################################" | tee -a $OUT_SIMULATE_FILE
 echo "# Parameter" | tee -a $OUT_SIMULATE_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
@@ -95,9 +95,13 @@ do
 
             echo "Intermediate win "$wallet"€" | tee -a $OUT_SIMULATE_FILE
             simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
+
             piecesHold=0
             wallet=0
             amountPerTrade="$amountPerTradeParam"
+            
+            amountOfTrades=0
+            buyingDay=0
         fi
 
         RSIindex=$((RSIindex + 1))    

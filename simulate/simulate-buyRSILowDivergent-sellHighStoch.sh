@@ -28,6 +28,7 @@ winOverall=0
 walletOverAll=0
 
 echo "# Simulate BuyRSILowDivergent SellHighStoch" | tee -a $OUT_SIMULATE_FILE
+echo "###########################################" | tee -a $OUT_SIMULATE_FILE
 
 echo "# Parameter" | tee -a $OUT_SIMULATE_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
@@ -102,6 +103,17 @@ do
             fi
         fi
 
+# Reset Divergent simulation: TODO noch testen
+        # Reset
+        # stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
+        # if [ "${RSIBuyLevel}" = 100 ] && [ "$stochAt" -gt 50 ]; then
+        #     echo -e "Reset Divergent simulation" | tee -a $OUT_SIMULATE_FILE
+        #     lastLowestQuoteAt=99999
+        #     lastLowestValueRSI=0
+        #     RSIBuyLevel="$RSIBuyLevelParam"
+        # fi
+
+
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
         if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StochSellLevelParam" ]; then
@@ -119,6 +131,9 @@ do
             piecesHold=0
             wallet=0
             amountPerTrade="$amountPerTradeParam"
+
+            amountOfTrades=0
+            buyingDay=0
 
             lastLowestQuoteAt=99999
             lastLowestValueRSI=0

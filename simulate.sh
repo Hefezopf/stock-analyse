@@ -15,11 +15,11 @@
 OUT_SIMULATE_FILE="out/_simulate.txt"
 rm -rf "$OUT_SIMULATE_FILE"
 
-#                                                          SYMBOL
-#                                                               AMOUNT_PER_TRADE
-#                                                                    RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE
-#                                                                         STOCH_SELL_LEVEL INCREMENT_PER_TRADE
-#                                                                              INCREMENT_PER_TRADE
+#                                                        SYMBOL
+#                                                             AMOUNT_PER_TRADE
+#                                                                  RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE
+#                                                                       STOCH_SELL_LEVEL INCREMENT_PER_TRADE
+#                                                                            INCREMENT_PER_TRADE
 ./simulate/simulate-buyRSILowDivergent-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5"
 
 ./simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5"
