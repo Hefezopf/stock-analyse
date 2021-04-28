@@ -121,13 +121,13 @@ do
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             echo -e "Sell\t""$piecesHold""pc\tpositon:$RSIindex stochAt:$stochAt Quote:$quoteAt€ Amount=$amount€" | tee -a $OUT_SIMULATE_FILE
-            wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-
+            
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
             echo "Average holding days: $averageHoldingDays days" | tee -a $OUT_SIMULATE_FILE
-
-            echo "Intermediate win $wallet€" | tee -a $OUT_SIMULATE_FILE
+            intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
+            wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
+            echo "Intermediate win=$wallet€ proz=$intermediateProcWin%" | tee -a $OUT_SIMULATE_FILE
             simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
             piecesHold=0
             wallet=0
@@ -150,8 +150,9 @@ do
         echo "Sell all on the last day!!" | tee -a $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         echo -e "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€" | tee -a $OUT_SIMULATE_FILE
+        intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
-        echo "Intermediate win $wallet€" | tee -a $OUT_SIMULATE_FILE
+        echo "Intermediate win=$wallet€ proz=$intermediateProzWin%" | tee -a $OUT_SIMULATE_FILE
         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')  
     fi
 
