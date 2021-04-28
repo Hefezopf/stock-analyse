@@ -19,13 +19,15 @@ RSIBuyLevelParam=$3
 StochSellLevelParam=$4
 incrementPerTradeParam=$5
 
+RSIBuyLevel=$RSIBuyLevelParam
+
 OUT_SIMULATE_FILE="out/_simulate.txt"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 #rm -rf "$OUT_SIMULATE_FILE"
 winOverall=0
 walletOverAll=0
 
-echo "# Simulate BuyRSILowMACDNegativ SellHighStoch" | tee -a $OUT_SIMULATE_FILE
+echo "# Simulate BuyRSILowDivergent SellHighStoch" | tee -a $OUT_SIMULATE_FILE
 
 echo "# Parameter" | tee -a $OUT_SIMULATE_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
@@ -42,6 +44,9 @@ echo "# Simulation" | tee -a $OUT_SIMULATE_FILE
 # Simulate stock for each symbol
 for symbol in $symbolsParam
 do
+
+    lastLowestQuoteAt=99999
+    lastLowestValueRSI=0
     amountOfTrades=0
     buyingDay=0
 
@@ -64,21 +69,37 @@ do
         # Buy
         MACDAt="$(echo "$historyMACDs" | cut -f "$RSIindex" -d ',')"
         isMACDNegativ=$(echo "${MACDAt}" | awk '{print substr ($0, 0, 1)}')
-        if [ "$valueRSI" -lt "$RSIBuyLevelParam" ] && [ "${isMACDNegativ}" = '-' ]; then
-            quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
-            amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
-            piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
-            piecesPerTrade=${piecesPerTrade%.*}
-            if [ "${piecesPerTrade}" -eq 0 ]; then
-                piecesPerTrade=1
-            fi
-            amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
-            piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
-            wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-            echo -e "Buy\t"$piecesPerTrade"pc\tpositon:"$RSIindex"\tvalueRSI:"$valueRSI"\tQuote:"$quoteAt"€\tAmount="$amount"€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
+        if [ "$valueRSI" -lt "$RSIBuyLevel" ] && [ "${isMACDNegativ}" = '-' ]; then
+            quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')"
 
-            buyingDay=$((buyingDay + RSIindex))
-            amountOfTrades=$((amountOfTrades + 1))            
+            # And "Divergent" condition
+            newLower=$(echo "$quoteAt" "$lastLowestQuoteAt" | awk '{if ($1 < $2) print "true"; else print "false"}')
+            if [ "$newLower" = true ] && [ "$lastLowestValueRSI" = 0 ]; then
+                # Init -> no trade
+                RSIBuyLevel=100
+                lastLowestValueRSI="$valueRSI"
+                lastLowestQuoteAt="$quoteAt"
+            fi
+            if [ "$newLower" = true ] && [ "$valueRSI" -gt "$lastLowestValueRSI" ]; then
+                # Reset lower level!
+                RSIBuyLevel=100
+                lastLowestValueRSI="$valueRSI"
+                lastLowestQuoteAt="$quoteAt"
+    
+                amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
+                piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
+                piecesPerTrade=${piecesPerTrade%.*}
+                if [ "${piecesPerTrade}" -eq 0 ]; then
+                    piecesPerTrade=1
+                fi
+                amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
+                piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
+                wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
+                echo -e "Buy\t"$piecesPerTrade"pc\tpositon:"$RSIindex"\tvalueRSI:"$valueRSI"\tQuote:"$quoteAt"€\tAmount="$amount"€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
+       
+                buyingDay=$((buyingDay + RSIindex))
+                amountOfTrades=$((amountOfTrades + 1))
+            fi
         fi
 
         # Sell
@@ -98,6 +119,10 @@ do
             piecesHold=0
             wallet=0
             amountPerTrade="$amountPerTradeParam"
+
+            lastLowestQuoteAt=99999
+            lastLowestValueRSI=0
+            RSIBuyLevel="$RSIBuyLevelParam"
         fi
 
         RSIindex=$((RSIindex + 1))    
