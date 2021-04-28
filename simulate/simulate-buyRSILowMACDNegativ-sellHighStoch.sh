@@ -46,7 +46,6 @@ for symbol in $symbolsParam
 do
     amountOfTrades=0
     buyingDay=0
-
     wallet=0
     simulationWin=0
     piecesHold=0

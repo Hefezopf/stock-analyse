@@ -19,8 +19,6 @@ RSIBuyLevelParam=$3
 StochSellLevelParam=$4
 incrementPerTradeParam=$5
 
-RSIBuyLevel="$RSIBuyLevelParam"
-
 OUT_SIMULATE_FILE="out/_simulate.txt"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 #rm -rf "$OUT_SIMULATE_FILE"
@@ -46,16 +44,15 @@ echo "# Simulation" | tee -a $OUT_SIMULATE_FILE
 # Simulate stock for each symbol
 for symbol in $symbolsParam
 do
-
     lastLowestQuoteAt=99999
     lastLowestValueRSI=0
     amountOfTrades=0
     buyingDay=0
-
     wallet=0
     simulationWin=0
     piecesHold=0
     amountPerTrade=$amountPerTradeParam
+    RSIBuyLevel="$RSIBuyLevelParam"
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
     echo "" | tee -a $OUT_SIMULATE_FILE
     echo "$symbol $symbolName" | tee -a $OUT_SIMULATE_FILE
@@ -77,32 +74,34 @@ do
 
             # And "Divergent" condition
             newLower=$(echo "$quoteAt" "$lastLowestQuoteAt" | awk '{if ($1 < $2) print "true"; else print "false"}')
-            if [ "$newLower" = true ] && [ "$lastLowestValueRSI" = 0 ]; then
-                # Init -> no trade
-                RSIBuyLevel=100
-                lastLowestValueRSI="$valueRSI"
-                lastLowestQuoteAt="$quoteAt"
-            fi
-            if [ "$newLower" = true ] && [ "$valueRSI" -gt "$lastLowestValueRSI" ]; then
-                # Reset lower level!
-                RSIBuyLevel=100
-                lastLowestValueRSI="$valueRSI"
-                lastLowestQuoteAt="$quoteAt"
-    
-                piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
-                amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
-                piecesPerTrade=${piecesPerTrade%.*}
-                if [ "${piecesPerTrade}" -eq 0 ]; then
-                    piecesPerTrade=1
+            if [ "$newLower" = true ]; then
+                if [ "$lastLowestValueRSI" = 0 ]; then
+                    # Init -> no trade
+                    RSIBuyLevel=100
+                    lastLowestValueRSI="$valueRSI"
+                    lastLowestQuoteAt="$quoteAt"
                 fi
-                amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
-                piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
-                wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-                echo -e "Buy\t""$piecesPerTrade""pc\tpositon:$RSIindex\tvalueRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
-       
-                buyingDay=$((buyingDay + RSIindex))
-                amountOfTrades=$((amountOfTrades + 1))
-            fi
+                if [ "$valueRSI" -gt "$lastLowestValueRSI" ]; then
+                    # Reset lower level!
+                    RSIBuyLevel=100
+                    lastLowestValueRSI="$valueRSI"
+                    lastLowestQuoteAt="$quoteAt"
+        
+                    piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
+                    amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
+                    piecesPerTrade=${piecesPerTrade%.*}
+                    if [ "${piecesPerTrade}" -eq 0 ]; then
+                        piecesPerTrade=1
+                    fi
+                    amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
+                    piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
+                    wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
+                    echo -e "Buy\t""$piecesPerTrade""pc\tpositon:$RSIindex\tvalueRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
+        
+                    buyingDay=$((buyingDay + RSIindex))
+                    amountOfTrades=$((amountOfTrades + 1))
+                fi
+            fi                
         fi
 
 # Reset Divergent simulation: TODO noch testen
