@@ -567,14 +567,17 @@ do
     echo "# Quote oldest,..,newest: 87 Values?" >> "$HISTORY_FILE"
     echo "$PRE_FIX$commaPriceList" >> "$HISTORY_FILE"
     
+    # shellcheck disable=SC2001
     stochasticQuoteList=$(echo "$stochasticQuoteList" | sed 's/ //g')
     echo "# Stoch oldest,..,newest" >> "$HISTORY_FILE"
     echo "$PRE_FIX$stochasticQuoteList" >> "$HISTORY_FILE"
-    
+
+    # shellcheck disable=SC2001 
     RSIQuoteList=$(echo "$RSIQuoteList" | sed 's/ //g')
     echo "# RSI oldest,..,newest" >> "$HISTORY_FILE"
     echo "$PRE_FIX$RSIQuoteList" >> "$HISTORY_FILE"
 
+    # shellcheck disable=SC2001
     MACDList=$(echo "$MACDList" | sed 's/ //g')
     echo "# MACD oldest,..,newest" >> "$HISTORY_FILE"
     echo "$PRE_FIX$MACDList" >> "$HISTORY_FILE"
