@@ -71,9 +71,9 @@ jobs:
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt
-          git add data/*
-          git add history/*
-          git add alarm/*
+          git add data/*.txt
+          git add history/*.txt
+          git add alarm/*.txt
           git add out/*.html
           git commit -am "Github Result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push
