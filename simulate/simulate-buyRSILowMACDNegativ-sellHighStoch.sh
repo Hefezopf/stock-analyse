@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # This script simulates a given stock quote.
-# Call: ./simulate.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE
+# Call: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI ALV BAS ...'
 # 2. Parameter: AMOUNT_PER_TRADE: How much money will be spent on a single trade; like 2000€
 # 3. Parameter: RSI_BUY_LEVEL: RSI level when the buying trade will be trigged: like 25
 # 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 91
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
-# Call example: ./simulate.sh 'BEI ALV' 2000 25 91 1.1
+# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI ALV' 2000 25 91 1.1
 
 # Debug mode
 #set -x
@@ -80,7 +80,7 @@ do
             amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-            echo -e "Buy\t""$piecesPerTrade""pc\tPosition:$RSIindex\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€" | tee -a $OUT_SIMULATE_FILE
+            echo -e "Buy\t""$piecesPerTrade""pc\tPosition:$RSIindex\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€\tSymbol:"$symbol"" | tee -a $OUT_SIMULATE_FILE
 
             buyingDay=$((buyingDay + RSIindex))
             amountOfTrades=$((amountOfTrades + 1))            
@@ -91,10 +91,11 @@ do
         if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
-            echo -e "Sell\t""$piecesHold""pc\tPosition:$RSIindex\tStoch:$stochAt\tQuote:$quoteAt€\tAmount=$amount€" | tee -a $OUT_SIMULATE_FILE
+            echo -e "Sell\t""$piecesHold""pc\tPosition:$RSIindex\tStoch:$stochAt\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:"$symbol"" | tee -a $OUT_SIMULATE_FILE
             
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
+            averageHoldingDays=$(printf "%.1f" "$averageHoldingDays")
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
             wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
@@ -117,7 +118,7 @@ do
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
         echo "Sell all on the last day!!" | tee -a $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
-        echo -e "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€" | tee -a $OUT_SIMULATE_FILE
+        echo -e "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:"$symbol"" | tee -a $OUT_SIMULATE_FILE
         intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
         intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
