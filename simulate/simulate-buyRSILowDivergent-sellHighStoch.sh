@@ -8,6 +8,7 @@
 # 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 91
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # Call example: simulate/simulate-buyRSILowDivergent-sellHighStoch.sh 'BEI ALV' 2000 25 91 1.1
+# Call example: simulate/simulate-buyRSILowDivergent-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1
 
 # Debug mode
 #set -x
@@ -146,7 +147,6 @@ do
             lastLowestValueRSI=0
             RSIBuyLevel="$RSIBuyLevelParam"
         fi
-
         RSIindex=$((RSIindex + 1))    
     done
 
