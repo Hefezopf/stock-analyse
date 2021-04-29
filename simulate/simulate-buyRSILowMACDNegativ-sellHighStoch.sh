@@ -25,6 +25,7 @@ export LC_ALL=en_US.UTF-8
 
 OUT_SIMULATE_FILE="out/_simulate.txt"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
+
 #rm -rf "$OUT_SIMULATE_FILE"
 export winOverall=0
 walletOverAll=0
@@ -104,11 +105,9 @@ do
             wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
             echo "Intermediate Win=$wallet€ Proz=$intermediateProzWin% Average holding days=$averageHoldingDays days" | tee -a $OUT_SIMULATE_FILE
             simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
-
             piecesHold=0
             wallet=0
             amountPerTrade="$amountPerTradeParam"
-            
             amountOfTrades=0
             buyingDay=0
         fi

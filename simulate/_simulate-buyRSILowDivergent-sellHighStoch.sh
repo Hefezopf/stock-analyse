@@ -25,11 +25,6 @@ export LC_ALL=en_US.UTF-8
 
 OUT_SIMULATE_FILE="out/_simulate.txt"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
-
-RSI_MAX_BUY_LEVEL=42
-RSI_LOW_VALUE=0
-QUOTE_MAX_VALUE=999999
-
 #rm -rf "$OUT_SIMULATE_FILE"
 export winOverall=0
 walletOverAll=0
@@ -53,8 +48,8 @@ echo "# Simulation" | tee -a $OUT_SIMULATE_FILE
 # Simulate stock for each symbol
 for symbol in $symbolsParam
 do
-    lastLowestQuoteAt=$QUOTE_MAX_VALUE
-    lastLowestValueRSI=$RSI_LOW_VALUE
+    lastLowestQuoteAt=99999
+    lastLowestValueRSI=0
     amountOfTrades=0
     buyingDay=0
     wallet=0
@@ -81,13 +76,21 @@ do
         if [ "$valueRSI" -lt "$RSIBuyLevel" ] && [ "${isMACDNegativ}" = '-' ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')"
 
-            # "Divergent" condition
+            # And "Divergent" condition
             newLower=$(echo "$quoteAt" "$lastLowestQuoteAt" | awk '{if ($1 < $2) print "true"; else print "false"}')
             if [ "$newLower" = true ]; then
-                # NOT at the first lower level (RSI_LOW_VALUE=0=initVaLue)
-                if [ "$valueRSI" -gt "$lastLowestValueRSI" ] && [ "${lastLowestValueRSI}" -gt $RSI_LOW_VALUE ]; then
+                if [ "$lastLowestValueRSI" = 0 ]; then
+                    # Init -> no trade
+                    RSIBuyLevel=100
+                    lastLowestValueRSI="$valueRSI"
+                    lastLowestQuoteAt="$quoteAt"
+                fi
+                if [ "$valueRSI" -gt "$lastLowestValueRSI" ]; then
                     # Reset lower level!
-                    RSIBuyLevel=$RSI_MAX_BUY_LEVEL
+                    RSIBuyLevel=100
+                    lastLowestValueRSI="$valueRSI"
+                    lastLowestQuoteAt="$quoteAt"
+        
                     piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
                     amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
                     piecesPerTrade=${piecesPerTrade%.*}
@@ -103,10 +106,19 @@ do
                     buyingDay=$((buyingDay + RSIindex))
                     amountOfTrades=$((amountOfTrades + 1))
                 fi
-            fi
-            lastLowestValueRSI="$valueRSI"
-            lastLowestQuoteAt="$quoteAt"                         
+            fi                
         fi
+
+# Reset Divergent simulation: TODO noch testen
+        # Reset
+        # stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
+        # if [ "${RSIBuyLevel}" = 100 ] && [ "$stochAt" -gt 50 ]; then
+        #     echo -e "Reset Divergent simulation" | tee -a $OUT_SIMULATE_FILE
+        #     lastLowestQuoteAt=99999
+        #     lastLowestValueRSI=0
+        #     RSIBuyLevel="$RSIBuyLevelParam"
+        # fi
+
 
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
@@ -127,10 +139,12 @@ do
             piecesHold=0
             wallet=0
             amountPerTrade="$amountPerTradeParam"
+
             amountOfTrades=0
             buyingDay=0
-            lastLowestQuoteAt=$QUOTE_MAX_VALUE
-            lastLowestValueRSI=$RSI_LOW_VALUE
+
+            lastLowestQuoteAt=99999
+            lastLowestValueRSI=0
             RSIBuyLevel="$RSIBuyLevelParam"
         fi
         RSIindex=$((RSIindex + 1))    
@@ -164,3 +178,4 @@ echo "" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 echo "Good Luck! Donate? $creationDate +2h" | tee -a $OUT_SIMULATE_FILE
+
