@@ -62,7 +62,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 # shellcheck disable=SC2089
-GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a> $creationDate (+2h)</p>"
+GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a> $creationDate +2h</p>"
 HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
 <script>
     var toggleIsVisible = false;

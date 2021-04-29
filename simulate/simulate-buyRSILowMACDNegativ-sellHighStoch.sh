@@ -80,7 +80,8 @@ do
             amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-            echo -e "Buy\t""$piecesPerTrade""pc\tPosition:$RSIindex\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€\tSymbol:"$symbol"" | tee -a $OUT_SIMULATE_FILE
+            quoteAt=$(printf "%.2f" "$quoteAt")
+            echo -e "Buy\t""$piecesPerTrade""pc\tPosition:$RSIindex\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
 
             buyingDay=$((buyingDay + RSIindex))
             amountOfTrades=$((amountOfTrades + 1))            
@@ -91,7 +92,8 @@ do
         if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
-            echo -e "Sell\t""$piecesHold""pc\tPosition:$RSIindex\tStoch:$stochAt\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:"$symbol"" | tee -a $OUT_SIMULATE_FILE
+            quoteAt=$(printf "%.2f" "$quoteAt")
+            echo -e "Sell\t""$piecesHold""pc\tPosition:$RSIindex\tStoch:$stochAt\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
             
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
@@ -118,7 +120,8 @@ do
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
         echo "Sell all on the last day!!" | tee -a $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
-        echo -e "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:"$symbol"" | tee -a $OUT_SIMULATE_FILE
+        quoteAt=$(printf "%.2f" "$quoteAt")
+        echo -e "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
         intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
         intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
@@ -138,3 +141,5 @@ echo "Win overall=$winOverAll€" | tee -a $OUT_SIMULATE_FILE
 echo "Wallet overall=$walletOverAll€" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
+creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
+echo "Good Luck! Donate? $creationDate +2h" | tee -a $OUT_SIMULATE_FILE
