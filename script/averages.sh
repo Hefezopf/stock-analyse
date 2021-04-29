@@ -8,6 +8,7 @@ export LC_NUMERIC=en_US.UTF-8
 MACD_12_26() {
     _averagePriceList12Param=${1}
     _averagePriceList26Param=${2}
+
     export MACDList
     export lastMACDValue
 
@@ -55,6 +56,7 @@ MACD_12_26() {
 EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+
     export averagePriceList
 
     i=1
@@ -85,6 +87,7 @@ EMAverageOfDays() {
 AverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+
     export averagePriceList
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
@@ -109,7 +112,9 @@ AverageOfDays() {
 RSIOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+
     export RSIQuoteList
+
     RSIwinningDaysFile="$(mktemp -p /dev/shm/)"
     RSIloosingDaysFile="$(mktemp -p /dev/shm/)"
     i=1
@@ -128,24 +133,23 @@ RSIOfDays() {
     done
 
     i=1
-    while [ "$i" -le 100 ]; do
-        i=$((i + 1))
+    while [ "$i" -le 100 ]; do        
         # Fill with blank comma seperated data  
-        if [ $i -ge $((_amountOfDaysParam + 1)) ]; then # >= 14
+        if [ $i -ge "$_amountOfDaysParam" ]; then # >= 14   
             RSIwinningDaysAvg=$(tail -"${i}" "$RSIwinningDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')
-            RSIloosingDaysAvg=$(tail -"${i}" "$RSIloosingDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }') 
+            RSIloosingDaysAvg=$(tail -"${i}" "$RSIloosingDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')    
             if [ "${RSIloosingDaysAvg}" = 0 ]; then
                 RSIQuote=100
             else
                 RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')
-                # slightly differant algorithm
-                # RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
+                # slightly different algorithm, but almost no see not difference?!
+                #RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
             fi
-
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
-    done  
+        i=$((i + 1))
+    done 
 }
 
 # StochasticOfDays function:
@@ -154,6 +158,7 @@ RSIOfDays() {
 StochasticOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+
     export stochasticQuoteList
 
     stochasticFile="$(mktemp -p /dev/shm/)"
@@ -173,7 +178,6 @@ StochasticOfDays() {
         lastStochasticRaw=$(head -n 1 "$stochasticFile")
         lowestStochasticRaw=$(sort -g "$stochasticFile" | head -n 1)
         highestStochasticRaw=$(sort -gr "$stochasticFile" | head -n 1)
-
         if awk 'BEGIN {exit !('"$highestStochasticRaw"' > '"$lowestStochasticRaw"')}'; then
             # Formula=((C – Ln )/( Hn – Ln )) * 100
             lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
