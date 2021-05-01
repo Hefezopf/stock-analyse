@@ -16,8 +16,6 @@ Alerts via email.
 
 ## Outputs:
 - out/SYMBOL.html
-- out/_result.html
-- out/_result_schedule.html
 
 
 # Execute
