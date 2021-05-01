@@ -13,9 +13,12 @@
 # To uppercase
 symbolParam=$(echo "${1}" | tr '[:lower:]' '[:upper:]')
 
-echo "(re)buy ${symbolParam} ${2} ${3} ..."
+# Price has to be without comma
+priceParam=$(echo "${2}" | sed 's/,/./g')
 
-if { [ -z "$symbolParam" ] || [ -z "$2" ] || [ -z "$3" ]; } then
+echo "(re)buy ${symbolParam} ${priceParam} ${3} ..."
+
+if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$3" ]; } then
   echo "Not all parameters specified!"
   echo "Call: sh ./buy.sh SYMBOL PRICE PIECES"
   echo "Example: sh ./buy.sh BEI 9.99 100"
@@ -27,7 +30,7 @@ case "$symbolParam" in
 esac
 
 case "$3" in
-    ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 2 ;;
+    ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
 esac
 
 # Remove from overall list, if not there do nothing
@@ -41,7 +44,7 @@ sed -i "/^${symbolParam} /d" config/own_symbols.txt
 
 # Add in front of own list
 today=$(date --date="-0 day" +"%Y-%m-%d")
-sed -i '1 i\'${symbolParam}' '${2}' '$today' '${3}'' config/own_symbols.txt
+sed -i '1 i\'${symbolParam}' '${priceParam}' '$today' '${3}'' config/own_symbols.txt
 
 # Encript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null

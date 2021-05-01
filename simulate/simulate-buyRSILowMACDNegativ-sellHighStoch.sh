@@ -83,7 +83,7 @@ do
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
-            echo -e "Buy\t""$piecesPerTrade""pc\tPosition:$RSIindex\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
+            echo -e "Buy\tPosition:$RSIindex\t""$piecesPerTrade""pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
 
             buyingDay=$((buyingDay + RSIindex))
             amountOfTrades=$((amountOfTrades + 1))            
