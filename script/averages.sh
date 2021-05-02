@@ -35,8 +35,6 @@ MACD_12_26() {
         difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
         difference=$(printf "%.2f" $difference)  
  
- # TODO why are the first 3 MACD value not calculated correctly?
-#TODO 3More
         # Ignore first incorrect number?!
         if [ "$kk_index" -eq 15 ]; then 
             MACDList="$MACDList , $difference, $difference,"
@@ -108,7 +106,7 @@ AverageOfDays() {
 
 # RSIOfDays function:
 # Input: ${x}
-# Output: RSIQuoteList is comma separted list
+# Output: RSIQuoteList is comma separted list, beforeLastRSIQuoteRounded, lastRSIQuoteRounded
 RSIOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
@@ -145,6 +143,7 @@ RSIOfDays() {
                 # slightly different algorithm, but almost no see not difference?!
                 #RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
             fi
+            beforeLastRSIQuoteRounded="$lastRSIQuoteRounded"
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi

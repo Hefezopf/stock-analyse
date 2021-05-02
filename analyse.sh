@@ -272,6 +272,7 @@ do
     # Calculate RSI 14 values
     RSIInDays14=14
     lastRSIQuoteRounded=""
+    beforeLastRSIQuoteRounded=""
     RSIQuoteList=""
     if [ "$CalculateRSI" = true ]; then
         RSIOfDays $RSIInDays14 "$DATA_FILE"
@@ -319,6 +320,12 @@ do
     #
     # Apply strategies
     #
+
+    # Buy Strategie: Divergence RSI
+    beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
+    beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
+    resultStrategieUnderratedDivergenceRSI=""
+    StrategieUnderratedDivergenceRSI $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
 
     # Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
     fileSize=$(stat -c %s "$DATA_FILE")
@@ -403,6 +410,7 @@ do
 
         if 
            [ "$(echo "$resultStrategieByTendency" | cut -f 1 -d ':')" = "Buy" ] ||
+           [ "${#resultStrategieUnderratedDivergenceRSI}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
@@ -447,6 +455,7 @@ do
         echo "<p style=\"color:rgb(75, 192, 192);\"><b>" "$resultStrategieByTendency" "</b></p>"
         
         # Buy
+        echo "<p style=\"color:rgb(245, 111, 66);\"><b>" "$resultStrategieUnderratedDivergenceRSI" "</b></p>"
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
         echo "<p style=\"color:rgb(205, 205, 0);\"><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieUnderratedXLowStochastic" "</b></p>"

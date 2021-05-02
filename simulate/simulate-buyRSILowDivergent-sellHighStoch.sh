@@ -114,7 +114,7 @@ do
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
-            echo -e "Sell\t""$piecesHold""pc\tPosition:$RSIindex\tStoch:$stochAt\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
+            echo -e "Sell\tPosition:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
             
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')

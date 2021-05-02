@@ -1,5 +1,37 @@
 #!/bin/sh
 
+# StrategieUnderratedDivergenceRSI function:
+# Divergence RSI
+# Strategie: Divergence RSI
+# Input: ${x}
+# Output: resultStrategieUnderratedDivergenceRSI
+StrategieUnderratedDivergenceRSI() { 
+    _outResultFileParam=${1}
+    _symbolParam=${2}
+    _symbolNameParam=${3}
+    _markerOwnStockParam=${4}
+    _lastMACDParam=${5}
+    _lastQuoteParam=${6}
+    _beforeLastQuoteParam=${7}
+    _lastRSIParam=${8}
+    _beforeLastRSIParam=${9}
+
+    export resultStrategieUnderratedDivergenceRSI=""
+    isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
+    if [ "${isMACDNegativ}" = '-' ]; then
+        newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
+        if [ "$newLower" = true ]; then      
+            if [ "$_lastRSIParam" -gt "$_beforeLastRSIParam" ]; then # && [ "${lastLowestValueRSI}" -gt $RSI_LOW_VALUE ]; then 
+                alarmAbbrevValue="D+"$alarmAbbrevValue
+                reasonPrefix="Buy: Low RSI divergence (D)"
+                resultStrategieUnderratedDivergenceRSI="$reasonPrefix"
+                echo "$resultStrategieUnderratedDivergenceRSI"
+                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"         
+            fi
+        fi                 
+    fi
+}
+
 # StrategieByTendency function:
 # Strategie: last quote in relation to tendency
 # Input: ${x}
