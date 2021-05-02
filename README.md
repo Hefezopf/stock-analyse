@@ -39,10 +39,6 @@ Scheduled Cron Jobs is pre configured in this action
 
 https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.workflow.yml
 
-The daily schedule result file can be accessed here:
-
-[Daily Schedule Result](https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html "Daily Schedule Result")
-
 
 ## cURL
 ./curl_github_dispatch_analyse.sh "BEI ALV" 1 offline 9 30
