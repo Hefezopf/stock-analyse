@@ -325,7 +325,7 @@ do
     beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
     beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
     resultStrategieUnderratedDivergenceRSI=""
-    StrategieUnderratedDivergenceRSI $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
+    StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
 
     # Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
     fileSize=$(stat -c %s "$DATA_FILE")

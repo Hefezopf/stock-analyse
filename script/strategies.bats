@@ -22,17 +22,20 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieUnderratedDivergenceRSI 
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
 
-  StrategieUnderratedDivergenceRSI "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "0" "99" "100" "20" "19"
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "0" "99" "100" "20" "19"
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
   
-  StrategieUnderratedDivergenceRSI "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "100" "100" "20" "19"
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "100" "100" "20" "19"
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
 
-  StrategieUnderratedDivergenceRSI "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "21"
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "21"
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
 
-  StrategieUnderratedDivergenceRSI "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "19"
-  [ "$resultStrategieUnderratedDivergenceRSI" == 'Buy: Low RSI divergence (D)' ]
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "30" "29"
+  [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
+
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "19"
+  [ "$resultStrategieUnderratedDivergenceRSI" == 'Buy: RSI divergence (D)' ]
 }
 
 @test "StrategieOverratedXHighRSI" {
