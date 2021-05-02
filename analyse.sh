@@ -321,12 +321,6 @@ do
     # Apply strategies
     #
 
-    # Buy Strategie: Divergence RSI
-    beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
-    beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
-    resultStrategieUnderratedDivergenceRSI=""
-    StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
-
     # Valid data is more then 200kb. Oherwise data might be damaged or unsufficiant
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
@@ -342,6 +336,12 @@ do
             resultStrategieUnderratedLowHorizontalMACD=""
             StrategieUnderratedLowHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
         fi
+
+        # Buy Strategie: Divergence RSI
+        beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
+        beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
+        resultStrategieUnderratedDivergenceRSI=""
+        StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
