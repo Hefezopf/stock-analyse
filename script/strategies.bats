@@ -12,6 +12,30 @@ OUT_RESULT_FILE=temp/_result.html
 SYMBOL=BEI
 SYMBOL_NAME="BEI BEIERSDORF AG"
 
+@test "StrategieOverratedDivergenceRSI" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieOverratedDivergenceRSI 
+  [ "$resultStrategieOverratedDivergenceRSI" == '' ]
+
+  StrategieOverratedDivergenceRSI 75 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "0" "101" "100" "80" "79"
+  [ "$resultStrategieOverratedDivergenceRSI" == '' ]
+  
+  StrategieOverratedDivergenceRSI 75 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "1" "100" "100" "80" "81"
+  [ "$resultStrategieOverratedDivergenceRSI" == '' ]
+
+  StrategieOverratedDivergenceRSI 75 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "101" "100" "80" "81"
+  [ "$resultStrategieOverratedDivergenceRSI" == '' ]
+
+  StrategieOverratedDivergenceRSI 75 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "1" "101" "100" "70" "71"
+  [ "$resultStrategieOverratedDivergenceRSI" == '' ]
+
+  StrategieOverratedDivergenceRSI 75 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "1" "101" "100" "80" "81"
+  [ "$resultStrategieOverratedDivergenceRSI" == 'Sell: RSI divergence (D)' ]
+}
 
 @test "StrategieUnderratedDivergenceRSI" {
   function WriteComdirectUrlAndStoreFileList() {

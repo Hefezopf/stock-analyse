@@ -365,6 +365,10 @@ do
             StrategieOverratedHighHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
         fi
 
+        # Sell Strategie: Divergence RSI
+        resultStrategieOverratedDivergenceRSI=""
+        StrategieOverratedDivergenceRSI "$RSIQuoteUpper" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
+
         # Sell Strategie: High Percentage & Stochastic
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv95" "$agv18OverAgv38" "$agv38OverAgv95" "$agv18OverAgv95" "$last" "$percentageLesserFactor" "$average18" "$average38" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
@@ -402,6 +406,7 @@ do
         if [ "${markerOwnStock}" = '*' ] &&
            {
             [ "$(echo "$resultStrategieByTendency" | cut -f 1 -d ':')" = "Sell" ] ||
+            [ "${#resultStrategieOverratedDivergenceRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] ||
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
@@ -463,6 +468,7 @@ do
         echo "<p style=\"color:rgb(139, 126, 102);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
         
         # Sell
+        echo "<p style=\"color:rgb(245, 111, 66);\"><b>" "$resultStrategieOverratedDivergenceRSI" "</b></p>"
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
         echo "<p style=\"color:rgb(205, 205, 0);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
         echo "<p style=\"color:rgb(255, 159, 64);\"><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"

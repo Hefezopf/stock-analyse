@@ -1,8 +1,41 @@
 #!/bin/sh
 
+# StrategieOverratedDivergenceRSI function:
+# Divergence RSI
+# Strategie: RSI divergence (D)
+# Input: ${x}
+# Output: resultStrategieOverratedDivergenceRSI
+StrategieOverratedDivergenceRSI() { 
+    _highRSIValueParam=${1}
+    _outResultFileParam=${2}
+    _symbolParam=${3}
+    _symbolNameParam=${4}
+    _markerOwnStockParam=${5}
+    _lastMACDParam=${6}
+    _lastQuoteParam=${7}
+    _beforeLastQuoteParam=${8}
+    _lastRSIParam=${9}
+    _beforeLastRSIParam=${10}
+    export resultStrategieOverratedDivergenceRSI=""
+
+    isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
+    if [ "${_lastRSIParam}" -gt "${_highRSIValueParam}" ] && [ "${isMACDNegativ}" != '-' ]; then
+        newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')
+        if [ "$newHigh" = true ]; then      
+            if [ "$_lastRSIParam" -lt "$_beforeLastRSIParam" ]; then
+                alarmAbbrevValue="D-"$alarmAbbrevValue
+                reasonPrefix="Sell: RSI divergence (D)"
+                resultStrategieOverratedDivergenceRSI="$reasonPrefix"
+                echo "$resultStrategieOverratedDivergenceRSI"
+                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"         
+            fi
+        fi
+    fi
+}
+
 # StrategieUnderratedDivergenceRSI function:
 # Divergence RSI
-# Strategie: Divergence RSI
+# Strategie: RSI divergence (D)
 # Input: ${x}
 # Output: resultStrategieUnderratedDivergenceRSI
 StrategieUnderratedDivergenceRSI() { 
@@ -16,8 +49,8 @@ StrategieUnderratedDivergenceRSI() {
     _beforeLastQuoteParam=${8}
     _lastRSIParam=${9}
     _beforeLastRSIParam=${10}
-
     export resultStrategieUnderratedDivergenceRSI=""
+
     isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
     if [ "${_lastRSIParam}" -lt "${_lowRSIValueParam}" ] && [ "${isMACDNegativ}" = '-' ]; then
         newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
