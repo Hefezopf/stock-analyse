@@ -149,7 +149,7 @@ RSIOfDays() {
 
 # StochasticOfDays function:
 # Input: ${x}
-# Output: stochasticQuoteList is comma separted list
+# Output: stochasticQuoteList is comma separted list, beforeLastStochasticQuoteRounded, lastStochasticQuoteRounded
 StochasticOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
@@ -178,6 +178,7 @@ StochasticOfDays() {
         else 
             lastStochasticQuote=100
         fi
+        beforeLastStochasticQuoteRounded="$lastStochasticQuoteRounded"
         lastStochasticQuoteRounded=$(echo "$lastStochasticQuote" | cut -f 1 -d '.')
         stochasticQuoteList="$stochasticQuoteList $lastStochasticQuoteRounded,"
         i=$((i + 1))

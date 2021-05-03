@@ -21,16 +21,22 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieOverratedStochasticWhenOwn 
   [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
 
-  StrategieOverratedStochasticWhenOwn 91 90 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  StrategieOverratedStochasticWhenOwn 91 90 89 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
   [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
 
-  StrategieOverratedStochasticWhenOwn 91 92 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" ""
+  StrategieOverratedStochasticWhenOwn 91 92 89 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" ""
     [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
 
-  StrategieOverratedStochasticWhenOwn 91 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  StrategieOverratedStochasticWhenOwn 91 90 92 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" ""
     [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
 
-  StrategieOverratedStochasticWhenOwn 91 92 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  StrategieOverratedStochasticWhenOwn 91 91 89 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+    [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
+
+  StrategieOverratedStochasticWhenOwn 91 93 92 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+    [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
+
+  StrategieOverratedStochasticWhenOwn 91 92 89 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
     [ "$resultStrategieOverratedStochasticWhenOwn" == 'Sell: Stochastic Own (SO)' ]
 }
 
