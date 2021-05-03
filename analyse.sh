@@ -282,7 +282,7 @@ do
 
     # Calculate Stochastic 14 values
     stochasticInDays14=14
-    lastStochasticQuoteRounded=""
+    lastStochasticQuoteRounded=0
     stochasticQuoteList=""
     if [ "$CalculateStochastic" = true ]; then
         StochasticOfDays $stochasticInDays14 "$DATA_FILE"
@@ -366,6 +366,10 @@ do
         fi
 
         # Sell Strategie: Divergence RSI
+        resultStrategieOverratedStochasticWhenOwn=""
+        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+
+        # Sell Strategie: Divergence RSI
         resultStrategieOverratedDivergenceRSI=""
         StrategieOverratedDivergenceRSI "$RSIQuoteUpper" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
 
@@ -406,6 +410,7 @@ do
         if [ "${markerOwnStock}" = '*' ] &&
            {
             [ "$(echo "$resultStrategieByTendency" | cut -f 1 -d ':')" = "Sell" ] ||
+            [ "${#resultStrategieOverratedStochasticWhenOwn}" -gt 1 ] ||
             [ "${#resultStrategieOverratedDivergenceRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] ||
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] ||
@@ -468,6 +473,7 @@ do
         echo "<p style=\"color:rgb(139, 126, 102);\"><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
         
         # Sell
+        echo "<p style=\"color:rgb(245, 111, 166);\"><b>" "$resultStrategieOverratedStochasticWhenOwn" "</b></p>"
         echo "<p style=\"color:rgb(245, 111, 66);\"><b>" "$resultStrategieOverratedDivergenceRSI" "</b></p>"
         echo "<p style=\"color:rgb(54, 162, 235);\"><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
         echo "<p style=\"color:rgb(205, 205, 0);\"><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"

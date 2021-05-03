@@ -1,5 +1,31 @@
 #!/bin/sh
 
+
+# StrategieOverratedStochasticWhenOwn function:
+# Overrated Stochastic when own stock
+# Strategie: Stochastic Own (SO)
+# Input: ${x}
+# Output: resultStrategieOverratedStochasticWhenOwn
+StrategieOverratedStochasticWhenOwn() { 
+    _highStochValueParam=${1}
+    _lastStochParam=${2}
+    _outResultFileParam=${3}
+    _symbolParam=${4}
+    _symbolNameParam=${5}
+    _markerOwnStockParam=${6}
+    export resultStrategieOverratedStochasticWhenOwn=""
+
+    if [ "${_lastStochParam}" -gt "${_highStochValueParam}" ]; then     
+        if [ "$_markerOwnStockParam" = '*' ]; then
+            alarmAbbrevValue="SO-"$alarmAbbrevValue
+            reasonPrefix="Sell: Stochastic Own (SO)"
+            resultStrategieOverratedStochasticWhenOwn="$reasonPrefix"
+            echo "$resultStrategieOverratedStochasticWhenOwn"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"         
+        fi
+    fi
+}
+
 # StrategieOverratedDivergenceRSI function:
 # Divergence RSI
 # Strategie: RSI divergence (D)

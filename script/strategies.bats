@@ -12,6 +12,28 @@ OUT_RESULT_FILE=temp/_result.html
 SYMBOL=BEI
 SYMBOL_NAME="BEI BEIERSDORF AG"
 
+@test "StrategieOverratedStochasticWhenOwn" {
+  function WriteComdirectUrlAndStoreFileList() {
+    echo ""
+  }
+  export -f WriteComdirectUrlAndStoreFileList
+
+  StrategieOverratedStochasticWhenOwn 
+  [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
+
+  StrategieOverratedStochasticWhenOwn 91 90 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
+
+  StrategieOverratedStochasticWhenOwn 91 92 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" ""
+    [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
+
+  StrategieOverratedStochasticWhenOwn 91 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+    [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
+
+  StrategieOverratedStochasticWhenOwn 91 92 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+    [ "$resultStrategieOverratedStochasticWhenOwn" == 'Sell: Stochastic Own (SO)' ]
+}
+
 @test "StrategieOverratedDivergenceRSI" {
   function WriteComdirectUrlAndStoreFileList() {
     echo ""
