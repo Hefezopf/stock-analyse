@@ -17,6 +17,7 @@ StrategieOverratedDivergenceRSI() {
     _lastRSIParam=${9}
     _beforeLastRSIParam=${10}
     export resultStrategieOverratedDivergenceRSI=""
+    
     isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
     if [ "${_lastRSIParam}" -gt "${_highRSIValueParam}" ] && [ "${isMACDNegativ}" != '-' ]; then
         newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')      
@@ -405,6 +406,7 @@ StrategieOverratedByPercentAndStochastic() {
     _symbolNameParam=${16}
     _markerOwnStockParam=${17}
     export resultStrategieOverratedByPercentAndStochastic=""
+
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
         if [ "$_lastStochasticQuoteRoundedParam" -gt "$_stochasticPercentageUpperParam" ] && [ "$_lastOverAgv18Param" = 1 ] && [ "$_lastOverAgv38Param" = 1 ] && [ "$_lastOverAgv95Param" = 1 ] && 
             [ "$_agv18OverAgv38Param" = 1 ] && [ "$_agv38OverAgv95Param" = 1 ] && [ "$_agv18OverAgv95Param" = 1 ]; then
@@ -440,6 +442,7 @@ StrategieUnderratedByPercentAndStochastic() {
     _symbolNameParam=${16}
     _markerOwnStockParam=${17}
     export resultStrategieUnderratedByPercentAndStochastic=""
+
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
         if [ "$_lastStochasticQuoteRoundedParam" -lt "$_stochasticPercentageLowerParam" ] && [ "$_lastUnderAgv18Param" = 1 ] && [ "$_lastUnderAgv38Param" = 1 ] && [ "$_lastUnderAgv95Param" = 1 ] && 
             [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv95Param" = 1 ] && [ "$_agv18UnderAgv95Param" = 1 ]; then
@@ -465,6 +468,7 @@ StrategieOverratedXHighStochastic() {
     _symbolNameParam=${5}
     _markerOwnStockParam=${6}
     export resultStrategieOverratedXHighStochastic=""
+
     if [ "${#_stochasticQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Revers and output the last X numbers. Attention only works for SINGLE digst numbers!
         _stochasticQuoteListParam=$(echo "$_stochasticQuoteListParam" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 "," $6 "," $7 "," $8 }' )
@@ -565,6 +569,7 @@ StrategieUnderratedXLowStochastic() {
     _symbolNameParam=${5}
     _markerOwnStockParam=${6}
     export resultStrategieUnderratedXLowStochastic=""
+
     if [ "${#_stochasticQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Revers and output the last X numbers. Attention only works for single digst numbers!
         _stochasticQuoteListParam=$(echo "$_stochasticQuoteListParam" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}' | awk -F',' '{ print $1 "," $2 "," $3 "," $4 "," $5 "," $6 "," $7 "," $8 }' )
@@ -635,6 +640,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
     _symbolNameParam=${8}  
     _markerOwnStockParam=${9}
     export resultStrategieOverratedHighStochasticHighRSIHighMACD=""
+
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRoundedParam}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
         _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
         # Last Stochastic quote over _highStochasticValueParam and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
@@ -663,6 +669,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
     _symbolNameParam=${8}
     _markerOwnStockParam=${9}
     export resultStrategieUnderratedLowStochasticLowRSILowMACD=""
+
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRoundedParam}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
         _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
         # Last Stochastic quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ

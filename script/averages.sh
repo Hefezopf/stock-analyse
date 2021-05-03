@@ -8,7 +8,6 @@ export LC_NUMERIC=en_US.UTF-8
 MACD_12_26() {
     _averagePriceList12Param=${1}
     _averagePriceList26Param=${2}
-
     export MACDList
     export lastMACDValue
 
@@ -54,7 +53,6 @@ MACD_12_26() {
 EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
-
     export averagePriceList
 
     i=1
@@ -85,7 +83,6 @@ EMAverageOfDays() {
 AverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
-
     export averagePriceList
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
@@ -110,7 +107,6 @@ AverageOfDays() {
 RSIOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
-
     export RSIQuoteList
 
     RSIwinningDaysFile="$(mktemp -p /dev/shm/)"
@@ -157,7 +153,6 @@ RSIOfDays() {
 StochasticOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
-
     export stochasticQuoteList
 
     stochasticFile="$(mktemp -p /dev/shm/)"

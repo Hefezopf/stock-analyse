@@ -79,6 +79,7 @@ CurlSymbolName() {
     _symbolParam=${1}
     _tickerNameIdFileParam=${2}
     _sleepParam=${3}
+
     symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
     symbolName=$(grep -m1 -P "$symbol\t" "$_tickerNameIdFileParam" | cut -f 2)
     if [ ! "${#symbolName}" -gt 1 ]; then
@@ -104,6 +105,7 @@ UsageCheckParameter() {
     _stochasticPercentageParam=${4}
     _RSIQuoteParam=${5}
     _outResultFileParam=${6}
+
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9* ]*}" ] && # symbols, blank and '*' allowed
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
         { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
@@ -163,6 +165,7 @@ GreaterThenWithFactor() {
 ProgressBar() {
     _currentStateParam=${1}
     _totalStateParam=${2}
+    
     _progress_="$((_currentStateParam*10000/_totalStateParam))"
     _progress=$((_progress_/100))
     _done_=$((_progress*4))
