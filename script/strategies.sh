@@ -17,18 +17,16 @@ StrategieOverratedDivergenceRSI() {
     _lastRSIParam=${9}
     _beforeLastRSIParam=${10}
     export resultStrategieOverratedDivergenceRSI=""
-    
+
     isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
     if [ "${_lastRSIParam}" -gt "${_highRSIValueParam}" ] && [ "${isMACDNegativ}" != '-' ]; then
         newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')      
-        if [ "$newHigh" = true ]; then      
-            if [ "$_lastRSIParam" -lt "$_beforeLastRSIParam" ]; then
-                alarmAbbrevValue="D-"$alarmAbbrevValue
-                reasonPrefix="Sell: RSI divergence (D)"
-                resultStrategieOverratedDivergenceRSI="$reasonPrefix"
-                echo "$resultStrategieOverratedDivergenceRSI"
-                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"         
-            fi
+        if [ "$newHigh" = true ] && [ "$_lastRSIParam" -lt "$_beforeLastRSIParam" ]; then
+            alarmAbbrevValue="D-"$alarmAbbrevValue
+            reasonPrefix="Sell: RSI Divergence (D)"
+            resultStrategieOverratedDivergenceRSI="$reasonPrefix"
+            echo "$resultStrategieOverratedDivergenceRSI"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"         
         fi
     fi
 }
@@ -54,14 +52,12 @@ StrategieUnderratedDivergenceRSI() {
     isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
     if [ "${_lastRSIParam}" -lt "${_lowRSIValueParam}" ] && [ "${isMACDNegativ}" = '-' ]; then
         newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
-        if [ "$newLower" = true ]; then      
-            if [ "$_lastRSIParam" -gt "$_beforeLastRSIParam" ]; then # && [ "${lastLowestValueRSI}" -gt $RSI_LOW_VALUE ]; then 
-                alarmAbbrevValue="D+"$alarmAbbrevValue
-                reasonPrefix="Buy: RSI divergence (D)"
-                resultStrategieUnderratedDivergenceRSI="$reasonPrefix"
-                echo "$resultStrategieUnderratedDivergenceRSI"
-                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"         
-            fi
+        if [ "$newLower" = true ] && [ "$_lastRSIParam" -gt "$_beforeLastRSIParam" ]; then # && [ "${lastLowestValueRSI}" -gt $RSI_LOW_VALUE ]; then 
+            alarmAbbrevValue="D+"$alarmAbbrevValue
+            reasonPrefix="Buy: RSI Divergence (D)"
+            resultStrategieUnderratedDivergenceRSI="$reasonPrefix"
+            echo "$resultStrategieUnderratedDivergenceRSI"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"
         fi                 
     fi
 }
