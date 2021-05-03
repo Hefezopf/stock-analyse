@@ -17,17 +17,16 @@ StrategieOverratedDivergenceRSI() {
     _lastRSIParam=${9}
     _beforeLastRSIParam=${10}
     export resultStrategieOverratedDivergenceRSI=""
-
     isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
     if [ "${_lastRSIParam}" -gt "${_highRSIValueParam}" ] && [ "${isMACDNegativ}" != '-' ]; then
-        newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')
+        newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')      
         if [ "$newHigh" = true ]; then      
             if [ "$_lastRSIParam" -lt "$_beforeLastRSIParam" ]; then
                 alarmAbbrevValue="D-"$alarmAbbrevValue
                 reasonPrefix="Sell: RSI divergence (D)"
                 resultStrategieOverratedDivergenceRSI="$reasonPrefix"
                 echo "$resultStrategieOverratedDivergenceRSI"
-                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"         
+                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"         
             fi
         fi
     fi

@@ -237,7 +237,7 @@ do
         EMAverageOfDays $averageInDays26 "$DATA_FILE"
         averagePriceList26=$averagePriceList
         # MACD
-        lastMACDValue=""
+        lastMACDValue=0
         MACDList=""
         MACD_12_26 "$averagePriceList12" "$averagePriceList26"
     fi
@@ -271,8 +271,8 @@ do
 
     # Calculate RSI 14 values
     RSIInDays14=14
-    lastRSIQuoteRounded=""
-    beforeLastRSIQuoteRounded=""
+    lastRSIQuoteRounded=0
+    beforeLastRSIQuoteRounded=0
     RSIQuoteList=""
     if [ "$CalculateRSI" = true ]; then
         RSIOfDays $RSIInDays14 "$DATA_FILE"
