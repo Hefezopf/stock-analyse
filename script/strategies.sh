@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # StrategieOverratedStochasticWhenOwn function:
 # Overrated Stochastic when own stock
 # Strategie: Stochastic Own (SO)
@@ -50,7 +49,7 @@ StrategieOverratedDivergenceRSI() {
     isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
     if [ "${_lastRSIParam}" -gt "${_highRSIValueParam}" ] && [ "${isMACDNegativ}" != '-' ]; then
         newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')      
-        if [ "$newHigh" = true ] && [ "$_lastRSIParam" -lt "$_beforeLastRSIParam" ]; then
+        if [ "$newHigh" = true ] && [ "$_lastRSIParam" -le "$_beforeLastRSIParam" ]; then
             alarmAbbrevValue="D-"$alarmAbbrevValue
             reasonPrefix="Sell: RSI Divergence (D)"
             resultStrategieOverratedDivergenceRSI="$reasonPrefix"
@@ -81,7 +80,7 @@ StrategieUnderratedDivergenceRSI() {
     isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
     if [ "${_lastRSIParam}" -lt "${_lowRSIValueParam}" ] && [ "${isMACDNegativ}" = '-' ]; then
         newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
-        if [ "$newLower" = true ] && [ "$_lastRSIParam" -gt "$_beforeLastRSIParam" ]; then # && [ "${lastLowestValueRSI}" -gt $RSI_LOW_VALUE ]; then 
+        if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_beforeLastRSIParam" ]; then # && [ "${lastLowestValueRSI}" -gt $RSI_LOW_VALUE ]; then 
             alarmAbbrevValue="D+"$alarmAbbrevValue
             reasonPrefix="Buy: RSI Divergence (D)"
             resultStrategieUnderratedDivergenceRSI="$reasonPrefix"

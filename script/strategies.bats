@@ -63,6 +63,9 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   StrategieOverratedDivergenceRSI 75 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "1" "101" "100" "80" "81"
   [ "$resultStrategieOverratedDivergenceRSI" == 'Sell: RSI Divergence (D)' ]
+
+  StrategieOverratedDivergenceRSI 75 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "1" "101" "100" "81" "81"
+  [ "$resultStrategieOverratedDivergenceRSI" == 'Sell: RSI Divergence (D)' ]
 }
 
 @test "StrategieUnderratedDivergenceRSI" {
@@ -85,6 +88,9 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "30" "29"
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
+
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "20"
+  [ "$resultStrategieUnderratedDivergenceRSI" == 'Buy: RSI Divergence (D)' ]
 
   StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "19"
   [ "$resultStrategieUnderratedDivergenceRSI" == 'Buy: RSI Divergence (D)' ]

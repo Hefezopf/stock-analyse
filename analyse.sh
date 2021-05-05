@@ -445,9 +445,9 @@ do
             yesterday=$(date --date="-3 day" +"%Y-%m-%d")
         fi
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
-        if [ "$quoteDate" = "$yesterday" ]; then
-            echo "Date:<b>$quoteDate</b>" # OK, quote from last trading day
-        else
+        if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
+            echo "Date:<b>$quoteDate</b>"
+        else # NOK!
             echo "<br><b style=\"color:orange; font-size:large;\">->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
             echo "Date:<b style=\"color:orange; font-size:xx-large;\">$quoteDate</b>"
         fi
@@ -607,7 +607,7 @@ do
     echo "$PRE_FIX$MACDList" >> "$HISTORY_FILE"
 done
 
-echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br>" >> $OUT_RESULT_FILE
+echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result SA</a><br>" >> $OUT_RESULT_FILE
 
 echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
 
