@@ -25,9 +25,9 @@ if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$3" ]; } then
   exit 1
 fi
 
-case "$symbolParam" in
-    ''|*[!A-Z]*) echo "Error: SYMBOL Not a valid alpha numeric!" >&2; exit 2 ;;
-esac
+#case "$symbolParam" in
+#    ''|*[!A-Z]*) echo "Error: SYMBOL Not a valid alpha numeric!" >&2; exit 2 ;;
+#esac
 
 case "$3" in
     ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
