@@ -3,7 +3,7 @@
 ###########################################
 
 # Parameter
-Symbols(182):NFC INL CCAP BAC TOTB DXSN O2D XONA GEC FTE TNE5 CRIN DBK GZF HLE GBF MOR FPE3 BC8 BEI 1COV WMT RAA 6MK MDO ZEG EOAN PPX FRE FME IBE1 RWE KBX ENI SAX BMW CCC3 BCO SZU LOR FRA GXI PSM FOO NEM BSN SNW AHOG AFX AHLA CEC GIS LHA CBK ARL AIXA AT1 NDA BNR COK COP EVD DUE EVK EVT FNTN G1A GYC HNR1 HFG HOT BOSS KGX LXS LEG OSR PUM QIA RHM SRT3 G24 SAE SHL WAF SOW SY1 TEG TMV UN01 UTDI VAR1 WCH ZAL HEI HEN3 IFX SDF MRK TKA MTX DWNI DHER JEN S92 B4B ZO1 SMHN ADJ KCO KWS SGL EUZ DEZ DEQ HYQ WAC 8TRA PAT SFQ BYW6 HHFA SANT DRW3 KRN INH LEO SZG VOS FIE ADS 1N8 AIL AIR ALV 1NBA ASME AXA BSD2 BAS BAYN BNP DAI DPW DTE ENL IXD1 INN1 IES PHI1 LIN MOH MUV2 NOA3 1TY SAP SND SIE SQU VVU VOW3 VNA MMM AMG APC CAT1 CHV CIS 2OY GOS HDI JNJ CMC MSF NKE UNH NESM TL0 AMZ AMD NVD QCI 2PP
+Symbols(182):QIA CCAP INL MUV2 NFC DXSN FIE ADS XONA GEC FTE TNE5 CRIN DBK BAC O2D TOTB GZF HLE GBF MOR FPE3 BC8 BEI 1COV WMT RAA 6MK MDO ZEG EOAN PPX FRE FME IBE1 RWE KBX ENI SAX BMW CCC3 BCO SZU LOR FRA GXI PSM FOO NEM BSN SNW AHOG AFX AHLA CEC GIS LHA CBK ARL AIXA AT1 NDA BNR COK COP EVD DUE EVK EVT FNTN G1A GYC HNR1 HFG HOT BOSS KGX LXS LEG OSR PUM RHM SRT3 G24 SAE SHL WAF SOW SY1 TEG TMV UN01 UTDI VAR1 WCH ZAL HEI HEN3 IFX SDF MRK TKA MTX DWNI DHER JEN S92 B4B ZO1 SMHN ADJ KCO KWS SGL EUZ DEZ DEQ HYQ WAC 8TRA PAT SFQ BYW6 HHFA SANT DRW3 KRN INH LEO SZG VOS 1N8 AIL AIR ALV 1NBA ASME AXA BSD2 BAS BAYN BNP DAI DPW DTE ENL IXD1 INN1 IES PHI1 LIN MOH NOA3 1TY SAP SND SIE SQU VVU VOW3 VNA MMM AMG APC CAT1 CHV CIS 2OY GOS HDI JNJ CMC MSF NKE UNH NESM TL0 AMZ AMD NVD QCI 2PP
 Amount per Trade:2000€
 RSI buy Level:25
 Stoch sell Level:91
@@ -11,57 +11,67 @@ Increment per Trade:1.1
 
 # Simulation
 
+QIA "QIAGEN"
+-e Buy	Position:64	50pc	RSI:19	Quote:39.90€	Amount=1995€	piecesHold=50	Wallet=1995€	Symbol:QIA
+-e Buy	Position:67	54pc	RSI:41	Quote:40.60€	Amount=2192.4€	piecesHold=104	Wallet=4187.4€	Symbol:QIA
+-e Sell	Position:69	104pc	Stoch:94	Quote:41.64€	Amount=4330.56€	Symbol:QIA
+Intermediate Win=143.16€ Proz=3.4% Average holding days=3.5 days
+---------------
+Simulation Win=143.16€
+
+
+CCAP "Corestate Capital"
+-e Buy	Position:95	153pc	RSI:20	Quote:13.01€	Amount=1990.53€	piecesHold=153	Wallet=1990.53€	Symbol:CCAP
+-e Buy	Position:98	168pc	RSI:30	Quote:13.06€	Amount=2194.08€	piecesHold=321	Wallet=4184.61€	Symbol:CCAP
+-e Buy	Position:100	190pc	RSI:13	Quote:12.72€	Amount=2416.8€	piecesHold=511	Wallet=6601.41€	Symbol:CCAP
+Sell all on the last day!!
+-e Sell	511pc	Quote:12.72€	Amount=6499.92€	Symbol:CCAP
+Intermediate Win=-101.49€ Proz=-1.5%
+---------------
+Simulation Win=-101.49€
+
+
+INL "Intel Corp"
+-e Buy	Position:98	42pc	RSI:18	Quote:47.23€	Amount=1983.66€	piecesHold=42	Wallet=1983.66€	Symbol:INL
+Sell all on the last day!!
+-e Sell	42pc	Quote:47.57€	Amount=1997.94€	Symbol:INL
+Intermediate Win=14.28€ Proz=0.7%
+---------------
+Simulation Win=14.28€
+
+
+MUV2 "MUENCHENER RUE"
+---------------
+Simulation Win=0€
+
+
 NFC "Netflix"
 ---------------
 Simulation Win=0€
 
 
-INL "Intel Corp"
----------------
-Simulation Win=0€
-
-
-CCAP "Corestate Capital"
--e Buy	Position:98	153pc	RSI:20	Quote:13.01€	Amount=1990.53€	piecesHold=153	Wallet=1990.53€	Symbol:CCAP
-Sell all on the last day!!
--e Sell	153pc	Quote:13.08€	Amount=2001.24€	Symbol:CCAP
-Intermediate Win=10.71€ Proz=0.5%
----------------
-Simulation Win=10.71€
-
-
-BAC "Verizon Comm."
--e Buy	Position:98	42pc	RSI:19	Quote:46.68€	Amount=1960.56€	piecesHold=42	Wallet=1960.56€	Symbol:BAC
-Sell all on the last day!!
--e Sell	42pc	Quote:47.52€	Amount=1996.05€	Symbol:BAC
-Intermediate Win=35.49€ Proz=1.8%
----------------
-Simulation Win=35.49€
-
-
-TOTB "TOTAL"
--e Buy	Position:94	54pc	RSI:19	Quote:36.95€	Amount=1995.3€	piecesHold=54	Wallet=1995.3€	Symbol:TOTB
--e Buy	Position:95	59pc	RSI:23	Quote:36.87€	Amount=2175.04€	piecesHold=113	Wallet=4170.34€	Symbol:TOTB
-Sell all on the last day!!
--e Sell	113pc	Quote:36.85€	Amount=4164.05€	Symbol:TOTB
-Intermediate Win=-6.29€ Proz=-0.2%
----------------
-Simulation Win=-6.29€
-
-
 DXSN "Xtrackers ShortDAX"
--e Buy	Position:82	137pc	RSI:23	Quote:14.55€	Amount=1993.9€	piecesHold=137	Wallet=1993.9€	Symbol:DXSN
--e Buy	Position:86	152pc	RSI:26	Quote:14.43€	Amount=2193.66€	piecesHold=289	Wallet=4187.56€	Symbol:DXSN
--e Buy	Position:94	167pc	RSI:39	Quote:14.44€	Amount=2411.81€	piecesHold=456	Wallet=6599.37€	Symbol:DXSN
--e Sell	456pc	Position:100	Stoch:93	Quote:14.50€	Amount=6612€	Symbol:DXSN
+-e Buy	Position:79	137pc	RSI:23	Quote:14.55€	Amount=1993.9€	piecesHold=137	Wallet=1993.9€	Symbol:DXSN
+-e Buy	Position:83	152pc	RSI:26	Quote:14.43€	Amount=2193.66€	piecesHold=289	Wallet=4187.56€	Symbol:DXSN
+-e Buy	Position:91	167pc	RSI:39	Quote:14.44€	Amount=2411.81€	piecesHold=456	Wallet=6599.37€	Symbol:DXSN
+-e Sell	Position:97	456pc	Stoch:93	Quote:14.50€	Amount=6612€	Symbol:DXSN
 Intermediate Win=12.63€ Proz=0.2% Average holding days=12.7 days
 ---------------
 Simulation Win=12.63€
 
 
-O2D "TELEFONICA DEUT."
+FIE "FIELMANN"
 ---------------
 Simulation Win=0€
+
+
+ADS "Adidas"
+-e Buy	Position:95	7pc	RSI:23	Quote:258.85€	Amount=1811.95€	piecesHold=7	Wallet=1811.95€	Symbol:ADS
+Sell all on the last day!!
+-e Sell	7pc	Quote:259.60€	Amount=1817.2€	Symbol:ADS
+Intermediate Win=5.25€ Proz=0.3%
+---------------
+Simulation Win=5.25€
 
 
 XONA "EXXON MOBIL"
@@ -85,9 +95,9 @@ Simulation Win=0€
 
 
 CRIN "UNICREDIT"
--e Buy	Position:92	245pc	RSI:22	Quote:8.16€	Amount=1998.22€	piecesHold=245	Wallet=1998.22€	Symbol:CRIN
--e Buy	Position:94	271pc	RSI:14	Quote:8.10€	Amount=2195.1€	piecesHold=516	Wallet=4193.32€	Symbol:CRIN
--e Sell	516pc	Position:99	Stoch:97	Quote:8.61€	Amount=4442.24€	Symbol:CRIN
+-e Buy	Position:89	245pc	RSI:22	Quote:8.16€	Amount=1998.22€	piecesHold=245	Wallet=1998.22€	Symbol:CRIN
+-e Buy	Position:91	271pc	RSI:14	Quote:8.10€	Amount=2195.1€	piecesHold=516	Wallet=4193.32€	Symbol:CRIN
+-e Sell	Position:96	516pc	Stoch:97	Quote:8.61€	Amount=4442.24€	Symbol:CRIN
 Intermediate Win=248.92€ Proz=5.9% Average holding days=6.0 days
 ---------------
 Simulation Win=248.92€
@@ -98,18 +108,40 @@ DBK "DEUTSCHE BANK"
 Simulation Win=0€
 
 
+BAC "Verizon Comm."
+-e Buy	Position:95	42pc	RSI:19	Quote:46.68€	Amount=1960.56€	piecesHold=42	Wallet=1960.56€	Symbol:BAC
+-e Sell	Position:99	42pc	Stoch:96	Quote:48.55€	Amount=2039.31€	Symbol:BAC
+Intermediate Win=78.75€ Proz=4.0% Average holding days=4.0 days
+---------------
+Simulation Win=78.75€
+
+
+O2D "TELEFONICA DEUT."
+---------------
+Simulation Win=0€
+
+
+TOTB "TOTAL"
+-e Buy	Position:91	54pc	RSI:19	Quote:36.95€	Amount=1995.3€	piecesHold=54	Wallet=1995.3€	Symbol:TOTB
+-e Buy	Position:92	59pc	RSI:23	Quote:36.87€	Amount=2175.04€	piecesHold=113	Wallet=4170.34€	Symbol:TOTB
+-e Sell	Position:100	113pc	Stoch:100	Quote:39.02€	Amount=4408.69€	Symbol:TOTB
+Intermediate Win=238.35€ Proz=5.7% Average holding days=8.5 days
+---------------
+Simulation Win=238.35€
+
+
 GZF "ENGIE"
--e Buy	Position:58	166pc	RSI:19	Quote:12.04€	Amount=1997.81€	piecesHold=166	Wallet=1997.81€	Symbol:GZF
--e Buy	Position:68	180pc	RSI:37	Quote:12.16€	Amount=2189.7€	piecesHold=346	Wallet=4187.51€	Symbol:GZF
--e Sell	346pc	Position:71	Stoch:93	Quote:12.14€	Amount=4200.44€	Symbol:GZF
+-e Buy	Position:55	166pc	RSI:19	Quote:12.04€	Amount=1997.81€	piecesHold=166	Wallet=1997.81€	Symbol:GZF
+-e Buy	Position:65	180pc	RSI:37	Quote:12.16€	Amount=2189.7€	piecesHold=346	Wallet=4187.51€	Symbol:GZF
+-e Sell	Position:68	346pc	Stoch:93	Quote:12.14€	Amount=4200.44€	Symbol:GZF
 Intermediate Win=12.93€ Proz=0.3% Average holding days=8.0 days
 ---------------
 Simulation Win=12.93€
 
 
 HLE "HELLA"
--e Buy	Position:93	44pc	RSI:23	Quote:44.59€	Amount=1961.96€	piecesHold=44	Wallet=1961.96€	Symbol:HLE
--e Sell	44pc	Position:97	Stoch:100	Quote:51.70€	Amount=2274.8€	Symbol:HLE
+-e Buy	Position:90	44pc	RSI:23	Quote:44.59€	Amount=1961.96€	piecesHold=44	Wallet=1961.96€	Symbol:HLE
+-e Sell	Position:94	44pc	Stoch:100	Quote:51.70€	Amount=2274.8€	Symbol:HLE
 Intermediate Win=312.84€ Proz=15.9% Average holding days=4.0 days
 ---------------
 Simulation Win=312.84€
@@ -121,31 +153,31 @@ Simulation Win=0€
 
 
 MOR "MorphoSys"
--e Buy	Position:52	22pc	RSI:22	Quote:88.46€	Amount=1946.12€	piecesHold=22	Wallet=1946.12€	Symbol:MOR
--e Buy	Position:56	25pc	RSI:14	Quote:85.36€	Amount=2134€	piecesHold=47	Wallet=4080.12€	Symbol:MOR
--e Buy	Position:61	29pc	RSI:15	Quote:82.34€	Amount=2387.86€	piecesHold=76	Wallet=6467.98€	Symbol:MOR
--e Buy	Position:65	31pc	RSI:35	Quote:83.86€	Amount=2599.66€	piecesHold=107	Wallet=9067.64€	Symbol:MOR
--e Sell	107pc	Position:66	Stoch:100	Quote:85.96€	Amount=9197.72€	Symbol:MOR
+-e Buy	Position:49	22pc	RSI:22	Quote:88.46€	Amount=1946.12€	piecesHold=22	Wallet=1946.12€	Symbol:MOR
+-e Buy	Position:53	25pc	RSI:14	Quote:85.36€	Amount=2134€	piecesHold=47	Wallet=4080.12€	Symbol:MOR
+-e Buy	Position:58	29pc	RSI:15	Quote:82.34€	Amount=2387.86€	piecesHold=76	Wallet=6467.98€	Symbol:MOR
+-e Buy	Position:62	31pc	RSI:35	Quote:83.86€	Amount=2599.66€	piecesHold=107	Wallet=9067.64€	Symbol:MOR
+-e Sell	Position:63	107pc	Stoch:100	Quote:85.96€	Amount=9197.72€	Symbol:MOR
 Intermediate Win=130.08€ Proz=1.4% Average holding days=7.5 days
 ---------------
 Simulation Win=130.08€
 
 
 FPE3 "FUCHS PETROLUB"
--e Buy	Position:62	44pc	RSI:19	Quote:44.56€	Amount=1960.64€	piecesHold=44	Wallet=1960.64€	Symbol:FPE3
--e Buy	Position:78	53pc	RSI:34	Quote:40.90€	Amount=2167.7€	piecesHold=97	Wallet=4128.34€	Symbol:FPE3
--e Buy	Position:80	59pc	RSI:38	Quote:40.84€	Amount=2409.56€	piecesHold=156	Wallet=6537.9€	Symbol:FPE3
--e Sell	156pc	Position:83	Stoch:100	Quote:41.70€	Amount=6505.2€	Symbol:FPE3
+-e Buy	Position:59	44pc	RSI:19	Quote:44.56€	Amount=1960.64€	piecesHold=44	Wallet=1960.64€	Symbol:FPE3
+-e Buy	Position:75	53pc	RSI:34	Quote:40.90€	Amount=2167.7€	piecesHold=97	Wallet=4128.34€	Symbol:FPE3
+-e Buy	Position:77	59pc	RSI:38	Quote:40.84€	Amount=2409.56€	piecesHold=156	Wallet=6537.9€	Symbol:FPE3
+-e Sell	Position:80	156pc	Stoch:100	Quote:41.70€	Amount=6505.2€	Symbol:FPE3
 Intermediate Win=-32.7€ Proz=-0.5% Average holding days=9.7 days
 ---------------
 Simulation Win=-32.7€
 
 
 BC8 "BECHTLE"
--e Buy	Position:57	12pc	RSI:24	Quote:156.30€	Amount=1875.6€	piecesHold=12	Wallet=1875.6€	Symbol:BC8
--e Buy	Position:59	13pc	RSI:31	Quote:158.00€	Amount=2054€	piecesHold=25	Wallet=3929.6€	Symbol:BC8
--e Buy	Position:61	15pc	RSI:25	Quote:155.90€	Amount=2338.5€	piecesHold=40	Wallet=6268.1€	Symbol:BC8
--e Sell	40pc	Position:66	Stoch:100	Quote:162.40€	Amount=6496€	Symbol:BC8
+-e Buy	Position:54	12pc	RSI:24	Quote:156.30€	Amount=1875.6€	piecesHold=12	Wallet=1875.6€	Symbol:BC8
+-e Buy	Position:56	13pc	RSI:31	Quote:158.00€	Amount=2054€	piecesHold=25	Wallet=3929.6€	Symbol:BC8
+-e Buy	Position:58	15pc	RSI:25	Quote:155.90€	Amount=2338.5€	piecesHold=40	Wallet=6268.1€	Symbol:BC8
+-e Sell	Position:63	40pc	Stoch:100	Quote:162.40€	Amount=6496€	Symbol:BC8
 Intermediate Win=227.9€ Proz=3.6% Average holding days=7.0 days
 ---------------
 Simulation Win=227.9€
@@ -162,31 +194,31 @@ Simulation Win=0€
 
 
 WMT "Wal-Mart Stores"
--e Buy	Position:60	18pc	RSI:23	Quote:106.72€	Amount=1920.96€	piecesHold=18	Wallet=1920.96€	Symbol:WMT
--e Sell	18pc	Position:68	Stoch:100	Quote:111.50€	Amount=2007€	Symbol:WMT
+-e Buy	Position:57	18pc	RSI:23	Quote:106.72€	Amount=1920.96€	piecesHold=18	Wallet=1920.96€	Symbol:WMT
+-e Sell	Position:65	18pc	Stoch:100	Quote:111.50€	Amount=2007€	Symbol:WMT
 Intermediate Win=86.04€ Proz=4.5% Average holding days=8.0 days
 ---------------
 Simulation Win=86.04€
 
 
 RAA "RATIONAL"
--e Buy	Position:55	2pc	RSI:22	Quote:712.50€	Amount=1425€	piecesHold=2	Wallet=1425€	Symbol:RAA
--e Buy	Position:64	3pc	RSI:24	Quote:683.00€	Amount=2049€	piecesHold=5	Wallet=3474€	Symbol:RAA
--e Buy	Position:65	3pc	RSI:25	Quote:680.00€	Amount=2040€	piecesHold=8	Wallet=5514€	Symbol:RAA
--e Buy	Position:67	3pc	RSI:20	Quote:678.00€	Amount=2034€	piecesHold=11	Wallet=7548€	Symbol:RAA
--e Buy	Position:68	4pc	RSI:31	Quote:670.00€	Amount=2680€	piecesHold=15	Wallet=10228€	Symbol:RAA
--e Sell	15pc	Position:79	Stoch:100	Quote:684.50€	Amount=10267.5€	Symbol:RAA
+-e Buy	Position:52	2pc	RSI:22	Quote:712.50€	Amount=1425€	piecesHold=2	Wallet=1425€	Symbol:RAA
+-e Buy	Position:61	3pc	RSI:24	Quote:683.00€	Amount=2049€	piecesHold=5	Wallet=3474€	Symbol:RAA
+-e Buy	Position:62	3pc	RSI:25	Quote:680.00€	Amount=2040€	piecesHold=8	Wallet=5514€	Symbol:RAA
+-e Buy	Position:64	3pc	RSI:20	Quote:678.00€	Amount=2034€	piecesHold=11	Wallet=7548€	Symbol:RAA
+-e Buy	Position:65	4pc	RSI:31	Quote:670.00€	Amount=2680€	piecesHold=15	Wallet=10228€	Symbol:RAA
+-e Sell	Position:76	15pc	Stoch:100	Quote:684.50€	Amount=10267.5€	Symbol:RAA
 Intermediate Win=39.5€ Proz=0.4% Average holding days=15.2 days
 ---------------
 Simulation Win=39.5€
 
 
 6MK "MERCK & Co. INC"
--e Buy	Position:42	31pc	RSI:18	Quote:62.80€	Amount=1946.8€	piecesHold=31	Wallet=1946.8€	Symbol:6MK
--e Buy	Position:49	35pc	RSI:29	Quote:61.40€	Amount=2149€	piecesHold=66	Wallet=4095.8€	Symbol:6MK
--e Buy	Position:56	39pc	RSI:38	Quote:61.20€	Amount=2386.8€	piecesHold=105	Wallet=6482.6€	Symbol:6MK
--e Buy	Position:60	44pc	RSI:41	Quote:60.20€	Amount=2648.8€	piecesHold=149	Wallet=9131.4€	Symbol:6MK
--e Sell	149pc	Position:63	Stoch:100	Quote:63.40€	Amount=9446.6€	Symbol:6MK
+-e Buy	Position:39	31pc	RSI:18	Quote:62.80€	Amount=1946.8€	piecesHold=31	Wallet=1946.8€	Symbol:6MK
+-e Buy	Position:46	35pc	RSI:29	Quote:61.40€	Amount=2149€	piecesHold=66	Wallet=4095.8€	Symbol:6MK
+-e Buy	Position:53	39pc	RSI:38	Quote:61.20€	Amount=2386.8€	piecesHold=105	Wallet=6482.6€	Symbol:6MK
+-e Buy	Position:57	44pc	RSI:41	Quote:60.20€	Amount=2648.8€	piecesHold=149	Wallet=9131.4€	Symbol:6MK
+-e Sell	Position:60	149pc	Stoch:100	Quote:63.40€	Amount=9446.6€	Symbol:6MK
 Intermediate Win=315.2€ Proz=3.5% Average holding days=11.2 days
 ---------------
 Simulation Win=315.2€
@@ -213,32 +245,32 @@ Simulation Win=0€
 
 
 FRE "FRESENIUS"
--e Buy	Position:41	57pc	RSI:20	Quote:34.57€	Amount=1970.49€	piecesHold=57	Wallet=1970.49€	Symbol:FRE
--e Buy	Position:49	60pc	RSI:35	Quote:36.27€	Amount=2176.2€	piecesHold=117	Wallet=4146.69€	Symbol:FRE
--e Buy	Position:51	67pc	RSI:41	Quote:35.95€	Amount=2408.65€	piecesHold=184	Wallet=6555.34€	Symbol:FRE
--e Sell	184pc	Position:63	Stoch:100	Quote:36.56€	Amount=6727.04€	Symbol:FRE
+-e Buy	Position:38	57pc	RSI:20	Quote:34.57€	Amount=1970.49€	piecesHold=57	Wallet=1970.49€	Symbol:FRE
+-e Buy	Position:46	60pc	RSI:35	Quote:36.27€	Amount=2176.2€	piecesHold=117	Wallet=4146.69€	Symbol:FRE
+-e Buy	Position:48	67pc	RSI:41	Quote:35.95€	Amount=2408.65€	piecesHold=184	Wallet=6555.34€	Symbol:FRE
+-e Sell	Position:60	184pc	Stoch:100	Quote:36.56€	Amount=6727.04€	Symbol:FRE
 Intermediate Win=171.7€ Proz=2.6% Average holding days=16.0 days
 ---------------
 Simulation Win=171.7€
 
 
 FME "FRESENIUS MED. C."
--e Buy	Position:42	35pc	RSI:14	Quote:56.76€	Amount=1986.6€	piecesHold=35	Wallet=1986.6€	Symbol:FME
--e Buy	Position:51	36pc	RSI:29	Quote:59.90€	Amount=2156.4€	piecesHold=71	Wallet=4143€	Symbol:FME
--e Buy	Position:52	40pc	RSI:32	Quote:59.10€	Amount=2364€	piecesHold=111	Wallet=6507€	Symbol:FME
--e Buy	Position:60	46pc	RSI:35	Quote:57.70€	Amount=2654.2€	piecesHold=157	Wallet=9161.2€	Symbol:FME
--e Sell	157pc	Position:65	Stoch:100	Quote:60.84€	Amount=9551.88€	Symbol:FME
+-e Buy	Position:39	35pc	RSI:14	Quote:56.76€	Amount=1986.6€	piecesHold=35	Wallet=1986.6€	Symbol:FME
+-e Buy	Position:48	36pc	RSI:29	Quote:59.90€	Amount=2156.4€	piecesHold=71	Wallet=4143€	Symbol:FME
+-e Buy	Position:49	40pc	RSI:32	Quote:59.10€	Amount=2364€	piecesHold=111	Wallet=6507€	Symbol:FME
+-e Buy	Position:57	46pc	RSI:35	Quote:57.70€	Amount=2654.2€	piecesHold=157	Wallet=9161.2€	Symbol:FME
+-e Sell	Position:62	157pc	Stoch:100	Quote:60.84€	Amount=9551.88€	Symbol:FME
 Intermediate Win=390.68€ Proz=4.3% Average holding days=13.8 days
 ---------------
 Simulation Win=390.68€
 
 
 IBE1 "IBERDROLA"
--e Buy	Position:51	187pc	RSI:23	Quote:10.68€	Amount=1997.16€	piecesHold=187	Wallet=1997.16€	Symbol:IBE1
--e Buy	Position:52	206pc	RSI:24	Quote:10.65€	Amount=2193.9€	piecesHold=393	Wallet=4191.06€	Symbol:IBE1
--e Buy	Position:56	234pc	RSI:22	Quote:10.34€	Amount=2418.39€	piecesHold=627	Wallet=6609.45€	Symbol:IBE1
--e Buy	Position:62	262pc	RSI:32	Quote:10.15€	Amount=2659.3€	piecesHold=889	Wallet=9268.75€	Symbol:IBE1
--e Sell	889pc	Position:65	Stoch:100	Quote:10.76€	Amount=9565.64€	Symbol:IBE1
+-e Buy	Position:48	187pc	RSI:23	Quote:10.68€	Amount=1997.16€	piecesHold=187	Wallet=1997.16€	Symbol:IBE1
+-e Buy	Position:49	206pc	RSI:24	Quote:10.65€	Amount=2193.9€	piecesHold=393	Wallet=4191.06€	Symbol:IBE1
+-e Buy	Position:53	234pc	RSI:22	Quote:10.34€	Amount=2418.39€	piecesHold=627	Wallet=6609.45€	Symbol:IBE1
+-e Buy	Position:59	262pc	RSI:32	Quote:10.15€	Amount=2659.3€	piecesHold=889	Wallet=9268.75€	Symbol:IBE1
+-e Sell	Position:62	889pc	Stoch:100	Quote:10.76€	Amount=9565.64€	Symbol:IBE1
 Intermediate Win=296.89€ Proz=3.2% Average holding days=9.8 days
 ---------------
 Simulation Win=296.89€
@@ -250,12 +282,11 @@ Simulation Win=0€
 
 
 KBX "KNORR-BREMSE"
--e Buy	Position:99	19pc	RSI:21	Quote:100.85€	Amount=1916.15€	piecesHold=19	Wallet=1916.15€	Symbol:KBX
-Sell all on the last day!!
--e Sell	19pc	Quote:102.00€	Amount=1938€	Symbol:KBX
-Intermediate Win=21.85€ Proz=1.1%
+-e Buy	Position:96	19pc	RSI:21	Quote:100.85€	Amount=1916.15€	piecesHold=19	Wallet=1916.15€	Symbol:KBX
+-e Sell	Position:100	19pc	Stoch:100	Quote:104.95€	Amount=1994.05€	Symbol:KBX
+Intermediate Win=77.9€ Proz=4.1% Average holding days=4.0 days
 ---------------
-Simulation Win=21.85€
+Simulation Win=77.9€
 
 
 ENI "ENI"
@@ -264,11 +295,11 @@ Simulation Win=0€
 
 
 SAX "STROEER MEDIA"
--e Buy	Position:80	28pc	RSI:24	Quote:69.50€	Amount=1946€	piecesHold=28	Wallet=1946€	Symbol:SAX
--e Buy	Position:85	31pc	RSI:28	Quote:69.60€	Amount=2157.6€	piecesHold=59	Wallet=4103.6€	Symbol:SAX
--e Buy	Position:86	34pc	RSI:29	Quote:69.40€	Amount=2359.6€	piecesHold=93	Wallet=6463.2€	Symbol:SAX
--e Buy	Position:91	38pc	RSI:41	Quote:70.00€	Amount=2660€	piecesHold=131	Wallet=9123.2€	Symbol:SAX
--e Sell	131pc	Position:97	Stoch:100	Quote:71.00€	Amount=9301€	Symbol:SAX
+-e Buy	Position:77	28pc	RSI:24	Quote:69.50€	Amount=1946€	piecesHold=28	Wallet=1946€	Symbol:SAX
+-e Buy	Position:82	31pc	RSI:28	Quote:69.60€	Amount=2157.6€	piecesHold=59	Wallet=4103.6€	Symbol:SAX
+-e Buy	Position:83	34pc	RSI:29	Quote:69.40€	Amount=2359.6€	piecesHold=93	Wallet=6463.2€	Symbol:SAX
+-e Buy	Position:88	38pc	RSI:41	Quote:70.00€	Amount=2660€	piecesHold=131	Wallet=9123.2€	Symbol:SAX
+-e Sell	Position:94	131pc	Stoch:100	Quote:71.00€	Amount=9301€	Symbol:SAX
 Intermediate Win=177.8€ Proz=1.9% Average holding days=11.5 days
 ---------------
 Simulation Win=177.8€
@@ -280,8 +311,8 @@ Simulation Win=0€
 
 
 CCC3 "COCA-COLA"
--e Buy	Position:32	50pc	RSI:23	Quote:39.93€	Amount=1996.5€	piecesHold=50	Wallet=1996.5€	Symbol:CCC3
--e Sell	50pc	Position:39	Stoch:95	Quote:40.90€	Amount=2045€	Symbol:CCC3
+-e Buy	Position:29	50pc	RSI:23	Quote:39.93€	Amount=1996.5€	piecesHold=50	Wallet=1996.5€	Symbol:CCC3
+-e Sell	Position:36	50pc	Stoch:95	Quote:40.90€	Amount=2045€	Symbol:CCC3
 Intermediate Win=48.5€ Proz=2.4% Average holding days=7.0 days
 ---------------
 Simulation Win=48.5€
@@ -293,13 +324,14 @@ Simulation Win=0€
 
 
 SZU "SUEDZUCKER"
--e Buy	Position:95	148pc	RSI:24	Quote:13.45€	Amount=1990.6€	piecesHold=148	Wallet=1990.6€	Symbol:SZU
--e Buy	Position:97	161pc	RSI:33	Quote:13.60€	Amount=2189.6€	piecesHold=309	Wallet=4180.2€	Symbol:SZU
+-e Buy	Position:92	148pc	RSI:24	Quote:13.45€	Amount=1990.6€	piecesHold=148	Wallet=1990.6€	Symbol:SZU
+-e Buy	Position:94	161pc	RSI:33	Quote:13.60€	Amount=2189.6€	piecesHold=309	Wallet=4180.2€	Symbol:SZU
+-e Buy	Position:99	180pc	RSI:39	Quote:13.44€	Amount=2419.2€	piecesHold=489	Wallet=6599.4€	Symbol:SZU
 Sell all on the last day!!
--e Sell	309pc	Quote:13.62€	Amount=4208.58€	Symbol:SZU
-Intermediate Win=28.38€ Proz=0.7%
+-e Sell	489pc	Quote:13.65€	Amount=6674.85€	Symbol:SZU
+Intermediate Win=75.45€ Proz=1.1%
 ---------------
-Simulation Win=28.38€
+Simulation Win=75.45€
 
 
 LOR "LOREAL"
@@ -328,11 +360,11 @@ Simulation Win=0€
 
 
 NEM "Nemetschek"
--e Buy	Position:55	37pc	RSI:23	Quote:53.00€	Amount=1961€	piecesHold=37	Wallet=1961€	Symbol:NEM
--e Buy	Position:61	42pc	RSI:21	Quote:52.30€	Amount=2196.6€	piecesHold=79	Wallet=4157.6€	Symbol:NEM
--e Buy	Position:67	46pc	RSI:39	Quote:51.70€	Amount=2378.2€	piecesHold=125	Wallet=6535.8€	Symbol:NEM
--e Buy	Position:68	51pc	RSI:40	Quote:51.60€	Amount=2631.6€	piecesHold=176	Wallet=9167.4€	Symbol:NEM
--e Sell	176pc	Position:73	Stoch:100	Quote:54.65€	Amount=9618.4€	Symbol:NEM
+-e Buy	Position:52	37pc	RSI:23	Quote:53.00€	Amount=1961€	piecesHold=37	Wallet=1961€	Symbol:NEM
+-e Buy	Position:58	42pc	RSI:21	Quote:52.30€	Amount=2196.6€	piecesHold=79	Wallet=4157.6€	Symbol:NEM
+-e Buy	Position:64	46pc	RSI:39	Quote:51.70€	Amount=2378.2€	piecesHold=125	Wallet=6535.8€	Symbol:NEM
+-e Buy	Position:65	51pc	RSI:40	Quote:51.60€	Amount=2631.6€	piecesHold=176	Wallet=9167.4€	Symbol:NEM
+-e Sell	Position:70	176pc	Stoch:100	Quote:54.65€	Amount=9618.4€	Symbol:NEM
 Intermediate Win=451€ Proz=4.9% Average holding days=10.2 days
 ---------------
 Simulation Win=451€
@@ -359,10 +391,10 @@ Simulation Win=0€
 
 
 AHLA "ALIBABA"
--e Buy	Position:65	10pc	RSI:22	Quote:197.60€	Amount=1976€	piecesHold=10	Wallet=1976€	Symbol:AHLA
--e Buy	Position:67	11pc	RSI:28	Quote:193.00€	Amount=2123€	piecesHold=21	Wallet=4099€	Symbol:AHLA
--e Buy	Position:68	12pc	RSI:30	Quote:190.60€	Amount=2287.2€	piecesHold=33	Wallet=6386.2€	Symbol:AHLA
--e Sell	33pc	Position:72	Stoch:95	Quote:200.50€	Amount=6616.5€	Symbol:AHLA
+-e Buy	Position:62	10pc	RSI:22	Quote:197.60€	Amount=1976€	piecesHold=10	Wallet=1976€	Symbol:AHLA
+-e Buy	Position:64	11pc	RSI:28	Quote:193.00€	Amount=2123€	piecesHold=21	Wallet=4099€	Symbol:AHLA
+-e Buy	Position:65	12pc	RSI:30	Quote:190.60€	Amount=2287.2€	piecesHold=33	Wallet=6386.2€	Symbol:AHLA
+-e Sell	Position:69	33pc	Stoch:95	Quote:200.50€	Amount=6616.5€	Symbol:AHLA
 Intermediate Win=230.3€ Proz=3.6% Average holding days=5.3 days
 ---------------
 Simulation Win=230.3€
@@ -414,29 +446,29 @@ Simulation Win=0€
 
 
 COK "CANCOM"
--e Buy	Position:85	41pc	RSI:23	Quote:48.45€	Amount=1986.45€	piecesHold=41	Wallet=1986.45€	Symbol:COK
--e Buy	Position:86	45pc	RSI:24	Quote:48.07€	Amount=2163.15€	piecesHold=86	Wallet=4149.6€	Symbol:COK
--e Buy	Position:89	48pc	RSI:37	Quote:49.54€	Amount=2377.92€	piecesHold=134	Wallet=6527.52€	Symbol:COK
--e Buy	Position:92	53pc	RSI:41	Quote:49.87€	Amount=2643.11€	piecesHold=187	Wallet=9170.63€	Symbol:COK
--e Sell	187pc	Position:93	Stoch:100	Quote:51.00€	Amount=9537€	Symbol:COK
+-e Buy	Position:82	41pc	RSI:23	Quote:48.45€	Amount=1986.45€	piecesHold=41	Wallet=1986.45€	Symbol:COK
+-e Buy	Position:83	45pc	RSI:24	Quote:48.07€	Amount=2163.15€	piecesHold=86	Wallet=4149.6€	Symbol:COK
+-e Buy	Position:86	48pc	RSI:37	Quote:49.54€	Amount=2377.92€	piecesHold=134	Wallet=6527.52€	Symbol:COK
+-e Buy	Position:89	53pc	RSI:41	Quote:49.87€	Amount=2643.11€	piecesHold=187	Wallet=9170.63€	Symbol:COK
+-e Sell	Position:90	187pc	Stoch:100	Quote:51.00€	Amount=9537€	Symbol:COK
 Intermediate Win=366.37€ Proz=4.0% Average holding days=5.0 days
 ---------------
 Simulation Win=366.37€
 
 
 COP "COMPUGROUP MED."
--e Buy	Position:61	29pc	RSI:10	Quote:67.25€	Amount=1950.25€	piecesHold=29	Wallet=1950.25€	Symbol:COP
--e Buy	Position:65	32pc	RSI:17	Quote:66.90€	Amount=2140.8€	piecesHold=61	Wallet=4091.05€	Symbol:COP
--e Sell	61pc	Position:69	Stoch:95	Quote:71.25€	Amount=4346.25€	Symbol:COP
+-e Buy	Position:58	29pc	RSI:10	Quote:67.25€	Amount=1950.25€	piecesHold=29	Wallet=1950.25€	Symbol:COP
+-e Buy	Position:62	32pc	RSI:17	Quote:66.90€	Amount=2140.8€	piecesHold=61	Wallet=4091.05€	Symbol:COP
+-e Sell	Position:66	61pc	Stoch:95	Quote:71.25€	Amount=4346.25€	Symbol:COP
 Intermediate Win=255.2€ Proz=6.2% Average holding days=6.0 days
 ---------------
 Simulation Win=255.2€
 
 
 EVD "CTS EVENTIM"
--e Buy	Position:76	40pc	RSI:19	Quote:49.56€	Amount=1982.4€	piecesHold=40	Wallet=1982.4€	Symbol:EVD
--e Buy	Position:85	43pc	RSI:33	Quote:50.70€	Amount=2180.1€	piecesHold=83	Wallet=4162.5€	Symbol:EVD
--e Sell	83pc	Position:93	Stoch:100	Quote:53.42€	Amount=4433.86€	Symbol:EVD
+-e Buy	Position:73	40pc	RSI:19	Quote:49.56€	Amount=1982.4€	piecesHold=40	Wallet=1982.4€	Symbol:EVD
+-e Buy	Position:82	43pc	RSI:33	Quote:50.70€	Amount=2180.1€	piecesHold=83	Wallet=4162.5€	Symbol:EVD
+-e Sell	Position:90	83pc	Stoch:100	Quote:53.42€	Amount=4433.86€	Symbol:EVD
 Intermediate Win=271.36€ Proz=6.5% Average holding days=12.5 days
 ---------------
 Simulation Win=271.36€
@@ -453,9 +485,9 @@ Simulation Win=0€
 
 
 EVT "Evotec"
--e Buy	Position:65	70pc	RSI:16	Quote:28.50€	Amount=1995€	piecesHold=70	Wallet=1995€	Symbol:EVT
--e Buy	Position:67	76pc	RSI:27	Quote:28.64€	Amount=2176.64€	piecesHold=146	Wallet=4171.64€	Symbol:EVT
--e Sell	146pc	Position:79	Stoch:100	Quote:30.90€	Amount=4511.4€	Symbol:EVT
+-e Buy	Position:62	70pc	RSI:16	Quote:28.50€	Amount=1995€	piecesHold=70	Wallet=1995€	Symbol:EVT
+-e Buy	Position:64	76pc	RSI:27	Quote:28.64€	Amount=2176.64€	piecesHold=146	Wallet=4171.64€	Symbol:EVT
+-e Sell	Position:76	146pc	Stoch:100	Quote:30.90€	Amount=4511.4€	Symbol:EVT
 Intermediate Win=339.76€ Proz=8.1% Average holding days=13.0 days
 ---------------
 Simulation Win=339.76€
@@ -507,35 +539,26 @@ Simulation Win=0€
 
 
 LEG "LEG Immobilien"
--e Buy	Position:54	17pc	RSI:21	Quote:115.30€	Amount=1960.1€	piecesHold=17	Wallet=1960.1€	Symbol:LEG
--e Buy	Position:65	19pc	RSI:28	Quote:110.92€	Amount=2107.48€	piecesHold=36	Wallet=4067.58€	Symbol:LEG
--e Sell	36pc	Position:74	Stoch:100	Quote:115.02€	Amount=4140.72€	Symbol:LEG
+-e Buy	Position:51	17pc	RSI:21	Quote:115.30€	Amount=1960.1€	piecesHold=17	Wallet=1960.1€	Symbol:LEG
+-e Buy	Position:62	19pc	RSI:28	Quote:110.92€	Amount=2107.48€	piecesHold=36	Wallet=4067.58€	Symbol:LEG
+-e Sell	Position:71	36pc	Stoch:100	Quote:115.02€	Amount=4140.72€	Symbol:LEG
 Intermediate Win=73.14€ Proz=1.8% Average holding days=14.5 days
 ---------------
 Simulation Win=73.14€
 
 
 OSR "OSRAM LICHT"
--e Buy	Position:100	38pc	RSI:22	Quote:52.05€	Amount=1977.9€	piecesHold=38	Wallet=1977.9€	Symbol:OSR
-Sell all on the last day!!
--e Sell	38pc	Quote:52.05€	Amount=1977.9€	Symbol:OSR
-Intermediate Win=0€ Proz=0.0%
+-e Buy	Position:97	38pc	RSI:22	Quote:52.05€	Amount=1977.9€	piecesHold=38	Wallet=1977.9€	Symbol:OSR
+-e Buy	Position:98	42pc	RSI:25	Quote:51.95€	Amount=2181.9€	piecesHold=80	Wallet=4159.8€	Symbol:OSR
+-e Sell	Position:99	80pc	Stoch:100	Quote:52.70€	Amount=4216€	Symbol:OSR
+Intermediate Win=56.2€ Proz=1.4% Average holding days=1.5 days
 ---------------
-Simulation Win=0€
+Simulation Win=56.2€
 
 
 PUM "PUMA"
 ---------------
 Simulation Win=0€
-
-
-QIA "QIAGEN"
--e Buy	Position:67	50pc	RSI:19	Quote:39.90€	Amount=1995€	piecesHold=50	Wallet=1995€	Symbol:QIA
--e Buy	Position:70	54pc	RSI:41	Quote:40.60€	Amount=2192.4€	piecesHold=104	Wallet=4187.4€	Symbol:QIA
--e Sell	104pc	Position:72	Stoch:94	Quote:41.64€	Amount=4330.56€	Symbol:QIA
-Intermediate Win=143.16€ Proz=3.4% Average holding days=3.5 days
----------------
-Simulation Win=143.16€
 
 
 RHM "RHEINMETALL"
@@ -554,21 +577,25 @@ Simulation Win=0€
 
 
 SAE "SHOP APOTHEKE"
+-e Buy	Position:98	11pc	RSI:20	Quote:173.40€	Amount=1907.4€	piecesHold=11	Wallet=1907.4€	Symbol:SAE
+Sell all on the last day!!
+-e Sell	11pc	Quote:167.60€	Amount=1843.6€	Symbol:SAE
+Intermediate Win=-63.8€ Proz=-3.3%
 ---------------
-Simulation Win=0€
+Simulation Win=-63.8€
 
 
 SHL "Siemens Healthineers"
--e Buy	Position:61	44pc	RSI:11	Quote:44.99€	Amount=1979.78€	piecesHold=44	Wallet=1979.78€	Symbol:SHL
--e Sell	44pc	Position:66	Stoch:98	Quote:46.76€	Amount=2057.22€	Symbol:SHL
+-e Buy	Position:58	44pc	RSI:11	Quote:44.99€	Amount=1979.78€	piecesHold=44	Wallet=1979.78€	Symbol:SHL
+-e Sell	Position:63	44pc	Stoch:98	Quote:46.76€	Amount=2057.22€	Symbol:SHL
 Intermediate Win=77.44€ Proz=3.9% Average holding days=5.0 days
 ---------------
 Simulation Win=77.44€
 
 
 WAF "SILTRONIC"
--e Buy	Position:79	14pc	RSI:24	Quote:136.00€	Amount=1904€	piecesHold=14	Wallet=1904€	Symbol:WAF
--e Sell	14pc	Position:84	Stoch:100	Quote:139.40€	Amount=1951.6€	Symbol:WAF
+-e Buy	Position:76	14pc	RSI:24	Quote:136.00€	Amount=1904€	piecesHold=14	Wallet=1904€	Symbol:WAF
+-e Sell	Position:81	14pc	Stoch:100	Quote:139.40€	Amount=1951.6€	Symbol:WAF
 Intermediate Win=47.6€ Proz=2.5% Average holding days=5.0 days
 ---------------
 Simulation Win=47.6€
@@ -585,18 +612,18 @@ Simulation Win=0€
 
 
 TEG "TAG IMMOBILIEN"
--e Buy	Position:56	84pc	RSI:17	Quote:23.60€	Amount=1982.4€	piecesHold=84	Wallet=1982.4€	Symbol:TEG
--e Buy	Position:57	93pc	RSI:18	Quote:23.56€	Amount=2191.08€	piecesHold=177	Wallet=4173.48€	Symbol:TEG
--e Buy	Position:59	101pc	RSI:31	Quote:23.84€	Amount=2407.84€	piecesHold=278	Wallet=6581.32€	Symbol:TEG
--e Sell	278pc	Position:66	Stoch:100	Quote:24.30€	Amount=6755.4€	Symbol:TEG
+-e Buy	Position:53	84pc	RSI:17	Quote:23.60€	Amount=1982.4€	piecesHold=84	Wallet=1982.4€	Symbol:TEG
+-e Buy	Position:54	93pc	RSI:18	Quote:23.56€	Amount=2191.08€	piecesHold=177	Wallet=4173.48€	Symbol:TEG
+-e Buy	Position:56	101pc	RSI:31	Quote:23.84€	Amount=2407.84€	piecesHold=278	Wallet=6581.32€	Symbol:TEG
+-e Sell	Position:63	278pc	Stoch:100	Quote:24.30€	Amount=6755.4€	Symbol:TEG
 Intermediate Win=174.08€ Proz=2.6% Average holding days=8.7 days
 ---------------
 Simulation Win=174.08€
 
 
 TMV "TeamViewer"
--e Buy	Position:79	56pc	RSI:24	Quote:35.64€	Amount=1995.84€	piecesHold=56	Wallet=1995.84€	Symbol:TMV
--e Sell	56pc	Position:87	Stoch:100	Quote:38.82€	Amount=2173.92€	Symbol:TMV
+-e Buy	Position:76	56pc	RSI:24	Quote:35.64€	Amount=1995.84€	piecesHold=56	Wallet=1995.84€	Symbol:TMV
+-e Sell	Position:84	56pc	Stoch:100	Quote:38.82€	Amount=2173.92€	Symbol:TMV
 Intermediate Win=178.08€ Proz=8.9% Average holding days=8.0 days
 ---------------
 Simulation Win=178.08€
@@ -608,17 +635,17 @@ Simulation Win=0€
 
 
 UTDI "UNITED INTERNET"
--e Buy	Position:86	59pc	RSI:24	Quote:33.58€	Amount=1981.22€	piecesHold=59	Wallet=1981.22€	Symbol:UTDI
--e Buy	Position:87	65pc	RSI:25	Quote:33.40€	Amount=2171€	piecesHold=124	Wallet=4152.22€	Symbol:UTDI
--e Sell	124pc	Position:94	Stoch:100	Quote:34.64€	Amount=4295.36€	Symbol:UTDI
+-e Buy	Position:83	59pc	RSI:24	Quote:33.58€	Amount=1981.22€	piecesHold=59	Wallet=1981.22€	Symbol:UTDI
+-e Buy	Position:84	65pc	RSI:25	Quote:33.40€	Amount=2171€	piecesHold=124	Wallet=4152.22€	Symbol:UTDI
+-e Sell	Position:91	124pc	Stoch:100	Quote:34.64€	Amount=4295.36€	Symbol:UTDI
 Intermediate Win=143.14€ Proz=3.4% Average holding days=7.5 days
 ---------------
 Simulation Win=143.14€
 
 
 VAR1 "Varta"
--e Buy	Position:65	18pc	RSI:23	Quote:110.00€	Amount=1980€	piecesHold=18	Wallet=1980€	Symbol:VAR1
--e Sell	18pc	Position:69	Stoch:100	Quote:128.00€	Amount=2304€	Symbol:VAR1
+-e Buy	Position:62	18pc	RSI:23	Quote:110.00€	Amount=1980€	piecesHold=18	Wallet=1980€	Symbol:VAR1
+-e Sell	Position:66	18pc	Stoch:100	Quote:128.00€	Amount=2304€	Symbol:VAR1
 Intermediate Win=324€ Proz=16.4% Average holding days=4.0 days
 ---------------
 Simulation Win=324€
@@ -640,9 +667,9 @@ Simulation Win=0€
 
 
 HEN3 "HENKEL VZ"
--e Buy	Position:54	24pc	RSI:24	Quote:83.22€	Amount=1997.28€	piecesHold=24	Wallet=1997.28€	Symbol:HEN3
--e Buy	Position:60	26pc	RSI:28	Quote:83.32€	Amount=2166.32€	piecesHold=50	Wallet=4163.6€	Symbol:HEN3
--e Sell	50pc	Position:63	Stoch:100	Quote:87.38€	Amount=4369€	Symbol:HEN3
+-e Buy	Position:51	24pc	RSI:24	Quote:83.22€	Amount=1997.28€	piecesHold=24	Wallet=1997.28€	Symbol:HEN3
+-e Buy	Position:57	26pc	RSI:28	Quote:83.32€	Amount=2166.32€	piecesHold=50	Wallet=4163.6€	Symbol:HEN3
+-e Sell	Position:60	50pc	Stoch:100	Quote:87.38€	Amount=4369€	Symbol:HEN3
 Intermediate Win=205.4€ Proz=4.9% Average holding days=6.0 days
 ---------------
 Simulation Win=205.4€
@@ -674,27 +701,27 @@ Simulation Win=0€
 
 
 DWNI "DEUT. WOHNEN"
--e Buy	Position:56	51pc	RSI:19	Quote:39.07€	Amount=1992.57€	piecesHold=51	Wallet=1992.57€	Symbol:DWNI
--e Buy	Position:57	56pc	RSI:20	Quote:38.95€	Amount=2181.2€	piecesHold=107	Wallet=4173.77€	Symbol:DWNI
--e Sell	107pc	Position:69	Stoch:100	Quote:39.75€	Amount=4253.25€	Symbol:DWNI
+-e Buy	Position:53	51pc	RSI:19	Quote:39.07€	Amount=1992.57€	piecesHold=51	Wallet=1992.57€	Symbol:DWNI
+-e Buy	Position:54	56pc	RSI:20	Quote:38.95€	Amount=2181.2€	piecesHold=107	Wallet=4173.77€	Symbol:DWNI
+-e Sell	Position:66	107pc	Stoch:100	Quote:39.75€	Amount=4253.25€	Symbol:DWNI
 Intermediate Win=79.48€ Proz=1.9% Average holding days=12.5 days
 ---------------
 Simulation Win=79.48€
 
 
 DHER "DELIVERY HERO"
--e Buy	Position:59	18pc	RSI:15	Quote:105.95€	Amount=1907.1€	piecesHold=18	Wallet=1907.1€	Symbol:DHER
--e Buy	Position:67	21pc	RSI:36	Quote:103.80€	Amount=2179.8€	piecesHold=39	Wallet=4086.9€	Symbol:DHER
--e Sell	39pc	Position:69	Stoch:93	Quote:108.00€	Amount=4212€	Symbol:DHER
+-e Buy	Position:56	18pc	RSI:15	Quote:105.95€	Amount=1907.1€	piecesHold=18	Wallet=1907.1€	Symbol:DHER
+-e Buy	Position:64	21pc	RSI:36	Quote:103.80€	Amount=2179.8€	piecesHold=39	Wallet=4086.9€	Symbol:DHER
+-e Sell	Position:66	39pc	Stoch:93	Quote:108.00€	Amount=4212€	Symbol:DHER
 Intermediate Win=125.1€ Proz=3.1% Average holding days=6.0 days
 ---------------
 Simulation Win=125.1€
 
 
 JEN "JENOPTIK"
--e Buy	Position:86	78pc	RSI:24	Quote:25.60€	Amount=1996.8€	piecesHold=78	Wallet=1996.8€	Symbol:JEN
--e Buy	Position:90	86pc	RSI:33	Quote:25.32€	Amount=2177.52€	piecesHold=164	Wallet=4174.32€	Symbol:JEN
--e Sell	164pc	Position:96	Stoch:100	Quote:27.10€	Amount=4444.4€	Symbol:JEN
+-e Buy	Position:83	78pc	RSI:24	Quote:25.60€	Amount=1996.8€	piecesHold=78	Wallet=1996.8€	Symbol:JEN
+-e Buy	Position:87	86pc	RSI:33	Quote:25.32€	Amount=2177.52€	piecesHold=164	Wallet=4174.32€	Symbol:JEN
+-e Sell	Position:93	164pc	Stoch:100	Quote:27.10€	Amount=4444.4€	Symbol:JEN
 Intermediate Win=270.08€ Proz=6.5% Average holding days=8.0 days
 ---------------
 Simulation Win=270.08€
@@ -706,18 +733,18 @@ Simulation Win=0€
 
 
 B4B "METRO"
--e Buy	Position:86	222pc	RSI:24	Quote:9.00€	Amount=1998.89€	piecesHold=222	Wallet=1998.89€	Symbol:B4B
--e Buy	Position:87	246pc	RSI:26	Quote:8.93€	Amount=2196.29€	piecesHold=468	Wallet=4195.18€	Symbol:B4B
--e Buy	Position:90	269pc	RSI:39	Quote:8.97€	Amount=2411.85€	piecesHold=737	Wallet=6607.03€	Symbol:B4B
--e Sell	737pc	Position:96	Stoch:95	Quote:9.09€	Amount=6697.86€	Symbol:B4B
+-e Buy	Position:83	222pc	RSI:24	Quote:9.00€	Amount=1998.89€	piecesHold=222	Wallet=1998.89€	Symbol:B4B
+-e Buy	Position:84	246pc	RSI:26	Quote:8.93€	Amount=2196.29€	piecesHold=468	Wallet=4195.18€	Symbol:B4B
+-e Buy	Position:87	269pc	RSI:39	Quote:8.97€	Amount=2411.85€	piecesHold=737	Wallet=6607.03€	Symbol:B4B
+-e Sell	Position:93	737pc	Stoch:95	Quote:9.09€	Amount=6697.86€	Symbol:B4B
 Intermediate Win=90.83€ Proz=1.4% Average holding days=8.3 days
 ---------------
 Simulation Win=90.83€
 
 
 ZO1 "ZOOPLUS"
--e Buy	Position:65	10pc	RSI:12	Quote:186.20€	Amount=1862€	piecesHold=10	Wallet=1862€	Symbol:ZO1
--e Sell	10pc	Position:68	Stoch:92	Quote:203.50€	Amount=2035€	Symbol:ZO1
+-e Buy	Position:62	10pc	RSI:12	Quote:186.20€	Amount=1862€	piecesHold=10	Wallet=1862€	Symbol:ZO1
+-e Sell	Position:65	10pc	Stoch:92	Quote:203.50€	Amount=2035€	Symbol:ZO1
 Intermediate Win=173€ Proz=9.3% Average holding days=3.0 days
 ---------------
 Simulation Win=173€
@@ -729,10 +756,10 @@ Simulation Win=0€
 
 
 ADJ "ADLER GROUP"
--e Buy	Position:44	82pc	RSI:24	Quote:24.34€	Amount=1995.88€	piecesHold=82	Wallet=1995.88€	Symbol:ADJ
--e Buy	Position:45	90pc	RSI:30	Quote:24.30€	Amount=2187€	piecesHold=172	Wallet=4182.88€	Symbol:ADJ
--e Buy	Position:61	103pc	RSI:38	Quote:23.42€	Amount=2412.26€	piecesHold=275	Wallet=6595.14€	Symbol:ADJ
--e Sell	275pc	Position:66	Stoch:100	Quote:24.82€	Amount=6825.5€	Symbol:ADJ
+-e Buy	Position:41	82pc	RSI:24	Quote:24.34€	Amount=1995.88€	piecesHold=82	Wallet=1995.88€	Symbol:ADJ
+-e Buy	Position:42	90pc	RSI:30	Quote:24.30€	Amount=2187€	piecesHold=172	Wallet=4182.88€	Symbol:ADJ
+-e Buy	Position:58	103pc	RSI:38	Quote:23.42€	Amount=2412.26€	piecesHold=275	Wallet=6595.14€	Symbol:ADJ
+-e Sell	Position:63	275pc	Stoch:100	Quote:24.82€	Amount=6825.5€	Symbol:ADJ
 Intermediate Win=230.36€ Proz=3.5% Average holding days=16.0 days
 ---------------
 Simulation Win=230.36€
@@ -769,11 +796,11 @@ Simulation Win=0€
 
 
 HYQ "HYPOPORT"
--e Buy	Position:68	4pc	RSI:23	Quote:433.00€	Amount=1732€	piecesHold=4	Wallet=1732€	Symbol:HYQ
--e Buy	Position:73	4pc	RSI:35	Quote:447.50€	Amount=1790€	piecesHold=8	Wallet=3522€	Symbol:HYQ
--e Buy	Position:75	5pc	RSI:40	Quote:433.00€	Amount=2165€	piecesHold=13	Wallet=5687€	Symbol:HYQ
--e Buy	Position:87	6pc	RSI:41	Quote:432.00€	Amount=2592€	piecesHold=19	Wallet=8279€	Symbol:HYQ
--e Sell	19pc	Position:93	Stoch:100	Quote:467.00€	Amount=8873€	Symbol:HYQ
+-e Buy	Position:65	4pc	RSI:23	Quote:433.00€	Amount=1732€	piecesHold=4	Wallet=1732€	Symbol:HYQ
+-e Buy	Position:70	4pc	RSI:35	Quote:447.50€	Amount=1790€	piecesHold=8	Wallet=3522€	Symbol:HYQ
+-e Buy	Position:72	5pc	RSI:40	Quote:433.00€	Amount=2165€	piecesHold=13	Wallet=5687€	Symbol:HYQ
+-e Buy	Position:84	6pc	RSI:41	Quote:432.00€	Amount=2592€	piecesHold=19	Wallet=8279€	Symbol:HYQ
+-e Sell	Position:90	19pc	Stoch:100	Quote:467.00€	Amount=8873€	Symbol:HYQ
 Intermediate Win=594€ Proz=7.2% Average holding days=17.2 days
 ---------------
 Simulation Win=594€
@@ -790,8 +817,8 @@ Simulation Win=0€
 
 
 PAT "PATRIZIA"
--e Buy	Position:60	89pc	RSI:24	Quote:22.30€	Amount=1984.7€	piecesHold=89	Wallet=1984.7€	Symbol:PAT
--e Sell	89pc	Position:97	Stoch:100	Quote:22.20€	Amount=1975.8€	Symbol:PAT
+-e Buy	Position:57	89pc	RSI:24	Quote:22.30€	Amount=1984.7€	piecesHold=89	Wallet=1984.7€	Symbol:PAT
+-e Sell	Position:94	89pc	Stoch:100	Quote:22.20€	Amount=1975.8€	Symbol:PAT
 Intermediate Win=-8.9€ Proz=-0.4% Average holding days=37.0 days
 ---------------
 Simulation Win=-8.9€
@@ -847,20 +874,6 @@ VOS "VOSSLOH"
 Simulation Win=0€
 
 
-FIE "FIELMANN"
----------------
-Simulation Win=0€
-
-
-ADS "Adidas"
--e Buy	Position:98	7pc	RSI:23	Quote:258.85€	Amount=1811.95€	piecesHold=7	Wallet=1811.95€	Symbol:ADS
-Sell all on the last day!!
--e Sell	7pc	Quote:256.85€	Amount=1797.95€	Symbol:ADS
-Intermediate Win=-14€ Proz=-0.8%
----------------
-Simulation Win=-14€
-
-
 1N8 "ADYEN"
 ---------------
 Simulation Win=0€
@@ -882,8 +895,8 @@ Simulation Win=0€
 
 
 1NBA "ANHEUSER-BUSCH"
--e Buy	Position:56	39pc	RSI:23	Quote:50.10€	Amount=1953.9€	piecesHold=39	Wallet=1953.9€	Symbol:1NBA
--e Sell	39pc	Position:65	Stoch:93	Quote:53.14€	Amount=2072.46€	Symbol:1NBA
+-e Buy	Position:53	39pc	RSI:23	Quote:50.10€	Amount=1953.9€	piecesHold=39	Wallet=1953.9€	Symbol:1NBA
+-e Sell	Position:62	39pc	Stoch:93	Quote:53.14€	Amount=2072.46€	Symbol:1NBA
 Intermediate Win=118.56€ Proz=6.1% Average holding days=9.0 days
 ---------------
 Simulation Win=118.56€
@@ -930,18 +943,17 @@ Simulation Win=0€
 
 
 DTE "Deutsche Telekom"
--e Buy	Position:98	125pc	RSI:24	Quote:15.98€	Amount=1997.5€	piecesHold=125	Wallet=1997.5€	Symbol:DTE
--e Buy	Position:99	137pc	RSI:28	Quote:15.95€	Amount=2185.15€	piecesHold=262	Wallet=4182.65€	Symbol:DTE
-Sell all on the last day!!
--e Sell	262pc	Quote:16.00€	Amount=4192€	Symbol:DTE
-Intermediate Win=9.35€ Proz=0.2%
+-e Buy	Position:95	125pc	RSI:24	Quote:15.98€	Amount=1997.5€	piecesHold=125	Wallet=1997.5€	Symbol:DTE
+-e Buy	Position:96	137pc	RSI:28	Quote:15.95€	Amount=2185.15€	piecesHold=262	Wallet=4182.65€	Symbol:DTE
+-e Sell	Position:100	262pc	Stoch:100	Quote:16.41€	Amount=4299.94€	Symbol:DTE
+Intermediate Win=117.29€ Proz=2.8% Average holding days=4.5 days
 ---------------
-Simulation Win=9.35€
+Simulation Win=117.29€
 
 
 ENL "ENEL"
--e Buy	Position:56	255pc	RSI:22	Quote:7.84€	Amount=1998.69€	piecesHold=255	Wallet=1998.69€	Symbol:ENL
--e Sell	255pc	Position:65	Stoch:100	Quote:8.22€	Amount=2096.1€	Symbol:ENL
+-e Buy	Position:53	255pc	RSI:22	Quote:7.84€	Amount=1998.69€	piecesHold=255	Wallet=1998.69€	Symbol:ENL
+-e Sell	Position:62	255pc	Stoch:100	Quote:8.22€	Amount=2096.1€	Symbol:ENL
 Intermediate Win=97.41€ Proz=4.9% Average holding days=9.0 days
 ---------------
 Simulation Win=97.41€
@@ -963,12 +975,13 @@ Simulation Win=0€
 
 
 PHI1 "KONINKLIJKE PHILIPS"
--e Buy	Position:100	42pc	RSI:24	Quote:46.78€	Amount=1964.76€	piecesHold=42	Wallet=1964.76€	Symbol:PHI1
+-e Buy	Position:97	42pc	RSI:24	Quote:46.78€	Amount=1964.76€	piecesHold=42	Wallet=1964.76€	Symbol:PHI1
+-e Buy	Position:99	46pc	RSI:32	Quote:47.00€	Amount=2162€	piecesHold=88	Wallet=4126.76€	Symbol:PHI1
 Sell all on the last day!!
--e Sell	42pc	Quote:46.78€	Amount=1964.76€	Symbol:PHI1
-Intermediate Win=0€ Proz=0.0%
+-e Sell	88pc	Quote:47.56€	Amount=4185.28€	Symbol:PHI1
+Intermediate Win=58.52€ Proz=1.4%
 ---------------
-Simulation Win=0€
+Simulation Win=58.52€
 
 
 LIN "Linde"
@@ -981,17 +994,12 @@ MOH "LVMH MOET HE. LOU."
 Simulation Win=0€
 
 
-MUV2 "MUENCHENER RUE"
----------------
-Simulation Win=0€
-
-
 NOA3 "NOKIA"
--e Buy	Position:52	588pc	RSI:19	Quote:3.40€	Amount=1998.02€	piecesHold=588	Wallet=1998.02€	Symbol:NOA3
--e Buy	Position:53	662pc	RSI:23	Quote:3.32€	Amount=2197.84€	piecesHold=1250	Wallet=4195.86€	Symbol:NOA3
--e Buy	Position:55	740pc	RSI:22	Quote:3.27€	Amount=2419.8€	piecesHold=1990	Wallet=6615.66€	Symbol:NOA3
--e Buy	Position:61	809pc	RSI:39	Quote:3.29€	Amount=2660.8€	piecesHold=2799	Wallet=9276.46€	Symbol:NOA3
--e Sell	2799pc	Position:66	Stoch:100	Quote:3.47€	Amount=9720.93€	Symbol:NOA3
+-e Buy	Position:49	588pc	RSI:19	Quote:3.40€	Amount=1998.02€	piecesHold=588	Wallet=1998.02€	Symbol:NOA3
+-e Buy	Position:50	662pc	RSI:23	Quote:3.32€	Amount=2197.84€	piecesHold=1250	Wallet=4195.86€	Symbol:NOA3
+-e Buy	Position:52	740pc	RSI:22	Quote:3.27€	Amount=2419.8€	piecesHold=1990	Wallet=6615.66€	Symbol:NOA3
+-e Buy	Position:58	809pc	RSI:39	Quote:3.29€	Amount=2660.8€	piecesHold=2799	Wallet=9276.46€	Symbol:NOA3
+-e Sell	Position:63	2799pc	Stoch:100	Quote:3.47€	Amount=9720.93€	Symbol:NOA3
 Intermediate Win=444.47€ Proz=4.8% Average holding days=10.8 days
 ---------------
 Simulation Win=444.47€
@@ -1033,9 +1041,9 @@ Simulation Win=0€
 
 
 VNA "Vonovia"
--e Buy	Position:54	37pc	RSI:15	Quote:53.48€	Amount=1978.76€	piecesHold=37	Wallet=1978.76€	Symbol:VNA
--e Buy	Position:57	41pc	RSI:22	Quote:52.74€	Amount=2162.34€	piecesHold=78	Wallet=4141.1€	Symbol:VNA
--e Sell	78pc	Position:65	Stoch:100	Quote:54.32€	Amount=4236.96€	Symbol:VNA
+-e Buy	Position:51	37pc	RSI:15	Quote:53.48€	Amount=1978.76€	piecesHold=37	Wallet=1978.76€	Symbol:VNA
+-e Buy	Position:54	41pc	RSI:22	Quote:52.74€	Amount=2162.34€	piecesHold=78	Wallet=4141.1€	Symbol:VNA
+-e Sell	Position:62	78pc	Stoch:100	Quote:54.32€	Amount=4236.96€	Symbol:VNA
 Intermediate Win=95.86€ Proz=2.3% Average holding days=9.5 days
 ---------------
 Simulation Win=95.86€
@@ -1052,10 +1060,10 @@ Simulation Win=0€
 
 
 APC "Apple"
--e Buy	Position:62	20pc	RSI:24	Quote:98.98€	Amount=1979.6€	piecesHold=20	Wallet=1979.6€	Symbol:APC
--e Buy	Position:65	21pc	RSI:37	Quote:100.96€	Amount=2120.16€	piecesHold=41	Wallet=4099.76€	Symbol:APC
--e Buy	Position:67	24pc	RSI:40	Quote:100.20€	Amount=2404.8€	piecesHold=65	Wallet=6504.56€	Symbol:APC
--e Sell	65pc	Position:69	Stoch:100	Quote:105.66€	Amount=6867.9€	Symbol:APC
+-e Buy	Position:59	20pc	RSI:24	Quote:98.98€	Amount=1979.6€	piecesHold=20	Wallet=1979.6€	Symbol:APC
+-e Buy	Position:62	21pc	RSI:37	Quote:100.96€	Amount=2120.16€	piecesHold=41	Wallet=4099.76€	Symbol:APC
+-e Buy	Position:64	24pc	RSI:40	Quote:100.20€	Amount=2404.8€	piecesHold=65	Wallet=6504.56€	Symbol:APC
+-e Sell	Position:66	65pc	Stoch:100	Quote:105.66€	Amount=6867.9€	Symbol:APC
 Intermediate Win=363.34€ Proz=5.6% Average holding days=4.3 days
 ---------------
 Simulation Win=363.34€
@@ -1117,9 +1125,9 @@ Simulation Win=0€
 
 
 NESM "NESTLE"
--e Buy	Position:59	22pc	RSI:22	Quote:88.60€	Amount=1949.2€	piecesHold=22	Wallet=1949.2€	Symbol:NESM
--e Buy	Position:60	25pc	RSI:23	Quote:87.80€	Amount=2195€	piecesHold=47	Wallet=4144.2€	Symbol:NESM
--e Sell	47pc	Position:69	Stoch:95	Quote:91.20€	Amount=4286.4€	Symbol:NESM
+-e Buy	Position:58	22pc	RSI:22	Quote:88.60€	Amount=1949.2€	piecesHold=22	Wallet=1949.2€	Symbol:NESM
+-e Buy	Position:59	25pc	RSI:23	Quote:87.80€	Amount=2195€	piecesHold=47	Wallet=4144.2€	Symbol:NESM
+-e Sell	Position:68	47pc	Stoch:95	Quote:91.20€	Amount=4286.4€	Symbol:NESM
 Intermediate Win=142.2€ Proz=3.4% Average holding days=9.5 days
 ---------------
 Simulation Win=142.2€
@@ -1131,15 +1139,15 @@ Simulation Win=0€
 
 
 AMZ "AMAZON.COM"
--e Buy	Position:56	1pc	RSI:24	Quote:2562.50€	Amount=2562.5€	piecesHold=1	Wallet=2562.5€	Symbol:AMZ
--e Buy	Position:61	1pc	RSI:30	Quote:2524.00€	Amount=2524€	piecesHold=2	Wallet=5086.5€	Symbol:AMZ
--e Sell	2pc	Position:69	Stoch:98	Quote:2601.50€	Amount=5203€	Symbol:AMZ
+-e Buy	Position:53	1pc	RSI:24	Quote:2562.50€	Amount=2562.5€	piecesHold=1	Wallet=2562.5€	Symbol:AMZ
+-e Buy	Position:58	1pc	RSI:30	Quote:2524.00€	Amount=2524€	piecesHold=2	Wallet=5086.5€	Symbol:AMZ
+-e Sell	Position:66	2pc	Stoch:98	Quote:2601.50€	Amount=5203€	Symbol:AMZ
 Intermediate Win=116.5€ Proz=2.3% Average holding days=10.5 days
 ---------------
 Simulation Win=116.5€
 
 
-AMD "ADVANCED MICRO DEV."
+AMD "ADVANCED MICRO DE."
 ---------------
 Simulation Win=0€
 
@@ -1150,8 +1158,8 @@ Simulation Win=0€
 
 
 QCI "QUALCOMM"
--e Buy	Position:61	18pc	RSI:23	Quote:109.44€	Amount=1969.92€	piecesHold=18	Wallet=1969.92€	Symbol:QCI
--e Sell	18pc	Position:73	Stoch:93	Quote:112.32€	Amount=2021.76€	Symbol:QCI
+-e Buy	Position:58	18pc	RSI:23	Quote:109.44€	Amount=1969.92€	piecesHold=18	Wallet=1969.92€	Symbol:QCI
+-e Sell	Position:70	18pc	Stoch:93	Quote:112.32€	Amount=2021.76€	Symbol:QCI
 Intermediate Win=51.84€ Proz=2.6% Average holding days=12.0 days
 ---------------
 Simulation Win=51.84€
@@ -1163,17 +1171,17 @@ Simulation Win=0€
 
 
 ===============
-Win overall=8788.56€
+Win overall=9259.77€
 Wallet overall=0€
 
 
-Good Luck! Donate?  1-May-2021 07:49 +2h
+Good Luck! Donate?  6-May-2021 19:38 +2h
 
 # Simulate BuyRSILowMACDNegativ SellHighStoch
 #############################################
 
 # Parameter
-Symbols(182):NFC INL CCAP BAC TOTB DXSN O2D XONA GEC FTE TNE5 CRIN DBK GZF HLE GBF MOR FPE3 BC8 BEI 1COV WMT RAA 6MK MDO ZEG EOAN PPX FRE FME IBE1 RWE KBX ENI SAX BMW CCC3 BCO SZU LOR FRA GXI PSM FOO NEM BSN SNW AHOG AFX AHLA CEC GIS LHA CBK ARL AIXA AT1 NDA BNR COK COP EVD DUE EVK EVT FNTN G1A GYC HNR1 HFG HOT BOSS KGX LXS LEG OSR PUM QIA RHM SRT3 G24 SAE SHL WAF SOW SY1 TEG TMV UN01 UTDI VAR1 WCH ZAL HEI HEN3 IFX SDF MRK TKA MTX DWNI DHER JEN S92 B4B ZO1 SMHN ADJ KCO KWS SGL EUZ DEZ DEQ HYQ WAC 8TRA PAT SFQ BYW6 HHFA SANT DRW3 KRN INH LEO SZG VOS FIE ADS 1N8 AIL AIR ALV 1NBA ASME AXA BSD2 BAS BAYN BNP DAI DPW DTE ENL IXD1 INN1 IES PHI1 LIN MOH MUV2 NOA3 1TY SAP SND SIE SQU VVU VOW3 VNA MMM AMG APC CAT1 CHV CIS 2OY GOS HDI JNJ CMC MSF NKE UNH NESM TL0 AMZ AMD NVD QCI 2PP
+Symbols(182):QIA CCAP INL MUV2 NFC DXSN FIE ADS XONA GEC FTE TNE5 CRIN DBK BAC O2D TOTB GZF HLE GBF MOR FPE3 BC8 BEI 1COV WMT RAA 6MK MDO ZEG EOAN PPX FRE FME IBE1 RWE KBX ENI SAX BMW CCC3 BCO SZU LOR FRA GXI PSM FOO NEM BSN SNW AHOG AFX AHLA CEC GIS LHA CBK ARL AIXA AT1 NDA BNR COK COP EVD DUE EVK EVT FNTN G1A GYC HNR1 HFG HOT BOSS KGX LXS LEG OSR PUM RHM SRT3 G24 SAE SHL WAF SOW SY1 TEG TMV UN01 UTDI VAR1 WCH ZAL HEI HEN3 IFX SDF MRK TKA MTX DWNI DHER JEN S92 B4B ZO1 SMHN ADJ KCO KWS SGL EUZ DEZ DEQ HYQ WAC 8TRA PAT SFQ BYW6 HHFA SANT DRW3 KRN INH LEO SZG VOS 1N8 AIL AIR ALV 1NBA ASME AXA BSD2 BAS BAYN BNP DAI DPW DTE ENL IXD1 INN1 IES PHI1 LIN MOH NOA3 1TY SAP SND SIE SQU VVU VOW3 VNA MMM AMG APC CAT1 CHV CIS 2OY GOS HDI JNJ CMC MSF NKE UNH NESM TL0 AMZ AMD NVD QCI 2PP
 Amount per Trade:2000€
 RSI buy Level:25
 Stoch sell Level:91
@@ -1181,103 +1189,151 @@ Increment per Trade:1.1
 
 # Simulation
 
-NFC "Netflix"
--e Buy	Position:96	4pc	RSI:20	Quote:419.10€	Amount=1676.4€	piecesHold=4	Wallet=1676.4€	Symbol:NFC
--e Buy	Position:97	5pc	RSI:23	Quote:421.00€	Amount=2105€	piecesHold=9	Wallet=3781.4€	Symbol:NFC
--e Buy	Position:98	5pc	RSI:21	Quote:418.70€	Amount=2093.5€	piecesHold=14	Wallet=5874.9€	Symbol:NFC
--e Buy	Position:99	6pc	RSI:18	Quote:412.60€	Amount=2475.6€	piecesHold=20	Wallet=8350.5€	Symbol:NFC
+QIA "QIAGEN"
+-e Buy	Position:54	48pc	RSI:24	Quote:41.00€	Amount=1968€	piecesHold=48	Wallet=1968€	Symbol:QIA
+-e Buy	Position:57	54pc	RSI:24	Quote:40.71€	Amount=2198.34€	piecesHold=102	Wallet=4166.34€	Symbol:QIA
+-e Buy	Position:58	60pc	RSI:21	Quote:39.89€	Amount=2393.4€	piecesHold=162	Wallet=6559.74€	Symbol:QIA
+-e Buy	Position:59	67pc	RSI:16	Quote:39.26€	Amount=2630.42€	piecesHold=229	Wallet=9190.16€	Symbol:QIA
+-e Buy	Position:60	73pc	RSI:18	Quote:39.68€	Amount=2896.64€	piecesHold=302	Wallet=12086.8€	Symbol:QIA
+-e Buy	Position:61	80pc	RSI:21	Quote:40.00€	Amount=3200€	piecesHold=382	Wallet=15286.8€	Symbol:QIA
+-e Buy	Position:62	88pc	RSI:21	Quote:40.13€	Amount=3531.44€	piecesHold=470	Wallet=18818.2€	Symbol:QIA
+-e Buy	Position:63	97pc	RSI:17	Quote:40.04€	Amount=3883.88€	piecesHold=567	Wallet=22702.1€	Symbol:QIA
+-e Buy	Position:64	107pc	RSI:19	Quote:39.90€	Amount=4269.3€	piecesHold=674	Wallet=26971.4€	Symbol:QIA
+-e Sell	Position:69	674pc	Stoch:94	Quote:41.64€	Amount=28065.4€	Symbol:QIA
+Intermediate Win=1094€ Proz=4.1% Average holding days=9.2 days
+-e Buy	Position:95	49pc	RSI:23	Quote:40.56€	Amount=1987.44€	piecesHold=49	Wallet=1987.44€	Symbol:QIA
+-e Buy	Position:96	54pc	RSI:21	Quote:40.11€	Amount=2165.94€	piecesHold=103	Wallet=4153.38€	Symbol:QIA
+-e Buy	Position:98	60pc	RSI:18	Quote:39.99€	Amount=2399.4€	piecesHold=163	Wallet=6552.78€	Symbol:QIA
+-e Buy	Position:99	67pc	RSI:17	Quote:39.46€	Amount=2643.82€	piecesHold=230	Wallet=9196.6€	Symbol:QIA
+-e Buy	Position:100	74pc	RSI:16	Quote:39.56€	Amount=2927.44€	piecesHold=304	Wallet=12124€	Symbol:QIA
 Sell all on the last day!!
--e Sell	20pc	Quote:424.70€	Amount=8494€	Symbol:NFC
-Intermediate Win=143.5€ Proz=1.7%
+-e Sell	304pc	Quote:39.56€	Amount=12026.2€	Symbol:QIA
+Intermediate Win=-97.8€ Proz=-0.8%
 ---------------
-Simulation Win=143.5€
-
-
-INL "Intel Corp"
--e Buy	Position:96	40pc	RSI:23	Quote:49.10€	Amount=1964€	piecesHold=40	Wallet=1964€	Symbol:INL
--e Buy	Position:97	45pc	RSI:22	Quote:48.05€	Amount=2162.03€	piecesHold=85	Wallet=4126.03€	Symbol:INL
--e Buy	Position:98	51pc	RSI:17	Quote:47.33€	Amount=2413.83€	piecesHold=136	Wallet=6539.86€	Symbol:INL
--e Buy	Position:99	55pc	RSI:13	Quote:47.68€	Amount=2622.4€	piecesHold=191	Wallet=9162.26€	Symbol:INL
--e Buy	Position:100	60pc	RSI:15	Quote:48.15€	Amount=2889€	piecesHold=251	Wallet=12051.3€	Symbol:INL
-Sell all on the last day!!
--e Sell	251pc	Quote:48.15€	Amount=12085.6€	Symbol:INL
-Intermediate Win=34.3€ Proz=0.3%
----------------
-Simulation Win=34.3€
+Simulation Win=996.2€
 
 
 CCAP "Corestate Capital"
--e Buy	Position:95	155pc	RSI:21	Quote:12.88€	Amount=1996.4€	piecesHold=155	Wallet=1996.4€	Symbol:CCAP
--e Buy	Position:96	169pc	RSI:20	Quote:12.95€	Amount=2188.55€	piecesHold=324	Wallet=4184.95€	Symbol:CCAP
--e Buy	Position:97	185pc	RSI:17	Quote:13.04€	Amount=2412.4€	piecesHold=509	Wallet=6597.35€	Symbol:CCAP
--e Buy	Position:98	204pc	RSI:20	Quote:13.01€	Amount=2654.04€	piecesHold=713	Wallet=9251.39€	Symbol:CCAP
--e Buy	Position:99	224pc	RSI:24	Quote:13.07€	Amount=2927.68€	piecesHold=937	Wallet=12179.1€	Symbol:CCAP
+-e Buy	Position:92	155pc	RSI:21	Quote:12.88€	Amount=1996.4€	piecesHold=155	Wallet=1996.4€	Symbol:CCAP
+-e Buy	Position:93	169pc	RSI:20	Quote:12.95€	Amount=2188.55€	piecesHold=324	Wallet=4184.95€	Symbol:CCAP
+-e Buy	Position:94	185pc	RSI:17	Quote:13.04€	Amount=2412.4€	piecesHold=509	Wallet=6597.35€	Symbol:CCAP
+-e Buy	Position:95	204pc	RSI:20	Quote:13.01€	Amount=2654.04€	piecesHold=713	Wallet=9251.39€	Symbol:CCAP
+-e Buy	Position:96	224pc	RSI:24	Quote:13.07€	Amount=2927.68€	piecesHold=937	Wallet=12179.1€	Symbol:CCAP
+-e Buy	Position:99	252pc	RSI:12	Quote:12.77€	Amount=3218.04€	piecesHold=1189	Wallet=15397.1€	Symbol:CCAP
+-e Buy	Position:100	278pc	RSI:13	Quote:12.72€	Amount=3536.16€	piecesHold=1467	Wallet=18933.3€	Symbol:CCAP
 Sell all on the last day!!
--e Sell	937pc	Quote:13.08€	Amount=12256€	Symbol:CCAP
-Intermediate Win=76.9€ Proz=0.6%
+-e Sell	1467pc	Quote:12.72€	Amount=18660.2€	Symbol:CCAP
+Intermediate Win=-273.1€ Proz=-1.4%
 ---------------
-Simulation Win=76.9€
+Simulation Win=-273.1€
 
 
-BAC "Verizon Comm."
--e Buy	Position:26	42pc	RSI:24	Quote:46.84€	Amount=1967.07€	piecesHold=42	Wallet=1967.07€	Symbol:BAC
--e Sell	42pc	Position:50	Stoch:100	Quote:46.87€	Amount=1968.54€	Symbol:BAC
-Intermediate Win=1.47€ Proz=0.1% Average holding days=24.0 days
--e Buy	Position:96	42pc	RSI:15	Quote:47.17€	Amount=1981.35€	piecesHold=42	Wallet=1981.35€	Symbol:BAC
--e Buy	Position:97	47pc	RSI:14	Quote:46.70€	Amount=2194.66€	piecesHold=89	Wallet=4176.01€	Symbol:BAC
--e Buy	Position:98	51pc	RSI:19	Quote:46.68€	Amount=2380.68€	piecesHold=140	Wallet=6556.69€	Symbol:BAC
+INL "Intel Corp"
+-e Buy	Position:93	40pc	RSI:23	Quote:49.10€	Amount=1964€	piecesHold=40	Wallet=1964€	Symbol:INL
+-e Buy	Position:94	45pc	RSI:22	Quote:48.05€	Amount=2162.03€	piecesHold=85	Wallet=4126.03€	Symbol:INL
+-e Buy	Position:95	51pc	RSI:17	Quote:47.33€	Amount=2413.83€	piecesHold=136	Wallet=6539.86€	Symbol:INL
+-e Buy	Position:96	55pc	RSI:13	Quote:47.68€	Amount=2622.4€	piecesHold=191	Wallet=9162.26€	Symbol:INL
+-e Buy	Position:97	60pc	RSI:15	Quote:48.15€	Amount=2889€	piecesHold=251	Wallet=12051.3€	Symbol:INL
+-e Buy	Position:98	68pc	RSI:18	Quote:47.23€	Amount=3211.64€	piecesHold=319	Wallet=15262.9€	Symbol:INL
+-e Buy	Position:99	75pc	RSI:18	Quote:46.67€	Amount=3500.62€	piecesHold=394	Wallet=18763.5€	Symbol:INL
+-e Buy	Position:100	81pc	RSI:23	Quote:47.57€	Amount=3853.17€	piecesHold=475	Wallet=22616.7€	Symbol:INL
 Sell all on the last day!!
--e Sell	140pc	Quote:47.52€	Amount=6653.5€	Symbol:BAC
-Intermediate Win=96.81€ Proz=1.5%
+-e Sell	475pc	Quote:47.57€	Amount=22595.8€	Symbol:INL
+Intermediate Win=-20.9€ Proz=-0.1%
 ---------------
-Simulation Win=98.28€
+Simulation Win=-20.9€
 
 
-TOTB "TOTAL"
--e Buy	Position:92	54pc	RSI:24	Quote:36.91€	Amount=1993.41€	piecesHold=54	Wallet=1993.41€	Symbol:TOTB
--e Buy	Position:93	59pc	RSI:18	Quote:37.16€	Amount=2192.14€	piecesHold=113	Wallet=4185.55€	Symbol:TOTB
--e Buy	Position:94	65pc	RSI:19	Quote:36.95€	Amount=2401.75€	piecesHold=178	Wallet=6587.3€	Symbol:TOTB
--e Buy	Position:95	72pc	RSI:23	Quote:36.87€	Amount=2654.28€	piecesHold=250	Wallet=9241.58€	Symbol:TOTB
--e Buy	Position:96	79pc	RSI:22	Quote:36.87€	Amount=2912.34€	piecesHold=329	Wallet=12153.9€	Symbol:TOTB
--e Buy	Position:97	87pc	RSI:22	Quote:36.75€	Amount=3197.25€	piecesHold=416	Wallet=15351.1€	Symbol:TOTB
+MUV2 "MUENCHENER RUE"
+-e Buy	Position:31	8pc	RSI:15	Quote:226.40€	Amount=1811.2€	piecesHold=8	Wallet=1811.2€	Symbol:MUV2
+-e Buy	Position:32	9pc	RSI:15	Quote:223.10€	Amount=2007.9€	piecesHold=17	Wallet=3819.1€	Symbol:MUV2
+-e Buy	Position:33	10pc	RSI:24	Quote:226.50€	Amount=2265€	piecesHold=27	Wallet=6084.1€	Symbol:MUV2
+-e Buy	Position:34	12pc	RSI:20	Quote:218.80€	Amount=2625.6€	piecesHold=39	Wallet=8709.7€	Symbol:MUV2
+-e Sell	Position:41	39pc	Stoch:92	Quote:233.80€	Amount=9118.2€	Symbol:MUV2
+Intermediate Win=408.5€ Proz=4.7% Average holding days=8.5 days
+-e Buy	Position:94	7pc	RSI:22	Quote:255.40€	Amount=1787.8€	piecesHold=7	Wallet=1787.8€	Symbol:MUV2
+-e Buy	Position:96	9pc	RSI:18	Quote:240.35€	Amount=2163.15€	piecesHold=16	Wallet=3950.95€	Symbol:MUV2
+-e Buy	Position:97	10pc	RSI:16	Quote:240.65€	Amount=2406.5€	piecesHold=26	Wallet=6357.45€	Symbol:MUV2
+-e Buy	Position:98	11pc	RSI:19	Quote:242.00€	Amount=2662€	piecesHold=37	Wallet=9019.45€	Symbol:MUV2
+-e Buy	Position:99	12pc	RSI:18	Quote:236.95€	Amount=2843.4€	piecesHold=49	Wallet=11862.9€	Symbol:MUV2
+-e Buy	Position:100	13pc	RSI:22	Quote:238.60€	Amount=3101.8€	piecesHold=62	Wallet=14964.7€	Symbol:MUV2
 Sell all on the last day!!
--e Sell	416pc	Quote:36.85€	Amount=15329.6€	Symbol:TOTB
-Intermediate Win=-21.5€ Proz=-0.1%
+-e Sell	62pc	Quote:238.60€	Amount=14793.2€	Symbol:MUV2
+Intermediate Win=-171.5€ Proz=-1.1%
 ---------------
-Simulation Win=-21.5€
+Simulation Win=237€
+
+
+NFC "Netflix"
+-e Buy	Position:93	4pc	RSI:20	Quote:419.10€	Amount=1676.4€	piecesHold=4	Wallet=1676.4€	Symbol:NFC
+-e Buy	Position:94	5pc	RSI:23	Quote:421.00€	Amount=2105€	piecesHold=9	Wallet=3781.4€	Symbol:NFC
+-e Buy	Position:95	5pc	RSI:21	Quote:418.70€	Amount=2093.5€	piecesHold=14	Wallet=5874.9€	Symbol:NFC
+-e Buy	Position:96	6pc	RSI:18	Quote:412.60€	Amount=2475.6€	piecesHold=20	Wallet=8350.5€	Symbol:NFC
+Sell all on the last day!!
+-e Sell	20pc	Quote:419.10€	Amount=8382€	Symbol:NFC
+Intermediate Win=31.5€ Proz=0.4%
+---------------
+Simulation Win=31.5€
 
 
 DXSN "Xtrackers ShortDAX"
--e Buy	Position:71	132pc	RSI:23	Quote:15.09€	Amount=1991.88€	piecesHold=132	Wallet=1991.88€	Symbol:DXSN
--e Buy	Position:72	147pc	RSI:16	Quote:14.89€	Amount=2189.42€	piecesHold=279	Wallet=4181.3€	Symbol:DXSN
--e Buy	Position:77	160pc	RSI:22	Quote:15.04€	Amount=2407.04€	piecesHold=439	Wallet=6588.34€	Symbol:DXSN
--e Buy	Position:82	182pc	RSI:23	Quote:14.55€	Amount=2648.83€	piecesHold=621	Wallet=9237.17€	Symbol:DXSN
--e Buy	Position:83	202pc	RSI:18	Quote:14.44€	Amount=2917.69€	piecesHold=823	Wallet=12154.9€	Symbol:DXSN
--e Buy	Position:84	222pc	RSI:22	Quote:14.48€	Amount=3215€	piecesHold=1045	Wallet=15369.9€	Symbol:DXSN
--e Buy	Position:85	245pc	RSI:22	Quote:14.46€	Amount=3541.72€	piecesHold=1290	Wallet=18911.6€	Symbol:DXSN
--e Buy	Position:87	269pc	RSI:14	Quote:14.45€	Amount=3886.51€	piecesHold=1559	Wallet=22798.1€	Symbol:DXSN
--e Buy	Position:88	297pc	RSI:14	Quote:14.43€	Amount=4285.12€	piecesHold=1856	Wallet=27083.2€	Symbol:DXSN
--e Buy	Position:89	326pc	RSI:17	Quote:14.45€	Amount=4711.35€	piecesHold=2182	Wallet=31794.6€	Symbol:DXSN
--e Buy	Position:90	360pc	RSI:10	Quote:14.40€	Amount=5183.28€	piecesHold=2542	Wallet=36977.9€	Symbol:DXSN
--e Buy	Position:91	401pc	RSI:8	Quote:14.21€	Amount=5697.41€	piecesHold=2943	Wallet=42675.3€	Symbol:DXSN
--e Buy	Position:92	439pc	RSI:17	Quote:14.30€	Amount=6275.94€	piecesHold=3382	Wallet=48951.2€	Symbol:DXSN
--e Sell	3382pc	Position:100	Stoch:93	Quote:14.50€	Amount=49039€	Symbol:DXSN
+-e Buy	Position:68	132pc	RSI:23	Quote:15.09€	Amount=1991.88€	piecesHold=132	Wallet=1991.88€	Symbol:DXSN
+-e Buy	Position:69	147pc	RSI:16	Quote:14.89€	Amount=2189.42€	piecesHold=279	Wallet=4181.3€	Symbol:DXSN
+-e Buy	Position:74	160pc	RSI:22	Quote:15.04€	Amount=2407.04€	piecesHold=439	Wallet=6588.34€	Symbol:DXSN
+-e Buy	Position:79	182pc	RSI:23	Quote:14.55€	Amount=2648.83€	piecesHold=621	Wallet=9237.17€	Symbol:DXSN
+-e Buy	Position:80	202pc	RSI:18	Quote:14.44€	Amount=2917.69€	piecesHold=823	Wallet=12154.9€	Symbol:DXSN
+-e Buy	Position:81	222pc	RSI:22	Quote:14.48€	Amount=3215€	piecesHold=1045	Wallet=15369.9€	Symbol:DXSN
+-e Buy	Position:82	245pc	RSI:22	Quote:14.46€	Amount=3541.72€	piecesHold=1290	Wallet=18911.6€	Symbol:DXSN
+-e Buy	Position:84	269pc	RSI:14	Quote:14.45€	Amount=3886.51€	piecesHold=1559	Wallet=22798.1€	Symbol:DXSN
+-e Buy	Position:85	297pc	RSI:14	Quote:14.43€	Amount=4285.12€	piecesHold=1856	Wallet=27083.2€	Symbol:DXSN
+-e Buy	Position:86	326pc	RSI:17	Quote:14.45€	Amount=4711.35€	piecesHold=2182	Wallet=31794.6€	Symbol:DXSN
+-e Buy	Position:87	360pc	RSI:10	Quote:14.40€	Amount=5183.28€	piecesHold=2542	Wallet=36977.9€	Symbol:DXSN
+-e Buy	Position:88	401pc	RSI:8	Quote:14.21€	Amount=5697.41€	piecesHold=2943	Wallet=42675.3€	Symbol:DXSN
+-e Buy	Position:89	439pc	RSI:17	Quote:14.30€	Amount=6275.94€	piecesHold=3382	Wallet=48951.2€	Symbol:DXSN
+-e Sell	Position:97	3382pc	Stoch:93	Quote:14.50€	Amount=49039€	Symbol:DXSN
 Intermediate Win=87.8€ Proz=0.2% Average holding days=16.1 days
 ---------------
 Simulation Win=87.8€
 
 
-O2D "TELEFONICA DEUT."
--e Buy	Position:92	866pc	RSI:13	Quote:2.31€	Amount=1998.73€	piecesHold=866	Wallet=1998.73€	Symbol:O2D
--e Buy	Position:93	954pc	RSI:13	Quote:2.31€	Amount=2199.92€	piecesHold=1820	Wallet=4198.65€	Symbol:O2D
--e Buy	Position:94	1032pc	RSI:22	Quote:2.34€	Amount=2417.98€	piecesHold=2852	Wallet=6616.63€	Symbol:O2D
--e Buy	Position:95	1134pc	RSI:24	Quote:2.35€	Amount=2661.5€	piecesHold=3986	Wallet=9278.13€	Symbol:O2D
--e Buy	Position:96	1238pc	RSI:24	Quote:2.37€	Amount=2927.87€	piecesHold=5224	Wallet=12206€	Symbol:O2D
+FIE "FIELMANN"
+-e Buy	Position:51	30pc	RSI:19	Quote:66.60€	Amount=1998€	piecesHold=30	Wallet=1998€	Symbol:FIE
+-e Buy	Position:52	33pc	RSI:18	Quote:66.40€	Amount=2191.2€	piecesHold=63	Wallet=4189.2€	Symbol:FIE
+-e Buy	Position:53	37pc	RSI:17	Quote:65.40€	Amount=2419.8€	piecesHold=100	Wallet=6609€	Symbol:FIE
+-e Buy	Position:54	40pc	RSI:13	Quote:65.30€	Amount=2612€	piecesHold=140	Wallet=9221€	Symbol:FIE
+-e Buy	Position:55	44pc	RSI:17	Quote:65.95€	Amount=2901.8€	piecesHold=184	Wallet=12122.8€	Symbol:FIE
+-e Buy	Position:56	49pc	RSI:17	Quote:65.55€	Amount=3211.95€	piecesHold=233	Wallet=15334.8€	Symbol:FIE
+-e Buy	Position:57	54pc	RSI:13	Quote:65.55€	Amount=3539.7€	piecesHold=287	Wallet=18874.5€	Symbol:FIE
+-e Buy	Position:58	60pc	RSI:13	Quote:64.95€	Amount=3897€	piecesHold=347	Wallet=22771.5€	Symbol:FIE
+-e Buy	Position:59	67pc	RSI:7	Quote:63.95€	Amount=4284.65€	piecesHold=414	Wallet=27056.2€	Symbol:FIE
+-e Buy	Position:60	73pc	RSI:12	Quote:64.50€	Amount=4708.5€	piecesHold=487	Wallet=31764.7€	Symbol:FIE
+-e Sell	Position:63	487pc	Stoch:100	Quote:68.90€	Amount=33554.3€	Symbol:FIE
+Intermediate Win=1789.6€ Proz=5.6% Average holding days=7.5 days
+-e Buy	Position:96	31pc	RSI:8	Quote:64.05€	Amount=1985.55€	piecesHold=31	Wallet=1985.55€	Symbol:FIE
+-e Buy	Position:97	34pc	RSI:7	Quote:63.30€	Amount=2152.2€	piecesHold=65	Wallet=4137.75€	Symbol:FIE
+-e Buy	Position:98	37pc	RSI:13	Quote:63.85€	Amount=2362.45€	piecesHold=102	Wallet=6500.2€	Symbol:FIE
+-e Buy	Position:99	42pc	RSI:10	Quote:62.20€	Amount=2612.4€	piecesHold=144	Wallet=9112.6€	Symbol:FIE
 Sell all on the last day!!
--e Sell	5224pc	Quote:2.42€	Amount=12631.6€	Symbol:O2D
-Intermediate Win=425.6€ Proz=3.5%
+-e Sell	144pc	Quote:64.00€	Amount=9216€	Symbol:FIE
+Intermediate Win=103.4€ Proz=1.1%
 ---------------
-Simulation Win=425.6€
+Simulation Win=1893€
+
+
+ADS "Adidas"
+-e Buy	Position:77	7pc	RSI:18	Quote:266.20€	Amount=1863.4€	piecesHold=7	Wallet=1863.4€	Symbol:ADS
+-e Sell	Position:82	7pc	Stoch:93	Quote:280.00€	Amount=1960€	Symbol:ADS
+Intermediate Win=96.6€ Proz=5.2% Average holding days=5.0 days
+-e Buy	Position:95	7pc	RSI:23	Quote:258.85€	Amount=1811.95€	piecesHold=7	Wallet=1811.95€	Symbol:ADS
+-e Buy	Position:96	8pc	RSI:19	Quote:260.60€	Amount=2084.8€	piecesHold=15	Wallet=3896.75€	Symbol:ADS
+-e Buy	Position:97	9pc	RSI:13	Quote:256.85€	Amount=2311.65€	piecesHold=24	Wallet=6208.4€	Symbol:ADS
+-e Buy	Position:98	10pc	RSI:21	Quote:259.80€	Amount=2598€	piecesHold=34	Wallet=8806.4€	Symbol:ADS
+-e Buy	Position:99	11pc	RSI:18	Quote:252.55€	Amount=2778.05€	piecesHold=45	Wallet=11584.5€	Symbol:ADS
+Sell all on the last day!!
+-e Sell	45pc	Quote:259.60€	Amount=11682€	Symbol:ADS
+Intermediate Win=97.5€ Proz=0.8%
+---------------
+Simulation Win=194.1€
 
 
 XONA "EXXON MOBIL"
@@ -1296,31 +1352,28 @@ Simulation Win=0€
 
 
 TNE5 "TELEFONICA S.A."
--e Buy	Position:57	567pc	RSI:20	Quote:3.52€	Amount=1996.97€	piecesHold=567	Wallet=1996.97€	Symbol:TNE5
--e Sell	567pc	Position:61	Stoch:100	Quote:3.80€	Amount=2152.33€	Symbol:TNE5
-Intermediate Win=155.36€ Proz=7.8% Average holding days=4.0 days
--e Buy	Position:84	526pc	RSI:24	Quote:3.80€	Amount=1999.33€	piecesHold=526	Wallet=1999.33€	Symbol:TNE5
--e Buy	Position:85	581pc	RSI:19	Quote:3.79€	Amount=2199.09€	piecesHold=1107	Wallet=4198.42€	Symbol:TNE5
--e Buy	Position:88	649pc	RSI:16	Quote:3.72€	Amount=2417.2€	piecesHold=1756	Wallet=6615.62€	Symbol:TNE5
--e Buy	Position:89	720pc	RSI:16	Quote:3.70€	Amount=2661.48€	piecesHold=2476	Wallet=9277.1€	Symbol:TNE5
--e Buy	Position:90	783pc	RSI:24	Quote:3.74€	Amount=2928.03€	piecesHold=3259	Wallet=12205.1€	Symbol:TNE5
--e Buy	Position:91	851pc	RSI:23	Quote:3.78€	Amount=3219.33€	piecesHold=4110	Wallet=15424.4€	Symbol:TNE5
--e Sell	4110pc	Position:97	Stoch:100	Quote:3.81€	Amount=15642.7€	Symbol:TNE5
+-e Buy	Position:81	526pc	RSI:24	Quote:3.80€	Amount=1999.33€	piecesHold=526	Wallet=1999.33€	Symbol:TNE5
+-e Buy	Position:82	581pc	RSI:19	Quote:3.79€	Amount=2199.09€	piecesHold=1107	Wallet=4198.42€	Symbol:TNE5
+-e Buy	Position:85	649pc	RSI:16	Quote:3.72€	Amount=2417.2€	piecesHold=1756	Wallet=6615.62€	Symbol:TNE5
+-e Buy	Position:86	720pc	RSI:16	Quote:3.70€	Amount=2661.48€	piecesHold=2476	Wallet=9277.1€	Symbol:TNE5
+-e Buy	Position:87	783pc	RSI:24	Quote:3.74€	Amount=2928.03€	piecesHold=3259	Wallet=12205.1€	Symbol:TNE5
+-e Buy	Position:88	851pc	RSI:23	Quote:3.78€	Amount=3219.33€	piecesHold=4110	Wallet=15424.4€	Symbol:TNE5
+-e Sell	Position:94	4110pc	Stoch:100	Quote:3.81€	Amount=15642.7€	Symbol:TNE5
 Intermediate Win=218.3€ Proz=1.4% Average holding days=9.2 days
 ---------------
-Simulation Win=373.66€
+Simulation Win=218.3€
 
 
 CRIN "UNICREDIT"
--e Buy	Position:85	233pc	RSI:17	Quote:8.57€	Amount=1997.51€	piecesHold=233	Wallet=1997.51€	Symbol:CRIN
--e Buy	Position:86	255pc	RSI:23	Quote:8.62€	Amount=2198.61€	piecesHold=488	Wallet=4196.12€	Symbol:CRIN
--e Buy	Position:89	286pc	RSI:19	Quote:8.44€	Amount=2414.98€	piecesHold=774	Wallet=6611.1€	Symbol:CRIN
--e Buy	Position:92	326pc	RSI:22	Quote:8.16€	Amount=2658.86€	piecesHold=1100	Wallet=9269.96€	Symbol:CRIN
--e Buy	Position:93	361pc	RSI:13	Quote:8.10€	Amount=2924.46€	piecesHold=1461	Wallet=12194.4€	Symbol:CRIN
--e Buy	Position:94	397pc	RSI:14	Quote:8.10€	Amount=3215.7€	piecesHold=1858	Wallet=15410.1€	Symbol:CRIN
--e Buy	Position:95	437pc	RSI:13	Quote:8.10€	Amount=3539.7€	piecesHold=2295	Wallet=18949.8€	Symbol:CRIN
--e Buy	Position:96	472pc	RSI:23	Quote:8.25€	Amount=3892.58€	piecesHold=2767	Wallet=22842.4€	Symbol:CRIN
--e Sell	2767pc	Position:99	Stoch:97	Quote:8.61€	Amount=23821.1€	Symbol:CRIN
+-e Buy	Position:82	233pc	RSI:17	Quote:8.57€	Amount=1997.51€	piecesHold=233	Wallet=1997.51€	Symbol:CRIN
+-e Buy	Position:83	255pc	RSI:23	Quote:8.62€	Amount=2198.61€	piecesHold=488	Wallet=4196.12€	Symbol:CRIN
+-e Buy	Position:86	286pc	RSI:19	Quote:8.44€	Amount=2414.98€	piecesHold=774	Wallet=6611.1€	Symbol:CRIN
+-e Buy	Position:89	326pc	RSI:22	Quote:8.16€	Amount=2658.86€	piecesHold=1100	Wallet=9269.96€	Symbol:CRIN
+-e Buy	Position:90	361pc	RSI:13	Quote:8.10€	Amount=2924.46€	piecesHold=1461	Wallet=12194.4€	Symbol:CRIN
+-e Buy	Position:91	397pc	RSI:14	Quote:8.10€	Amount=3215.7€	piecesHold=1858	Wallet=15410.1€	Symbol:CRIN
+-e Buy	Position:92	437pc	RSI:13	Quote:8.10€	Amount=3539.7€	piecesHold=2295	Wallet=18949.8€	Symbol:CRIN
+-e Buy	Position:93	472pc	RSI:23	Quote:8.25€	Amount=3892.58€	piecesHold=2767	Wallet=22842.4€	Symbol:CRIN
+-e Sell	Position:96	2767pc	Stoch:97	Quote:8.61€	Amount=23821.1€	Symbol:CRIN
 Intermediate Win=978.7€ Proz=4.3% Average holding days=7.8 days
 ---------------
 Simulation Win=978.7€
@@ -1331,31 +1384,66 @@ DBK "DEUTSCHE BANK"
 Simulation Win=0€
 
 
+BAC "Verizon Comm."
+-e Buy	Position:93	42pc	RSI:15	Quote:47.17€	Amount=1981.35€	piecesHold=42	Wallet=1981.35€	Symbol:BAC
+-e Buy	Position:94	47pc	RSI:14	Quote:46.70€	Amount=2194.66€	piecesHold=89	Wallet=4176.01€	Symbol:BAC
+-e Buy	Position:95	51pc	RSI:19	Quote:46.68€	Amount=2380.68€	piecesHold=140	Wallet=6556.69€	Symbol:BAC
+-e Sell	Position:99	140pc	Stoch:96	Quote:48.55€	Amount=6797.7€	Symbol:BAC
+Intermediate Win=241.01€ Proz=3.7% Average holding days=5.0 days
+---------------
+Simulation Win=241.01€
+
+
+O2D "TELEFONICA DEUT."
+-e Buy	Position:89	866pc	RSI:13	Quote:2.31€	Amount=1998.73€	piecesHold=866	Wallet=1998.73€	Symbol:O2D
+-e Buy	Position:90	954pc	RSI:13	Quote:2.31€	Amount=2199.92€	piecesHold=1820	Wallet=4198.65€	Symbol:O2D
+-e Buy	Position:91	1032pc	RSI:22	Quote:2.34€	Amount=2417.98€	piecesHold=2852	Wallet=6616.63€	Symbol:O2D
+-e Buy	Position:92	1134pc	RSI:24	Quote:2.35€	Amount=2661.5€	piecesHold=3986	Wallet=9278.13€	Symbol:O2D
+-e Buy	Position:93	1238pc	RSI:24	Quote:2.37€	Amount=2927.87€	piecesHold=5224	Wallet=12206€	Symbol:O2D
+-e Sell	Position:100	5224pc	Stoch:94	Quote:2.44€	Amount=12730.9€	Symbol:O2D
+Intermediate Win=524.9€ Proz=4.3% Average holding days=9.0 days
+---------------
+Simulation Win=524.9€
+
+
+TOTB "TOTAL"
+-e Buy	Position:89	54pc	RSI:24	Quote:36.91€	Amount=1993.41€	piecesHold=54	Wallet=1993.41€	Symbol:TOTB
+-e Buy	Position:90	59pc	RSI:18	Quote:37.16€	Amount=2192.14€	piecesHold=113	Wallet=4185.55€	Symbol:TOTB
+-e Buy	Position:91	65pc	RSI:19	Quote:36.95€	Amount=2401.75€	piecesHold=178	Wallet=6587.3€	Symbol:TOTB
+-e Buy	Position:92	72pc	RSI:23	Quote:36.87€	Amount=2654.28€	piecesHold=250	Wallet=9241.58€	Symbol:TOTB
+-e Buy	Position:93	79pc	RSI:22	Quote:36.87€	Amount=2912.34€	piecesHold=329	Wallet=12153.9€	Symbol:TOTB
+-e Buy	Position:94	87pc	RSI:22	Quote:36.75€	Amount=3197.25€	piecesHold=416	Wallet=15351.1€	Symbol:TOTB
+-e Sell	Position:100	416pc	Stoch:100	Quote:39.02€	Amount=16230.2€	Symbol:TOTB
+Intermediate Win=879.1€ Proz=5.7% Average holding days=8.5 days
+---------------
+Simulation Win=879.1€
+
+
 GZF "ENGIE"
--e Buy	Position:56	158pc	RSI:23	Quote:12.63€	Amount=1995.54€	piecesHold=158	Wallet=1995.54€	Symbol:GZF
--e Buy	Position:57	182pc	RSI:18	Quote:12.08€	Amount=2198.56€	piecesHold=340	Wallet=4194.1€	Symbol:GZF
--e Buy	Position:58	201pc	RSI:19	Quote:12.04€	Amount=2419.03€	piecesHold=541	Wallet=6613.13€	Symbol:GZF
--e Buy	Position:59	225pc	RSI:16	Quote:11.81€	Amount=2658.38€	piecesHold=766	Wallet=9271.51€	Symbol:GZF
--e Buy	Position:60	253pc	RSI:14	Quote:11.55€	Amount=2922.15€	piecesHold=1019	Wallet=12193.7€	Symbol:GZF
--e Buy	Position:61	279pc	RSI:14	Quote:11.53€	Amount=3216.87€	piecesHold=1298	Wallet=15410.6€	Symbol:GZF
--e Buy	Position:62	309pc	RSI:8	Quote:11.45€	Amount=3538.05€	piecesHold=1607	Wallet=18948.7€	Symbol:GZF
--e Buy	Position:63	338pc	RSI:13	Quote:11.52€	Amount=3893.76€	piecesHold=1945	Wallet=22842.5€	Symbol:GZF
--e Buy	Position:64	361pc	RSI:24	Quote:11.86€	Amount=4281.46€	piecesHold=2306	Wallet=27124€	Symbol:GZF
--e Sell	2306pc	Position:71	Stoch:93	Quote:12.14€	Amount=27994.8€	Symbol:GZF
+-e Buy	Position:53	158pc	RSI:23	Quote:12.63€	Amount=1995.54€	piecesHold=158	Wallet=1995.54€	Symbol:GZF
+-e Buy	Position:54	182pc	RSI:18	Quote:12.08€	Amount=2198.56€	piecesHold=340	Wallet=4194.1€	Symbol:GZF
+-e Buy	Position:55	201pc	RSI:19	Quote:12.04€	Amount=2419.03€	piecesHold=541	Wallet=6613.13€	Symbol:GZF
+-e Buy	Position:56	225pc	RSI:16	Quote:11.81€	Amount=2658.38€	piecesHold=766	Wallet=9271.51€	Symbol:GZF
+-e Buy	Position:57	253pc	RSI:14	Quote:11.55€	Amount=2922.15€	piecesHold=1019	Wallet=12193.7€	Symbol:GZF
+-e Buy	Position:58	279pc	RSI:14	Quote:11.53€	Amount=3216.87€	piecesHold=1298	Wallet=15410.6€	Symbol:GZF
+-e Buy	Position:59	309pc	RSI:8	Quote:11.45€	Amount=3538.05€	piecesHold=1607	Wallet=18948.7€	Symbol:GZF
+-e Buy	Position:60	338pc	RSI:13	Quote:11.52€	Amount=3893.76€	piecesHold=1945	Wallet=22842.5€	Symbol:GZF
+-e Buy	Position:61	361pc	RSI:24	Quote:11.86€	Amount=4281.46€	piecesHold=2306	Wallet=27124€	Symbol:GZF
+-e Sell	Position:68	2306pc	Stoch:93	Quote:12.14€	Amount=27994.8€	Symbol:GZF
 Intermediate Win=870.8€ Proz=3.2% Average holding days=11.0 days
 ---------------
 Simulation Win=870.8€
 
 
 HLE "HELLA"
--e Buy	Position:54	39pc	RSI:23	Quote:50.15€	Amount=1955.85€	piecesHold=39	Wallet=1955.85€	Symbol:HLE
--e Buy	Position:55	43pc	RSI:21	Quote:50.75€	Amount=2182.25€	piecesHold=82	Wallet=4138.1€	Symbol:HLE
--e Buy	Position:56	48pc	RSI:19	Quote:49.76€	Amount=2388.48€	piecesHold=130	Wallet=6526.58€	Symbol:HLE
--e Buy	Position:57	54pc	RSI:18	Quote:49.02€	Amount=2647.08€	piecesHold=184	Wallet=9173.66€	Symbol:HLE
--e Sell	184pc	Position:63	Stoch:100	Quote:52.40€	Amount=9641.6€	Symbol:HLE
+-e Buy	Position:51	39pc	RSI:23	Quote:50.15€	Amount=1955.85€	piecesHold=39	Wallet=1955.85€	Symbol:HLE
+-e Buy	Position:52	43pc	RSI:21	Quote:50.75€	Amount=2182.25€	piecesHold=82	Wallet=4138.1€	Symbol:HLE
+-e Buy	Position:53	48pc	RSI:19	Quote:49.76€	Amount=2388.48€	piecesHold=130	Wallet=6526.58€	Symbol:HLE
+-e Buy	Position:54	54pc	RSI:18	Quote:49.02€	Amount=2647.08€	piecesHold=184	Wallet=9173.66€	Symbol:HLE
+-e Sell	Position:60	184pc	Stoch:100	Quote:52.40€	Amount=9641.6€	Symbol:HLE
 Intermediate Win=467.94€ Proz=5.1% Average holding days=7.5 days
--e Buy	Position:93	44pc	RSI:23	Quote:44.59€	Amount=1961.96€	piecesHold=44	Wallet=1961.96€	Symbol:HLE
--e Sell	44pc	Position:97	Stoch:100	Quote:51.70€	Amount=2274.8€	Symbol:HLE
+-e Buy	Position:90	44pc	RSI:23	Quote:44.59€	Amount=1961.96€	piecesHold=44	Wallet=1961.96€	Symbol:HLE
+-e Sell	Position:94	44pc	Stoch:100	Quote:51.70€	Amount=2274.8€	Symbol:HLE
 Intermediate Win=312.84€ Proz=15.9% Average holding days=4.0 days
 ---------------
 Simulation Win=780.78€
@@ -1367,126 +1455,126 @@ Simulation Win=0€
 
 
 MOR "MorphoSys"
--e Buy	Position:51	22pc	RSI:20	Quote:89.04€	Amount=1958.88€	piecesHold=22	Wallet=1958.88€	Symbol:MOR
--e Buy	Position:52	24pc	RSI:22	Quote:88.46€	Amount=2123.04€	piecesHold=46	Wallet=4081.92€	Symbol:MOR
--e Buy	Position:53	28pc	RSI:12	Quote:85.50€	Amount=2394€	piecesHold=74	Wallet=6475.92€	Symbol:MOR
--e Buy	Position:54	31pc	RSI:12	Quote:85.14€	Amount=2639.34€	piecesHold=105	Wallet=9115.26€	Symbol:MOR
--e Buy	Position:55	34pc	RSI:13	Quote:85.96€	Amount=2922.64€	piecesHold=139	Wallet=12037.9€	Symbol:MOR
--e Buy	Position:56	37pc	RSI:14	Quote:85.36€	Amount=3158.32€	piecesHold=176	Wallet=15196.2€	Symbol:MOR
--e Buy	Position:57	42pc	RSI:13	Quote:83.40€	Amount=3502.8€	piecesHold=218	Wallet=18699€	Symbol:MOR
--e Buy	Position:58	45pc	RSI:21	Quote:85.54€	Amount=3849.3€	piecesHold=263	Wallet=22548.3€	Symbol:MOR
--e Buy	Position:59	50pc	RSI:19	Quote:85.08€	Amount=4254€	piecesHold=313	Wallet=26802.3€	Symbol:MOR
--e Buy	Position:60	57pc	RSI:14	Quote:82.60€	Amount=4708.2€	piecesHold=370	Wallet=31510.5€	Symbol:MOR
--e Buy	Position:61	63pc	RSI:15	Quote:82.34€	Amount=5187.42€	piecesHold=433	Wallet=36697.9€	Symbol:MOR
--e Buy	Position:62	69pc	RSI:15	Quote:81.60€	Amount=5630.4€	piecesHold=502	Wallet=42328.3€	Symbol:MOR
--e Buy	Position:63	76pc	RSI:17	Quote:82.10€	Amount=6239.6€	piecesHold=578	Wallet=48567.9€	Symbol:MOR
--e Sell	578pc	Position:66	Stoch:100	Quote:85.96€	Amount=49684.9€	Symbol:MOR
+-e Buy	Position:48	22pc	RSI:20	Quote:89.04€	Amount=1958.88€	piecesHold=22	Wallet=1958.88€	Symbol:MOR
+-e Buy	Position:49	24pc	RSI:22	Quote:88.46€	Amount=2123.04€	piecesHold=46	Wallet=4081.92€	Symbol:MOR
+-e Buy	Position:50	28pc	RSI:12	Quote:85.50€	Amount=2394€	piecesHold=74	Wallet=6475.92€	Symbol:MOR
+-e Buy	Position:51	31pc	RSI:12	Quote:85.14€	Amount=2639.34€	piecesHold=105	Wallet=9115.26€	Symbol:MOR
+-e Buy	Position:52	34pc	RSI:13	Quote:85.96€	Amount=2922.64€	piecesHold=139	Wallet=12037.9€	Symbol:MOR
+-e Buy	Position:53	37pc	RSI:14	Quote:85.36€	Amount=3158.32€	piecesHold=176	Wallet=15196.2€	Symbol:MOR
+-e Buy	Position:54	42pc	RSI:13	Quote:83.40€	Amount=3502.8€	piecesHold=218	Wallet=18699€	Symbol:MOR
+-e Buy	Position:55	45pc	RSI:21	Quote:85.54€	Amount=3849.3€	piecesHold=263	Wallet=22548.3€	Symbol:MOR
+-e Buy	Position:56	50pc	RSI:19	Quote:85.08€	Amount=4254€	piecesHold=313	Wallet=26802.3€	Symbol:MOR
+-e Buy	Position:57	57pc	RSI:14	Quote:82.60€	Amount=4708.2€	piecesHold=370	Wallet=31510.5€	Symbol:MOR
+-e Buy	Position:58	63pc	RSI:15	Quote:82.34€	Amount=5187.42€	piecesHold=433	Wallet=36697.9€	Symbol:MOR
+-e Buy	Position:59	69pc	RSI:15	Quote:81.60€	Amount=5630.4€	piecesHold=502	Wallet=42328.3€	Symbol:MOR
+-e Buy	Position:60	76pc	RSI:17	Quote:82.10€	Amount=6239.6€	piecesHold=578	Wallet=48567.9€	Symbol:MOR
+-e Sell	Position:63	578pc	Stoch:100	Quote:85.96€	Amount=49684.9€	Symbol:MOR
 Intermediate Win=1117€ Proz=2.3% Average holding days=9.0 days
 ---------------
 Simulation Win=1117€
 
 
 FPE3 "FUCHS PETROLUB"
--e Buy	Position:57	44pc	RSI:17	Quote:45.34€	Amount=1994.96€	piecesHold=44	Wallet=1994.96€	Symbol:FPE3
--e Buy	Position:62	49pc	RSI:19	Quote:44.56€	Amount=2183.44€	piecesHold=93	Wallet=4178.4€	Symbol:FPE3
--e Buy	Position:63	53pc	RSI:21	Quote:44.90€	Amount=2379.7€	piecesHold=146	Wallet=6558.1€	Symbol:FPE3
--e Buy	Position:64	62pc	RSI:17	Quote:42.44€	Amount=2631.28€	piecesHold=208	Wallet=9189.38€	Symbol:FPE3
--e Buy	Position:66	69pc	RSI:22	Quote:42.06€	Amount=2902.14€	piecesHold=277	Wallet=12091.5€	Symbol:FPE3
--e Buy	Position:67	77pc	RSI:22	Quote:41.68€	Amount=3209.36€	piecesHold=354	Wallet=15300.9€	Symbol:FPE3
--e Buy	Position:68	86pc	RSI:22	Quote:41.16€	Amount=3539.76€	piecesHold=440	Wallet=18840.7€	Symbol:FPE3
--e Buy	Position:69	95pc	RSI:20	Quote:41.00€	Amount=3895€	piecesHold=535	Wallet=22735.7€	Symbol:FPE3
--e Buy	Position:70	105pc	RSI:20	Quote:40.74€	Amount=4277.7€	piecesHold=640	Wallet=27013.4€	Symbol:FPE3
--e Buy	Position:72	115pc	RSI:22	Quote:41.00€	Amount=4715€	piecesHold=755	Wallet=31728.4€	Symbol:FPE3
--e Buy	Position:73	127pc	RSI:18	Quote:40.56€	Amount=5151.12€	piecesHold=882	Wallet=36879.5€	Symbol:FPE3
--e Buy	Position:74	140pc	RSI:18	Quote:40.52€	Amount=5672.8€	piecesHold=1022	Wallet=42552.3€	Symbol:FPE3
--e Buy	Position:75	153pc	RSI:23	Quote:40.78€	Amount=6239.34€	piecesHold=1175	Wallet=48791.6€	Symbol:FPE3
--e Buy	Position:77	168pc	RSI:23	Quote:40.96€	Amount=6881.28€	piecesHold=1343	Wallet=55672.9€	Symbol:FPE3
--e Sell	1343pc	Position:83	Stoch:100	Quote:41.70€	Amount=56003.1€	Symbol:FPE3
+-e Buy	Position:54	44pc	RSI:17	Quote:45.34€	Amount=1994.96€	piecesHold=44	Wallet=1994.96€	Symbol:FPE3
+-e Buy	Position:59	49pc	RSI:19	Quote:44.56€	Amount=2183.44€	piecesHold=93	Wallet=4178.4€	Symbol:FPE3
+-e Buy	Position:60	53pc	RSI:21	Quote:44.90€	Amount=2379.7€	piecesHold=146	Wallet=6558.1€	Symbol:FPE3
+-e Buy	Position:61	62pc	RSI:17	Quote:42.44€	Amount=2631.28€	piecesHold=208	Wallet=9189.38€	Symbol:FPE3
+-e Buy	Position:63	69pc	RSI:22	Quote:42.06€	Amount=2902.14€	piecesHold=277	Wallet=12091.5€	Symbol:FPE3
+-e Buy	Position:64	77pc	RSI:22	Quote:41.68€	Amount=3209.36€	piecesHold=354	Wallet=15300.9€	Symbol:FPE3
+-e Buy	Position:65	86pc	RSI:22	Quote:41.16€	Amount=3539.76€	piecesHold=440	Wallet=18840.7€	Symbol:FPE3
+-e Buy	Position:66	95pc	RSI:20	Quote:41.00€	Amount=3895€	piecesHold=535	Wallet=22735.7€	Symbol:FPE3
+-e Buy	Position:67	105pc	RSI:20	Quote:40.74€	Amount=4277.7€	piecesHold=640	Wallet=27013.4€	Symbol:FPE3
+-e Buy	Position:69	115pc	RSI:22	Quote:41.00€	Amount=4715€	piecesHold=755	Wallet=31728.4€	Symbol:FPE3
+-e Buy	Position:70	127pc	RSI:18	Quote:40.56€	Amount=5151.12€	piecesHold=882	Wallet=36879.5€	Symbol:FPE3
+-e Buy	Position:71	140pc	RSI:18	Quote:40.52€	Amount=5672.8€	piecesHold=1022	Wallet=42552.3€	Symbol:FPE3
+-e Buy	Position:72	153pc	RSI:23	Quote:40.78€	Amount=6239.34€	piecesHold=1175	Wallet=48791.6€	Symbol:FPE3
+-e Buy	Position:74	168pc	RSI:23	Quote:40.96€	Amount=6881.28€	piecesHold=1343	Wallet=55672.9€	Symbol:FPE3
+-e Sell	Position:80	1343pc	Stoch:100	Quote:41.70€	Amount=56003.1€	Symbol:FPE3
 Intermediate Win=330.2€ Proz=0.6% Average holding days=14.6 days
 ---------------
 Simulation Win=330.2€
 
 
 BC8 "BECHTLE"
--e Buy	Position:53	12pc	RSI:14	Quote:159.20€	Amount=1910.4€	piecesHold=12	Wallet=1910.4€	Symbol:BC8
--e Buy	Position:54	14pc	RSI:13	Quote:154.00€	Amount=2156€	piecesHold=26	Wallet=4066.4€	Symbol:BC8
--e Buy	Position:55	15pc	RSI:23	Quote:157.10€	Amount=2356.5€	piecesHold=41	Wallet=6422.9€	Symbol:BC8
--e Buy	Position:57	17pc	RSI:24	Quote:156.30€	Amount=2657.1€	piecesHold=58	Wallet=9080€	Symbol:BC8
--e Buy	Position:60	18pc	RSI:24	Quote:156.60€	Amount=2818.8€	piecesHold=76	Wallet=11898.8€	Symbol:BC8
--e Buy	Position:62	20pc	RSI:18	Quote:153.60€	Amount=3072€	piecesHold=96	Wallet=14970.8€	Symbol:BC8
--e Sell	96pc	Position:66	Stoch:100	Quote:162.40€	Amount=15590.4€	Symbol:BC8
+-e Buy	Position:50	12pc	RSI:14	Quote:159.20€	Amount=1910.4€	piecesHold=12	Wallet=1910.4€	Symbol:BC8
+-e Buy	Position:51	14pc	RSI:13	Quote:154.00€	Amount=2156€	piecesHold=26	Wallet=4066.4€	Symbol:BC8
+-e Buy	Position:52	15pc	RSI:23	Quote:157.10€	Amount=2356.5€	piecesHold=41	Wallet=6422.9€	Symbol:BC8
+-e Buy	Position:54	17pc	RSI:24	Quote:156.30€	Amount=2657.1€	piecesHold=58	Wallet=9080€	Symbol:BC8
+-e Buy	Position:57	18pc	RSI:24	Quote:156.60€	Amount=2818.8€	piecesHold=76	Wallet=11898.8€	Symbol:BC8
+-e Buy	Position:59	20pc	RSI:18	Quote:153.60€	Amount=3072€	piecesHold=96	Wallet=14970.8€	Symbol:BC8
+-e Sell	Position:63	96pc	Stoch:100	Quote:162.40€	Amount=15590.4€	Symbol:BC8
 Intermediate Win=619.6€ Proz=4.1% Average holding days=9.2 days
 ---------------
 Simulation Win=619.6€
 
 
 BEI "BEIERSDORF"
--e Buy	Position:53	23pc	RSI:22	Quote:84.56€	Amount=1944.88€	piecesHold=23	Wallet=1944.88€	Symbol:BEI
--e Buy	Position:56	26pc	RSI:15	Quote:84.56€	Amount=2198.56€	piecesHold=49	Wallet=4143.44€	Symbol:BEI
--e Buy	Position:57	29pc	RSI:14	Quote:81.90€	Amount=2375.1€	piecesHold=78	Wallet=6518.54€	Symbol:BEI
--e Buy	Position:58	31pc	RSI:21	Quote:83.28€	Amount=2581.68€	piecesHold=109	Wallet=9100.22€	Symbol:BEI
--e Sell	109pc	Position:65	Stoch:100	Quote:86.86€	Amount=9467.74€	Symbol:BEI
+-e Buy	Position:50	23pc	RSI:22	Quote:84.56€	Amount=1944.88€	piecesHold=23	Wallet=1944.88€	Symbol:BEI
+-e Buy	Position:53	26pc	RSI:15	Quote:84.56€	Amount=2198.56€	piecesHold=49	Wallet=4143.44€	Symbol:BEI
+-e Buy	Position:54	29pc	RSI:14	Quote:81.90€	Amount=2375.1€	piecesHold=78	Wallet=6518.54€	Symbol:BEI
+-e Buy	Position:55	31pc	RSI:21	Quote:83.28€	Amount=2581.68€	piecesHold=109	Wallet=9100.22€	Symbol:BEI
+-e Sell	Position:62	109pc	Stoch:100	Quote:86.86€	Amount=9467.74€	Symbol:BEI
 Intermediate Win=367.52€ Proz=4.0% Average holding days=9.0 days
 ---------------
 Simulation Win=367.52€
 
 
 1COV "COVESTRO"
--e Buy	Position:73	36pc	RSI:18	Quote:54.20€	Amount=1951.2€	piecesHold=36	Wallet=1951.2€	Symbol:1COV
--e Buy	Position:74	40pc	RSI:18	Quote:53.70€	Amount=2148€	piecesHold=76	Wallet=4099.2€	Symbol:1COV
--e Buy	Position:75	44pc	RSI:22	Quote:54.12€	Amount=2381.28€	piecesHold=120	Wallet=6480.48€	Symbol:1COV
--e Buy	Position:76	49pc	RSI:21	Quote:54.14€	Amount=2652.86€	piecesHold=169	Wallet=9133.34€	Symbol:1COV
--e Sell	169pc	Position:90	Stoch:100	Quote:58.50€	Amount=9886.5€	Symbol:1COV
+-e Buy	Position:70	36pc	RSI:18	Quote:54.20€	Amount=1951.2€	piecesHold=36	Wallet=1951.2€	Symbol:1COV
+-e Buy	Position:71	40pc	RSI:18	Quote:53.70€	Amount=2148€	piecesHold=76	Wallet=4099.2€	Symbol:1COV
+-e Buy	Position:72	44pc	RSI:22	Quote:54.12€	Amount=2381.28€	piecesHold=120	Wallet=6480.48€	Symbol:1COV
+-e Buy	Position:73	49pc	RSI:21	Quote:54.14€	Amount=2652.86€	piecesHold=169	Wallet=9133.34€	Symbol:1COV
+-e Sell	Position:87	169pc	Stoch:100	Quote:58.50€	Amount=9886.5€	Symbol:1COV
 Intermediate Win=753.16€ Proz=8.2% Average holding days=15.5 days
 ---------------
 Simulation Win=753.16€
 
 
 WMT "Wal-Mart Stores"
--e Buy	Position:38	17pc	RSI:23	Quote:115.86€	Amount=1969.62€	piecesHold=17	Wallet=1969.62€	Symbol:WMT
--e Sell	17pc	Position:44	Stoch:97	Quote:120.58€	Amount=2049.86€	Symbol:WMT
+-e Buy	Position:35	17pc	RSI:23	Quote:115.86€	Amount=1969.62€	piecesHold=17	Wallet=1969.62€	Symbol:WMT
+-e Sell	Position:41	17pc	Stoch:97	Quote:120.58€	Amount=2049.86€	Symbol:WMT
 Intermediate Win=80.24€ Proz=4.1% Average holding days=6.0 days
--e Buy	Position:57	18pc	RSI:22	Quote:108.32€	Amount=1949.76€	piecesHold=18	Wallet=1949.76€	Symbol:WMT
--e Buy	Position:60	20pc	RSI:23	Quote:106.72€	Amount=2134.4€	piecesHold=38	Wallet=4084.16€	Symbol:WMT
--e Buy	Position:61	22pc	RSI:23	Quote:106.72€	Amount=2347.84€	piecesHold=60	Wallet=6432€	Symbol:WMT
--e Buy	Position:62	24pc	RSI:17	Quote:107.04€	Amount=2568.96€	piecesHold=84	Wallet=9000.96€	Symbol:WMT
--e Buy	Position:63	26pc	RSI:23	Quote:108.48€	Amount=2820.48€	piecesHold=110	Wallet=11821.4€	Symbol:WMT
--e Buy	Position:64	29pc	RSI:17	Quote:108.60€	Amount=3149.4€	piecesHold=139	Wallet=14970.8€	Symbol:WMT
--e Sell	139pc	Position:68	Stoch:100	Quote:111.50€	Amount=15498.5€	Symbol:WMT
+-e Buy	Position:54	18pc	RSI:22	Quote:108.32€	Amount=1949.76€	piecesHold=18	Wallet=1949.76€	Symbol:WMT
+-e Buy	Position:57	20pc	RSI:23	Quote:106.72€	Amount=2134.4€	piecesHold=38	Wallet=4084.16€	Symbol:WMT
+-e Buy	Position:58	22pc	RSI:23	Quote:106.72€	Amount=2347.84€	piecesHold=60	Wallet=6432€	Symbol:WMT
+-e Buy	Position:59	24pc	RSI:17	Quote:107.04€	Amount=2568.96€	piecesHold=84	Wallet=9000.96€	Symbol:WMT
+-e Buy	Position:60	26pc	RSI:23	Quote:108.48€	Amount=2820.48€	piecesHold=110	Wallet=11821.4€	Symbol:WMT
+-e Buy	Position:61	29pc	RSI:17	Quote:108.60€	Amount=3149.4€	piecesHold=139	Wallet=14970.8€	Symbol:WMT
+-e Sell	Position:65	139pc	Stoch:100	Quote:111.50€	Amount=15498.5€	Symbol:WMT
 Intermediate Win=527.7€ Proz=3.5% Average holding days=6.8 days
 ---------------
 Simulation Win=607.94€
 
 
 RAA "RATIONAL"
--e Buy	Position:54	2pc	RSI:21	Quote:713.00€	Amount=1426€	piecesHold=2	Wallet=1426€	Symbol:RAA
--e Buy	Position:55	3pc	RSI:22	Quote:712.50€	Amount=2137.5€	piecesHold=5	Wallet=3563.5€	Symbol:RAA
--e Buy	Position:56	3pc	RSI:22	Quote:715.00€	Amount=2145€	piecesHold=8	Wallet=5708.5€	Symbol:RAA
--e Buy	Position:57	3pc	RSI:19	Quote:709.00€	Amount=2127€	piecesHold=11	Wallet=7835.5€	Symbol:RAA
--e Buy	Position:61	4pc	RSI:22	Quote:708.50€	Amount=2834€	piecesHold=15	Wallet=10669.5€	Symbol:RAA
--e Buy	Position:62	4pc	RSI:20	Quote:681.50€	Amount=2726€	piecesHold=19	Wallet=13395.5€	Symbol:RAA
--e Buy	Position:63	5pc	RSI:23	Quote:690.50€	Amount=3452.5€	piecesHold=24	Wallet=16848€	Symbol:RAA
--e Buy	Position:64	5pc	RSI:24	Quote:683.00€	Amount=3415€	piecesHold=29	Wallet=20263€	Symbol:RAA
--e Buy	Position:66	6pc	RSI:18	Quote:683.00€	Amount=4098€	piecesHold=35	Wallet=24361€	Symbol:RAA
--e Buy	Position:67	6pc	RSI:20	Quote:678.00€	Amount=4068€	piecesHold=41	Wallet=28429€	Symbol:RAA
--e Buy	Position:72	7pc	RSI:19	Quote:654.50€	Amount=4581.5€	piecesHold=48	Wallet=33010.5€	Symbol:RAA
--e Buy	Position:73	8pc	RSI:17	Quote:657.00€	Amount=5256€	piecesHold=56	Wallet=38266.5€	Symbol:RAA
--e Buy	Position:74	9pc	RSI:18	Quote:658.50€	Amount=5926.5€	piecesHold=65	Wallet=44193€	Symbol:RAA
--e Sell	65pc	Position:79	Stoch:100	Quote:684.50€	Amount=44492.5€	Symbol:RAA
+-e Buy	Position:51	2pc	RSI:21	Quote:713.00€	Amount=1426€	piecesHold=2	Wallet=1426€	Symbol:RAA
+-e Buy	Position:52	3pc	RSI:22	Quote:712.50€	Amount=2137.5€	piecesHold=5	Wallet=3563.5€	Symbol:RAA
+-e Buy	Position:53	3pc	RSI:22	Quote:715.00€	Amount=2145€	piecesHold=8	Wallet=5708.5€	Symbol:RAA
+-e Buy	Position:54	3pc	RSI:19	Quote:709.00€	Amount=2127€	piecesHold=11	Wallet=7835.5€	Symbol:RAA
+-e Buy	Position:58	4pc	RSI:22	Quote:708.50€	Amount=2834€	piecesHold=15	Wallet=10669.5€	Symbol:RAA
+-e Buy	Position:59	4pc	RSI:20	Quote:681.50€	Amount=2726€	piecesHold=19	Wallet=13395.5€	Symbol:RAA
+-e Buy	Position:60	5pc	RSI:23	Quote:690.50€	Amount=3452.5€	piecesHold=24	Wallet=16848€	Symbol:RAA
+-e Buy	Position:61	5pc	RSI:24	Quote:683.00€	Amount=3415€	piecesHold=29	Wallet=20263€	Symbol:RAA
+-e Buy	Position:63	6pc	RSI:18	Quote:683.00€	Amount=4098€	piecesHold=35	Wallet=24361€	Symbol:RAA
+-e Buy	Position:64	6pc	RSI:20	Quote:678.00€	Amount=4068€	piecesHold=41	Wallet=28429€	Symbol:RAA
+-e Buy	Position:69	7pc	RSI:19	Quote:654.50€	Amount=4581.5€	piecesHold=48	Wallet=33010.5€	Symbol:RAA
+-e Buy	Position:70	8pc	RSI:17	Quote:657.00€	Amount=5256€	piecesHold=56	Wallet=38266.5€	Symbol:RAA
+-e Buy	Position:71	9pc	RSI:18	Quote:658.50€	Amount=5926.5€	piecesHold=65	Wallet=44193€	Symbol:RAA
+-e Sell	Position:76	65pc	Stoch:100	Quote:684.50€	Amount=44492.5€	Symbol:RAA
 Intermediate Win=299.5€ Proz=0.7% Average holding days=15.6 days
 ---------------
 Simulation Win=299.5€
 
 
 6MK "MERCK & Co. INC"
--e Buy	Position:37	31pc	RSI:17	Quote:63.60€	Amount=1971.6€	piecesHold=31	Wallet=1971.6€	Symbol:6MK
--e Buy	Position:42	35pc	RSI:18	Quote:62.80€	Amount=2198€	piecesHold=66	Wallet=4169.6€	Symbol:6MK
--e Buy	Position:43	38pc	RSI:20	Quote:62.80€	Amount=2386.4€	piecesHold=104	Wallet=6556€	Symbol:6MK
--e Buy	Position:44	43pc	RSI:16	Quote:61.60€	Amount=2648.8€	piecesHold=147	Wallet=9204.8€	Symbol:6MK
--e Buy	Position:45	47pc	RSI:21	Quote:61.80€	Amount=2904.6€	piecesHold=194	Wallet=12109.4€	Symbol:6MK
--e Buy	Position:46	52pc	RSI:21	Quote:61.40€	Amount=3192.8€	piecesHold=246	Wallet=15302.2€	Symbol:6MK
--e Buy	Position:47	57pc	RSI:23	Quote:61.60€	Amount=3511.2€	piecesHold=303	Wallet=18813.4€	Symbol:6MK
--e Sell	303pc	Position:63	Stoch:100	Quote:63.40€	Amount=19210.2€	Symbol:6MK
+-e Buy	Position:34	31pc	RSI:17	Quote:63.60€	Amount=1971.6€	piecesHold=31	Wallet=1971.6€	Symbol:6MK
+-e Buy	Position:39	35pc	RSI:18	Quote:62.80€	Amount=2198€	piecesHold=66	Wallet=4169.6€	Symbol:6MK
+-e Buy	Position:40	38pc	RSI:20	Quote:62.80€	Amount=2386.4€	piecesHold=104	Wallet=6556€	Symbol:6MK
+-e Buy	Position:41	43pc	RSI:16	Quote:61.60€	Amount=2648.8€	piecesHold=147	Wallet=9204.8€	Symbol:6MK
+-e Buy	Position:42	47pc	RSI:21	Quote:61.80€	Amount=2904.6€	piecesHold=194	Wallet=12109.4€	Symbol:6MK
+-e Buy	Position:43	52pc	RSI:21	Quote:61.40€	Amount=3192.8€	piecesHold=246	Wallet=15302.2€	Symbol:6MK
+-e Buy	Position:44	57pc	RSI:23	Quote:61.60€	Amount=3511.2€	piecesHold=303	Wallet=18813.4€	Symbol:6MK
+-e Sell	Position:60	303pc	Stoch:100	Quote:63.40€	Amount=19210.2€	Symbol:6MK
 Intermediate Win=396.8€ Proz=2.1% Average holding days=19.6 days
 ---------------
 Simulation Win=396.8€
@@ -1513,158 +1601,157 @@ Simulation Win=0€
 
 
 FRE "FRESENIUS"
--e Buy	Position:39	57pc	RSI:20	Quote:34.95€	Amount=1992.15€	piecesHold=57	Wallet=1992.15€	Symbol:FRE
--e Buy	Position:40	63pc	RSI:18	Quote:34.59€	Amount=2179.17€	piecesHold=120	Wallet=4171.32€	Symbol:FRE
--e Buy	Position:41	70pc	RSI:20	Quote:34.57€	Amount=2419.9€	piecesHold=190	Wallet=6591.22€	Symbol:FRE
--e Buy	Position:43	76pc	RSI:18	Quote:34.72€	Amount=2638.72€	piecesHold=266	Wallet=9229.94€	Symbol:FRE
--e Buy	Position:44	83pc	RSI:21	Quote:35.02€	Amount=2906.66€	piecesHold=349	Wallet=12136.6€	Symbol:FRE
--e Sell	349pc	Position:63	Stoch:100	Quote:36.56€	Amount=12759.4€	Symbol:FRE
+-e Buy	Position:36	57pc	RSI:20	Quote:34.95€	Amount=1992.15€	piecesHold=57	Wallet=1992.15€	Symbol:FRE
+-e Buy	Position:37	63pc	RSI:18	Quote:34.59€	Amount=2179.17€	piecesHold=120	Wallet=4171.32€	Symbol:FRE
+-e Buy	Position:38	70pc	RSI:20	Quote:34.57€	Amount=2419.9€	piecesHold=190	Wallet=6591.22€	Symbol:FRE
+-e Buy	Position:40	76pc	RSI:18	Quote:34.72€	Amount=2638.72€	piecesHold=266	Wallet=9229.94€	Symbol:FRE
+-e Buy	Position:41	83pc	RSI:21	Quote:35.02€	Amount=2906.66€	piecesHold=349	Wallet=12136.6€	Symbol:FRE
+-e Sell	Position:60	349pc	Stoch:100	Quote:36.56€	Amount=12759.4€	Symbol:FRE
 Intermediate Win=622.8€ Proz=5.1% Average holding days=21.6 days
 ---------------
 Simulation Win=622.8€
 
 
 FME "FRESENIUS MED. C."
--e Buy	Position:39	34pc	RSI:14	Quote:57.94€	Amount=1969.96€	piecesHold=34	Wallet=1969.96€	Symbol:FME
--e Buy	Position:40	38pc	RSI:13	Quote:57.30€	Amount=2177.4€	piecesHold=72	Wallet=4147.36€	Symbol:FME
--e Buy	Position:41	42pc	RSI:13	Quote:56.98€	Amount=2393.16€	piecesHold=114	Wallet=6540.52€	Symbol:FME
--e Buy	Position:42	46pc	RSI:14	Quote:56.76€	Amount=2610.96€	piecesHold=160	Wallet=9151.48€	Symbol:FME
--e Buy	Position:43	51pc	RSI:9	Quote:56.52€	Amount=2882.52€	piecesHold=211	Wallet=12034€	Symbol:FME
--e Buy	Position:44	57pc	RSI:7	Quote:56.50€	Amount=3220.5€	piecesHold=268	Wallet=15254.5€	Symbol:FME
--e Buy	Position:45	60pc	RSI:16	Quote:58.16€	Amount=3489.6€	piecesHold=328	Wallet=18744.1€	Symbol:FME
--e Buy	Position:46	64pc	RSI:23	Quote:60.04€	Amount=3842.56€	piecesHold=392	Wallet=22586.7€	Symbol:FME
--e Buy	Position:61	74pc	RSI:22	Quote:57.76€	Amount=4274.24€	piecesHold=466	Wallet=26860.9€	Symbol:FME
--e Buy	Position:62	82pc	RSI:20	Quote:57.20€	Amount=4690.4€	piecesHold=548	Wallet=31551.3€	Symbol:FME
--e Sell	548pc	Position:65	Stoch:100	Quote:60.84€	Amount=33340.3€	Symbol:FME
+-e Buy	Position:36	34pc	RSI:14	Quote:57.94€	Amount=1969.96€	piecesHold=34	Wallet=1969.96€	Symbol:FME
+-e Buy	Position:37	38pc	RSI:13	Quote:57.30€	Amount=2177.4€	piecesHold=72	Wallet=4147.36€	Symbol:FME
+-e Buy	Position:38	42pc	RSI:13	Quote:56.98€	Amount=2393.16€	piecesHold=114	Wallet=6540.52€	Symbol:FME
+-e Buy	Position:39	46pc	RSI:14	Quote:56.76€	Amount=2610.96€	piecesHold=160	Wallet=9151.48€	Symbol:FME
+-e Buy	Position:40	51pc	RSI:9	Quote:56.52€	Amount=2882.52€	piecesHold=211	Wallet=12034€	Symbol:FME
+-e Buy	Position:41	57pc	RSI:7	Quote:56.50€	Amount=3220.5€	piecesHold=268	Wallet=15254.5€	Symbol:FME
+-e Buy	Position:42	60pc	RSI:16	Quote:58.16€	Amount=3489.6€	piecesHold=328	Wallet=18744.1€	Symbol:FME
+-e Buy	Position:43	64pc	RSI:23	Quote:60.04€	Amount=3842.56€	piecesHold=392	Wallet=22586.7€	Symbol:FME
+-e Buy	Position:58	74pc	RSI:22	Quote:57.76€	Amount=4274.24€	piecesHold=466	Wallet=26860.9€	Symbol:FME
+-e Buy	Position:59	82pc	RSI:20	Quote:57.20€	Amount=4690.4€	piecesHold=548	Wallet=31551.3€	Symbol:FME
+-e Sell	Position:62	548pc	Stoch:100	Quote:60.84€	Amount=33340.3€	Symbol:FME
 Intermediate Win=1789€ Proz=5.7% Average holding days=18.7 days
 ---------------
 Simulation Win=1789€
 
 
 IBE1 "IBERDROLA"
--e Buy	Position:37	176pc	RSI:22	Quote:11.31€	Amount=1990.56€	piecesHold=176	Wallet=1990.56€	Symbol:IBE1
--e Buy	Position:39	194pc	RSI:24	Quote:11.32€	Amount=2197.05€	piecesHold=370	Wallet=4187.61€	Symbol:IBE1
--e Buy	Position:42	217pc	RSI:24	Quote:11.11€	Amount=2410.87€	piecesHold=587	Wallet=6598.48€	Symbol:IBE1
--e Buy	Position:43	242pc	RSI:23	Quote:11.00€	Amount=2662€	piecesHold=829	Wallet=9260.48€	Symbol:IBE1
--e Buy	Position:44	266pc	RSI:24	Quote:11.00€	Amount=2926€	piecesHold=1095	Wallet=12186.5€	Symbol:IBE1
--e Buy	Position:45	298pc	RSI:22	Quote:10.80€	Amount=3219.89€	piecesHold=1393	Wallet=15406.4€	Symbol:IBE1
--e Buy	Position:50	328pc	RSI:21	Quote:10.78€	Amount=3534.2€	piecesHold=1721	Wallet=18940.6€	Symbol:IBE1
--e Buy	Position:51	364pc	RSI:23	Quote:10.68€	Amount=3887.52€	piecesHold=2085	Wallet=22828.1€	Symbol:IBE1
--e Buy	Position:52	402pc	RSI:24	Quote:10.65€	Amount=4281.3€	piecesHold=2487	Wallet=27109.4€	Symbol:IBE1
--e Buy	Position:53	458pc	RSI:13	Quote:10.29€	Amount=4710.53€	piecesHold=2945	Wallet=31819.9€	Symbol:IBE1
--e Buy	Position:54	498pc	RSI:20	Quote:10.40€	Amount=5179.2€	piecesHold=3443	Wallet=36999.1€	Symbol:IBE1
--e Buy	Position:55	551pc	RSI:19	Quote:10.34€	Amount=5697.34€	piecesHold=3994	Wallet=42696.4€	Symbol:IBE1
--e Buy	Position:56	607pc	RSI:22	Quote:10.34€	Amount=6273.35€	piecesHold=4601	Wallet=48969.8€	Symbol:IBE1
--e Buy	Position:57	667pc	RSI:24	Quote:10.35€	Amount=6903.45€	piecesHold=5268	Wallet=55873.2€	Symbol:IBE1
--e Buy	Position:60	759pc	RSI:23	Quote:10.00€	Amount=7590€	piecesHold=6027	Wallet=63463.2€	Symbol:IBE1
--e Sell	6027pc	Position:65	Stoch:100	Quote:10.76€	Amount=64850.5€	Symbol:IBE1
+-e Buy	Position:34	176pc	RSI:22	Quote:11.31€	Amount=1990.56€	piecesHold=176	Wallet=1990.56€	Symbol:IBE1
+-e Buy	Position:36	194pc	RSI:24	Quote:11.32€	Amount=2197.05€	piecesHold=370	Wallet=4187.61€	Symbol:IBE1
+-e Buy	Position:39	217pc	RSI:24	Quote:11.11€	Amount=2410.87€	piecesHold=587	Wallet=6598.48€	Symbol:IBE1
+-e Buy	Position:40	242pc	RSI:23	Quote:11.00€	Amount=2662€	piecesHold=829	Wallet=9260.48€	Symbol:IBE1
+-e Buy	Position:41	266pc	RSI:24	Quote:11.00€	Amount=2926€	piecesHold=1095	Wallet=12186.5€	Symbol:IBE1
+-e Buy	Position:42	298pc	RSI:22	Quote:10.80€	Amount=3219.89€	piecesHold=1393	Wallet=15406.4€	Symbol:IBE1
+-e Buy	Position:47	328pc	RSI:21	Quote:10.78€	Amount=3534.2€	piecesHold=1721	Wallet=18940.6€	Symbol:IBE1
+-e Buy	Position:48	364pc	RSI:23	Quote:10.68€	Amount=3887.52€	piecesHold=2085	Wallet=22828.1€	Symbol:IBE1
+-e Buy	Position:49	402pc	RSI:24	Quote:10.65€	Amount=4281.3€	piecesHold=2487	Wallet=27109.4€	Symbol:IBE1
+-e Buy	Position:50	458pc	RSI:13	Quote:10.29€	Amount=4710.53€	piecesHold=2945	Wallet=31819.9€	Symbol:IBE1
+-e Buy	Position:51	498pc	RSI:20	Quote:10.40€	Amount=5179.2€	piecesHold=3443	Wallet=36999.1€	Symbol:IBE1
+-e Buy	Position:52	551pc	RSI:19	Quote:10.34€	Amount=5697.34€	piecesHold=3994	Wallet=42696.4€	Symbol:IBE1
+-e Buy	Position:53	607pc	RSI:22	Quote:10.34€	Amount=6273.35€	piecesHold=4601	Wallet=48969.8€	Symbol:IBE1
+-e Buy	Position:54	667pc	RSI:24	Quote:10.35€	Amount=6903.45€	piecesHold=5268	Wallet=55873.2€	Symbol:IBE1
+-e Buy	Position:57	759pc	RSI:23	Quote:10.00€	Amount=7590€	piecesHold=6027	Wallet=63463.2€	Symbol:IBE1
+-e Sell	Position:62	6027pc	Stoch:100	Quote:10.76€	Amount=64850.5€	Symbol:IBE1
 Intermediate Win=1387.3€ Proz=2.2% Average holding days=15.8 days
 ---------------
 Simulation Win=1387.3€
 
 
 RWE "RWE"
--e Buy	Position:45	58pc	RSI:22	Quote:34.00€	Amount=1972€	piecesHold=58	Wallet=1972€	Symbol:RWE
--e Buy	Position:50	66pc	RSI:22	Quote:32.89€	Amount=2170.74€	piecesHold=124	Wallet=4142.74€	Symbol:RWE
--e Buy	Position:51	74pc	RSI:21	Quote:32.44€	Amount=2400.56€	piecesHold=198	Wallet=6543.3€	Symbol:RWE
--e Buy	Position:52	81pc	RSI:14	Quote:32.47€	Amount=2630.07€	piecesHold=279	Wallet=9173.37€	Symbol:RWE
--e Buy	Position:53	92pc	RSI:9	Quote:31.73€	Amount=2919.16€	piecesHold=371	Wallet=12092.5€	Symbol:RWE
--e Buy	Position:54	102pc	RSI:2	Quote:31.54€	Amount=3217.08€	piecesHold=473	Wallet=15309.6€	Symbol:RWE
--e Buy	Position:55	112pc	RSI:2	Quote:31.52€	Amount=3530.24€	piecesHold=585	Wallet=18839.8€	Symbol:RWE
--e Buy	Position:56	124pc	RSI:2	Quote:31.30€	Amount=3881.2€	piecesHold=709	Wallet=22721€	Symbol:RWE
--e Buy	Position:57	136pc	RSI:4	Quote:31.34€	Amount=4262.24€	piecesHold=845	Wallet=26983.2€	Symbol:RWE
--e Buy	Position:58	149pc	RSI:12	Quote:31.56€	Amount=4702.44€	piecesHold=994	Wallet=31685.6€	Symbol:RWE
--e Buy	Position:59	169pc	RSI:9	Quote:30.66€	Amount=5181.54€	piecesHold=1163	Wallet=36867.1€	Symbol:RWE
--e Buy	Position:60	189pc	RSI:6	Quote:30.16€	Amount=5700.24€	piecesHold=1352	Wallet=42567.3€	Symbol:RWE
--e Buy	Position:61	203pc	RSI:20	Quote:30.90€	Amount=6272.7€	piecesHold=1555	Wallet=48840€	Symbol:RWE
--e Sell	1555pc	Position:65	Stoch:93	Quote:32.32€	Amount=50257.6€	Symbol:RWE
+-e Buy	Position:42	58pc	RSI:22	Quote:34.00€	Amount=1972€	piecesHold=58	Wallet=1972€	Symbol:RWE
+-e Buy	Position:47	66pc	RSI:22	Quote:32.89€	Amount=2170.74€	piecesHold=124	Wallet=4142.74€	Symbol:RWE
+-e Buy	Position:48	74pc	RSI:21	Quote:32.44€	Amount=2400.56€	piecesHold=198	Wallet=6543.3€	Symbol:RWE
+-e Buy	Position:49	81pc	RSI:14	Quote:32.47€	Amount=2630.07€	piecesHold=279	Wallet=9173.37€	Symbol:RWE
+-e Buy	Position:50	92pc	RSI:9	Quote:31.73€	Amount=2919.16€	piecesHold=371	Wallet=12092.5€	Symbol:RWE
+-e Buy	Position:51	102pc	RSI:2	Quote:31.54€	Amount=3217.08€	piecesHold=473	Wallet=15309.6€	Symbol:RWE
+-e Buy	Position:52	112pc	RSI:2	Quote:31.52€	Amount=3530.24€	piecesHold=585	Wallet=18839.8€	Symbol:RWE
+-e Buy	Position:53	124pc	RSI:2	Quote:31.30€	Amount=3881.2€	piecesHold=709	Wallet=22721€	Symbol:RWE
+-e Buy	Position:54	136pc	RSI:4	Quote:31.34€	Amount=4262.24€	piecesHold=845	Wallet=26983.2€	Symbol:RWE
+-e Buy	Position:55	149pc	RSI:12	Quote:31.56€	Amount=4702.44€	piecesHold=994	Wallet=31685.6€	Symbol:RWE
+-e Buy	Position:56	169pc	RSI:9	Quote:30.66€	Amount=5181.54€	piecesHold=1163	Wallet=36867.1€	Symbol:RWE
+-e Buy	Position:57	189pc	RSI:6	Quote:30.16€	Amount=5700.24€	piecesHold=1352	Wallet=42567.3€	Symbol:RWE
+-e Buy	Position:58	203pc	RSI:20	Quote:30.90€	Amount=6272.7€	piecesHold=1555	Wallet=48840€	Symbol:RWE
+-e Sell	Position:62	1555pc	Stoch:93	Quote:32.32€	Amount=50257.6€	Symbol:RWE
 Intermediate Win=1417.6€ Proz=2.9% Average holding days=10.3 days
 ---------------
 Simulation Win=1417.6€
 
 
 KBX "KNORR-BREMSE"
--e Buy	Position:45	18pc	RSI:19	Quote:107.12€	Amount=1928.16€	piecesHold=18	Wallet=1928.16€	Symbol:KBX
--e Buy	Position:46	20pc	RSI:20	Quote:107.72€	Amount=2154.4€	piecesHold=38	Wallet=4082.56€	Symbol:KBX
--e Buy	Position:47	22pc	RSI:20	Quote:107.38€	Amount=2362.36€	piecesHold=60	Wallet=6444.92€	Symbol:KBX
--e Buy	Position:48	25pc	RSI:19	Quote:106.26€	Amount=2656.5€	piecesHold=85	Wallet=9101.42€	Symbol:KBX
--e Sell	85pc	Position:67	Stoch:98	Quote:106.86€	Amount=9083.1€	Symbol:KBX
+-e Buy	Position:42	18pc	RSI:19	Quote:107.12€	Amount=1928.16€	piecesHold=18	Wallet=1928.16€	Symbol:KBX
+-e Buy	Position:43	20pc	RSI:20	Quote:107.72€	Amount=2154.4€	piecesHold=38	Wallet=4082.56€	Symbol:KBX
+-e Buy	Position:44	22pc	RSI:20	Quote:107.38€	Amount=2362.36€	piecesHold=60	Wallet=6444.92€	Symbol:KBX
+-e Buy	Position:45	25pc	RSI:19	Quote:106.26€	Amount=2656.5€	piecesHold=85	Wallet=9101.42€	Symbol:KBX
+-e Sell	Position:64	85pc	Stoch:98	Quote:106.86€	Amount=9083.1€	Symbol:KBX
 Intermediate Win=-18.32€ Proz=-0.2% Average holding days=20.5 days
--e Buy	Position:99	19pc	RSI:21	Quote:100.85€	Amount=1916.15€	piecesHold=19	Wallet=1916.15€	Symbol:KBX
-Sell all on the last day!!
--e Sell	19pc	Quote:102.00€	Amount=1938€	Symbol:KBX
-Intermediate Win=21.85€ Proz=1.1%
+-e Buy	Position:96	19pc	RSI:21	Quote:100.85€	Amount=1916.15€	piecesHold=19	Wallet=1916.15€	Symbol:KBX
+-e Sell	Position:100	19pc	Stoch:100	Quote:104.95€	Amount=1994.05€	Symbol:KBX
+Intermediate Win=77.9€ Proz=4.1% Average holding days=4.0 days
 ---------------
-Simulation Win=3.53€
+Simulation Win=59.58€
 
 
 ENI "ENI"
--e Buy	Position:38	245pc	RSI:23	Quote:8.16€	Amount=1998.96€	piecesHold=245	Wallet=1998.96€	Symbol:ENI
--e Sell	245pc	Position:44	Stoch:100	Quote:8.78€	Amount=2150.12€	Symbol:ENI
+-e Buy	Position:35	245pc	RSI:23	Quote:8.16€	Amount=1998.96€	piecesHold=245	Wallet=1998.96€	Symbol:ENI
+-e Sell	Position:41	245pc	Stoch:100	Quote:8.78€	Amount=2150.12€	Symbol:ENI
 Intermediate Win=151.16€ Proz=7.6% Average holding days=6.0 days
 ---------------
 Simulation Win=151.16€
 
 
 SAX "STROEER MEDIA"
--e Buy	Position:27	27pc	RSI:19	Quote:71.95€	Amount=1942.65€	piecesHold=27	Wallet=1942.65€	Symbol:SAX
--e Buy	Position:28	30pc	RSI:22	Quote:72.95€	Amount=2188.5€	piecesHold=57	Wallet=4131.15€	Symbol:SAX
--e Buy	Position:29	33pc	RSI:19	Quote:73.25€	Amount=2417.25€	piecesHold=90	Wallet=6548.4€	Symbol:SAX
--e Buy	Position:30	36pc	RSI:23	Quote:73.80€	Amount=2656.8€	piecesHold=126	Wallet=9205.2€	Symbol:SAX
--e Buy	Position:31	39pc	RSI:23	Quote:74.35€	Amount=2899.65€	piecesHold=165	Wallet=12104.9€	Symbol:SAX
--e Buy	Position:33	44pc	RSI:21	Quote:72.00€	Amount=3168€	piecesHold=209	Wallet=15272.9€	Symbol:SAX
--e Sell	209pc	Position:37	Stoch:100	Quote:74.45€	Amount=15560.1€	Symbol:SAX
-Intermediate Win=287.2€ Proz=1.9% Average holding days=7.3 days
--e Buy	Position:80	28pc	RSI:24	Quote:69.50€	Amount=1946€	piecesHold=28	Wallet=1946€	Symbol:SAX
--e Sell	28pc	Position:97	Stoch:100	Quote:71.00€	Amount=1988€	Symbol:SAX
+-e Buy	Position:26	27pc	RSI:19	Quote:73.25€	Amount=1977.75€	piecesHold=27	Wallet=1977.75€	Symbol:SAX
+-e Buy	Position:27	29pc	RSI:23	Quote:73.80€	Amount=2140.2€	piecesHold=56	Wallet=4117.95€	Symbol:SAX
+-e Buy	Position:28	32pc	RSI:23	Quote:74.35€	Amount=2379.2€	piecesHold=88	Wallet=6497.15€	Symbol:SAX
+-e Buy	Position:30	36pc	RSI:21	Quote:72.00€	Amount=2592€	piecesHold=124	Wallet=9089.15€	Symbol:SAX
+-e Sell	Position:34	124pc	Stoch:100	Quote:74.45€	Amount=9231.8€	Symbol:SAX
+Intermediate Win=142.65€ Proz=1.6% Average holding days=6.2 days
+-e Buy	Position:77	28pc	RSI:24	Quote:69.50€	Amount=1946€	piecesHold=28	Wallet=1946€	Symbol:SAX
+-e Sell	Position:94	28pc	Stoch:100	Quote:71.00€	Amount=1988€	Symbol:SAX
 Intermediate Win=42€ Proz=2.2% Average holding days=17.0 days
 ---------------
-Simulation Win=329.2€
+Simulation Win=184.65€
 
 
 BMW "BMW"
--e Buy	Position:28	28pc	RSI:22	Quote:69.49€	Amount=1945.72€	piecesHold=28	Wallet=1945.72€	Symbol:BMW
--e Buy	Position:29	32pc	RSI:17	Quote:68.34€	Amount=2186.88€	piecesHold=60	Wallet=4132.6€	Symbol:BMW
--e Sell	60pc	Position:32	Stoch:98	Quote:71.25€	Amount=4275€	Symbol:BMW
-Intermediate Win=142.4€ Proz=3.4% Average holding days=3.5 days
+-e Buy	Position:26	29pc	RSI:17	Quote:68.34€	Amount=1981.86€	piecesHold=29	Wallet=1981.86€	Symbol:BMW
+-e Sell	Position:29	29pc	Stoch:98	Quote:71.25€	Amount=2066.25€	Symbol:BMW
+Intermediate Win=84.39€ Proz=4.3% Average holding days=3.0 days
 ---------------
-Simulation Win=142.4€
+Simulation Win=84.39€
 
 
 CCC3 "COCA-COLA"
--e Buy	Position:27	49pc	RSI:24	Quote:40.38€	Amount=1978.87€	piecesHold=49	Wallet=1978.87€	Symbol:CCC3
--e Buy	Position:29	55pc	RSI:15	Quote:39.89€	Amount=2193.95€	piecesHold=104	Wallet=4172.82€	Symbol:CCC3
--e Buy	Position:30	60pc	RSI:16	Quote:40.08€	Amount=2404.5€	piecesHold=164	Wallet=6577.32€	Symbol:CCC3
--e Buy	Position:31	66pc	RSI:18	Quote:40.24€	Amount=2655.84€	piecesHold=230	Wallet=9233.16€	Symbol:CCC3
--e Buy	Position:32	73pc	RSI:23	Quote:39.93€	Amount=2914.89€	piecesHold=303	Wallet=12148€	Symbol:CCC3
--e Buy	Position:33	80pc	RSI:24	Quote:39.98€	Amount=3198€	piecesHold=383	Wallet=15346€	Symbol:CCC3
--e Sell	383pc	Position:39	Stoch:95	Quote:40.90€	Amount=15664.7€	Symbol:CCC3
-Intermediate Win=318.7€ Proz=2.1% Average holding days=8.7 days
+-e Buy	Position:26	50pc	RSI:15	Quote:39.89€	Amount=1994.5€	piecesHold=50	Wallet=1994.5€	Symbol:CCC3
+-e Buy	Position:27	54pc	RSI:16	Quote:40.08€	Amount=2164.05€	piecesHold=104	Wallet=4158.55€	Symbol:CCC3
+-e Buy	Position:28	60pc	RSI:18	Quote:40.24€	Amount=2414.4€	piecesHold=164	Wallet=6572.95€	Symbol:CCC3
+-e Buy	Position:29	66pc	RSI:23	Quote:39.93€	Amount=2635.38€	piecesHold=230	Wallet=9208.33€	Symbol:CCC3
+-e Buy	Position:30	73pc	RSI:24	Quote:39.98€	Amount=2918.18€	piecesHold=303	Wallet=12126.5€	Symbol:CCC3
+-e Sell	Position:36	303pc	Stoch:95	Quote:40.90€	Amount=12392.7€	Symbol:CCC3
+Intermediate Win=266.2€ Proz=2.2% Average holding days=8.0 days
 ---------------
-Simulation Win=318.7€
+Simulation Win=266.2€
 
 
 BCO "Boeing"
+-e Buy	Position:99	10pc	RSI:24	Quote:189.28€	Amount=1892.8€	piecesHold=10	Wallet=1892.8€	Symbol:BCO
+Sell all on the last day!!
+-e Sell	10pc	Quote:191.58€	Amount=1915.8€	Symbol:BCO
+Intermediate Win=23€ Proz=1.2%
 ---------------
-Simulation Win=0€
+Simulation Win=23€
 
 
 SZU "SUEDZUCKER"
--e Buy	Position:94	148pc	RSI:23	Quote:13.47€	Amount=1993.56€	piecesHold=148	Wallet=1993.56€	Symbol:SZU
--e Buy	Position:95	163pc	RSI:24	Quote:13.45€	Amount=2192.35€	piecesHold=311	Wallet=4185.91€	Symbol:SZU
+-e Buy	Position:91	148pc	RSI:23	Quote:13.47€	Amount=1993.56€	piecesHold=148	Wallet=1993.56€	Symbol:SZU
+-e Buy	Position:92	163pc	RSI:24	Quote:13.45€	Amount=2192.35€	piecesHold=311	Wallet=4185.91€	Symbol:SZU
 Sell all on the last day!!
--e Sell	311pc	Quote:13.62€	Amount=4235.82€	Symbol:SZU
-Intermediate Win=49.91€ Proz=1.2%
+-e Sell	311pc	Quote:13.65€	Amount=4245.15€	Symbol:SZU
+Intermediate Win=59.24€ Proz=1.4%
 ---------------
-Simulation Win=49.91€
+Simulation Win=59.24€
 
 
 LOR "LOREAL"
--e Buy	Position:29	6pc	RSI:22	Quote:296.90€	Amount=1781.4€	piecesHold=6	Wallet=1781.4€	Symbol:LOR
--e Buy	Position:30	7pc	RSI:7	Quote:293.50€	Amount=2054.5€	piecesHold=13	Wallet=3835.9€	Symbol:LOR
--e Buy	Position:31	8pc	RSI:11	Quote:294.60€	Amount=2356.8€	piecesHold=21	Wallet=6192.7€	Symbol:LOR
--e Buy	Position:32	8pc	RSI:18	Quote:296.40€	Amount=2371.2€	piecesHold=29	Wallet=8563.9€	Symbol:LOR
--e Sell	29pc	Position:42	Stoch:100	Quote:305.50€	Amount=8859.5€	Symbol:LOR
+-e Buy	Position:26	6pc	RSI:22	Quote:296.90€	Amount=1781.4€	piecesHold=6	Wallet=1781.4€	Symbol:LOR
+-e Buy	Position:27	7pc	RSI:7	Quote:293.50€	Amount=2054.5€	piecesHold=13	Wallet=3835.9€	Symbol:LOR
+-e Buy	Position:28	8pc	RSI:11	Quote:294.60€	Amount=2356.8€	piecesHold=21	Wallet=6192.7€	Symbol:LOR
+-e Buy	Position:29	8pc	RSI:18	Quote:296.40€	Amount=2371.2€	piecesHold=29	Wallet=8563.9€	Symbol:LOR
+-e Sell	Position:39	29pc	Stoch:100	Quote:305.50€	Amount=8859.5€	Symbol:LOR
 Intermediate Win=295.6€ Proz=3.5% Average holding days=11.5 days
 ---------------
 Simulation Win=295.6€
@@ -1676,13 +1763,13 @@ Simulation Win=0€
 
 
 GXI "GERRESHEIMER"
--e Buy	Position:56	23pc	RSI:20	Quote:85.10€	Amount=1957.3€	piecesHold=23	Wallet=1957.3€	Symbol:GXI
--e Buy	Position:57	25pc	RSI:21	Quote:85.60€	Amount=2140€	piecesHold=48	Wallet=4097.3€	Symbol:GXI
--e Buy	Position:61	28pc	RSI:16	Quote:84.10€	Amount=2354.8€	piecesHold=76	Wallet=6452.1€	Symbol:GXI
--e Buy	Position:62	32pc	RSI:16	Quote:83.10€	Amount=2659.2€	piecesHold=108	Wallet=9111.3€	Symbol:GXI
--e Buy	Position:63	34pc	RSI:18	Quote:83.80€	Amount=2849.2€	piecesHold=142	Wallet=11960.5€	Symbol:GXI
--e Buy	Position:64	38pc	RSI:21	Quote:84.10€	Amount=3195.8€	piecesHold=180	Wallet=15156.3€	Symbol:GXI
--e Sell	180pc	Position:73	Stoch:100	Quote:85.80€	Amount=15444€	Symbol:GXI
+-e Buy	Position:53	23pc	RSI:20	Quote:85.10€	Amount=1957.3€	piecesHold=23	Wallet=1957.3€	Symbol:GXI
+-e Buy	Position:54	25pc	RSI:21	Quote:85.60€	Amount=2140€	piecesHold=48	Wallet=4097.3€	Symbol:GXI
+-e Buy	Position:58	28pc	RSI:16	Quote:84.10€	Amount=2354.8€	piecesHold=76	Wallet=6452.1€	Symbol:GXI
+-e Buy	Position:59	32pc	RSI:16	Quote:83.10€	Amount=2659.2€	piecesHold=108	Wallet=9111.3€	Symbol:GXI
+-e Buy	Position:60	34pc	RSI:18	Quote:83.80€	Amount=2849.2€	piecesHold=142	Wallet=11960.5€	Symbol:GXI
+-e Buy	Position:61	38pc	RSI:21	Quote:84.10€	Amount=3195.8€	piecesHold=180	Wallet=15156.3€	Symbol:GXI
+-e Sell	Position:70	180pc	Stoch:100	Quote:85.80€	Amount=15444€	Symbol:GXI
 Intermediate Win=287.7€ Proz=1.9% Average holding days=12.5 days
 ---------------
 Simulation Win=287.7€
@@ -1694,31 +1781,27 @@ Simulation Win=0€
 
 
 FOO "SALESFORCE.COM"
--e Buy	Position:63	11pc	RSI:24	Quote:178.70€	Amount=1965.7€	piecesHold=11	Wallet=1965.7€	Symbol:FOO
--e Sell	11pc	Position:73	Stoch:92	Quote:181.60€	Amount=1997.6€	Symbol:FOO
+-e Buy	Position:60	11pc	RSI:24	Quote:178.70€	Amount=1965.7€	piecesHold=11	Wallet=1965.7€	Symbol:FOO
+-e Sell	Position:70	11pc	Stoch:92	Quote:181.60€	Amount=1997.6€	Symbol:FOO
 Intermediate Win=31.9€ Proz=1.6% Average holding days=10.0 days
 ---------------
 Simulation Win=31.9€
 
 
 NEM "Nemetschek"
--e Buy	Position:27	35pc	RSI:24	Quote:56.15€	Amount=1965.25€	piecesHold=35	Wallet=1965.25€	Symbol:NEM
--e Buy	Position:28	39pc	RSI:22	Quote:55.45€	Amount=2162.55€	piecesHold=74	Wallet=4127.8€	Symbol:NEM
--e Sell	74pc	Position:31	Stoch:100	Quote:61.00€	Amount=4514€	Symbol:NEM
-Intermediate Win=386.2€ Proz=9.4% Average holding days=3.5 days
--e Buy	Position:53	37pc	RSI:22	Quote:53.80€	Amount=1990.6€	piecesHold=37	Wallet=1990.6€	Symbol:NEM
--e Buy	Position:55	41pc	RSI:23	Quote:53.00€	Amount=2173€	piecesHold=78	Wallet=4163.6€	Symbol:NEM
--e Buy	Position:56	45pc	RSI:19	Quote:53.00€	Amount=2385€	piecesHold=123	Wallet=6548.6€	Symbol:NEM
--e Buy	Position:57	51pc	RSI:18	Quote:52.15€	Amount=2659.65€	piecesHold=174	Wallet=9208.25€	Symbol:NEM
--e Buy	Position:58	54pc	RSI:24	Quote:53.25€	Amount=2875.5€	piecesHold=228	Wallet=12083.8€	Symbol:NEM
--e Buy	Position:60	61pc	RSI:19	Quote:52.50€	Amount=3202.5€	piecesHold=289	Wallet=15286.3€	Symbol:NEM
--e Buy	Position:61	67pc	RSI:21	Quote:52.30€	Amount=3504.1€	piecesHold=356	Wallet=18790.4€	Symbol:NEM
--e Buy	Position:62	75pc	RSI:20	Quote:51.40€	Amount=3855€	piecesHold=431	Wallet=22645.4€	Symbol:NEM
--e Buy	Position:63	82pc	RSI:21	Quote:51.95€	Amount=4259.9€	piecesHold=513	Wallet=26905.3€	Symbol:NEM
--e Sell	513pc	Position:73	Stoch:100	Quote:54.65€	Amount=28035.5€	Symbol:NEM
+-e Buy	Position:50	37pc	RSI:22	Quote:53.80€	Amount=1990.6€	piecesHold=37	Wallet=1990.6€	Symbol:NEM
+-e Buy	Position:52	41pc	RSI:23	Quote:53.00€	Amount=2173€	piecesHold=78	Wallet=4163.6€	Symbol:NEM
+-e Buy	Position:53	45pc	RSI:19	Quote:53.00€	Amount=2385€	piecesHold=123	Wallet=6548.6€	Symbol:NEM
+-e Buy	Position:54	51pc	RSI:18	Quote:52.15€	Amount=2659.65€	piecesHold=174	Wallet=9208.25€	Symbol:NEM
+-e Buy	Position:55	54pc	RSI:24	Quote:53.25€	Amount=2875.5€	piecesHold=228	Wallet=12083.8€	Symbol:NEM
+-e Buy	Position:57	61pc	RSI:19	Quote:52.50€	Amount=3202.5€	piecesHold=289	Wallet=15286.3€	Symbol:NEM
+-e Buy	Position:58	67pc	RSI:21	Quote:52.30€	Amount=3504.1€	piecesHold=356	Wallet=18790.4€	Symbol:NEM
+-e Buy	Position:59	75pc	RSI:20	Quote:51.40€	Amount=3855€	piecesHold=431	Wallet=22645.4€	Symbol:NEM
+-e Buy	Position:60	82pc	RSI:21	Quote:51.95€	Amount=4259.9€	piecesHold=513	Wallet=26905.3€	Symbol:NEM
+-e Sell	Position:70	513pc	Stoch:100	Quote:54.65€	Amount=28035.5€	Symbol:NEM
 Intermediate Win=1130.2€ Proz=4.2% Average holding days=14.7 days
 ---------------
-Simulation Win=1516.4€
+Simulation Win=1130.2€
 
 
 BSN "DANONE"
@@ -1737,27 +1820,27 @@ Simulation Win=0€
 
 
 AFX "Carl Zeiss Meditec"
--e Buy	Position:59	16pc	RSI:24	Quote:123.90€	Amount=1982.4€	piecesHold=16	Wallet=1982.4€	Symbol:AFX
--e Buy	Position:60	17pc	RSI:21	Quote:122.80€	Amount=2087.6€	piecesHold=33	Wallet=4070€	Symbol:AFX
--e Buy	Position:61	19pc	RSI:20	Quote:121.90€	Amount=2316.1€	piecesHold=52	Wallet=6386.1€	Symbol:AFX
--e Buy	Position:62	21pc	RSI:14	Quote:121.20€	Amount=2545.2€	piecesHold=73	Wallet=8931.3€	Symbol:AFX
--e Buy	Position:63	24pc	RSI:8	Quote:121.10€	Amount=2906.4€	piecesHold=97	Wallet=11837.7€	Symbol:AFX
--e Buy	Position:64	26pc	RSI:18	Quote:122.80€	Amount=3192.8€	piecesHold=123	Wallet=15030.5€	Symbol:AFX
--e Sell	123pc	Position:68	Stoch:94	Quote:126.30€	Amount=15534.9€	Symbol:AFX
+-e Buy	Position:56	16pc	RSI:24	Quote:123.90€	Amount=1982.4€	piecesHold=16	Wallet=1982.4€	Symbol:AFX
+-e Buy	Position:57	17pc	RSI:21	Quote:122.80€	Amount=2087.6€	piecesHold=33	Wallet=4070€	Symbol:AFX
+-e Buy	Position:58	19pc	RSI:20	Quote:121.90€	Amount=2316.1€	piecesHold=52	Wallet=6386.1€	Symbol:AFX
+-e Buy	Position:59	21pc	RSI:14	Quote:121.20€	Amount=2545.2€	piecesHold=73	Wallet=8931.3€	Symbol:AFX
+-e Buy	Position:60	24pc	RSI:8	Quote:121.10€	Amount=2906.4€	piecesHold=97	Wallet=11837.7€	Symbol:AFX
+-e Buy	Position:61	26pc	RSI:18	Quote:122.80€	Amount=3192.8€	piecesHold=123	Wallet=15030.5€	Symbol:AFX
+-e Sell	Position:65	123pc	Stoch:94	Quote:126.30€	Amount=15534.9€	Symbol:AFX
 Intermediate Win=504.4€ Proz=3.4% Average holding days=6.5 days
 ---------------
 Simulation Win=504.4€
 
 
 AHLA "ALIBABA"
--e Buy	Position:59	10pc	RSI:19	Quote:197.40€	Amount=1974€	piecesHold=10	Wallet=1974€	Symbol:AHLA
--e Buy	Position:60	11pc	RSI:12	Quote:197.60€	Amount=2173.6€	piecesHold=21	Wallet=4147.6€	Symbol:AHLA
--e Buy	Position:61	12pc	RSI:12	Quote:194.40€	Amount=2332.8€	piecesHold=33	Wallet=6480.4€	Symbol:AHLA
--e Buy	Position:62	13pc	RSI:8	Quote:192.60€	Amount=2503.8€	piecesHold=46	Wallet=8984.2€	Symbol:AHLA
--e Buy	Position:63	15pc	RSI:7	Quote:193.00€	Amount=2895€	piecesHold=61	Wallet=11879.2€	Symbol:AHLA
--e Buy	Position:64	16pc	RSI:21	Quote:199.00€	Amount=3184€	piecesHold=77	Wallet=15063.2€	Symbol:AHLA
--e Buy	Position:65	17pc	RSI:22	Quote:197.60€	Amount=3359.2€	piecesHold=94	Wallet=18422.4€	Symbol:AHLA
--e Sell	94pc	Position:72	Stoch:95	Quote:200.50€	Amount=18847€	Symbol:AHLA
+-e Buy	Position:56	10pc	RSI:19	Quote:197.40€	Amount=1974€	piecesHold=10	Wallet=1974€	Symbol:AHLA
+-e Buy	Position:57	11pc	RSI:12	Quote:197.60€	Amount=2173.6€	piecesHold=21	Wallet=4147.6€	Symbol:AHLA
+-e Buy	Position:58	12pc	RSI:12	Quote:194.40€	Amount=2332.8€	piecesHold=33	Wallet=6480.4€	Symbol:AHLA
+-e Buy	Position:59	13pc	RSI:8	Quote:192.60€	Amount=2503.8€	piecesHold=46	Wallet=8984.2€	Symbol:AHLA
+-e Buy	Position:60	15pc	RSI:7	Quote:193.00€	Amount=2895€	piecesHold=61	Wallet=11879.2€	Symbol:AHLA
+-e Buy	Position:61	16pc	RSI:21	Quote:199.00€	Amount=3184€	piecesHold=77	Wallet=15063.2€	Symbol:AHLA
+-e Buy	Position:62	17pc	RSI:22	Quote:197.60€	Amount=3359.2€	piecesHold=94	Wallet=18422.4€	Symbol:AHLA
+-e Sell	Position:69	94pc	Stoch:95	Quote:200.50€	Amount=18847€	Symbol:AHLA
 Intermediate Win=424.6€ Proz=2.3% Average holding days=10.0 days
 ---------------
 Simulation Win=424.6€
@@ -1769,39 +1852,38 @@ Simulation Win=0€
 
 
 GIS "Gilead Sciences"
--e Buy	Position:56	38pc	RSI:23	Quote:51.87€	Amount=1971.06€	piecesHold=38	Wallet=1971.06€	Symbol:GIS
--e Buy	Position:57	43pc	RSI:17	Quote:51.11€	Amount=2197.73€	piecesHold=81	Wallet=4168.79€	Symbol:GIS
--e Sell	81pc	Position:63	Stoch:100	Quote:55.16€	Amount=4467.96€	Symbol:GIS
+-e Buy	Position:53	38pc	RSI:23	Quote:51.87€	Amount=1971.06€	piecesHold=38	Wallet=1971.06€	Symbol:GIS
+-e Buy	Position:54	43pc	RSI:17	Quote:51.11€	Amount=2197.73€	piecesHold=81	Wallet=4168.79€	Symbol:GIS
+-e Sell	Position:60	81pc	Stoch:100	Quote:55.16€	Amount=4467.96€	Symbol:GIS
 Intermediate Win=299.17€ Proz=7.2% Average holding days=6.5 days
 ---------------
 Simulation Win=299.17€
 
 
 LHA "DEUT. LUFTHANSA"
--e Buy	Position:77	182pc	RSI:21	Quote:10.94€	Amount=1990.17€	piecesHold=182	Wallet=1990.17€	Symbol:LHA
--e Buy	Position:78	200pc	RSI:22	Quote:10.96€	Amount=2191€	piecesHold=382	Wallet=4181.17€	Symbol:LHA
-Sell all on the last day!!
--e Sell	382pc	Quote:10.74€	Amount=4101.92€	Symbol:LHA
-Intermediate Win=-79.25€ Proz=-1.9%
+-e Buy	Position:74	182pc	RSI:21	Quote:10.94€	Amount=1990.17€	piecesHold=182	Wallet=1990.17€	Symbol:LHA
+-e Buy	Position:75	200pc	RSI:22	Quote:10.96€	Amount=2191€	piecesHold=382	Wallet=4181.17€	Symbol:LHA
+-e Sell	Position:98	382pc	Stoch:100	Quote:11.02€	Amount=4209.64€	Symbol:LHA
+Intermediate Win=28.47€ Proz=0.7% Average holding days=23.5 days
 ---------------
-Simulation Win=-79.25€
+Simulation Win=28.47€
 
 
 CBK "COMMERZBANK"
--e Buy	Position:89	407pc	RSI:24	Quote:4.91€	Amount=1997.76€	piecesHold=407	Wallet=1997.76€	Symbol:CBK
--e Buy	Position:93	457pc	RSI:24	Quote:4.81€	Amount=2199.54€	piecesHold=864	Wallet=4197.3€	Symbol:CBK
--e Sell	864pc	Position:97	Stoch:100	Quote:5.17€	Amount=4466.88€	Symbol:CBK
+-e Buy	Position:86	407pc	RSI:24	Quote:4.91€	Amount=1997.76€	piecesHold=407	Wallet=1997.76€	Symbol:CBK
+-e Buy	Position:90	457pc	RSI:24	Quote:4.81€	Amount=2199.54€	piecesHold=864	Wallet=4197.3€	Symbol:CBK
+-e Sell	Position:94	864pc	Stoch:100	Quote:5.17€	Amount=4466.88€	Symbol:CBK
 Intermediate Win=269.58€ Proz=6.4% Average holding days=6.0 days
 ---------------
 Simulation Win=269.58€
 
 
 ARL "Aareal Bank"
--e Buy	Position:42	103pc	RSI:23	Quote:19.33€	Amount=1990.99€	piecesHold=103	Wallet=1990.99€	Symbol:ARL
--e Buy	Position:43	116pc	RSI:23	Quote:18.94€	Amount=2197.04€	piecesHold=219	Wallet=4188.03€	Symbol:ARL
--e Buy	Position:44	129pc	RSI:21	Quote:18.62€	Amount=2401.98€	piecesHold=348	Wallet=6590.01€	Symbol:ARL
--e Buy	Position:45	145pc	RSI:19	Quote:18.33€	Amount=2657.85€	piecesHold=493	Wallet=9247.86€	Symbol:ARL
--e Sell	493pc	Position:55	Stoch:100	Quote:22.32€	Amount=11003.8€	Symbol:ARL
+-e Buy	Position:39	103pc	RSI:23	Quote:19.33€	Amount=1990.99€	piecesHold=103	Wallet=1990.99€	Symbol:ARL
+-e Buy	Position:40	116pc	RSI:23	Quote:18.94€	Amount=2197.04€	piecesHold=219	Wallet=4188.03€	Symbol:ARL
+-e Buy	Position:41	129pc	RSI:21	Quote:18.62€	Amount=2401.98€	piecesHold=348	Wallet=6590.01€	Symbol:ARL
+-e Buy	Position:42	145pc	RSI:19	Quote:18.33€	Amount=2657.85€	piecesHold=493	Wallet=9247.86€	Symbol:ARL
+-e Sell	Position:52	493pc	Stoch:100	Quote:22.32€	Amount=11003.8€	Symbol:ARL
 Intermediate Win=1755.94€ Proz=19.0% Average holding days=11.5 days
 ---------------
 Simulation Win=1755.94€
@@ -1828,39 +1910,39 @@ Simulation Win=0€
 
 
 COK "CANCOM"
--e Buy	Position:80	40pc	RSI:24	Quote:49.14€	Amount=1965.6€	piecesHold=40	Wallet=1965.6€	Symbol:COK
--e Buy	Position:83	44pc	RSI:23	Quote:49.32€	Amount=2170.08€	piecesHold=84	Wallet=4135.68€	Symbol:COK
--e Buy	Position:84	49pc	RSI:21	Quote:48.69€	Amount=2385.81€	piecesHold=133	Wallet=6521.49€	Symbol:COK
--e Buy	Position:85	54pc	RSI:23	Quote:48.45€	Amount=2616.3€	piecesHold=187	Wallet=9137.79€	Symbol:COK
--e Buy	Position:86	60pc	RSI:24	Quote:48.07€	Amount=2884.2€	piecesHold=247	Wallet=12022€	Symbol:COK
--e Sell	247pc	Position:93	Stoch:100	Quote:51.00€	Amount=12597€	Symbol:COK
+-e Buy	Position:77	40pc	RSI:24	Quote:49.14€	Amount=1965.6€	piecesHold=40	Wallet=1965.6€	Symbol:COK
+-e Buy	Position:80	44pc	RSI:23	Quote:49.32€	Amount=2170.08€	piecesHold=84	Wallet=4135.68€	Symbol:COK
+-e Buy	Position:81	49pc	RSI:21	Quote:48.69€	Amount=2385.81€	piecesHold=133	Wallet=6521.49€	Symbol:COK
+-e Buy	Position:82	54pc	RSI:23	Quote:48.45€	Amount=2616.3€	piecesHold=187	Wallet=9137.79€	Symbol:COK
+-e Buy	Position:83	60pc	RSI:24	Quote:48.07€	Amount=2884.2€	piecesHold=247	Wallet=12022€	Symbol:COK
+-e Sell	Position:90	247pc	Stoch:100	Quote:51.00€	Amount=12597€	Symbol:COK
 Intermediate Win=575€ Proz=4.8% Average holding days=9.4 days
 ---------------
 Simulation Win=575€
 
 
 COP "COMPUGROUP MED."
--e Buy	Position:60	29pc	RSI:9	Quote:67.50€	Amount=1957.5€	piecesHold=29	Wallet=1957.5€	Symbol:COP
--e Buy	Position:61	32pc	RSI:10	Quote:67.25€	Amount=2152€	piecesHold=61	Wallet=4109.5€	Symbol:COP
--e Buy	Position:62	36pc	RSI:9	Quote:65.70€	Amount=2365.2€	piecesHold=97	Wallet=6474.7€	Symbol:COP
--e Buy	Position:63	40pc	RSI:5	Quote:65.55€	Amount=2622€	piecesHold=137	Wallet=9096.7€	Symbol:COP
--e Buy	Position:64	43pc	RSI:16	Quote:67.40€	Amount=2898.2€	piecesHold=180	Wallet=11994.9€	Symbol:COP
--e Buy	Position:65	48pc	RSI:17	Quote:66.90€	Amount=3211.2€	piecesHold=228	Wallet=15206.1€	Symbol:COP
--e Buy	Position:66	52pc	RSI:22	Quote:67.95€	Amount=3533.4€	piecesHold=280	Wallet=18739.5€	Symbol:COP
--e Sell	280pc	Position:69	Stoch:95	Quote:71.25€	Amount=19950€	Symbol:COP
+-e Buy	Position:57	29pc	RSI:9	Quote:67.50€	Amount=1957.5€	piecesHold=29	Wallet=1957.5€	Symbol:COP
+-e Buy	Position:58	32pc	RSI:10	Quote:67.25€	Amount=2152€	piecesHold=61	Wallet=4109.5€	Symbol:COP
+-e Buy	Position:59	36pc	RSI:9	Quote:65.70€	Amount=2365.2€	piecesHold=97	Wallet=6474.7€	Symbol:COP
+-e Buy	Position:60	40pc	RSI:5	Quote:65.55€	Amount=2622€	piecesHold=137	Wallet=9096.7€	Symbol:COP
+-e Buy	Position:61	43pc	RSI:16	Quote:67.40€	Amount=2898.2€	piecesHold=180	Wallet=11994.9€	Symbol:COP
+-e Buy	Position:62	48pc	RSI:17	Quote:66.90€	Amount=3211.2€	piecesHold=228	Wallet=15206.1€	Symbol:COP
+-e Buy	Position:63	52pc	RSI:22	Quote:67.95€	Amount=3533.4€	piecesHold=280	Wallet=18739.5€	Symbol:COP
+-e Sell	Position:66	280pc	Stoch:95	Quote:71.25€	Amount=19950€	Symbol:COP
 Intermediate Win=1210.5€ Proz=6.5% Average holding days=6.0 days
 ---------------
 Simulation Win=1210.5€
 
 
 EVD "CTS EVENTIM"
--e Buy	Position:75	39pc	RSI:17	Quote:50.40€	Amount=1965.6€	piecesHold=39	Wallet=1965.6€	Symbol:EVD
--e Buy	Position:76	44pc	RSI:19	Quote:49.56€	Amount=2180.64€	piecesHold=83	Wallet=4146.24€	Symbol:EVD
--e Buy	Position:77	48pc	RSI:6	Quote:49.40€	Amount=2371.2€	piecesHold=131	Wallet=6517.44€	Symbol:EVD
--e Buy	Position:78	53pc	RSI:9	Quote:49.64€	Amount=2630.92€	piecesHold=184	Wallet=9148.36€	Symbol:EVD
--e Buy	Position:79	58pc	RSI:15	Quote:50.25€	Amount=2914.5€	piecesHold=242	Wallet=12062.9€	Symbol:EVD
--e Buy	Position:80	65pc	RSI:8	Quote:49.44€	Amount=3213.6€	piecesHold=307	Wallet=15276.5€	Symbol:EVD
--e Sell	307pc	Position:93	Stoch:100	Quote:53.42€	Amount=16399.9€	Symbol:EVD
+-e Buy	Position:72	39pc	RSI:17	Quote:50.40€	Amount=1965.6€	piecesHold=39	Wallet=1965.6€	Symbol:EVD
+-e Buy	Position:73	44pc	RSI:19	Quote:49.56€	Amount=2180.64€	piecesHold=83	Wallet=4146.24€	Symbol:EVD
+-e Buy	Position:74	48pc	RSI:6	Quote:49.40€	Amount=2371.2€	piecesHold=131	Wallet=6517.44€	Symbol:EVD
+-e Buy	Position:75	53pc	RSI:9	Quote:49.64€	Amount=2630.92€	piecesHold=184	Wallet=9148.36€	Symbol:EVD
+-e Buy	Position:76	58pc	RSI:15	Quote:50.25€	Amount=2914.5€	piecesHold=242	Wallet=12062.9€	Symbol:EVD
+-e Buy	Position:77	65pc	RSI:8	Quote:49.44€	Amount=3213.6€	piecesHold=307	Wallet=15276.5€	Symbol:EVD
+-e Sell	Position:90	307pc	Stoch:100	Quote:53.42€	Amount=16399.9€	Symbol:EVD
 Intermediate Win=1123.4€ Proz=7.4% Average holding days=15.5 days
 ---------------
 Simulation Win=1123.4€
@@ -1877,12 +1959,12 @@ Simulation Win=0€
 
 
 EVT "Evotec"
--e Buy	Position:61	63pc	RSI:22	Quote:31.29€	Amount=1971.27€	piecesHold=63	Wallet=1971.27€	Symbol:EVT
--e Buy	Position:62	74pc	RSI:19	Quote:29.43€	Amount=2177.82€	piecesHold=137	Wallet=4149.09€	Symbol:EVT
--e Buy	Position:63	83pc	RSI:13	Quote:28.88€	Amount=2397.04€	piecesHold=220	Wallet=6546.13€	Symbol:EVT
--e Buy	Position:64	91pc	RSI:14	Quote:29.10€	Amount=2648.1€	piecesHold=311	Wallet=9194.23€	Symbol:EVT
--e Buy	Position:65	102pc	RSI:16	Quote:28.50€	Amount=2907€	piecesHold=413	Wallet=12101.2€	Symbol:EVT
--e Sell	413pc	Position:79	Stoch:100	Quote:30.90€	Amount=12761.7€	Symbol:EVT
+-e Buy	Position:58	63pc	RSI:22	Quote:31.29€	Amount=1971.27€	piecesHold=63	Wallet=1971.27€	Symbol:EVT
+-e Buy	Position:59	74pc	RSI:19	Quote:29.43€	Amount=2177.82€	piecesHold=137	Wallet=4149.09€	Symbol:EVT
+-e Buy	Position:60	83pc	RSI:13	Quote:28.88€	Amount=2397.04€	piecesHold=220	Wallet=6546.13€	Symbol:EVT
+-e Buy	Position:61	91pc	RSI:14	Quote:29.10€	Amount=2648.1€	piecesHold=311	Wallet=9194.23€	Symbol:EVT
+-e Buy	Position:62	102pc	RSI:16	Quote:28.50€	Amount=2907€	piecesHold=413	Wallet=12101.2€	Symbol:EVT
+-e Sell	Position:76	413pc	Stoch:100	Quote:30.90€	Amount=12761.7€	Symbol:EVT
 Intermediate Win=660.5€ Proz=5.5% Average holding days=16.0 days
 ---------------
 Simulation Win=660.5€
@@ -1894,8 +1976,8 @@ Simulation Win=0€
 
 
 G1A "GEA GROUP"
--e Buy	Position:57	69pc	RSI:13	Quote:28.62€	Amount=1974.78€	piecesHold=69	Wallet=1974.78€	Symbol:G1A
--e Sell	69pc	Position:61	Stoch:100	Quote:30.83€	Amount=2127.27€	Symbol:G1A
+-e Buy	Position:54	69pc	RSI:13	Quote:28.62€	Amount=1974.78€	piecesHold=69	Wallet=1974.78€	Symbol:G1A
+-e Sell	Position:58	69pc	Stoch:100	Quote:30.83€	Amount=2127.27€	Symbol:G1A
 Intermediate Win=152.49€ Proz=7.7% Average holding days=4.0 days
 ---------------
 Simulation Win=152.49€
@@ -1912,11 +1994,11 @@ Simulation Win=0€
 
 
 HFG "Hellofresh"
--e Buy	Position:60	33pc	RSI:23	Quote:60.25€	Amount=1988.25€	piecesHold=33	Wallet=1988.25€	Symbol:HFG
--e Buy	Position:61	36pc	RSI:22	Quote:60.95€	Amount=2194.2€	piecesHold=69	Wallet=4182.45€	Symbol:HFG
--e Buy	Position:62	41pc	RSI:21	Quote:58.70€	Amount=2406.7€	piecesHold=110	Wallet=6589.15€	Symbol:HFG
--e Buy	Position:63	47pc	RSI:19	Quote:55.75€	Amount=2620.25€	piecesHold=157	Wallet=9209.4€	Symbol:HFG
--e Sell	157pc	Position:73	Stoch:100	Quote:66.10€	Amount=10377.7€	Symbol:HFG
+-e Buy	Position:57	33pc	RSI:23	Quote:60.25€	Amount=1988.25€	piecesHold=33	Wallet=1988.25€	Symbol:HFG
+-e Buy	Position:58	36pc	RSI:22	Quote:60.95€	Amount=2194.2€	piecesHold=69	Wallet=4182.45€	Symbol:HFG
+-e Buy	Position:59	41pc	RSI:21	Quote:58.70€	Amount=2406.7€	piecesHold=110	Wallet=6589.15€	Symbol:HFG
+-e Buy	Position:60	47pc	RSI:19	Quote:55.75€	Amount=2620.25€	piecesHold=157	Wallet=9209.4€	Symbol:HFG
+-e Sell	Position:70	157pc	Stoch:100	Quote:66.10€	Amount=10377.7€	Symbol:HFG
 Intermediate Win=1168.3€ Proz=12.7% Average holding days=11.5 days
 ---------------
 Simulation Win=1168.3€
@@ -1943,54 +2025,32 @@ Simulation Win=0€
 
 
 LEG "LEG Immobilien"
--e Buy	Position:52	17pc	RSI:24	Quote:116.48€	Amount=1980.16€	piecesHold=17	Wallet=1980.16€	Symbol:LEG
--e Buy	Position:53	19pc	RSI:20	Quote:115.76€	Amount=2199.44€	piecesHold=36	Wallet=4179.6€	Symbol:LEG
--e Buy	Position:54	20pc	RSI:21	Quote:115.30€	Amount=2306€	piecesHold=56	Wallet=6485.6€	Symbol:LEG
--e Buy	Position:55	23pc	RSI:15	Quote:114.24€	Amount=2627.52€	piecesHold=79	Wallet=9113.12€	Symbol:LEG
--e Buy	Position:56	25pc	RSI:15	Quote:114.00€	Amount=2850€	piecesHold=104	Wallet=11963.1€	Symbol:LEG
--e Buy	Position:57	28pc	RSI:15	Quote:113.14€	Amount=3167.92€	piecesHold=132	Wallet=15131€	Symbol:LEG
--e Buy	Position:58	31pc	RSI:23	Quote:114.20€	Amount=3540.2€	piecesHold=163	Wallet=18671.2€	Symbol:LEG
--e Buy	Position:60	34pc	RSI:21	Quote:112.18€	Amount=3814.12€	piecesHold=197	Wallet=22485.3€	Symbol:LEG
--e Sell	197pc	Position:74	Stoch:100	Quote:115.02€	Amount=22658.9€	Symbol:LEG
+-e Buy	Position:49	17pc	RSI:24	Quote:116.48€	Amount=1980.16€	piecesHold=17	Wallet=1980.16€	Symbol:LEG
+-e Buy	Position:50	19pc	RSI:20	Quote:115.76€	Amount=2199.44€	piecesHold=36	Wallet=4179.6€	Symbol:LEG
+-e Buy	Position:51	20pc	RSI:21	Quote:115.30€	Amount=2306€	piecesHold=56	Wallet=6485.6€	Symbol:LEG
+-e Buy	Position:52	23pc	RSI:15	Quote:114.24€	Amount=2627.52€	piecesHold=79	Wallet=9113.12€	Symbol:LEG
+-e Buy	Position:53	25pc	RSI:15	Quote:114.00€	Amount=2850€	piecesHold=104	Wallet=11963.1€	Symbol:LEG
+-e Buy	Position:54	28pc	RSI:15	Quote:113.14€	Amount=3167.92€	piecesHold=132	Wallet=15131€	Symbol:LEG
+-e Buy	Position:55	31pc	RSI:23	Quote:114.20€	Amount=3540.2€	piecesHold=163	Wallet=18671.2€	Symbol:LEG
+-e Buy	Position:57	34pc	RSI:21	Quote:112.18€	Amount=3814.12€	piecesHold=197	Wallet=22485.3€	Symbol:LEG
+-e Sell	Position:71	197pc	Stoch:100	Quote:115.02€	Amount=22658.9€	Symbol:LEG
 Intermediate Win=173.6€ Proz=0.8% Average holding days=18.4 days
 ---------------
 Simulation Win=173.6€
 
 
 OSR "OSRAM LICHT"
--e Buy	Position:99	38pc	RSI:20	Quote:52.10€	Amount=1979.8€	piecesHold=38	Wallet=1979.8€	Symbol:OSR
--e Buy	Position:100	42pc	RSI:22	Quote:52.05€	Amount=2186.1€	piecesHold=80	Wallet=4165.9€	Symbol:OSR
-Sell all on the last day!!
--e Sell	80pc	Quote:52.05€	Amount=4164€	Symbol:OSR
-Intermediate Win=-1.9€ Proz=-0.0%
+-e Buy	Position:96	38pc	RSI:20	Quote:52.10€	Amount=1979.8€	piecesHold=38	Wallet=1979.8€	Symbol:OSR
+-e Buy	Position:97	42pc	RSI:22	Quote:52.05€	Amount=2186.1€	piecesHold=80	Wallet=4165.9€	Symbol:OSR
+-e Sell	Position:99	80pc	Stoch:100	Quote:52.70€	Amount=4216€	Symbol:OSR
+Intermediate Win=50.1€ Proz=1.2% Average holding days=2.5 days
 ---------------
-Simulation Win=-1.9€
+Simulation Win=50.1€
 
 
 PUM "PUMA"
 ---------------
 Simulation Win=0€
-
-
-QIA "QIAGEN"
--e Buy	Position:57	48pc	RSI:24	Quote:41.00€	Amount=1968€	piecesHold=48	Wallet=1968€	Symbol:QIA
--e Buy	Position:60	54pc	RSI:24	Quote:40.71€	Amount=2198.34€	piecesHold=102	Wallet=4166.34€	Symbol:QIA
--e Buy	Position:61	60pc	RSI:21	Quote:39.89€	Amount=2393.4€	piecesHold=162	Wallet=6559.74€	Symbol:QIA
--e Buy	Position:62	67pc	RSI:16	Quote:39.26€	Amount=2630.42€	piecesHold=229	Wallet=9190.16€	Symbol:QIA
--e Buy	Position:63	73pc	RSI:18	Quote:39.68€	Amount=2896.64€	piecesHold=302	Wallet=12086.8€	Symbol:QIA
--e Buy	Position:64	80pc	RSI:21	Quote:40.00€	Amount=3200€	piecesHold=382	Wallet=15286.8€	Symbol:QIA
--e Buy	Position:65	88pc	RSI:21	Quote:40.13€	Amount=3531.44€	piecesHold=470	Wallet=18818.2€	Symbol:QIA
--e Buy	Position:66	97pc	RSI:17	Quote:40.04€	Amount=3883.88€	piecesHold=567	Wallet=22702.1€	Symbol:QIA
--e Buy	Position:67	107pc	RSI:19	Quote:39.90€	Amount=4269.3€	piecesHold=674	Wallet=26971.4€	Symbol:QIA
--e Sell	674pc	Position:72	Stoch:94	Quote:41.64€	Amount=28065.4€	Symbol:QIA
-Intermediate Win=1094€ Proz=4.1% Average holding days=9.2 days
--e Buy	Position:98	49pc	RSI:23	Quote:40.56€	Amount=1987.44€	piecesHold=49	Wallet=1987.44€	Symbol:QIA
--e Buy	Position:99	54pc	RSI:21	Quote:40.11€	Amount=2165.94€	piecesHold=103	Wallet=4153.38€	Symbol:QIA
-Sell all on the last day!!
--e Sell	103pc	Quote:40.53€	Amount=4174.59€	Symbol:QIA
-Intermediate Win=21.21€ Proz=0.5%
----------------
-Simulation Win=1115.21€
 
 
 RHM "RHEINMETALL"
@@ -1999,69 +2059,75 @@ Simulation Win=0€
 
 
 SRT3 "SARTORIUS VZ"
--e Buy	Position:62	5pc	RSI:13	Quote:398.00€	Amount=1990€	piecesHold=5	Wallet=1990€	Symbol:SRT3
--e Buy	Position:63	5pc	RSI:6	Quote:397.60€	Amount=1988€	piecesHold=10	Wallet=3978€	Symbol:SRT3
--e Buy	Position:64	6pc	RSI:10	Quote:402.00€	Amount=2412€	piecesHold=16	Wallet=6390€	Symbol:SRT3
--e Buy	Position:65	6pc	RSI:10	Quote:401.00€	Amount=2406€	piecesHold=22	Wallet=8796€	Symbol:SRT3
--e Buy	Position:66	7pc	RSI:18	Quote:407.40€	Amount=2851.8€	piecesHold=29	Wallet=11647.8€	Symbol:SRT3
--e Buy	Position:67	8pc	RSI:17	Quote:401.20€	Amount=3209.6€	piecesHold=37	Wallet=14857.4€	Symbol:SRT3
--e Sell	37pc	Position:71	Stoch:100	Quote:439.60€	Amount=16265.2€	Symbol:SRT3
+-e Buy	Position:59	5pc	RSI:13	Quote:398.00€	Amount=1990€	piecesHold=5	Wallet=1990€	Symbol:SRT3
+-e Buy	Position:60	5pc	RSI:6	Quote:397.60€	Amount=1988€	piecesHold=10	Wallet=3978€	Symbol:SRT3
+-e Buy	Position:61	6pc	RSI:10	Quote:402.00€	Amount=2412€	piecesHold=16	Wallet=6390€	Symbol:SRT3
+-e Buy	Position:62	6pc	RSI:10	Quote:401.00€	Amount=2406€	piecesHold=22	Wallet=8796€	Symbol:SRT3
+-e Buy	Position:63	7pc	RSI:18	Quote:407.40€	Amount=2851.8€	piecesHold=29	Wallet=11647.8€	Symbol:SRT3
+-e Buy	Position:64	8pc	RSI:17	Quote:401.20€	Amount=3209.6€	piecesHold=37	Wallet=14857.4€	Symbol:SRT3
+-e Sell	Position:68	37pc	Stoch:100	Quote:439.60€	Amount=16265.2€	Symbol:SRT3
 Intermediate Win=1407.8€ Proz=9.5% Average holding days=6.5 days
 ---------------
 Simulation Win=1407.8€
 
 
 G24 "SCOUT24"
--e Buy	Position:62	32pc	RSI:21	Quote:60.80€	Amount=1945.6€	piecesHold=32	Wallet=1945.6€	Symbol:G24
--e Buy	Position:63	36pc	RSI:20	Quote:60.65€	Amount=2183.4€	piecesHold=68	Wallet=4129€	Symbol:G24
--e Sell	68pc	Position:69	Stoch:100	Quote:64.05€	Amount=4355.4€	Symbol:G24
+-e Buy	Position:59	32pc	RSI:21	Quote:60.80€	Amount=1945.6€	piecesHold=32	Wallet=1945.6€	Symbol:G24
+-e Buy	Position:60	36pc	RSI:20	Quote:60.65€	Amount=2183.4€	piecesHold=68	Wallet=4129€	Symbol:G24
+-e Sell	Position:66	68pc	Stoch:100	Quote:64.05€	Amount=4355.4€	Symbol:G24
 Intermediate Win=226.4€ Proz=5.5% Average holding days=6.5 days
 ---------------
 Simulation Win=226.4€
 
 
 SAE "SHOP APOTHEKE"
--e Buy	Position:61	11pc	RSI:21	Quote:181.00€	Amount=1991€	piecesHold=11	Wallet=1991€	Symbol:SAE
--e Buy	Position:62	12pc	RSI:13	Quote:179.80€	Amount=2157.6€	piecesHold=23	Wallet=4148.6€	Symbol:SAE
--e Buy	Position:63	13pc	RSI:15	Quote:182.40€	Amount=2371.2€	piecesHold=36	Wallet=6519.8€	Symbol:SAE
--e Buy	Position:64	14pc	RSI:19	Quote:183.00€	Amount=2562€	piecesHold=50	Wallet=9081.8€	Symbol:SAE
--e Sell	50pc	Position:84	Stoch:100	Quote:191.50€	Amount=9575€	Symbol:SAE
+-e Buy	Position:58	11pc	RSI:21	Quote:181.00€	Amount=1991€	piecesHold=11	Wallet=1991€	Symbol:SAE
+-e Buy	Position:59	12pc	RSI:13	Quote:179.80€	Amount=2157.6€	piecesHold=23	Wallet=4148.6€	Symbol:SAE
+-e Buy	Position:60	13pc	RSI:15	Quote:182.40€	Amount=2371.2€	piecesHold=36	Wallet=6519.8€	Symbol:SAE
+-e Buy	Position:61	14pc	RSI:19	Quote:183.00€	Amount=2562€	piecesHold=50	Wallet=9081.8€	Symbol:SAE
+-e Sell	Position:81	50pc	Stoch:100	Quote:191.50€	Amount=9575€	Symbol:SAE
 Intermediate Win=493.2€ Proz=5.4% Average holding days=21.5 days
+-e Buy	Position:98	11pc	RSI:20	Quote:173.40€	Amount=1907.4€	piecesHold=11	Wallet=1907.4€	Symbol:SAE
+-e Buy	Position:99	13pc	RSI:17	Quote:160.60€	Amount=2087.8€	piecesHold=24	Wallet=3995.2€	Symbol:SAE
+-e Buy	Position:100	14pc	RSI:22	Quote:167.60€	Amount=2346.4€	piecesHold=38	Wallet=6341.6€	Symbol:SAE
+Sell all on the last day!!
+-e Sell	38pc	Quote:167.60€	Amount=6368.8€	Symbol:SAE
+Intermediate Win=27.2€ Proz=0.4%
 ---------------
-Simulation Win=493.2€
+Simulation Win=520.4€
 
 
 SHL "Siemens Healthineers"
--e Buy	Position:60	44pc	RSI:10	Quote:45.09€	Amount=1984.18€	piecesHold=44	Wallet=1984.18€	Symbol:SHL
--e Buy	Position:61	48pc	RSI:11	Quote:44.99€	Amount=2159.76€	piecesHold=92	Wallet=4143.94€	Symbol:SHL
--e Buy	Position:62	53pc	RSI:24	Quote:45.48€	Amount=2410.18€	piecesHold=145	Wallet=6554.12€	Symbol:SHL
--e Buy	Position:63	59pc	RSI:20	Quote:44.53€	Amount=2627.56€	piecesHold=204	Wallet=9181.68€	Symbol:SHL
--e Buy	Position:64	65pc	RSI:18	Quote:44.61€	Amount=2899.65€	piecesHold=269	Wallet=12081.3€	Symbol:SHL
--e Sell	269pc	Position:66	Stoch:98	Quote:46.76€	Amount=12577.1€	Symbol:SHL
+-e Buy	Position:57	44pc	RSI:10	Quote:45.09€	Amount=1984.18€	piecesHold=44	Wallet=1984.18€	Symbol:SHL
+-e Buy	Position:58	48pc	RSI:11	Quote:44.99€	Amount=2159.76€	piecesHold=92	Wallet=4143.94€	Symbol:SHL
+-e Buy	Position:59	53pc	RSI:24	Quote:45.48€	Amount=2410.18€	piecesHold=145	Wallet=6554.12€	Symbol:SHL
+-e Buy	Position:60	59pc	RSI:20	Quote:44.53€	Amount=2627.56€	piecesHold=204	Wallet=9181.68€	Symbol:SHL
+-e Buy	Position:61	65pc	RSI:18	Quote:44.61€	Amount=2899.65€	piecesHold=269	Wallet=12081.3€	Symbol:SHL
+-e Sell	Position:63	269pc	Stoch:98	Quote:46.76€	Amount=12577.1€	Symbol:SHL
 Intermediate Win=495.8€ Proz=4.1% Average holding days=4.0 days
 ---------------
 Simulation Win=495.8€
 
 
 WAF "SILTRONIC"
--e Buy	Position:59	14pc	RSI:20	Quote:138.30€	Amount=1936.2€	piecesHold=14	Wallet=1936.2€	Symbol:WAF
--e Buy	Position:60	16pc	RSI:13	Quote:137.10€	Amount=2193.6€	piecesHold=30	Wallet=4129.8€	Symbol:WAF
--e Buy	Position:61	17pc	RSI:16	Quote:137.45€	Amount=2336.65€	piecesHold=47	Wallet=6466.45€	Symbol:WAF
--e Buy	Position:62	19pc	RSI:16	Quote:137.35€	Amount=2609.65€	piecesHold=66	Wallet=9076.1€	Symbol:WAF
--e Buy	Position:63	21pc	RSI:22	Quote:137.75€	Amount=2892.75€	piecesHold=87	Wallet=11968.9€	Symbol:WAF
--e Buy	Position:79	23pc	RSI:24	Quote:136.00€	Amount=3128€	piecesHold=110	Wallet=15096.9€	Symbol:WAF
--e Buy	Position:80	26pc	RSI:15	Quote:135.00€	Amount=3510€	piecesHold=136	Wallet=18606.9€	Symbol:WAF
--e Sell	136pc	Position:84	Stoch:100	Quote:139.40€	Amount=18958.4€	Symbol:WAF
+-e Buy	Position:56	14pc	RSI:20	Quote:138.30€	Amount=1936.2€	piecesHold=14	Wallet=1936.2€	Symbol:WAF
+-e Buy	Position:57	16pc	RSI:13	Quote:137.10€	Amount=2193.6€	piecesHold=30	Wallet=4129.8€	Symbol:WAF
+-e Buy	Position:58	17pc	RSI:16	Quote:137.45€	Amount=2336.65€	piecesHold=47	Wallet=6466.45€	Symbol:WAF
+-e Buy	Position:59	19pc	RSI:16	Quote:137.35€	Amount=2609.65€	piecesHold=66	Wallet=9076.1€	Symbol:WAF
+-e Buy	Position:60	21pc	RSI:22	Quote:137.75€	Amount=2892.75€	piecesHold=87	Wallet=11968.9€	Symbol:WAF
+-e Buy	Position:76	23pc	RSI:24	Quote:136.00€	Amount=3128€	piecesHold=110	Wallet=15096.9€	Symbol:WAF
+-e Buy	Position:77	26pc	RSI:15	Quote:135.00€	Amount=3510€	piecesHold=136	Wallet=18606.9€	Symbol:WAF
+-e Sell	Position:81	136pc	Stoch:100	Quote:139.40€	Amount=18958.4€	Symbol:WAF
 Intermediate Win=351.5€ Proz=1.9% Average holding days=17.7 days
 ---------------
 Simulation Win=351.5€
 
 
 SOW "SOFTWARE"
--e Buy	Position:69	60pc	RSI:14	Quote:33.30€	Amount=1998€	piecesHold=60	Wallet=1998€	Symbol:SOW
--e Buy	Position:70	67pc	RSI:14	Quote:32.70€	Amount=2190.9€	piecesHold=127	Wallet=4188.9€	Symbol:SOW
--e Buy	Position:72	71pc	RSI:24	Quote:33.92€	Amount=2408.32€	piecesHold=198	Wallet=6597.22€	Symbol:SOW
--e Sell	198pc	Position:75	Stoch:100	Quote:35.50€	Amount=7029€	Symbol:SOW
+-e Buy	Position:66	60pc	RSI:14	Quote:33.30€	Amount=1998€	piecesHold=60	Wallet=1998€	Symbol:SOW
+-e Buy	Position:67	67pc	RSI:14	Quote:32.70€	Amount=2190.9€	piecesHold=127	Wallet=4188.9€	Symbol:SOW
+-e Buy	Position:69	71pc	RSI:24	Quote:33.92€	Amount=2408.32€	piecesHold=198	Wallet=6597.22€	Symbol:SOW
+-e Sell	Position:72	198pc	Stoch:100	Quote:35.50€	Amount=7029€	Symbol:SOW
 Intermediate Win=431.78€ Proz=6.5% Average holding days=4.7 days
 ---------------
 Simulation Win=431.78€
@@ -2073,82 +2139,82 @@ Simulation Win=0€
 
 
 TEG "TAG IMMOBILIEN"
--e Buy	Position:52	83pc	RSI:12	Quote:24.02€	Amount=1993.66€	piecesHold=83	Wallet=1993.66€	Symbol:TEG
--e Buy	Position:53	92pc	RSI:11	Quote:23.82€	Amount=2191.44€	piecesHold=175	Wallet=4185.1€	Symbol:TEG
--e Buy	Position:54	101pc	RSI:17	Quote:23.94€	Amount=2417.94€	piecesHold=276	Wallet=6603.04€	Symbol:TEG
--e Buy	Position:55	112pc	RSI:16	Quote:23.70€	Amount=2654.4€	piecesHold=388	Wallet=9257.44€	Symbol:TEG
--e Buy	Position:56	124pc	RSI:17	Quote:23.60€	Amount=2926.4€	piecesHold=512	Wallet=12183.8€	Symbol:TEG
--e Buy	Position:57	136pc	RSI:18	Quote:23.56€	Amount=3204.16€	piecesHold=648	Wallet=15388€	Symbol:TEG
--e Buy	Position:60	152pc	RSI:19	Quote:23.28€	Amount=3538.56€	piecesHold=800	Wallet=18926.6€	Symbol:TEG
--e Buy	Position:62	167pc	RSI:24	Quote:23.30€	Amount=3891.1€	piecesHold=967	Wallet=22817.7€	Symbol:TEG
--e Sell	967pc	Position:66	Stoch:100	Quote:24.30€	Amount=23498.1€	Symbol:TEG
+-e Buy	Position:49	83pc	RSI:12	Quote:24.02€	Amount=1993.66€	piecesHold=83	Wallet=1993.66€	Symbol:TEG
+-e Buy	Position:50	92pc	RSI:11	Quote:23.82€	Amount=2191.44€	piecesHold=175	Wallet=4185.1€	Symbol:TEG
+-e Buy	Position:51	101pc	RSI:17	Quote:23.94€	Amount=2417.94€	piecesHold=276	Wallet=6603.04€	Symbol:TEG
+-e Buy	Position:52	112pc	RSI:16	Quote:23.70€	Amount=2654.4€	piecesHold=388	Wallet=9257.44€	Symbol:TEG
+-e Buy	Position:53	124pc	RSI:17	Quote:23.60€	Amount=2926.4€	piecesHold=512	Wallet=12183.8€	Symbol:TEG
+-e Buy	Position:54	136pc	RSI:18	Quote:23.56€	Amount=3204.16€	piecesHold=648	Wallet=15388€	Symbol:TEG
+-e Buy	Position:57	152pc	RSI:19	Quote:23.28€	Amount=3538.56€	piecesHold=800	Wallet=18926.6€	Symbol:TEG
+-e Buy	Position:59	167pc	RSI:24	Quote:23.30€	Amount=3891.1€	piecesHold=967	Wallet=22817.7€	Symbol:TEG
+-e Sell	Position:63	967pc	Stoch:100	Quote:24.30€	Amount=23498.1€	Symbol:TEG
 Intermediate Win=680.4€ Proz=3.0% Average holding days=9.9 days
 ---------------
 Simulation Win=680.4€
 
 
 TMV "TeamViewer"
--e Buy	Position:73	53pc	RSI:23	Quote:37.68€	Amount=1997.04€	piecesHold=53	Wallet=1997.04€	Symbol:TMV
--e Buy	Position:79	61pc	RSI:24	Quote:35.64€	Amount=2174.04€	piecesHold=114	Wallet=4171.08€	Symbol:TMV
--e Buy	Position:80	66pc	RSI:23	Quote:36.43€	Amount=2404.38€	piecesHold=180	Wallet=6575.46€	Symbol:TMV
--e Sell	180pc	Position:87	Stoch:100	Quote:38.82€	Amount=6987.6€	Symbol:TMV
+-e Buy	Position:70	53pc	RSI:23	Quote:37.68€	Amount=1997.04€	piecesHold=53	Wallet=1997.04€	Symbol:TMV
+-e Buy	Position:76	61pc	RSI:24	Quote:35.64€	Amount=2174.04€	piecesHold=114	Wallet=4171.08€	Symbol:TMV
+-e Buy	Position:77	66pc	RSI:23	Quote:36.43€	Amount=2404.38€	piecesHold=180	Wallet=6575.46€	Symbol:TMV
+-e Sell	Position:84	180pc	Stoch:100	Quote:38.82€	Amount=6987.6€	Symbol:TMV
 Intermediate Win=412.14€ Proz=6.3% Average holding days=9.7 days
 ---------------
 Simulation Win=412.14€
 
 
 UN01 "UNIPER"
--e Buy	Position:92	66pc	RSI:23	Quote:30.16€	Amount=1990.56€	piecesHold=66	Wallet=1990.56€	Symbol:UN01
+-e Buy	Position:89	66pc	RSI:23	Quote:30.16€	Amount=1990.56€	piecesHold=66	Wallet=1990.56€	Symbol:UN01
 Sell all on the last day!!
--e Sell	66pc	Quote:30.34€	Amount=2002.44€	Symbol:UN01
-Intermediate Win=11.88€ Proz=0.6%
+-e Sell	66pc	Quote:30.59€	Amount=2018.94€	Symbol:UN01
+Intermediate Win=28.38€ Proz=1.4%
 ---------------
-Simulation Win=11.88€
+Simulation Win=28.38€
 
 
 UTDI "UNITED INTERNET"
--e Buy	Position:85	59pc	RSI:22	Quote:33.71€	Amount=1988.89€	piecesHold=59	Wallet=1988.89€	Symbol:UTDI
--e Buy	Position:86	65pc	RSI:24	Quote:33.58€	Amount=2182.7€	piecesHold=124	Wallet=4171.59€	Symbol:UTDI
--e Sell	124pc	Position:94	Stoch:100	Quote:34.64€	Amount=4295.36€	Symbol:UTDI
+-e Buy	Position:82	59pc	RSI:22	Quote:33.71€	Amount=1988.89€	piecesHold=59	Wallet=1988.89€	Symbol:UTDI
+-e Buy	Position:83	65pc	RSI:24	Quote:33.58€	Amount=2182.7€	piecesHold=124	Wallet=4171.59€	Symbol:UTDI
+-e Sell	Position:91	124pc	Stoch:100	Quote:34.64€	Amount=4295.36€	Symbol:UTDI
 Intermediate Win=123.77€ Proz=3.0% Average holding days=8.5 days
 ---------------
 Simulation Win=123.77€
 
 
 VAR1 "Varta"
--e Buy	Position:57	17pc	RSI:24	Quote:114.10€	Amount=1939.7€	piecesHold=17	Wallet=1939.7€	Symbol:VAR1
--e Buy	Position:59	19pc	RSI:24	Quote:113.70€	Amount=2160.3€	piecesHold=36	Wallet=4100€	Symbol:VAR1
--e Buy	Position:60	21pc	RSI:23	Quote:111.80€	Amount=2347.8€	piecesHold=57	Wallet=6447.8€	Symbol:VAR1
--e Buy	Position:61	24pc	RSI:21	Quote:109.60€	Amount=2630.4€	piecesHold=81	Wallet=9078.2€	Symbol:VAR1
--e Buy	Position:62	27pc	RSI:14	Quote:106.10€	Amount=2864.7€	piecesHold=108	Wallet=11942.9€	Symbol:VAR1
--e Buy	Position:63	29pc	RSI:9	Quote:108.70€	Amount=3152.3€	piecesHold=137	Wallet=15095.2€	Symbol:VAR1
--e Buy	Position:64	31pc	RSI:17	Quote:112.80€	Amount=3496.8€	piecesHold=168	Wallet=18592€	Symbol:VAR1
--e Buy	Position:65	35pc	RSI:23	Quote:110.00€	Amount=3850€	piecesHold=203	Wallet=22442€	Symbol:VAR1
--e Sell	203pc	Position:69	Stoch:100	Quote:128.00€	Amount=25984€	Symbol:VAR1
+-e Buy	Position:54	17pc	RSI:24	Quote:114.10€	Amount=1939.7€	piecesHold=17	Wallet=1939.7€	Symbol:VAR1
+-e Buy	Position:56	19pc	RSI:24	Quote:113.70€	Amount=2160.3€	piecesHold=36	Wallet=4100€	Symbol:VAR1
+-e Buy	Position:57	21pc	RSI:23	Quote:111.80€	Amount=2347.8€	piecesHold=57	Wallet=6447.8€	Symbol:VAR1
+-e Buy	Position:58	24pc	RSI:21	Quote:109.60€	Amount=2630.4€	piecesHold=81	Wallet=9078.2€	Symbol:VAR1
+-e Buy	Position:59	27pc	RSI:14	Quote:106.10€	Amount=2864.7€	piecesHold=108	Wallet=11942.9€	Symbol:VAR1
+-e Buy	Position:60	29pc	RSI:9	Quote:108.70€	Amount=3152.3€	piecesHold=137	Wallet=15095.2€	Symbol:VAR1
+-e Buy	Position:61	31pc	RSI:17	Quote:112.80€	Amount=3496.8€	piecesHold=168	Wallet=18592€	Symbol:VAR1
+-e Buy	Position:62	35pc	RSI:23	Quote:110.00€	Amount=3850€	piecesHold=203	Wallet=22442€	Symbol:VAR1
+-e Sell	Position:66	203pc	Stoch:100	Quote:128.00€	Amount=25984€	Symbol:VAR1
 Intermediate Win=3542€ Proz=15.8% Average holding days=7.6 days
 ---------------
 Simulation Win=3542€
 
 
 WCH "WACKER CHEMIE"
--e Buy	Position:53	18pc	RSI:20	Quote:108.00€	Amount=1944€	piecesHold=18	Wallet=1944€	Symbol:WCH
--e Buy	Position:54	20pc	RSI:15	Quote:106.15€	Amount=2123€	piecesHold=38	Wallet=4067€	Symbol:WCH
--e Buy	Position:55	22pc	RSI:23	Quote:109.40€	Amount=2406.8€	piecesHold=60	Wallet=6473.8€	Symbol:WCH
--e Buy	Position:57	24pc	RSI:18	Quote:107.55€	Amount=2581.2€	piecesHold=84	Wallet=9055€	Symbol:WCH
--e Sell	84pc	Position:66	Stoch:100	Quote:116.60€	Amount=9794.4€	Symbol:WCH
+-e Buy	Position:50	18pc	RSI:20	Quote:108.00€	Amount=1944€	piecesHold=18	Wallet=1944€	Symbol:WCH
+-e Buy	Position:51	20pc	RSI:15	Quote:106.15€	Amount=2123€	piecesHold=38	Wallet=4067€	Symbol:WCH
+-e Buy	Position:52	22pc	RSI:23	Quote:109.40€	Amount=2406.8€	piecesHold=60	Wallet=6473.8€	Symbol:WCH
+-e Buy	Position:54	24pc	RSI:18	Quote:107.55€	Amount=2581.2€	piecesHold=84	Wallet=9055€	Symbol:WCH
+-e Sell	Position:63	84pc	Stoch:100	Quote:116.60€	Amount=9794.4€	Symbol:WCH
 Intermediate Win=739.4€ Proz=8.2% Average holding days=11.2 days
 ---------------
 Simulation Win=739.4€
 
 
 ZAL "ZALANDO"
--e Buy	Position:60	23pc	RSI:18	Quote:83.44€	Amount=1919.12€	piecesHold=23	Wallet=1919.12€	Symbol:ZAL
--e Buy	Position:61	26pc	RSI:18	Quote:82.04€	Amount=2133.04€	piecesHold=49	Wallet=4052.16€	Symbol:ZAL
--e Buy	Position:62	30pc	RSI:12	Quote:80.30€	Amount=2409€	piecesHold=79	Wallet=6461.16€	Symbol:ZAL
--e Buy	Position:63	33pc	RSI:10	Quote:80.34€	Amount=2651.22€	piecesHold=112	Wallet=9112.38€	Symbol:ZAL
--e Buy	Position:64	35pc	RSI:23	Quote:83.26€	Amount=2914.1€	piecesHold=147	Wallet=12026.5€	Symbol:ZAL
--e Buy	Position:65	38pc	RSI:16	Quote:83.14€	Amount=3159.32€	piecesHold=185	Wallet=15185.8€	Symbol:ZAL
--e Sell	185pc	Position:68	Stoch:92	Quote:86.34€	Amount=15972.9€	Symbol:ZAL
+-e Buy	Position:57	23pc	RSI:18	Quote:83.44€	Amount=1919.12€	piecesHold=23	Wallet=1919.12€	Symbol:ZAL
+-e Buy	Position:58	26pc	RSI:18	Quote:82.04€	Amount=2133.04€	piecesHold=49	Wallet=4052.16€	Symbol:ZAL
+-e Buy	Position:59	30pc	RSI:12	Quote:80.30€	Amount=2409€	piecesHold=79	Wallet=6461.16€	Symbol:ZAL
+-e Buy	Position:60	33pc	RSI:10	Quote:80.34€	Amount=2651.22€	piecesHold=112	Wallet=9112.38€	Symbol:ZAL
+-e Buy	Position:61	35pc	RSI:23	Quote:83.26€	Amount=2914.1€	piecesHold=147	Wallet=12026.5€	Symbol:ZAL
+-e Buy	Position:62	38pc	RSI:16	Quote:83.14€	Amount=3159.32€	piecesHold=185	Wallet=15185.8€	Symbol:ZAL
+-e Sell	Position:65	185pc	Stoch:92	Quote:86.34€	Amount=15972.9€	Symbol:ZAL
 Intermediate Win=787.1€ Proz=5.2% Average holding days=5.5 days
 ---------------
 Simulation Win=787.1€
@@ -2160,14 +2226,14 @@ Simulation Win=0€
 
 
 HEN3 "HENKEL VZ"
--e Buy	Position:37	23pc	RSI:23	Quote:85.50€	Amount=1966.5€	piecesHold=23	Wallet=1966.5€	Symbol:HEN3
--e Buy	Position:53	26pc	RSI:23	Quote:83.64€	Amount=2174.64€	piecesHold=49	Wallet=4141.14€	Symbol:HEN3
--e Buy	Position:54	29pc	RSI:24	Quote:83.22€	Amount=2413.38€	piecesHold=78	Wallet=6554.52€	Symbol:HEN3
--e Buy	Position:55	32pc	RSI:15	Quote:83.10€	Amount=2659.2€	piecesHold=110	Wallet=9213.72€	Symbol:HEN3
--e Buy	Position:56	35pc	RSI:14	Quote:82.52€	Amount=2888.2€	piecesHold=145	Wallet=12101.9€	Symbol:HEN3
--e Buy	Position:57	39pc	RSI:7	Quote:81.58€	Amount=3181.62€	piecesHold=184	Wallet=15283.5€	Symbol:HEN3
--e Buy	Position:58	42pc	RSI:21	Quote:82.76€	Amount=3475.92€	piecesHold=226	Wallet=18759.4€	Symbol:HEN3
--e Sell	226pc	Position:63	Stoch:100	Quote:87.38€	Amount=19747.9€	Symbol:HEN3
+-e Buy	Position:34	23pc	RSI:23	Quote:85.50€	Amount=1966.5€	piecesHold=23	Wallet=1966.5€	Symbol:HEN3
+-e Buy	Position:50	26pc	RSI:23	Quote:83.64€	Amount=2174.64€	piecesHold=49	Wallet=4141.14€	Symbol:HEN3
+-e Buy	Position:51	29pc	RSI:24	Quote:83.22€	Amount=2413.38€	piecesHold=78	Wallet=6554.52€	Symbol:HEN3
+-e Buy	Position:52	32pc	RSI:15	Quote:83.10€	Amount=2659.2€	piecesHold=110	Wallet=9213.72€	Symbol:HEN3
+-e Buy	Position:53	35pc	RSI:14	Quote:82.52€	Amount=2888.2€	piecesHold=145	Wallet=12101.9€	Symbol:HEN3
+-e Buy	Position:54	39pc	RSI:7	Quote:81.58€	Amount=3181.62€	piecesHold=184	Wallet=15283.5€	Symbol:HEN3
+-e Buy	Position:55	42pc	RSI:21	Quote:82.76€	Amount=3475.92€	piecesHold=226	Wallet=18759.4€	Symbol:HEN3
+-e Sell	Position:60	226pc	Stoch:100	Quote:87.38€	Amount=19747.9€	Symbol:HEN3
 Intermediate Win=988.5€ Proz=5.3% Average holding days=10.1 days
 ---------------
 Simulation Win=988.5€
@@ -2179,19 +2245,19 @@ Simulation Win=0€
 
 
 SDF "K+S"
--e Buy	Position:77	235pc	RSI:24	Quote:8.48€	Amount=1993.27€	piecesHold=235	Wallet=1993.27€	Symbol:SDF
--e Buy	Position:78	258pc	RSI:23	Quote:8.50€	Amount=2193€	piecesHold=493	Wallet=4186.27€	Symbol:SDF
--e Sell	493pc	Position:82	Stoch:96	Quote:8.65€	Amount=4265.44€	Symbol:SDF
+-e Buy	Position:74	235pc	RSI:24	Quote:8.48€	Amount=1993.27€	piecesHold=235	Wallet=1993.27€	Symbol:SDF
+-e Buy	Position:75	258pc	RSI:23	Quote:8.50€	Amount=2193€	piecesHold=493	Wallet=4186.27€	Symbol:SDF
+-e Sell	Position:79	493pc	Stoch:96	Quote:8.65€	Amount=4265.44€	Symbol:SDF
 Intermediate Win=79.17€ Proz=1.9% Average holding days=4.5 days
 ---------------
 Simulation Win=79.17€
 
 
 MRK "MERCK KGAA"
--e Buy	Position:61	15pc	RSI:21	Quote:133.05€	Amount=1995.75€	piecesHold=15	Wallet=1995.75€	Symbol:MRK
--e Buy	Position:62	16pc	RSI:18	Quote:130.10€	Amount=2081.6€	piecesHold=31	Wallet=4077.35€	Symbol:MRK
--e Buy	Position:63	18pc	RSI:20	Quote:130.35€	Amount=2346.3€	piecesHold=49	Wallet=6423.65€	Symbol:MRK
--e Sell	49pc	Position:69	Stoch:100	Quote:137.45€	Amount=6735.05€	Symbol:MRK
+-e Buy	Position:58	15pc	RSI:21	Quote:133.05€	Amount=1995.75€	piecesHold=15	Wallet=1995.75€	Symbol:MRK
+-e Buy	Position:59	16pc	RSI:18	Quote:130.10€	Amount=2081.6€	piecesHold=31	Wallet=4077.35€	Symbol:MRK
+-e Buy	Position:60	18pc	RSI:20	Quote:130.35€	Amount=2346.3€	piecesHold=49	Wallet=6423.65€	Symbol:MRK
+-e Sell	Position:66	49pc	Stoch:100	Quote:137.45€	Amount=6735.05€	Symbol:MRK
 Intermediate Win=311.4€ Proz=4.8% Average holding days=7.0 days
 ---------------
 Simulation Win=311.4€
@@ -2208,100 +2274,100 @@ Simulation Win=0€
 
 
 DWNI "DEUT. WOHNEN"
--e Buy	Position:52	50pc	RSI:21	Quote:39.86€	Amount=1993€	piecesHold=50	Wallet=1993€	Symbol:DWNI
--e Buy	Position:53	55pc	RSI:16	Quote:39.75€	Amount=2186.25€	piecesHold=105	Wallet=4179.25€	Symbol:DWNI
--e Buy	Position:54	60pc	RSI:20	Quote:39.79€	Amount=2387.4€	piecesHold=165	Wallet=6566.65€	Symbol:DWNI
--e Buy	Position:55	67pc	RSI:18	Quote:39.29€	Amount=2632.43€	piecesHold=232	Wallet=9199.08€	Symbol:DWNI
--e Buy	Position:56	74pc	RSI:19	Quote:39.07€	Amount=2891.18€	piecesHold=306	Wallet=12090.3€	Symbol:DWNI
--e Buy	Position:57	82pc	RSI:20	Quote:38.95€	Amount=3193.9€	piecesHold=388	Wallet=15284.2€	Symbol:DWNI
--e Buy	Position:58	90pc	RSI:20	Quote:39.30€	Amount=3537€	piecesHold=478	Wallet=18821.2€	Symbol:DWNI
--e Buy	Position:59	98pc	RSI:24	Quote:39.37€	Amount=3858.26€	piecesHold=576	Wallet=22679.5€	Symbol:DWNI
--e Buy	Position:60	110pc	RSI:14	Quote:38.66€	Amount=4252.6€	piecesHold=686	Wallet=26932.1€	Symbol:DWNI
--e Buy	Position:61	121pc	RSI:20	Quote:38.93€	Amount=4710.53€	piecesHold=807	Wallet=31642.6€	Symbol:DWNI
--e Buy	Position:62	135pc	RSI:15	Quote:38.21€	Amount=5158.35€	piecesHold=942	Wallet=36800.9€	Symbol:DWNI
--e Sell	942pc	Position:69	Stoch:100	Quote:39.75€	Amount=37444.5€	Symbol:DWNI
+-e Buy	Position:49	50pc	RSI:21	Quote:39.86€	Amount=1993€	piecesHold=50	Wallet=1993€	Symbol:DWNI
+-e Buy	Position:50	55pc	RSI:16	Quote:39.75€	Amount=2186.25€	piecesHold=105	Wallet=4179.25€	Symbol:DWNI
+-e Buy	Position:51	60pc	RSI:20	Quote:39.79€	Amount=2387.4€	piecesHold=165	Wallet=6566.65€	Symbol:DWNI
+-e Buy	Position:52	67pc	RSI:18	Quote:39.29€	Amount=2632.43€	piecesHold=232	Wallet=9199.08€	Symbol:DWNI
+-e Buy	Position:53	74pc	RSI:19	Quote:39.07€	Amount=2891.18€	piecesHold=306	Wallet=12090.3€	Symbol:DWNI
+-e Buy	Position:54	82pc	RSI:20	Quote:38.95€	Amount=3193.9€	piecesHold=388	Wallet=15284.2€	Symbol:DWNI
+-e Buy	Position:55	90pc	RSI:20	Quote:39.30€	Amount=3537€	piecesHold=478	Wallet=18821.2€	Symbol:DWNI
+-e Buy	Position:56	98pc	RSI:24	Quote:39.37€	Amount=3858.26€	piecesHold=576	Wallet=22679.5€	Symbol:DWNI
+-e Buy	Position:57	110pc	RSI:14	Quote:38.66€	Amount=4252.6€	piecesHold=686	Wallet=26932.1€	Symbol:DWNI
+-e Buy	Position:58	121pc	RSI:20	Quote:38.93€	Amount=4710.53€	piecesHold=807	Wallet=31642.6€	Symbol:DWNI
+-e Buy	Position:59	135pc	RSI:15	Quote:38.21€	Amount=5158.35€	piecesHold=942	Wallet=36800.9€	Symbol:DWNI
+-e Sell	Position:66	942pc	Stoch:100	Quote:39.75€	Amount=37444.5€	Symbol:DWNI
 Intermediate Win=643.6€ Proz=1.7% Average holding days=12.0 days
 ---------------
 Simulation Win=643.6€
 
 
 DHER "DELIVERY HERO"
--e Buy	Position:54	17pc	RSI:22	Quote:112.50€	Amount=1912.5€	piecesHold=17	Wallet=1912.5€	Symbol:DHER
--e Buy	Position:55	20pc	RSI:22	Quote:109.10€	Amount=2182€	piecesHold=37	Wallet=4094.5€	Symbol:DHER
--e Buy	Position:56	22pc	RSI:16	Quote:108.45€	Amount=2385.9€	piecesHold=59	Wallet=6480.4€	Symbol:DHER
--e Buy	Position:57	25pc	RSI:16	Quote:105.70€	Amount=2642.5€	piecesHold=84	Wallet=9122.9€	Symbol:DHER
--e Buy	Position:58	27pc	RSI:14	Quote:108.40€	Amount=2926.8€	piecesHold=111	Wallet=12049.7€	Symbol:DHER
--e Buy	Position:59	30pc	RSI:15	Quote:105.95€	Amount=3178.5€	piecesHold=141	Wallet=15228.2€	Symbol:DHER
--e Buy	Position:60	34pc	RSI:9	Quote:101.95€	Amount=3466.3€	piecesHold=175	Wallet=18694.5€	Symbol:DHER
--e Buy	Position:61	37pc	RSI:11	Quote:103.35€	Amount=3823.95€	piecesHold=212	Wallet=22518.5€	Symbol:DHER
--e Buy	Position:62	41pc	RSI:11	Quote:103.10€	Amount=4227.1€	piecesHold=253	Wallet=26745.6€	Symbol:DHER
--e Buy	Position:63	46pc	RSI:11	Quote:102.35€	Amount=4708.1€	piecesHold=299	Wallet=31453.7€	Symbol:DHER
--e Buy	Position:65	49pc	RSI:24	Quote:103.85€	Amount=5088.65€	piecesHold=348	Wallet=36542.3€	Symbol:DHER
--e Sell	348pc	Position:69	Stoch:93	Quote:108.00€	Amount=37584€	Symbol:DHER
+-e Buy	Position:51	17pc	RSI:22	Quote:112.50€	Amount=1912.5€	piecesHold=17	Wallet=1912.5€	Symbol:DHER
+-e Buy	Position:52	20pc	RSI:22	Quote:109.10€	Amount=2182€	piecesHold=37	Wallet=4094.5€	Symbol:DHER
+-e Buy	Position:53	22pc	RSI:16	Quote:108.45€	Amount=2385.9€	piecesHold=59	Wallet=6480.4€	Symbol:DHER
+-e Buy	Position:54	25pc	RSI:16	Quote:105.70€	Amount=2642.5€	piecesHold=84	Wallet=9122.9€	Symbol:DHER
+-e Buy	Position:55	27pc	RSI:14	Quote:108.40€	Amount=2926.8€	piecesHold=111	Wallet=12049.7€	Symbol:DHER
+-e Buy	Position:56	30pc	RSI:15	Quote:105.95€	Amount=3178.5€	piecesHold=141	Wallet=15228.2€	Symbol:DHER
+-e Buy	Position:57	34pc	RSI:9	Quote:101.95€	Amount=3466.3€	piecesHold=175	Wallet=18694.5€	Symbol:DHER
+-e Buy	Position:58	37pc	RSI:11	Quote:103.35€	Amount=3823.95€	piecesHold=212	Wallet=22518.5€	Symbol:DHER
+-e Buy	Position:59	41pc	RSI:11	Quote:103.10€	Amount=4227.1€	piecesHold=253	Wallet=26745.6€	Symbol:DHER
+-e Buy	Position:60	46pc	RSI:11	Quote:102.35€	Amount=4708.1€	piecesHold=299	Wallet=31453.7€	Symbol:DHER
+-e Buy	Position:62	49pc	RSI:24	Quote:103.85€	Amount=5088.65€	piecesHold=348	Wallet=36542.3€	Symbol:DHER
+-e Sell	Position:66	348pc	Stoch:93	Quote:108.00€	Amount=37584€	Symbol:DHER
 Intermediate Win=1041.7€ Proz=2.9% Average holding days=9.9 days
 ---------------
 Simulation Win=1041.7€
 
 
 JEN "JENOPTIK"
--e Buy	Position:58	74pc	RSI:23	Quote:26.70€	Amount=1975.8€	piecesHold=74	Wallet=1975.8€	Symbol:JEN
--e Sell	74pc	Position:69	Stoch:100	Quote:28.26€	Amount=2091.24€	Symbol:JEN
+-e Buy	Position:55	74pc	RSI:23	Quote:26.70€	Amount=1975.8€	piecesHold=74	Wallet=1975.8€	Symbol:JEN
+-e Sell	Position:66	74pc	Stoch:100	Quote:28.26€	Amount=2091.24€	Symbol:JEN
 Intermediate Win=115.44€ Proz=5.8% Average holding days=11.0 days
--e Buy	Position:86	78pc	RSI:24	Quote:25.60€	Amount=1996.8€	piecesHold=78	Wallet=1996.8€	Symbol:JEN
--e Sell	78pc	Position:96	Stoch:100	Quote:27.10€	Amount=2113.8€	Symbol:JEN
+-e Buy	Position:83	78pc	RSI:24	Quote:25.60€	Amount=1996.8€	piecesHold=78	Wallet=1996.8€	Symbol:JEN
+-e Sell	Position:93	78pc	Stoch:100	Quote:27.10€	Amount=2113.8€	Symbol:JEN
 Intermediate Win=117€ Proz=5.9% Average holding days=10.0 days
 ---------------
 Simulation Win=232.44€
 
 
 S92 "SMA SOLAR TECH."
--e Buy	Position:60	38pc	RSI:24	Quote:51.55€	Amount=1958.9€	piecesHold=38	Wallet=1958.9€	Symbol:S92
--e Buy	Position:61	44pc	RSI:23	Quote:49.38€	Amount=2172.72€	piecesHold=82	Wallet=4131.62€	Symbol:S92
--e Buy	Position:62	49pc	RSI:20	Quote:48.52€	Amount=2377.48€	piecesHold=131	Wallet=6509.1€	Symbol:S92
--e Buy	Position:63	53pc	RSI:21	Quote:50.15€	Amount=2657.95€	piecesHold=184	Wallet=9167.05€	Symbol:S92
--e Sell	184pc	Position:66	Stoch:100	Quote:54.70€	Amount=10064.8€	Symbol:S92
+-e Buy	Position:57	38pc	RSI:24	Quote:51.55€	Amount=1958.9€	piecesHold=38	Wallet=1958.9€	Symbol:S92
+-e Buy	Position:58	44pc	RSI:23	Quote:49.38€	Amount=2172.72€	piecesHold=82	Wallet=4131.62€	Symbol:S92
+-e Buy	Position:59	49pc	RSI:20	Quote:48.52€	Amount=2377.48€	piecesHold=131	Wallet=6509.1€	Symbol:S92
+-e Buy	Position:60	53pc	RSI:21	Quote:50.15€	Amount=2657.95€	piecesHold=184	Wallet=9167.05€	Symbol:S92
+-e Sell	Position:63	184pc	Stoch:100	Quote:54.70€	Amount=10064.8€	Symbol:S92
 Intermediate Win=897.75€ Proz=9.8% Average holding days=4.5 days
 ---------------
 Simulation Win=897.75€
 
 
 B4B "METRO"
--e Buy	Position:79	216pc	RSI:24	Quote:9.24€	Amount=1995.84€	piecesHold=216	Wallet=1995.84€	Symbol:B4B
--e Buy	Position:85	244pc	RSI:22	Quote:9.01€	Amount=2198.93€	piecesHold=460	Wallet=4194.77€	Symbol:B4B
--e Buy	Position:86	268pc	RSI:24	Quote:9.00€	Amount=2413.07€	piecesHold=728	Wallet=6607.84€	Symbol:B4B
--e Sell	728pc	Position:96	Stoch:95	Quote:9.09€	Amount=6616.06€	Symbol:B4B
+-e Buy	Position:76	216pc	RSI:24	Quote:9.24€	Amount=1995.84€	piecesHold=216	Wallet=1995.84€	Symbol:B4B
+-e Buy	Position:82	244pc	RSI:22	Quote:9.01€	Amount=2198.93€	piecesHold=460	Wallet=4194.77€	Symbol:B4B
+-e Buy	Position:83	268pc	RSI:24	Quote:9.00€	Amount=2413.07€	piecesHold=728	Wallet=6607.84€	Symbol:B4B
+-e Sell	Position:93	728pc	Stoch:95	Quote:9.09€	Amount=6616.06€	Symbol:B4B
 Intermediate Win=8.22€ Proz=0.1% Average holding days=12.7 days
 ---------------
 Simulation Win=8.22€
 
 
 ZO1 "ZOOPLUS"
--e Buy	Position:62	10pc	RSI:22	Quote:190.00€	Amount=1900€	piecesHold=10	Wallet=1900€	Symbol:ZO1
--e Buy	Position:63	11pc	RSI:7	Quote:185.40€	Amount=2039.4€	piecesHold=21	Wallet=3939.4€	Symbol:ZO1
--e Buy	Position:64	12pc	RSI:11	Quote:187.60€	Amount=2251.2€	piecesHold=33	Wallet=6190.6€	Symbol:ZO1
--e Buy	Position:65	14pc	RSI:12	Quote:186.20€	Amount=2606.8€	piecesHold=47	Wallet=8797.4€	Symbol:ZO1
--e Buy	Position:66	15pc	RSI:20	Quote:189.80€	Amount=2847€	piecesHold=62	Wallet=11644.4€	Symbol:ZO1
--e Sell	62pc	Position:68	Stoch:92	Quote:203.50€	Amount=12617€	Symbol:ZO1
+-e Buy	Position:59	10pc	RSI:22	Quote:190.00€	Amount=1900€	piecesHold=10	Wallet=1900€	Symbol:ZO1
+-e Buy	Position:60	11pc	RSI:7	Quote:185.40€	Amount=2039.4€	piecesHold=21	Wallet=3939.4€	Symbol:ZO1
+-e Buy	Position:61	12pc	RSI:11	Quote:187.60€	Amount=2251.2€	piecesHold=33	Wallet=6190.6€	Symbol:ZO1
+-e Buy	Position:62	14pc	RSI:12	Quote:186.20€	Amount=2606.8€	piecesHold=47	Wallet=8797.4€	Symbol:ZO1
+-e Buy	Position:63	15pc	RSI:20	Quote:189.80€	Amount=2847€	piecesHold=62	Wallet=11644.4€	Symbol:ZO1
+-e Sell	Position:65	62pc	Stoch:92	Quote:203.50€	Amount=12617€	Symbol:ZO1
 Intermediate Win=972.6€ Proz=8.4% Average holding days=4.0 days
 ---------------
 Simulation Win=972.6€
 
 
 SMHN "SUESS MICROTEC"
--e Buy	Position:61	93pc	RSI:24	Quote:21.30€	Amount=1980.9€	piecesHold=93	Wallet=1980.9€	Symbol:SMHN
--e Sell	93pc	Position:78	Stoch:100	Quote:23.60€	Amount=2194.8€	Symbol:SMHN
+-e Buy	Position:58	93pc	RSI:24	Quote:21.30€	Amount=1980.9€	piecesHold=93	Wallet=1980.9€	Symbol:SMHN
+-e Sell	Position:75	93pc	Stoch:100	Quote:23.60€	Amount=2194.8€	Symbol:SMHN
 Intermediate Win=213.9€ Proz=10.8% Average holding days=17.0 days
 ---------------
 Simulation Win=213.9€
 
 
 ADJ "ADLER GROUP"
--e Buy	Position:31	78pc	RSI:21	Quote:25.58€	Amount=1995.24€	piecesHold=78	Wallet=1995.24€	Symbol:ADJ
--e Buy	Position:32	85pc	RSI:23	Quote:25.72€	Amount=2186.2€	piecesHold=163	Wallet=4181.44€	Symbol:ADJ
--e Buy	Position:33	94pc	RSI:23	Quote:25.54€	Amount=2400.76€	piecesHold=257	Wallet=6582.2€	Symbol:ADJ
--e Buy	Position:44	109pc	RSI:24	Quote:24.34€	Amount=2653.06€	piecesHold=366	Wallet=9235.26€	Symbol:ADJ
--e Buy	Position:53	124pc	RSI:23	Quote:23.52€	Amount=2916.48€	piecesHold=490	Wallet=12151.7€	Symbol:ADJ
--e Sell	490pc	Position:66	Stoch:100	Quote:24.82€	Amount=12161.8€	Symbol:ADJ
+-e Buy	Position:28	78pc	RSI:21	Quote:25.58€	Amount=1995.24€	piecesHold=78	Wallet=1995.24€	Symbol:ADJ
+-e Buy	Position:29	85pc	RSI:23	Quote:25.72€	Amount=2186.2€	piecesHold=163	Wallet=4181.44€	Symbol:ADJ
+-e Buy	Position:30	94pc	RSI:23	Quote:25.54€	Amount=2400.76€	piecesHold=257	Wallet=6582.2€	Symbol:ADJ
+-e Buy	Position:41	109pc	RSI:24	Quote:24.34€	Amount=2653.06€	piecesHold=366	Wallet=9235.26€	Symbol:ADJ
+-e Buy	Position:50	124pc	RSI:23	Quote:23.52€	Amount=2916.48€	piecesHold=490	Wallet=12151.7€	Symbol:ADJ
+-e Sell	Position:63	490pc	Stoch:100	Quote:24.82€	Amount=12161.8€	Symbol:ADJ
 Intermediate Win=10.1€ Proz=0.1% Average holding days=27.4 days
 ---------------
 Simulation Win=10.1€
@@ -2333,20 +2399,20 @@ Simulation Win=0€
 
 
 DEQ "DEUT. EUROSHOP"
--e Buy	Position:50	122pc	RSI:23	Quote:16.27€	Amount=1984.94€	piecesHold=122	Wallet=1984.94€	Symbol:DEQ
--e Sell	122pc	Position:55	Stoch:100	Quote:17.30€	Amount=2110.6€	Symbol:DEQ
+-e Buy	Position:47	122pc	RSI:23	Quote:16.27€	Amount=1984.94€	piecesHold=122	Wallet=1984.94€	Symbol:DEQ
+-e Sell	Position:52	122pc	Stoch:100	Quote:17.30€	Amount=2110.6€	Symbol:DEQ
 Intermediate Win=125.66€ Proz=6.3% Average holding days=5.0 days
 ---------------
 Simulation Win=125.66€
 
 
 HYQ "HYPOPORT"
--e Buy	Position:60	3pc	RSI:24	Quote:518.00€	Amount=1554€	piecesHold=3	Wallet=1554€	Symbol:HYQ
--e Buy	Position:61	4pc	RSI:19	Quote:472.00€	Amount=1888€	piecesHold=7	Wallet=3442€	Symbol:HYQ
--e Buy	Position:62	5pc	RSI:16	Quote:454.00€	Amount=2270€	piecesHold=12	Wallet=5712€	Symbol:HYQ
--e Buy	Position:63	5pc	RSI:16	Quote:447.50€	Amount=2237.5€	piecesHold=17	Wallet=7949.5€	Symbol:HYQ
--e Buy	Position:68	6pc	RSI:23	Quote:433.00€	Amount=2598€	piecesHold=23	Wallet=10547.5€	Symbol:HYQ
--e Sell	23pc	Position:93	Stoch:100	Quote:467.00€	Amount=10741€	Symbol:HYQ
+-e Buy	Position:57	3pc	RSI:24	Quote:518.00€	Amount=1554€	piecesHold=3	Wallet=1554€	Symbol:HYQ
+-e Buy	Position:58	4pc	RSI:19	Quote:472.00€	Amount=1888€	piecesHold=7	Wallet=3442€	Symbol:HYQ
+-e Buy	Position:59	5pc	RSI:16	Quote:454.00€	Amount=2270€	piecesHold=12	Wallet=5712€	Symbol:HYQ
+-e Buy	Position:60	5pc	RSI:16	Quote:447.50€	Amount=2237.5€	piecesHold=17	Wallet=7949.5€	Symbol:HYQ
+-e Buy	Position:65	6pc	RSI:23	Quote:433.00€	Amount=2598€	piecesHold=23	Wallet=10547.5€	Symbol:HYQ
+-e Sell	Position:90	23pc	Stoch:100	Quote:467.00€	Amount=10741€	Symbol:HYQ
 Intermediate Win=193.5€ Proz=1.8% Average holding days=30.2 days
 ---------------
 Simulation Win=193.5€
@@ -2363,12 +2429,12 @@ Simulation Win=0€
 
 
 PAT "PATRIZIA"
--e Buy	Position:56	88pc	RSI:22	Quote:22.50€	Amount=1980€	piecesHold=88	Wallet=1980€	Symbol:PAT
--e Buy	Position:60	98pc	RSI:24	Quote:22.30€	Amount=2185.4€	piecesHold=186	Wallet=4165.4€	Symbol:PAT
--e Buy	Position:61	111pc	RSI:21	Quote:21.75€	Amount=2414.25€	piecesHold=297	Wallet=6579.65€	Symbol:PAT
--e Buy	Position:62	125pc	RSI:17	Quote:21.15€	Amount=2643.75€	piecesHold=422	Wallet=9223.4€	Symbol:PAT
--e Buy	Position:63	137pc	RSI:21	Quote:21.25€	Amount=2911.25€	piecesHold=559	Wallet=12134.6€	Symbol:PAT
--e Sell	559pc	Position:97	Stoch:100	Quote:22.20€	Amount=12409.8€	Symbol:PAT
+-e Buy	Position:53	88pc	RSI:22	Quote:22.50€	Amount=1980€	piecesHold=88	Wallet=1980€	Symbol:PAT
+-e Buy	Position:57	98pc	RSI:24	Quote:22.30€	Amount=2185.4€	piecesHold=186	Wallet=4165.4€	Symbol:PAT
+-e Buy	Position:58	111pc	RSI:21	Quote:21.75€	Amount=2414.25€	piecesHold=297	Wallet=6579.65€	Symbol:PAT
+-e Buy	Position:59	125pc	RSI:17	Quote:21.15€	Amount=2643.75€	piecesHold=422	Wallet=9223.4€	Symbol:PAT
+-e Buy	Position:60	137pc	RSI:21	Quote:21.25€	Amount=2911.25€	piecesHold=559	Wallet=12134.6€	Symbol:PAT
+-e Sell	Position:94	559pc	Stoch:100	Quote:22.20€	Amount=12409.8€	Symbol:PAT
 Intermediate Win=275.2€ Proz=2.3% Average holding days=36.6 days
 ---------------
 Simulation Win=275.2€
@@ -2395,41 +2461,41 @@ Simulation Win=0€
 
 
 DRW3 "DRAEGERWERK"
--e Buy	Position:62	32pc	RSI:14	Quote:61.60€	Amount=1971.2€	piecesHold=32	Wallet=1971.2€	Symbol:DRW3
--e Buy	Position:63	35pc	RSI:16	Quote:62.10€	Amount=2173.5€	piecesHold=67	Wallet=4144.7€	Symbol:DRW3
--e Sell	67pc	Position:66	Stoch:100	Quote:67.50€	Amount=4522.5€	Symbol:DRW3
+-e Buy	Position:59	32pc	RSI:14	Quote:61.60€	Amount=1971.2€	piecesHold=32	Wallet=1971.2€	Symbol:DRW3
+-e Buy	Position:60	35pc	RSI:16	Quote:62.10€	Amount=2173.5€	piecesHold=67	Wallet=4144.7€	Symbol:DRW3
+-e Sell	Position:63	67pc	Stoch:100	Quote:67.50€	Amount=4522.5€	Symbol:DRW3
 Intermediate Win=377.8€ Proz=9.1% Average holding days=3.5 days
 ---------------
 Simulation Win=377.8€
 
 
 KRN "KRONES"
--e Buy	Position:67	29pc	RSI:24	Quote:67.45€	Amount=1956.05€	piecesHold=29	Wallet=1956.05€	Symbol:KRN
--e Buy	Position:69	33pc	RSI:20	Quote:66.40€	Amount=2191.2€	piecesHold=62	Wallet=4147.25€	Symbol:KRN
--e Sell	62pc	Position:74	Stoch:100	Quote:68.10€	Amount=4222.2€	Symbol:KRN
+-e Buy	Position:64	29pc	RSI:24	Quote:67.45€	Amount=1956.05€	piecesHold=29	Wallet=1956.05€	Symbol:KRN
+-e Buy	Position:66	33pc	RSI:20	Quote:66.40€	Amount=2191.2€	piecesHold=62	Wallet=4147.25€	Symbol:KRN
+-e Sell	Position:71	62pc	Stoch:100	Quote:68.10€	Amount=4222.2€	Symbol:KRN
 Intermediate Win=74.95€ Proz=1.8% Average holding days=6.0 days
 ---------------
 Simulation Win=74.95€
 
 
 INH "INDUS HOLDING"
--e Buy	Position:87	58pc	RSI:21	Quote:34.45€	Amount=1998.1€	piecesHold=58	Wallet=1998.1€	Symbol:INH
--e Sell	58pc	Position:96	Stoch:100	Quote:35.70€	Amount=2070.6€	Symbol:INH
+-e Buy	Position:84	58pc	RSI:21	Quote:34.45€	Amount=1998.1€	piecesHold=58	Wallet=1998.1€	Symbol:INH
+-e Sell	Position:93	58pc	Stoch:100	Quote:35.70€	Amount=2070.6€	Symbol:INH
 Intermediate Win=72.5€ Proz=3.6% Average holding days=9.0 days
 ---------------
 Simulation Win=72.5€
 
 
 LEO "LEONI"
--e Buy	Position:78	183pc	RSI:21	Quote:10.90€	Amount=1994.7€	piecesHold=183	Wallet=1994.7€	Symbol:LEO
--e Buy	Position:80	205pc	RSI:21	Quote:10.70€	Amount=2193.5€	piecesHold=388	Wallet=4188.2€	Symbol:LEO
--e Buy	Position:81	228pc	RSI:14	Quote:10.61€	Amount=2419.08€	piecesHold=616	Wallet=6607.28€	Symbol:LEO
--e Buy	Position:82	250pc	RSI:15	Quote:10.61€	Amount=2652.5€	piecesHold=866	Wallet=9259.78€	Symbol:LEO
--e Buy	Position:83	278pc	RSI:13	Quote:10.52€	Amount=2924.56€	piecesHold=1144	Wallet=12184.3€	Symbol:LEO
--e Buy	Position:84	311pc	RSI:12	Quote:10.35€	Amount=3218.85€	piecesHold=1455	Wallet=15403.1€	Symbol:LEO
--e Buy	Position:85	354pc	RSI:12	Quote:10.00€	Amount=3540€	piecesHold=1809	Wallet=18943.1€	Symbol:LEO
--e Buy	Position:86	389pc	RSI:13	Quote:10.00€	Amount=3890€	piecesHold=2198	Wallet=22833.1€	Symbol:LEO
--e Sell	2198pc	Position:90	Stoch:100	Quote:11.51€	Amount=25299€	Symbol:LEO
+-e Buy	Position:75	183pc	RSI:21	Quote:10.90€	Amount=1994.7€	piecesHold=183	Wallet=1994.7€	Symbol:LEO
+-e Buy	Position:77	205pc	RSI:21	Quote:10.70€	Amount=2193.5€	piecesHold=388	Wallet=4188.2€	Symbol:LEO
+-e Buy	Position:78	228pc	RSI:14	Quote:10.61€	Amount=2419.08€	piecesHold=616	Wallet=6607.28€	Symbol:LEO
+-e Buy	Position:79	250pc	RSI:15	Quote:10.61€	Amount=2652.5€	piecesHold=866	Wallet=9259.78€	Symbol:LEO
+-e Buy	Position:80	278pc	RSI:13	Quote:10.52€	Amount=2924.56€	piecesHold=1144	Wallet=12184.3€	Symbol:LEO
+-e Buy	Position:81	311pc	RSI:12	Quote:10.35€	Amount=3218.85€	piecesHold=1455	Wallet=15403.1€	Symbol:LEO
+-e Buy	Position:82	354pc	RSI:12	Quote:10.00€	Amount=3540€	piecesHold=1809	Wallet=18943.1€	Symbol:LEO
+-e Buy	Position:83	389pc	RSI:13	Quote:10.00€	Amount=3890€	piecesHold=2198	Wallet=22833.1€	Symbol:LEO
+-e Sell	Position:87	2198pc	Stoch:100	Quote:11.51€	Amount=25299€	Symbol:LEO
 Intermediate Win=2465.9€ Proz=10.8% Average holding days=7.6 days
 ---------------
 Simulation Win=2465.9€
@@ -2441,66 +2507,30 @@ Simulation Win=0€
 
 
 VOS "VOSSLOH"
--e Buy	Position:69	48pc	RSI:24	Quote:41.20€	Amount=1977.6€	piecesHold=48	Wallet=1977.6€	Symbol:VOS
--e Sell	48pc	Position:71	Stoch:100	Quote:43.40€	Amount=2083.2€	Symbol:VOS
+-e Buy	Position:66	48pc	RSI:24	Quote:41.20€	Amount=1977.6€	piecesHold=48	Wallet=1977.6€	Symbol:VOS
+-e Sell	Position:68	48pc	Stoch:100	Quote:43.40€	Amount=2083.2€	Symbol:VOS
 Intermediate Win=105.6€ Proz=5.3% Average holding days=2.0 days
--e Buy	Position:92	50pc	RSI:23	Quote:39.75€	Amount=1987.5€	piecesHold=50	Wallet=1987.5€	Symbol:VOS
--e Sell	50pc	Position:95	Stoch:100	Quote:43.45€	Amount=2172.5€	Symbol:VOS
+-e Buy	Position:89	50pc	RSI:23	Quote:39.75€	Amount=1987.5€	piecesHold=50	Wallet=1987.5€	Symbol:VOS
+-e Sell	Position:92	50pc	Stoch:100	Quote:43.45€	Amount=2172.5€	Symbol:VOS
 Intermediate Win=185€ Proz=9.3% Average holding days=3.0 days
 ---------------
 Simulation Win=290.6€
 
 
-FIE "FIELMANN"
--e Buy	Position:54	30pc	RSI:19	Quote:66.60€	Amount=1998€	piecesHold=30	Wallet=1998€	Symbol:FIE
--e Buy	Position:55	33pc	RSI:18	Quote:66.40€	Amount=2191.2€	piecesHold=63	Wallet=4189.2€	Symbol:FIE
--e Buy	Position:56	37pc	RSI:17	Quote:65.40€	Amount=2419.8€	piecesHold=100	Wallet=6609€	Symbol:FIE
--e Buy	Position:57	40pc	RSI:13	Quote:65.30€	Amount=2612€	piecesHold=140	Wallet=9221€	Symbol:FIE
--e Buy	Position:58	44pc	RSI:17	Quote:65.95€	Amount=2901.8€	piecesHold=184	Wallet=12122.8€	Symbol:FIE
--e Buy	Position:59	49pc	RSI:17	Quote:65.55€	Amount=3211.95€	piecesHold=233	Wallet=15334.8€	Symbol:FIE
--e Buy	Position:60	54pc	RSI:13	Quote:65.55€	Amount=3539.7€	piecesHold=287	Wallet=18874.5€	Symbol:FIE
--e Buy	Position:61	60pc	RSI:13	Quote:64.95€	Amount=3897€	piecesHold=347	Wallet=22771.5€	Symbol:FIE
--e Buy	Position:62	67pc	RSI:7	Quote:63.95€	Amount=4284.65€	piecesHold=414	Wallet=27056.2€	Symbol:FIE
--e Buy	Position:63	73pc	RSI:12	Quote:64.50€	Amount=4708.5€	piecesHold=487	Wallet=31764.7€	Symbol:FIE
--e Sell	487pc	Position:66	Stoch:100	Quote:68.90€	Amount=33554.3€	Symbol:FIE
-Intermediate Win=1789.6€ Proz=5.6% Average holding days=7.5 days
--e Buy	Position:99	31pc	RSI:8	Quote:64.05€	Amount=1985.55€	piecesHold=31	Wallet=1985.55€	Symbol:FIE
--e Buy	Position:100	34pc	RSI:7	Quote:63.30€	Amount=2152.2€	piecesHold=65	Wallet=4137.75€	Symbol:FIE
-Sell all on the last day!!
--e Sell	65pc	Quote:63.30€	Amount=4114.5€	Symbol:FIE
-Intermediate Win=-23.25€ Proz=-0.6%
----------------
-Simulation Win=1766.35€
-
-
-ADS "Adidas"
--e Buy	Position:80	7pc	RSI:18	Quote:266.20€	Amount=1863.4€	piecesHold=7	Wallet=1863.4€	Symbol:ADS
--e Sell	7pc	Position:85	Stoch:93	Quote:280.00€	Amount=1960€	Symbol:ADS
-Intermediate Win=96.6€ Proz=5.2% Average holding days=5.0 days
--e Buy	Position:98	7pc	RSI:23	Quote:258.85€	Amount=1811.95€	piecesHold=7	Wallet=1811.95€	Symbol:ADS
--e Buy	Position:99	8pc	RSI:19	Quote:260.60€	Amount=2084.8€	piecesHold=15	Wallet=3896.75€	Symbol:ADS
--e Buy	Position:100	9pc	RSI:13	Quote:256.85€	Amount=2311.65€	piecesHold=24	Wallet=6208.4€	Symbol:ADS
-Sell all on the last day!!
--e Sell	24pc	Quote:256.85€	Amount=6164.4€	Symbol:ADS
-Intermediate Win=-44€ Proz=-0.7%
----------------
-Simulation Win=52.6€
-
-
 1N8 "ADYEN"
--e Buy	Position:63	1pc	RSI:18	Quote:1861.00€	Amount=1861€	piecesHold=1	Wallet=1861€	Symbol:1N8
--e Sell	1pc	Position:69	Stoch:100	Quote:1988.50€	Amount=1988.5€	Symbol:1N8
+-e Buy	Position:60	1pc	RSI:18	Quote:1861.00€	Amount=1861€	piecesHold=1	Wallet=1861€	Symbol:1N8
+-e Sell	Position:66	1pc	Stoch:100	Quote:1988.50€	Amount=1988.5€	Symbol:1N8
 Intermediate Win=127.5€ Proz=6.9% Average holding days=6.0 days
 ---------------
 Simulation Win=127.5€
 
 
 AIL "AIR LIQUIDE"
--e Buy	Position:55	15pc	RSI:24	Quote:129.55€	Amount=1943.25€	piecesHold=15	Wallet=1943.25€	Symbol:AIL
--e Buy	Position:56	17pc	RSI:20	Quote:126.95€	Amount=2158.15€	piecesHold=32	Wallet=4101.4€	Symbol:AIL
--e Buy	Position:57	19pc	RSI:15	Quote:124.65€	Amount=2368.35€	piecesHold=51	Wallet=6469.75€	Symbol:AIL
--e Buy	Position:58	20pc	RSI:23	Quote:127.20€	Amount=2544€	piecesHold=71	Wallet=9013.75€	Symbol:AIL
--e Sell	71pc	Position:65	Stoch:100	Quote:134.15€	Amount=9524.65€	Symbol:AIL
+-e Buy	Position:52	15pc	RSI:24	Quote:129.55€	Amount=1943.25€	piecesHold=15	Wallet=1943.25€	Symbol:AIL
+-e Buy	Position:53	17pc	RSI:20	Quote:126.95€	Amount=2158.15€	piecesHold=32	Wallet=4101.4€	Symbol:AIL
+-e Buy	Position:54	19pc	RSI:15	Quote:124.65€	Amount=2368.35€	piecesHold=51	Wallet=6469.75€	Symbol:AIL
+-e Buy	Position:55	20pc	RSI:23	Quote:127.20€	Amount=2544€	piecesHold=71	Wallet=9013.75€	Symbol:AIL
+-e Sell	Position:62	71pc	Stoch:100	Quote:134.15€	Amount=9524.65€	Symbol:AIL
 Intermediate Win=510.9€ Proz=5.7% Average holding days=8.5 days
 ---------------
 Simulation Win=510.9€
@@ -2512,23 +2542,23 @@ Simulation Win=0€
 
 
 ALV "ALLIANZ"
--e Buy	Position:34	10pc	RSI:21	Quote:193.02€	Amount=1930.2€	piecesHold=10	Wallet=1930.2€	Symbol:ALV
--e Buy	Position:35	11pc	RSI:20	Quote:190.30€	Amount=2093.3€	piecesHold=21	Wallet=4023.5€	Symbol:ALV
--e Buy	Position:36	12pc	RSI:20	Quote:190.92€	Amount=2291.04€	piecesHold=33	Wallet=6314.54€	Symbol:ALV
--e Buy	Position:37	14pc	RSI:19	Quote:186.52€	Amount=2611.28€	piecesHold=47	Wallet=8925.82€	Symbol:ALV
--e Buy	Position:38	15pc	RSI:24	Quote:188.26€	Amount=2823.9€	piecesHold=62	Wallet=11749.7€	Symbol:ALV
--e Sell	62pc	Position:45	Stoch:100	Quote:196.30€	Amount=12170.6€	Symbol:ALV
+-e Buy	Position:31	10pc	RSI:21	Quote:193.02€	Amount=1930.2€	piecesHold=10	Wallet=1930.2€	Symbol:ALV
+-e Buy	Position:32	11pc	RSI:20	Quote:190.30€	Amount=2093.3€	piecesHold=21	Wallet=4023.5€	Symbol:ALV
+-e Buy	Position:33	12pc	RSI:20	Quote:190.92€	Amount=2291.04€	piecesHold=33	Wallet=6314.54€	Symbol:ALV
+-e Buy	Position:34	14pc	RSI:19	Quote:186.52€	Amount=2611.28€	piecesHold=47	Wallet=8925.82€	Symbol:ALV
+-e Buy	Position:35	15pc	RSI:24	Quote:188.26€	Amount=2823.9€	piecesHold=62	Wallet=11749.7€	Symbol:ALV
+-e Sell	Position:42	62pc	Stoch:100	Quote:196.30€	Amount=12170.6€	Symbol:ALV
 Intermediate Win=420.9€ Proz=3.6% Average holding days=9.0 days
 ---------------
 Simulation Win=420.9€
 
 
 1NBA "ANHEUSER-BUSCH"
--e Buy	Position:34	37pc	RSI:9	Quote:53.00€	Amount=1961€	piecesHold=37	Wallet=1961€	Symbol:1NBA
--e Buy	Position:35	42pc	RSI:8	Quote:52.00€	Amount=2184€	piecesHold=79	Wallet=4145€	Symbol:1NBA
--e Buy	Position:56	48pc	RSI:23	Quote:50.10€	Amount=2404.8€	piecesHold=127	Wallet=6549.8€	Symbol:1NBA
--e Buy	Position:57	55pc	RSI:19	Quote:47.54€	Amount=2614.7€	piecesHold=182	Wallet=9164.5€	Symbol:1NBA
--e Sell	182pc	Position:65	Stoch:93	Quote:53.14€	Amount=9671.48€	Symbol:1NBA
+-e Buy	Position:31	37pc	RSI:9	Quote:53.00€	Amount=1961€	piecesHold=37	Wallet=1961€	Symbol:1NBA
+-e Buy	Position:32	42pc	RSI:8	Quote:52.00€	Amount=2184€	piecesHold=79	Wallet=4145€	Symbol:1NBA
+-e Buy	Position:53	48pc	RSI:23	Quote:50.10€	Amount=2404.8€	piecesHold=127	Wallet=6549.8€	Symbol:1NBA
+-e Buy	Position:54	55pc	RSI:19	Quote:47.54€	Amount=2614.7€	piecesHold=182	Wallet=9164.5€	Symbol:1NBA
+-e Sell	Position:62	182pc	Stoch:93	Quote:53.14€	Amount=9671.48€	Symbol:1NBA
 Intermediate Win=506.98€ Proz=5.5% Average holding days=19.5 days
 ---------------
 Simulation Win=506.98€
@@ -2540,21 +2570,21 @@ Simulation Win=0€
 
 
 AXA "AXA"
--e Buy	Position:34	106pc	RSI:11	Quote:18.86€	Amount=1999.58€	piecesHold=106	Wallet=1999.58€	Symbol:AXA
--e Buy	Position:35	118pc	RSI:9	Quote:18.64€	Amount=2199.76€	piecesHold=224	Wallet=4199.34€	Symbol:AXA
--e Buy	Position:36	128pc	RSI:15	Quote:18.81€	Amount=2407.94€	piecesHold=352	Wallet=6607.28€	Symbol:AXA
--e Buy	Position:37	145pc	RSI:13	Quote:18.29€	Amount=2652.34€	piecesHold=497	Wallet=9259.62€	Symbol:AXA
--e Buy	Position:38	158pc	RSI:19	Quote:18.49€	Amount=2921.1€	piecesHold=655	Wallet=12180.7€	Symbol:AXA
--e Sell	655pc	Position:45	Stoch:100	Quote:19.30€	Amount=12642.8€	Symbol:AXA
+-e Buy	Position:31	106pc	RSI:11	Quote:18.86€	Amount=1999.58€	piecesHold=106	Wallet=1999.58€	Symbol:AXA
+-e Buy	Position:32	118pc	RSI:9	Quote:18.64€	Amount=2199.76€	piecesHold=224	Wallet=4199.34€	Symbol:AXA
+-e Buy	Position:33	128pc	RSI:15	Quote:18.81€	Amount=2407.94€	piecesHold=352	Wallet=6607.28€	Symbol:AXA
+-e Buy	Position:34	145pc	RSI:13	Quote:18.29€	Amount=2652.34€	piecesHold=497	Wallet=9259.62€	Symbol:AXA
+-e Buy	Position:35	158pc	RSI:19	Quote:18.49€	Amount=2921.1€	piecesHold=655	Wallet=12180.7€	Symbol:AXA
+-e Sell	Position:42	655pc	Stoch:100	Quote:19.30€	Amount=12642.8€	Symbol:AXA
 Intermediate Win=462.1€ Proz=3.8% Average holding days=9.0 days
 ---------------
 Simulation Win=462.1€
 
 
 BSD2 "BANCO SANTANDER"
--e Buy	Position:35	819pc	RSI:24	Quote:2.44€	Amount=1999.18€	piecesHold=819	Wallet=1999.18€	Symbol:BSD2
--e Buy	Position:38	910pc	RSI:20	Quote:2.42€	Amount=2199.47€	piecesHold=1729	Wallet=4198.65€	Symbol:BSD2
--e Sell	1729pc	Position:42	Stoch:100	Quote:2.77€	Amount=4793.65€	Symbol:BSD2
+-e Buy	Position:32	819pc	RSI:24	Quote:2.44€	Amount=1999.18€	piecesHold=819	Wallet=1999.18€	Symbol:BSD2
+-e Buy	Position:35	910pc	RSI:20	Quote:2.42€	Amount=2199.47€	piecesHold=1729	Wallet=4198.65€	Symbol:BSD2
+-e Sell	Position:39	1729pc	Stoch:100	Quote:2.77€	Amount=4793.65€	Symbol:BSD2
 Intermediate Win=595€ Proz=14.2% Average holding days=5.5 days
 ---------------
 Simulation Win=595€
@@ -2571,8 +2601,8 @@ Simulation Win=0€
 
 
 BNP "BNP PARIBAS"
--e Buy	Position:35	49pc	RSI:22	Quote:40.59€	Amount=1988.91€	piecesHold=49	Wallet=1988.91€	Symbol:BNP
--e Sell	49pc	Position:43	Stoch:96	Quote:44.17€	Amount=2164.57€	Symbol:BNP
+-e Buy	Position:32	49pc	RSI:22	Quote:40.59€	Amount=1988.91€	piecesHold=49	Wallet=1988.91€	Symbol:BNP
+-e Sell	Position:40	49pc	Stoch:96	Quote:44.17€	Amount=2164.57€	Symbol:BNP
 Intermediate Win=175.66€ Proz=8.8% Average holding days=8.0 days
 ---------------
 Simulation Win=175.66€
@@ -2589,24 +2619,23 @@ Simulation Win=0€
 
 
 DTE "Deutsche Telekom"
--e Buy	Position:93	124pc	RSI:21	Quote:16.03€	Amount=1987.97€	piecesHold=124	Wallet=1987.97€	Symbol:DTE
--e Buy	Position:94	136pc	RSI:24	Quote:16.15€	Amount=2196.67€	piecesHold=260	Wallet=4184.64€	Symbol:DTE
--e Buy	Position:95	150pc	RSI:20	Quote:16.08€	Amount=2412.3€	piecesHold=410	Wallet=6596.94€	Symbol:DTE
--e Buy	Position:98	166pc	RSI:24	Quote:15.98€	Amount=2652.68€	piecesHold=576	Wallet=9249.62€	Symbol:DTE
-Sell all on the last day!!
--e Sell	576pc	Quote:16.00€	Amount=9216€	Symbol:DTE
-Intermediate Win=-33.62€ Proz=-0.4%
+-e Buy	Position:90	124pc	RSI:21	Quote:16.03€	Amount=1987.97€	piecesHold=124	Wallet=1987.97€	Symbol:DTE
+-e Buy	Position:91	136pc	RSI:24	Quote:16.15€	Amount=2196.67€	piecesHold=260	Wallet=4184.64€	Symbol:DTE
+-e Buy	Position:92	150pc	RSI:20	Quote:16.08€	Amount=2412.3€	piecesHold=410	Wallet=6596.94€	Symbol:DTE
+-e Buy	Position:95	166pc	RSI:24	Quote:15.98€	Amount=2652.68€	piecesHold=576	Wallet=9249.62€	Symbol:DTE
+-e Sell	Position:100	576pc	Stoch:100	Quote:16.41€	Amount=9453.31€	Symbol:DTE
+Intermediate Win=203.69€ Proz=2.2% Average holding days=8.0 days
 ---------------
-Simulation Win=-33.62€
+Simulation Win=203.69€
 
 
 ENL "ENEL"
--e Buy	Position:54	250pc	RSI:23	Quote:7.98€	Amount=1994.75€	piecesHold=250	Wallet=1994.75€	Symbol:ENL
--e Buy	Position:55	277pc	RSI:21	Quote:7.92€	Amount=2193.56€	piecesHold=527	Wallet=4188.31€	Symbol:ENL
--e Buy	Position:56	308pc	RSI:22	Quote:7.84€	Amount=2414.1€	piecesHold=835	Wallet=6602.41€	Symbol:ENL
--e Buy	Position:57	339pc	RSI:18	Quote:7.84€	Amount=2658.44€	piecesHold=1174	Wallet=9260.85€	Symbol:ENL
--e Buy	Position:60	384pc	RSI:10	Quote:7.62€	Amount=2927.23€	piecesHold=1558	Wallet=12188.1€	Symbol:ENL
--e Sell	1558pc	Position:65	Stoch:100	Quote:8.22€	Amount=12806.8€	Symbol:ENL
+-e Buy	Position:51	250pc	RSI:23	Quote:7.98€	Amount=1994.75€	piecesHold=250	Wallet=1994.75€	Symbol:ENL
+-e Buy	Position:52	277pc	RSI:21	Quote:7.92€	Amount=2193.56€	piecesHold=527	Wallet=4188.31€	Symbol:ENL
+-e Buy	Position:53	308pc	RSI:22	Quote:7.84€	Amount=2414.1€	piecesHold=835	Wallet=6602.41€	Symbol:ENL
+-e Buy	Position:54	339pc	RSI:18	Quote:7.84€	Amount=2658.44€	piecesHold=1174	Wallet=9260.85€	Symbol:ENL
+-e Buy	Position:57	384pc	RSI:10	Quote:7.62€	Amount=2927.23€	piecesHold=1558	Wallet=12188.1€	Symbol:ENL
+-e Sell	Position:62	1558pc	Stoch:100	Quote:8.22€	Amount=12806.8€	Symbol:ENL
 Intermediate Win=618.7€ Proz=5.1% Average holding days=8.6 days
 ---------------
 Simulation Win=618.7€
@@ -2618,32 +2647,32 @@ Simulation Win=0€
 
 
 INN1 "ING GROEP"
--e Buy	Position:35	273pc	RSI:24	Quote:7.31€	Amount=1996.18€	piecesHold=273	Wallet=1996.18€	Symbol:INN1
--e Sell	273pc	Position:43	Stoch:100	Quote:7.87€	Amount=2147.42€	Symbol:INN1
+-e Buy	Position:32	273pc	RSI:24	Quote:7.31€	Amount=1996.18€	piecesHold=273	Wallet=1996.18€	Symbol:INN1
+-e Sell	Position:40	273pc	Stoch:100	Quote:7.87€	Amount=2147.42€	Symbol:INN1
 Intermediate Win=151.24€ Proz=7.6% Average holding days=8.0 days
 ---------------
 Simulation Win=151.24€
 
 
 IES "INTESA SANPAOLO"
--e Buy	Position:35	1108pc	RSI:20	Quote:1.80€	Amount=1998.39€	piecesHold=1108	Wallet=1998.39€	Symbol:IES
--e Sell	1108pc	Position:40	Stoch:100	Quote:1.95€	Amount=2162.37€	Symbol:IES
+-e Buy	Position:32	1108pc	RSI:20	Quote:1.80€	Amount=1998.39€	piecesHold=1108	Wallet=1998.39€	Symbol:IES
+-e Sell	Position:37	1108pc	Stoch:100	Quote:1.95€	Amount=2162.37€	Symbol:IES
 Intermediate Win=163.98€ Proz=8.2% Average holding days=5.0 days
 ---------------
 Simulation Win=163.98€
 
 
 PHI1 "KONINKLIJKE PHILIPS"
--e Buy	Position:61	44pc	RSI:24	Quote:45.25€	Amount=1991€	piecesHold=44	Wallet=1991€	Symbol:PHI1
--e Sell	44pc	Position:65	Stoch:100	Quote:47.49€	Amount=2089.56€	Symbol:PHI1
+-e Buy	Position:58	44pc	RSI:24	Quote:45.25€	Amount=1991€	piecesHold=44	Wallet=1991€	Symbol:PHI1
+-e Sell	Position:62	44pc	Stoch:100	Quote:47.49€	Amount=2089.56€	Symbol:PHI1
 Intermediate Win=98.56€ Proz=5.0% Average holding days=4.0 days
--e Buy	Position:99	42pc	RSI:23	Quote:46.79€	Amount=1965.18€	piecesHold=42	Wallet=1965.18€	Symbol:PHI1
--e Buy	Position:100	47pc	RSI:24	Quote:46.78€	Amount=2198.66€	piecesHold=89	Wallet=4163.84€	Symbol:PHI1
+-e Buy	Position:96	42pc	RSI:23	Quote:46.79€	Amount=1965.18€	piecesHold=42	Wallet=1965.18€	Symbol:PHI1
+-e Buy	Position:97	47pc	RSI:24	Quote:46.78€	Amount=2198.66€	piecesHold=89	Wallet=4163.84€	Symbol:PHI1
 Sell all on the last day!!
--e Sell	89pc	Quote:46.78€	Amount=4163.42€	Symbol:PHI1
-Intermediate Win=-0.42€ Proz=-0.0%
+-e Sell	89pc	Quote:47.56€	Amount=4232.84€	Symbol:PHI1
+Intermediate Win=69€ Proz=1.7%
 ---------------
-Simulation Win=98.14€
+Simulation Win=167.56€
 
 
 LIN "Linde"
@@ -2656,38 +2685,26 @@ MOH "LVMH MOET HE. LOU."
 Simulation Win=0€
 
 
-MUV2 "MUENCHENER RUE"
--e Buy	Position:34	8pc	RSI:15	Quote:226.40€	Amount=1811.2€	piecesHold=8	Wallet=1811.2€	Symbol:MUV2
--e Buy	Position:35	9pc	RSI:15	Quote:223.10€	Amount=2007.9€	piecesHold=17	Wallet=3819.1€	Symbol:MUV2
--e Buy	Position:36	10pc	RSI:24	Quote:226.50€	Amount=2265€	piecesHold=27	Wallet=6084.1€	Symbol:MUV2
--e Buy	Position:37	12pc	RSI:20	Quote:218.80€	Amount=2625.6€	piecesHold=39	Wallet=8709.7€	Symbol:MUV2
--e Sell	39pc	Position:44	Stoch:92	Quote:233.80€	Amount=9118.2€	Symbol:MUV2
-Intermediate Win=408.5€ Proz=4.7% Average holding days=8.5 days
--e Buy	Position:97	7pc	RSI:22	Quote:255.40€	Amount=1787.8€	piecesHold=7	Wallet=1787.8€	Symbol:MUV2
--e Buy	Position:99	9pc	RSI:18	Quote:240.35€	Amount=2163.15€	piecesHold=16	Wallet=3950.95€	Symbol:MUV2
--e Buy	Position:100	10pc	RSI:16	Quote:240.65€	Amount=2406.5€	piecesHold=26	Wallet=6357.45€	Symbol:MUV2
-Sell all on the last day!!
--e Sell	26pc	Quote:240.65€	Amount=6256.9€	Symbol:MUV2
-Intermediate Win=-100.55€ Proz=-1.6%
----------------
-Simulation Win=307.95€
-
-
 NOA3 "NOKIA"
--e Buy	Position:51	586pc	RSI:18	Quote:3.41€	Amount=1997.97€	piecesHold=586	Wallet=1997.97€	Symbol:NOA3
--e Buy	Position:52	647pc	RSI:19	Quote:3.40€	Amount=2198.51€	piecesHold=1233	Wallet=4196.48€	Symbol:NOA3
--e Buy	Position:53	728pc	RSI:23	Quote:3.32€	Amount=2416.96€	piecesHold=1961	Wallet=6613.44€	Symbol:NOA3
--e Buy	Position:54	811pc	RSI:19	Quote:3.28€	Amount=2659.27€	piecesHold=2772	Wallet=9272.71€	Symbol:NOA3
--e Buy	Position:55	895pc	RSI:22	Quote:3.27€	Amount=2926.65€	piecesHold=3667	Wallet=12199.4€	Symbol:NOA3
--e Sell	3667pc	Position:66	Stoch:100	Quote:3.47€	Amount=12735.5€	Symbol:NOA3
+-e Buy	Position:48	586pc	RSI:18	Quote:3.41€	Amount=1997.97€	piecesHold=586	Wallet=1997.97€	Symbol:NOA3
+-e Buy	Position:49	647pc	RSI:19	Quote:3.40€	Amount=2198.51€	piecesHold=1233	Wallet=4196.48€	Symbol:NOA3
+-e Buy	Position:50	728pc	RSI:23	Quote:3.32€	Amount=2416.96€	piecesHold=1961	Wallet=6613.44€	Symbol:NOA3
+-e Buy	Position:51	811pc	RSI:19	Quote:3.28€	Amount=2659.27€	piecesHold=2772	Wallet=9272.71€	Symbol:NOA3
+-e Buy	Position:52	895pc	RSI:22	Quote:3.27€	Amount=2926.65€	piecesHold=3667	Wallet=12199.4€	Symbol:NOA3
+-e Sell	Position:63	3667pc	Stoch:100	Quote:3.47€	Amount=12735.5€	Symbol:NOA3
 Intermediate Win=536.1€ Proz=4.4% Average holding days=13.0 days
 ---------------
 Simulation Win=536.1€
 
 
 1TY "PROSUS"
+-e Buy	Position:99	23pc	RSI:22	Quote:86.52€	Amount=1989.96€	piecesHold=23	Wallet=1989.96€	Symbol:1TY
+-e Buy	Position:100	25pc	RSI:20	Quote:87.50€	Amount=2187.5€	piecesHold=48	Wallet=4177.46€	Symbol:1TY
+Sell all on the last day!!
+-e Sell	48pc	Quote:87.50€	Amount=4200€	Symbol:1TY
+Intermediate Win=22.54€ Proz=0.5%
 ---------------
-Simulation Win=0€
+Simulation Win=22.54€
 
 
 SAP "SAP"
@@ -2721,18 +2738,22 @@ Simulation Win=0€
 
 
 VNA "Vonovia"
--e Buy	Position:31	36pc	RSI:23	Quote:55.18€	Amount=1986.48€	piecesHold=36	Wallet=1986.48€	Symbol:VNA
--e Buy	Position:32	39pc	RSI:23	Quote:55.06€	Amount=2147.34€	piecesHold=75	Wallet=4133.82€	Symbol:VNA
--e Sell	75pc	Position:39	Stoch:100	Quote:56.78€	Amount=4258.5€	Symbol:VNA
+-e Buy	Position:28	36pc	RSI:23	Quote:55.18€	Amount=1986.48€	piecesHold=36	Wallet=1986.48€	Symbol:VNA
+-e Buy	Position:29	39pc	RSI:23	Quote:55.06€	Amount=2147.34€	piecesHold=75	Wallet=4133.82€	Symbol:VNA
+-e Sell	Position:36	75pc	Stoch:100	Quote:56.78€	Amount=4258.5€	Symbol:VNA
 Intermediate Win=124.68€ Proz=3.0% Average holding days=7.5 days
--e Buy	Position:52	37pc	RSI:19	Quote:53.82€	Amount=1991.34€	piecesHold=37	Wallet=1991.34€	Symbol:VNA
--e Buy	Position:53	41pc	RSI:13	Quote:53.60€	Amount=2197.6€	piecesHold=78	Wallet=4188.94€	Symbol:VNA
--e Buy	Position:54	45pc	RSI:15	Quote:53.48€	Amount=2406.6€	piecesHold=123	Wallet=6595.54€	Symbol:VNA
--e Buy	Position:55	50pc	RSI:13	Quote:52.86€	Amount=2643€	piecesHold=173	Wallet=9238.54€	Symbol:VNA
--e Buy	Position:56	55pc	RSI:21	Quote:53.10€	Amount=2920.5€	piecesHold=228	Wallet=12159€	Symbol:VNA
--e Buy	Position:57	61pc	RSI:22	Quote:52.74€	Amount=3217.14€	piecesHold=289	Wallet=15376.1€	Symbol:VNA
--e Sell	289pc	Position:65	Stoch:100	Quote:54.32€	Amount=15698.5€	Symbol:VNA
+-e Buy	Position:49	37pc	RSI:19	Quote:53.82€	Amount=1991.34€	piecesHold=37	Wallet=1991.34€	Symbol:VNA
+-e Buy	Position:50	41pc	RSI:13	Quote:53.60€	Amount=2197.6€	piecesHold=78	Wallet=4188.94€	Symbol:VNA
+-e Buy	Position:51	45pc	RSI:15	Quote:53.48€	Amount=2406.6€	piecesHold=123	Wallet=6595.54€	Symbol:VNA
+-e Buy	Position:52	50pc	RSI:13	Quote:52.86€	Amount=2643€	piecesHold=173	Wallet=9238.54€	Symbol:VNA
+-e Buy	Position:53	55pc	RSI:21	Quote:53.10€	Amount=2920.5€	piecesHold=228	Wallet=12159€	Symbol:VNA
+-e Buy	Position:54	61pc	RSI:22	Quote:52.74€	Amount=3217.14€	piecesHold=289	Wallet=15376.1€	Symbol:VNA
+-e Sell	Position:62	289pc	Stoch:100	Quote:54.32€	Amount=15698.5€	Symbol:VNA
 Intermediate Win=322.4€ Proz=2.1% Average holding days=10.5 days
+-e Buy	Position:100	37pc	RSI:23	Quote:52.68€	Amount=1949.16€	piecesHold=37	Wallet=1949.16€	Symbol:VNA
+Sell all on the last day!!
+-e Sell	37pc	Quote:52.68€	Amount=1949.16€	Symbol:VNA
+Intermediate Win=0€ Proz=0.0%
 ---------------
 Simulation Win=447.08€
 
@@ -2748,13 +2769,13 @@ Simulation Win=0€
 
 
 APC "Apple"
--e Buy	Position:53	19pc	RSI:23	Quote:104.30€	Amount=1981.7€	piecesHold=19	Wallet=1981.7€	Symbol:APC
--e Buy	Position:54	21pc	RSI:21	Quote:101.40€	Amount=2129.4€	piecesHold=40	Wallet=4111.1€	Symbol:APC
--e Buy	Position:55	23pc	RSI:18	Quote:102.86€	Amount=2365.78€	piecesHold=63	Wallet=6476.88€	Symbol:APC
--e Buy	Position:56	26pc	RSI:16	Quote:101.04€	Amount=2627.04€	piecesHold=89	Wallet=9103.92€	Symbol:APC
--e Buy	Position:57	28pc	RSI:23	Quote:102.66€	Amount=2874.48€	piecesHold=117	Wallet=11978.4€	Symbol:APC
--e Buy	Position:62	32pc	RSI:24	Quote:98.98€	Amount=3167.36€	piecesHold=149	Wallet=15145.8€	Symbol:APC
--e Sell	149pc	Position:69	Stoch:100	Quote:105.66€	Amount=15743.3€	Symbol:APC
+-e Buy	Position:50	19pc	RSI:23	Quote:104.30€	Amount=1981.7€	piecesHold=19	Wallet=1981.7€	Symbol:APC
+-e Buy	Position:51	21pc	RSI:21	Quote:101.40€	Amount=2129.4€	piecesHold=40	Wallet=4111.1€	Symbol:APC
+-e Buy	Position:52	23pc	RSI:18	Quote:102.86€	Amount=2365.78€	piecesHold=63	Wallet=6476.88€	Symbol:APC
+-e Buy	Position:53	26pc	RSI:16	Quote:101.04€	Amount=2627.04€	piecesHold=89	Wallet=9103.92€	Symbol:APC
+-e Buy	Position:54	28pc	RSI:23	Quote:102.66€	Amount=2874.48€	piecesHold=117	Wallet=11978.4€	Symbol:APC
+-e Buy	Position:59	32pc	RSI:24	Quote:98.98€	Amount=3167.36€	piecesHold=149	Wallet=15145.8€	Symbol:APC
+-e Sell	Position:66	149pc	Stoch:100	Quote:105.66€	Amount=15743.3€	Symbol:APC
 Intermediate Win=597.5€ Proz=3.9% Average holding days=12.8 days
 ---------------
 Simulation Win=597.5€
@@ -2766,8 +2787,8 @@ Simulation Win=0€
 
 
 CHV "CHEVRON CORP"
--e Buy	Position:92	23pc	RSI:21	Quote:83.80€	Amount=1927.4€	piecesHold=23	Wallet=1927.4€	Symbol:CHV
--e Sell	23pc	Position:99	Stoch:100	Quote:87.50€	Amount=2012.5€	Symbol:CHV
+-e Buy	Position:89	23pc	RSI:21	Quote:83.80€	Amount=1927.4€	piecesHold=23	Wallet=1927.4€	Symbol:CHV
+-e Sell	Position:96	23pc	Stoch:100	Quote:87.50€	Amount=2012.5€	Symbol:CHV
 Intermediate Win=85.1€ Proz=4.4% Average holding days=7.0 days
 ---------------
 Simulation Win=85.1€
@@ -2779,8 +2800,8 @@ Simulation Win=0€
 
 
 2OY "DOW INC"
--e Buy	Position:38	46pc	RSI:19	Quote:42.96€	Amount=1976.16€	piecesHold=46	Wallet=1976.16€	Symbol:2OY
--e Sell	46pc	Position:42	Stoch:100	Quote:47.95€	Amount=2205.7€	Symbol:2OY
+-e Buy	Position:35	46pc	RSI:19	Quote:42.96€	Amount=1976.16€	piecesHold=46	Wallet=1976.16€	Symbol:2OY
+-e Sell	Position:39	46pc	Stoch:100	Quote:47.95€	Amount=2205.7€	Symbol:2OY
 Intermediate Win=229.54€ Proz=11.6% Average holding days=4.0 days
 ---------------
 Simulation Win=229.54€
@@ -2792,9 +2813,9 @@ Simulation Win=0€
 
 
 HDI "Home Depot"
--e Buy	Position:55	9pc	RSI:20	Quote:209.95€	Amount=1889.55€	piecesHold=9	Wallet=1889.55€	Symbol:HDI
--e Buy	Position:56	10pc	RSI:23	Quote:211.30€	Amount=2113€	piecesHold=19	Wallet=4002.55€	Symbol:HDI
--e Sell	19pc	Position:67	Stoch:100	Quote:226.90€	Amount=4311.1€	Symbol:HDI
+-e Buy	Position:52	9pc	RSI:20	Quote:209.95€	Amount=1889.55€	piecesHold=9	Wallet=1889.55€	Symbol:HDI
+-e Buy	Position:53	10pc	RSI:23	Quote:211.30€	Amount=2113€	piecesHold=19	Wallet=4002.55€	Symbol:HDI
+-e Sell	Position:64	19pc	Stoch:100	Quote:226.90€	Amount=4311.1€	Symbol:HDI
 Intermediate Win=308.55€ Proz=7.7% Average holding days=11.5 days
 ---------------
 Simulation Win=308.55€
@@ -2816,9 +2837,9 @@ Simulation Win=0€
 
 
 NKE "NIKE"
--e Buy	Position:35	18pc	RSI:23	Quote:109.34€	Amount=1968.12€	piecesHold=18	Wallet=1968.12€	Symbol:NKE
--e Buy	Position:37	20pc	RSI:22	Quote:109.96€	Amount=2199.2€	piecesHold=38	Wallet=4167.32€	Symbol:NKE
--e Sell	38pc	Position:41	Stoch:100	Quote:117.20€	Amount=4453.6€	Symbol:NKE
+-e Buy	Position:32	18pc	RSI:23	Quote:109.34€	Amount=1968.12€	piecesHold=18	Wallet=1968.12€	Symbol:NKE
+-e Buy	Position:34	20pc	RSI:22	Quote:109.96€	Amount=2199.2€	piecesHold=38	Wallet=4167.32€	Symbol:NKE
+-e Sell	Position:38	38pc	Stoch:100	Quote:117.20€	Amount=4453.6€	Symbol:NKE
 Intermediate Win=286.28€ Proz=6.9% Average holding days=5.0 days
 ---------------
 Simulation Win=286.28€
@@ -2830,86 +2851,86 @@ Simulation Win=0€
 
 
 NESM "NESTLE"
--e Buy	Position:58	22pc	RSI:21	Quote:89.20€	Amount=1962.4€	piecesHold=22	Wallet=1962.4€	Symbol:NESM
--e Buy	Position:59	24pc	RSI:22	Quote:88.60€	Amount=2126.4€	piecesHold=46	Wallet=4088.8€	Symbol:NESM
--e Buy	Position:60	27pc	RSI:23	Quote:87.80€	Amount=2370.6€	piecesHold=73	Wallet=6459.4€	Symbol:NESM
--e Buy	Position:61	30pc	RSI:23	Quote:87.40€	Amount=2622€	piecesHold=103	Wallet=9081.4€	Symbol:NESM
--e Buy	Position:64	33pc	RSI:23	Quote:87.80€	Amount=2897.4€	piecesHold=136	Wallet=11978.8€	Symbol:NESM
--e Buy	Position:66	36pc	RSI:23	Quote:88.40€	Amount=3182.4€	piecesHold=172	Wallet=15161.2€	Symbol:NESM
--e Sell	172pc	Position:69	Stoch:95	Quote:91.20€	Amount=15686.4€	Symbol:NESM
+-e Buy	Position:57	22pc	RSI:21	Quote:89.20€	Amount=1962.4€	piecesHold=22	Wallet=1962.4€	Symbol:NESM
+-e Buy	Position:58	24pc	RSI:22	Quote:88.60€	Amount=2126.4€	piecesHold=46	Wallet=4088.8€	Symbol:NESM
+-e Buy	Position:59	27pc	RSI:23	Quote:87.80€	Amount=2370.6€	piecesHold=73	Wallet=6459.4€	Symbol:NESM
+-e Buy	Position:60	30pc	RSI:23	Quote:87.40€	Amount=2622€	piecesHold=103	Wallet=9081.4€	Symbol:NESM
+-e Buy	Position:63	33pc	RSI:23	Quote:87.80€	Amount=2897.4€	piecesHold=136	Wallet=11978.8€	Symbol:NESM
+-e Buy	Position:65	36pc	RSI:23	Quote:88.40€	Amount=3182.4€	piecesHold=172	Wallet=15161.2€	Symbol:NESM
+-e Sell	Position:68	172pc	Stoch:95	Quote:91.20€	Amount=15686.4€	Symbol:NESM
 Intermediate Win=525.2€ Proz=3.5% Average holding days=7.7 days
 ---------------
 Simulation Win=525.2€
 
 
 TL0 "TESLA"
--e Buy	Position:53	3pc	RSI:22	Quote:614.00€	Amount=1842€	piecesHold=3	Wallet=1842€	Symbol:TL0
--e Buy	Position:54	3pc	RSI:19	Quote:567.80€	Amount=1703.4€	piecesHold=6	Wallet=3545.4€	Symbol:TL0
--e Buy	Position:56	4pc	RSI:24	Quote:584.30€	Amount=2337.2€	piecesHold=10	Wallet=5882.6€	Symbol:TL0
--e Buy	Position:57	4pc	RSI:22	Quote:571.60€	Amount=2286.4€	piecesHold=14	Wallet=8169€	Symbol:TL0
--e Buy	Position:62	6pc	RSI:19	Quote:465.45€	Amount=2792.7€	piecesHold=20	Wallet=10961.7€	Symbol:TL0
--e Sell	20pc	Position:68	Stoch:93	Quote:591.20€	Amount=11824€	Symbol:TL0
+-e Buy	Position:50	3pc	RSI:22	Quote:614.00€	Amount=1842€	piecesHold=3	Wallet=1842€	Symbol:TL0
+-e Buy	Position:51	3pc	RSI:19	Quote:567.80€	Amount=1703.4€	piecesHold=6	Wallet=3545.4€	Symbol:TL0
+-e Buy	Position:53	4pc	RSI:24	Quote:584.30€	Amount=2337.2€	piecesHold=10	Wallet=5882.6€	Symbol:TL0
+-e Buy	Position:54	4pc	RSI:22	Quote:571.60€	Amount=2286.4€	piecesHold=14	Wallet=8169€	Symbol:TL0
+-e Buy	Position:59	6pc	RSI:19	Quote:465.45€	Amount=2792.7€	piecesHold=20	Wallet=10961.7€	Symbol:TL0
+-e Sell	Position:65	20pc	Stoch:93	Quote:591.20€	Amount=11824€	Symbol:TL0
 Intermediate Win=862.3€ Proz=7.9% Average holding days=11.6 days
 ---------------
 Simulation Win=862.3€
 
 
 AMZ "AMAZON.COM"
--e Buy	Position:54	1pc	RSI:20	Quote:2590.00€	Amount=2590€	piecesHold=1	Wallet=2590€	Symbol:AMZ
--e Buy	Position:56	1pc	RSI:24	Quote:2562.50€	Amount=2562.5€	piecesHold=2	Wallet=5152.5€	Symbol:AMZ
--e Buy	Position:57	1pc	RSI:24	Quote:2557.00€	Amount=2557€	piecesHold=3	Wallet=7709.5€	Symbol:AMZ
--e Buy	Position:62	1pc	RSI:21	Quote:2440.00€	Amount=2440€	piecesHold=4	Wallet=10149.5€	Symbol:AMZ
--e Sell	4pc	Position:69	Stoch:98	Quote:2601.50€	Amount=10406€	Symbol:AMZ
+-e Buy	Position:51	1pc	RSI:20	Quote:2590.00€	Amount=2590€	piecesHold=1	Wallet=2590€	Symbol:AMZ
+-e Buy	Position:53	1pc	RSI:24	Quote:2562.50€	Amount=2562.5€	piecesHold=2	Wallet=5152.5€	Symbol:AMZ
+-e Buy	Position:54	1pc	RSI:24	Quote:2557.00€	Amount=2557€	piecesHold=3	Wallet=7709.5€	Symbol:AMZ
+-e Buy	Position:59	1pc	RSI:21	Quote:2440.00€	Amount=2440€	piecesHold=4	Wallet=10149.5€	Symbol:AMZ
+-e Sell	Position:66	4pc	Stoch:98	Quote:2601.50€	Amount=10406€	Symbol:AMZ
 Intermediate Win=256.5€ Proz=2.5% Average holding days=11.8 days
 ---------------
 Simulation Win=256.5€
 
 
-AMD "ADVANCED MICRO DEV."
--e Buy	Position:61	30pc	RSI:23	Quote:66.56€	Amount=1996.8€	piecesHold=30	Wallet=1996.8€	Symbol:AMD
--e Buy	Position:62	35pc	RSI:18	Quote:62.80€	Amount=2198€	piecesHold=65	Wallet=4194.8€	Symbol:AMD
--e Sell	65pc	Position:84	Stoch:100	Quote:70.00€	Amount=4550€	Symbol:AMD
+AMD "ADVANCED MICRO DE."
+-e Buy	Position:58	30pc	RSI:23	Quote:66.56€	Amount=1996.8€	piecesHold=30	Wallet=1996.8€	Symbol:AMD
+-e Buy	Position:59	35pc	RSI:18	Quote:62.80€	Amount=2198€	piecesHold=65	Wallet=4194.8€	Symbol:AMD
+-e Sell	Position:81	65pc	Stoch:100	Quote:70.00€	Amount=4550€	Symbol:AMD
 Intermediate Win=355.2€ Proz=8.5% Average holding days=22.5 days
 ---------------
 Simulation Win=355.2€
 
 
 NVD "NVIDIA"
--e Buy	Position:60	4pc	RSI:20	Quote:433.75€	Amount=1735€	piecesHold=4	Wallet=1735€	Symbol:NVD
--e Buy	Position:61	5pc	RSI:18	Quote:420.50€	Amount=2102.5€	piecesHold=9	Wallet=3837.5€	Symbol:NVD
--e Buy	Position:62	6pc	RSI:15	Quote:396.50€	Amount=2379€	piecesHold=15	Wallet=6216.5€	Symbol:NVD
--e Buy	Position:63	6pc	RSI:20	Quote:408.20€	Amount=2449.2€	piecesHold=21	Wallet=8665.7€	Symbol:NVD
--e Sell	21pc	Position:73	Stoch:98	Quote:447.10€	Amount=9389.1€	Symbol:NVD
+-e Buy	Position:57	4pc	RSI:20	Quote:433.75€	Amount=1735€	piecesHold=4	Wallet=1735€	Symbol:NVD
+-e Buy	Position:58	5pc	RSI:18	Quote:420.50€	Amount=2102.5€	piecesHold=9	Wallet=3837.5€	Symbol:NVD
+-e Buy	Position:59	6pc	RSI:15	Quote:396.50€	Amount=2379€	piecesHold=15	Wallet=6216.5€	Symbol:NVD
+-e Buy	Position:60	6pc	RSI:20	Quote:408.20€	Amount=2449.2€	piecesHold=21	Wallet=8665.7€	Symbol:NVD
+-e Sell	Position:70	21pc	Stoch:98	Quote:447.10€	Amount=9389.1€	Symbol:NVD
 Intermediate Win=723.4€ Proz=8.3% Average holding days=11.5 days
 ---------------
 Simulation Win=723.4€
 
 
 QCI "QUALCOMM"
--e Buy	Position:53	17pc	RSI:20	Quote:116.78€	Amount=1985.26€	piecesHold=17	Wallet=1985.26€	Symbol:QCI
--e Buy	Position:54	19pc	RSI:15	Quote:112.30€	Amount=2133.7€	piecesHold=36	Wallet=4118.96€	Symbol:QCI
--e Buy	Position:61	22pc	RSI:23	Quote:109.44€	Amount=2407.68€	piecesHold=58	Wallet=6526.64€	Symbol:QCI
--e Buy	Position:62	25pc	RSI:14	Quote:105.88€	Amount=2647€	piecesHold=83	Wallet=9173.64€	Symbol:QCI
--e Buy	Position:63	27pc	RSI:20	Quote:107.54€	Amount=2903.58€	piecesHold=110	Wallet=12077.2€	Symbol:QCI
--e Buy	Position:64	29pc	RSI:24	Quote:107.82€	Amount=3126.78€	piecesHold=139	Wallet=15204€	Symbol:QCI
--e Buy	Position:65	32pc	RSI:24	Quote:107.84€	Amount=3450.88€	piecesHold=171	Wallet=18654.9€	Symbol:QCI
--e Sell	171pc	Position:73	Stoch:93	Quote:112.32€	Amount=19206.7€	Symbol:QCI
+-e Buy	Position:50	17pc	RSI:20	Quote:116.78€	Amount=1985.26€	piecesHold=17	Wallet=1985.26€	Symbol:QCI
+-e Buy	Position:51	19pc	RSI:15	Quote:112.30€	Amount=2133.7€	piecesHold=36	Wallet=4118.96€	Symbol:QCI
+-e Buy	Position:58	22pc	RSI:23	Quote:109.44€	Amount=2407.68€	piecesHold=58	Wallet=6526.64€	Symbol:QCI
+-e Buy	Position:59	25pc	RSI:14	Quote:105.88€	Amount=2647€	piecesHold=83	Wallet=9173.64€	Symbol:QCI
+-e Buy	Position:60	27pc	RSI:20	Quote:107.54€	Amount=2903.58€	piecesHold=110	Wallet=12077.2€	Symbol:QCI
+-e Buy	Position:61	29pc	RSI:24	Quote:107.82€	Amount=3126.78€	piecesHold=139	Wallet=15204€	Symbol:QCI
+-e Buy	Position:62	32pc	RSI:24	Quote:107.84€	Amount=3450.88€	piecesHold=171	Wallet=18654.9€	Symbol:QCI
+-e Sell	Position:70	171pc	Stoch:93	Quote:112.32€	Amount=19206.7€	Symbol:QCI
 Intermediate Win=551.8€ Proz=3.0% Average holding days=12.7 days
 ---------------
 Simulation Win=551.8€
 
 
 2PP "PAYPAL"
--e Buy	Position:62	10pc	RSI:18	Quote:189.60€	Amount=1896€	piecesHold=10	Wallet=1896€	Symbol:2PP
--e Sell	10pc	Position:81	Stoch:94	Quote:210.50€	Amount=2105€	Symbol:2PP
+-e Buy	Position:59	10pc	RSI:18	Quote:189.60€	Amount=1896€	piecesHold=10	Wallet=1896€	Symbol:2PP
+-e Sell	Position:78	10pc	Stoch:94	Quote:210.50€	Amount=2105€	Symbol:2PP
 Intermediate Win=209€ Proz=11.0% Average holding days=19.0 days
 ---------------
 Simulation Win=209€
 
 
 ===============
-Win overall=56911.9€
+Win overall=57440.2€
 Wallet overall=0€
 
 
-Good Luck! Donate?  1-May-2021 07:51 +2h
+Good Luck! Donate?  6-May-2021 19:39 +2h
