@@ -562,11 +562,12 @@ do
         #stockLastBuyingDate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
         stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
+    stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
         stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
+    stocksCurrentValue=$(printf "%.0f" "$stocksCurrentValue")
         stocksPerformance=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print (($1 / $2)-1)*100}')
-        stocksPerformance=$(printf "%.2f" "$stocksPerformance")
+        stocksPerformance=$(printf "%.1f" "$stocksPerformance")
        
-        #obfuscatedValueFirst="$stocksPieces"X"$stocksCurrentValue"Y
         obfuscatedValueFirst="$stocksPieces"X"$stocksBuyingValue"/"$stocksCurrentValue"Y
         obfuscatedValueFirst=$(echo "$obfuscatedValueFirst" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
         echo "<div style=\"display: flex; font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style=\"display: none;\">$obfuscatedValueFirst</span>&nbsp;" >> $OUT_RESULT_FILE

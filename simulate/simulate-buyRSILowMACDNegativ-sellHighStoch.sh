@@ -27,8 +27,10 @@ OUT_SIMULATE_FILE="out/_simulate.txt"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 
 #rm -rf "$OUT_SIMULATE_FILE"
+sellAmountOverAll=0
 export winOverall=0
 walletOverAll=0
+
 
 echo "" | tee -a $OUT_SIMULATE_FILE
 echo "# Simulate BuyRSILowMACDNegativ SellHighStoch" | tee -a $OUT_SIMULATE_FILE
@@ -95,8 +97,8 @@ do
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
-            echo -e "Sell\tPosition:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
-            
+            echo -e "Sell\tPosition:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
+            sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
             averageHoldingDays=$(printf "%.1f" "$averageHoldingDays")
@@ -120,7 +122,8 @@ do
         echo "Sell all on the last day!!" | tee -a $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         quoteAt=$(printf "%.2f" "$quoteAt")
-        echo -e "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
+        echo -e "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
+        sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
         intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
         intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
@@ -129,6 +132,7 @@ do
     fi
 
     echo "---------------" | tee -a $OUT_SIMULATE_FILE
+    echo "SellAmount=$sellAmountOverAll€" | tee -a $OUT_SIMULATE_FILE
     echo "Simulation Win=$simulationWin€" | tee -a $OUT_SIMULATE_FILE
     winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
     echo "" | tee -a $OUT_SIMULATE_FILE
@@ -136,6 +140,7 @@ done
 
 echo "" | tee -a $OUT_SIMULATE_FILE
 echo "===============" | tee -a $OUT_SIMULATE_FILE
+echo "SellAmount=$sellAmountOverAll€" | tee -a $OUT_SIMULATE_FILE
 echo "Win overall=$winOverAll€" | tee -a $OUT_SIMULATE_FILE
 echo "Wallet overall=$walletOverAll€" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
