@@ -562,9 +562,9 @@ do
         #stockLastBuyingDate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
         stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
-    stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
+        stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
         stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
-    stocksCurrentValue=$(printf "%.0f" "$stocksCurrentValue")
+        stocksCurrentValue=$(printf "%.0f" "$stocksCurrentValue")
         stocksPerformance=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print (($1 / $2)-1)*100}')
         stocksPerformance=$(printf "%.1f" "$stocksPerformance")
        
