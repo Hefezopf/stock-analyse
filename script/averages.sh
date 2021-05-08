@@ -6,8 +6,8 @@ export LC_NUMERIC=en_US.UTF-8
 # Input: ${x}
 # Output: MACDList is comma separted list, lastMACDValue
 MACD_12_26() {
-    _averagePriceList12Param=${1}
-    _averagePriceList26Param=${2}
+    _averagePriceList12Param=$1
+    _averagePriceList26Param=$2
     export MACDList
     export lastMACDValue
 
@@ -64,13 +64,13 @@ EMAverageOfDays() {
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         if [ "$i" = 0 ]; then # Frist Loop
             headLines=$((100-i))
-            ema=$(head -n"$headLines" "$_dataFileParam" | tail -"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')         
+            ema=$(head -n"$headLines" "$_dataFileParam" | tail -"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')
         else
             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
             headLinesLastPrice=$((101-i-_amountOfDaysParam))
             lastPrice=$(head -n"$headLinesLastPrice" "$_dataFileParam" | tail -1)
             # shellcheck disable=SC2086
-            ema=$(echo "$lastPrice $ema" | awk '{print ($1*(2/('${_amountOfDaysParam}'+1))+$2*(1-(2/('${_amountOfDaysParam}'+1))))}')          
+            ema=$(echo "$lastPrice $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')          
         fi
         averagePriceList="$averagePriceList $ema,"
         i=$((i + 1))
@@ -81,8 +81,8 @@ EMAverageOfDays() {
 # Input: ${x}
 # Output: averagePriceList is comma separted list
 AverageOfDays() {
-    _amountOfDaysParam=${1}
-    _dataFileParam=${2}
+    _amountOfDaysParam=$1
+    _dataFileParam=$2
     export averagePriceList
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
@@ -95,7 +95,7 @@ AverageOfDays() {
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         headLines=$((100-i))
-        averagePrice=$(head -n"$headLines" "$_dataFileParam" | tail -"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')
+        averagePrice=$(head -n"$headLines" "$_dataFileParam" | tail -"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')
         averagePriceList="$averagePriceList $averagePrice,"
         i=$((i + 1))
     done
@@ -105,8 +105,8 @@ AverageOfDays() {
 # Input: ${x}
 # Output: RSIQuoteList is comma separted list, beforeLastRSIQuoteRounded, lastRSIQuoteRounded
 RSIOfDays() {
-    _amountOfDaysParam=${1}
-    _dataFileParam=${2}
+    _amountOfDaysParam=$1
+    _dataFileParam=$2
     export RSIQuoteList
 
     RSIwinningDaysFile="$(mktemp -p /dev/shm/)"
@@ -117,7 +117,7 @@ RSIOfDays() {
         diffLast2Prices=$(head -n$i "$_dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
         isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
         if [ "${isNegativ}" = '-' ]; then
-            withoutMinusSign=$(echo "${diffLast2Prices}" | awk '{print substr ($1, 2, 9)}')
+            withoutMinusSign=$(echo "$diffLast2Prices" | awk '{print substr ($1, 2, 9)}')
             echo "$withoutMinusSign" >> "$RSIloosingDaysFile"
             echo "0" >> "$RSIwinningDaysFile"
         else
@@ -130,8 +130,8 @@ RSIOfDays() {
     while [ "$i" -le 100 ]; do        
         # Fill with blank comma seperated data  
         if [ $i -ge "$_amountOfDaysParam" ]; then # >= 14   
-            RSIwinningDaysAvg=$(tail -"${i}" "$RSIwinningDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')
-            RSIloosingDaysAvg=$(tail -"${i}" "$RSIloosingDaysFile" | head -n"${_amountOfDaysParam}" | awk '{ sum += $1; } END { print sum/'"${_amountOfDaysParam}"'; }')    
+            RSIwinningDaysAvg=$(tail -"${i}" "$RSIwinningDaysFile" | head -n"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')
+            RSIloosingDaysAvg=$(tail -"${i}" "$RSIloosingDaysFile" | head -n"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')    
             if [ "${RSIloosingDaysAvg}" = 0 ]; then
                 RSIQuote=100
             else
@@ -151,8 +151,8 @@ RSIOfDays() {
 # Input: ${x}
 # Output: stochasticQuoteList is comma separted list, beforeLastStochasticQuoteRounded, lastStochasticQuoteRounded
 StochasticOfDays() {
-    _amountOfDaysParam=${1}
-    _dataFileParam=${2}
+    _amountOfDaysParam=$1
+    _dataFileParam=$2
     export stochasticQuoteList
 
     stochasticFile="$(mktemp -p /dev/shm/)"
@@ -168,7 +168,7 @@ StochasticOfDays() {
     # TODO optimize not 100 loop?!
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         headLines=$((100-i))
-        head -n$headLines "$_dataFileParam" | tail -"${_amountOfDaysParam}" > "$stochasticFile"
+        head -n$headLines "$_dataFileParam" | tail -"$_amountOfDaysParam" > "$stochasticFile"
         lastStochasticRaw=$(head -n 1 "$stochasticFile")
         lowestStochasticRaw=$(sort -g "$stochasticFile" | head -n 1)
         highestStochasticRaw=$(sort -gr "$stochasticFile" | head -n 1)
