@@ -190,6 +190,7 @@ do
         curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "${fileSize}" -eq "0" ]; then
+            echo "<br>" >> $OUT_RESULT_FILE
             echo "!!! $symbol NOT found online" | tee -a $OUT_RESULT_FILE
             echo "<br>" >> $OUT_RESULT_FILE
             mv "$DATA_DATE_FILE_TEMP" "$DATA_DATE_FILE"
@@ -200,11 +201,10 @@ do
 
     CreateCmdAnalyseHyperlink
 
-    ProgressBar 1 8
-
     #Check if 100 last quotes are availible, otherwise fill up to 100 
     numOfQuotes=$(grep "" -c "$DATA_DATE_FILE")
     if [ "$numOfQuotes" -lt 100 ]; then
+        echo "<br>" >> $OUT_RESULT_FILE
         echo "!!! LESS then 100 quotes for $symbol" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
         lastQuoteInFile=$(tail -1 "$DATA_DATE_FILE" | cut -f 2)
@@ -221,11 +221,14 @@ do
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown or not fetched symbol in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
+        echo "<br>" >> $OUT_RESULT_FILE
         echo "!!! $symbol NOT found in data/$symbol.txt" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
         # continue with next symbol in the list
         continue
     fi
+    
+    ProgressBar 1 8
 
     # Calculate MACD 12, 26 values
     if [ "$CalculateMACD" = true ]; then
