@@ -167,8 +167,8 @@ echo "Wallet overall=$walletOverAll€" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
 echo "" | tee -a $OUT_SIMULATE_FILE
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
-creationHourOffset=
+#creationHourOffset=
 if [ "$(uname)" = 'Linux' ]; then
-    creationHourOffset=" +2h"
+    creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h
 fi
-echo "Good Luck! Donate? $creationDate$creationHourOffset" | tee -a $OUT_SIMULATE_FILE
+echo "Good Luck! Donate? $creationDate" | tee -a $OUT_SIMULATE_FILE
