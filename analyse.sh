@@ -61,7 +61,6 @@ TICKER_NAME_ID_FILE=config/ticker_name_id.txt
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}</style></head><body><div style=\"font-size: large;\">"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
-#creationHourOffset=
 if [ "$(uname)" = 'Linux' ]; then
     creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h
 fi
