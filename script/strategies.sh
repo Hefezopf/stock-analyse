@@ -6,17 +6,17 @@
 # Input: ${x}
 # Output: resultStrategieOverratedStochasticWhenOwn
 StrategieOverratedStochasticWhenOwn() { 
-    _highStochValueParam=${1}
-    _lastStochParam=${2}
-    _beforeLastStochParam=${3}
-    _outResultFileParam=${4}
-    _symbolParam=${5}
-    _symbolNameParam=${6}
-    _markerOwnStockParam=${7}
+    _highStochValueParam=$1
+    _lastStochParam=$2
+    _beforeLastStochParam=$3
+    _outResultFileParam=$4
+    _symbolParam=$5
+    _symbolNameParam=$6
+    _markerOwnStockParam=$7
     export resultStrategieOverratedStochasticWhenOwn=""
 
-    if [ "${_lastStochParam}" -gt "${_highStochValueParam}" ]; then     
-        if [ "${_beforeLastStochParam}" -le "${_highStochValueParam}" ]; then     
+    if [ "$_lastStochParam" -gt "$_highStochValueParam" ]; then     
+        if [ "$_beforeLastStochParam" -le "$_highStochValueParam" ]; then     
             if [ "$_markerOwnStockParam" = '*' ]; then
                 alarmAbbrevValue="SO-"$alarmAbbrevValue
                 reasonPrefix="Sell: Stochastic Own (SO)"
@@ -34,20 +34,20 @@ StrategieOverratedStochasticWhenOwn() {
 # Input: ${x}
 # Output: resultStrategieOverratedDivergenceRSI
 StrategieOverratedDivergenceRSI() { 
-    _highRSIValueParam=${1}
-    _outResultFileParam=${2}
-    _symbolParam=${3}
-    _symbolNameParam=${4}
-    _markerOwnStockParam=${5}
-    _lastMACDParam=${6}
-    _lastQuoteParam=${7}
-    _beforeLastQuoteParam=${8}
-    _lastRSIParam=${9}
+    _highRSIValueParam=$1
+    _outResultFileParam=$2
+    _symbolParam=$3
+    _symbolNameParam=$4
+    _markerOwnStockParam=$5
+    _lastMACDParam=$6
+    _lastQuoteParam=$7
+    _beforeLastQuoteParam=$8
+    _lastRSIParam=$9
     _beforeLastRSIParam=${10}
     export resultStrategieOverratedDivergenceRSI=""
 
-    isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
-    if [ "${_lastRSIParam}" -gt "${_highRSIValueParam}" ] && [ "${isMACDNegativ}" != '-' ]; then
+    isMACDNegativ=$(echo "$_lastMACDParam" | awk '{print substr ($0, 0, 1)}')
+    if [ "$_lastRSIParam" -gt "$_highRSIValueParam" ] && [ "$isMACDNegativ" != '-' ]; then
         newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')      
         if [ "$newHigh" = true ] && [ "$_lastRSIParam" -le "$_beforeLastRSIParam" ]; then
             alarmAbbrevValue="D-"$alarmAbbrevValue
@@ -65,20 +65,20 @@ StrategieOverratedDivergenceRSI() {
 # Input: ${x}
 # Output: resultStrategieUnderratedDivergenceRSI
 StrategieUnderratedDivergenceRSI() { 
-    _lowRSIValueParam=${1}
-    _outResultFileParam=${2}
-    _symbolParam=${3}
-    _symbolNameParam=${4}
-    _markerOwnStockParam=${5}
-    _lastMACDParam=${6}
-    _lastQuoteParam=${7}
-    _beforeLastQuoteParam=${8}
-    _lastRSIParam=${9}
+    _lowRSIValueParam=$1
+    _outResultFileParam=$2
+    _symbolParam=$3
+    _symbolNameParam=$4
+    _markerOwnStockParam=$5
+    _lastMACDParam=$6
+    _lastQuoteParam=$7
+    _beforeLastQuoteParam=$8
+    _lastRSIParam=$9
     _beforeLastRSIParam=${10}
     export resultStrategieUnderratedDivergenceRSI=""
 
-    isMACDNegativ=$(echo "${_lastMACDParam}" | awk '{print substr ($0, 0, 1)}')
-    if [ "${_lastRSIParam}" -lt "${_lowRSIValueParam}" ] && [ "${isMACDNegativ}" = '-' ]; then
+    isMACDNegativ=$(echo "$_lastMACDParam" | awk '{print substr ($0, 0, 1)}')
+    if [ "$_lastRSIParam" -lt "$_lowRSIValueParam" ] && [ "$isMACDNegativ" = '-' ]; then
         newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
         if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_beforeLastRSIParam" ]; then # && [ "${lastLowestValueRSI}" -gt $RSI_LOW_VALUE ]; then 
             alarmAbbrevValue="D+"$alarmAbbrevValue
@@ -95,14 +95,14 @@ StrategieUnderratedDivergenceRSI() {
 # Input: ${x}
 # Output: resultStrategieByTendency
 StrategieByTendency() {
-    _lastPriceParam=${1}
-    _tendencyParam=${2}
-    _percentageFactorParam=${3} # 1.01
-    _lastAverage95Param=${4}
-    _outResultFileParam=${5}
-    _symbolParam=${6}
-    _symbolNameParam=${7}
-    _markerOwnStockParam=${8}
+    _lastPriceParam=$1
+    _tendencyParam=$2
+    _percentageFactorParam=$3 # 1.01
+    _lastAverage95Param=$4
+    _outResultFileParam=$5
+    _symbolParam=$6
+    _symbolNameParam=$7
+    _markerOwnStockParam=$8
     export resultStrategieByTendency=""
 
     if [ "$_tendencyParam" = "$RISING" ]; then
@@ -171,12 +171,12 @@ StrategieByTendency() {
 # Input: ${x}
 # Output: resultStrategieOverratedXHighRSI
 StrategieOverratedXHighRSI() {
-    _highRSIValueParam=${1}
-    _RSIQuoteListParam=${2} 
-    _outResultFileParam=${3}
-    _symbolParam=${4}
-    _symbolNameParam=${5}
-    _markerOwnStockParam=${6}
+    _highRSIValueParam=$1
+    _RSIQuoteListParam=$2
+    _outResultFileParam=$3
+    _symbolParam=$4
+    _symbolNameParam=$5
+    _markerOwnStockParam=$6
     export resultStrategieOverratedXHighRSI=""
 
     if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
@@ -230,12 +230,12 @@ StrategieOverratedXHighRSI() {
 # Input: ${x}
 # Output: resultStrategieUnderratedXLowRSI
 StrategieUnderratedXLowRSI() { 
-    _lowRSIValueParam=${1}
-    _RSIQuoteListParam=${2} 
-    _outResultFileParam=${3}
-    _symbolParam=${4}
-    _symbolNameParam=${5}
-    _markerOwnStockParam=${6}
+    _lowRSIValueParam=$1
+    _RSIQuoteListParam=$2 
+    _outResultFileParam=$3
+    _symbolParam=$4
+    _symbolNameParam=$5
+    _markerOwnStockParam=$6
     export resultStrategieUnderratedXLowRSI=""
 
     if [ "${#_RSIQuoteListParam}" -gt 1 ]; then # Check if value makes sense
@@ -288,11 +288,11 @@ StrategieUnderratedXLowRSI() {
 # Input: ${x}
 # Output: resultStrategieOverratedHighHorizontalMACD
 StrategieOverratedHighHorizontalMACD() {
-    _MACDQuoteListParam=${1} 
-    _outResultFileParam=${2}
-    _symbolParam=${3}
-    _symbolNameParam=${4}
-    _markerOwnStockParam=${5}
+    _MACDQuoteListParam=$1}
+    _outResultFileParam=$2
+    _symbolParam=$3
+    _symbolNameParam=$4
+    _markerOwnStockParam=$5
     export resultStrategieOverratedHighHorizontalMACD="" 
    
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
@@ -318,17 +318,17 @@ StrategieOverratedHighHorizontalMACD() {
         # Check if MACD is horizontal?
         # BeforeLast Value
         difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
-        isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+        isNegativ=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')
         # Positiv -> up
         # If first criterium positiv -> first step Alarm!
-        if [ ! "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then
+        if [ ! "$isNegativ" = '-' ] || [ "$difference" = 0 ]; then
             # Last Value
             difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
             difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
-            isMACDGenerellPositiv=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
-            isDifference0_2Positiv=$(echo "${difference0_2}" | awk '{print substr ($0, 0, 1)}')
+            isMACDGenerellPositiv=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
+            isDifference0_2Positiv=$(echo "$difference0_2" | awk '{print substr ($0, 0, 1)}')
             # If second criterium negativ -> Alarm!
-            if [ "${difference}" = 0 ] && [ ! "${isMACDGenerellPositiv}" = '-' ] && [ ! "${isDifference0_2Positiv}" = '-' ]; then
+            if [ "$difference" = 0 ] && [ ! "$isMACDGenerellPositiv" = '-' ] && [ ! "$isDifference0_2Positiv" = '-' ]; then
                 isMACDHorizontalAlarm=true
             else
                 isMACDHorizontalAlarm=false
@@ -350,11 +350,11 @@ StrategieOverratedHighHorizontalMACD() {
 # Input: ${x}
 # Output: resultStrategieUnderratedLowHorizontalMACD
 StrategieUnderratedLowHorizontalMACD() {
-    _MACDQuoteListParam=${1} 
-    _outResultFileParam=${2}
-    _symbolParam=${3}
-    _symbolNameParam=${4}
-    _markerOwnStockParam=${5}
+    _MACDQuoteListParam=$1
+    _outResultFileParam=$2
+    _symbolParam=$3
+    _symbolNameParam=$4
+    _markerOwnStockParam=$5
     export resultStrategieUnderratedLowHorizontalMACD=""
 
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
@@ -380,17 +380,17 @@ StrategieUnderratedLowHorizontalMACD() {
         # Check if MACD is horizontal?
         # BeforeLast Value
         difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
-        isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+        isNegativ=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')
         # Negativ -> down
         # If first criterium negativ -> first step Alarm!
-        if [ "${isNegativ}" = '-' ] || [ "${difference}" = 0 ]; then
+        if [ "$isNegativ" = '-' ] || [ "$difference" = 0 ]; then
             # Last Value
             difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
             difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
-            isMACDGenerellNegativ=$(echo "${valueMACDLast_1}" | awk '{print substr ($0, 0, 1)}')
-            isDifference0_2Negativ=$(echo "${difference0_2}" | awk '{print substr ($0, 0, 1)}')            
+            isMACDGenerellNegativ=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
+            isDifference0_2Negativ=$(echo "$difference0_2" | awk '{print substr ($0, 0, 1)}')            
             # If second criterium positiv -> Alarm!
-            if [ "${difference}" = 0 ] && [ "${isMACDGenerellNegativ}" = '-' ] && [ "${isDifference0_2Negativ}" = '-' ]; then
+            if [ "$difference" = 0 ] && [ "$isMACDGenerellNegativ" = '-' ] && [ "$isDifference0_2Negativ" = '-' ]; then
                 isMACDHorizontalAlarm=true
             else
                 isMACDHorizontalAlarm=false
@@ -412,15 +412,15 @@ StrategieUnderratedLowHorizontalMACD() {
 # Input: ${x}
 # Output: resultStrategieOverratedByPercentAndStochastic
 StrategieOverratedByPercentAndStochastic() {
-    _lastStochasticQuoteRoundedParam=${1}
-    _stochasticPercentageUpperParam=${2}
-    _lastOverAgv18Param=${3}
-    _lastOverAgv38Param=${4}
-    _lastOverAgv95Param=${5}
-    _agv18OverAgv38Param=${6}
-    _agv38OverAgv95Param=${7}
-    _agv18OverAgv95Param=${8}
-    _lastPriceParam=${9}
+    _lastStochasticQuoteRoundedParam=$1
+    _stochasticPercentageUpperParam=$2
+    _lastOverAgv18Param=$3
+    _lastOverAgv38Param=$4
+    _lastOverAgv95Param=$5
+    _agv18OverAgv38Param=$6
+    _agv38OverAgv95Param=$7
+    _agv18OverAgv95Param=$8
+    _lastPriceParam=$9
     _percentageLesserFactorParam=${10}
     _average18Param=${11}
     _average38Param=${12}
@@ -448,15 +448,15 @@ StrategieOverratedByPercentAndStochastic() {
 # Input: ${x}
 # Output: resultStrategieUnderratedByPercentAndStochastic
 StrategieUnderratedByPercentAndStochastic() {
-    _lastStochasticQuoteRoundedParam=${1}
-    _stochasticPercentageLowerParam=${2}
-    _lastUnderAgv18Param=${3}
-    _lastUnderAgv38Param=${4}
-    _lastUnderAgv95Param=${5}
-    _agv18UnderAgv38Param=${6}
-    _agv38UnderAgv95Param=${7}
-    _agv18UnderAgv95Param=${8}
-    _lastPriceParam=${9}
+    _lastStochasticQuoteRoundedParam=$1
+    _stochasticPercentageLowerParam=$2
+    _lastUnderAgv18Param=$3
+    _lastUnderAgv38Param=$4
+    _lastUnderAgv95Param=$5
+    _agv18UnderAgv38Param=$6
+    _agv38UnderAgv95Param=$7
+    _agv18UnderAgv95Param=$8
+    _lastPriceParam=$9
     _percentageGreaterFactorParam=${10}
     _average18Param=${11}
     _average38Param=${12}
@@ -485,12 +485,12 @@ StrategieUnderratedByPercentAndStochastic() {
 # Input: ${x}
 # Output: resultStrategieOverratedXHighStochastic
 StrategieOverratedXHighStochastic() {  
-    _highStochasticValueParam=${1}
-    _stochasticQuoteListParam=${2} 
-    _outResultFileParam=${3}
-    _symbolParam=${4}
-    _symbolNameParam=${5}
-    _markerOwnStockParam=${6}
+    _highStochasticValueParam=$1
+    _stochasticQuoteListParam=$2
+    _outResultFileParam=$3
+    _symbolParam=$4
+    _symbolNameParam=$5
+    _markerOwnStockParam=$6
     export resultStrategieOverratedXHighStochastic=""
 
     if [ "${#_stochasticQuoteListParam}" -gt 1 ]; then # Check if value makes sense
@@ -586,12 +586,12 @@ StrategieOverratedXHighStochastic() {
 # Input: ${x}
 # Output: resultStrategieUnderratedXLowStochastic
 StrategieUnderratedXLowStochastic() {
-    _lowStochasticValueParam=${1}
-    _stochasticQuoteListParam=${2} 
-    _outResultFileParam=${3}
-    _symbolParam=${4}
-    _symbolNameParam=${5}
-    _markerOwnStockParam=${6}
+    _lowStochasticValueParam=$1
+    _stochasticQuoteListParam=$2
+    _outResultFileParam=$3
+    _symbolParam=$4
+    _symbolNameParam=$5
+    _markerOwnStockParam=$6
     export resultStrategieUnderratedXLowStochastic=""
 
     if [ "${#_stochasticQuoteListParam}" -gt 1 ]; then # Check if value makes sense
@@ -654,21 +654,21 @@ StrategieUnderratedXLowStochastic() {
 # Input: ${x}
 # Output: resultStrategieOverratedHighStochasticHighRSIHighMACD
 StrategieOverratedHighStochasticHighRSIHighMACD() {
-    _highStochasticValueParam=${1}
-    _highRSIQuoteParam=${2}
-    _lastStochasticQuoteRoundedParam=${3}
-    _lastRSIQuoteRoundedParam=${4}
-    _lastMACDValueParam=${5}
-    _outResultFileParam=${6}
-    _symbolParam=${7}
-    _symbolNameParam=${8}  
-    _markerOwnStockParam=${9}
+    _highStochasticValueParam=$1
+    _highRSIQuoteParam=$2
+    _lastStochasticQuoteRoundedParam=$3
+    _lastRSIQuoteRoundedParam=$4
+    _lastMACDValueParam=$5
+    _outResultFileParam=$6
+    _symbolParam=$7
+    _symbolNameParam=$8
+    _markerOwnStockParam=$9
     export resultStrategieOverratedHighStochasticHighRSIHighMACD=""
 
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRoundedParam}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
-        _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
+        _lastMACDValueParamSign=$(echo "$_lastMACDValueParam" | awk '{print substr ($0, 0, 1)}')
         # Last Stochastic quote over _highStochasticValueParam and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
-        if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -gt "$_highRSIQuoteParam" ] && [ ! "${_lastMACDValueParamSign}" = '-' ]; then
+        if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -gt "$_highRSIQuoteParam" ] && [ ! "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C-$alarmAbbrevValue
             reasonPrefix="Sell: High Stochastic & RSI & MACD+ (C)"
             resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam over $_highStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam over $_highRSIQuoteParam"    
@@ -683,21 +683,21 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
 # Input: ${x}
 # Output: resultStrategieLowStochasticUnderratedLowRSI
 StrategieUnderratedLowStochasticLowRSILowMACD() {
-    _lowStochasticValueParam=${1}
-    _lowRSIQuoteParam=${2}
-    _lastStochasticQuoteRoundedParam=${3}
-    _lastRSIQuoteRoundedParam=${4}
-    _lastMACDValueParam=${5}
-    _outResultFileParam=${6}
-    _symbolParam=${7}
-    _symbolNameParam=${8}
-    _markerOwnStockParam=${9}
+    _lowStochasticValueParam=$1
+    _lowRSIQuoteParam=$2
+    _lastStochasticQuoteRoundedParam=$3
+    _lastRSIQuoteRoundedParam=$4
+    _lastMACDValueParam=$5
+    _outResultFileParam=$6
+    _symbolParam=$7
+    _symbolNameParam=$8
+    _markerOwnStockParam=$9
     export resultStrategieUnderratedLowStochasticLowRSILowMACD=""
 
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRoundedParam}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
-        _lastMACDValueParamSign=$(echo "${_lastMACDValueParam}" | awk '{print substr ($0, 0, 1)}')
+        _lastMACDValueParamSign=$(echo "$_lastMACDValueParam" | awk '{print substr ($0, 0, 1)}')
         # Last Stochastic quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
-        if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "${_lastMACDValueParamSign}" = '-' ]; then
+        if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C+$alarmAbbrevValue
             reasonPrefix="Buy: Low Stochastic & RSI & MACD- (C)"
             resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIQuoteParam"

@@ -6,18 +6,18 @@
 # Input: ${x}
 # Output: alarm/$symbol.txt file. E.g: alarm/BEI.txt
 WriteAlarmAbbrevXAxisFile() {
-    _newAlarmAbbrevTextParam=${1}
-    _symbolParam=${2}
-    _dataDateFile=${3}
-    _dataDateOutputDir=${4}
-    _markerOwnStockParam=${5}
+    _newAlarmAbbrevTextParam=$1
+    _symbolParam=$2
+    _dataDateFile=$3
+    _dataDateOutputDir=$4
+    _markerOwnStockParam=$5
     
     mkdir -p "$_dataDateOutputDir"
     lastDateInDataFile=$(head -n1 "$_dataDateFile" | cut -f 1)
     beforeDateInDataFile=$(head -n2 "$_dataDateFile" | tail -1 | cut -f 1)
-    alarmSymbolFile=$_dataDateOutputDir/${_symbolParam}.txt
-    alarmSymbolDateFile=$_dataDateOutputDir/${_symbolParam}_$lastDateInDataFile.txt 
-    alarmSymbolDateBeforeFile=$_dataDateOutputDir/${_symbolParam}_$beforeDateInDataFile.txt 
+    alarmSymbolFile=$_dataDateOutputDir/$_symbolParam.txt
+    alarmSymbolDateFile=$_dataDateOutputDir/$_symbolParam"_"$lastDateInDataFile.txt 
+    alarmSymbolDateBeforeFile=$_dataDateOutputDir/$_symbolParam"_"$beforeDateInDataFile.txt 
     
 #echo _newAlarmAbbrevTextParam $_newAlarmAbbrevTextParam    
     #if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
@@ -26,16 +26,16 @@ WriteAlarmAbbrevXAxisFile() {
        # _newAlarmAbbrevTextParam=$(echo "$lastDay"-"$lastMonth")
     #fi
 
-    _newAlarmAbbrevTextParam="${_markerOwnStockParam}""$_newAlarmAbbrevTextParam""$lastDay"."$lastMonth"
+    _newAlarmAbbrevTextParam="$_markerOwnStockParam""$_newAlarmAbbrevTextParam""$lastDay"."$lastMonth"
     
     if [ ! -f "$alarmSymbolDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
         if [ -f "$alarmSymbolDateBeforeFile" ]; then # Last datefile exists. Take the last datefile e.g: alarm/BEI_2021-02-08.txt
             commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolDateBeforeFile")
-            commaListAlarm="${commaListAlarm},'$_newAlarmAbbrevTextParam'"
+            commaListAlarm="$commaListAlarm,'$_newAlarmAbbrevTextParam'"
             echo "$commaListAlarm" > "$alarmSymbolDateFile"
             rm -rf "$alarmSymbolDateBeforeFile"
         else # Last datefile File doesn't exists. Create actual datefile from scratch e.g: alarm/BEI_2021-02-09.txt
-            rm -rf "$_dataDateOutputDir"/"${_symbolParam}"*.txt
+            rm -rf "$_dataDateOutputDir"/"$_symbolParam"*.txt
             alarmAbbrevTemplate="'14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
             commaListAlarm="$alarmAbbrevTemplate,'$_newAlarmAbbrevTextParam'"
             echo "$commaListAlarm" > "$alarmSymbolDateFile"
@@ -49,20 +49,20 @@ WriteAlarmAbbrevXAxisFile() {
 # Input: ${x}
 # Output: tendency [FALLING|RISING|LEVEL]
 DetermineTendency() {
-    _listParam=${1}
+    _listParam=$1
     export tendency=""
 
     value_82=$(echo "$_listParam" | cut -f 82 -d ',')
     value_87=$(echo "$_listParam" | cut -f 87 -d ',')
     difference=$(echo "$value_87 $value_82" | awk '{print ($1 - $2)}')
-    isNegativ=$(echo "${difference}" | awk '{print substr ($0, 0, 1)}')
+    isNegativ=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')
     relative=$(echo "$value_87 $value_82" | awk '{print (($1 / $2)-1)*100}')
     valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
     valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
-    isLevelPos1=$(echo "${valueAfterComma}" | awk '{print substr ($0, 0, 1)}')
+    isLevelPos1=$(echo "$valueAfterComma" | awk '{print substr ($0, 0, 1)}')
 
-    if [ "${isLevelPos1}" -lt 2 ] && # < 0.02 %
-       { [ "${valueBeforeComma}" = "0" ] || [ "${valueBeforeComma}" = "-0" ]; } then
+    if [ "$isLevelPos1" -lt 2 ] && # < 0.02 %
+       { [ "$valueBeforeComma" = "0" ] || [ "$valueBeforeComma" = "-0" ]; } then
         tendency="$LEVEL"
     else
         if [ "${isNegativ}" = '-' ]; then
@@ -77,11 +77,11 @@ DetermineTendency() {
 # Input: ${x}
 # Output: -
 CurlSymbolName() {
-    _symbolParam=${1}
-    _tickerNameIdFileParam=${2}
-    _sleepParam=${3}
+    _symbolParam=$1
+    _tickerNameIdFileParam=$2
+    _sleepParam=$3
 
-    symbol=$(echo "${_symbolParam}" | tr '[:lower:]' '[:upper:]')
+    symbol=$(echo "$_symbolParam" | tr '[:lower:]' '[:upper:]')
     symbolName=$(grep -m1 -P "$symbol\t" "$_tickerNameIdFileParam" | cut -f 2)
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
@@ -100,18 +100,18 @@ CurlSymbolName() {
 # Input: ${x}
 # Output: OUT_RESULT_FILE
 UsageCheckParameter() {
-    _symbolsParam=${1}
-    _percentageParam=${2}
-    _queryParam=${3}
-    _stochasticPercentageParam=${4}
-    _RSIQuoteParam=${5}
-    _outResultFileParam=${6}
+    _symbolsParam=$1
+    _percentageParam=$2
+    _queryParam=$3
+    _stochasticPercentageParam=$4
+    _RSIQuoteParam=$5
+    _outResultFileParam=$6
 
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9* ]*}" ] && # symbols, blank and '*' allowed
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
         { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
         [ -n "${_stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#_stochasticPercentageParam} -gt 1 ] &&
-        [ -n "${_RSIQuoteParam##*[!0-9]*}" ] && [ ! "${_RSIQuoteParam}" -gt 30 ]; then
+        [ -n "${_RSIQuoteParam##*[!0-9]*}" ] && [ ! "$_RSIQuoteParam" -gt 30 ]; then
         echo ""
     else
         echo "Given Parameter: Symbols=$_symbolsParam Persentage=$_percentageParam Query=$_queryParam Stoch=$_stochasticPercentageParam RSI=$_RSIQuoteParam"
@@ -191,15 +191,15 @@ ProgressBar() {
 # Input: ${x}
 # Output: echo to file
 WriteComdirectUrlAndStoreFileList() {
-    _outResultFileParam=${1}
-    _symbolParam=${2}
-    _symbolNameParam="${3}"
-    _linkColorParam=${4}
-    _markerOwnStockParam=${5}
-    _reasonParam=${6}
+    _outResultFileParam=$1
+    _symbolParam=$2
+    _symbolNameParam="$3"
+    _linkColorParam=$4
+    _markerOwnStockParam=$5
+    _reasonParam=$6
 
     # Red link only for stocks that are marked as own
-    if [ "$_linkColorParam" = "$RED" ] && [ "${_markerOwnStockParam}" = '' ]; then
+    if [ "$_linkColorParam" = "$RED" ] && [ "$_markerOwnStockParam" = '' ]; then
         _linkColorParam="$BLACK"
     fi
 
@@ -208,7 +208,7 @@ WriteComdirectUrlAndStoreFileList() {
         _id_notation=999999
     fi
     # Only write URL once into result file
-    if [ ! "${_id_notation}" = "${ID_NOTATION_STORE_FOR_NEXT_TIME}" ]; then
+    if [ ! "$_id_notation" = "$ID_NOTATION_STORE_FOR_NEXT_TIME" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
         {
             echo "<br>"
@@ -221,7 +221,7 @@ WriteComdirectUrlAndStoreFileList() {
         } >> "$_outResultFileParam"
     fi
     # Show reason in result file only, if marked as own stock or a 'buy' recommendation
-    if [ "${_markerOwnStockParam}" = '*' ] || [ "$_linkColorParam" = "$GREEN" ]; then
+    if [ "$_markerOwnStockParam" = '*' ] || [ "$_linkColorParam" = "$GREEN" ]; then
         echo "<br>$_reasonParam" >> "$_outResultFileParam"
     fi
 }
