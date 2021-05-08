@@ -189,7 +189,7 @@ do
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
-        if [ "${fileSize}" -eq "0" ]; then
+        if [ "$fileSize" -eq "0" ]; then
             echo "<br>" >> $OUT_RESULT_FILE
             echo "!!! $symbol NOT found online" | tee -a $OUT_RESULT_FILE
             echo "<br>" >> $OUT_RESULT_FILE
@@ -589,11 +589,15 @@ do
         obfuscatedValueGain="$stocksPerformance"Z"$obfuscatedValueGain"Y
         obfuscatedValueGain=$(echo "$obfuscatedValueGain" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
         isNegativ=$(echo "$stocksPerformance" | awk '{print substr ($0, 0, 1)}')
-        _linkColorParam="$GREEN"
+        _linkColor="$GREEN"
         if [ "$isNegativ" = '-' ]; then
-            _linkColorParam="$RED"
+            _linkColor="$RED"
         fi
-        echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColorParam\">$obfuscatedValueGain</span></div>" >> $OUT_RESULT_FILE
+        echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGain</span></div>" >> $OUT_RESULT_FILE
+
+        # Collect Values for Overall
+        obfuscatedValueBuyingOverall=$(echo "$obfuscatedValueBuyingOverall $stocksBuyingValue" | awk '{print $1 + $2}')
+        obfuscatedValueSellingOverall=$(echo "$obfuscatedValueSellingOverall $stocksCurrentValue" | awk '{print $1 + $2}')        
     fi
 
     # Write history file
@@ -621,9 +625,26 @@ do
     echo "$PRE_FIX$MACDList" >> "$HISTORY_FILE"
 done
 
-echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a><br>" >> $OUT_RESULT_FILE
+# Overall
+obfuscatedValueBuyingSellingOverall="$obfuscatedValueBuyingOverall"/"$obfuscatedValueSellingOverall"Y
+obfuscatedValueBuyingSellingOverall=$(echo "$obfuscatedValueBuyingSellingOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
 
-echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
+stocksPerformanceOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print (($1 / $2)-1)*100}')
+stocksPerformanceOverall=$(printf "%.1f" "$stocksPerformanceOverall")
+obfuscatedValueGainOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print $1 - $2}')
+obfuscatedValueGainOverall="$stocksPerformanceOverall"Z"$obfuscatedValueGainOverall"Y
+obfuscatedValueGainOverall=$(echo "$obfuscatedValueGainOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
+isNegativ=$(echo "$stocksPerformanceOverall" | awk '{print substr ($0, 0, 1)}')
+_linkColor="$GREEN"
+if [ "$isNegativ" = '-' ]; then
+    _linkColor="$RED"
+fi
+{
+    echo "<br><div style=\"font-size: large\"># Overall<br><span id=\"obfuscatedValueBuyingOverall\" style=\"display: none;\">$obfuscatedValueBuyingSellingOverall</span>"
+    echo "<span id=\"obfuscatedValueGainOverall\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGainOverall</span></div>"
+    echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a><br>"
+    echo "$HTML_RESULT_FILE_END" 
+} >> "$OUT_RESULT_FILE"
 
 # Minify _result.html file
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE"

@@ -65,7 +65,7 @@ DetermineTendency() {
        { [ "$valueBeforeComma" = "0" ] || [ "$valueBeforeComma" = "-0" ]; } then
         tendency="$LEVEL"
     else
-        if [ "${isNegativ}" = '-' ]; then
+        if [ "$isNegativ" = '-' ]; then
             tendency="$FALLING"
         else
             tendency="$RISING"
