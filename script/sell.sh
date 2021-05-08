@@ -10,7 +10,7 @@
 # {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
 # To uppercase
-symbolParam=$(echo "${1}" | tr '[:lower:]' '[:upper:]')
+symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 echo "Sell $symbolParam"
 
@@ -24,13 +24,13 @@ fi
 #sed -i "s/${symbolParam} //" config/stock_symbols.txt
 
 # Add in front of overall list
-sed -i "0,/^/s//${symbolParam} /" config/stock_symbols.txt
+sed -i "0,/^/s//$symbolParam /" config/stock_symbols.txt
 
 # Encrypt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
 
 # Remove from own list
-sed -i "/^${symbolParam} /d" config/own_symbols.txt
+sed -i "/^$symbolParam /d" config/own_symbols.txt
 
 # Decrypt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null

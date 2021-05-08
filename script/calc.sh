@@ -6,7 +6,7 @@
 # Example: sh ./calc.sh 9.99 100 0.1 10.1
 # alias calc='/d/code/stock-analyse/script/calc.sh $1 $2 $3 $4'
 
-echo "calc ${1} ${2} ${3} ${4} ..."
+echo "calc $1 $2 $3 $4 ..."
 
 if { [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; } then
   echo "Not all parameters specified!"
@@ -56,7 +56,7 @@ echo "Sell Value:  $sellValue"€
 echo "Difference:  $diffValue"€
 echo "Percent:     $percentValue"%
 
-isNegativ=$(echo "${afterTaxValue}" | awk '{print substr ($0, 0, 1)}')
-if [ "${isNegativ}" != '-' ]; then
+isNegativ=$(echo "$afterTaxValue" | awk '{print substr ($0, 0, 1)}')
+if [ "$isNegativ" != '-' ]; then
   echo "After Tax:   $afterTaxValue"€
 fi

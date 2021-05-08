@@ -11,12 +11,12 @@
 # {"event_type": "buy", "client_payload": {"symbol": "BEI", "price": "9.99", "pieces": "100"}}
 
 # To uppercase
-symbolParam=$(echo "${1}" | tr '[:lower:]' '[:upper:]')
+symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 # Price has to be without comma
-priceParam=$(echo "${2}" | sed 's/,/./g')
+priceParam=$(echo "$2" | sed 's/,/./g')
 
-echo "(re)buy ${symbolParam} ${priceParam} ${3} ..."
+echo "(re)buy $symbolParam $priceParam $3 ..."
 
 if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$3" ]; } then
   echo "Not all parameters specified!"
@@ -34,17 +34,17 @@ case "$3" in
 esac
 
 # Remove from overall list, if not there do nothing
-sed -i "s/${symbolParam} //" config/stock_symbols.txt
+sed -i "s/$symbolParam //" config/stock_symbols.txt
 
 # Decript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
 
 # Rebuy: Remove from own list, if not there do nothing
-sed -i "/^${symbolParam} /d" config/own_symbols.txt
+sed -i "/^$symbolParam /d" config/own_symbols.txt
 
 # Add in front of own list
 today=$(date --date="-0 day" +"%Y-%m-%d")
-sed -i '1 i\'${symbolParam}' '${priceParam}' '$today' '${3}'' config/own_symbols.txt
+sed -i '1 i\'$symbolParam' '$priceParam' '$today' '$3'' config/own_symbols.txt
 
 # Encript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null

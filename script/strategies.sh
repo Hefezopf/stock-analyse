@@ -288,7 +288,7 @@ StrategieUnderratedXLowRSI() {
 # Input: ${x}
 # Output: resultStrategieOverratedHighHorizontalMACD
 StrategieOverratedHighHorizontalMACD() {
-    _MACDQuoteListParam=$1}
+    _MACDQuoteListParam=$1
     _outResultFileParam=$2
     _symbolParam=$3
     _symbolNameParam=$4

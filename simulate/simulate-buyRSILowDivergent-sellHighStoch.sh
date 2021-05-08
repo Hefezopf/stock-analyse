@@ -78,15 +78,15 @@ do
     do
         # Buy
         MACDAt="$(echo "$historyMACDs" | cut -f "$RSIindex" -d ',')"
-        isMACDNegativ=$(echo "${MACDAt}" | awk '{print substr ($0, 0, 1)}')
-        if [ "$valueRSI" -lt "$RSIBuyLevel" ] && [ "${isMACDNegativ}" = '-' ]; then
+        isMACDNegativ=$(echo "$MACDAt" | awk '{print substr ($0, 0, 1)}')
+        if [ "$valueRSI" -lt "$RSIBuyLevel" ] && [ "$isMACDNegativ" = '-' ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')"
 
             # "Divergent" condition
             newLower=$(echo "$quoteAt" "$lastLowestQuoteAt" | awk '{if ($1 < $2) print "true"; else print "false"}')
             if [ "$newLower" = true ]; then
                 # NOT at the first lower level (RSI_LOW_VALUE=0=initVaLue)
-                if [ "$valueRSI" -gt "$lastLowestValueRSI" ] && [ "${lastLowestValueRSI}" -gt $RSI_LOW_VALUE ]; then
+                if [ "$valueRSI" -gt "$lastLowestValueRSI" ] && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then
                     # Reset lower level!
                     RSIBuyLevel=$RSI_MAX_BUY_LEVEL
                     piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')

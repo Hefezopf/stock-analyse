@@ -166,24 +166,24 @@ do
     echo ""
     echo "# Get $symbol $symbolName"
     DATA_FILE="$(mktemp -p /dev/shm/)"
-    DATA_DATE_FILE=data/${symbol}.txt
+    DATA_DATE_FILE=data/$symbol.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
         evenodd=$((tag % 5))
         if [ "$evenodd" -eq 0 ]; then
-            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY1}
+            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY1
         fi
         if [ "$evenodd" -eq 1 ]; then
-            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY2}
+            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY2
         fi
         if [ "$evenodd" -eq 2 ]; then
-            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY3}
+            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY3
         fi
         if [ "$evenodd" -eq 3 ]; then
-            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY4}
+            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY4
         fi
         if [ "$evenodd" -eq 4 ]; then
-            MARKET_STACK_ACCESS_KEY=${MARKET_STACK_ACCESS_KEY5}
+            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY5
         fi
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
@@ -405,13 +405,13 @@ do
     rm -rf "$indexSymbolFile"
     {
         cat template/indexPart0.html
-        echo "${markerOwnStock}${symbol}"
+        echo "$markerOwnStock$symbol"
         cat template/indexPart1.html
 
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:x-large; color:black\""
         # Red link only for stocks that are marked as own stocks
-        if [ "${markerOwnStock}" = '*' ] &&
+        if [ "$markerOwnStock" = '*' ] &&
            {
             [ "$(echo "$resultStrategieByTendency" | cut -f 1 -d ':')" = "Sell" ] ||
             [ "${#resultStrategieOverratedStochasticWhenOwn}" -gt 1 ] ||
@@ -431,7 +431,7 @@ do
             styleComdirectLink="style=\"font-size:x-large; color:green\""
         fi
 
-        ID_NOTATION=$(grep -P "${symbol}\t" $TICKER_NAME_ID_FILE | cut -f 3)
+        ID_NOTATION=$(grep -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
         echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
@@ -489,10 +489,10 @@ do
 
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm" "$markerOwnStock"
         alarmAbbrevValue=""
-        cat alarm/"${symbol}".txt
+        cat alarm/"$symbol".txt
         cat template/indexPart1b.html
 
-        echo "'" "${symbolName}" "',"
+        echo "'" "$symbolName" "',"
         cat template/indexPart2.html
     
         # Writing quotes
@@ -518,9 +518,9 @@ do
         echo "$averagePriceList95"
 
         # Draw Buying Rate
-        if [ "${markerOwnStock}" = '*' ]; then
+        if [ "$markerOwnStock" = '*' ]; then
             cat template/indexPart8a.html
-            buyingRate=$(grep "${symbol}" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')
+            buyingRate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')
             i=1
             while [ "$i" -le 87 ]; do
                 echo -n "$buyingRate,"
@@ -538,19 +538,19 @@ do
         fi
 
         cat template/indexPart9.html
-        cat alarm/"${symbol}".txt
+        cat alarm/"$symbol".txt
         cat template/indexPart9b.html
 
         echo "$stochasticQuoteList"
         cat template/indexPart10.html
-        cat alarm/"${symbol}".txt
+        cat alarm/"$symbol".txt
         cat template/indexPart10b.html        
 
         echo "$RSIQuoteList"
         cat template/indexPart11.html
-        cat alarm/"${symbol}".txt
+        cat alarm/"$symbol".txt
         cat template/indexPart11b.html        
-        rm alarm/"${symbol}".txt # Remove temp SYMBOL file and keep alarm/SYMBOL_DATE.txt
+        rm alarm/"$symbol".txt # Remove temp SYMBOL file and keep alarm/SYMBOL_DATE.txt
 
         echo "$MACDList"
         cat template/indexPart12.html
@@ -584,9 +584,9 @@ do
         obfuscatedValueGain=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print $1 - $2}')
         obfuscatedValueGain="$stocksPerformance"Z"$obfuscatedValueGain"Y
         obfuscatedValueGain=$(echo "$obfuscatedValueGain" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-        isNegativ=$(echo "${stocksPerformance}" | awk '{print substr ($0, 0, 1)}')
+        isNegativ=$(echo "$stocksPerformance" | awk '{print substr ($0, 0, 1)}')
         _linkColorParam="$GREEN"
-        if [ "${isNegativ}" = '-' ]; then
+        if [ "$isNegativ" = '-' ]; then
             _linkColorParam="$RED"
         fi
         echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColorParam\">$obfuscatedValueGain</span></div>" >> $OUT_RESULT_FILE
