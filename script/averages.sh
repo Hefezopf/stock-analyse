@@ -115,8 +115,8 @@ RSIOfDays() {
     while [ "$i" -le 100 ]; do
         i=$((i + 1))
         diffLast2Prices=$(head -n$i "$_dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
-        isNegativ=$(echo "${diffLast2Prices}" | awk '{print substr ($0, 0, 1)}')
-        if [ "${isNegativ}" = '-' ]; then
+        isNegativ=$(echo "$diffLast2Prices" | awk '{print substr ($0, 0, 1)}')
+        if [ "$isNegativ" = '-' ]; then
             withoutMinusSign=$(echo "$diffLast2Prices" | awk '{print substr ($1, 2, 9)}')
             echo "$withoutMinusSign" >> "$RSIloosingDaysFile"
             echo "0" >> "$RSIwinningDaysFile"
@@ -130,9 +130,9 @@ RSIOfDays() {
     while [ "$i" -le 100 ]; do        
         # Fill with blank comma seperated data  
         if [ $i -ge "$_amountOfDaysParam" ]; then # >= 14   
-            RSIwinningDaysAvg=$(tail -"${i}" "$RSIwinningDaysFile" | head -n"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')
-            RSIloosingDaysAvg=$(tail -"${i}" "$RSIloosingDaysFile" | head -n"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')    
-            if [ "${RSIloosingDaysAvg}" = 0 ]; then
+            RSIwinningDaysAvg=$(tail -"$i" "$RSIwinningDaysFile" | head -n"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')
+            RSIloosingDaysAvg=$(tail -"$i" "$RSIloosingDaysFile" | head -n"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')    
+            if [ "$RSIloosingDaysAvg" = 0 ]; then
                 RSIQuote=100
             else
                 RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')

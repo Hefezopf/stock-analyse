@@ -92,7 +92,7 @@ do
                     piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
                     amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
                     piecesPerTrade=${piecesPerTrade%.*}
-                    if [ "${piecesPerTrade}" -eq 0 ]; then
+                    if [ "$piecesPerTrade" -eq 0 ]; then
                         piecesPerTrade=1
                     fi
                     amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
@@ -111,7 +111,7 @@ do
 
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
-        if [ "${piecesHold}" -gt 0 ] && [ "$stochAt" -gt "$StochSellLevelParam" ]; then
+        if [ "$piecesHold" -gt 0 ] && [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
@@ -138,7 +138,7 @@ do
     done
 
     # Sell all on the last day, to get gid of all stocks for simulation
-    if [ "${piecesHold}" -gt 0 ]; then
+    if [ "$piecesHold" -gt 0 ]; then
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
         echo "Sell all on the last day!!" | tee -a $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')

@@ -43,7 +43,7 @@ StrategieOverratedDivergenceRSI() {
     _lastQuoteParam=$7
     _beforeLastQuoteParam=$8
     _lastRSIParam=$9
-    _beforeLastRSIParam=${10}
+    _beforeLastRSIParam=${10} # 10th and more need {}
     export resultStrategieOverratedDivergenceRSI=""
 
     isMACDNegativ=$(echo "$_lastMACDParam" | awk '{print substr ($0, 0, 1)}')
@@ -74,13 +74,13 @@ StrategieUnderratedDivergenceRSI() {
     _lastQuoteParam=$7
     _beforeLastQuoteParam=$8
     _lastRSIParam=$9
-    _beforeLastRSIParam=${10}
+    _beforeLastRSIParam=${10} # 10th and more need {}
     export resultStrategieUnderratedDivergenceRSI=""
 
     isMACDNegativ=$(echo "$_lastMACDParam" | awk '{print substr ($0, 0, 1)}')
     if [ "$_lastRSIParam" -lt "$_lowRSIValueParam" ] && [ "$isMACDNegativ" = '-' ]; then
         newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
-        if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_beforeLastRSIParam" ]; then # && [ "${lastLowestValueRSI}" -gt $RSI_LOW_VALUE ]; then 
+        if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_beforeLastRSIParam" ]; then # && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then 
             alarmAbbrevValue="D+"$alarmAbbrevValue
             reasonPrefix="Buy: RSI Divergence (D)"
             resultStrategieUnderratedDivergenceRSI="$reasonPrefix"
@@ -421,7 +421,7 @@ StrategieOverratedByPercentAndStochastic() {
     _agv38OverAgv95Param=$7
     _agv18OverAgv95Param=$8
     _lastPriceParam=$9
-    _percentageLesserFactorParam=${10}
+    _percentageLesserFactorParam=${10} # 10th and more need {}
     _average18Param=${11}
     _average38Param=${12}
     _average95Param=${13}
@@ -457,7 +457,7 @@ StrategieUnderratedByPercentAndStochastic() {
     _agv38UnderAgv95Param=$7
     _agv18UnderAgv95Param=$8
     _lastPriceParam=$9
-    _percentageGreaterFactorParam=${10}
+    _percentageGreaterFactorParam=${10} # 10th and more need {}
     _average18Param=${11}
     _average38Param=${12}
     _average95Param=${13}
