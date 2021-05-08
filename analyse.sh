@@ -490,7 +490,6 @@ do
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm" "$markerOwnStock"
         alarmAbbrevValue=""
         cat alarm/"${symbol}".txt
-        rm alarm/"${symbol}".txt
         cat template/indexPart1b.html
 
         echo "'" "${symbolName}" "',"
@@ -539,12 +538,19 @@ do
         fi
 
         cat template/indexPart9.html
+        cat alarm/"${symbol}".txt
+        cat template/indexPart9b.html
 
         echo "$stochasticQuoteList"
         cat template/indexPart10.html
+        cat alarm/"${symbol}".txt
+        cat template/indexPart10b.html        
 
         echo "$RSIQuoteList"
         cat template/indexPart11.html
+        cat alarm/"${symbol}".txt
+        cat template/indexPart11b.html        
+        rm alarm/"${symbol}".txt # Remove temp SYMBOL file and keep alarm/SYMBOL_DATE.txt
 
         echo "$MACDList"
         cat template/indexPart12.html
