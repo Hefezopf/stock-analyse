@@ -626,18 +626,20 @@ do
 done
 
 # Overall
-obfuscatedValueBuyingSellingOverall="$obfuscatedValueBuyingOverall"/"$obfuscatedValueSellingOverall"Y
-obfuscatedValueBuyingSellingOverall=$(echo "$obfuscatedValueBuyingSellingOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
+if [ "$obfuscatedValueBuyingOverall" ]; then
+    obfuscatedValueBuyingSellingOverall="$obfuscatedValueBuyingOverall"/"$obfuscatedValueSellingOverall"Y
+    obfuscatedValueBuyingSellingOverall=$(echo "$obfuscatedValueBuyingSellingOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
 
-stocksPerformanceOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print (($1 / $2)-1)*100}')
-stocksPerformanceOverall=$(printf "%.1f" "$stocksPerformanceOverall")
-obfuscatedValueGainOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print $1 - $2}')
-obfuscatedValueGainOverall="$stocksPerformanceOverall"Z"$obfuscatedValueGainOverall"Y
-obfuscatedValueGainOverall=$(echo "$obfuscatedValueGainOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-isNegativ=$(echo "$stocksPerformanceOverall" | awk '{print substr ($0, 0, 1)}')
-_linkColor="$GREEN"
-if [ "$isNegativ" = '-' ]; then
-    _linkColor="$RED"
+    stocksPerformanceOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print (($1 / $2)-1)*100}')
+    stocksPerformanceOverall=$(printf "%.1f" "$stocksPerformanceOverall")
+    obfuscatedValueGainOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print $1 - $2}')
+    obfuscatedValueGainOverall="$stocksPerformanceOverall"Z"$obfuscatedValueGainOverall"Y
+    obfuscatedValueGainOverall=$(echo "$obfuscatedValueGainOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
+    isNegativ=$(echo "$stocksPerformanceOverall" | awk '{print substr ($0, 0, 1)}')
+    _linkColor="$GREEN"
+    if [ "$isNegativ" = '-' ]; then
+        _linkColor="$RED"
+    fi
 fi
 {
     echo "<br><br><div style=\"font-size: large\"># Overall<br><span id=\"obfuscatedValueBuyingOverall\" style=\"display: none;\">$obfuscatedValueBuyingSellingOverall</span>"
