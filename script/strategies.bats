@@ -492,7 +492,7 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   resultStrategieUnderratedByPercentAndStochastic=""
   StrategieUnderratedByPercentAndStochastic 0 9 1 1 1 1 1 1 "46.95" "0.99" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'XXXXBuy: Low Percentage & Stochastic (P): 46.95€ is 0.99 under Avg18 < Avg38 < Avg95 and Stoch14 0 under level' ]  
+  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'Buy: Low Percentage & Stochastic (P): 46.95€ is 0.99 under Avg18 < Avg38 < Avg95 and Stoch14 0 under level' ]  
 }
 
 @test "StrategieOverratedByPercentAndStoch" {
