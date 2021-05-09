@@ -422,13 +422,10 @@ StrategieOverratedByPercentAndStochastic() {
     _agv18OverAgv95Param=$8
     _lastPriceParam=$9
     _percentageLesserFactorParam=${10} # 10th and more need {}
-    _average18Param=${11}
-    _average38Param=${12}
-    _average95Param=${13}
-    _outResultFileParam=${14}
-    _symbolParam=${15}
-    _symbolNameParam=${16}
-    _markerOwnStockParam=${17}
+    _outResultFileParam=${11}
+    _symbolParam=${12}
+    _symbolNameParam=${13}
+    _markerOwnStockParam=${14}
     export resultStrategieOverratedByPercentAndStochastic=""
 
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
@@ -436,7 +433,7 @@ StrategieOverratedByPercentAndStochastic() {
             [ "$_agv18OverAgv38Param" = 1 ] && [ "$_agv38OverAgv95Param" = 1 ] && [ "$_agv18OverAgv95Param" = 1 ]; then
             alarmAbbrevValue=P-$alarmAbbrevValue
             reasonPrefix="Sell: High Percentage & Stochastic (P)"
-            resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 $_average18Param€ and Avg38 $_average38Param€ and Avg95 $_average95Param€ and Stoch14 is $_lastStochasticQuoteRoundedParam is higher then $_stochasticPercentageUpperParam"
+            resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 > Avg38 > Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam over level"
             echo "$resultStrategieOverratedByPercentAndStochastic"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"
         fi
@@ -458,13 +455,10 @@ StrategieUnderratedByPercentAndStochastic() {
     _agv18UnderAgv95Param=$8
     _lastPriceParam=$9
     _percentageGreaterFactorParam=${10} # 10th and more need {}
-    _average18Param=${11}
-    _average38Param=${12}
-    _average95Param=${13}
-    _outResultFileParam=${14}
-    _symbolParam=${15}
-    _symbolNameParam=${16}
-    _markerOwnStockParam=${17}
+    _outResultFileParam=${11}
+    _symbolParam=${12}
+    _symbolNameParam=${13}
+    _markerOwnStockParam=${14}
     export resultStrategieUnderratedByPercentAndStochastic=""
 
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
@@ -472,7 +466,7 @@ StrategieUnderratedByPercentAndStochastic() {
             [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv95Param" = 1 ] && [ "$_agv18UnderAgv95Param" = 1 ]; then
             alarmAbbrevValue=P+$alarmAbbrevValue
             reasonPrefix="Buy: Low Percentage & Stochastic (P)"
-            resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 $_average18Param€ and Avg38 $_average38Param€ and Avg95 $_average95Param€ and Stoch14 $_lastStochasticQuoteRoundedParam is lower then $_stochasticPercentageLowerParam"
+            resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 < Avg38 < Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam under level"
             echo "$resultStrategieUnderratedByPercentAndStochastic"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"              
         fi

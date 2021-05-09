@@ -484,15 +484,15 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieUnderratedByPercentAndStochastic
   [ "$resultStrategieUnderratedByPercentAndStochastic" == '' ]
 
-  StrategieUnderratedByPercentAndStochastic 100 91 1 1 1 1 1 1 "5.61" "1.01" "4.44" "4.28" "4.03" 91 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  StrategieUnderratedByPercentAndStochastic 100 91 1 1 1 1 1 1 "5.61" "1.01" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieUnderratedByPercentAndStochastic" == '' ]
 
-  StrategieUnderratedByPercentAndStochastic 0 9 1 1 1 1 1 1 "46.95" "0.99" "49.34" "50.08" "52.87" 9 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'Buy: Low Percentage & Stochastic (P): 46.95€ is 0.99 under Avg18 49.34€ and Avg38 50.08€ and Avg95 52.87€ and Stoch14 0 is lower then 9' ]  
+  StrategieUnderratedByPercentAndStochastic 0 9 1 1 1 1 0 1 "46.95" "0.99" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedByPercentAndStochastic" == '' ]  
 
   resultStrategieUnderratedByPercentAndStochastic=""
-  StrategieUnderratedByPercentAndStochastic 0 9 1 1 1 1 1 1 "46.95" "0.99" "49.34" "50.08" "52.87" 9 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'Buy: Low Percentage & Stochastic (P): 46.95€ is 0.99 under Avg18 49.34€ and Avg38 50.08€ and Avg95 52.87€ and Stoch14 0 is lower then 9' ]  
+  StrategieUnderratedByPercentAndStochastic 0 9 1 1 1 1 1 1 "46.95" "0.99" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'XXXXBuy: Low Percentage & Stochastic (P): 46.95€ is 0.99 under Avg18 < Avg38 < Avg95 and Stoch14 0 under level' ]  
 }
 
 @test "StrategieOverratedByPercentAndStoch" {
@@ -504,13 +504,13 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieOverratedByPercentAndStochastic
   [ "$resultStrategieOverratedByPercentAndStochastic" == '' ]  
 
-  StrategieOverratedByPercentAndStochastic 72 91 1 1 1 1 1 1 "287.50" "1.01" "281.09" "277.85" "272.43" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  StrategieOverratedByPercentAndStochastic 72 91 1 1 1 1 1 1 "287.50" "1.01" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieOverratedByPercentAndStochastic" == '' ]  
 
-  StrategieOverratedByPercentAndStochastic 100 91 1 1 1 1 1 1 "5.61" "1.01" "4.44" "4.28" "4.03" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedByPercentAndStochastic" == 'Sell: High Percentage & Stochastic (P): 5.61€ is 1.01 over Avg18 4.44€ and Avg38 4.28€ and Avg95 4.03€ and Stoch14 is 100 is higher then 91' ]
+  StrategieOverratedByPercentAndStochastic 100 91 1 1 1 1 1 0 "5.61" "1.01" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedByPercentAndStochastic" == '' ]
 
   resultStrategieOverratedByPercentAndStochastic=""
-  StrategieOverratedByPercentAndStochastic 100 91 1 1 1 1 1 1 "5.61" "1.01" "4.44" "4.28" "4.03" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedByPercentAndStochastic" == 'Sell: High Percentage & Stochastic (P): 5.61€ is 1.01 over Avg18 4.44€ and Avg38 4.28€ and Avg95 4.03€ and Stoch14 is 100 is higher then 91' ]
+  StrategieOverratedByPercentAndStochastic 100 91 1 1 1 1 1 1 "5.61" "1.01" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedByPercentAndStochastic" == 'Sell: High Percentage & Stochastic (P): 5.61€ is 1.01 over Avg18 > Avg38 > Avg95 and Stoch14 100 over level' ]
 }
