@@ -435,12 +435,12 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieOverratedHighStochasticHighRSIHighMACD 91 70 92 71 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
-  StrategieOverratedHighStochasticHighRSIHighMACD 91 70 92 71 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic & RSI & MACD+ (C): Stochastic quote 92 over 91 and RSI quote 71 over 70' ]
+  StrategieOverratedHighStochasticHighRSIHighMACD 91 70 92 71 "0" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic & RSI & MACD+ (C): Stochastic 92 over level and RSI 71 over level' ]
 
   resultStrategieOverratedHighStochasticHighRSIHighMACD=""
   StrategieOverratedHighStochasticHighRSIHighMACD 91 70 92 71 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic & RSI & MACD+ (C): Stochastic quote 92 over 91 and RSI quote 71 over 70' ]  
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic & RSI & MACD+ (C): Stochastic 92 over level and RSI 71 over level' ]  
 }
 
 @test "StrategieUnderratedLowStochasticLowRSILowMACD" {
@@ -467,12 +467,12 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieUnderratedLowStochasticLowRSILowMACD 9 90 0 5 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
   [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
-  StrategieUnderratedLowStochasticLowRSILowMACD 9 90 0 5 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic & RSI & MACD- (C): Stochastic quote 0 under 9 and RSI quote 5 under 90' ]
+  StrategieUnderratedLowStochasticLowRSILowMACD 9 90 0 5 "0" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
   resultStrategieUnderratedLowStochasticLowRSILowMACD=""
   StrategieUnderratedLowStochasticLowRSILowMACD 9 90 0 5 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic & RSI & MACD- (C): Stochastic quote 0 under 9 and RSI quote 5 under 90' ]
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic & RSI & MACD- (C): Stochastic 0 under level and RSI 5 under level' ]
 }
 
 @test "StrategieUnderratedByPercentAndStoch" {

@@ -665,7 +665,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
         if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -gt "$_highRSIQuoteParam" ] && [ ! "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C-$alarmAbbrevValue
             reasonPrefix="Sell: High Stochastic & RSI & MACD+ (C)"
-            resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam over $_highStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam over $_highRSIQuoteParam"    
+            resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam over level and RSI $_lastRSIQuoteRoundedParam over level"
             echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"                       
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"
         fi
@@ -694,7 +694,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
         if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C+$alarmAbbrevValue
             reasonPrefix="Buy: Low Stochastic & RSI & MACD- (C)"
-            resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic quote $_lastStochasticQuoteRoundedParam under $_lowStochasticValueParam and RSI quote $_lastRSIQuoteRoundedParam under $_lowRSIQuoteParam"
+            resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam under level and RSI $_lastRSIQuoteRoundedParam under level"
             echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"                       
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"             
         fi
