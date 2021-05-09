@@ -23,7 +23,7 @@ Alerts via email.
 ## Run CMD CLI
 ./analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
 
-./analyse.sh 'BEI' 1 online 9 30
+./analyse.sh 'BEI' 1 online 9 25
 
 ./analyse.sh 'BEI ALV BAS' 2 offline 9 30
 
@@ -41,7 +41,7 @@ https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.w
 
 
 ## cURL
-./curl_github_dispatch_analyse.sh "BEI ALV" 1 offline 9 30
+./curl_github_dispatch_analyse.sh "BEI ALV" 1 offline 9 25
 
 or Example cURL
 
