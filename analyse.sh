@@ -458,8 +458,16 @@ do
             echo "Date:<b style=\"color:orange; font-size:xx-large;\">$quoteDate</b>"
         fi
         echo "&nbsp;<span style=\"color:rgb(0, 0, 0);\">Price:<b>""$last""€</b></span>" 
+        percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
+        percentLastDay=$(printf "%.2f" "$percentLastDay")
+        isNegativ=$(echo "$percentLastDay" | awk '{print substr ($0, 0, 1)}')
+        _linkColor="$GREEN"
+        if [ "$isNegativ" = '-' ]; then
+            _linkColor="$RED"
+        fi
+        echo "&nbsp;<span style=\"color:$_linkColor\">Percent:<b>""$percentLastDay""%</b></span>" 
         echo "&nbsp;<span style=\"color:rgb(153, 102, 255);\">Avg18:<b>""$average18""€</b></span>"
-        echo "&nbsp;<span style=\"color:rgb(255, 99, 132);\">Avg38:<b>""$average38""€</b></span>"
+        echo "&nbsp;<span style=\"color:rgb(205, 99, 132);\">Avg38:<b>""$average38""€</b></span>"
         echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Avg95:<b>""$average95""€</b></span>"
         echo "&nbsp;<span style=\"color:rgb(75, 192, 192);\">Tendency:<b>""$tendency""</b></span>"
         echo "&nbsp;<span style=\"color:rgb(255, 159, 64);\">Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
