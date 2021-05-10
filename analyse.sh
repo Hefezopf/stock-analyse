@@ -608,8 +608,9 @@ do
                     intervalVar$symbol=undefined;
                 }
                 function setBeepInterval$symbol() {
-                    intervalVar$symbol = setInterval(beep$symbol, (document.getElementById(\"intervalField$symbol\").value)*60*1000); //60*1000
-                    document.getElementById(\"intervalText$symbol\").innerHTML = intervalVar$symbol;
+                    var intervalValue = document.getElementById(\"intervalField$symbol\").value;
+                    intervalVar$symbol = setInterval(beep$symbol, intervalValue*60*1000); //60*1000
+                    document.getElementById(\"intervalText$symbol\").innerHTML = intervalValue;
                 }
                 document.getElementById(\"intervalButton$symbol\").addEventListener(\"click\", setBeepInterval$symbol);
             </script>"
