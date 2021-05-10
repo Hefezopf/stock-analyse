@@ -92,7 +92,7 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
         revealElement(ele);
     }
     function replaceInString(str){
-        var ret = str.replace(/X/g, \"pc \");
+        var ret = str.replace(/X/g, \" pc \");
         var ret = ret.replace(/Y/g, \"€ \");
         return ret.replace(/Z/g, \"% \");
     }    
