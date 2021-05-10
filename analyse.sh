@@ -634,7 +634,7 @@ do
             echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGain</span></div>"
   
             # Image Chart
-            echo "<img width=\"60%\" id=\"intervalSectionTheImage$symbol\"></img><br>
+            echo "<img width=\"60%\" id=\"intervalSectionTheImage$symbol\" style=\"display: none\"></img><br>
                   <button id=\"intervalSectionButton1D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">Chart1D</button>
                   <button id=\"intervalSectionButton5D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">Chart5D</button>
                   <button id=\"intervalSectionButton10D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">Chart10D</button>
