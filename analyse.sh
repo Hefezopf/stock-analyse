@@ -602,7 +602,9 @@ do
             echo "<script>
                 var intervalVar$symbol;
                 function beep$symbol() {
-                    document.getElementById(\"intervalText$symbol\").innerHTML = \"EXPIRED\";
+                    var element = document.getElementById(\"intervalText$symbol\");
+                    element.innerHTML = \"ALERT\";
+                    element.style.color = 'red';
                     //snd.muted = false; // for IOS? Has no effect!
                     snd.play();
                     clearInterval(intervalVar$symbol);
@@ -611,7 +613,9 @@ do
                 function setBeepInterval$symbol() {
                     var intervalValue = document.getElementById(\"intervalField$symbol\").value;
                     intervalVar$symbol = setInterval(beep$symbol, intervalValue*60*1000); //60*1000
-                    document.getElementById(\"intervalText$symbol\").innerHTML = intervalValue;
+                    var element = document.getElementById(\"intervalText$symbol\");
+                    element.innerHTML = '...'+intervalValue;
+                    element.style.color = 'green';
                 }
                 document.getElementById(\"intervalButton$symbol\").addEventListener(\"click\", setBeepInterval$symbol);
             </script>"
