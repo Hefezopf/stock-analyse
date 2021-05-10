@@ -634,20 +634,29 @@ do
             echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGain</span></div>"
   
             # Image Chart
-            echo "<button id=\"intervalSectionButton$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol()\">Chart</button><img width=\"70%\" id=\"theImage$symbol\"></img><br>"
+            echo "<button id=\"intervalSectionButton1D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">Chart1D</button>
+                  <button id=\"intervalSectionButton5D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">Chart5D</button>
+                  <button id=\"intervalSectionButton10D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">Chart10D</button>
+                  <br>
+                  <img width=\"60%\" id=\"theImage$symbol\"></img><br>"
             echo "<script>
                 var image$symbol = new Image();
-                var imageUrl$symbol = \"https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&AXIS_SCALE=lin&DATA_SCALE=abs&HEIGHT=655&IND0=RSI&LCOLORS=5F696E&SHOWHL=1&TIME_SPAN=1D&TO=1620638529&TYPE=MOUNTAIN&WIDTH=645&WITH_EARNINGS=1&LNOTATIONS=$ID_NOTATION\";
-                image$symbol.src = imageUrl$symbol;
-                function updateImage$symbol()
+                // TIME_SPAN=5D // TIME_SPAN=1D
+                var TIME_SPAN$symbol;
+                var imageUrl$symbol = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION';
+                function updateImage$symbol(timespan)
                 {
+                    if(timespan !== undefined) {
+                        TIME_SPAN$symbol=timespan;
+                    }
                     if(image$symbol.complete) {
-                        document.getElementById(\"theImage$symbol\").src = image$symbol.src;
+                        var urlWithTimeSpan = imageUrl$symbol+'&TIME_SPAN='+TIME_SPAN$symbol;
+                        document.getElementById(\"theImage$symbol\").src = urlWithTimeSpan;
                         image$symbol = new Image();
-                        image$symbol.src = imageUrl$symbol;
-
-                        document.getElementById(\"intervalSectionButton$symbol\").style.display = 'none';
-
+                        image$symbol.src = urlWithTimeSpan;
+                        // document.getElementById(\"intervalSectionButton1D$symbol\").style.display = 'none';
+                        // document.getElementById(\"intervalSectionButton5D$symbol\").style.display = 'none';
+                        // document.getElementById(\"intervalSectionButton10D$symbol\").style.display = 'none';
                     }
                     setTimeout(updateImage$symbol, 5*60*1000); // 5 Minutes // 5*60*1000
                 }
