@@ -613,7 +613,7 @@ do
                 var intervalVar$symbol;
                 function beep$symbol() {
                     var element = document.getElementById(\"intervalText$symbol\");
-                    element.innerHTML = \"ALERT\";
+                    element.innerHTML = \" ALERT!!!\";
                     element.style.color = 'red';
                     snd.play();
                     clearInterval(intervalVar$symbol);
@@ -623,7 +623,7 @@ do
                     var intervalValue = document.getElementById(\"intervalField$symbol\").value;
                     intervalVar$symbol = setInterval(beep$symbol, intervalValue*60*1000); //60*1000
                     var element = document.getElementById(\"intervalText$symbol\");
-                    element.innerHTML = '...'+intervalValue;
+                    element.innerHTML = ' ...'+intervalValue;
                     element.style.color = 'green';
                 }
                 document.getElementById(\"intervalButton$symbol\").addEventListener(\"click\", setBeepInterval$symbol);
@@ -634,11 +634,11 @@ do
             echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGain</span></div>"
   
             # Image Chart
-            echo "<button id=\"intervalSectionButton1D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">Chart1D</button>
+            echo "<img width=\"60%\" id=\"theImage$symbol\"></img><br>
+                  <button id=\"intervalSectionButton1D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">Chart1D</button>
                   <button id=\"intervalSectionButton5D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">Chart5D</button>
                   <button id=\"intervalSectionButton10D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">Chart10D</button>
-                  <br>
-                  <img width=\"60%\" id=\"theImage$symbol\"></img><br>"
+                  <hr id=\"obfuscatedValueHR\" style=\"display: none\">"
             echo "<script>
                 var image$symbol = new Image();
                 // TIME_SPAN=5D // TIME_SPAN=1D
