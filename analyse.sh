@@ -74,7 +74,7 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
     document.getElementsByTagName('body')[0].ondblclick = revealAll;
     function revealAll(ele) { 
         if (toggleIsVisible === false) {
-            intervalValues = document.querySelectorAll('[id ^= \"intervallSection\"]');
+            intervalValues = document.querySelectorAll('[id ^= \"intervalSection\"]');
             Array.prototype.forEach.call(intervalValues, revealElement);
             obfuscatedValues = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
             Array.prototype.forEach.call(obfuscatedValues, revealAndDecryptElement);
@@ -597,15 +597,24 @@ do
         obfuscatedValueFirst="$stocksPieces"X"$stocksBuyingValue"/"$stocksCurrentValue"Y
         obfuscatedValueFirst=$(echo "$obfuscatedValueFirst" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
 
-        {
-            echo "<span id=\"intervallSection$symbol\" style=\"display: none;\"><input name=\"intervalField$symbol\" type=\"text\" maxlength=\"7\" value=\"1\" id=\"intervalField$symbol\"/><button type=\"button\" id=\"intervalButton$symbol\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
+        obfuscatedValueGain=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print $1 - $2}')
+        obfuscatedValueGain="$stocksPerformance"Z"$obfuscatedValueGain"Y
+        obfuscatedValueGain=$(echo "$obfuscatedValueGain" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
+        isNegativ=$(echo "$stocksPerformance" | awk '{print substr ($0, 0, 1)}')
+        _linkColor="$GREEN"
+        if [ "$isNegativ" = '-' ]; then
+            _linkColor="$RED"
+        fi
+
+        {    
+            # Interval Beep
+            echo "<span id=\"intervalSection$symbol\" style=\"display: none\"><input name=\"intervalField$symbol\" type=\"text\" maxlength=\"7\" value=\"1\" id=\"intervalField$symbol\"/><button type=\"button\" id=\"intervalButton$symbol\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
             echo "<script>
                 var intervalVar$symbol;
                 function beep$symbol() {
                     var element = document.getElementById(\"intervalText$symbol\");
                     element.innerHTML = \"ALERT\";
                     element.style.color = 'red';
-                    //snd.muted = false; // for IOS? Has no effect!
                     snd.play();
                     clearInterval(intervalVar$symbol);
                     intervalVar$symbol=undefined;
@@ -619,19 +628,31 @@ do
                 }
                 document.getElementById(\"intervalButton$symbol\").addEventListener(\"click\", setBeepInterval$symbol);
             </script>"
-            
-            echo "<div style=\"font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style=\"display: none;\">$obfuscatedValueFirst</span>&nbsp;"
-        } >> $OUT_RESULT_FILE
 
-        obfuscatedValueGain=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print $1 - $2}')
-        obfuscatedValueGain="$stocksPerformance"Z"$obfuscatedValueGain"Y
-        obfuscatedValueGain=$(echo "$obfuscatedValueGain" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-        isNegativ=$(echo "$stocksPerformance" | awk '{print substr ($0, 0, 1)}')
-        _linkColor="$GREEN"
-        if [ "$isNegativ" = '-' ]; then
-            _linkColor="$RED"
-        fi
-        echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGain</span></div>" >> $OUT_RESULT_FILE
+            # ObfuscatedValue
+            echo "<div style=\"font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style=\"display: none;\">$obfuscatedValueFirst</span>&nbsp;"
+            echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGain</span></div>"
+  
+            # Image Chart
+            echo "<button id=\"intervalSectionButton$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol()\">Chart</button><img width=\"70%\" id=\"theImage$symbol\"></img><br>"
+            echo "<script>
+                var image$symbol = new Image();
+                var imageUrl$symbol = \"https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&AXIS_SCALE=lin&DATA_SCALE=abs&HEIGHT=655&IND0=RSI&LCOLORS=5F696E&SHOWHL=1&TIME_SPAN=1D&TO=1620638529&TYPE=MOUNTAIN&WIDTH=645&WITH_EARNINGS=1&LNOTATIONS=$ID_NOTATION\";
+                image$symbol.src = imageUrl$symbol;
+                function updateImage$symbol()
+                {
+                    if(image$symbol.complete) {
+                        document.getElementById(\"theImage$symbol\").src = image$symbol.src;
+                        image$symbol = new Image();
+                        image$symbol.src = imageUrl$symbol;
+
+                        document.getElementById(\"intervalSectionButton$symbol\").style.display = 'none';
+
+                    }
+                    setTimeout(updateImage$symbol, 5*60*1000); // 5 Minutes // 5*60*1000
+                }
+            </script>"
+        } >> $OUT_RESULT_FILE
 
         # Collect Values for Overall
         obfuscatedValueBuyingOverall=$(echo "$obfuscatedValueBuyingOverall $stocksBuyingValue" | awk '{print $1 + $2}')
