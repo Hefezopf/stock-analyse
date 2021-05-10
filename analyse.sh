@@ -603,6 +603,7 @@ do
                 var intervalVar$symbol;
                 function beep$symbol() {
                     document.getElementById(\"intervalText$symbol\").innerHTML = \"EXPIRED\";
+                    snd.muted = false; // for IOS
                     snd.play();
                     clearInterval(intervalVar$symbol);
                     intervalVar$symbol=undefined;
