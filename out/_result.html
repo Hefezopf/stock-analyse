@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" type="image/ico" href="favicon.ico" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}</style></head><body><div style="font-size: large;">
 # Parameter
 <br>
-Symbols(15):*VNA *QIA *CCAP *FIE *INL *SAE *MUV2 *NFC *DXSN *XONA *GEC *FTE *TNE5 *CRIN *DBK
+Symbols(15):*INL *CCAP *QIA *VNA *FIE *SAE *MUV2 *NFC *DXSN *XONA *GEC *FTE *TNE5 *CRIN *DBK 
 <br>
 Percentage:1 
 <br>
@@ -12,119 +12,59 @@ Stochastic:9
 RSI:25
 <br><br># Analyse
 <br>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">*VNA "Vonovia"</a>
-<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">5Y</a>
-<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VNA.html" target="_blank">SA</a>
-<a href="D:/code/stock-analyse/out/VNA.html" target="_blank">PC</a>
-<br>Buy: Low 6 last Stochastic (S)
-<br>Buy: Low 3 last RSI (R)
-<br>Buy: Low Stochastic & RSI & MACD- (C)
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337162" target="_blank">*INL "Intel Corp"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337162" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/INL.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/INL.html" target="_blank">PC</a>
+<br>Buy: Low 7 last RSI (R)
 <br>
-<span id="intervalSectionVNA" style="display: none"><input name="intervalFieldVNA" type="text" maxlength="7" value="1" id="intervalFieldVNA"/><button type="button" id="intervalButtonVNA">Minutes</button><span id="intervalTextVNA"></span></span>
+<span id="intervalSectionINL" style="display: none"><input name="intervalFieldINL" type="text" maxlength="7" value="1" id="intervalFieldINL"/><button type="button" id="intervalButtonINL">Minutes</button><span id="intervalTextINL"></span></span>
 <script>
-var intervalVarVNA;
-function beepVNA() {
-var element = document.getElementById("intervalTextVNA");
+var intervalVarINL;
+function beepINL() {
+var element = document.getElementById("intervalTextINL");
 element.innerHTML = "ALERT";
 element.style.color = 'red';
 snd.play();
-clearInterval(intervalVarVNA);
-intervalVarVNA=undefined;
+clearInterval(intervalVarINL);
+intervalVarINL=undefined;
 }
-function setBeepIntervalVNA() {
-var intervalValue = document.getElementById("intervalFieldVNA").value;
-intervalVarVNA = setInterval(beepVNA, intervalValue*60*1000); //60*1000
-var element = document.getElementById("intervalTextVNA");
+function setBeepIntervalINL() {
+var intervalValue = document.getElementById("intervalFieldINL").value;
+intervalVarINL = setInterval(beepINL, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextINL");
 element.innerHTML = '...'+intervalValue;
 element.style.color = 'green';
 }
-document.getElementById("intervalButtonVNA").addEventListener("click", setBeepIntervalVNA);
+document.getElementById("intervalButtonINL").addEventListener("click", setBeepIntervalINL);
 </script>
-<div style="font-size: large"><span id="obfuscatedValueFirstVNA" style="display: none;">Y1445/9345X501</span>&nbsp;
-<span id="obfuscatedValueGainVNA" style="display: none;color:green">Y2Z0.0</span></div>
-<button id="intervalSectionButton1DVNA" style="display: none" type="button" onClick="javascript:updateImageVNA('1D')">Chart1D</button>
-<button id="intervalSectionButton5DVNA" style="display: none" type="button" onClick="javascript:updateImageVNA('5D')">Chart5D</button>
-<button id="intervalSectionButton10DVNA" style="display: none" type="button" onClick="javascript:updateImageVNA('10D')">Chart10D</button>
+<div style="font-size: large"><span id="obfuscatedValueFirstINL" style="display: none;">Y09463/88563X077</span>&nbsp;
+<span id="obfuscatedValueGainINL" style="display: none;color:red">Y89-Z3.0-</span></div>
+<button id="intervalSectionButton1DINL" style="display: none" type="button" onClick="javascript:updateImageINL('1D')">Chart1D</button>
+<button id="intervalSectionButton5DINL" style="display: none" type="button" onClick="javascript:updateImageINL('5D')">Chart5D</button>
+<button id="intervalSectionButton10DINL" style="display: none" type="button" onClick="javascript:updateImageINL('10D')">Chart10D</button>
 <br>
-<img width="60%" id="theImageVNA"></img><br>
+<img width="60%" id="theImageINL"></img><br>
 <script>
-var imageVNA = new Image();
+var imageINL = new Image();
 // TIME_SPAN=5D // TIME_SPAN=1D
-var TIME_SPANVNA;
-var imageUrlVNA = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=89777125';
-function updateImageVNA(timespan)
+var TIME_SPANINL;
+var imageUrlINL = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337162';
+function updateImageINL(timespan)
 {
 if(timespan !== undefined) {
-TIME_SPANVNA=timespan;
+TIME_SPANINL=timespan;
 }
-if(imageVNA.complete) {
-var urlWithTimeSpan = imageUrlVNA+'&TIME_SPAN='+TIME_SPANVNA;
-document.getElementById("theImageVNA").src = urlWithTimeSpan;
-imageVNA = new Image();
-imageVNA.src = urlWithTimeSpan;
-// document.getElementById("intervalSectionButton1DVNA").style.display = 'none';
-// document.getElementById("intervalSectionButton5DVNA").style.display = 'none';
-// document.getElementById("intervalSectionButton10DVNA").style.display = 'none';
+if(imageINL.complete) {
+var urlWithTimeSpan = imageUrlINL+'&TIME_SPAN='+TIME_SPANINL;
+document.getElementById("theImageINL").src = urlWithTimeSpan;
+imageINL = new Image();
+imageINL.src = urlWithTimeSpan;
+// document.getElementById("intervalSectionButton1DINL").style.display = 'none';
+// document.getElementById("intervalSectionButton5DINL").style.display = 'none';
+// document.getElementById("intervalSectionButton10DINL").style.display = 'none';
 }
-setTimeout(updateImageVNA, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<br>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">*QIA "QIAGEN"</a>
-<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">5Y</a>
-<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/QIA.html" target="_blank">SA</a>
-<a href="D:/code/stock-analyse/out/QIA.html" target="_blank">PC</a>
-<br>Buy: Low 6 last Stochastic (S)
-<br>Buy: Low 6 last RSI (R)
-<br>Buy: Low Stochastic & RSI & MACD- (C)
-<br>
-<span id="intervalSectionQIA" style="display: none"><input name="intervalFieldQIA" type="text" maxlength="7" value="1" id="intervalFieldQIA"/><button type="button" id="intervalButtonQIA">Minutes</button><span id="intervalTextQIA"></span></span>
-<script>
-var intervalVarQIA;
-function beepQIA() {
-var element = document.getElementById("intervalTextQIA");
-element.innerHTML = "ALERT";
-element.style.color = 'red';
-snd.play();
-clearInterval(intervalVarQIA);
-intervalVarQIA=undefined;
-}
-function setBeepIntervalQIA() {
-var intervalValue = document.getElementById("intervalFieldQIA").value;
-intervalVarQIA = setInterval(beepQIA, intervalValue*60*1000); //60*1000
-var element = document.getElementById("intervalTextQIA");
-element.innerHTML = '...'+intervalValue;
-element.style.color = 'green';
-}
-document.getElementById("intervalButtonQIA").addEventListener("click", setBeepIntervalQIA);
-</script>
-<div style="font-size: large"><span id="obfuscatedValueFirstQIA" style="display: none;">Y80951/52951X004</span>&nbsp;
-<span id="obfuscatedValueGainQIA" style="display: none;color:red">Y71-Z1.0-</span></div>
-<button id="intervalSectionButton1DQIA" style="display: none" type="button" onClick="javascript:updateImageQIA('1D')">Chart1D</button>
-<button id="intervalSectionButton5DQIA" style="display: none" type="button" onClick="javascript:updateImageQIA('5D')">Chart5D</button>
-<button id="intervalSectionButton10DQIA" style="display: none" type="button" onClick="javascript:updateImageQIA('10D')">Chart10D</button>
-<br>
-<img width="60%" id="theImageQIA"></img><br>
-<script>
-var imageQIA = new Image();
-// TIME_SPAN=5D // TIME_SPAN=1D
-var TIME_SPANQIA;
-var imageUrlQIA = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337229';
-function updateImageQIA(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANQIA=timespan;
-}
-if(imageQIA.complete) {
-var urlWithTimeSpan = imageUrlQIA+'&TIME_SPAN='+TIME_SPANQIA;
-document.getElementById("theImageQIA").src = urlWithTimeSpan;
-imageQIA = new Image();
-imageQIA.src = urlWithTimeSpan;
-// document.getElementById("intervalSectionButton1DQIA").style.display = 'none';
-// document.getElementById("intervalSectionButton5DQIA").style.display = 'none';
-// document.getElementById("intervalSectionButton10DQIA").style.display = 'none';
-}
-setTimeout(updateImageQIA, 5*60*1000); // 5 Minutes // 5*60*1000
+setTimeout(updateImageINL, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <br>
@@ -188,6 +128,122 @@ setTimeout(updateImageCCAP, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">*QIA "QIAGEN"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/QIA.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/QIA.html" target="_blank">PC</a>
+<br>Buy: Low 6 last Stochastic (S)
+<br>Buy: Low 6 last RSI (R)
+<br>Buy: Low Stochastic & RSI & MACD- (C)
+<br>
+<span id="intervalSectionQIA" style="display: none"><input name="intervalFieldQIA" type="text" maxlength="7" value="1" id="intervalFieldQIA"/><button type="button" id="intervalButtonQIA">Minutes</button><span id="intervalTextQIA"></span></span>
+<script>
+var intervalVarQIA;
+function beepQIA() {
+var element = document.getElementById("intervalTextQIA");
+element.innerHTML = "ALERT";
+element.style.color = 'red';
+snd.play();
+clearInterval(intervalVarQIA);
+intervalVarQIA=undefined;
+}
+function setBeepIntervalQIA() {
+var intervalValue = document.getElementById("intervalFieldQIA").value;
+intervalVarQIA = setInterval(beepQIA, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextQIA");
+element.innerHTML = '...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonQIA").addEventListener("click", setBeepIntervalQIA);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstQIA" style="display: none;">Y80951/52951X004</span>&nbsp;
+<span id="obfuscatedValueGainQIA" style="display: none;color:red">Y71-Z1.0-</span></div>
+<button id="intervalSectionButton1DQIA" style="display: none" type="button" onClick="javascript:updateImageQIA('1D')">Chart1D</button>
+<button id="intervalSectionButton5DQIA" style="display: none" type="button" onClick="javascript:updateImageQIA('5D')">Chart5D</button>
+<button id="intervalSectionButton10DQIA" style="display: none" type="button" onClick="javascript:updateImageQIA('10D')">Chart10D</button>
+<br>
+<img width="60%" id="theImageQIA"></img><br>
+<script>
+var imageQIA = new Image();
+// TIME_SPAN=5D // TIME_SPAN=1D
+var TIME_SPANQIA;
+var imageUrlQIA = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337229';
+function updateImageQIA(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANQIA=timespan;
+}
+if(imageQIA.complete) {
+var urlWithTimeSpan = imageUrlQIA+'&TIME_SPAN='+TIME_SPANQIA;
+document.getElementById("theImageQIA").src = urlWithTimeSpan;
+imageQIA = new Image();
+imageQIA.src = urlWithTimeSpan;
+// document.getElementById("intervalSectionButton1DQIA").style.display = 'none';
+// document.getElementById("intervalSectionButton5DQIA").style.display = 'none';
+// document.getElementById("intervalSectionButton10DQIA").style.display = 'none';
+}
+setTimeout(updateImageQIA, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">*VNA "Vonovia"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VNA.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/VNA.html" target="_blank">PC</a>
+<br>Buy: Low 6 last Stochastic (S)
+<br>Buy: Low 3 last RSI (R)
+<br>Buy: Low Stochastic & RSI & MACD- (C)
+<br>
+<span id="intervalSectionVNA" style="display: none"><input name="intervalFieldVNA" type="text" maxlength="7" value="1" id="intervalFieldVNA"/><button type="button" id="intervalButtonVNA">Minutes</button><span id="intervalTextVNA"></span></span>
+<script>
+var intervalVarVNA;
+function beepVNA() {
+var element = document.getElementById("intervalTextVNA");
+element.innerHTML = "ALERT";
+element.style.color = 'red';
+snd.play();
+clearInterval(intervalVarVNA);
+intervalVarVNA=undefined;
+}
+function setBeepIntervalVNA() {
+var intervalValue = document.getElementById("intervalFieldVNA").value;
+intervalVarVNA = setInterval(beepVNA, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextVNA");
+element.innerHTML = '...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonVNA").addEventListener("click", setBeepIntervalVNA);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstVNA" style="display: none;">Y1445/9345X501</span>&nbsp;
+<span id="obfuscatedValueGainVNA" style="display: none;color:green">Y2Z0.0</span></div>
+<button id="intervalSectionButton1DVNA" style="display: none" type="button" onClick="javascript:updateImageVNA('1D')">Chart1D</button>
+<button id="intervalSectionButton5DVNA" style="display: none" type="button" onClick="javascript:updateImageVNA('5D')">Chart5D</button>
+<button id="intervalSectionButton10DVNA" style="display: none" type="button" onClick="javascript:updateImageVNA('10D')">Chart10D</button>
+<br>
+<img width="60%" id="theImageVNA"></img><br>
+<script>
+var imageVNA = new Image();
+// TIME_SPAN=5D // TIME_SPAN=1D
+var TIME_SPANVNA;
+var imageUrlVNA = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=89777125';
+function updateImageVNA(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANVNA=timespan;
+}
+if(imageVNA.complete) {
+var urlWithTimeSpan = imageUrlVNA+'&TIME_SPAN='+TIME_SPANVNA;
+document.getElementById("theImageVNA").src = urlWithTimeSpan;
+imageVNA = new Image();
+imageVNA.src = urlWithTimeSpan;
+// document.getElementById("intervalSectionButton1DVNA").style.display = 'none';
+// document.getElementById("intervalSectionButton5DVNA").style.display = 'none';
+// document.getElementById("intervalSectionButton10DVNA").style.display = 'none';
+}
+setTimeout(updateImageVNA, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336913" target="_blank">*FIE "FIELMANN"</a>
 <a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336913" target="_blank">5Y</a>
 <a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FIE.html" target="_blank">SA</a>
@@ -240,62 +296,6 @@ imageFIE.src = urlWithTimeSpan;
 // document.getElementById("intervalSectionButton10DFIE").style.display = 'none';
 }
 setTimeout(updateImageFIE, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<br>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337162" target="_blank">*INL "Intel Corp"</a>
-<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337162" target="_blank">5Y</a>
-<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/INL.html" target="_blank">SA</a>
-<a href="D:/code/stock-analyse/out/INL.html" target="_blank">PC</a>
-<br>Buy: Low 7 last RSI (R)
-<br>
-<span id="intervalSectionINL" style="display: none"><input name="intervalFieldINL" type="text" maxlength="7" value="1" id="intervalFieldINL"/><button type="button" id="intervalButtonINL">Minutes</button><span id="intervalTextINL"></span></span>
-<script>
-var intervalVarINL;
-function beepINL() {
-var element = document.getElementById("intervalTextINL");
-element.innerHTML = "ALERT";
-element.style.color = 'red';
-snd.play();
-clearInterval(intervalVarINL);
-intervalVarINL=undefined;
-}
-function setBeepIntervalINL() {
-var intervalValue = document.getElementById("intervalFieldINL").value;
-intervalVarINL = setInterval(beepINL, intervalValue*60*1000); //60*1000
-var element = document.getElementById("intervalTextINL");
-element.innerHTML = '...'+intervalValue;
-element.style.color = 'green';
-}
-document.getElementById("intervalButtonINL").addEventListener("click", setBeepIntervalINL);
-</script>
-<div style="font-size: large"><span id="obfuscatedValueFirstINL" style="display: none;">Y15713/05913X076</span>&nbsp;
-<span id="obfuscatedValueGainINL" style="display: none;color:red">Y991-Z6.0-</span></div>
-<button id="intervalSectionButton1DINL" style="display: none" type="button" onClick="javascript:updateImageINL('1D')">Chart1D</button>
-<button id="intervalSectionButton5DINL" style="display: none" type="button" onClick="javascript:updateImageINL('5D')">Chart5D</button>
-<button id="intervalSectionButton10DINL" style="display: none" type="button" onClick="javascript:updateImageINL('10D')">Chart10D</button>
-<br>
-<img width="60%" id="theImageINL"></img><br>
-<script>
-var imageINL = new Image();
-// TIME_SPAN=5D // TIME_SPAN=1D
-var TIME_SPANINL;
-var imageUrlINL = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337162';
-function updateImageINL(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANINL=timespan;
-}
-if(imageINL.complete) {
-var urlWithTimeSpan = imageUrlINL+'&TIME_SPAN='+TIME_SPANINL;
-document.getElementById("theImageINL").src = urlWithTimeSpan;
-imageINL = new Image();
-imageINL.src = urlWithTimeSpan;
-// document.getElementById("intervalSectionButton1DINL").style.display = 'none';
-// document.getElementById("intervalSectionButton5DINL").style.display = 'none';
-// document.getElementById("intervalSectionButton10DINL").style.display = 'none';
-}
-setTimeout(updateImageINL, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <br>
@@ -856,10 +856,10 @@ imageDBK.src = urlWithTimeSpan;
 setTimeout(updateImageDBK, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<br><br><div style="font-size: large"># Overall<br><span id="obfuscatedValueBuyingOverall" style="display: none;">Y979338/9041211</span>
-<span id="obfuscatedValueGainOverall" style="display: none;color:red">Y034782-Z6.52-</span></div>
+<br><br><div style="font-size: large"># Overall<br><span id="obfuscatedValueBuyingOverall" style="display: none;">Y817838/7406211</span>
+<span id="obfuscatedValueGainOverall" style="display: none;color:red">Y923782-Z5.52-</span></div>
 <br># Workflow<br><a href="https://github.com/Hefezopf/stock-analyse/actions" target="_blank">Github Action</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 10-May-2021 15:26</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 10-May-2021 16:52</p><br></div>
 <script>
 var snd = new Audio("data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=");
 
