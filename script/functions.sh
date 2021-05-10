@@ -14,10 +14,10 @@ WriteAlarmAbbrevXAxisFile() {
     
     mkdir -p "$_dataDateOutputDir"
     lastDateInDataFile=$(head -n1 "$_dataDateFile" | cut -f 1)
-    beforeDateInDataFile=$(head -n2 "$_dataDateFile" | tail -1 | cut -f 1)
+    beforeLastDateInDataFile=$(head -n2 "$_dataDateFile" | tail -1 | cut -f 1)
     alarmSymbolFile=$_dataDateOutputDir/$_symbolParam.txt
-    alarmSymbolDateFile=$_dataDateOutputDir/$_symbolParam"_"$lastDateInDataFile.txt 
-    alarmSymbolDateBeforeFile=$_dataDateOutputDir/$_symbolParam"_"$beforeDateInDataFile.txt 
+    alarmSymbolLastDateFile=$_dataDateOutputDir/$_symbolParam"_"$lastDateInDataFile.txt 
+    alarmSymbolBeforeLastDateFile=$_dataDateOutputDir/$_symbolParam"_"$beforeLastDateInDataFile.txt 
     
 #echo _newAlarmAbbrevTextParam $_newAlarmAbbrevTextParam    
     #if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
@@ -28,20 +28,20 @@ WriteAlarmAbbrevXAxisFile() {
 
     _newAlarmAbbrevTextParam="$_markerOwnStockParam""$_newAlarmAbbrevTextParam""$lastDay"."$lastMonth"
     
-    if [ ! -f "$alarmSymbolDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
-        if [ -f "$alarmSymbolDateBeforeFile" ]; then # Last datefile exists. Take the last datefile e.g: alarm/BEI_2021-02-08.txt
-            commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolDateBeforeFile")
+    if [ ! -f "$alarmSymbolLastDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
+        if [ -f "$alarmSymbolBeforeLastDateFile" ]; then # Last datefile exists. Take the last datefile e.g: alarm/BEI_2021-02-08.txt
+            commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolBeforeLastDateFile")
             commaListAlarm="$commaListAlarm,'$_newAlarmAbbrevTextParam'"
-            echo "$commaListAlarm" > "$alarmSymbolDateFile"
-            rm -rf "$alarmSymbolDateBeforeFile"
+            echo "$commaListAlarm" > "$alarmSymbolLastDateFile"
+            rm -rf "$alarmSymbolBeforeLastDateFile"
         else # Last datefile File doesn't exists. Create actual datefile from scratch e.g: alarm/BEI_2021-02-09.txt
             rm -rf "$_dataDateOutputDir"/"$_symbolParam"*.txt
             alarmAbbrevTemplate="'14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
             commaListAlarm="$alarmAbbrevTemplate,'$_newAlarmAbbrevTextParam'"
-            echo "$commaListAlarm" > "$alarmSymbolDateFile"
+            echo "$commaListAlarm" > "$alarmSymbolLastDateFile"
         fi
     fi
-    cp -f "$alarmSymbolDateFile" "$alarmSymbolFile" # Copy e.g: alarm/BEI_2021-02-09.txt to alarm/BEI.txt
+    cp -f "$alarmSymbolLastDateFile" "$alarmSymbolFile" # Copy e.g: alarm/BEI_2021-02-09.txt to alarm/BEI.txt
 }
 
 # DetermineTendency function: 
