@@ -643,14 +643,14 @@ do
                 var image$symbol = new Image();
                 // TIME_SPAN=5D // TIME_SPAN=1D
                 var TIME_SPAN$symbol;
-                var imageUrl$symbol = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION';
+                //var imageUrl$symbol = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION';
                 function updateImage$symbol(timespan)
                 {
                     if(timespan !== undefined) {
                         TIME_SPAN$symbol=timespan;
                     }
                     if(image$symbol.complete) {
-                        var urlWithTimeSpan = imageUrl$symbol+'&TIME_SPAN='+TIME_SPAN$symbol;
+                        var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN='+TIME_SPAN$symbol;
                         document.getElementById(\"intervalSectionTheImage$symbol\").src = urlWithTimeSpan;
                         image$symbol = new Image();
                         image$symbol.src = urlWithTimeSpan;
