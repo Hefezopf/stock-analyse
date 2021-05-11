@@ -635,9 +635,13 @@ do
   
             # Image Chart
             echo "<img width=\"60%\" id=\"intervalSectionTheImage$symbol\" style=\"display: none\"></img><br>
-                  <button id=\"intervalSectionButton1D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">Chart1D</button>
-                  <button id=\"intervalSectionButton5D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">Chart5D</button>
-                  <button id=\"intervalSectionButton10D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">Chart10D</button>
+                  <button id=\"intervalSectionButton1D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">1D</button>
+                  <button id=\"intervalSectionButton5D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">5D</button>
+                  <button id=\"intervalSectionButton10D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">10D</button>
+                  <button id=\"intervalSectionButton3M$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('3M')\">3M</button>
+                  <button id=\"intervalSectionButton6M$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('6M')\">6M</button>
+                  <button id=\"intervalSectionButton1Y$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
+                  <button id=\"intervalSectionButton5Y$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
                   <hr id=\"obfuscatedValueHR\" style=\"display: none\">"
             echo "<script>
                 var image$symbol = new Image();
@@ -657,6 +661,10 @@ do
                         // document.getElementById(\"intervalSectionButton1D$symbol\").style.display = 'none';
                         // document.getElementById(\"intervalSectionButton5D$symbol\").style.display = 'none';
                         // document.getElementById(\"intervalSectionButton10D$symbol\").style.display = 'none';
+                        // document.getElementById(\"intervalSectionButton3M$symbol\").style.display = 'none';
+                        // document.getElementById(\"intervalSectionButton6M$symbol\").style.display = 'none';
+                        // document.getElementById(\"intervalSectionButton1Y$symbol\").style.display = 'none';
+                        // document.getElementById(\"intervalSectionButton5Y$symbol\").style.display = 'none';
                     }
                     setTimeout(updateImage$symbol, 5*60*1000); // 5 Minutes // 5*60*1000
                 }
