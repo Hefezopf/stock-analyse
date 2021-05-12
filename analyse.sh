@@ -717,9 +717,24 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
         _linkColor="$RED"
     fi
 fi
+
 {
+    # Overall
     echo "<br><br><div style=\"font-size: large\"># Overall<br><span id=\"obfuscatedValueBuyingOverall\" style=\"display: none\">$obfuscatedValueBuyingSellingOverall</span>"
     echo "<span id=\"obfuscatedValueGainOverall\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGainOverall</span></div>"
+
+    # Open Charts for all owned Symbols
+    echo "<br><button id=\"intervalSectionButton5DAll\" style=\"display: none\" type=\"button\" onClick=\""
+    for ownSymbol in $symbolsParam
+    do
+        if [ "$(echo "$ownSymbol" | cut -b 1-1)" = '*' ]; then
+            ownSymbol=$(echo "$ownSymbol" | cut -b 2-6)
+            echo "javascript:updateImage$ownSymbol('5D');"
+        fi
+    done
+    echo "\">All 5D</button><br>"
+
+    # Workflow        
     echo "<br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a><br>"
     echo "$HTML_RESULT_FILE_END" 
 } >> "$OUT_RESULT_FILE"
