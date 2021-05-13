@@ -71,25 +71,37 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
     var sound=$SOUND; // Only once assigned, for all beeps
 
     var toggleIsVisible = false;
-    document.getElementsByTagName('body')[0].ondblclick = revealAll;
-    function revealAll(ele) { 
+    var toggleDecryptOnlyOnce = false;
+    document.getElementsByTagName('body')[0].ondblclick = processAll;
+    function processAll(ele) { 
+        intervalValues = document.querySelectorAll('[id ^= \"intervalSection\"]');
+        obfuscatedValues = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
         if (toggleIsVisible === false) {
-            intervalValues = document.querySelectorAll('[id ^= \"intervalSection\"]');
             Array.prototype.forEach.call(intervalValues, revealElement);
-            obfuscatedValues = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
-            Array.prototype.forEach.call(obfuscatedValues, revealAndDecryptElement);
+            Array.prototype.forEach.call(obfuscatedValues, revealElement);
+            if (toggleDecryptOnlyOnce === false) {
+                Array.prototype.forEach.call(obfuscatedValues, decryptElement);
+                toggleDecryptOnlyOnce = true;
+            }
             toggleIsVisible = true;
+        }
+        else {
+            Array.prototype.forEach.call(intervalValues, hideElement);
+            Array.prototype.forEach.call(obfuscatedValues, hideElement);
+            toggleIsVisible = false;
         }
     }
     function revealElement(ele) {
         ele.style.display = '';
-    }    
-    function revealAndDecryptElement(ele) { 
+    } 
+    function hideElement(ele) {
+        ele.style.display = 'none';
+    }          
+    function decryptElement(ele) {
         var dec = document.getElementById(ele.id).innerHTML;
         dec = dec.split(\"\").reverse().join(\"\"); // reverseString
         dec = replaceInString(dec);
         document.getElementById(ele.id).innerHTML = dec;
-        revealElement(ele);
     }
     function replaceInString(str){
         var ret = str.replace(/X/g, \" pc \");
@@ -608,7 +620,7 @@ do
 
         {    
             # Interval Beep
-            echo "<span id=\"intervalSection$symbol\" style=\"display: none\"><input name=\"intervalField$symbol\" type=\"text\" maxlength=\"7\" value=\"1\" id=\"intervalField$symbol\"/><button type=\"button\" id=\"intervalButton$symbol\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
+            echo "<span id=\"intervalSection$symbol\" style='display: none'><input name=\"intervalField$symbol\" type=\"text\" maxlength=\"7\" value=\"1\" id=\"intervalField$symbol\"/><button type=\"button\" id=\"intervalButton$symbol\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
             echo "<script>
                 var intervalVar$symbol;
                 function beep$symbol() {
@@ -630,19 +642,19 @@ do
             </script>"
 
             # ObfuscatedValue
-            echo "<div style=\"font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style=\"display: none\">$obfuscatedValueFirst</span>&nbsp;"
-            echo "<span id=\"obfuscatedValueGain$symbol\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGain</span></div>"
-  
+            echo "<div style=\"font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style='display:none'>$obfuscatedValueFirst</span>&nbsp;"
+            echo "<span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span></div>"
+
             # Image Chart
-            echo "<img width=\"60%\" id=\"intervalSectionTheImage$symbol\" style=\"display: none\"></img><br>
-                  <button id=\"intervalSectionButton1D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">1D</button>
-                  <button id=\"intervalSectionButton5D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">5D</button>
-                  <button id=\"intervalSectionButton10D$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">10D</button>
-                  <button id=\"intervalSectionButton3M$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('3M')\">3M</button>
-                  <button id=\"intervalSectionButton6M$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('6M')\">6M</button>
-                  <button id=\"intervalSectionButton1Y$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
-                  <button id=\"intervalSectionButton5Y$symbol\" style=\"display: none\" type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
-                  <hr id=\"obfuscatedValueHR\" style=\"display: none\">"
+            echo "<img width=\"60%\" id=\"intervalSectionTheImage$symbol\" style='display: none'></img><br>
+                  <button id=\"intervalSectionButton1D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">1D</button>
+                  <button id=\"intervalSectionButton5D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">5D</button>
+                  <button id=\"intervalSectionButton10D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">10D</button>
+                  <button id=\"intervalSectionButton3M$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('3M')\">3M</button>
+                  <button id=\"intervalSectionButton6M$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('6M')\">6M</button>
+                  <button id=\"intervalSectionButton1Y$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
+                  <button id=\"intervalSectionButton5Y$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
+                  <hr id=\"intervalSectionHR$symbol\" style='display: none'>"
             echo "<script>
                 var image$symbol = new Image();
                 var TIME_SPAN$symbol;
@@ -709,8 +721,9 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
     fi
 fi
 {
-    echo "<br><br><div style=\"font-size: large\"># Overall<br><span id=\"obfuscatedValueBuyingOverall\" style=\"display: none\">$obfuscatedValueBuyingSellingOverall</span>"
-    echo "<span id=\"obfuscatedValueGainOverall\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGainOverall</span></div>"
+    echo "<br><br><div style=\"font-size: large\"># Overall<br>"
+    echo "<span id=\"obfuscatedValueBuyingOverall\" style='display:none'>$obfuscatedValueBuyingSellingOverall</span>"
+    echo "<span id=\"obfuscatedValueGainOverall\" style='display:none;color:$_linkColor'>$obfuscatedValueGainOverall</span></div>"
 
     WriteOverallChartsButtons "$symbolsParam" "1D"
     WriteOverallChartsButtons "$symbolsParam" "5D"
