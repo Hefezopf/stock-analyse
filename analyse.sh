@@ -645,9 +645,7 @@ do
                   <hr id=\"obfuscatedValueHR\" style=\"display: none\">"
             echo "<script>
                 var image$symbol = new Image();
-                // TIME_SPAN=5D // TIME_SPAN=1D
                 var TIME_SPAN$symbol;
-                //var imageUrl$symbol = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION';
                 function updateImage$symbol(timespan)
                 {
                     if(timespan !== undefined) {
@@ -658,13 +656,6 @@ do
                         document.getElementById(\"intervalSectionTheImage$symbol\").src = urlWithTimeSpan;
                         image$symbol = new Image();
                         image$symbol.src = urlWithTimeSpan;
-                        // document.getElementById(\"intervalSectionButton1D$symbol\").style.display = 'none';
-                        // document.getElementById(\"intervalSectionButton5D$symbol\").style.display = 'none';
-                        // document.getElementById(\"intervalSectionButton10D$symbol\").style.display = 'none';
-                        // document.getElementById(\"intervalSectionButton3M$symbol\").style.display = 'none';
-                        // document.getElementById(\"intervalSectionButton6M$symbol\").style.display = 'none';
-                        // document.getElementById(\"intervalSectionButton1Y$symbol\").style.display = 'none';
-                        // document.getElementById(\"intervalSectionButton5Y$symbol\").style.display = 'none';
                     }
                     setTimeout(updateImage$symbol, 5*60*1000); // 5 Minutes // 5*60*1000
                 }
@@ -717,25 +708,20 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
         _linkColor="$RED"
     fi
 fi
-
 {
-    # Overall
     echo "<br><br><div style=\"font-size: large\"># Overall<br><span id=\"obfuscatedValueBuyingOverall\" style=\"display: none\">$obfuscatedValueBuyingSellingOverall</span>"
     echo "<span id=\"obfuscatedValueGainOverall\" style=\"display: none;color:$_linkColor\">$obfuscatedValueGainOverall</span></div>"
 
-    # Open Charts for all owned Symbols
-    echo "<br><button id=\"intervalSectionButton5DAll\" style=\"display: none\" type=\"button\" onClick=\""
-    for ownSymbol in $symbolsParam
-    do
-        if [ "$(echo "$ownSymbol" | cut -b 1-1)" = '*' ]; then
-            ownSymbol=$(echo "$ownSymbol" | cut -b 2-6)
-            echo "javascript:updateImage$ownSymbol('5D');"
-        fi
-    done
-    echo "\">All 5D</button><br>"
+    WriteOverallChartsButtons "$symbolsParam" "1D"
+    WriteOverallChartsButtons "$symbolsParam" "5D"
+    WriteOverallChartsButtons "$symbolsParam" "10D"
+    WriteOverallChartsButtons "$symbolsParam" "3M"
+    WriteOverallChartsButtons "$symbolsParam" "6M"
+    WriteOverallChartsButtons "$symbolsParam" "1Y"
+    WriteOverallChartsButtons "$symbolsParam" "5Y"
 
     # Workflow        
-    echo "<br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a><br>"
+    echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a><br>"
     echo "$HTML_RESULT_FILE_END" 
 } >> "$OUT_RESULT_FILE"
 

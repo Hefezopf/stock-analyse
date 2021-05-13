@@ -1,5 +1,24 @@
 #!/bin/sh
 
+# WriteOverallChartsButtons function: 
+# Write javascript to result file
+# Input: ${x}
+# Output: -
+WriteOverallChartsButtons() {
+    _symbolsParam=$1
+    _timeSpan=$2
+
+    echo "<button id=\"intervalSectionButtonAll$_timeSpan\" style=\"display: none\" type=\"button\" onClick=\""
+    for ownSymbol in $_symbolsParam
+    do
+        if [ "$(echo "$ownSymbol" | cut -b 1-1)" = '*' ]; then
+            ownSymbol=$(echo "$ownSymbol" | cut -b 2-6)
+            echo "javascript:updateImage$ownSymbol('$_timeSpan');"
+        fi
+    done
+    echo "\">$_timeSpan</button>" 
+}
+
 # WriteAlarmAbbrevXAxisFile function: 
 # Write the alarm x-axis file into 'alarm' dir. E.g: alarm/BEI.txt
 # Keep history in datefile. E.g: alarm/BEI_2021-02-09.txt
@@ -19,13 +38,8 @@ WriteAlarmAbbrevXAxisFile() {
     alarmSymbolLastDateFile=$_dataDateOutputDir/$_symbolParam"_"$lastDateInDataFile.txt 
     alarmSymbolBeforeLastDateFile=$_dataDateOutputDir/$_symbolParam"_"$beforeLastDateInDataFile.txt 
     
-#echo _newAlarmAbbrevTextParam $_newAlarmAbbrevTextParam    
-    #if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
-        lastDay=$(echo "$lastDateInDataFile" | cut -f 3 -d '-') # 2021-02-16 -> 16
-        lastMonth=$(echo "$lastDateInDataFile" | cut -f 2 -d '-') # 2021-02-16 -> 02
-       # _newAlarmAbbrevTextParam=$(echo "$lastDay"-"$lastMonth")
-    #fi
-
+    lastDay=$(echo "$lastDateInDataFile" | cut -f 3 -d '-') # 2021-02-16 -> 16
+    lastMonth=$(echo "$lastDateInDataFile" | cut -f 2 -d '-') # 2021-02-16 -> 02
     _newAlarmAbbrevTextParam="$_markerOwnStockParam""$_newAlarmAbbrevTextParam""$lastDay"."$lastMonth"
     
     if [ ! -f "$alarmSymbolLastDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
@@ -164,8 +178,8 @@ GreaterThenWithFactor() {
 # Input: ${x}
 # Output: echo
 ProgressBar() {
-    _currentStateParam=${1}
-    _totalStateParam=${2}
+    _currentStateParam=$1
+    _totalStateParam=$2
     
     _progress_="$((_currentStateParam*10000/_totalStateParam))"
     _progress=$((_progress_/100))
