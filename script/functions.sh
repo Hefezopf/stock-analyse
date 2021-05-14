@@ -16,6 +16,7 @@ WriteOverallChartsButtons() {
             echo "javascript:updateImage$ownSymbol('$_timeSpan');"
         fi
     done
+    #echo "javascript:updateImageDAX('$_timeSpan');"
     echo "\">$_timeSpan</button>" 
 }
 

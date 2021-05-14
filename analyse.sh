@@ -725,6 +725,36 @@ fi
     echo "<span id=\"obfuscatedValueBuyingOverall\" style='display:none'>$obfuscatedValueBuyingSellingOverall</span>"
     echo "<span id=\"obfuscatedValueGainOverall\" style='display:none;color:$_linkColor'>$obfuscatedValueGainOverall</span></div>"
 
+    # DAX
+    echo "<br>DAX<br>"
+    echo "<img width=\"60%\" id=\"intervalSectionTheImageDAX\" style='display: none'></img><br>
+        <button id=\"intervalSectionButton1DDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('1D')\">1D</button>
+        <button id=\"intervalSectionButton5DDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('5D')\">5D</button>
+        <button id=\"intervalSectionButton10DDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('10D')\">10D</button>
+        <button id=\"intervalSectionButton3MDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('3M')\">3M</button>
+        <button id=\"intervalSectionButton6MDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('6M')\">6M</button>
+        <button id=\"intervalSectionButton1YDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('1Y')\">1Y</button>
+        <button id=\"intervalSectionButton5YDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('5Y')\">5Y</button>
+        <hr id=\"intervalSectionHRDAX\" style='display: none'>"
+    echo "<script>
+        var imageDAX = new Image();
+        var TIME_SPANDAX;
+        function updateImageDAX(timespan)
+        {
+            if(timespan !== undefined) {
+                TIME_SPANDAX=timespan;
+            }
+            if(imageDAX.complete) {
+                var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=35803356&TIME_SPAN='+TIME_SPANDAX;
+                document.getElementById(\"intervalSectionTheImageDAX\").src = urlWithTimeSpan;
+                imageDAX = new Image();
+                imageDAX.src = urlWithTimeSpan;
+            }
+            setTimeout(updateImageDAX, 5*60*1000); // 5 Minutes // 5*60*1000
+        }
+    </script>"
+    symbolsParam="$symbolsParam *DAX"
+
     WriteOverallChartsButtons "$symbolsParam" "1D"
     WriteOverallChartsButtons "$symbolsParam" "5D"
     WriteOverallChartsButtons "$symbolsParam" "10D"
@@ -742,7 +772,7 @@ fi
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE"
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE"
 
-# Delete readable file
+# Delete decrypted, readable prortfolio file
 rm -rf $OWN_SYMBOLS_FILE
 
 # Time measurement
