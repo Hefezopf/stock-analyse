@@ -58,7 +58,7 @@ OWN_SYMBOLS_FILE=config/own_symbols.txt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 alarmAbbrevValue=""
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
-HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green {color:green;}.red {color:red;}.black {color:black;}.colored {color:blue;}</style></head><body><div style=\"font-size: large\">"
+HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green{color:green;} .red{color:red;} .black{color:black;}</style></head><body><div style=\"font-size: large\">"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
@@ -496,24 +496,24 @@ do
         # Strategies output
 
         # Sell/Buy
-        echo "<p style='margin-top:-14px;color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
         
         # Buy
-        echo "<p style='margin-top:-14px;color:rgb(245, 111, 66)'><b>" "$resultStrategieUnderratedDivergenceRSI" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(54, 162, 235)'><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(205, 205, 0)'><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(255, 159, 64)'><b>" "$resultStrategieUnderratedXLowStochastic" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(255, 205, 86)'><b>" "$resultStrategieUnderratedXLowRSI" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(139, 126, 102)'><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(245, 111, 66)'><b>" "$resultStrategieUnderratedDivergenceRSI" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(54, 162, 235)'><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(255, 159, 64)'><b>" "$resultStrategieUnderratedXLowStochastic" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(255, 205, 86)'><b>" "$resultStrategieUnderratedXLowRSI" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
         
         # Sell
-        echo "<p style='margin-top:-14px;color:rgb(245, 111, 166)'><b>" "$resultStrategieOverratedStochasticWhenOwn" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(245, 111, 66)'><b>" "$resultStrategieOverratedDivergenceRSI" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(54, 162, 235)'><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(205, 205, 0)'><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(255, 159, 64)'><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(255, 205, 86)'><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
-        echo "<p style='margin-top:-14px;color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(245, 111, 166)'><b>" "$resultStrategieOverratedStochasticWhenOwn" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(245, 111, 66)'><b>" "$resultStrategieOverratedDivergenceRSI" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(54, 162, 235)'><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(255, 159, 64)'><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(255, 205, 86)'><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
+        echo "<p class='p_result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
         
         cat template/indexPart1a.html
 
