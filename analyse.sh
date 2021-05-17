@@ -699,7 +699,7 @@ do
     PRE_FIX="100,100,100,100,100,100,100,100,100,100,100,100,100,"
 
     commaPriceList=$(echo "$commaPriceList" | sed -e :a -e 'N;s/\n//g;ta')
-    echo "# Quote oldest,..,newest: 87 Values?" >> "$HISTORY_FILE"
+    echo "# Quote oldest,..,newest" >> "$HISTORY_FILE"
     echo "$PRE_FIX$commaPriceList" >> "$HISTORY_FILE"
     
     # shellcheck disable=SC2001 
