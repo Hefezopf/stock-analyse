@@ -11,7 +11,7 @@
 </head><body><div style="font-size: large">
 # Parameter
 <br>
-Symbols(1):*DBK
+Symbols(15):*INL *NFC *DXSN *VNA *FIE *SAE *QIA *MUV2 *CCAP *XONA *GEC *FTE *TNE5 *CRIN *DBK 
 <br>
 Percentage:1 
 <br>
@@ -21,6 +21,780 @@ Stochastic:9
 <br>
 RSI:25
 <br><br># Analyse
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337162" target="_blank">*INL "Intel Corp"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337162" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/INL.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/INL.html" target="_blank">PC</a>
+<br>Buy: Low 4 last Stochastic (S)
+<br>
+<span id="intervalSectionINL" style='display: none'><input name="intervalFieldINL" type="text" maxlength="7" value="1" id="intervalFieldINL"/><button type="button" id="intervalButtonINL">Minutes</button><span id="intervalTextINL"></span></span>
+<script>
+var intervalVarINL;
+function beepINL() {
+var element = document.getElementById("intervalTextINL");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarINL);
+intervalVarINL=undefined;
+}
+function setBeepIntervalINL() {
+var intervalValue = document.getElementById("intervalFieldINL").value;
+intervalVarINL = setInterval(beepINL, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextINL");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonINL").addEventListener("click", setBeepIntervalINL);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstINL" style='display:none'>Y51295/36606X0031</span>&nbsp;
+<span id="obfuscatedValueGainINL" style='display:none;color:red'>Y8441-Z4.2-</span></div>
+<img width="60%" id="intervalSectionTheImageINL" style='display: none'></img><br>
+<button id="intervalSectionButton1DINL" style='display: none' type="button" onClick="javascript:updateImageINL('1D')">1D</button>
+<button id="intervalSectionButton5DINL" style='display: none' type="button" onClick="javascript:updateImageINL('5D')">5D</button>
+<button id="intervalSectionButton10DINL" style='display: none' type="button" onClick="javascript:updateImageINL('10D')">10D</button>
+<button id="intervalSectionButton3MINL" style='display: none' type="button" onClick="javascript:updateImageINL('3M')">3M</button>
+<button id="intervalSectionButton6MINL" style='display: none' type="button" onClick="javascript:updateImageINL('6M')">6M</button>
+<button id="intervalSectionButton1YINL" style='display: none' type="button" onClick="javascript:updateImageINL('1Y')">1Y</button>
+<button id="intervalSectionButton5YINL" style='display: none' type="button" onClick="javascript:updateImageINL('5Y')">5Y</button>
+<hr id="intervalSectionHRINL" style='display: none'>
+<script>
+var imageINL = new Image();
+var TIME_SPANINL;
+function updateImageINL(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANINL=timespan;
+}
+if(imageINL.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337162&TIME_SPAN='+TIME_SPANINL;
+document.getElementById("intervalSectionTheImageINL").src = urlWithTimeSpan;
+imageINL = new Image();
+imageINL.src = urlWithTimeSpan;
+}
+setTimeout(updateImageINL, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671620" target="_blank">*NFC "Netflix"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671620" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NFC.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/NFC.html" target="_blank">PC</a>
+<br>Buy: Low 5 last Stochastic (S)
+<br>
+<span id="intervalSectionNFC" style='display: none'><input name="intervalFieldNFC" type="text" maxlength="7" value="1" id="intervalFieldNFC"/><button type="button" id="intervalButtonNFC">Minutes</button><span id="intervalTextNFC"></span></span>
+<script>
+var intervalVarNFC;
+function beepNFC() {
+var element = document.getElementById("intervalTextNFC");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarNFC);
+intervalVarNFC=undefined;
+}
+function setBeepIntervalNFC() {
+var intervalValue = document.getElementById("intervalFieldNFC").value;
+intervalVarNFC = setInterval(beepNFC, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextNFC");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonNFC").addEventListener("click", setBeepIntervalNFC);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstNFC" style='display:none'>Y25482/14882X07</span>&nbsp;
+<span id="obfuscatedValueGainNFC" style='display:none;color:red'>Y983-Z3.1-</span></div>
+<img width="60%" id="intervalSectionTheImageNFC" style='display: none'></img><br>
+<button id="intervalSectionButton1DNFC" style='display: none' type="button" onClick="javascript:updateImageNFC('1D')">1D</button>
+<button id="intervalSectionButton5DNFC" style='display: none' type="button" onClick="javascript:updateImageNFC('5D')">5D</button>
+<button id="intervalSectionButton10DNFC" style='display: none' type="button" onClick="javascript:updateImageNFC('10D')">10D</button>
+<button id="intervalSectionButton3MNFC" style='display: none' type="button" onClick="javascript:updateImageNFC('3M')">3M</button>
+<button id="intervalSectionButton6MNFC" style='display: none' type="button" onClick="javascript:updateImageNFC('6M')">6M</button>
+<button id="intervalSectionButton1YNFC" style='display: none' type="button" onClick="javascript:updateImageNFC('1Y')">1Y</button>
+<button id="intervalSectionButton5YNFC" style='display: none' type="button" onClick="javascript:updateImageNFC('5Y')">5Y</button>
+<hr id="intervalSectionHRNFC" style='display: none'>
+<script>
+var imageNFC = new Image();
+var TIME_SPANNFC;
+function updateImageNFC(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANNFC=timespan;
+}
+if(imageNFC.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46671620&TIME_SPAN='+TIME_SPANNFC;
+document.getElementById("intervalSectionTheImageNFC").src = urlWithTimeSpan;
+imageNFC = new Image();
+imageNFC.src = urlWithTimeSpan;
+}
+setTimeout(updateImageNFC, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=19624689" target="_blank">*DXSN "Xtrackers ShortDAX"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=19624689" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DXSN.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/DXSN.html" target="_blank">PC</a>
+<br>
+<span id="intervalSectionDXSN" style='display: none'><input name="intervalFieldDXSN" type="text" maxlength="7" value="1" id="intervalFieldDXSN"/><button type="button" id="intervalButtonDXSN">Minutes</button><span id="intervalTextDXSN"></span></span>
+<script>
+var intervalVarDXSN;
+function beepDXSN() {
+var element = document.getElementById("intervalTextDXSN");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarDXSN);
+intervalVarDXSN=undefined;
+}
+function setBeepIntervalDXSN() {
+var intervalValue = document.getElementById("intervalFieldDXSN").value;
+intervalVarDXSN = setInterval(beepDXSN, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextDXSN");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonDXSN").addEventListener("click", setBeepIntervalDXSN);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstDXSN" style='display:none'>Y04071/36371X0021</span>&nbsp;
+<span id="obfuscatedValueGainDXSN" style='display:none;color:red'>Y323-Z9.1-</span></div>
+<img width="60%" id="intervalSectionTheImageDXSN" style='display: none'></img><br>
+<button id="intervalSectionButton1DDXSN" style='display: none' type="button" onClick="javascript:updateImageDXSN('1D')">1D</button>
+<button id="intervalSectionButton5DDXSN" style='display: none' type="button" onClick="javascript:updateImageDXSN('5D')">5D</button>
+<button id="intervalSectionButton10DDXSN" style='display: none' type="button" onClick="javascript:updateImageDXSN('10D')">10D</button>
+<button id="intervalSectionButton3MDXSN" style='display: none' type="button" onClick="javascript:updateImageDXSN('3M')">3M</button>
+<button id="intervalSectionButton6MDXSN" style='display: none' type="button" onClick="javascript:updateImageDXSN('6M')">6M</button>
+<button id="intervalSectionButton1YDXSN" style='display: none' type="button" onClick="javascript:updateImageDXSN('1Y')">1Y</button>
+<button id="intervalSectionButton5YDXSN" style='display: none' type="button" onClick="javascript:updateImageDXSN('5Y')">5Y</button>
+<hr id="intervalSectionHRDXSN" style='display: none'>
+<script>
+var imageDXSN = new Image();
+var TIME_SPANDXSN;
+function updateImageDXSN(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANDXSN=timespan;
+}
+if(imageDXSN.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=19624689&TIME_SPAN='+TIME_SPANDXSN;
+document.getElementById("intervalSectionTheImageDXSN").src = urlWithTimeSpan;
+imageDXSN = new Image();
+imageDXSN.src = urlWithTimeSpan;
+}
+setTimeout(updateImageDXSN, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">*VNA "Vonovia"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VNA.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/VNA.html" target="_blank">PC</a>
+<br>Buy: Low 7 last Stochastic (S)
+<br>Buy: Low 7 last RSI (R)
+<br>Buy: Low Stochastic & RSI & MACD- (C)
+<br>
+<span id="intervalSectionVNA" style='display: none'><input name="intervalFieldVNA" type="text" maxlength="7" value="1" id="intervalFieldVNA"/><button type="button" id="intervalButtonVNA">Minutes</button><span id="intervalTextVNA"></span></span>
+<script>
+var intervalVarVNA;
+function beepVNA() {
+var element = document.getElementById("intervalTextVNA");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarVNA);
+intervalVarVNA=undefined;
+}
+function setBeepIntervalVNA() {
+var intervalValue = document.getElementById("intervalFieldVNA").value;
+intervalVarVNA = setInterval(beepVNA, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextVNA");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonVNA").addEventListener("click", setBeepIntervalVNA);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstVNA" style='display:none'>Y75871/19871X053</span>&nbsp;
+<span id="obfuscatedValueGainVNA" style='display:none;color:red'>Y43-Z2.0-</span></div>
+<img width="60%" id="intervalSectionTheImageVNA" style='display: none'></img><br>
+<button id="intervalSectionButton1DVNA" style='display: none' type="button" onClick="javascript:updateImageVNA('1D')">1D</button>
+<button id="intervalSectionButton5DVNA" style='display: none' type="button" onClick="javascript:updateImageVNA('5D')">5D</button>
+<button id="intervalSectionButton10DVNA" style='display: none' type="button" onClick="javascript:updateImageVNA('10D')">10D</button>
+<button id="intervalSectionButton3MVNA" style='display: none' type="button" onClick="javascript:updateImageVNA('3M')">3M</button>
+<button id="intervalSectionButton6MVNA" style='display: none' type="button" onClick="javascript:updateImageVNA('6M')">6M</button>
+<button id="intervalSectionButton1YVNA" style='display: none' type="button" onClick="javascript:updateImageVNA('1Y')">1Y</button>
+<button id="intervalSectionButton5YVNA" style='display: none' type="button" onClick="javascript:updateImageVNA('5Y')">5Y</button>
+<hr id="intervalSectionHRVNA" style='display: none'>
+<script>
+var imageVNA = new Image();
+var TIME_SPANVNA;
+function updateImageVNA(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANVNA=timespan;
+}
+if(imageVNA.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=89777125&TIME_SPAN='+TIME_SPANVNA;
+document.getElementById("intervalSectionTheImageVNA").src = urlWithTimeSpan;
+imageVNA = new Image();
+imageVNA.src = urlWithTimeSpan;
+}
+setTimeout(updateImageVNA, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336913" target="_blank">*FIE "FIELMANN"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336913" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FIE.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/FIE.html" target="_blank">PC</a>
+<br>
+<span id="intervalSectionFIE" style='display: none'><input name="intervalFieldFIE" type="text" maxlength="7" value="1" id="intervalFieldFIE"/><button type="button" id="intervalButtonFIE">Minutes</button><span id="intervalTextFIE"></span></span>
+<script>
+var intervalVarFIE;
+function beepFIE() {
+var element = document.getElementById("intervalTextFIE");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarFIE);
+intervalVarFIE=undefined;
+}
+function setBeepIntervalFIE() {
+var intervalValue = document.getElementById("intervalFieldFIE").value;
+intervalVarFIE = setInterval(beepFIE, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextFIE");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonFIE").addEventListener("click", setBeepIntervalFIE);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstFIE" style='display:none'>Y50761/27561X062</span>&nbsp;
+<span id="obfuscatedValueGainFIE" style='display:none;color:green'>Y331Z8.0</span></div>
+<img width="60%" id="intervalSectionTheImageFIE" style='display: none'></img><br>
+<button id="intervalSectionButton1DFIE" style='display: none' type="button" onClick="javascript:updateImageFIE('1D')">1D</button>
+<button id="intervalSectionButton5DFIE" style='display: none' type="button" onClick="javascript:updateImageFIE('5D')">5D</button>
+<button id="intervalSectionButton10DFIE" style='display: none' type="button" onClick="javascript:updateImageFIE('10D')">10D</button>
+<button id="intervalSectionButton3MFIE" style='display: none' type="button" onClick="javascript:updateImageFIE('3M')">3M</button>
+<button id="intervalSectionButton6MFIE" style='display: none' type="button" onClick="javascript:updateImageFIE('6M')">6M</button>
+<button id="intervalSectionButton1YFIE" style='display: none' type="button" onClick="javascript:updateImageFIE('1Y')">1Y</button>
+<button id="intervalSectionButton5YFIE" style='display: none' type="button" onClick="javascript:updateImageFIE('5Y')">5Y</button>
+<hr id="intervalSectionHRFIE" style='display: none'>
+<script>
+var imageFIE = new Image();
+var TIME_SPANFIE;
+function updateImageFIE(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANFIE=timespan;
+}
+if(imageFIE.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336913&TIME_SPAN='+TIME_SPANFIE;
+document.getElementById("intervalSectionTheImageFIE").src = urlWithTimeSpan;
+imageFIE = new Image();
+imageFIE.src = urlWithTimeSpan;
+}
+setTimeout(updateImageFIE, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=202925052" target="_blank">*SAE "SHOP APOTHEKE"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=202925052" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SAE.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/SAE.html" target="_blank">PC</a>
+<br>Buy: Low 5 last Stochastic (S)
+<br>
+<span id="intervalSectionSAE" style='display: none'><input name="intervalFieldSAE" type="text" maxlength="7" value="1" id="intervalFieldSAE"/><button type="button" id="intervalButtonSAE">Minutes</button><span id="intervalTextSAE"></span></span>
+<script>
+var intervalVarSAE;
+function beepSAE() {
+var element = document.getElementById("intervalTextSAE");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarSAE);
+intervalVarSAE=undefined;
+}
+function setBeepIntervalSAE() {
+var intervalValue = document.getElementById("intervalFieldSAE").value;
+intervalVarSAE = setInterval(beepSAE, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextSAE");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonSAE").addEventListener("click", setBeepIntervalSAE);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstSAE" style='display:none'>Y52611/62411X57</span>&nbsp;
+<span id="obfuscatedValueGainSAE" style='display:none;color:green'>Y991Z7.1</span></div>
+<img width="60%" id="intervalSectionTheImageSAE" style='display: none'></img><br>
+<button id="intervalSectionButton1DSAE" style='display: none' type="button" onClick="javascript:updateImageSAE('1D')">1D</button>
+<button id="intervalSectionButton5DSAE" style='display: none' type="button" onClick="javascript:updateImageSAE('5D')">5D</button>
+<button id="intervalSectionButton10DSAE" style='display: none' type="button" onClick="javascript:updateImageSAE('10D')">10D</button>
+<button id="intervalSectionButton3MSAE" style='display: none' type="button" onClick="javascript:updateImageSAE('3M')">3M</button>
+<button id="intervalSectionButton6MSAE" style='display: none' type="button" onClick="javascript:updateImageSAE('6M')">6M</button>
+<button id="intervalSectionButton1YSAE" style='display: none' type="button" onClick="javascript:updateImageSAE('1Y')">1Y</button>
+<button id="intervalSectionButton5YSAE" style='display: none' type="button" onClick="javascript:updateImageSAE('5Y')">5Y</button>
+<hr id="intervalSectionHRSAE" style='display: none'>
+<script>
+var imageSAE = new Image();
+var TIME_SPANSAE;
+function updateImageSAE(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANSAE=timespan;
+}
+if(imageSAE.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=202925052&TIME_SPAN='+TIME_SPANSAE;
+document.getElementById("intervalSectionTheImageSAE").src = urlWithTimeSpan;
+imageSAE = new Image();
+imageSAE.src = urlWithTimeSpan;
+}
+setTimeout(updateImageSAE, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">*QIA "QIAGEN"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/QIA.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/QIA.html" target="_blank">PC</a>
+<br>Buy: Low Percentage & Stochastic (P)
+<br>Buy: Low 7 last Stochastic (S)
+<br>Buy: Low 7 last RSI (R)
+<br>Buy: Low Stochastic & RSI & MACD- (C)
+<br>
+<span id="intervalSectionQIA" style='display: none'><input name="intervalFieldQIA" type="text" maxlength="7" value="1" id="intervalFieldQIA"/><button type="button" id="intervalButtonQIA">Minutes</button><span id="intervalTextQIA"></span></span>
+<script>
+var intervalVarQIA;
+function beepQIA() {
+var element = document.getElementById("intervalTextQIA");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarQIA);
+intervalVarQIA=undefined;
+}
+function setBeepIntervalQIA() {
+var intervalValue = document.getElementById("intervalFieldQIA").value;
+intervalVarQIA = setInterval(beepQIA, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextQIA");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonQIA").addEventListener("click", setBeepIntervalQIA);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstQIA" style='display:none'>Y03322/44822X085</span>&nbsp;
+<span id="obfuscatedValueGainQIA" style='display:none;color:red'>Y415-Z3.2-</span></div>
+<img width="60%" id="intervalSectionTheImageQIA" style='display: none'></img><br>
+<button id="intervalSectionButton1DQIA" style='display: none' type="button" onClick="javascript:updateImageQIA('1D')">1D</button>
+<button id="intervalSectionButton5DQIA" style='display: none' type="button" onClick="javascript:updateImageQIA('5D')">5D</button>
+<button id="intervalSectionButton10DQIA" style='display: none' type="button" onClick="javascript:updateImageQIA('10D')">10D</button>
+<button id="intervalSectionButton3MQIA" style='display: none' type="button" onClick="javascript:updateImageQIA('3M')">3M</button>
+<button id="intervalSectionButton6MQIA" style='display: none' type="button" onClick="javascript:updateImageQIA('6M')">6M</button>
+<button id="intervalSectionButton1YQIA" style='display: none' type="button" onClick="javascript:updateImageQIA('1Y')">1Y</button>
+<button id="intervalSectionButton5YQIA" style='display: none' type="button" onClick="javascript:updateImageQIA('5Y')">5Y</button>
+<hr id="intervalSectionHRQIA" style='display: none'>
+<script>
+var imageQIA = new Image();
+var TIME_SPANQIA;
+function updateImageQIA(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANQIA=timespan;
+}
+if(imageQIA.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337229&TIME_SPAN='+TIME_SPANQIA;
+document.getElementById("intervalSectionTheImageQIA").src = urlWithTimeSpan;
+imageQIA = new Image();
+imageQIA.src = urlWithTimeSpan;
+}
+setTimeout(updateImageQIA, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337124" target="_blank">*MUV2 "MUENCHENER RUE"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337124" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MUV2.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/MUV2.html" target="_blank">PC</a>
+<br>
+<span id="intervalSectionMUV2" style='display: none'><input name="intervalFieldMUV2" type="text" maxlength="7" value="1" id="intervalFieldMUV2"/><button type="button" id="intervalButtonMUV2">Minutes</button><span id="intervalTextMUV2"></span></span>
+<script>
+var intervalVarMUV2;
+function beepMUV2() {
+var element = document.getElementById("intervalTextMUV2");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarMUV2);
+intervalVarMUV2=undefined;
+}
+function setBeepIntervalMUV2() {
+var intervalValue = document.getElementById("intervalFieldMUV2").value;
+intervalVarMUV2 = setInterval(beepMUV2, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextMUV2");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonMUV2").addEventListener("click", setBeepIntervalMUV2);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstMUV2" style='display:none'>Y7905/5005X12</span>&nbsp;
+<span id="obfuscatedValueGainMUV2" style='display:none;color:green'>Y29Z8.1</span></div>
+<img width="60%" id="intervalSectionTheImageMUV2" style='display: none'></img><br>
+<button id="intervalSectionButton1DMUV2" style='display: none' type="button" onClick="javascript:updateImageMUV2('1D')">1D</button>
+<button id="intervalSectionButton5DMUV2" style='display: none' type="button" onClick="javascript:updateImageMUV2('5D')">5D</button>
+<button id="intervalSectionButton10DMUV2" style='display: none' type="button" onClick="javascript:updateImageMUV2('10D')">10D</button>
+<button id="intervalSectionButton3MMUV2" style='display: none' type="button" onClick="javascript:updateImageMUV2('3M')">3M</button>
+<button id="intervalSectionButton6MMUV2" style='display: none' type="button" onClick="javascript:updateImageMUV2('6M')">6M</button>
+<button id="intervalSectionButton1YMUV2" style='display: none' type="button" onClick="javascript:updateImageMUV2('1Y')">1Y</button>
+<button id="intervalSectionButton5YMUV2" style='display: none' type="button" onClick="javascript:updateImageMUV2('5Y')">5Y</button>
+<hr id="intervalSectionHRMUV2" style='display: none'>
+<script>
+var imageMUV2 = new Image();
+var TIME_SPANMUV2;
+function updateImageMUV2(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANMUV2=timespan;
+}
+if(imageMUV2.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337124&TIME_SPAN='+TIME_SPANMUV2;
+document.getElementById("intervalSectionTheImageMUV2").src = urlWithTimeSpan;
+imageMUV2 = new Image();
+imageMUV2.src = urlWithTimeSpan;
+}
+setTimeout(updateImageMUV2, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=216848504" target="_blank">*CCAP "Corestate Capital"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=216848504" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CCAP.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/CCAP.html" target="_blank">PC</a>
+<br>Buy: Low 5 last Stochastic (S)
+<br>
+<span id="intervalSectionCCAP" style='display: none'><input name="intervalFieldCCAP" type="text" maxlength="7" value="1" id="intervalFieldCCAP"/><button type="button" id="intervalButtonCCAP">Minutes</button><span id="intervalTextCCAP"></span></span>
+<script>
+var intervalVarCCAP;
+function beepCCAP() {
+var element = document.getElementById("intervalTextCCAP");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarCCAP);
+intervalVarCCAP=undefined;
+}
+function setBeepIntervalCCAP() {
+var intervalValue = document.getElementById("intervalFieldCCAP").value;
+intervalVarCCAP = setInterval(beepCCAP, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextCCAP");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonCCAP").addEventListener("click", setBeepIntervalCCAP);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstCCAP" style='display:none'>Y04019/253401X0008</span>&nbsp;
+<span id="obfuscatedValueGainCCAP" style='display:none;color:red'>Y21331-Z8.21-</span></div>
+<img width="60%" id="intervalSectionTheImageCCAP" style='display: none'></img><br>
+<button id="intervalSectionButton1DCCAP" style='display: none' type="button" onClick="javascript:updateImageCCAP('1D')">1D</button>
+<button id="intervalSectionButton5DCCAP" style='display: none' type="button" onClick="javascript:updateImageCCAP('5D')">5D</button>
+<button id="intervalSectionButton10DCCAP" style='display: none' type="button" onClick="javascript:updateImageCCAP('10D')">10D</button>
+<button id="intervalSectionButton3MCCAP" style='display: none' type="button" onClick="javascript:updateImageCCAP('3M')">3M</button>
+<button id="intervalSectionButton6MCCAP" style='display: none' type="button" onClick="javascript:updateImageCCAP('6M')">6M</button>
+<button id="intervalSectionButton1YCCAP" style='display: none' type="button" onClick="javascript:updateImageCCAP('1Y')">1Y</button>
+<button id="intervalSectionButton5YCCAP" style='display: none' type="button" onClick="javascript:updateImageCCAP('5Y')">5Y</button>
+<hr id="intervalSectionHRCCAP" style='display: none'>
+<script>
+var imageCCAP = new Image();
+var TIME_SPANCCAP;
+function updateImageCCAP(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANCCAP=timespan;
+}
+if(imageCCAP.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=216848504&TIME_SPAN='+TIME_SPANCCAP;
+document.getElementById("intervalSectionTheImageCCAP").src = urlWithTimeSpan;
+imageCCAP = new Image();
+imageCCAP.src = urlWithTimeSpan;
+}
+setTimeout(updateImageCCAP, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337247" target="_blank">*XONA "EXXON MOBIL"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337247" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/XONA.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/XONA.html" target="_blank">PC</a>
+<br>
+<span id="intervalSectionXONA" style='display: none'><input name="intervalFieldXONA" type="text" maxlength="7" value="1" id="intervalFieldXONA"/><button type="button" id="intervalButtonXONA">Minutes</button><span id="intervalTextXONA"></span></span>
+<script>
+var intervalVarXONA;
+function beepXONA() {
+var element = document.getElementById("intervalTextXONA");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarXONA);
+intervalVarXONA=undefined;
+}
+function setBeepIntervalXONA() {
+var intervalValue = document.getElementById("intervalFieldXONA").value;
+intervalVarXONA = setInterval(beepXONA, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextXONA");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonXONA").addEventListener("click", setBeepIntervalXONA);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstXONA" style='display:none'>Y676431/794571X0072</span>&nbsp;
+<span id="obfuscatedValueGainXONA" style='display:none;color:red'>Y12804-Z3.32-</span></div>
+<img width="60%" id="intervalSectionTheImageXONA" style='display: none'></img><br>
+<button id="intervalSectionButton1DXONA" style='display: none' type="button" onClick="javascript:updateImageXONA('1D')">1D</button>
+<button id="intervalSectionButton5DXONA" style='display: none' type="button" onClick="javascript:updateImageXONA('5D')">5D</button>
+<button id="intervalSectionButton10DXONA" style='display: none' type="button" onClick="javascript:updateImageXONA('10D')">10D</button>
+<button id="intervalSectionButton3MXONA" style='display: none' type="button" onClick="javascript:updateImageXONA('3M')">3M</button>
+<button id="intervalSectionButton6MXONA" style='display: none' type="button" onClick="javascript:updateImageXONA('6M')">6M</button>
+<button id="intervalSectionButton1YXONA" style='display: none' type="button" onClick="javascript:updateImageXONA('1Y')">1Y</button>
+<button id="intervalSectionButton5YXONA" style='display: none' type="button" onClick="javascript:updateImageXONA('5Y')">5Y</button>
+<hr id="intervalSectionHRXONA" style='display: none'>
+<script>
+var imageXONA = new Image();
+var TIME_SPANXONA;
+function updateImageXONA(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANXONA=timespan;
+}
+if(imageXONA.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337247&TIME_SPAN='+TIME_SPANXONA;
+document.getElementById("intervalSectionTheImageXONA").src = urlWithTimeSpan;
+imageXONA = new Image();
+imageXONA.src = urlWithTimeSpan;
+}
+setTimeout(updateImageXONA, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337135" target="_blank">*GEC "General Electric"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337135" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GEC.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/GEC.html" target="_blank">PC</a>
+<br>
+<span id="intervalSectionGEC" style='display: none'><input name="intervalFieldGEC" type="text" maxlength="7" value="1" id="intervalFieldGEC"/><button type="button" id="intervalButtonGEC">Minutes</button><span id="intervalTextGEC"></span></span>
+<script>
+var intervalVarGEC;
+function beepGEC() {
+var element = document.getElementById("intervalTextGEC");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarGEC);
+intervalVarGEC=undefined;
+}
+function setBeepIntervalGEC() {
+var intervalValue = document.getElementById("intervalFieldGEC").value;
+intervalVarGEC = setInterval(beepGEC, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextGEC");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonGEC").addEventListener("click", setBeepIntervalGEC);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstGEC" style='display:none'>Y082481/187232X00071</span>&nbsp;
+<span id="obfuscatedValueGainGEC" style='display:none;color:red'>Y10584-Z8.02-</span></div>
+<img width="60%" id="intervalSectionTheImageGEC" style='display: none'></img><br>
+<button id="intervalSectionButton1DGEC" style='display: none' type="button" onClick="javascript:updateImageGEC('1D')">1D</button>
+<button id="intervalSectionButton5DGEC" style='display: none' type="button" onClick="javascript:updateImageGEC('5D')">5D</button>
+<button id="intervalSectionButton10DGEC" style='display: none' type="button" onClick="javascript:updateImageGEC('10D')">10D</button>
+<button id="intervalSectionButton3MGEC" style='display: none' type="button" onClick="javascript:updateImageGEC('3M')">3M</button>
+<button id="intervalSectionButton6MGEC" style='display: none' type="button" onClick="javascript:updateImageGEC('6M')">6M</button>
+<button id="intervalSectionButton1YGEC" style='display: none' type="button" onClick="javascript:updateImageGEC('1Y')">1Y</button>
+<button id="intervalSectionButton5YGEC" style='display: none' type="button" onClick="javascript:updateImageGEC('5Y')">5Y</button>
+<hr id="intervalSectionHRGEC" style='display: none'>
+<script>
+var imageGEC = new Image();
+var TIME_SPANGEC;
+function updateImageGEC(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANGEC=timespan;
+}
+if(imageGEC.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337135&TIME_SPAN='+TIME_SPANGEC;
+document.getElementById("intervalSectionTheImageGEC").src = urlWithTimeSpan;
+imageGEC = new Image();
+imageGEC.src = urlWithTimeSpan;
+}
+setTimeout(updateImageGEC, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337235" target="_blank">*FTE "ORANGE"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337235" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FTE.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/FTE.html" target="_blank">PC</a>
+<br>Sell: Stochastic Own (SO)
+<br>Sell: High 4 last Stochastic (S)
+<br>
+<span id="intervalSectionFTE" style='display: none'><input name="intervalFieldFTE" type="text" maxlength="7" value="1" id="intervalFieldFTE"/><button type="button" id="intervalButtonFTE">Minutes</button><span id="intervalTextFTE"></span></span>
+<script>
+var intervalVarFTE;
+function beepFTE() {
+var element = document.getElementById("intervalTextFTE");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarFTE);
+intervalVarFTE=undefined;
+}
+function setBeepIntervalFTE() {
+var intervalValue = document.getElementById("intervalFieldFTE").value;
+intervalVarFTE = setInterval(beepFTE, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextFTE");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonFTE").addEventListener("click", setBeepIntervalFTE);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstFTE" style='display:none'>Y59963/93114X0053</span>&nbsp;
+<span id="obfuscatedValueGainFTE" style='display:none;color:red'>Y4414-Z1.01-</span></div>
+<img width="60%" id="intervalSectionTheImageFTE" style='display: none'></img><br>
+<button id="intervalSectionButton1DFTE" style='display: none' type="button" onClick="javascript:updateImageFTE('1D')">1D</button>
+<button id="intervalSectionButton5DFTE" style='display: none' type="button" onClick="javascript:updateImageFTE('5D')">5D</button>
+<button id="intervalSectionButton10DFTE" style='display: none' type="button" onClick="javascript:updateImageFTE('10D')">10D</button>
+<button id="intervalSectionButton3MFTE" style='display: none' type="button" onClick="javascript:updateImageFTE('3M')">3M</button>
+<button id="intervalSectionButton6MFTE" style='display: none' type="button" onClick="javascript:updateImageFTE('6M')">6M</button>
+<button id="intervalSectionButton1YFTE" style='display: none' type="button" onClick="javascript:updateImageFTE('1Y')">1Y</button>
+<button id="intervalSectionButton5YFTE" style='display: none' type="button" onClick="javascript:updateImageFTE('5Y')">5Y</button>
+<hr id="intervalSectionHRFTE" style='display: none'>
+<script>
+var imageFTE = new Image();
+var TIME_SPANFTE;
+function updateImageFTE(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANFTE=timespan;
+}
+if(imageFTE.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337235&TIME_SPAN='+TIME_SPANFTE;
+document.getElementById("intervalSectionTheImageFTE").src = urlWithTimeSpan;
+imageFTE = new Image();
+imageFTE.src = urlWithTimeSpan;
+}
+setTimeout(updateImageFTE, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337133" target="_blank">*TNE5 "TELEFONICA S.A."</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337133" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TNE5.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/TNE5.html" target="_blank">PC</a>
+<br>
+<span id="intervalSectionTNE5" style='display: none'><input name="intervalFieldTNE5" type="text" maxlength="7" value="1" id="intervalFieldTNE5"/><button type="button" id="intervalButtonTNE5">Minutes</button><span id="intervalTextTNE5"></span></span>
+<script>
+var intervalVarTNE5;
+function beepTNE5() {
+var element = document.getElementById("intervalTextTNE5");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarTNE5);
+intervalVarTNE5=undefined;
+}
+function setBeepIntervalTNE5() {
+var intervalValue = document.getElementById("intervalFieldTNE5").value;
+intervalVarTNE5 = setInterval(beepTNE5, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextTNE5");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonTNE5").addEventListener("click", setBeepIntervalTNE5);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstTNE5" style='display:none'>Y40587/465721X77591</span>&nbsp;
+<span id="obfuscatedValueGainTNE5" style='display:none;color:red'>Y06094-Z5.83-</span></div>
+<img width="60%" id="intervalSectionTheImageTNE5" style='display: none'></img><br>
+<button id="intervalSectionButton1DTNE5" style='display: none' type="button" onClick="javascript:updateImageTNE5('1D')">1D</button>
+<button id="intervalSectionButton5DTNE5" style='display: none' type="button" onClick="javascript:updateImageTNE5('5D')">5D</button>
+<button id="intervalSectionButton10DTNE5" style='display: none' type="button" onClick="javascript:updateImageTNE5('10D')">10D</button>
+<button id="intervalSectionButton3MTNE5" style='display: none' type="button" onClick="javascript:updateImageTNE5('3M')">3M</button>
+<button id="intervalSectionButton6MTNE5" style='display: none' type="button" onClick="javascript:updateImageTNE5('6M')">6M</button>
+<button id="intervalSectionButton1YTNE5" style='display: none' type="button" onClick="javascript:updateImageTNE5('1Y')">1Y</button>
+<button id="intervalSectionButton5YTNE5" style='display: none' type="button" onClick="javascript:updateImageTNE5('5Y')">5Y</button>
+<hr id="intervalSectionHRTNE5" style='display: none'>
+<script>
+var imageTNE5 = new Image();
+var TIME_SPANTNE5;
+function updateImageTNE5(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANTNE5=timespan;
+}
+if(imageTNE5.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337133&TIME_SPAN='+TIME_SPANTNE5;
+document.getElementById("intervalSectionTheImageTNE5").src = urlWithTimeSpan;
+imageTNE5 = new Image();
+imageTNE5.src = urlWithTimeSpan;
+}
+setTimeout(updateImageTNE5, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=180798778" target="_blank">*CRIN "UNICREDIT"</a>
+<a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=180798778" target="_blank">5Y</a>
+<a href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CRIN.html" target="_blank">SA</a>
+<a href="D:/code/stock-analyse/out/CRIN.html" target="_blank">PC</a>
+<br>Sell: Stochastic Own (SO)
+<br>Sell: High Percentage & Stochastic (P)
+<br>Sell: High 6 last Stochastic (S)
+<br>Sell: High 5 last RSI (R)
+<br>Sell: High Stochastic & RSI & MACD+ (C)
+<br>
+<span id="intervalSectionCRIN" style='display: none'><input name="intervalFieldCRIN" type="text" maxlength="7" value="1" id="intervalFieldCRIN"/><button type="button" id="intervalButtonCRIN">Minutes</button><span id="intervalTextCRIN"></span></span>
+<script>
+var intervalVarCRIN;
+function beepCRIN() {
+var element = document.getElementById("intervalTextCRIN");
+element.innerHTML = " ALERT!!!";
+element.style.color = 'red';
+sound.play();
+clearInterval(intervalVarCRIN);
+intervalVarCRIN=undefined;
+}
+function setBeepIntervalCRIN() {
+var intervalValue = document.getElementById("intervalFieldCRIN").value;
+intervalVarCRIN = setInterval(beepCRIN, intervalValue*60*1000); //60*1000
+var element = document.getElementById("intervalTextCRIN");
+element.innerHTML = ' ...'+intervalValue;
+element.style.color = 'green';
+}
+document.getElementById("intervalButtonCRIN").addEventListener("click", setBeepIntervalCRIN);
+</script>
+<div style="font-size: large"><span id="obfuscatedValueFirstCRIN" style='display:none'>Y05115/016721X0005</span>&nbsp;
+<span id="obfuscatedValueGainCRIN" style='display:none;color:red'>Y06467-Z9.95-</span></div>
+<img width="60%" id="intervalSectionTheImageCRIN" style='display: none'></img><br>
+<button id="intervalSectionButton1DCRIN" style='display: none' type="button" onClick="javascript:updateImageCRIN('1D')">1D</button>
+<button id="intervalSectionButton5DCRIN" style='display: none' type="button" onClick="javascript:updateImageCRIN('5D')">5D</button>
+<button id="intervalSectionButton10DCRIN" style='display: none' type="button" onClick="javascript:updateImageCRIN('10D')">10D</button>
+<button id="intervalSectionButton3MCRIN" style='display: none' type="button" onClick="javascript:updateImageCRIN('3M')">3M</button>
+<button id="intervalSectionButton6MCRIN" style='display: none' type="button" onClick="javascript:updateImageCRIN('6M')">6M</button>
+<button id="intervalSectionButton1YCRIN" style='display: none' type="button" onClick="javascript:updateImageCRIN('1Y')">1Y</button>
+<button id="intervalSectionButton5YCRIN" style='display: none' type="button" onClick="javascript:updateImageCRIN('5Y')">5Y</button>
+<hr id="intervalSectionHRCRIN" style='display: none'>
+<script>
+var imageCRIN = new Image();
+var TIME_SPANCRIN;
+function updateImageCRIN(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANCRIN=timespan;
+}
+if(imageCRIN.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=180798778&TIME_SPAN='+TIME_SPANCRIN;
+document.getElementById("intervalSectionTheImageCRIN").src = urlWithTimeSpan;
+imageCRIN = new Image();
+imageCRIN.src = urlWithTimeSpan;
+}
+setTimeout(updateImageCRIN, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
 <br>
 <a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336876" target="_blank">*DBK "DEUTSCHE BANK"</a>
 <a href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336876" target="_blank">5Y</a>
@@ -78,8 +852,8 @@ setTimeout(updateImageDBK, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <br><br><div style="font-size: large"># Overall<br>
-<span id="obfuscatedValueBuyingOverall" style='display:none'>Y007671/511122</span>
-<span id="obfuscatedValueGainOverall" style='display:none;color:red'>Y51444-Z1.02-</span></div>
+<span id="obfuscatedValueBuyingOverall" style='display:none'>Y666139/3660121</span>
+<span id="obfuscatedValueGainOverall" style='display:none;color:red'>Y799872-Z0.32-</span></div>
 <br>DAX<br>
 <img width="60%" id="intervalSectionTheImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
@@ -108,35 +882,133 @@ setTimeout(updateImageDAX, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <button id="intervalSectionButtonAll1D" style="display: none" type="button" onClick="
+javascript:updateImageINL('1D');
+javascript:updateImageNFC('1D');
+javascript:updateImageDXSN('1D');
+javascript:updateImageVNA('1D');
+javascript:updateImageFIE('1D');
+javascript:updateImageSAE('1D');
+javascript:updateImageQIA('1D');
+javascript:updateImageMUV2('1D');
+javascript:updateImageCCAP('1D');
+javascript:updateImageXONA('1D');
+javascript:updateImageGEC('1D');
+javascript:updateImageFTE('1D');
+javascript:updateImageTNE5('1D');
+javascript:updateImageCRIN('1D');
 javascript:updateImageDBK('1D');
 javascript:updateImageDAX('1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="display: none" type="button" onClick="
+javascript:updateImageINL('5D');
+javascript:updateImageNFC('5D');
+javascript:updateImageDXSN('5D');
+javascript:updateImageVNA('5D');
+javascript:updateImageFIE('5D');
+javascript:updateImageSAE('5D');
+javascript:updateImageQIA('5D');
+javascript:updateImageMUV2('5D');
+javascript:updateImageCCAP('5D');
+javascript:updateImageXONA('5D');
+javascript:updateImageGEC('5D');
+javascript:updateImageFTE('5D');
+javascript:updateImageTNE5('5D');
+javascript:updateImageCRIN('5D');
 javascript:updateImageDBK('5D');
 javascript:updateImageDAX('5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="display: none" type="button" onClick="
+javascript:updateImageINL('10D');
+javascript:updateImageNFC('10D');
+javascript:updateImageDXSN('10D');
+javascript:updateImageVNA('10D');
+javascript:updateImageFIE('10D');
+javascript:updateImageSAE('10D');
+javascript:updateImageQIA('10D');
+javascript:updateImageMUV2('10D');
+javascript:updateImageCCAP('10D');
+javascript:updateImageXONA('10D');
+javascript:updateImageGEC('10D');
+javascript:updateImageFTE('10D');
+javascript:updateImageTNE5('10D');
+javascript:updateImageCRIN('10D');
 javascript:updateImageDBK('10D');
 javascript:updateImageDAX('10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="display: none" type="button" onClick="
+javascript:updateImageINL('3M');
+javascript:updateImageNFC('3M');
+javascript:updateImageDXSN('3M');
+javascript:updateImageVNA('3M');
+javascript:updateImageFIE('3M');
+javascript:updateImageSAE('3M');
+javascript:updateImageQIA('3M');
+javascript:updateImageMUV2('3M');
+javascript:updateImageCCAP('3M');
+javascript:updateImageXONA('3M');
+javascript:updateImageGEC('3M');
+javascript:updateImageFTE('3M');
+javascript:updateImageTNE5('3M');
+javascript:updateImageCRIN('3M');
 javascript:updateImageDBK('3M');
 javascript:updateImageDAX('3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="display: none" type="button" onClick="
+javascript:updateImageINL('6M');
+javascript:updateImageNFC('6M');
+javascript:updateImageDXSN('6M');
+javascript:updateImageVNA('6M');
+javascript:updateImageFIE('6M');
+javascript:updateImageSAE('6M');
+javascript:updateImageQIA('6M');
+javascript:updateImageMUV2('6M');
+javascript:updateImageCCAP('6M');
+javascript:updateImageXONA('6M');
+javascript:updateImageGEC('6M');
+javascript:updateImageFTE('6M');
+javascript:updateImageTNE5('6M');
+javascript:updateImageCRIN('6M');
 javascript:updateImageDBK('6M');
 javascript:updateImageDAX('6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="display: none" type="button" onClick="
+javascript:updateImageINL('1Y');
+javascript:updateImageNFC('1Y');
+javascript:updateImageDXSN('1Y');
+javascript:updateImageVNA('1Y');
+javascript:updateImageFIE('1Y');
+javascript:updateImageSAE('1Y');
+javascript:updateImageQIA('1Y');
+javascript:updateImageMUV2('1Y');
+javascript:updateImageCCAP('1Y');
+javascript:updateImageXONA('1Y');
+javascript:updateImageGEC('1Y');
+javascript:updateImageFTE('1Y');
+javascript:updateImageTNE5('1Y');
+javascript:updateImageCRIN('1Y');
 javascript:updateImageDBK('1Y');
 javascript:updateImageDAX('1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="display: none" type="button" onClick="
+javascript:updateImageINL('5Y');
+javascript:updateImageNFC('5Y');
+javascript:updateImageDXSN('5Y');
+javascript:updateImageVNA('5Y');
+javascript:updateImageFIE('5Y');
+javascript:updateImageSAE('5Y');
+javascript:updateImageQIA('5Y');
+javascript:updateImageMUV2('5Y');
+javascript:updateImageCCAP('5Y');
+javascript:updateImageXONA('5Y');
+javascript:updateImageGEC('5Y');
+javascript:updateImageFTE('5Y');
+javascript:updateImageTNE5('5Y');
+javascript:updateImageCRIN('5Y');
 javascript:updateImageDBK('5Y');
 javascript:updateImageDAX('5Y');
 ">5Y</button>
 <br><br># Workflow<br><a href="https://github.com/Hefezopf/stock-analyse/actions" target="_blank">Github Action</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 17-May-2021 12:35</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 17-May-2021 13:23</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
