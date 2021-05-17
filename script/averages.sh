@@ -69,7 +69,6 @@ EMAverageOfDays() {
             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
             headLinesLastPrice=$((101-i-_amountOfDaysParam))
             lastPrice=$(head -n"$headLinesLastPrice" "$_dataFileParam" | tail -1)
-            # shellcheck disable=SC2086
             ema=$(echo "$lastPrice $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')          
         fi
         averagePriceList="$averagePriceList $ema,"

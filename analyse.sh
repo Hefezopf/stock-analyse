@@ -14,12 +14,13 @@
 # Precondition:
 # Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2, MARKET_STACK_ACCESS_KEY3, MARKET_STACK_ACCESS_KEY4 and MARKET_STACK_ACCESS_KEY5 as ENV Variable (Online)
 # Set GPG_PASSPHRASE as ENV Variable
-# shellcheck disable=SC1091 
+
 
 # Debug mode
 #set -x
 
 # Import
+# shellcheck disable=SC1091
 . ./script/constants.sh
 . ./script/functions.sh
 . ./script/averages.sh
@@ -39,6 +40,12 @@ ApplyStrategieHorizontalMACD=false
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
+
+export MARKET_STACK_ACCESS_KEY1
+export MARKET_STACK_ACCESS_KEY2
+export MARKET_STACK_ACCESS_KEY3
+export MARKET_STACK_ACCESS_KEY4
+export MARKET_STACK_ACCESS_KEY5
 
 # Parameter
 symbolsParam=$1
@@ -74,7 +81,6 @@ creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
     creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h
 fi
-# shellcheck disable=SC2089
 GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a> $creationDate</p>"
 HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
 <script>
@@ -143,7 +149,6 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
     exit 6
 fi
 
-# shellcheck disable=SC2153
 if { [ "$queryParam" = 'online' ]; } &&
    { [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ] || [ -z "$MARKET_STACK_ACCESS_KEY5" ]; } then
     echo "Error 'online' query: MARKET_STACK_ACCESS_KEY1...5 NOT set!" | tee -a $OUT_RESULT_FILE
@@ -425,7 +430,6 @@ do
         resultStrategieOverratedHighStochasticHighRSIHighMACD=""
         StrategieOverratedHighStochasticHighRSIHighMACD "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
     else
-        # shellcheck disable=SC3037
         echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
     fi
@@ -698,7 +702,7 @@ do
     echo "# Quote oldest,..,newest: 87 Values?" >> "$HISTORY_FILE"
     echo "$PRE_FIX$commaPriceList" >> "$HISTORY_FILE"
     
-    # shellcheck disable=SC2001
+    # shellcheck disable=SC2001 
     stochasticQuoteList=$(echo "$stochasticQuoteList" | sed 's/ //g')
     echo "# Stoch oldest,..,newest" >> "$HISTORY_FILE"
     echo "$PRE_FIX$stochasticQuoteList" >> "$HISTORY_FILE"
