@@ -58,7 +58,17 @@ OWN_SYMBOLS_FILE=config/own_symbols.txt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 alarmAbbrevValue=""
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
-HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" /><title>Result SA</title><style>.green{color:green;} .red{color:red;} .black{color:black;}</style></head><body><div style=\"font-size: large\">"
+HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head>
+<meta charset=\"utf-8\" />
+<meta http-equiv=\"cache-control\" content=\"max-age=0\" />
+<meta http-equiv=\"cache-control\" content=\"no-cache\" />
+<meta http-equiv=\"expires\" content=\"0\" />
+<meta http-equiv=\"expires\" content=\"Tue, 01 Jan 1980 1:00:00 GMT\" />
+<meta http-equiv=\"pragma\" content=\"no-cache\" />
+<link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" />
+<title>Result SA</title>
+<style>.green{color:green;} .red{color:red;} .black{color:black;}</style>
+</head><body><div style=\"font-size: large\">"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
