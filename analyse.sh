@@ -647,8 +647,20 @@ do
             })
             .then(data => {
                 const obj = JSON.parse(data.contents);
-                var element = document.getElementById(\"intervalSectionRegularMarketPrice$symbol\");
-                element.innerHTML = obj.chart.result[0].meta.regularMarketPrice + '€';
+                var elementRegularMarketPrice = document.getElementById(\"intervalSectionRegularMarketPrice$symbol\");
+                elementRegularMarketPrice.innerHTML = obj.chart.result[0].meta.regularMarketPrice + '€';
+                var elementChartPreviousClose = document.getElementById(\"intervalSectionChartPreviousClose$symbol\");
+                elementChartPreviousClose.innerHTML = obj.chart.result[0].meta.chartPreviousClose + '€';
+                var elementPercentage = document.getElementById(\"intervalSectionPercentage$symbol\");
+                var percentValue = ((obj.chart.result[0].meta.regularMarketPrice / obj.chart.result[0].meta.chartPreviousClose) -1) * 100;
+                percentValue = percentValue.toFixed(2);
+                elementPercentage.innerHTML = percentValue + '%';
+                if(percentValue < 0){
+                    elementPercentage.style.color = 'red';
+                }
+                else{
+                    elementPercentage.style.color = 'green';
+                }
             });
             </script>"
 
@@ -657,9 +669,9 @@ do
             echo "<script>
                 var intervalVar$symbol;
                 function beep$symbol() {
-                    var element = document.getElementById(\"intervalText$symbol\");
-                    element.innerHTML = \" ALERT!!!\";
-                    element.style.color = 'red';
+                    var elementAlert = document.getElementById(\"intervalText$symbol\");
+                    elementAlert.innerHTML = \" ALERT!!!\";
+                    elementAlert.style.color = 'red';
                     sound.play();
                     clearInterval(intervalVar$symbol);
                     intervalVar$symbol=undefined;
@@ -667,9 +679,9 @@ do
                 function setBeepInterval$symbol() {
                     var intervalValue = document.getElementById(\"intervalField$symbol\").value;
                     intervalVar$symbol = setInterval(beep$symbol, intervalValue*60*1000); //60*1000
-                    var element = document.getElementById(\"intervalText$symbol\");
-                    element.innerHTML = ' ...'+intervalValue;
-                    element.style.color = 'green';
+                    var elementIntervalText = document.getElementById(\"intervalText$symbol\");
+                    elementIntervalText.innerHTML = ' ...'+intervalValue;
+                    elementIntervalText.style.color = 'green';
                 }
                 document.getElementById(\"intervalButton$symbol\").addEventListener(\"click\", setBeepInterval$symbol);
             </script>"
@@ -677,11 +689,11 @@ do
             # ObfuscatedValue
             echo "<div style=\"font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style='display:none'>$obfuscatedValueFirst</span>&nbsp;
                    <span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span>&nbsp;
-                   <span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>
+                   <span id=\"intervalSectionChartPreviousClose$symbol\" style='display: none'></span>&nbsp;<span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;<span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>
                  </div>"
 
             # Image Chart
-            echo "<img width=\"60%\" id=\"intervalSectionTheImage$symbol\" style='display: none'></img><br>
+            echo "<img width=\"60%\" id=\"intervalSectionImage$symbol\" style='display: none'></img><br>
                   <button id=\"intervalSectionButton1D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">1D</button>
                   <button id=\"intervalSectionButton5D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">5D</button>
                   <button id=\"intervalSectionButton10D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">10D</button>
@@ -700,7 +712,7 @@ do
                     }
                     if(image$symbol.complete) {
                         var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN='+TIME_SPAN$symbol;
-                        document.getElementById(\"intervalSectionTheImage$symbol\").src = urlWithTimeSpan;
+                        document.getElementById(\"intervalSectionImage$symbol\").src = urlWithTimeSpan;
                         image$symbol = new Image();
                         image$symbol.src = urlWithTimeSpan;
                     }
@@ -756,13 +768,14 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
     fi
 fi
 {
-    echo "<br><br><div style=\"font-size: large\"># Overall<br>"
+    # Overall
+    echo "<br><br><div id='intervalSectionHeadlineOverall' style='font-size:large;display:none'># Overall<br>"
     echo "<span id=\"obfuscatedValueBuyingOverall\" style='display:none'>$obfuscatedValueBuyingSellingOverall</span>"
     echo "<span id=\"obfuscatedValueGainOverall\" style='display:none;color:$_linkColor'>$obfuscatedValueGainOverall</span></div>"
 
     # DAX
-    echo "<br>DAX<br>"
-    echo "<img width=\"60%\" id=\"intervalSectionTheImageDAX\" style='display: none'></img><br>
+    echo "<span id=\"intervalSectionHeadlineDAX\" style='display:none'><br>DAX<br></span>"
+    echo "<img width=\"60%\" id=\"intervalSectionImageDAX\" style='display: none'></img><br>
         <button id=\"intervalSectionButton1DDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('1D')\">1D</button>
         <button id=\"intervalSectionButton5DDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('5D')\">5D</button>
         <button id=\"intervalSectionButton10DDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('10D')\">10D</button>
@@ -781,7 +794,7 @@ fi
             }
             if(imageDAX.complete) {
                 var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=35803356&TIME_SPAN='+TIME_SPANDAX;
-                document.getElementById(\"intervalSectionTheImageDAX\").src = urlWithTimeSpan;
+                document.getElementById(\"intervalSectionImageDAX\").src = urlWithTimeSpan;
                 imageDAX = new Image();
                 imageDAX.src = urlWithTimeSpan;
             }
