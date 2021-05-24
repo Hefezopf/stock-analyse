@@ -637,7 +637,21 @@ do
             _linkColor="$RED"
         fi
 
-        {    
+        {   
+            # RegularMarketPrice
+            echo "<script>
+            fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.DE?interval=3mo')}\`)
+            .then(response => {
+                if (response.ok) return response.json()
+                throw new Error('Network response error!')
+            })
+            .then(data => {
+                const obj = JSON.parse(data.contents);
+                var element = document.getElementById(\"intervalSectionRegularMarketPrice$symbol\");
+                element.innerHTML = obj.chart.result[0].meta.regularMarketPrice + '€';
+            });
+            </script>"
+
             # Interval Beep
             echo "<span id=\"intervalSection$symbol\" style='display: none'><input name=\"intervalField$symbol\" type=\"text\" maxlength=\"7\" value=\"1\" id=\"intervalField$symbol\"/><button type=\"button\" id=\"intervalButton$symbol\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
             echo "<script>
@@ -661,8 +675,10 @@ do
             </script>"
 
             # ObfuscatedValue
-            echo "<div style=\"font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style='display:none'>$obfuscatedValueFirst</span>&nbsp;"
-            echo "<span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span></div>"
+            echo "<div style=\"font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style='display:none'>$obfuscatedValueFirst</span>&nbsp;
+                   <span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span>&nbsp;
+                   <span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>
+                 </div>"
 
             # Image Chart
             echo "<img width=\"60%\" id=\"intervalSectionTheImage$symbol\" style='display: none'></img><br>
