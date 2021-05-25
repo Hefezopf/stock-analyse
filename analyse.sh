@@ -648,9 +648,7 @@ do
             .then(data => {
                 const obj = JSON.parse(data.contents);
                 var elementRegularMarketPrice = document.getElementById(\"intervalSectionRegularMarketPrice$symbol\");
-                elementRegularMarketPrice.innerHTML = obj.chart.result[0].meta.regularMarketPrice + '€';
-                var elementChartPreviousClose = document.getElementById(\"intervalSectionChartPreviousClose$symbol\");
-                elementChartPreviousClose.innerHTML = obj.chart.result[0].meta.chartPreviousClose + '€';
+                elementRegularMarketPrice.innerHTML = obj.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
                 var elementPercentage = document.getElementById(\"intervalSectionPercentage$symbol\");
                 var percentValue = ((obj.chart.result[0].meta.regularMarketPrice / obj.chart.result[0].meta.chartPreviousClose) -1) * 100;
                 percentValue = percentValue.toFixed(2);
@@ -686,10 +684,10 @@ do
                 document.getElementById(\"intervalButton$symbol\").addEventListener(\"click\", setBeepInterval$symbol);
             </script>"
 
-            # ObfuscatedValue
+            # ObfuscatedValue / RegularMarketPrice
             echo "<div style=\"font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style='display:none'>$obfuscatedValueFirst</span>&nbsp;
                    <span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span>&nbsp;
-                   <span id=\"intervalSectionChartPreviousClose$symbol\" style='display: none'></span>&nbsp;<span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;<span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>
+                   <span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;<span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>
                  </div>"
 
             # Image Chart
