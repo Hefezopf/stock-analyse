@@ -640,7 +640,7 @@ do
         {   
             # RegularMarketPrice
             echo "<script>
-            fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.DE?interval=3mo')}\`)
+            fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.DE?interval=1d')}\`)
             .then(response => {
                 if (response.ok) return response.json()
                 throw new Error('Network response error!')
@@ -650,7 +650,7 @@ do
                 var elementRegularMarketTime = document.getElementById(\"intervalSectionRegularMarketTime$symbol\");
                 var d = new Date(0); 
                 d.setUTCSeconds(obj.chart.result[0].meta.regularMarketTime);
-                elementRegularMarketTime.innerHTML = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                elementRegularMarketTime.innerHTML = ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2) + ':' + ('0'+d.getSeconds()).slice(-2);
                 var elementRegularMarketPrice = document.getElementById(\"intervalSectionRegularMarketPrice$symbol\");
                 elementRegularMarketPrice.innerHTML = obj.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
                 var elementPercentage = document.getElementById(\"intervalSectionPercentage$symbol\");
