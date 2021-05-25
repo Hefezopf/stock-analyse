@@ -647,6 +647,10 @@ do
             })
             .then(data => {
                 const obj = JSON.parse(data.contents);
+                var elementRegularMarketTime = document.getElementById(\"intervalSectionRegularMarketTime$symbol\");
+                var d = new Date(0); 
+                d.setUTCSeconds(obj.chart.result[0].meta.regularMarketTime);
+                elementRegularMarketTime.innerHTML = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 var elementRegularMarketPrice = document.getElementById(\"intervalSectionRegularMarketPrice$symbol\");
                 elementRegularMarketPrice.innerHTML = obj.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
                 var elementPercentage = document.getElementById(\"intervalSectionPercentage$symbol\");
@@ -661,6 +665,12 @@ do
                 }
             });
             </script>"
+
+            # RegularMarketPrice
+            echo "<span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;
+                  <span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>&nbsp;
+                  <span id=\"intervalSectionRegularMarketTime$symbol\" style='display: none'></span>
+                  <br>"
 
             # Interval Beep
             echo "<span id=\"intervalSection$symbol\" style='display: none'><input name=\"intervalField$symbol\" type=\"text\" maxlength=\"7\" value=\"1\" id=\"intervalField$symbol\"/><button type=\"button\" id=\"intervalButton$symbol\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
@@ -684,10 +694,10 @@ do
                 document.getElementById(\"intervalButton$symbol\").addEventListener(\"click\", setBeepInterval$symbol);
             </script>"
 
-            # ObfuscatedValue / RegularMarketPrice
-            echo "<div style=\"font-size: large\"><span id=\"obfuscatedValueFirst$symbol\" style='display:none'>$obfuscatedValueFirst</span>&nbsp;
-                   <span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span>&nbsp;
-                   <span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;<span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>
+            # ObfuscatedValue
+            echo "<div style=\"font-size: large\">
+                   <span id=\"obfuscatedValueFirst$symbol\" style='display:none'>$obfuscatedValueFirst</span>&nbsp;
+                   <span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span>
                  </div>"
 
             # Image Chart
