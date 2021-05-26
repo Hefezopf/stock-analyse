@@ -674,7 +674,8 @@ do
             </script>"
 
             # RegularMarketPrice
-            echo "<span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;
+            echo "<span id=\"intervalSectionXETRA$symbol\" style='display: none'>XETRA:</span>&nbsp;
+                  <span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionRegularMarketTime$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='display: none'></span>
