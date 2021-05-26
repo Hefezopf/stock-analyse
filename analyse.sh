@@ -642,26 +642,33 @@ do
             echo "<script>
             fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.DE?interval=1d')}\`)
             .then(response => {
-                if (response.ok) return response.json()
-                throw new Error('Network response error!')
+                if (response.ok) return response.json();
+                throw new Error('Network response error!');
             })
             .then(data => {
-                const obj = JSON.parse(data.contents);
-                var elementRegularMarketTime = document.getElementById(\"intervalSectionRegularMarketTime$symbol\");
-                var d = new Date(0); 
-                d.setUTCSeconds(obj.chart.result[0].meta.regularMarketTime);
-                elementRegularMarketTime.innerHTML = ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2) + ':' + ('0'+d.getSeconds()).slice(-2);
-                var elementRegularMarketPrice = document.getElementById(\"intervalSectionRegularMarketPrice$symbol\");
-                elementRegularMarketPrice.innerHTML = obj.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-                var elementPercentage = document.getElementById(\"intervalSectionPercentage$symbol\");
-                var percentValue = ((obj.chart.result[0].meta.regularMarketPrice / obj.chart.result[0].meta.chartPreviousClose) -1) * 100;
-                percentValue = percentValue.toFixed(2);
-                elementPercentage.innerHTML = percentValue + '%';
-                if(percentValue < 0){
-                    elementPercentage.style.color = 'red';
+                const obj$symbol = JSON.parse(data.contents);
+                var elementRegularMarketTime$symbol = document.getElementById(\"intervalSectionRegularMarketTime$symbol\");
+
+                var dateMarketTime$symbol = new Date(0); 
+                var epochMarketTime$symbol = obj$symbol.chart.result[0].meta.regularMarketTime;
+                dateMarketTime$symbol.setUTCSeconds(epochMarketTime$symbol);
+                elementRegularMarketTime$symbol.innerHTML = ('0'+dateMarketTime$symbol.getHours()).slice(-2) + ':' + ('0'+dateMarketTime$symbol.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTime$symbol.getSeconds()).slice(-2);
+
+                var deltaMinutes$symbol =((new Date().getTime() - dateMarketTime$symbol.getTime()) / 1000) / 60;
+                var elementRegularMarketTimeOffset$symbol = document.getElementById(\"intervalSectionRegularMarketTimeOffset$symbol\");
+                elementRegularMarketTimeOffset$symbol.innerHTML = '+' + Math.abs(Math.round(deltaMinutes$symbol)) + 'min';
+
+                var elementRegularMarketPrice$symbol = document.getElementById(\"intervalSectionRegularMarketPrice$symbol\");
+                elementRegularMarketPrice$symbol.innerHTML = obj$symbol.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+                var elementPercentage$symbol = document.getElementById(\"intervalSectionPercentage$symbol\");
+                var percentValue$symbol = ((obj$symbol.chart.result[0].meta.regularMarketPrice / obj$symbol.chart.result[0].meta.chartPreviousClose) -1) * 100;
+                percentValue$symbol = percentValue$symbol.toFixed(2);
+                elementPercentage$symbol.innerHTML = percentValue$symbol + '%';
+                if(percentValue$symbol < 0){
+                    elementPercentage$symbol.style.color = 'red';
                 }
                 else{
-                    elementPercentage.style.color = 'green';
+                    elementPercentage$symbol.style.color = 'green';
                 }
             });
             </script>"
@@ -669,7 +676,8 @@ do
             # RegularMarketPrice
             echo "<span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>&nbsp;
-                  <span id=\"intervalSectionRegularMarketTime$symbol\" style='display: none'></span>
+                  <span id=\"intervalSectionRegularMarketTime$symbol\" style='display: none'></span>&nbsp;
+                  <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='display: none'></span>
                   <br>"
 
             # Interval Beep
