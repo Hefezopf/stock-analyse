@@ -733,7 +733,7 @@ do
                         image$symbol = new Image();
                         image$symbol.src = urlWithTimeSpan;
                     }
-                    setTimeout(updateImage$symbol, 5*60*1000); // 5 Minutes // 5*60*1000
+                  // setTimeout(updateImage$symbol, 5*60*1000); // 5 Minutes // 5*60*1000
                 }
             </script>"
         } >> $OUT_RESULT_FILE
@@ -815,7 +815,7 @@ fi
                 imageDAX = new Image();
                 imageDAX.src = urlWithTimeSpan;
             }
-            setTimeout(updateImageDAX, 5*60*1000); // 5 Minutes // 5*60*1000
+           // setTimeout(updateImageDAX, 5*60*1000); // 5 Minutes // 5*60*1000
         }
     </script>"
     symbolsParam="$symbolsParam *DAX"
