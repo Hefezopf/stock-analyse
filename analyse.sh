@@ -75,7 +75,20 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head>
 <link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" />
 <title>Result SA</title>
 <style>.green{color:green;} .red{color:red;} .black{color:black;}</style>
-</head><body><div style=\"font-size: large\">"
+</head><body><div style=\"font-size: large\">
+<script>
+    function decryptElement(ele) {
+        var dec = document.getElementById(ele.id).innerHTML;
+        dec = dec.split(\"\").reverse().join(\"\"); // reverseString
+        dec = replaceInString(dec);
+        document.getElementById(ele.id).innerHTML = dec;
+    }
+    function replaceInString(str){
+        var ret = str.replace(/XX/g, \" pc \");
+        var ret = ret.replace(/YY/g, \"€ \");
+        return ret.replace(/ZZ/g, \"% \");
+    }    
+</script>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
@@ -117,18 +130,7 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
     } 
     function hideElement(ele) {
         ele.style.display = 'none';
-    }          
-    function decryptElement(ele) {
-        var dec = document.getElementById(ele.id).innerHTML;
-        dec = dec.split(\"\").reverse().join(\"\"); // reverseString
-        dec = replaceInString(dec);
-        document.getElementById(ele.id).innerHTML = dec;
-    }
-    function replaceInString(str){
-        var ret = str.replace(/X/g, \" pc \");
-        var ret = ret.replace(/Y/g, \"€ \");
-        return ret.replace(/Z/g, \"% \");
-    }    
+    }   
 </script>
 </body></html>"
 START_TIME_MEASUREMENT=$(date +%s);
@@ -625,11 +627,11 @@ do
         stocksCurrentValue=$(printf "%.0f" "$stocksCurrentValue")
         stocksPerformance=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print (($1 / $2)-1)*100}')
         stocksPerformance=$(printf "%.1f" "$stocksPerformance")
-        obfuscatedValueFirst="$stocksPieces"X"$stocksBuyingValue"/"$stocksCurrentValue"Y
-        obfuscatedValueFirst=$(echo "$obfuscatedValueFirst" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
+        obfuscatedValuePcEuro="$stocksPieces"XX"$stocksBuyingValue"/"$stocksCurrentValue"YY
+        obfuscatedValuePcEuro=$(echo "$obfuscatedValuePcEuro" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
 
         obfuscatedValueGain=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print $1 - $2}')
-        obfuscatedValueGain="$stocksPerformance"Z"$obfuscatedValueGain"Y
+        obfuscatedValueGain="$stocksPerformance"ZZ"$obfuscatedValueGain"YY
         obfuscatedValueGain=$(echo "$obfuscatedValueGain" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
         isNegativ=$(echo "$stocksPerformance" | awk '{print substr ($0, 0, 1)}')
         _linkColor="$GREEN"
@@ -670,16 +672,38 @@ do
                 else{
                     elementPercentage$symbol.style.color = 'green';
                 }
+
+
+                var elementCurrentValues$symbol = document.getElementById(\"intervalSectionCurrentValues$symbol\");
+                var obfuscatedValuePcEuro$symbol = document.getElementById(\"obfuscatedValuePcEuro$symbol\");
+                decryptElement(obfuscatedValuePcEuro$symbol);
+                var pieces$symbol = obfuscatedValuePcEuro$symbol.innerHTML.split(' pc')[0];
+                var buyingValue$symbol = obfuscatedValuePcEuro$symbol.innerHTML.split('/')[0];
+                buyingValue$symbol = buyingValue$symbol.split(' ')[2];
+                var currentValue$symbol = pieces$symbol * obj$symbol.chart.result[0].meta.regularMarketPrice;
+                var stocksPerformance$symbol = ((currentValue$symbol / buyingValue$symbol)-1)*100;
+                elementCurrentValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + currentValue$symbol.toFixed(0) + '€';
+                var elementCurrentGain$symbol = document.getElementById(\"intervalSectionCurrentGain$symbol\");
+                elementCurrentGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(2) + '% ' + (currentValue$symbol - buyingValue$symbol).toFixed(0) + '€';
+                if(stocksPerformance$symbol < 0){
+                    elementCurrentGain$symbol.style.color = 'red';
+                }
+                else{
+                    elementCurrentGain$symbol.style.color = 'green';
+                }
+                decryptElement(obfuscatedValuePcEuro$symbol);  
             });
             </script>"
 
-            # RegularMarketPrice
             echo "<span id=\"intervalSectionXETRA$symbol\" style='display: none'>XETRA:</span>&nbsp;
                   <span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionRegularMarketTime$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='display: none'></span>
                   <br>"
+            echo "<span id=\"intervalSectionCurrentValues$symbol\" style='display: none'>Current:</span>&nbsp;
+                  <span id=\"intervalSectionCurrentGain$symbol\" style='display: none'></span>
+                  <br>"                  
 
             # Interval Beep
             echo "<span id=\"intervalSection$symbol\" style='display: none'><input name=\"intervalField$symbol\" type=\"text\" maxlength=\"7\" value=\"1\" id=\"intervalField$symbol\"/><button type=\"button\" id=\"intervalButton$symbol\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
@@ -705,8 +729,10 @@ do
 
             # ObfuscatedValue
             echo "<div style=\"font-size: large\">
-                   <span id=\"obfuscatedValueFirst$symbol\" style='display:none'>$obfuscatedValueFirst</span>&nbsp;
+                   <span id=\"obfuscatedValueOpenBraces$symbol\" style='display:none'>(</span>
+                   <span id=\"obfuscatedValuePcEuro$symbol\" style='display:none'>$obfuscatedValuePcEuro</span>&nbsp;
                    <span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span>
+                   <span id=\"obfuscatedValueCloseBraces$symbol\" style='display:none'>)</span>
                  </div>"
 
             # Image Chart
@@ -770,13 +796,13 @@ done
 
 # Overall
 if [ "$obfuscatedValueBuyingOverall" ]; then
-    obfuscatedValueBuyingSellingOverall="$obfuscatedValueBuyingOverall"/"$obfuscatedValueSellingOverall"Y
+    obfuscatedValueBuyingSellingOverall="$obfuscatedValueBuyingOverall"/"$obfuscatedValueSellingOverall"YY
     obfuscatedValueBuyingSellingOverall=$(echo "$obfuscatedValueBuyingSellingOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
 
     stocksPerformanceOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print (($1 / $2)-1)*100}')
     stocksPerformanceOverall=$(printf "%.1f" "$stocksPerformanceOverall")
     obfuscatedValueGainOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print $1 - $2}')
-    obfuscatedValueGainOverall="$stocksPerformanceOverall"Z"$obfuscatedValueGainOverall"Y
+    obfuscatedValueGainOverall="$stocksPerformanceOverall"ZZ"$obfuscatedValueGainOverall"YY
     obfuscatedValueGainOverall=$(echo "$obfuscatedValueGainOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
     isNegativ=$(echo "$stocksPerformanceOverall" | awk '{print substr ($0, 0, 1)}')
     _linkColor="$GREEN"
@@ -788,7 +814,7 @@ fi
     # Overall
     echo "<br><br><div id='intervalSectionHeadlineOverall' style='font-size:large;display:none'># Overall<br>"
     echo "<span id=\"obfuscatedValueBuyingOverall\" style='display:none'>$obfuscatedValueBuyingSellingOverall</span>"
-    echo "<span id=\"obfuscatedValueGainOverall\" style='display:none;color:$_linkColor'>$obfuscatedValueGainOverall</span></div>"
+    echo "<span id=\"obfuscatedValueGainOverall\" style='display:none;color:$_linkColor'>$obfuscatedValueGainOverall</span> (Yesterday)</div>"
 
     # DAX
     echo "<span id=\"intervalSectionHeadlineDAX\" style='display:none'><br>DAX<br></span>"
