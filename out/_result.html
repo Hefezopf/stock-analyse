@@ -41,9 +41,123 @@ RSI:25
 <a href="D:/code/stock-analyse/out/DBK.html" id='linkPCDBK' style='display: none' target='_blank'>PC</a>
 <br>Sell: High 5 last Stochastic (S)
 <br>
+<script>
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/DBK.DE?interval=1d')}`)
+.then(response => {
+if (response.ok) return response.json();
+throw new Error('Network response error!');
+})
+.then(data => {
+const objDBK = JSON.parse(data.contents);
+var elementRegularMarketTimeDBK = document.getElementById("intervalSectionRegularMarketTimeDBK");
+
+var dateMarketTimeDBK = new Date(0); 
+var epochMarketTimeDBK = objDBK.chart.result[0].meta.regularMarketTime;
+dateMarketTimeDBK.setUTCSeconds(epochMarketTimeDBK);
+elementRegularMarketTimeDBK.innerHTML = ('0'+dateMarketTimeDBK.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeDBK.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeDBK.getSeconds()).slice(-2);
+
+var deltaMinutesDBK =((new Date().getTime() - dateMarketTimeDBK.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetDBK = document.getElementById("intervalSectionRegularMarketTimeOffsetDBK");
+elementRegularMarketTimeOffsetDBK.innerHTML = '+' + Math.abs(Math.round(deltaMinutesDBK)) + 'min';
+
+var elementRegularMarketPriceDBK = document.getElementById("intervalSectionRegularMarketPriceDBK");
+elementRegularMarketPriceDBK.innerHTML = objDBK.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+var elementPercentageDBK = document.getElementById("intervalSectionPercentageDBK");
+var percentValueDBK = ((objDBK.chart.result[0].meta.regularMarketPrice / objDBK.chart.result[0].meta.chartPreviousClose) -1) * 100;
+percentValueDBK = percentValueDBK.toFixed(2);
+elementPercentageDBK.innerHTML = percentValueDBK + '%';
+if(percentValueDBK < 0){
+elementPercentageDBK.style.color = 'red';
+}
+else{
+elementPercentageDBK.style.color = 'green';
+}
+
+
+var elementCurrentValuesDBK = document.getElementById("intervalSectionCurrentValuesDBK");
+var obfuscatedValuePcEuroDBK = document.getElementById("obfuscatedValuePcEuroDBK");
+decryptElement(obfuscatedValuePcEuroDBK);
+var piecesDBK = obfuscatedValuePcEuroDBK.innerHTML.split(' pc')[0];
+var buyingValueDBK = obfuscatedValuePcEuroDBK.innerHTML.split('/')[0];
+buyingValueDBK = buyingValueDBK.split(' ')[2];
+var currentValueDBK = piecesDBK * objDBK.chart.result[0].meta.regularMarketPrice;
+var stocksPerformanceDBK = ((currentValueDBK / buyingValueDBK)-1)*100;
+elementCurrentValuesDBK.innerHTML = piecesDBK + ' pc ' + buyingValueDBK + '/' + currentValueDBK.toFixed(0) + '€';
+var elementCurrentGainDBK = document.getElementById("intervalSectionCurrentGainDBK");
+elementCurrentGainDBK.innerHTML = stocksPerformanceDBK.toFixed(2) + '% ' + (currentValueDBK - buyingValueDBK).toFixed(0) + '€';
+if(stocksPerformanceDBK < 0){
+elementCurrentGainDBK.style.color = 'red';
+}
+else{
+elementCurrentGainDBK.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroDBK);  
+});
+</script>
+<span id="intervalSectionXETRADBK" style='display: none'>XETRA:</span>&nbsp;
+<span id="intervalSectionRegularMarketPriceDBK" style='display: none'></span>&nbsp;
+<span id="intervalSectionPercentageDBK" style='display: none'></span>&nbsp;
+<span id="intervalSectionRegularMarketTimeDBK" style='display: none'></span>&nbsp;
+<span id="intervalSectionRegularMarketTimeOffsetDBK" style='display: none'></span>
+<br>
+<span id="intervalSectionCurrentValuesDBK" style='display: none'>Current:</span>&nbsp;
+<span id="intervalSectionCurrentGainDBK" style='display: none'></span>
+<br>
+<span id="intervalSectionDBK" style='display: none'><input name="intervalFieldDBK" type="text" maxlength="7" value="1" id="intervalFieldDBK"/><button type="button" id="intervalButtonDBK">Minutes</button><span id="intervalTextDBK"></span></span>
+<script>
+var intervalVarDBK;
+function beepDBK() {
+var elementAlert = document.getElementById("intervalTextDBK");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarDBK);
+intervalVarDBK=undefined;
+}
+function setBeepIntervalDBK() {
+var intervalValue = document.getElementById("intervalFieldDBK").value;
+intervalVarDBK = setInterval(beepDBK, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextDBK");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonDBK").addEventListener("click", setBeepIntervalDBK);
+</script>
+<div style="font-size: large">
+<span id="obfuscatedValueOpenBracesDBK" style='display:none'>(</span>
+<span id="obfuscatedValuePcEuroDBK" style='display:none'>YY055581/511122XX00051</span>&nbsp;
+<span id="obfuscatedValueGainDBK" style='display:none;color:red'>YY56553-ZZ1.61-</span>
+<span id="obfuscatedValueCloseBracesDBK" style='display:none'>)</span>
+</div>
+<img width="60%" id="intervalSectionImageDBK" style='display: none'></img><br>
+<button id="intervalSectionButton1DDBK" style='display: none' type="button" onClick="javascript:updateImageDBK('1D')">1D</button>
+<button id="intervalSectionButton5DDBK" style='display: none' type="button" onClick="javascript:updateImageDBK('5D')">5D</button>
+<button id="intervalSectionButton10DDBK" style='display: none' type="button" onClick="javascript:updateImageDBK('10D')">10D</button>
+<button id="intervalSectionButton3MDBK" style='display: none' type="button" onClick="javascript:updateImageDBK('3M')">3M</button>
+<button id="intervalSectionButton6MDBK" style='display: none' type="button" onClick="javascript:updateImageDBK('6M')">6M</button>
+<button id="intervalSectionButton1YDBK" style='display: none' type="button" onClick="javascript:updateImageDBK('1Y')">1Y</button>
+<button id="intervalSectionButton5YDBK" style='display: none' type="button" onClick="javascript:updateImageDBK('5Y')">5Y</button>
+<hr id="intervalSectionHRDBK" style='display: none'>
+<script>
+var imageDBK = new Image();
+var TIME_SPANDBK;
+function updateImageDBK(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANDBK=timespan;
+}
+if(imageDBK.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336876&TIME_SPAN='+TIME_SPANDBK;
+document.getElementById("intervalSectionImageDBK").src = urlWithTimeSpan;
+imageDBK = new Image();
+imageDBK.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageDBK, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
 <br><br><div id='intervalSectionHeadlineOverall' style='font-size:large;display:none'># Overall<br>
-<span id="obfuscatedValueBuyingOverall" style='display:none'></span>
-<span id="obfuscatedValueGainOverall" style='display:none;color:red'></span> (Yesterday)</div>
+<span id="obfuscatedValueBuyingOverall" style='display:none'>YY055581/511122</span>
+<span id="obfuscatedValueGainOverall" style='display:none;color:red'>YY56553-ZZ1.61-</span> (Yesterday)</div>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="60%" id="intervalSectionImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
@@ -100,7 +214,7 @@ javascript:updateImageDBK('5Y');
 javascript:updateImageDAX('5Y');
 ">5Y</button>
 <br><br># Workflow<br><a href="https://github.com/Hefezopf/stock-analyse/actions" target="_blank">Github Action</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  6-Jun-2021 12:29</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  6-Jun-2021 12:36</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
