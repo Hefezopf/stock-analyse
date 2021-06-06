@@ -571,23 +571,25 @@ do
         # Draw 5% lines
         if [ "$markerOwnStock" = '*' ]; then
             # Get buying rate
-            last=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')       
+            buyingRate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')
+        else
+            buyingRate=$last
         fi
         # Draw buying/last rate
         cat template/indexPart8a.html
         i=1
         while [ "$i" -le 87 ]; do
-            echo -n "$last,"
+            echo -n "$buyingRate,"
             i=$((i + 1))
         done
         # Draw 5% over buying/last quote
         cat template/indexPart8b.html
-        percentOverBuyingLastRate=$(echo "$last 1.05" | awk '{print $1 * $2}')
+        percentOverBuyingLastRate=$(echo "$buyingRate 1.05" | awk '{print $1 * $2}')
         i=1
         while [ "$i" -le 87 ]; do
             echo -n "$percentOverBuyingLastRate,"
             i=$((i + 1))
-        done        
+        done
 
         cat template/indexPart9.html
         cat alarm/"$symbol".txt
