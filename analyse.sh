@@ -647,7 +647,9 @@ do
             echo "<script>
             fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.DE?interval=1d')}\`)
             .then(response => {
-                if (response.ok) return response.json();
+                if (response.ok){
+                    return response.json();
+                }
                 throw new Error('Network response error!');
             })
             .then(data => {
@@ -667,7 +669,7 @@ do
                 elementRegularMarketPrice$symbol.innerHTML = obj$symbol.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
                 var elementPercentage$symbol = document.getElementById(\"intervalSectionPercentage$symbol\");
                 var percentValue$symbol = ((obj$symbol.chart.result[0].meta.regularMarketPrice / obj$symbol.chart.result[0].meta.chartPreviousClose) -1) * 100;
-                percentValue$symbol = percentValue$symbol.toFixed(2);
+                percentValue$symbol = percentValue$symbol.toFixed(1);
                 elementPercentage$symbol.innerHTML = percentValue$symbol + '%';
                 if(percentValue$symbol < 0){
                     elementPercentage$symbol.style.color = 'red';
@@ -685,9 +687,9 @@ do
                 buyingValue$symbol = buyingValue$symbol.split(' ')[2];
                 var currentValue$symbol = pieces$symbol * obj$symbol.chart.result[0].meta.regularMarketPrice;
                 var stocksPerformance$symbol = ((currentValue$symbol / buyingValue$symbol)-1)*100;
-                elementCurrentValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + currentValue$symbol.toFixed(0) + '€';
+                elementCurrentValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + currentValue$symbol.toFixed(0) + '€ ';
                 var elementCurrentGain$symbol = document.getElementById(\"intervalSectionCurrentGain$symbol\");
-                elementCurrentGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(2) + '% ' + (currentValue$symbol - buyingValue$symbol).toFixed(0) + '€';
+                elementCurrentGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (currentValue$symbol - buyingValue$symbol).toFixed(0) + '€';
                 if(stocksPerformance$symbol < 0){
                     elementCurrentGain$symbol.style.color = 'red';
                 }
@@ -695,6 +697,9 @@ do
                     elementCurrentGain$symbol.style.color = 'green';
                 }
                 decryptElement(obfuscatedValuePcEuro$symbol);  
+            })
+            .catch(error => {
+                    console.error('Error retrieving current quote for: $symbol !!!');
             });
             </script>"
 
@@ -707,6 +712,13 @@ do
             echo "<span id=\"intervalSectionCurrentValues$symbol\" style='display: none'>Current:</span>&nbsp;
                   <span id=\"intervalSectionCurrentGain$symbol\" style='display: none'></span>
                   <br>"                  
+
+            # ObfuscatedValue
+            echo "<div style=\"font-size: large\">
+                   <span id=\"obfuscatedValuePcEuro$symbol\" style='display:none'>$obfuscatedValuePcEuro</span>&nbsp;
+                   <span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span>
+                   <span id=\"obfuscatedValueCloseBraces$symbol\" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+                 </div>"
 
             # Interval Beep
             echo "<span id=\"intervalSection$symbol\" style='display: none'><input name=\"intervalField$symbol\" type=\"text\" maxlength=\"7\" value=\"1\" id=\"intervalField$symbol\"/><button type=\"button\" id=\"intervalButton$symbol\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
@@ -729,14 +741,6 @@ do
                 }
                 document.getElementById(\"intervalButton$symbol\").addEventListener(\"click\", setBeepInterval$symbol);
             </script>"
-
-            # ObfuscatedValue
-            echo "<div style=\"font-size: large\">
-                   <span id=\"obfuscatedValueOpenBraces$symbol\" style='display:none'>(</span>
-                   <span id=\"obfuscatedValuePcEuro$symbol\" style='display:none'>$obfuscatedValuePcEuro</span>&nbsp;
-                   <span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span>
-                   <span id=\"obfuscatedValueCloseBraces$symbol\" style='display:none'>)</span>
-                 </div>"
 
             # Image Chart
             echo "<img width=\"60%\" id=\"intervalSectionImage$symbol\" style='display: none'></img><br>
