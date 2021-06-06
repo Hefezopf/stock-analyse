@@ -568,25 +568,26 @@ do
         cat template/indexPart8.html
         echo "$averagePriceList95"
 
-        # Draw Buying Rate
+        # Draw 5% lines
         if [ "$markerOwnStock" = '*' ]; then
-            cat template/indexPart8a.html
-            buyingRate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')
-            i=1
-            while [ "$i" -le 87 ]; do
-                echo -n "$buyingRate,"
-                i=$((i + 1))
-            done
-
-            # Draw 5 % over Buying Rate
-            cat template/indexPart8b.html
-            percentOverBuyingRate=$(echo "$buyingRate 1.05" | awk '{print $1 * $2}')
-            i=1
-            while [ "$i" -le 87 ]; do
-                echo -n "$percentOverBuyingRate,"
-                i=$((i + 1))
-            done
+            # Get buying rate
+            last=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')       
         fi
+        # Draw buying/last rate
+        cat template/indexPart8a.html
+        i=1
+        while [ "$i" -le 87 ]; do
+            echo -n "$last,"
+            i=$((i + 1))
+        done
+        # Draw 5% over buying/last quote
+        cat template/indexPart8b.html
+        percentOverBuyingLastRate=$(echo "$last 1.05" | awk '{print $1 * $2}')
+        i=1
+        while [ "$i" -le 87 ]; do
+            echo -n "$percentOverBuyingLastRate,"
+            i=$((i + 1))
+        done        
 
         cat template/indexPart9.html
         cat alarm/"$symbol".txt
