@@ -743,7 +743,7 @@ do
             </script>"
 
             # Image Chart
-            echo "<img width=\"60%\" id=\"intervalSectionImage$symbol\" style='display: none'></img><br>
+            echo "<br><img width=\"60%\" id=\"intervalSectionImage$symbol\" style='display: none'></img><br>
                   <button id=\"intervalSectionButton1D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">1D</button>
                   <button id=\"intervalSectionButton5D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">5D</button>
                   <button id=\"intervalSectionButton10D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">10D</button>
