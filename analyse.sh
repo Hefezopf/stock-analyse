@@ -679,22 +679,22 @@ do
                 }
 
 
-                var elementCurrentValues$symbol = document.getElementById(\"intervalSectionCurrentValues$symbol\");
+                var elementPortfolioValues$symbol = document.getElementById(\"intervalSectionPortfolioValues$symbol\");
                 var obfuscatedValuePcEuro$symbol = document.getElementById(\"obfuscatedValuePcEuro$symbol\");
                 decryptElement(obfuscatedValuePcEuro$symbol);
                 var pieces$symbol = obfuscatedValuePcEuro$symbol.innerHTML.split(' pc')[0];
                 var buyingValue$symbol = obfuscatedValuePcEuro$symbol.innerHTML.split('/')[0];
                 buyingValue$symbol = buyingValue$symbol.split(' ')[2];
-                var currentValue$symbol = pieces$symbol * obj$symbol.chart.result[0].meta.regularMarketPrice;
-                var stocksPerformance$symbol = ((currentValue$symbol / buyingValue$symbol)-1)*100;
-                elementCurrentValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + currentValue$symbol.toFixed(0) + '€ ';
-                var elementCurrentGain$symbol = document.getElementById(\"intervalSectionCurrentGain$symbol\");
-                elementCurrentGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (currentValue$symbol - buyingValue$symbol).toFixed(0) + '€';
+                var portfolioValue$symbol = pieces$symbol * obj$symbol.chart.result[0].meta.regularMarketPrice;
+                var stocksPerformance$symbol = ((portfolioValue$symbol / buyingValue$symbol)-1)*100;
+                elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + portfolioValue$symbol.toFixed(0) + '€ ';
+                var elementPortfolioGain$symbol = document.getElementById(\"intervalSectionPortfolioGain$symbol\");
+                elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
                 if(stocksPerformance$symbol < 0){
-                    elementCurrentGain$symbol.style.color = 'red';
+                    elementPortfolioGain$symbol.style.color = 'red';
                 }
                 else{
-                    elementCurrentGain$symbol.style.color = 'green';
+                    elementPortfolioGain$symbol.style.color = 'green';
                 }
                 decryptElement(obfuscatedValuePcEuro$symbol);  
             })
@@ -703,14 +703,15 @@ do
             });
             </script>"
 
-            echo "<span id=\"intervalSectionXETRA$symbol\" style='display: none'>XETRA:</span>&nbsp;
+            echo "<span id=\"intervalSectionXetra$symbol\" style='display: none'>Xetra:</span>&nbsp;
                   <span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionRegularMarketTime$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='display: none'></span>
                   <br>"
-            echo "<span id=\"intervalSectionCurrentValues$symbol\" style='display: none'>Current:</span>&nbsp;
-                  <span id=\"intervalSectionCurrentGain$symbol\" style='display: none'></span>
+            echo "<span id=\"intervalSectionPortfolio$symbol\" style='display: none'>Portfolio:</span>&nbsp;
+                  <span id=\"intervalSectionPortfolioValues$symbol\" style='display: none'></span>&nbsp;
+                  <span id=\"intervalSectionPortfolioGain$symbol\" style='display: none'></span>
                   <br>"                  
 
             # ObfuscatedValue neverShowDiv (Yesterday)
