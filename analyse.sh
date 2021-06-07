@@ -713,8 +713,8 @@ do
                   <span id=\"intervalSectionCurrentGain$symbol\" style='display: none'></span>
                   <br>"                  
 
-            # ObfuscatedValue
-            echo "<div style=\"font-size: large\">
+            # ObfuscatedValue neverShowDiv (Yesterday)
+            echo "<div id=\"neverShowDiv$symbol\" style='display:none'>
                    <span id=\"obfuscatedValuePcEuro$symbol\" style='display:none'>$obfuscatedValuePcEuro</span>&nbsp;
                    <span id=\"obfuscatedValueGain$symbol\" style='display:none;color:$_linkColor'>$obfuscatedValueGain</span>
                    <span id=\"obfuscatedValueCloseBraces$symbol\" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
@@ -819,9 +819,9 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
 fi
 {
     # Overall
-    echo "<br><br><div id='intervalSectionHeadlineOverall' style='font-size:large;display:none'># Overall<br>"
+    echo "<br><br><div id='intervalSectionHeadlineOverall' style='font-size:large;display:none'># Overall (Yesterday)<br>"
     echo "<span id=\"obfuscatedValueBuyingOverall\" style='display:none'>$obfuscatedValueBuyingSellingOverall</span>"
-    echo "<span id=\"obfuscatedValueGainOverall\" style='display:none;color:$_linkColor'>$obfuscatedValueGainOverall</span> (Yesterday)</div>"
+    echo "<span id=\"obfuscatedValueGainOverall\" style='display:none;color:$_linkColor'>$obfuscatedValueGainOverall</span></div>"
 
     # DAX
     echo "<span id=\"intervalSectionHeadlineDAX\" style='display:none'><br>DAX<br></span>"
