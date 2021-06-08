@@ -226,10 +226,10 @@ WriteComdirectUrlAndStoreFileList() {
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
         {
             echo "<br>"
-            echo "<a style=\"color:$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX_6M$_id_notation\" target=\"_blank\">$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
-            echo "<a style=\"color:$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX_5Y$_id_notation\" target=\"_blank\">5Y</a>"
-            echo "<a style=\"color:$_linkColorParam\" href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html\" target=\"_blank\">SA</a>"
-            echo "<a style=\"color:$_linkColorParam\" href=\"D:/code/stock-analyse/out/$_symbolParam.html\" id='linkPC$_symbolParam' style='display: none' target='_blank'>PC</a>"
+            echo "<a style=\"color:$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX_6M$_id_notation\" target=\"_blank\">$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>&nbsp;"
+            echo "<a style=\"color:$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX_5Y$_id_notation\" target=\"_blank\">5Y</a>&nbsp;"
+            echo "<a style=\"color:$_linkColorParam\" href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html\" target=\"_blank\">SA</a>&nbsp;"
+            echo "<a style=\"color:$_linkColorParam; display: none\" href=\"D:/code/stock-analyse/out/$_symbolParam.html\" id='linkPC$_symbolParam' target='_blank'>PC</a>"
         } >> "$_outResultFileParam"
     fi
     # Show reason in result file only, if marked as own stock or a 'buy' recommendation
