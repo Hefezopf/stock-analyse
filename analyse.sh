@@ -475,8 +475,8 @@ do
         fi
 
         ID_NOTATION=$(grep -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
-        echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>&nbsp;"
-        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">5Y</a><br>"
+        echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a><br>"
         echo "Percentage:<b>$percentageParam</b> "
         echo "Query:<b>$queryParam</b> "
         echo "Stochastic14:<b>$stochasticPercentageParam</b> "
@@ -610,8 +610,8 @@ do
         echo "$MACDList"
         cat template/indexPart12.html
 
-        echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>&nbsp;"
-        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">5Y</a>"
+        echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
         echo "</p><br>$GOOD_LUCK<br>"
 
         cat template/indexPart13.html
@@ -656,7 +656,7 @@ do
             })
             .then(data => {
                 const obj$symbol = JSON.parse(data.contents);
-                var elementRegularMarketTime$symbol = document.getElementById(\"intervalSectionRegularMarketTime$symbol\");
+                var elementRegularMarketTime$symbol = document.getElementById(\"neverShowRegularMarketTime$symbol\");
 
                 var dateMarketTime$symbol = new Date(0); 
                 var epochMarketTime$symbol = obj$symbol.chart.result[0].meta.regularMarketTime;
@@ -701,18 +701,16 @@ do
                 decryptElement(obfuscatedValuePcEuro$symbol);  
             })
             .catch(error => {
-                    console.error('Error retrieving current quote for: $symbol !!!');
+                    console.error('Error retrieving current quote for: $symbol !!!' + error);
             });
             </script>"
 
-            echo "<span id=\"intervalSectionXetra$symbol\" style='display: none'>Xetra:</span>&nbsp;
-                  <span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;
+            echo "<span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>&nbsp;
-                  <span id=\"intervalSectionRegularMarketTime$symbol\" style='display: none'></span>&nbsp;
-                  <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='display: none'></span>
-                  <br>"
-            echo "<span id=\"intervalSectionPortfolio$symbol\" style='display: none'>Portfolio:</span>&nbsp;
-                  <span id=\"intervalSectionPortfolioValues$symbol\" style='display: none'></span>&nbsp;
+                  <span id=\"neverShowRegularMarketTime$symbol\" style='display: none'></span>
+                  
+                  <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='display: none'></span>&nbsp;
+                  <span id=\"intervalSectionPortfolioValues$symbol\" style='display: none'></span>
                   <span id=\"intervalSectionPortfolioGain$symbol\" style='display: none'></span>
                   <br>"                  
 
