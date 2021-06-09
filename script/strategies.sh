@@ -217,7 +217,7 @@ StrategieOverratedXHighRSI() {
         if [ "$countHighRSI" -ge 3 ] && [ "$oneOfTheLastRSIHigh" = 1 ]; then 
             alarmAbbrevValue=$countHighRSI"R-"$alarmAbbrevValue      
             reasonPrefix="Sell: High $countHighRSI last RSI (R)"
-            resultStrategieOverratedXHighRSI="$reasonPrefix: $countHighRSI last quotes are over $_highRSIValueParam"
+            resultStrategieOverratedXHighRSI="$reasonPrefix: $countHighRSI last quotes over level"
             echo "$resultStrategieOverratedXHighRSI"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"
         fi
@@ -276,7 +276,7 @@ StrategieUnderratedXLowRSI() {
         if [ "$countLowRSI" -ge 3 ] && [ "$oneOfTheLastRSILow" = 1 ]; then
             alarmAbbrevValue=$countLowRSI"R+"$alarmAbbrevValue
             reasonPrefix="Buy: Low $countLowRSI last RSI (R)"
-            resultStrategieUnderratedXLowRSI="$reasonPrefix: $countLowRSI last quotes are under $_lowRSIValueParam"
+            resultStrategieUnderratedXLowRSI="$reasonPrefix: $countLowRSI last quotes under level"
             echo "$resultStrategieUnderratedXLowRSI"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"         
         fi                  
@@ -567,7 +567,7 @@ StrategieOverratedXHighStochastic() {
         if [ "$howManyOverHighStochasticValue" -ge 4 ] && [ "$oneOfTheLastStochasticHigh" = 1 ]; then
             alarmAbbrevValue=$howManyOverHighStochasticValue"S-"$alarmAbbrevValue
             reasonPrefix="Sell: High $howManyOverHighStochasticValue last Stochastic (S)"
-            resultStrategieOverratedXHighStochastic="$reasonPrefix: $howManyOverHighStochasticValue last quotes are over $_highStochasticValueParam"
+            resultStrategieOverratedXHighStochastic="$reasonPrefix: $howManyOverHighStochasticValue last quotes over level"
             echo "$resultStrategieOverratedXHighStochastic"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"
         fi
@@ -636,7 +636,7 @@ StrategieUnderratedXLowStochastic() {
         if [ "$howManyUnderLowStochasticValue" -ge 4 ] && [ "$oneOfTheLastStochasticLow" = 1 ]; then          
             alarmAbbrevValue=$howManyUnderLowStochasticValue"S+"$alarmAbbrevValue
             reasonPrefix="Buy: Low $howManyUnderLowStochasticValue last Stochastic (S)"
-            resultStrategieUnderratedXLowStochastic="$reasonPrefix: $howManyUnderLowStochasticValue last quotes are under $_lowStochasticValueParam"
+            resultStrategieUnderratedXLowStochastic="$reasonPrefix: $howManyUnderLowStochasticValue last quotes under level"
             echo "$resultStrategieUnderratedXLowStochastic"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"               
         fi
