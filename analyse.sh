@@ -482,7 +482,7 @@ do
         #echo "Stochastic14:<b>$stochasticPercentageParam</b> "
         #echo "RSI14:<b>$RSIQuoteParam</b><br>"
 
-        echo "</p><span style=\"color:rgb(0, 0, 0)\"><b>""$last""€</b></span>" 
+        echo "</p><span style='color:rgb(0, 0, 0)'><b>"$last"€</b></span>" 
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.2f" "$percentLastDay")
         isNegativ=$(echo "$percentLastDay" | awk '{print substr ($0, 0, 1)}')
@@ -490,7 +490,7 @@ do
         if [ "$isNegativ" = '-' ]; then
             _linkColor="$RED"
         fi
-        echo "&nbsp;<span style='color:$_linkColor'><b>""$percentLastDay""%</b></span>&nbsp;" 
+        echo "&nbsp;<span style='font-size:x-large; color:$_linkColor'><b>""$percentLastDay""%</b></span>&nbsp;" 
 
         # Check, if quote day is from last trading day, including weekend
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")
@@ -505,11 +505,11 @@ do
         if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
             echo "<b>$quoteDate</b>"
         else # NOK!
-            echo "<br><b style=\"color:orange; font-size:large\">->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
-            echo "<b style=\"color:orange; font-size:xx-large\">$quoteDate</b>"
+            echo "<br><b style='color:orange; font-size:large'>->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
+            echo "<b style='color:orange; font-size:xx-large'>$quoteDate</b>"
         fi
 
-        echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Avg18:<b>""$average18""€</b></span>"
+        echo "<br><span style='color:rgb(153, 102, 255)'>Avg18:<b>""$average18""€</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>""$average38""€</b></span>"
         echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>""$average95""€</b></span>"
         echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Tendency:<b>""$tendency""</b></span>"
@@ -612,9 +612,9 @@ do
         echo "$MACDList"
         cat template/indexPart12.html
 
-        echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-        echo "</p><br>$GOOD_LUCK<br>"
+        echo "$GOOD_LUCK"
 
         cat template/indexPart13.html
     } >> "$indexSymbolFile"
@@ -708,12 +708,12 @@ do
             </script>"
 
             echo "<span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'>---</span>&nbsp;
-                  <span id=\"intervalSectionPercentage$symbol\" style='display: none'></span>&nbsp;
+                  <span id=\"intervalSectionPercentage$symbol\" style='font-size:x-large; display: none'></span>&nbsp;
                   <span id=\"neverShowRegularMarketTime$symbol\" style='display: none'></span>
                   
                   <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='display: none'></span>&nbsp;
                   <span id=\"intervalSectionPortfolioValues$symbol\" style='display: none'></span>
-                  <span id=\"intervalSectionPortfolioGain$symbol\" style='display: none'></span>
+                  <span id=\"intervalSectionPortfolioGain$symbol\" style='font-size:x-large; display: none'></span>
                   <br>"                  
 
             # ObfuscatedValue neverShowDiv (Yesterday)
