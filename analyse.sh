@@ -391,6 +391,13 @@ do
         resultStrategieUnderratedDivergenceRSI=""
         StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
 
+        # Buy Strategie: New Low
+        DATA_FILE_87="$(mktemp -p /dev/shm/)"
+        head -n87 "$DATA_FILE" > "$DATA_FILE_87"
+        commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
+        resultStrategieUnderratedNewLow=""
+        StrategieUnderratedNewLow "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
         StrategieUnderratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv95" "$agv18UnderAgv38" "$agv38UnderAgv95" "$agv18UnderAgv95" "$last" "$percentageGreaterFactor" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
@@ -467,6 +474,7 @@ do
 
         if 
            [ "$(echo "$resultStrategieByTendency" | cut -f 1 -d ':')" = "Buy" ] ||
+           [ "${#resultStrategieUnderratedNewLow}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedDivergenceRSI}" -gt 1 ] || 
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
@@ -482,7 +490,7 @@ do
         #echo "Stochastic14:<b>$stochasticPercentageParam</b> "
         #echo "RSI14:<b>$RSIQuoteParam</b><br>"
 
-        echo "</p><span style='color:rgb(0, 0, 0)'><b>"$last"€</b></span>" 
+        echo "</p><span style='color:rgb(0, 0, 0)'><b>$last€</b></span>"
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.2f" "$percentLastDay")
         isNegativ=$(echo "$percentLastDay" | awk '{print substr ($0, 0, 1)}')
@@ -523,6 +531,7 @@ do
         echo "<p class='p-result' style='color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
         
         # Buy
+        echo "<p class='p-result' style='color:rgb(154, 162, 235)'><b>" "$resultStrategieUnderratedNewLow" "</b></p>"
         echo "<p class='p-result' style='color:rgb(245, 111, 66)'><b>" "$resultStrategieUnderratedDivergenceRSI" "</b></p>"
         echo "<p class='p-result' style='color:rgb(54, 162, 235)'><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
         echo "<p class='p-result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
@@ -550,10 +559,6 @@ do
         cat template/indexPart2.html
     
         # Writing quotes
-        DATA_FILE_87="$(mktemp -p /dev/shm/)"
-        head -n87 "$DATA_FILE" > "$DATA_FILE_87"
-        commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
-
         echo "$commaPriceList"
         cat template/indexPart3.html
 
@@ -626,8 +631,8 @@ do
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
-        #stockLastBuyingDate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f3 -d ' ')
-        stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f4 -d ' ')
+        #stockLastBuyingDate=$(grep "$symbol" $OWN_SYMBOLS_FILE | cut -f3 -d ' ')
+        stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE | cut -f4 -d ' ')
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
         stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
         stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
