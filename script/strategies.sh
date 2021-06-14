@@ -57,7 +57,7 @@ StrategieOverratedStochasticWhenOwn() {
     if [ "$_lastStochParam" -gt "$_highStochValueParam" ]; then     
         if [ "$_beforeLastStochParam" -le "$_highStochValueParam" ]; then     
             if [ "$_markerOwnStockParam" = '*' ]; then
-                alarmAbbrevValue="SO-"$alarmAbbrevValue
+                alarmAbbrevValue="O-"$alarmAbbrevValue
                 reasonPrefix="Sell: Stochastic Own (O)"
                 resultStrategieOverratedStochasticWhenOwn="$reasonPrefix"
                 echo "$resultStrategieOverratedStochasticWhenOwn"
