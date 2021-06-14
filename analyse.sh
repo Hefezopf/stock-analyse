@@ -396,7 +396,7 @@ do
         head -n87 "$DATA_FILE" > "$DATA_FILE_87"
         commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
         resultStrategieUnderratedNewLow=""
-        StrategieUnderratedNewLow "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedNewLow 10 "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
@@ -531,7 +531,7 @@ do
         echo "<p class='p-result' style='color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
         
         # Buy
-        echo "<p class='p-result' style='color:rgb(154, 162, 235)'><b>" "$resultStrategieUnderratedNewLow" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(0, 0, 139)'><b>" "$resultStrategieUnderratedNewLow" "</b></p>"
         echo "<p class='p-result' style='color:rgb(245, 111, 66)'><b>" "$resultStrategieUnderratedDivergenceRSI" "</b></p>"
         echo "<p class='p-result' style='color:rgb(54, 162, 235)'><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
         echo "<p class='p-result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"

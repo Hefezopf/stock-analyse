@@ -5,35 +5,31 @@
 # Input: ${x}
 # Output: resultStrategieUnderratedNewLow
 StrategieUnderratedNewLow() { 
-    _commaPriceList=$1
-    _last=$2
-    _beforeLastQuote=$3   
-    _outResultFileParam=$4
-    _symbolParam=$5
-    _symbolNameParam=$6
-    _markerOwnStockParam=$7
+    _count=$1
+    _commaPriceList=$2
+    _last=$3
+    _beforeLastQuote=$4
+    _outResultFileParam=$5
+    _symbolParam=$6
+    _symbolNameParam=$7
+    _markerOwnStockParam=$8
     export resultStrategieUnderratedNewLow=""
 
     newLow=$(echo "$_last" "$_beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
     if [ "$newLow" = true ]; then
-        # shellcheck disable=SC2086,SC2027
-        value85=$(echo ""$_commaPriceList"" | cut -f85 -d",")
-        # shellcheck disable=SC2086,SC2027
-        value84=$(echo ""$_commaPriceList"" | cut -f84 -d",")
-        # shellcheck disable=SC2086,SC2027
-        value83=$(echo ""$_commaPriceList"" | cut -f83 -d",")
-        # echo "_last "$_last""
-        # echo "_beforeLastQuote "$_beforeLastQuote""
-        # echo "value85 "$value85""
-        # echo "value84 "$value84""
-        # echo "value83 "$value83""
-        value85newLow=$(echo "$_last" "$value85" | awk '{if ($1 < $2) print "true"; else print "false"}')
-        value84newLow=$(echo "$_last" "$value84" | awk '{if ($1 < $2) print "true"; else print "false"}')
-        value83newLow=$(echo "$_last" "$value83" | awk '{if ($1 < $2) print "true"; else print "false"}')
-        # echo "value85newLow "$value85newLow""
-        # echo "value84newLow "$value84newLow""
-        # echo "value83newLow "$value83newLow""
-        if [ "$value85newLow" = true ] && [ "$value84newLow" = true ] && [ "$value83newLow" = true ]; then
+        i=85 # not last and not beforeLast!
+        howManyValues=$((86-$_count))
+        while [ "$i" -ge $howManyValues ]; do
+            # shellcheck disable=SC2086,SC2027
+            valueNewLow=$(echo ""$_commaPriceList"" | cut -f$i -d",")
+            conditionNewLow=$(echo "$_last" "$valueNewLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
+            if [ "$conditionNewLow" = false ]; then
+                break;
+            fi
+            i=$((i - 1))
+        done
+
+        if [ "$conditionNewLow" = true ]; then
             alarmAbbrevValue="L-"$alarmAbbrevValue
             reasonPrefix="Buy: New Low (L)"
             resultStrategieUnderratedNewLow="$reasonPrefix"
@@ -45,7 +41,7 @@ StrategieUnderratedNewLow() {
 
 # StrategieOverratedStochasticWhenOwn function:
 # Overrated Stochastic when own stock
-# Strategie: Stochastic Own (SO)
+# Strategie: Stochastic Own (O)
 # Input: ${x}
 # Output: resultStrategieOverratedStochasticWhenOwn
 StrategieOverratedStochasticWhenOwn() { 
@@ -62,7 +58,7 @@ StrategieOverratedStochasticWhenOwn() {
         if [ "$_beforeLastStochParam" -le "$_highStochValueParam" ]; then     
             if [ "$_markerOwnStockParam" = '*' ]; then
                 alarmAbbrevValue="SO-"$alarmAbbrevValue
-                reasonPrefix="Sell: Stochastic Own (SO)"
+                reasonPrefix="Sell: Stochastic Own (O)"
                 resultStrategieOverratedStochasticWhenOwn="$reasonPrefix"
                 echo "$resultStrategieOverratedStochasticWhenOwn"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"         

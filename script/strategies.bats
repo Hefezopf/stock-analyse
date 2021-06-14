@@ -21,10 +21,18 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieUnderratedNewLow 
   [ "$resultStrategieUnderratedNewLow" == '' ]
 
-  StrategieUnderratedNewLow "25, 24, 26" "26" "24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  StrategieUnderratedNewLow 3 "25, 24, 26" "26" "24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
   [ "$resultStrategieUnderratedNewLow" == '' ]
-    
-  StrategieUnderratedNewLow "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 58.16, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+
+  StrategieUnderratedNewLow 5 "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 54.10, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  [ "$resultStrategieUnderratedNewLow" == '' ]
+  
+  resultStrategieUnderratedNewLow=""    
+  StrategieUnderratedNewLow 5 "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 54.12, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  [ "$resultStrategieUnderratedNewLow" == 'Buy: New Low (L)' ]
+
+  resultStrategieUnderratedNewLow=""
+  StrategieUnderratedNewLow 3 "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 58.16, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
   [ "$resultStrategieUnderratedNewLow" == 'Buy: New Low (L)' ]
 }
 
@@ -53,7 +61,7 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
     [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
 
   StrategieOverratedStochasticWhenOwn 91 92 89 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
-    [ "$resultStrategieOverratedStochasticWhenOwn" == 'Sell: Stochastic Own (SO)' ]
+    [ "$resultStrategieOverratedStochasticWhenOwn" == 'Sell: Stochastic Own (O)' ]
 }
 
 @test "StrategieOverratedDivergenceRSI" {
@@ -80,6 +88,7 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieOverratedDivergenceRSI 75 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "1" "101" "100" "80" "81"
   [ "$resultStrategieOverratedDivergenceRSI" == 'Sell: RSI Divergence (D)' ]
 
+  resultStrategieOverratedDivergenceRSI=""
   StrategieOverratedDivergenceRSI 75 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "1" "101" "100" "81" "81"
   [ "$resultStrategieOverratedDivergenceRSI" == 'Sell: RSI Divergence (D)' ]
 }
@@ -108,6 +117,7 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "20"
   [ "$resultStrategieUnderratedDivergenceRSI" == 'Buy: RSI Divergence (D)' ]
 
+  resultStrategieUnderratedDivergenceRSI=""
   StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "19"
   [ "$resultStrategieUnderratedDivergenceRSI" == 'Buy: RSI Divergence (D)' ]
 }
