@@ -31,7 +31,7 @@ StrategieUnderratedNewLow() {
 
         if [ "$conditionNewLow" = true ]; then
             alarmAbbrevValue="L-"$alarmAbbrevValue
-            reasonPrefix="Buy: New Low (L)"
+            reasonPrefix="Buy: New $_count days Low (L)"
             resultStrategieUnderratedNewLow="$reasonPrefix"
             echo "$resultStrategieUnderratedNewLow"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"
