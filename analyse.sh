@@ -396,7 +396,7 @@ do
         head -n87 "$DATA_FILE" > "$DATA_FILE_87"
         commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
         resultStrategieUnderratedNewLow=""
-        StrategieUnderratedNewLow 10 "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedNewLow 30 "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
