@@ -570,7 +570,7 @@ do
         cat template/indexPart12.html
 
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a><br>"
+        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a><br><p>"
 
         # Check, if quote day is from last trading day, including weekend
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")
@@ -595,7 +595,7 @@ do
         echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Tendency:<b>""$tendency""</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
-        echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span>"
+        echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span></p>"
 
         # Strategies output
 
