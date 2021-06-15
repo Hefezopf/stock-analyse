@@ -484,13 +484,13 @@ do
 
         ID_NOTATION=$(grep -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
         echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a></p>"
+        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
         #echo "Percentage:<b>$percentageParam</b> "
         #echo "Query:<b>$queryParam</b> "
         #echo "Stochastic14:<b>$stochasticPercentageParam</b> "
         #echo "RSI14:<b>$RSIQuoteParam</b><br>"
 
-        echo "<p><span style='color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "<span style='font-size:xx-large; color:rgb(0, 0, 0)'><b>$last€</b></span>"
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.2f" "$percentLastDay")
         isNegativ=$(echo "$percentLastDay" | awk '{print substr ($0, 0, 1)}')
@@ -498,56 +498,8 @@ do
         if [ "$isNegativ" = '-' ]; then
             _linkColor="$RED"
         fi
-        echo "&nbsp;<span style='font-size:x-large; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
-
-        # Check, if quote day is from last trading day, including weekend
-        yesterday=$(date --date="-1 day" +"%Y-%m-%d")
-        dayOfWeek=$(date +%u)
-        if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
-            yesterday=$(date --date="-2 day" +"%Y-%m-%d")
-        fi
-        if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
-            yesterday=$(date --date="-3 day" +"%Y-%m-%d")
-        fi
-        quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
-        if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
-            echo "<b>$quoteDate</b>"
-        else # NOK!
-            echo "<br><b style='color:orange; font-size:large'>->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
-            echo "<b style='color:orange; font-size:xx-large'>$quoteDate</b>"
-        fi
-
-        echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Avg18:<b>""$average18""€</b></span>"
-        echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>""$average38""€</b></span>"
-        echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>""$average95""€</b></span>"
-        echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Tendency:<b>""$tendency""</b></span>"
-        echo "&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
-        echo "&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
-        echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span>"
-
-        # Strategies output
-
-        # Sell/Buy
-        echo "<p class='p-result' style='color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
-        
-        # Buy
-        echo "<p class='p-result' style='color:rgb(0, 0, 139)'><b>" "$resultStrategieUnderratedNewLow" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(245, 111, 66)'><b>" "$resultStrategieUnderratedDivergenceRSI" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(54, 162, 235)'><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(255, 159, 64)'><b>" "$resultStrategieUnderratedXLowStochastic" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(255, 205, 86)'><b>" "$resultStrategieUnderratedXLowRSI" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
-        
-        # Sell
-        echo "<p class='p-result' style='color:rgb(245, 111, 166)'><b>" "$resultStrategieOverratedStochasticWhenOwn" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(245, 111, 66)'><b>" "$resultStrategieOverratedDivergenceRSI" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(54, 162, 235)'><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(255, 159, 64)'><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(255, 205, 86)'><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
-        
+        echo "&nbsp;<span style='font-size:xx-large; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
+      
         cat template/indexPart1a.html
 
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm" "$markerOwnStock"
@@ -618,7 +570,55 @@ do
         cat template/indexPart12.html
 
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a><br>"
+
+        # Check, if quote day is from last trading day, including weekend
+        yesterday=$(date --date="-1 day" +"%Y-%m-%d")
+        dayOfWeek=$(date +%u)
+        if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
+            yesterday=$(date --date="-2 day" +"%Y-%m-%d")
+        fi
+        if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
+            yesterday=$(date --date="-3 day" +"%Y-%m-%d")
+        fi
+        quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
+        if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
+            echo "<b>$quoteDate</b>"
+        else # NOK!
+            echo "<br><b style='color:orange; font-size:large'>->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
+            echo "<b style='color:orange; font-size:xx-large'>$quoteDate</b>"
+        fi
+
+        echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Avg18:<b>""$average18""€</b></span>"
+        echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>""$average38""€</b></span>"
+        echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>""$average95""€</b></span>"
+        echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Tendency:<b>""$tendency""</b></span>"
+        echo "&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
+        echo "&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
+        echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span>"
+
+        # Strategies output
+
+        # Sell/Buy
+        echo "<p class='p-result' style='color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
+        
+        # Buy
+        echo "<p class='p-result' style='color:rgb(0, 0, 0)'><b>" "$resultStrategieUnderratedNewLow" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(245, 111, 66)'><b>" "$resultStrategieUnderratedDivergenceRSI" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(54, 162, 235)'><b>" "$resultStrategieUnderratedLowHorizontalMACD" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieUnderratedByPercentAndStochastic" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(255, 159, 64)'><b>" "$resultStrategieUnderratedXLowStochastic" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(255, 205, 86)'><b>" "$resultStrategieUnderratedXLowRSI" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieUnderratedLowStochasticLowRSILowMACD" "</b></p>"
+        
+        # Sell
+        echo "<p class='p-result' style='color:rgb(245, 111, 166)'><b>" "$resultStrategieOverratedStochasticWhenOwn" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(245, 111, 66)'><b>" "$resultStrategieOverratedDivergenceRSI" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(54, 162, 235)'><b>" "$resultStrategieOverratedHighHorizontalMACD" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(255, 159, 64)'><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(255, 205, 86)'><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"        
         echo "$GOOD_LUCK"
 
         cat template/indexPart13.html
