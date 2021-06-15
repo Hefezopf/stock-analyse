@@ -485,12 +485,8 @@ do
         ID_NOTATION=$(grep -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
         echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-        #echo "Percentage:<b>$percentageParam</b> "
-        #echo "Query:<b>$queryParam</b> "
-        #echo "Stochastic14:<b>$stochasticPercentageParam</b> "
-        #echo "RSI14:<b>$RSIQuoteParam</b><br>"
 
-        echo "<span style='font-size:xx-large; color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "&nbsp;&nbsp;<span style='font-size:xx-large; color:rgb(0, 0, 0)'><b>$last€</b></span>"
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.2f" "$percentLastDay")
         isNegativ=$(echo "$percentLastDay" | awk '{print substr ($0, 0, 1)}')
@@ -598,7 +594,6 @@ do
         echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span></p>"
 
         # Strategies output
-
         # Sell/Buy
         echo "<p class='p-result' style='color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
         
@@ -686,7 +681,6 @@ do
                 else{
                     elementPercentage$symbol.style.color = 'green';
                 }
-
 
                 var elementPortfolioValues$symbol = document.getElementById(\"intervalSectionPortfolioValues$symbol\");
                 var obfuscatedValuePcEuro$symbol = document.getElementById(\"obfuscatedValuePcEuro$symbol\");
