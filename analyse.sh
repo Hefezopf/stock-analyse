@@ -100,7 +100,7 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
     var sound=$SOUND; // Only once assigned, for all beeps
 
     // Show link if on PC
-    if(location.startsWith('file')){
+    if(location.origin.startsWith('file')){
         linkPCValues = document.querySelectorAll('[id ^= \"linkPC\"]');
         Array.prototype.forEach.call(linkPCValues, revealElement);
     }
