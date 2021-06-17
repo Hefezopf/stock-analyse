@@ -362,7 +362,8 @@ do
     averagePriceList95=$averagePriceList
 
     tendency=""
-    DetermineTendency "$averagePriceList95"
+    DetermineTendency "$averagePriceList38"
+    #DetermineTendency "$averagePriceList95"
 
     ProgressBar 8 8
     
@@ -589,14 +590,16 @@ do
         echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Avg18:<b>""$average18""€</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>""$average38""€</b></span>"
         echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>""$average95""€</b></span>"
-        echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Tendency:<b>""$tendency""</b></span>"
+        echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency:<b>""$tendency""</b></span>"
+        #echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Tendency:<b>""$tendency""</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
         echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span></p>"
 
         # Strategies output
         # Sell/Buy
-        echo "<p class='p-result' style='color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
+        echo "<p class='p-result' style='color:rgb(205, 99, 132)'><b>" "$resultStrategieByTendency" "</b></p>"
+        #echo "<p class='p-result' style='color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
         
         # Buy
         echo "<p class='p-result' style='color:rgb(0, 0, 0)'><b>" "$resultStrategieUnderratedNewLow" "</b></p>"
