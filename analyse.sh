@@ -461,7 +461,7 @@ do
         cat template/indexPart1.html
 
         # Color result link in Chart
-        styleComdirectLink="style=\"font-size:x-large; color:black\""
+        styleComdirectLink="style=\"font-size:xx-large; color:black\""
         # Red link only for stocks that are marked as own stocks
         if [ "$markerOwnStock" = '*' ] &&
            {
@@ -471,7 +471,7 @@ do
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] ||
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
-            styleComdirectLink="style=\"font-size:x-large; color:red\""
+            styleComdirectLink="style=\"font-size:xx-large; color:red\""
         fi
 
         if 
@@ -481,7 +481,7 @@ do
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
-            styleComdirectLink="style=\"font-size:x-large; color:green\""
+            styleComdirectLink="style=\"font-size:xx-large; color:green\""
         fi
 
         ID_NOTATION=$(grep -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
@@ -591,7 +591,6 @@ do
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>""$average38""€</b></span>"
         echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>""$average95""€</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency:<b>""$tendency""</b></span>"
-        #echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Tendency:<b>""$tendency""</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
         echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span></p>"
@@ -599,7 +598,6 @@ do
         # Strategies output
         # Sell/Buy
         echo "<p class='p-result' style='color:rgb(205, 99, 132)'><b>" "$resultStrategieByTendency" "</b></p>"
-        #echo "<p class='p-result' style='color:rgb(75, 192, 192)'><b>" "$resultStrategieByTendency" "</b></p>"
         
         # Buy
         echo "<p class='p-result' style='color:rgb(0, 0, 0)'><b>" "$resultStrategieUnderratedNewLow" "</b></p>"
