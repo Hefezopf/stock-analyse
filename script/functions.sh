@@ -39,9 +39,13 @@ WriteAlarmAbbrevXAxisFile() {
     alarmSymbolBeforeLastDateFile=$_dataDateOutputDir/$_symbolParam"_"$beforeLastDateInDataFile.txt 
     
     lastDay=$(echo "$lastDateInDataFile" | cut -f 3 -d '-') # 2021-02-16 -> 16
-    lastMonth=$(echo "$lastDateInDataFile" | cut -f 2 -d '-') # 2021-02-16 -> 02
-    _newAlarmAbbrevTextParam="$_markerOwnStockParam""$_newAlarmAbbrevTextParam""$lastDay"."$lastMonth"
-    
+    #lastMonth=$(echo "$lastDateInDataFile" | cut -f 2 -d '-') # 2021-02-16 -> 02
+    if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
+        _newAlarmAbbrevTextParam="$_markerOwnStockParam""$lastDay"
+    else
+        _newAlarmAbbrevTextParam="$_markerOwnStockParam""$_newAlarmAbbrevTextParam"
+    fi
+
     if [ ! -f "$alarmSymbolLastDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
         if [ -f "$alarmSymbolBeforeLastDateFile" ]; then # Last datefile exists. Take the last datefile e.g: alarm/BEI_2021-02-08.txt
             commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolBeforeLastDateFile")

@@ -361,9 +361,13 @@ do
     AverageOfDays $averageInDays95 "$DATA_FILE"
     averagePriceList95=$averagePriceList
 
-    tendency=""
+    tendency18=""
+    DetermineTendency "$averagePriceList18"
+    tendency18="$tendency"
+
+    tendency38=""
     DetermineTendency "$averagePriceList38"
-    #DetermineTendency "$averagePriceList95"
+    tendency38="$tendency"
 
     ProgressBar 8 8
     
@@ -378,7 +382,7 @@ do
         # Strategie: Quote by Tendency
         if [ "$ApplyStrategieByTendency" = true ]; then
             resultStrategieByTendency=""
-            StrategieByTendency "$last" "$tendency" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+            StrategieByTendency "$last" "$tendency38" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
         fi
 
         # Buy Strategie: Low horizontal MACD
@@ -590,7 +594,8 @@ do
         echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Avg18:<b>""$average18""€</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>""$average38""€</b></span>"
         echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>""$average95""€</b></span>"
-        echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency:<b>""$tendency""</b></span>"
+        echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Tendency18:<b>""$tendency18""</b></span>"
+        echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>""$tendency38""</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
         echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span></p>"
