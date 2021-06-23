@@ -30,7 +30,7 @@ StrategieUnderratedNewLow() {
         done
 
         if [ "$conditionNewLow" = true ]; then
-            alarmAbbrevValue="L-"$alarmAbbrevValue
+            alarmAbbrevValue="L+"$alarmAbbrevValue
             reasonPrefix="Buy: New $_count days Low (L)"
             resultStrategieUnderratedNewLow="$reasonPrefix"
             echo "$resultStrategieUnderratedNewLow"
