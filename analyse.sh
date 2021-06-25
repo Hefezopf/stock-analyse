@@ -591,7 +591,7 @@ do
         if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
             echo "<b>$quoteDate</b>"
         else # NOK!
-            echo "<br><b style='color:orange; font-size:large'>->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
+            echo "<br><b style='color:orange; font-size:xx-large'>->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
             echo "<b style='color:orange; font-size:xx-large'>$quoteDate</b>"
         fi
 
@@ -720,7 +720,7 @@ do
             });
             </script>"
 
-            echo "<span id=\"intervalSectionRegularMarketPrice$symbol\" style='display: none'>---</span>&nbsp;
+            echo "<span id=\"intervalSectionRegularMarketPrice$symbol\" style='font-size:x-large; display: none'>---</span>&nbsp;
                   <span id=\"intervalSectionPercentage$symbol\" style='font-size:x-large; display: none'></span>&nbsp;
                   <span id=\"neverShowRegularMarketTime$symbol\" style='display: none'></span>
                   
