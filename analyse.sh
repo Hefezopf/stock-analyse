@@ -572,7 +572,9 @@ do
         cat template/indexPart12.html
 
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a><br><p>"
+        echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+        echo "&nbsp;&nbsp;<span style='font-size:xx-large; color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "&nbsp;<span style='font-size:xx-large; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
 
         # Check, if quote day is from last trading day, including weekend
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")
@@ -583,6 +585,7 @@ do
         if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
             yesterday=$(date --date="-3 day" +"%Y-%m-%d")
         fi
+        echo "<p class='p-result'>"
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
         if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
             echo "<b>$quoteDate</b>"
@@ -594,11 +597,14 @@ do
         echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Avg18:<b>""$average18""€</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>""$average38""€</b></span>"
         echo "&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>""$average95""€</b></span>"
-        echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Tendency18:<b>""$tendency18""</b></span>"
-        echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>""$tendency38""</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>""$lastStochasticQuoteRounded" "</b></span>"
         echo "&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
-        echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span></p>"
+        echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span>"
+        echo "</p>"
+        echo "<p class='p-result'>"
+        echo "<span style='color:rgb(153, 102, 255)'>Tendency18:<b>""$tendency18""</b></span>"
+        echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>""$tendency38""</b></span>"
+         echo "</p>"
 
         # Strategies output
         # Sell/Buy
