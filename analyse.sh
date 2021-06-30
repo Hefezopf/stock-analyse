@@ -234,7 +234,7 @@ do
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "$fileSize" -eq "0" ]; then
             echo "<br>" >> $OUT_RESULT_FILE
-            echo "!!! $symbol NOT found online" | tee -a $OUT_RESULT_FILE
+            echo "!!! $symbol NO data retrieved online" | tee -a $OUT_RESULT_FILE
             echo "<br>" >> $OUT_RESULT_FILE
             mv "$DATA_DATE_FILE_TEMP" "$DATA_DATE_FILE"
         fi
