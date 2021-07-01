@@ -77,52 +77,52 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head>
 <style>.green{color:green;} .red{color:red;} .black{color:black;}
  /* iphone 3 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) { body > div {
-    font-size: x-large;
+    font-size: xx-large;
   }}
         
 /* iphone 4 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 2) { body > div {
-    font-size: x-large;
+    font-size: xx-large;
   }}
 
 /* iphone 5 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {body > div {
-    font-size: x-large;
+    font-size: xx-large;
   }}
 
 /* iphone 6, 6s, 7, 8 */
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) { body > div {
-    font-size: x-large;
+    font-size: xx-large;
   }}
     
 /* iphone 6+, 6s+, 7+, 8+ */
 @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) { body > div {
-    font-size: x-large;
+    font-size: xx-large;
   }}
 
 /* iphone X , XS, 11 Pro, 12 Mini */
 @media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) { body > div {
-    font-size: x-large;
+    font-size: xx-large;
   }}
 
 /* iphone 12, 12 Pro */
 @media only screen and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3) { body > div {
-    font-size: large;
+    font-size: x-large;
   }}
 
 /* iphone XR, 11 */
 @media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 2) {body > div {
-    font-size: large;
+    font-size: x-large;
   } }
     
 /* iphone XS Max, 11 Pro Max */
 @media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 3) {body > div {
-    font-size: large;
+    font-size: x-large;
   }}
 
 /* iphone 12 Pro Max */
 @media only screen and (min-device-width : 428px) and (max-device-height : 926px) and (-webkit-device-pixel-ratio : 3) {body > div {
-    font-size: large;
+    font-size: x-large;
   }}
 </style>
 </head><body>
