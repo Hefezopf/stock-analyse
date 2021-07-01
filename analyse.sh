@@ -76,60 +76,54 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head>
 <title>Result SA</title>
 <style>.green{color:green;} .red{color:red;} .black{color:black;}
  /* iphone 3 */
-@media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) { body div {
-    font-size: xx-large;
+@media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) { body > div {
+    font-size: x-large;
   }}
         
 /* iphone 4 */
-@media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 2) { body div {
-    font-size: xx-large;
+@media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 2) { body > div {
+    font-size: x-large;
   }}
 
 /* iphone 5 */
-@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {body div {
-    font-size: xx-large;
-}
-  
-  }
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {body > div {
+    font-size: x-large;
+  }}
 
 /* iphone 6, 6s, 7, 8 */
-@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) { body div {
-    font-size: xx-large;
-}  
-  }
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) { body > div {
+    font-size: x-large;
+  }}
     
 /* iphone 6+, 6s+, 7+, 8+ */
-@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) { body div {
-    font-size: xx-large;
-} 
-  }
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) { body > div {
+    font-size: x-large;
+  }}
 
 /* iphone X , XS, 11 Pro, 12 Mini */
-@media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) { body div {
-    font-size: xx-large;
-  }
-  }
+@media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) { body > div {
+    font-size: x-large;
+  }}
 
 /* iphone 12, 12 Pro */
-@media only screen and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3) { body div {
-    font-size: xx-large;
-}
-  }
+@media only screen and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3) { body > div {
+    font-size: large;
+  }}
 
 /* iphone XR, 11 */
-@media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 2) {body div {
-    font-size: xx-large;
+@media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 2) {body > div {
+    font-size: large;
   } }
     
 /* iphone XS Max, 11 Pro Max */
-@media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 3) {body div {
-    font-size: xx-large;
-  } }
+@media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 3) {body > div {
+    font-size: large;
+  }}
 
 /* iphone 12 Pro Max */
-@media only screen and (min-device-width : 428px) and (max-device-height : 926px) and (-webkit-device-pixel-ratio : 3) {body div {
-    font-size: xx-large;
-  } }
+@media only screen and (min-device-width : 428px) and (max-device-height : 926px) and (-webkit-device-pixel-ratio : 3) {body > div {
+    font-size: large;
+  }}
 </style>
 </head><body>
 <div>
@@ -778,13 +772,13 @@ do
             });
             </script>"
 
-            echo "<span id=\"intervalSectionRegularMarketPrice$symbol\" style='font-size:x-large; display: none'>---</span>&nbsp;
-                  <span id=\"intervalSectionPercentage$symbol\" style='font-size:x-large; display: none'></span>&nbsp;
+            echo "<span id=\"intervalSectionRegularMarketPrice$symbol\" style='font-size:xx-large; display: none'>---</span>&nbsp;
+                  <span id=\"intervalSectionPercentage$symbol\" style='font-size:xx-large; display: none'></span>&nbsp;
                   <span id=\"neverShowRegularMarketTime$symbol\" style='display: none'></span>
                   
-                  <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='display: none'></span>&nbsp;
-                  <span id=\"intervalSectionPortfolioValues$symbol\" style='display: none'></span>
-                  <span id=\"intervalSectionPortfolioGain$symbol\" style='font-size:x-large; display: none'></span>
+                  <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='font-size:large; display: none'></span>&nbsp;
+                  <span id=\"intervalSectionPortfolioValues$symbol\" style='font-size:large; display: none'></span>
+                  <span id=\"intervalSectionPortfolioGain$symbol\" style='font-size:xx-large; display: none'></span>
                   <br>"                  
 
             # ObfuscatedValue neverShowDiv (Yesterday)
@@ -893,9 +887,9 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
 fi
 {
     # Overall
-    echo "<br><br><div id='intervalSectionHeadlineOverall' style='font-size:large;display:none'># Overall (Yesterday)<br>"
-    echo "<span id=\"obfuscatedValueBuyingOverall\" style='display:none'>$obfuscatedValueBuyingSellingOverall</span>"
-    echo "<span id=\"obfuscatedValueGainOverall\" style='display:none;color:$_linkColor'>$obfuscatedValueGainOverall</span></div>"
+    echo "<br><br><div id='intervalSectionHeadlineOverall' style='font-size:x-large; display:none'># Overall (Yesterday)<br>"
+    echo "<span id=\"obfuscatedValueBuyingOverall\" style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
+    echo "<span id=\"obfuscatedValueGainOverall\" style='font-size:xx-large; display:none; color:$_linkColor'>$obfuscatedValueGainOverall</span></div>"
 
     # DAX
     echo "<span id=\"intervalSectionHeadlineDAX\" style='display:none'><br>DAX<br></span>"
