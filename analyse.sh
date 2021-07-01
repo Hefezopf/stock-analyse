@@ -887,9 +887,9 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
 fi
 {
     # Overall
-    echo "<br><br><div id='intervalSectionHeadlineOverall' style='font-size:x-large; display:none'># Overall (Yesterday)<br>"
+    echo "<br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>"
     echo "<span id=\"obfuscatedValueBuyingOverall\" style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
-    echo "<span id=\"obfuscatedValueGainOverall\" style='font-size:xx-large; display:none; color:$_linkColor'>$obfuscatedValueGainOverall</span></div>"
+    echo "<span id=\"obfuscatedValueGainOverall\" style='font-size:xx-large; display:none; color:$_linkColor'>$obfuscatedValueGainOverall</span></span>"
 
     # DAX
     echo "<span id=\"intervalSectionHeadlineDAX\" style='display:none'><br>DAX<br></span>"
