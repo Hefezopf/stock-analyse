@@ -820,13 +820,13 @@ do
 
             # Image Chart
             echo "<br><img width=\"60%\" id=\"intervalSectionImage$symbol\" style='display: none'></img><br>
-                  <button id=\"intervalSectionButton1D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">1D</button>
-                  <button id=\"intervalSectionButton5D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">5D</button>
-                  <button id=\"intervalSectionButton10D$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">10D</button>
-                  <button id=\"intervalSectionButton3M$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('3M')\">3M</button>
-                  <button id=\"intervalSectionButton6M$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('6M')\">6M</button>
-                  <button id=\"intervalSectionButton1Y$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
-                  <button id=\"intervalSectionButton5Y$symbol\" style='display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
+                  <button id=\"intervalSectionButton1D$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">1D</button>
+                  <button id=\"intervalSectionButton5D$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">5D</button>
+                  <button id=\"intervalSectionButton10D$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">10D</button>
+                  <button id=\"intervalSectionButton3M$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('3M')\">3M</button>
+                  <button id=\"intervalSectionButton6M$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('6M')\">6M</button>
+                  <button id=\"intervalSectionButton1Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
+                  <button id=\"intervalSectionButton5Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
                   <hr id=\"intervalSectionHR$symbol\" style='display: none'>"
             echo "<script>
                 var image$symbol = new Image();

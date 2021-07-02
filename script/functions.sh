@@ -8,7 +8,7 @@ WriteOverallChartsButtons() {
     _symbolsParam=$1
     _timeSpan=$2
 
-    echo "<button id=\"intervalSectionButtonAll$_timeSpan\" style=\"height: 30px; width: 50px;display: none\" type=\"button\" onClick=\""
+    echo "<button id=\"intervalSectionButtonAll$_timeSpan\" style=\"height: 35px; width: 60px;display: none\" type=\"button\" onClick=\""
     for ownSymbol in $_symbolsParam
     do
         if [ "$(echo "$ownSymbol" | cut -b 1-1)" = '*' ]; then
