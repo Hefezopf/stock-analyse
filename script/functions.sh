@@ -8,7 +8,7 @@ WriteOverallChartsButtons() {
     _symbolsParam=$1
     _timeSpan=$2
 
-    echo "<button id=\"intervalSectionButtonAll$_timeSpan\" style=\"display: none\" type=\"button\" onClick=\""
+    echo "<button id=\"intervalSectionButtonAll$_timeSpan\" style=\"height: 30px; width: 50px;display: none\" type=\"button\" onClick=\""
     for ownSymbol in $_symbolsParam
     do
         if [ "$(echo "$ownSymbol" | cut -b 1-1)" = '*' ]; then
@@ -221,7 +221,7 @@ WriteComdirectUrlAndStoreFileList() {
         _linkColorParam="$BLACK"
     fi
 
-    _id_notation=$(grep -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 3)
+    _id_notation=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 3)
     if [ ! "${#_id_notation}" -gt 1 ]; then
         _id_notation=999999
     fi
