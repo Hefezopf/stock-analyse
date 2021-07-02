@@ -902,13 +902,13 @@ fi
     # DAX
     echo "<span id=\"intervalSectionHeadlineDAX\" style='display:none'><br>DAX<br></span>"
     echo "<img width=\"60%\" id=\"intervalSectionImageDAX\" style='display: none'></img><br>
-        <button id=\"intervalSectionButton1DDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('1D')\">1D</button>
-        <button id=\"intervalSectionButton5DDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('5D')\">5D</button>
-        <button id=\"intervalSectionButton10DDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('10D')\">10D</button>
-        <button id=\"intervalSectionButton3MDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('3M')\">3M</button>
-        <button id=\"intervalSectionButton6MDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('6M')\">6M</button>
-        <button id=\"intervalSectionButton1YDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('1Y')\">1Y</button>
-        <button id=\"intervalSectionButton5YDAX\" style='display: none' type=\"button\" onClick=\"javascript:updateImageDAX('5Y')\">5Y</button>
+        <button id=\"intervalSectionButton1DDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('1D')\">1D</button>
+        <button id=\"intervalSectionButton5DDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('5D')\">5D</button>
+        <button id=\"intervalSectionButton10DDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('10D')\">10D</button>
+        <button id=\"intervalSectionButton3MDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('3M')\">3M</button>
+        <button id=\"intervalSectionButton6MDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('6M')\">6M</button>
+        <button id=\"intervalSectionButton1YDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('1Y')\">1Y</button>
+        <button id=\"intervalSectionButton5YDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('5Y')\">5Y</button>
         <hr id=\"intervalSectionHRDAX\" style='display: none'>"
     echo "<script>
         var imageDAX = new Image();
