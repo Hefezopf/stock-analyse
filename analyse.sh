@@ -107,7 +107,7 @@ body > div {
 /* iphone X , XS, 11 Pro, 12 Mini */
 @media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
     body > div {
-    font-size: large;
+    font-size: xx-large;
 }}
 
 /* iphone 12, 12 Pro */
