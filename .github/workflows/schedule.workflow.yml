@@ -36,7 +36,7 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW (187). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
+          #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW (186). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
@@ -72,7 +72,8 @@ jobs:
           password: ${{secrets.MAIL_PASSWORD}}          
           subject: Schedule Result ${{github.event_name}} ${{github.event.action}}
           # Read file contents as body:
-          body: file://out/_result.html
+          body: file://template/email.html
+          #body: file://out/_result.html
           to: ${{secrets.MAIL_ADRESS}}
           from: Github stock-analyse # <githubÄhopf-...de>
           # Optional content type (defaults to text/plain):
