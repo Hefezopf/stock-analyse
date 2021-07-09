@@ -84,7 +84,7 @@ return ret.replace(/ZZ/g, "% ");
 </script>
 # Parameter
 <br>
-Symbols(186):*HOT *PHI1 *FTE *FNTN *GYC *SFQ *ARL *TNE5 *DXSN *BYW6 *DBK *KWS *INH *O2D *GBF *CCAP *1TY *XONA *GEC *CRIN CEC TKA NFC MUV2 HNR1 SAE 6MK VNA INL QIA 1COV 1N8 1NBA 2OY 2PP 8TRA ABEA ADJ ADS AFX AHLA AHOG AIL AIR AIXA ALV AMD AMG AMZ APC ASME AT1 AXA B4B BAC BAS BAYN BC8 BCO BEI BMW BNP BNR BOSS BSD2 BSN CAT1 CBK CCC3 CHV CIS CMC COK COP DAI DEQ DEZ DHER DPW DRW3 DTE DUE DWNI EBA ENI ENL EOAN EUZ EVD EVK EVT FB2A FIE FME FOO FPE3 FRA FRE G1A G24 GIS GOS GXI GZF HDI HEI HEN3 HFG HHFA HLE HYQ IBE1 IES IFX INN1 IXD1 JEN JNJ KBX KCO KGX KRN LEG LEO LHA LIN LOR LXS MDO MMM MOH MOR MRK MSF MTX NDA NEM NKE NOA3 NVD ORC PAT PFE PPX PSM PUM QCI RAA RHM RWE S92 SANT SAP SAX SDF SGL SHL SIE SMHN SND SNW SOW SQU SRB SRT3 SY1 SZG SZU TEG TL0 TMV TOTB UN01 UNH UTDI VAR1 VOS VOW3 VVU WAC WAF WCH WMT ZAL ZEG ZO1
+Symbols(186):*FTE *GBF *ARL *PHI1 *HOT *FNTN *GYC *SFQ *TNE5 *BYW6 *DBK *KWS *INH *CCAP *1TY *XONA *GEC *CRIN DXSN O2D CEC TKA NFC MUV2 HNR1 SAE 6MK VNA INL QIA 1COV 1N8 1NBA 2OY 2PP 8TRA ABEA ADJ ADS AFX AHLA AHOG AIL AIR AIXA ALV AMD AMG AMZ APC ASME AT1 AXA B4B BAC BAS BAYN BC8 BCO BEI BMW BNP BNR BOSS BSD2 BSN CAT1 CBK CCC3 CHV CIS CMC COK COP DAI DEQ DEZ DHER DPW DRW3 DTE DUE DWNI EBA ENI ENL EOAN EUZ EVD EVK EVT FB2A FIE FME FOO FPE3 FRA FRE G1A G24 GIS GOS GXI GZF HDI HEI HEN3 HFG HHFA HLE HYQ IBE1 IES IFX INN1 IXD1 JEN JNJ KBX KCO KGX KRN LEG LEO LHA LIN LOR LXS MDO MMM MOH MOR MRK MSF MTX NDA NEM NKE NOA3 NVD ORC PAT PFE PPX PSM PUM QCI RAA RHM RWE S92 SANT SAP SAX SDF SGL SHL SIE SMHN SND SNW SOW SQU SRB SRT3 SY1 SZG SZU TEG TL0 TMV TOTB UN01 UNH UTDI VAR1 VOS VOW3 VVU WAC WAF WCH WMT ZAL ZEG ZO1
 <br>
 Percentage:1 
 <br>
@@ -94,256 +94,6 @@ Stochastic:9
 <br>
 RSI:25
 <br><br># Analyse
-<br>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336934" target="_blank">*HOT "HOCHTIEF"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336934" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HOT.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/HOT.html" id='linkPCHOT' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: New 30 days Low (L)
-<br>Buy: Low Percentage & Stochastic (P)
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/HOT.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objHOT = JSON.parse(data.contents);
-var elementRegularMarketTimeHOT = document.getElementById("neverShowRegularMarketTimeHOT");
-
-var dateMarketTimeHOT = new Date(0); 
-var epochMarketTimeHOT = objHOT.chart.result[0].meta.regularMarketTime;
-dateMarketTimeHOT.setUTCSeconds(epochMarketTimeHOT);
-elementRegularMarketTimeHOT.innerHTML = ('0'+dateMarketTimeHOT.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeHOT.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeHOT.getSeconds()).slice(-2);
-
-var deltaMinutesHOT =((new Date().getTime() - dateMarketTimeHOT.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetHOT = document.getElementById("intervalSectionRegularMarketTimeOffsetHOT");
-elementRegularMarketTimeOffsetHOT.innerHTML = '+' + Math.abs(Math.round(deltaMinutesHOT)) + 'min';
-
-var elementRegularMarketPriceHOT = document.getElementById("intervalSectionRegularMarketPriceHOT");
-elementRegularMarketPriceHOT.innerHTML = objHOT.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageHOT = document.getElementById("intervalSectionPercentageHOT");
-var percentValueHOT = ((objHOT.chart.result[0].meta.regularMarketPrice / objHOT.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueHOT = percentValueHOT.toFixed(1);
-elementPercentageHOT.innerHTML = percentValueHOT + '%';
-if(percentValueHOT < 0){
-elementPercentageHOT.style.color = 'red';
-}
-else{
-elementPercentageHOT.style.color = 'green';
-}
-
-var elementPortfolioValuesHOT = document.getElementById("intervalSectionPortfolioValuesHOT");
-var obfuscatedValuePcEuroHOT = document.getElementById("obfuscatedValuePcEuroHOT");
-decryptElement(obfuscatedValuePcEuroHOT);
-var piecesHOT = obfuscatedValuePcEuroHOT.innerHTML.split(' pc')[0];
-var buyingValueHOT = obfuscatedValuePcEuroHOT.innerHTML.split('/')[0];
-buyingValueHOT = buyingValueHOT.split(' ')[2];
-var portfolioValueHOT = piecesHOT * objHOT.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceHOT = ((portfolioValueHOT / buyingValueHOT)-1)*100;
-elementPortfolioValuesHOT.innerHTML = piecesHOT + ' pc ' + buyingValueHOT + '/' + portfolioValueHOT.toFixed(0) + '€ ';
-var elementPortfolioGainHOT = document.getElementById("intervalSectionPortfolioGainHOT");
-elementPortfolioGainHOT.innerHTML = stocksPerformanceHOT.toFixed(1) + '% ' + (portfolioValueHOT - buyingValueHOT).toFixed(0) + '€';
-if(stocksPerformanceHOT < 0){
-elementPortfolioGainHOT.style.color = 'red';
-}
-else{
-elementPortfolioGainHOT.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroHOT);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: HOT !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceHOT" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageHOT" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeHOT" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetHOT" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesHOT" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainHOT" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivHOT" style='display:none'>
-<span id="obfuscatedValuePcEuroHOT" style='display:none'>YY26855/33195XX088</span>&nbsp;
-<span id="obfuscatedValueGainHOT" style='display:none;color:red'>YY1723-ZZ5.5-</span>
-<span id="obfuscatedValueCloseBracesHOT" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionHOT" style='display: none'><input name="intervalFieldHOT" type="text" maxlength="7" value="1" id="intervalFieldHOT"/><button type="button" id="intervalButtonHOT">Minutes</button><span id="intervalTextHOT"></span></span>
-<script>
-var intervalVarHOT;
-function beepHOT() {
-var elementAlert = document.getElementById("intervalTextHOT");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarHOT);
-intervalVarHOT=undefined;
-}
-function setBeepIntervalHOT() {
-var intervalValue = document.getElementById("intervalFieldHOT").value;
-intervalVarHOT = setInterval(beepHOT, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextHOT");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonHOT").addEventListener("click", setBeepIntervalHOT);
-</script>
-<br><img width="60%" id="intervalSectionImageHOT" style='display: none'></img><br>
-<button id="intervalSectionButton1DHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('1D')">1D</button>
-<button id="intervalSectionButton5DHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('5D')">5D</button>
-<button id="intervalSectionButton10DHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('10D')">10D</button>
-<button id="intervalSectionButton3MHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('3M')">3M</button>
-<button id="intervalSectionButton6MHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('6M')">6M</button>
-<button id="intervalSectionButton1YHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('1Y')">1Y</button>
-<button id="intervalSectionButton5YHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('5Y')">5Y</button>
-<hr id="intervalSectionHRHOT" style='display: none'>
-<script>
-var imageHOT = new Image();
-var TIME_SPANHOT;
-function updateImageHOT(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANHOT=timespan;
-}
-if(imageHOT.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336934&TIME_SPAN='+TIME_SPANHOT;
-document.getElementById("intervalSectionImageHOT").src = urlWithTimeSpan;
-imageHOT = new Image();
-imageHOT.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageHOT, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<br>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337264" target="_blank">*PHI1 "KONINKLIJKE PHILIPS"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337264" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/PHI1.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/PHI1.html" id='linkPCPHI1' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low Percentage & Stochastic (P)
-<br>Buy: Low 7 last Stochastic (S)
-<br>Buy: Low 7 last RSI (R)
-<br>Buy: Low Stochastic & RSI & MACD- (C)
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/PHI1.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objPHI1 = JSON.parse(data.contents);
-var elementRegularMarketTimePHI1 = document.getElementById("neverShowRegularMarketTimePHI1");
-
-var dateMarketTimePHI1 = new Date(0); 
-var epochMarketTimePHI1 = objPHI1.chart.result[0].meta.regularMarketTime;
-dateMarketTimePHI1.setUTCSeconds(epochMarketTimePHI1);
-elementRegularMarketTimePHI1.innerHTML = ('0'+dateMarketTimePHI1.getHours()).slice(-2) + ':' + ('0'+dateMarketTimePHI1.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimePHI1.getSeconds()).slice(-2);
-
-var deltaMinutesPHI1 =((new Date().getTime() - dateMarketTimePHI1.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetPHI1 = document.getElementById("intervalSectionRegularMarketTimeOffsetPHI1");
-elementRegularMarketTimeOffsetPHI1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesPHI1)) + 'min';
-
-var elementRegularMarketPricePHI1 = document.getElementById("intervalSectionRegularMarketPricePHI1");
-elementRegularMarketPricePHI1.innerHTML = objPHI1.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentagePHI1 = document.getElementById("intervalSectionPercentagePHI1");
-var percentValuePHI1 = ((objPHI1.chart.result[0].meta.regularMarketPrice / objPHI1.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValuePHI1 = percentValuePHI1.toFixed(1);
-elementPercentagePHI1.innerHTML = percentValuePHI1 + '%';
-if(percentValuePHI1 < 0){
-elementPercentagePHI1.style.color = 'red';
-}
-else{
-elementPercentagePHI1.style.color = 'green';
-}
-
-var elementPortfolioValuesPHI1 = document.getElementById("intervalSectionPortfolioValuesPHI1");
-var obfuscatedValuePcEuroPHI1 = document.getElementById("obfuscatedValuePcEuroPHI1");
-decryptElement(obfuscatedValuePcEuroPHI1);
-var piecesPHI1 = obfuscatedValuePcEuroPHI1.innerHTML.split(' pc')[0];
-var buyingValuePHI1 = obfuscatedValuePcEuroPHI1.innerHTML.split('/')[0];
-buyingValuePHI1 = buyingValuePHI1.split(' ')[2];
-var portfolioValuePHI1 = piecesPHI1 * objPHI1.chart.result[0].meta.regularMarketPrice;
-var stocksPerformancePHI1 = ((portfolioValuePHI1 / buyingValuePHI1)-1)*100;
-elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + buyingValuePHI1 + '/' + portfolioValuePHI1.toFixed(0) + '€ ';
-var elementPortfolioGainPHI1 = document.getElementById("intervalSectionPortfolioGainPHI1");
-elementPortfolioGainPHI1.innerHTML = stocksPerformancePHI1.toFixed(1) + '% ' + (portfolioValuePHI1 - buyingValuePHI1).toFixed(0) + '€';
-if(stocksPerformancePHI1 < 0){
-elementPortfolioGainPHI1.style.color = 'red';
-}
-else{
-elementPortfolioGainPHI1.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroPHI1);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: PHI1 !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPricePHI1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentagePHI1" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimePHI1" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetPHI1" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesPHI1" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainPHI1" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivPHI1" style='display:none'>
-<span id="obfuscatedValuePcEuroPHI1" style='display:none'>YY33572/43482XX086</span>&nbsp;
-<span id="obfuscatedValueGainPHI1" style='display:none;color:red'>YY109-ZZ2.3-</span>
-<span id="obfuscatedValueCloseBracesPHI1" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionPHI1" style='display: none'><input name="intervalFieldPHI1" type="text" maxlength="7" value="1" id="intervalFieldPHI1"/><button type="button" id="intervalButtonPHI1">Minutes</button><span id="intervalTextPHI1"></span></span>
-<script>
-var intervalVarPHI1;
-function beepPHI1() {
-var elementAlert = document.getElementById("intervalTextPHI1");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarPHI1);
-intervalVarPHI1=undefined;
-}
-function setBeepIntervalPHI1() {
-var intervalValue = document.getElementById("intervalFieldPHI1").value;
-intervalVarPHI1 = setInterval(beepPHI1, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextPHI1");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonPHI1").addEventListener("click", setBeepIntervalPHI1);
-</script>
-<br><img width="60%" id="intervalSectionImagePHI1" style='display: none'></img><br>
-<button id="intervalSectionButton1DPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('1D')">1D</button>
-<button id="intervalSectionButton5DPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('5D')">5D</button>
-<button id="intervalSectionButton10DPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('10D')">10D</button>
-<button id="intervalSectionButton3MPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('3M')">3M</button>
-<button id="intervalSectionButton6MPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('6M')">6M</button>
-<button id="intervalSectionButton1YPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('1Y')">1Y</button>
-<button id="intervalSectionButton5YPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('5Y')">5Y</button>
-<hr id="intervalSectionHRPHI1" style='display: none'>
-<script>
-var imagePHI1 = new Image();
-var TIME_SPANPHI1;
-function updateImagePHI1(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANPHI1=timespan;
-}
-if(imagePHI1.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337264&TIME_SPAN='+TIME_SPANPHI1;
-document.getElementById("intervalSectionImagePHI1").src = urlWithTimeSpan;
-imagePHI1 = new Image();
-imagePHI1.src = urlWithTimeSpan;
-}
-// setTimeout(updateImagePHI1, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
 <br>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337235" target="_blank">*FTE "ORANGE"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337235" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -420,8 +170,8 @@ console.error('Error retrieving current quote for: FTE !!!' + error);
 <span id="intervalSectionPortfolioGainFTE" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivFTE" style='display:none'>
-<span id="obfuscatedValuePcEuroFTE" style='display:none'>YY41136/58027XX0076</span>&nbsp;
-<span id="obfuscatedValueGainFTE" style='display:none;color:red'>YY1798-ZZ4.21-</span>
+<span id="obfuscatedValuePcEuroFTE" style='display:none'>YY05456/00947XX0007</span>&nbsp;
+<span id="obfuscatedValueGainFTE" style='display:none;color:red'>YY0549-ZZ6.21-</span>
 <span id="obfuscatedValueCloseBracesFTE" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionFTE" style='display: none'><input name="intervalFieldFTE" type="text" maxlength="7" value="1" id="intervalFieldFTE"/><button type="button" id="intervalButtonFTE">Minutes</button><span id="intervalTextFTE"></span></span>
@@ -471,10 +221,512 @@ imageFTE.src = urlWithTimeSpan;
 }
 </script>
 <br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336925" target="_blank">*GBF "BILFINGER"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336925" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GBF.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/GBF.html" id='linkPCGBF' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
+<br>
+<script>
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/GBF.DE?interval=1d')}`)
+.then(response => {
+if (response.ok){
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+const objGBF = JSON.parse(data.contents);
+var elementRegularMarketTimeGBF = document.getElementById("neverShowRegularMarketTimeGBF");
+
+var dateMarketTimeGBF = new Date(0); 
+var epochMarketTimeGBF = objGBF.chart.result[0].meta.regularMarketTime;
+dateMarketTimeGBF.setUTCSeconds(epochMarketTimeGBF);
+elementRegularMarketTimeGBF.innerHTML = ('0'+dateMarketTimeGBF.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeGBF.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeGBF.getSeconds()).slice(-2);
+
+var deltaMinutesGBF =((new Date().getTime() - dateMarketTimeGBF.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetGBF = document.getElementById("intervalSectionRegularMarketTimeOffsetGBF");
+elementRegularMarketTimeOffsetGBF.innerHTML = '+' + Math.abs(Math.round(deltaMinutesGBF)) + 'min';
+
+var elementRegularMarketPriceGBF = document.getElementById("intervalSectionRegularMarketPriceGBF");
+elementRegularMarketPriceGBF.innerHTML = objGBF.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+var elementPercentageGBF = document.getElementById("intervalSectionPercentageGBF");
+var percentValueGBF = ((objGBF.chart.result[0].meta.regularMarketPrice / objGBF.chart.result[0].meta.chartPreviousClose) -1) * 100;
+percentValueGBF = percentValueGBF.toFixed(1);
+elementPercentageGBF.innerHTML = percentValueGBF + '%';
+if(percentValueGBF < 0){
+elementPercentageGBF.style.color = 'red';
+}
+else{
+elementPercentageGBF.style.color = 'green';
+}
+
+var elementPortfolioValuesGBF = document.getElementById("intervalSectionPortfolioValuesGBF");
+var obfuscatedValuePcEuroGBF = document.getElementById("obfuscatedValuePcEuroGBF");
+decryptElement(obfuscatedValuePcEuroGBF);
+var piecesGBF = obfuscatedValuePcEuroGBF.innerHTML.split(' pc')[0];
+var buyingValueGBF = obfuscatedValuePcEuroGBF.innerHTML.split('/')[0];
+buyingValueGBF = buyingValueGBF.split(' ')[2];
+var portfolioValueGBF = piecesGBF * objGBF.chart.result[0].meta.regularMarketPrice;
+var stocksPerformanceGBF = ((portfolioValueGBF / buyingValueGBF)-1)*100;
+elementPortfolioValuesGBF.innerHTML = piecesGBF + ' pc ' + buyingValueGBF + '/' + portfolioValueGBF.toFixed(0) + '€ ';
+var elementPortfolioGainGBF = document.getElementById("intervalSectionPortfolioGainGBF");
+elementPortfolioGainGBF.innerHTML = stocksPerformanceGBF.toFixed(1) + '% ' + (portfolioValueGBF - buyingValueGBF).toFixed(0) + '€';
+if(stocksPerformanceGBF < 0){
+elementPortfolioGainGBF.style.color = 'red';
+}
+else{
+elementPortfolioGainGBF.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroGBF);  
+})
+.catch(error => {
+console.error('Error retrieving current quote for: GBF !!!' + error);
+});
+</script>
+<span id="intervalSectionRegularMarketPriceGBF" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageGBF" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeGBF" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetGBF" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesGBF" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainGBF" style='font-size:xx-large; display: none'></span>
+<br>
+<div id="neverShowDivGBF" style='display:none'>
+<span id="obfuscatedValuePcEuroGBF" style='display:none'>YY25071/44871XX007</span>&nbsp;
+<span id="obfuscatedValueGainGBF" style='display:none;color:red'>YY297-ZZ4.4-</span>
+<span id="obfuscatedValueCloseBracesGBF" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionGBF" style='display: none'><input name="intervalFieldGBF" type="text" maxlength="7" value="1" id="intervalFieldGBF"/><button type="button" id="intervalButtonGBF">Minutes</button><span id="intervalTextGBF"></span></span>
+<script>
+var intervalVarGBF;
+function beepGBF() {
+var elementAlert = document.getElementById("intervalTextGBF");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarGBF);
+intervalVarGBF=undefined;
+}
+function setBeepIntervalGBF() {
+var intervalValue = document.getElementById("intervalFieldGBF").value;
+intervalVarGBF = setInterval(beepGBF, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextGBF");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonGBF").addEventListener("click", setBeepIntervalGBF);
+</script>
+<br><img width="60%" id="intervalSectionImageGBF" style='display: none'></img><br>
+<button id="intervalSectionButton1DGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('1D')">1D</button>
+<button id="intervalSectionButton5DGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('5D')">5D</button>
+<button id="intervalSectionButton10DGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('10D')">10D</button>
+<button id="intervalSectionButton3MGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('3M')">3M</button>
+<button id="intervalSectionButton6MGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('6M')">6M</button>
+<button id="intervalSectionButton1YGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('1Y')">1Y</button>
+<button id="intervalSectionButton5YGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('5Y')">5Y</button>
+<hr id="intervalSectionHRGBF" style='display: none'>
+<script>
+var imageGBF = new Image();
+var TIME_SPANGBF;
+function updateImageGBF(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANGBF=timespan;
+}
+if(imageGBF.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336925&TIME_SPAN='+TIME_SPANGBF;
+document.getElementById("intervalSectionImageGBF").src = urlWithTimeSpan;
+imageGBF = new Image();
+imageGBF.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageGBF, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336890" target="_blank">*ARL "Aareal Bank"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336890" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ARL.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/ARL.html" id='linkPCARL' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: Low Percentage & Stochastic (P)
+<br>Buy: Low 4 last Stochastic (S)
+<br>
+<script>
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/ARL.DE?interval=1d')}`)
+.then(response => {
+if (response.ok){
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+const objARL = JSON.parse(data.contents);
+var elementRegularMarketTimeARL = document.getElementById("neverShowRegularMarketTimeARL");
+
+var dateMarketTimeARL = new Date(0); 
+var epochMarketTimeARL = objARL.chart.result[0].meta.regularMarketTime;
+dateMarketTimeARL.setUTCSeconds(epochMarketTimeARL);
+elementRegularMarketTimeARL.innerHTML = ('0'+dateMarketTimeARL.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeARL.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeARL.getSeconds()).slice(-2);
+
+var deltaMinutesARL =((new Date().getTime() - dateMarketTimeARL.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetARL = document.getElementById("intervalSectionRegularMarketTimeOffsetARL");
+elementRegularMarketTimeOffsetARL.innerHTML = '+' + Math.abs(Math.round(deltaMinutesARL)) + 'min';
+
+var elementRegularMarketPriceARL = document.getElementById("intervalSectionRegularMarketPriceARL");
+elementRegularMarketPriceARL.innerHTML = objARL.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+var elementPercentageARL = document.getElementById("intervalSectionPercentageARL");
+var percentValueARL = ((objARL.chart.result[0].meta.regularMarketPrice / objARL.chart.result[0].meta.chartPreviousClose) -1) * 100;
+percentValueARL = percentValueARL.toFixed(1);
+elementPercentageARL.innerHTML = percentValueARL + '%';
+if(percentValueARL < 0){
+elementPercentageARL.style.color = 'red';
+}
+else{
+elementPercentageARL.style.color = 'green';
+}
+
+var elementPortfolioValuesARL = document.getElementById("intervalSectionPortfolioValuesARL");
+var obfuscatedValuePcEuroARL = document.getElementById("obfuscatedValuePcEuroARL");
+decryptElement(obfuscatedValuePcEuroARL);
+var piecesARL = obfuscatedValuePcEuroARL.innerHTML.split(' pc')[0];
+var buyingValueARL = obfuscatedValuePcEuroARL.innerHTML.split('/')[0];
+buyingValueARL = buyingValueARL.split(' ')[2];
+var portfolioValueARL = piecesARL * objARL.chart.result[0].meta.regularMarketPrice;
+var stocksPerformanceARL = ((portfolioValueARL / buyingValueARL)-1)*100;
+elementPortfolioValuesARL.innerHTML = piecesARL + ' pc ' + buyingValueARL + '/' + portfolioValueARL.toFixed(0) + '€ ';
+var elementPortfolioGainARL = document.getElementById("intervalSectionPortfolioGainARL");
+elementPortfolioGainARL.innerHTML = stocksPerformanceARL.toFixed(1) + '% ' + (portfolioValueARL - buyingValueARL).toFixed(0) + '€';
+if(stocksPerformanceARL < 0){
+elementPortfolioGainARL.style.color = 'red';
+}
+else{
+elementPortfolioGainARL.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroARL);  
+})
+.catch(error => {
+console.error('Error retrieving current quote for: ARL !!!' + error);
+});
+</script>
+<span id="intervalSectionRegularMarketPriceARL" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageARL" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeARL" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetARL" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesARL" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainARL" style='font-size:xx-large; display: none'></span>
+<br>
+<div id="neverShowDivARL" style='display:none'>
+<span id="obfuscatedValuePcEuroARL" style='display:none'>YY21402/10602XX0501</span>&nbsp;
+<span id="obfuscatedValueGainARL" style='display:none;color:red'>YY981-ZZ9.0-</span>
+<span id="obfuscatedValueCloseBracesARL" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionARL" style='display: none'><input name="intervalFieldARL" type="text" maxlength="7" value="1" id="intervalFieldARL"/><button type="button" id="intervalButtonARL">Minutes</button><span id="intervalTextARL"></span></span>
+<script>
+var intervalVarARL;
+function beepARL() {
+var elementAlert = document.getElementById("intervalTextARL");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarARL);
+intervalVarARL=undefined;
+}
+function setBeepIntervalARL() {
+var intervalValue = document.getElementById("intervalFieldARL").value;
+intervalVarARL = setInterval(beepARL, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextARL");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonARL").addEventListener("click", setBeepIntervalARL);
+</script>
+<br><img width="60%" id="intervalSectionImageARL" style='display: none'></img><br>
+<button id="intervalSectionButton1DARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('1D')">1D</button>
+<button id="intervalSectionButton5DARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('5D')">5D</button>
+<button id="intervalSectionButton10DARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('10D')">10D</button>
+<button id="intervalSectionButton3MARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('3M')">3M</button>
+<button id="intervalSectionButton6MARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('6M')">6M</button>
+<button id="intervalSectionButton1YARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('1Y')">1Y</button>
+<button id="intervalSectionButton5YARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('5Y')">5Y</button>
+<hr id="intervalSectionHRARL" style='display: none'>
+<script>
+var imageARL = new Image();
+var TIME_SPANARL;
+function updateImageARL(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANARL=timespan;
+}
+if(imageARL.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336890&TIME_SPAN='+TIME_SPANARL;
+document.getElementById("intervalSectionImageARL").src = urlWithTimeSpan;
+imageARL = new Image();
+imageARL.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageARL, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337264" target="_blank">*PHI1 "KONINKLIJKE PHILIPS"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337264" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/PHI1.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/PHI1.html" id='linkPCPHI1' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: RSI Divergence (D)
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
+<br>Buy: Low 7 last Stochastic (S)
+<br>Buy: Low 7 last RSI (R)
+<br>Buy: Low Stochastic & RSI & MACD- (C)
+<br>
+<script>
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/PHI1.DE?interval=1d')}`)
+.then(response => {
+if (response.ok){
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+const objPHI1 = JSON.parse(data.contents);
+var elementRegularMarketTimePHI1 = document.getElementById("neverShowRegularMarketTimePHI1");
+
+var dateMarketTimePHI1 = new Date(0); 
+var epochMarketTimePHI1 = objPHI1.chart.result[0].meta.regularMarketTime;
+dateMarketTimePHI1.setUTCSeconds(epochMarketTimePHI1);
+elementRegularMarketTimePHI1.innerHTML = ('0'+dateMarketTimePHI1.getHours()).slice(-2) + ':' + ('0'+dateMarketTimePHI1.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimePHI1.getSeconds()).slice(-2);
+
+var deltaMinutesPHI1 =((new Date().getTime() - dateMarketTimePHI1.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetPHI1 = document.getElementById("intervalSectionRegularMarketTimeOffsetPHI1");
+elementRegularMarketTimeOffsetPHI1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesPHI1)) + 'min';
+
+var elementRegularMarketPricePHI1 = document.getElementById("intervalSectionRegularMarketPricePHI1");
+elementRegularMarketPricePHI1.innerHTML = objPHI1.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+var elementPercentagePHI1 = document.getElementById("intervalSectionPercentagePHI1");
+var percentValuePHI1 = ((objPHI1.chart.result[0].meta.regularMarketPrice / objPHI1.chart.result[0].meta.chartPreviousClose) -1) * 100;
+percentValuePHI1 = percentValuePHI1.toFixed(1);
+elementPercentagePHI1.innerHTML = percentValuePHI1 + '%';
+if(percentValuePHI1 < 0){
+elementPercentagePHI1.style.color = 'red';
+}
+else{
+elementPercentagePHI1.style.color = 'green';
+}
+
+var elementPortfolioValuesPHI1 = document.getElementById("intervalSectionPortfolioValuesPHI1");
+var obfuscatedValuePcEuroPHI1 = document.getElementById("obfuscatedValuePcEuroPHI1");
+decryptElement(obfuscatedValuePcEuroPHI1);
+var piecesPHI1 = obfuscatedValuePcEuroPHI1.innerHTML.split(' pc')[0];
+var buyingValuePHI1 = obfuscatedValuePcEuroPHI1.innerHTML.split('/')[0];
+buyingValuePHI1 = buyingValuePHI1.split(' ')[2];
+var portfolioValuePHI1 = piecesPHI1 * objPHI1.chart.result[0].meta.regularMarketPrice;
+var stocksPerformancePHI1 = ((portfolioValuePHI1 / buyingValuePHI1)-1)*100;
+elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + buyingValuePHI1 + '/' + portfolioValuePHI1.toFixed(0) + '€ ';
+var elementPortfolioGainPHI1 = document.getElementById("intervalSectionPortfolioGainPHI1");
+elementPortfolioGainPHI1.innerHTML = stocksPerformancePHI1.toFixed(1) + '% ' + (portfolioValuePHI1 - buyingValuePHI1).toFixed(0) + '€';
+if(stocksPerformancePHI1 < 0){
+elementPortfolioGainPHI1.style.color = 'red';
+}
+else{
+elementPortfolioGainPHI1.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroPHI1);  
+})
+.catch(error => {
+console.error('Error retrieving current quote for: PHI1 !!!' + error);
+});
+</script>
+<span id="intervalSectionRegularMarketPricePHI1" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentagePHI1" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimePHI1" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetPHI1" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesPHI1" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainPHI1" style='font-size:xx-large; display: none'></span>
+<br>
+<div id="neverShowDivPHI1" style='display:none'>
+<span id="obfuscatedValuePcEuroPHI1" style='display:none'>YY42413/49133XX008</span>&nbsp;
+<span id="obfuscatedValueGainPHI1" style='display:none;color:red'>YY0771-ZZ3.5-</span>
+<span id="obfuscatedValueCloseBracesPHI1" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionPHI1" style='display: none'><input name="intervalFieldPHI1" type="text" maxlength="7" value="1" id="intervalFieldPHI1"/><button type="button" id="intervalButtonPHI1">Minutes</button><span id="intervalTextPHI1"></span></span>
+<script>
+var intervalVarPHI1;
+function beepPHI1() {
+var elementAlert = document.getElementById("intervalTextPHI1");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarPHI1);
+intervalVarPHI1=undefined;
+}
+function setBeepIntervalPHI1() {
+var intervalValue = document.getElementById("intervalFieldPHI1").value;
+intervalVarPHI1 = setInterval(beepPHI1, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextPHI1");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonPHI1").addEventListener("click", setBeepIntervalPHI1);
+</script>
+<br><img width="60%" id="intervalSectionImagePHI1" style='display: none'></img><br>
+<button id="intervalSectionButton1DPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('1D')">1D</button>
+<button id="intervalSectionButton5DPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('5D')">5D</button>
+<button id="intervalSectionButton10DPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('10D')">10D</button>
+<button id="intervalSectionButton3MPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('3M')">3M</button>
+<button id="intervalSectionButton6MPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('6M')">6M</button>
+<button id="intervalSectionButton1YPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('1Y')">1Y</button>
+<button id="intervalSectionButton5YPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('5Y')">5Y</button>
+<hr id="intervalSectionHRPHI1" style='display: none'>
+<script>
+var imagePHI1 = new Image();
+var TIME_SPANPHI1;
+function updateImagePHI1(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANPHI1=timespan;
+}
+if(imagePHI1.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337264&TIME_SPAN='+TIME_SPANPHI1;
+document.getElementById("intervalSectionImagePHI1").src = urlWithTimeSpan;
+imagePHI1 = new Image();
+imagePHI1.src = urlWithTimeSpan;
+}
+// setTimeout(updateImagePHI1, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336934" target="_blank">*HOT "HOCHTIEF"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336934" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HOT.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/HOT.html" id='linkPCHOT' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
+<br>
+<script>
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/HOT.DE?interval=1d')}`)
+.then(response => {
+if (response.ok){
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+const objHOT = JSON.parse(data.contents);
+var elementRegularMarketTimeHOT = document.getElementById("neverShowRegularMarketTimeHOT");
+
+var dateMarketTimeHOT = new Date(0); 
+var epochMarketTimeHOT = objHOT.chart.result[0].meta.regularMarketTime;
+dateMarketTimeHOT.setUTCSeconds(epochMarketTimeHOT);
+elementRegularMarketTimeHOT.innerHTML = ('0'+dateMarketTimeHOT.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeHOT.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeHOT.getSeconds()).slice(-2);
+
+var deltaMinutesHOT =((new Date().getTime() - dateMarketTimeHOT.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetHOT = document.getElementById("intervalSectionRegularMarketTimeOffsetHOT");
+elementRegularMarketTimeOffsetHOT.innerHTML = '+' + Math.abs(Math.round(deltaMinutesHOT)) + 'min';
+
+var elementRegularMarketPriceHOT = document.getElementById("intervalSectionRegularMarketPriceHOT");
+elementRegularMarketPriceHOT.innerHTML = objHOT.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+var elementPercentageHOT = document.getElementById("intervalSectionPercentageHOT");
+var percentValueHOT = ((objHOT.chart.result[0].meta.regularMarketPrice / objHOT.chart.result[0].meta.chartPreviousClose) -1) * 100;
+percentValueHOT = percentValueHOT.toFixed(1);
+elementPercentageHOT.innerHTML = percentValueHOT + '%';
+if(percentValueHOT < 0){
+elementPercentageHOT.style.color = 'red';
+}
+else{
+elementPercentageHOT.style.color = 'green';
+}
+
+var elementPortfolioValuesHOT = document.getElementById("intervalSectionPortfolioValuesHOT");
+var obfuscatedValuePcEuroHOT = document.getElementById("obfuscatedValuePcEuroHOT");
+decryptElement(obfuscatedValuePcEuroHOT);
+var piecesHOT = obfuscatedValuePcEuroHOT.innerHTML.split(' pc')[0];
+var buyingValueHOT = obfuscatedValuePcEuroHOT.innerHTML.split('/')[0];
+buyingValueHOT = buyingValueHOT.split(' ')[2];
+var portfolioValueHOT = piecesHOT * objHOT.chart.result[0].meta.regularMarketPrice;
+var stocksPerformanceHOT = ((portfolioValueHOT / buyingValueHOT)-1)*100;
+elementPortfolioValuesHOT.innerHTML = piecesHOT + ' pc ' + buyingValueHOT + '/' + portfolioValueHOT.toFixed(0) + '€ ';
+var elementPortfolioGainHOT = document.getElementById("intervalSectionPortfolioGainHOT");
+elementPortfolioGainHOT.innerHTML = stocksPerformanceHOT.toFixed(1) + '% ' + (portfolioValueHOT - buyingValueHOT).toFixed(0) + '€';
+if(stocksPerformanceHOT < 0){
+elementPortfolioGainHOT.style.color = 'red';
+}
+else{
+elementPortfolioGainHOT.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroHOT);  
+})
+.catch(error => {
+console.error('Error retrieving current quote for: HOT !!!' + error);
+});
+</script>
+<span id="intervalSectionRegularMarketPriceHOT" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageHOT" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeHOT" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetHOT" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesHOT" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainHOT" style='font-size:xx-large; display: none'></span>
+<br>
+<div id="neverShowDivHOT" style='display:none'>
+<span id="obfuscatedValuePcEuroHOT" style='display:none'>YY35055/33195XX088</span>&nbsp;
+<span id="obfuscatedValueGainHOT" style='display:none;color:red'>YY0804-ZZ9.6-</span>
+<span id="obfuscatedValueCloseBracesHOT" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionHOT" style='display: none'><input name="intervalFieldHOT" type="text" maxlength="7" value="1" id="intervalFieldHOT"/><button type="button" id="intervalButtonHOT">Minutes</button><span id="intervalTextHOT"></span></span>
+<script>
+var intervalVarHOT;
+function beepHOT() {
+var elementAlert = document.getElementById("intervalTextHOT");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarHOT);
+intervalVarHOT=undefined;
+}
+function setBeepIntervalHOT() {
+var intervalValue = document.getElementById("intervalFieldHOT").value;
+intervalVarHOT = setInterval(beepHOT, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextHOT");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonHOT").addEventListener("click", setBeepIntervalHOT);
+</script>
+<br><img width="60%" id="intervalSectionImageHOT" style='display: none'></img><br>
+<button id="intervalSectionButton1DHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('1D')">1D</button>
+<button id="intervalSectionButton5DHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('5D')">5D</button>
+<button id="intervalSectionButton10DHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('10D')">10D</button>
+<button id="intervalSectionButton3MHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('3M')">3M</button>
+<button id="intervalSectionButton6MHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('6M')">6M</button>
+<button id="intervalSectionButton1YHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('1Y')">1Y</button>
+<button id="intervalSectionButton5YHOT" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHOT('5Y')">5Y</button>
+<hr id="intervalSectionHRHOT" style='display: none'>
+<script>
+var imageHOT = new Image();
+var TIME_SPANHOT;
+function updateImageHOT(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANHOT=timespan;
+}
+if(imageHOT.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336934&TIME_SPAN='+TIME_SPANHOT;
+document.getElementById("intervalSectionImageHOT").src = urlWithTimeSpan;
+imageHOT = new Image();
+imageHOT.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageHOT, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<br>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672407" target="_blank">*FNTN "FREENET"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672407" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FNTN.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/FNTN.html" id='linkPCFNTN' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: RSI Divergence (D)
+<br>Buy: New 30 days Low (L)
 <br>Buy: Low 7 last Stochastic (S)
 <br>Buy: Low 7 last RSI (R)
 <br>Buy: Low Stochastic & RSI & MACD- (C)
@@ -545,8 +797,8 @@ console.error('Error retrieving current quote for: FNTN !!!' + error);
 <span id="intervalSectionPortfolioGainFNTN" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivFNTN" style='display:none'>
-<span id="obfuscatedValuePcEuroFNTN" style='display:none'>YY65651/37951XX008</span>&nbsp;
-<span id="obfuscatedValueGainFNTN" style='display:none;color:red'>YY713-ZZ0.2-</span>
+<span id="obfuscatedValuePcEuroFNTN" style='display:none'>YY25551/37951XX008</span>&nbsp;
+<span id="obfuscatedValueGainFNTN" style='display:none;color:red'>YY124-ZZ6.2-</span>
 <span id="obfuscatedValueCloseBracesFNTN" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionFNTN" style='display: none'><input name="intervalFieldFNTN" type="text" maxlength="7" value="1" id="intervalFieldFNTN"/><button type="button" id="intervalButtonFNTN">Minutes</button><span id="intervalTextFNTN"></span></span>
@@ -596,11 +848,10 @@ imageFNTN.src = urlWithTimeSpan;
 }
 </script>
 <br>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=194616562" target="_blank">*GYC "GRAND CITY PROP."</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=194616562" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GYC.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/GYC.html" id='linkPCGYC' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low 6 last RSI (R)
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=194616562" target="_blank">*GYC "GRAND CITY PROP."</a>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=194616562" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GYC.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:black; display: none" href="D:/code/stock-analyse/out/GYC.html" id='linkPCGYC' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>
 <script>
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/GYC.DE?interval=1d')}`)
@@ -668,8 +919,8 @@ console.error('Error retrieving current quote for: GYC !!!' + error);
 <span id="intervalSectionPortfolioGainGYC" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivGYC" style='display:none'>
-<span id="obfuscatedValuePcEuroGYC" style='display:none'>YY9933/6633XX051</span>&nbsp;
-<span id="obfuscatedValueGainGYC" style='display:none;color:green'>YY33ZZ0.1</span>
+<span id="obfuscatedValuePcEuroGYC" style='display:none'>YY7833/6633XX051</span>&nbsp;
+<span id="obfuscatedValueGainGYC" style='display:none;color:green'>YY12ZZ6.0</span>
 <span id="obfuscatedValueCloseBracesGYC" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionGYC" style='display: none'><input name="intervalFieldGYC" type="text" maxlength="7" value="1" id="intervalFieldGYC"/><button type="button" id="intervalButtonGYC">Minutes</button><span id="intervalTextGYC"></span></span>
@@ -723,6 +974,8 @@ imageGYC.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=18418227" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SFQ.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/SFQ.html" id='linkPCSFQ' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: RSI Divergence (D)
+<br>Buy: New 30 days Low (L)
 <br>Buy: Low Percentage & Stochastic (P)
 <br>Buy: Low 7 last Stochastic (S)
 <br>Buy: Low 7 last RSI (R)
@@ -794,8 +1047,8 @@ console.error('Error retrieving current quote for: SFQ !!!' + error);
 <span id="intervalSectionPortfolioGainSFQ" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivSFQ" style='display:none'>
-<span id="obfuscatedValuePcEuroSFQ" style='display:none'>YY2282/7982XX052</span>&nbsp;
-<span id="obfuscatedValueGainSFQ" style='display:none;color:red'>YY57-ZZ6.2-</span>
+<span id="obfuscatedValuePcEuroSFQ" style='display:none'>YY5082/7982XX052</span>&nbsp;
+<span id="obfuscatedValueGainSFQ" style='display:none;color:red'>YY29-ZZ2.3-</span>
 <span id="obfuscatedValueCloseBracesSFQ" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionSFQ" style='display: none'><input name="intervalFieldSFQ" type="text" maxlength="7" value="1" id="intervalFieldSFQ"/><button type="button" id="intervalButtonSFQ">Minutes</button><span id="intervalTextSFQ"></span></span>
@@ -842,128 +1095,6 @@ imageSFQ = new Image();
 imageSFQ.src = urlWithTimeSpan;
 }
 // setTimeout(updateImageSFQ, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336890" target="_blank">*ARL "Aareal Bank"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336890" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ARL.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/ARL.html" id='linkPCARL' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/ARL.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objARL = JSON.parse(data.contents);
-var elementRegularMarketTimeARL = document.getElementById("neverShowRegularMarketTimeARL");
-
-var dateMarketTimeARL = new Date(0); 
-var epochMarketTimeARL = objARL.chart.result[0].meta.regularMarketTime;
-dateMarketTimeARL.setUTCSeconds(epochMarketTimeARL);
-elementRegularMarketTimeARL.innerHTML = ('0'+dateMarketTimeARL.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeARL.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeARL.getSeconds()).slice(-2);
-
-var deltaMinutesARL =((new Date().getTime() - dateMarketTimeARL.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetARL = document.getElementById("intervalSectionRegularMarketTimeOffsetARL");
-elementRegularMarketTimeOffsetARL.innerHTML = '+' + Math.abs(Math.round(deltaMinutesARL)) + 'min';
-
-var elementRegularMarketPriceARL = document.getElementById("intervalSectionRegularMarketPriceARL");
-elementRegularMarketPriceARL.innerHTML = objARL.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageARL = document.getElementById("intervalSectionPercentageARL");
-var percentValueARL = ((objARL.chart.result[0].meta.regularMarketPrice / objARL.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueARL = percentValueARL.toFixed(1);
-elementPercentageARL.innerHTML = percentValueARL + '%';
-if(percentValueARL < 0){
-elementPercentageARL.style.color = 'red';
-}
-else{
-elementPercentageARL.style.color = 'green';
-}
-
-var elementPortfolioValuesARL = document.getElementById("intervalSectionPortfolioValuesARL");
-var obfuscatedValuePcEuroARL = document.getElementById("obfuscatedValuePcEuroARL");
-decryptElement(obfuscatedValuePcEuroARL);
-var piecesARL = obfuscatedValuePcEuroARL.innerHTML.split(' pc')[0];
-var buyingValueARL = obfuscatedValuePcEuroARL.innerHTML.split('/')[0];
-buyingValueARL = buyingValueARL.split(' ')[2];
-var portfolioValueARL = piecesARL * objARL.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceARL = ((portfolioValueARL / buyingValueARL)-1)*100;
-elementPortfolioValuesARL.innerHTML = piecesARL + ' pc ' + buyingValueARL + '/' + portfolioValueARL.toFixed(0) + '€ ';
-var elementPortfolioGainARL = document.getElementById("intervalSectionPortfolioGainARL");
-elementPortfolioGainARL.innerHTML = stocksPerformanceARL.toFixed(1) + '% ' + (portfolioValueARL - buyingValueARL).toFixed(0) + '€';
-if(stocksPerformanceARL < 0){
-elementPortfolioGainARL.style.color = 'red';
-}
-else{
-elementPortfolioGainARL.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroARL);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: ARL !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceARL" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageARL" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeARL" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetARL" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesARL" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainARL" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivARL" style='display:none'>
-<span id="obfuscatedValuePcEuroARL" style='display:none'>YY67671/28671XX009</span>&nbsp;
-<span id="obfuscatedValueGainARL" style='display:none;color:red'>YY6-ZZ0.0-</span>
-<span id="obfuscatedValueCloseBracesARL" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionARL" style='display: none'><input name="intervalFieldARL" type="text" maxlength="7" value="1" id="intervalFieldARL"/><button type="button" id="intervalButtonARL">Minutes</button><span id="intervalTextARL"></span></span>
-<script>
-var intervalVarARL;
-function beepARL() {
-var elementAlert = document.getElementById("intervalTextARL");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarARL);
-intervalVarARL=undefined;
-}
-function setBeepIntervalARL() {
-var intervalValue = document.getElementById("intervalFieldARL").value;
-intervalVarARL = setInterval(beepARL, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextARL");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonARL").addEventListener("click", setBeepIntervalARL);
-</script>
-<br><img width="60%" id="intervalSectionImageARL" style='display: none'></img><br>
-<button id="intervalSectionButton1DARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('1D')">1D</button>
-<button id="intervalSectionButton5DARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('5D')">5D</button>
-<button id="intervalSectionButton10DARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('10D')">10D</button>
-<button id="intervalSectionButton3MARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('3M')">3M</button>
-<button id="intervalSectionButton6MARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('6M')">6M</button>
-<button id="intervalSectionButton1YARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('1Y')">1Y</button>
-<button id="intervalSectionButton5YARL" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageARL('5Y')">5Y</button>
-<hr id="intervalSectionHRARL" style='display: none'>
-<script>
-var imageARL = new Image();
-var TIME_SPANARL;
-function updateImageARL(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANARL=timespan;
-}
-if(imageARL.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336890&TIME_SPAN='+TIME_SPANARL;
-document.getElementById("intervalSectionImageARL").src = urlWithTimeSpan;
-imageARL = new Image();
-imageARL.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageARL, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <br>
@@ -1039,8 +1170,8 @@ console.error('Error retrieving current quote for: TNE5 !!!' + error);
 <span id="intervalSectionPortfolioGainTNE5" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivTNE5" style='display:none'>
-<span id="obfuscatedValuePcEuroTNE5" style='display:none'>YY29477/875721XX55502</span>&nbsp;
-<span id="obfuscatedValueGainTNE5" style='display:none;color:red'>YY68005-ZZ3.93-</span>
+<span id="obfuscatedValuePcEuroTNE5" style='display:none'>YY56467/875721XX55502</span>&nbsp;
+<span id="obfuscatedValueGainTNE5" style='display:none;color:red'>YY31115-ZZ1.04-</span>
 <span id="obfuscatedValueCloseBracesTNE5" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionTNE5" style='display: none'><input name="intervalFieldTNE5" type="text" maxlength="7" value="1" id="intervalFieldTNE5"/><button type="button" id="intervalButtonTNE5">Minutes</button><span id="intervalTextTNE5"></span></span>
@@ -1087,131 +1218,6 @@ imageTNE5 = new Image();
 imageTNE5.src = urlWithTimeSpan;
 }
 // setTimeout(updateImageTNE5, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<br>
-!!! LESS then 100 quotes for DXSN
-<br>
-<br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=19624689" target="_blank">*DXSN "Xtrackers ShortDAX"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=19624689" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DXSN.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/DXSN.html" id='linkPCDXSN' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/DXSN.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objDXSN = JSON.parse(data.contents);
-var elementRegularMarketTimeDXSN = document.getElementById("neverShowRegularMarketTimeDXSN");
-
-var dateMarketTimeDXSN = new Date(0); 
-var epochMarketTimeDXSN = objDXSN.chart.result[0].meta.regularMarketTime;
-dateMarketTimeDXSN.setUTCSeconds(epochMarketTimeDXSN);
-elementRegularMarketTimeDXSN.innerHTML = ('0'+dateMarketTimeDXSN.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeDXSN.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeDXSN.getSeconds()).slice(-2);
-
-var deltaMinutesDXSN =((new Date().getTime() - dateMarketTimeDXSN.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetDXSN = document.getElementById("intervalSectionRegularMarketTimeOffsetDXSN");
-elementRegularMarketTimeOffsetDXSN.innerHTML = '+' + Math.abs(Math.round(deltaMinutesDXSN)) + 'min';
-
-var elementRegularMarketPriceDXSN = document.getElementById("intervalSectionRegularMarketPriceDXSN");
-elementRegularMarketPriceDXSN.innerHTML = objDXSN.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageDXSN = document.getElementById("intervalSectionPercentageDXSN");
-var percentValueDXSN = ((objDXSN.chart.result[0].meta.regularMarketPrice / objDXSN.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueDXSN = percentValueDXSN.toFixed(1);
-elementPercentageDXSN.innerHTML = percentValueDXSN + '%';
-if(percentValueDXSN < 0){
-elementPercentageDXSN.style.color = 'red';
-}
-else{
-elementPercentageDXSN.style.color = 'green';
-}
-
-var elementPortfolioValuesDXSN = document.getElementById("intervalSectionPortfolioValuesDXSN");
-var obfuscatedValuePcEuroDXSN = document.getElementById("obfuscatedValuePcEuroDXSN");
-decryptElement(obfuscatedValuePcEuroDXSN);
-var piecesDXSN = obfuscatedValuePcEuroDXSN.innerHTML.split(' pc')[0];
-var buyingValueDXSN = obfuscatedValuePcEuroDXSN.innerHTML.split('/')[0];
-buyingValueDXSN = buyingValueDXSN.split(' ')[2];
-var portfolioValueDXSN = piecesDXSN * objDXSN.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceDXSN = ((portfolioValueDXSN / buyingValueDXSN)-1)*100;
-elementPortfolioValuesDXSN.innerHTML = piecesDXSN + ' pc ' + buyingValueDXSN + '/' + portfolioValueDXSN.toFixed(0) + '€ ';
-var elementPortfolioGainDXSN = document.getElementById("intervalSectionPortfolioGainDXSN");
-elementPortfolioGainDXSN.innerHTML = stocksPerformanceDXSN.toFixed(1) + '% ' + (portfolioValueDXSN - buyingValueDXSN).toFixed(0) + '€';
-if(stocksPerformanceDXSN < 0){
-elementPortfolioGainDXSN.style.color = 'red';
-}
-else{
-elementPortfolioGainDXSN.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroDXSN);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: DXSN !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceDXSN" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageDXSN" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeDXSN" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetDXSN" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesDXSN" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainDXSN" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivDXSN" style='display:none'>
-<span id="obfuscatedValuePcEuroDXSN" style='display:none'>YY09034/10144XX0013</span>&nbsp;
-<span id="obfuscatedValueGainDXSN" style='display:none;color:red'>YY1101-ZZ3.2-</span>
-<span id="obfuscatedValueCloseBracesDXSN" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionDXSN" style='display: none'><input name="intervalFieldDXSN" type="text" maxlength="7" value="1" id="intervalFieldDXSN"/><button type="button" id="intervalButtonDXSN">Minutes</button><span id="intervalTextDXSN"></span></span>
-<script>
-var intervalVarDXSN;
-function beepDXSN() {
-var elementAlert = document.getElementById("intervalTextDXSN");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarDXSN);
-intervalVarDXSN=undefined;
-}
-function setBeepIntervalDXSN() {
-var intervalValue = document.getElementById("intervalFieldDXSN").value;
-intervalVarDXSN = setInterval(beepDXSN, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextDXSN");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonDXSN").addEventListener("click", setBeepIntervalDXSN);
-</script>
-<br><img width="60%" id="intervalSectionImageDXSN" style='display: none'></img><br>
-<button id="intervalSectionButton1DDXSN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDXSN('1D')">1D</button>
-<button id="intervalSectionButton5DDXSN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDXSN('5D')">5D</button>
-<button id="intervalSectionButton10DDXSN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDXSN('10D')">10D</button>
-<button id="intervalSectionButton3MDXSN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDXSN('3M')">3M</button>
-<button id="intervalSectionButton6MDXSN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDXSN('6M')">6M</button>
-<button id="intervalSectionButton1YDXSN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDXSN('1Y')">1Y</button>
-<button id="intervalSectionButton5YDXSN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDXSN('5Y')">5Y</button>
-<hr id="intervalSectionHRDXSN" style='display: none'>
-<script>
-var imageDXSN = new Image();
-var TIME_SPANDXSN;
-function updateImageDXSN(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANDXSN=timespan;
-}
-if(imageDXSN.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=19624689&TIME_SPAN='+TIME_SPANDXSN;
-document.getElementById("intervalSectionImageDXSN").src = urlWithTimeSpan;
-imageDXSN = new Image();
-imageDXSN.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageDXSN, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <br>
@@ -1286,8 +1292,8 @@ console.error('Error retrieving current quote for: BYW6 !!!' + error);
 <span id="intervalSectionPortfolioGainBYW6" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivBYW6" style='display:none'>
-<span id="obfuscatedValuePcEuroBYW6" style='display:none'>YY23301/62301XX082</span>&nbsp;
-<span id="obfuscatedValueGainBYW6" style='display:none;color:green'>YY6ZZ1.0</span>
+<span id="obfuscatedValuePcEuroBYW6" style='display:none'>YY09201/62301XX082</span>&nbsp;
+<span id="obfuscatedValueGainBYW6" style='display:none;color:red'>YY63-ZZ3.0-</span>
 <span id="obfuscatedValueCloseBracesBYW6" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionBYW6" style='display: none'><input name="intervalFieldBYW6" type="text" maxlength="7" value="1" id="intervalFieldBYW6"/><button type="button" id="intervalButtonBYW6">Minutes</button><span id="intervalTextBYW6"></span></span>
@@ -1409,8 +1415,8 @@ console.error('Error retrieving current quote for: DBK !!!' + error);
 <span id="intervalSectionPortfolioGainDBK" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivDBK" style='display:none'>
-<span id="obfuscatedValuePcEuroDBK" style='display:none'>YY313171/933532XX00361</span>&nbsp;
-<span id="obfuscatedValueGainDBK" style='display:none;color:red'>YY62046-ZZ2.72-</span>
+<span id="obfuscatedValuePcEuroDBK" style='display:none'>YY790661/933532XX00361</span>&nbsp;
+<span id="obfuscatedValueGainDBK" style='display:none;color:red'>YY24296-ZZ4.92-</span>
 <span id="obfuscatedValueCloseBracesDBK" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionDBK" style='display: none'><input name="intervalFieldDBK" type="text" maxlength="7" value="1" id="intervalFieldDBK"/><button type="button" id="intervalButtonDBK">Minutes</button><span id="intervalTextDBK"></span></span>
@@ -1531,8 +1537,8 @@ console.error('Error retrieving current quote for: KWS !!!' + error);
 <span id="intervalSectionPortfolioGainKWS" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivKWS" style='display:none'>
-<span id="obfuscatedValuePcEuroKWS" style='display:none'>YY2175/3275XX08</span>&nbsp;
-<span id="obfuscatedValueGainKWS" style='display:none;color:red'>YY11-ZZ2.0-</span>
+<span id="obfuscatedValuePcEuroKWS" style='display:none'>YY4665/3275XX08</span>&nbsp;
+<span id="obfuscatedValueGainKWS" style='display:none;color:red'>YY95-ZZ0.1-</span>
 <span id="obfuscatedValueCloseBracesKWS" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionKWS" style='display: none'><input name="intervalFieldKWS" type="text" maxlength="7" value="1" id="intervalFieldKWS"/><button type="button" id="intervalButtonKWS">Minutes</button><span id="intervalTextKWS"></span></span>
@@ -1582,10 +1588,11 @@ imageKWS.src = urlWithTimeSpan;
 }
 </script>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336938" target="_blank">*INH "INDUS HOLDING"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336938" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/INH.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/INH.html" id='linkPCINH' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336938" target="_blank">*INH "INDUS HOLDING"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336938" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/INH.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/INH.html" id='linkPCINH' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: Low Percentage & Stochastic (P)
 <br>
 <script>
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/INH.DE?interval=1d')}`)
@@ -1653,8 +1660,8 @@ console.error('Error retrieving current quote for: INH !!!' + error);
 <span id="intervalSectionPortfolioGainINH" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivINH" style='display:none'>
-<span id="obfuscatedValuePcEuroINH" style='display:none'>YY8467/9367XX032</span>&nbsp;
-<span id="obfuscatedValueGainINH" style='display:none;color:green'>YY9ZZ1.0</span>
+<span id="obfuscatedValuePcEuroINH" style='display:none'>YY0957/9367XX032</span>&nbsp;
+<span id="obfuscatedValueGainINH" style='display:none;color:red'>YY94-ZZ6.0-</span>
 <span id="obfuscatedValueCloseBracesINH" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionINH" style='display: none'><input name="intervalFieldINH" type="text" maxlength="7" value="1" id="intervalFieldINH"/><button type="button" id="intervalButtonINH">Minutes</button><span id="intervalTextINH"></span></span>
@@ -1701,251 +1708,6 @@ imageINH = new Image();
 imageINH.src = urlWithTimeSpan;
 }
 // setTimeout(updateImageINH, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<br>
-<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72769712" target="_blank">*O2D "TELEFONICA DEUT."</a>
-<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72769712" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:red" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/O2D.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:red; display: none" href="D:/code/stock-analyse/out/O2D.html" id='linkPCO2D' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Sell: Stochastic Own (O)
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/O2D.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objO2D = JSON.parse(data.contents);
-var elementRegularMarketTimeO2D = document.getElementById("neverShowRegularMarketTimeO2D");
-
-var dateMarketTimeO2D = new Date(0); 
-var epochMarketTimeO2D = objO2D.chart.result[0].meta.regularMarketTime;
-dateMarketTimeO2D.setUTCSeconds(epochMarketTimeO2D);
-elementRegularMarketTimeO2D.innerHTML = ('0'+dateMarketTimeO2D.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeO2D.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeO2D.getSeconds()).slice(-2);
-
-var deltaMinutesO2D =((new Date().getTime() - dateMarketTimeO2D.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetO2D = document.getElementById("intervalSectionRegularMarketTimeOffsetO2D");
-elementRegularMarketTimeOffsetO2D.innerHTML = '+' + Math.abs(Math.round(deltaMinutesO2D)) + 'min';
-
-var elementRegularMarketPriceO2D = document.getElementById("intervalSectionRegularMarketPriceO2D");
-elementRegularMarketPriceO2D.innerHTML = objO2D.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageO2D = document.getElementById("intervalSectionPercentageO2D");
-var percentValueO2D = ((objO2D.chart.result[0].meta.regularMarketPrice / objO2D.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueO2D = percentValueO2D.toFixed(1);
-elementPercentageO2D.innerHTML = percentValueO2D + '%';
-if(percentValueO2D < 0){
-elementPercentageO2D.style.color = 'red';
-}
-else{
-elementPercentageO2D.style.color = 'green';
-}
-
-var elementPortfolioValuesO2D = document.getElementById("intervalSectionPortfolioValuesO2D");
-var obfuscatedValuePcEuroO2D = document.getElementById("obfuscatedValuePcEuroO2D");
-decryptElement(obfuscatedValuePcEuroO2D);
-var piecesO2D = obfuscatedValuePcEuroO2D.innerHTML.split(' pc')[0];
-var buyingValueO2D = obfuscatedValuePcEuroO2D.innerHTML.split('/')[0];
-buyingValueO2D = buyingValueO2D.split(' ')[2];
-var portfolioValueO2D = piecesO2D * objO2D.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceO2D = ((portfolioValueO2D / buyingValueO2D)-1)*100;
-elementPortfolioValuesO2D.innerHTML = piecesO2D + ' pc ' + buyingValueO2D + '/' + portfolioValueO2D.toFixed(0) + '€ ';
-var elementPortfolioGainO2D = document.getElementById("intervalSectionPortfolioGainO2D");
-elementPortfolioGainO2D.innerHTML = stocksPerformanceO2D.toFixed(1) + '% ' + (portfolioValueO2D - buyingValueO2D).toFixed(0) + '€';
-if(stocksPerformanceO2D < 0){
-elementPortfolioGainO2D.style.color = 'red';
-}
-else{
-elementPortfolioGainO2D.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroO2D);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: O2D !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceO2D" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageO2D" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeO2D" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetO2D" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesO2D" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainO2D" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivO2D" style='display:none'>
-<span id="obfuscatedValuePcEuroO2D" style='display:none'>YY52071/82861XX0057</span>&nbsp;
-<span id="obfuscatedValueGainO2D" style='display:none;color:green'>YY791ZZ2.1</span>
-<span id="obfuscatedValueCloseBracesO2D" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionO2D" style='display: none'><input name="intervalFieldO2D" type="text" maxlength="7" value="1" id="intervalFieldO2D"/><button type="button" id="intervalButtonO2D">Minutes</button><span id="intervalTextO2D"></span></span>
-<script>
-var intervalVarO2D;
-function beepO2D() {
-var elementAlert = document.getElementById("intervalTextO2D");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarO2D);
-intervalVarO2D=undefined;
-}
-function setBeepIntervalO2D() {
-var intervalValue = document.getElementById("intervalFieldO2D").value;
-intervalVarO2D = setInterval(beepO2D, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextO2D");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonO2D").addEventListener("click", setBeepIntervalO2D);
-</script>
-<br><img width="60%" id="intervalSectionImageO2D" style='display: none'></img><br>
-<button id="intervalSectionButton1DO2D" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO2D('1D')">1D</button>
-<button id="intervalSectionButton5DO2D" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO2D('5D')">5D</button>
-<button id="intervalSectionButton10DO2D" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO2D('10D')">10D</button>
-<button id="intervalSectionButton3MO2D" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO2D('3M')">3M</button>
-<button id="intervalSectionButton6MO2D" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO2D('6M')">6M</button>
-<button id="intervalSectionButton1YO2D" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO2D('1Y')">1Y</button>
-<button id="intervalSectionButton5YO2D" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO2D('5Y')">5Y</button>
-<hr id="intervalSectionHRO2D" style='display: none'>
-<script>
-var imageO2D = new Image();
-var TIME_SPANO2D;
-function updateImageO2D(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANO2D=timespan;
-}
-if(imageO2D.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72769712&TIME_SPAN='+TIME_SPANO2D;
-document.getElementById("intervalSectionImageO2D").src = urlWithTimeSpan;
-imageO2D = new Image();
-imageO2D.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageO2D, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336925" target="_blank">*GBF "BILFINGER"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336925" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GBF.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/GBF.html" id='linkPCGBF' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/GBF.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objGBF = JSON.parse(data.contents);
-var elementRegularMarketTimeGBF = document.getElementById("neverShowRegularMarketTimeGBF");
-
-var dateMarketTimeGBF = new Date(0); 
-var epochMarketTimeGBF = objGBF.chart.result[0].meta.regularMarketTime;
-dateMarketTimeGBF.setUTCSeconds(epochMarketTimeGBF);
-elementRegularMarketTimeGBF.innerHTML = ('0'+dateMarketTimeGBF.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeGBF.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeGBF.getSeconds()).slice(-2);
-
-var deltaMinutesGBF =((new Date().getTime() - dateMarketTimeGBF.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetGBF = document.getElementById("intervalSectionRegularMarketTimeOffsetGBF");
-elementRegularMarketTimeOffsetGBF.innerHTML = '+' + Math.abs(Math.round(deltaMinutesGBF)) + 'min';
-
-var elementRegularMarketPriceGBF = document.getElementById("intervalSectionRegularMarketPriceGBF");
-elementRegularMarketPriceGBF.innerHTML = objGBF.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageGBF = document.getElementById("intervalSectionPercentageGBF");
-var percentValueGBF = ((objGBF.chart.result[0].meta.regularMarketPrice / objGBF.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueGBF = percentValueGBF.toFixed(1);
-elementPercentageGBF.innerHTML = percentValueGBF + '%';
-if(percentValueGBF < 0){
-elementPercentageGBF.style.color = 'red';
-}
-else{
-elementPercentageGBF.style.color = 'green';
-}
-
-var elementPortfolioValuesGBF = document.getElementById("intervalSectionPortfolioValuesGBF");
-var obfuscatedValuePcEuroGBF = document.getElementById("obfuscatedValuePcEuroGBF");
-decryptElement(obfuscatedValuePcEuroGBF);
-var piecesGBF = obfuscatedValuePcEuroGBF.innerHTML.split(' pc')[0];
-var buyingValueGBF = obfuscatedValuePcEuroGBF.innerHTML.split('/')[0];
-buyingValueGBF = buyingValueGBF.split(' ')[2];
-var portfolioValueGBF = piecesGBF * objGBF.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceGBF = ((portfolioValueGBF / buyingValueGBF)-1)*100;
-elementPortfolioValuesGBF.innerHTML = piecesGBF + ' pc ' + buyingValueGBF + '/' + portfolioValueGBF.toFixed(0) + '€ ';
-var elementPortfolioGainGBF = document.getElementById("intervalSectionPortfolioGainGBF");
-elementPortfolioGainGBF.innerHTML = stocksPerformanceGBF.toFixed(1) + '% ' + (portfolioValueGBF - buyingValueGBF).toFixed(0) + '€';
-if(stocksPerformanceGBF < 0){
-elementPortfolioGainGBF.style.color = 'red';
-}
-else{
-elementPortfolioGainGBF.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroGBF);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: GBF !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceGBF" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageGBF" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeGBF" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetGBF" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesGBF" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainGBF" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivGBF" style='display:none'>
-<span id="obfuscatedValuePcEuroGBF" style='display:none'>YY63051/44351XX006</span>&nbsp;
-<span id="obfuscatedValueGainGBF" style='display:none;color:red'>YY803-ZZ0.2-</span>
-<span id="obfuscatedValueCloseBracesGBF" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionGBF" style='display: none'><input name="intervalFieldGBF" type="text" maxlength="7" value="1" id="intervalFieldGBF"/><button type="button" id="intervalButtonGBF">Minutes</button><span id="intervalTextGBF"></span></span>
-<script>
-var intervalVarGBF;
-function beepGBF() {
-var elementAlert = document.getElementById("intervalTextGBF");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarGBF);
-intervalVarGBF=undefined;
-}
-function setBeepIntervalGBF() {
-var intervalValue = document.getElementById("intervalFieldGBF").value;
-intervalVarGBF = setInterval(beepGBF, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextGBF");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonGBF").addEventListener("click", setBeepIntervalGBF);
-</script>
-<br><img width="60%" id="intervalSectionImageGBF" style='display: none'></img><br>
-<button id="intervalSectionButton1DGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('1D')">1D</button>
-<button id="intervalSectionButton5DGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('5D')">5D</button>
-<button id="intervalSectionButton10DGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('10D')">10D</button>
-<button id="intervalSectionButton3MGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('3M')">3M</button>
-<button id="intervalSectionButton6MGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('6M')">6M</button>
-<button id="intervalSectionButton1YGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('1Y')">1Y</button>
-<button id="intervalSectionButton5YGBF" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGBF('5Y')">5Y</button>
-<hr id="intervalSectionHRGBF" style='display: none'>
-<script>
-var imageGBF = new Image();
-var TIME_SPANGBF;
-function updateImageGBF(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANGBF=timespan;
-}
-if(imageGBF.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336925&TIME_SPAN='+TIME_SPANGBF;
-document.getElementById("intervalSectionImageGBF").src = urlWithTimeSpan;
-imageGBF = new Image();
-imageGBF.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageGBF, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <br>
@@ -2020,8 +1782,8 @@ console.error('Error retrieving current quote for: CCAP !!!' + error);
 <span id="intervalSectionPortfolioGainCCAP" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivCCAP" style='display:none'>
-<span id="obfuscatedValuePcEuroCCAP" style='display:none'>YY880701/489421XX0079</span>&nbsp;
-<span id="obfuscatedValueGainCCAP" style='display:none;color:red'>YY69871-ZZ3.41-</span>
+<span id="obfuscatedValuePcEuroCCAP" style='display:none'>YY429501/489421XX0079</span>&nbsp;
+<span id="obfuscatedValueGainCCAP" style='display:none;color:red'>YY06091-ZZ2.51-</span>
 <span id="obfuscatedValueCloseBracesCCAP" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionCCAP" style='display: none'><input name="intervalFieldCCAP" type="text" maxlength="7" value="1" id="intervalFieldCCAP"/><button type="button" id="intervalButtonCCAP">Minutes</button><span id="intervalTextCCAP"></span></span>
@@ -2071,10 +1833,12 @@ imageCCAP.src = urlWithTimeSpan;
 }
 </script>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=267602373" target="_blank">*1TY "PROSUS"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=267602373" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/1TY.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/1TY.html" id='linkPC1TY' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=267602373" target="_blank">*1TY "PROSUS"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=267602373" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/1TY.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/1TY.html" id='linkPC1TY' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
 <br>
 <script>
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/1TY.DE?interval=1d')}`)
@@ -2142,8 +1906,8 @@ console.error('Error retrieving current quote for: 1TY !!!' + error);
 <span id="intervalSectionPortfolioGain1TY" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDiv1TY" style='display:none'>
-<span id="obfuscatedValuePcEuro1TY" style='display:none'>YY6123/7243XX04</span>&nbsp;
-<span id="obfuscatedValueGain1TY" style='display:none;color:red'>YY112-ZZ2.6-</span>
+<span id="obfuscatedValuePcEuro1TY" style='display:none'>YY1803/7243XX04</span>&nbsp;
+<span id="obfuscatedValueGain1TY" style='display:none;color:red'>YY643-ZZ1.01-</span>
 <span id="obfuscatedValueCloseBraces1TY" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSection1TY" style='display: none'><input name="intervalField1TY" type="text" maxlength="7" value="1" id="intervalField1TY"/><button type="button" id="intervalButton1TY">Minutes</button><span id="intervalText1TY"></span></span>
@@ -2264,8 +2028,8 @@ console.error('Error retrieving current quote for: XONA !!!' + error);
 <span id="intervalSectionPortfolioGainXONA" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivXONA" style='display:none'>
-<span id="obfuscatedValuePcEuroXONA" style='display:none'>YY681831/794571XX0072</span>&nbsp;
-<span id="obfuscatedValueGainXONA" style='display:none;color:red'>YY11373-ZZ3.12-</span>
+<span id="obfuscatedValuePcEuroXONA" style='display:none'>YY187731/794571XX0072</span>&nbsp;
+<span id="obfuscatedValueGainXONA" style='display:none;color:red'>YY61773-ZZ5.12-</span>
 <span id="obfuscatedValueCloseBracesXONA" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionXONA" style='display: none'><input name="intervalFieldXONA" type="text" maxlength="7" value="1" id="intervalFieldXONA"/><button type="button" id="intervalButtonXONA">Minutes</button><span id="intervalTextXONA"></span></span>
@@ -2386,8 +2150,8 @@ console.error('Error retrieving current quote for: GEC !!!' + error);
 <span id="intervalSectionPortfolioGainGEC" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivGEC" style='display:none'>
-<span id="obfuscatedValuePcEuroGEC" style='display:none'>YY086781/187232XX00071</span>&nbsp;
-<span id="obfuscatedValueGainGEC" style='display:none;color:red'>YY10154-ZZ4.91-</span>
+<span id="obfuscatedValuePcEuroGEC" style='display:none'>YY031581/187232XX00071</span>&nbsp;
+<span id="obfuscatedValueGainGEC" style='display:none;color:red'>YY15674-ZZ5.02-</span>
 <span id="obfuscatedValueCloseBracesGEC" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionGEC" style='display: none'><input name="intervalFieldGEC" type="text" maxlength="7" value="1" id="intervalFieldGEC"/><button type="button" id="intervalButtonGEC">Minutes</button><span id="intervalTextGEC"></span></span>
@@ -2442,6 +2206,7 @@ imageGEC.src = urlWithTimeSpan;
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CRIN.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/CRIN.html" id='linkPCCRIN' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>Buy: New 30 days Low (L)
+<br>Buy: Low 4 last Stochastic (S)
 <br>
 <script>
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/CRIN.DE?interval=1d')}`)
@@ -2509,8 +2274,8 @@ console.error('Error retrieving current quote for: CRIN !!!' + error);
 <span id="intervalSectionPortfolioGainCRIN" style='font-size:xx-large; display: none'></span>
 <br>
 <div id="neverShowDivCRIN" style='display:none'>
-<span id="obfuscatedValuePcEuroCRIN" style='display:none'>YY05684/016721XX0005</span>&nbsp;
-<span id="obfuscatedValueGainCRIN" style='display:none;color:red'>YY06987-ZZ9.16-</span>
+<span id="obfuscatedValuePcEuroCRIN" style='display:none'>YY05274/016721XX0005</span>&nbsp;
+<span id="obfuscatedValueGainCRIN" style='display:none;color:red'>YY06308-ZZ0.36-</span>
 <span id="obfuscatedValueCloseBracesCRIN" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
 <span id="intervalSectionCRIN" style='display: none'><input name="intervalFieldCRIN" type="text" maxlength="7" value="1" id="intervalFieldCRIN"/><button type="button" id="intervalButtonCRIN">Minutes</button><span id="intervalTextCRIN"></span></span>
@@ -2560,10 +2325,25 @@ imageCRIN.src = urlWithTimeSpan;
 }
 </script>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336988" target="_blank">CEC "Ceconomy"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336988" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CEC.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/CEC.html" id='linkPCCEC' target='_blank'>&nbsp;PC&nbsp;</a>
+!!! LESS then 100 quotes for DXSN
+<br>
+<br>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=19624689" target="_blank">DXSN "Xtrackers ShortDAX"</a>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=19624689" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DXSN.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:black; display: none" href="D:/code/stock-analyse/out/DXSN.html" id='linkPCDXSN' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72769712" target="_blank">O2D "TELEFONICA DEUT."</a>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72769712" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/O2D.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:black; display: none" href="D:/code/stock-analyse/out/O2D.html" id='linkPCO2D' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336988" target="_blank">CEC "Ceconomy"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336988" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CEC.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/CEC.html" id='linkPCCEC' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337028" target="_blank">TKA "THYSSENKRUPP"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337028" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2575,10 +2355,11 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NFC.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/NFC.html" id='linkPCNFC' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337124" target="_blank">MUV2 "MUENCHENER RUE"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337124" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MUV2.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/MUV2.html" id='linkPCMUV2' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337124" target="_blank">MUV2 "MUENCHENER RUE"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337124" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MUV2.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/MUV2.html" id='linkPCMUV2' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337121" target="_blank">HNR1 "HANNOVER RUECK"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337121" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2589,8 +2370,7 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=202925052" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SAE.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/SAE.html" id='linkPCSAE' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: New 30 days Low (L)
-<br>Buy: Low 4 last Stochastic (S)
+<br>Buy: Low 5 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672499" target="_blank">6MK "MERCK & Co. INC"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672499" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2626,8 +2406,10 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=172889419" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/1NBA.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/1NBA.html" id='linkPC1NBA' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: RSI Divergence (D)
+<br>Buy: New 30 days Low (L)
 <br>Buy: Low 7 last Stochastic (S)
-<br>Buy: Low 5 last RSI (R)
+<br>Buy: Low 6 last RSI (R)
 <br>Buy: Low Stochastic & RSI & MACD- (C)
 <br>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=251561495" target="_blank">2OY "DOW INC"</a>
@@ -2655,7 +2437,6 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=167525824" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ADJ.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/ADJ.html" id='linkPCADJ' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: RSI Divergence (D)
 <br>Buy: Low 7 last RSI (R)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672085" target="_blank">ADS "Adidas"</a>
@@ -2668,10 +2449,11 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AFX.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/AFX.html" id='linkPCAFX' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=112578877" target="_blank">AHLA "ALIBABA"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=112578877" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AHLA.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/AHLA.html" id='linkPCAHLA' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=112578877" target="_blank">AHLA "ALIBABA"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=112578877" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AHLA.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/AHLA.html" id='linkPCAHLA' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=167589703" target="_blank">AHOG "AHOLD DELHAIZE"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=167589703" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2693,10 +2475,11 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AIXA.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/AIXA.html" id='linkPCAIXA' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337122" target="_blank">ALV "ALLIANZ"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337122" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ALV.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/ALV.html" id='linkPCALV' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337122" target="_blank">ALV "ALLIANZ"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337122" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ALV.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/ALV.html" id='linkPCALV' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337189" target="_blank">AMD "ADVANCED MICRO DE."</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337189" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2728,12 +2511,13 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AT1.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/AT1.html" id='linkPCAT1' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>Buy: Low 4 last Stochastic (S)
-<br>Buy: Low 6 last RSI (R)
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337164" target="_blank">AXA "AXA"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337164" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AXA.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/AXA.html" id='linkPCAXA' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337164" target="_blank">AXA "AXA"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337164" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AXA.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/AXA.html" id='linkPCAXA' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=193011761" target="_blank">B4B "METRO"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=193011761" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2764,7 +2548,8 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337130" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/BCO.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/BCO.html" id='linkPCBCO' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low 4 last Stochastic (S)
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low 5 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336883" target="_blank">BEI "BEIERSDORF"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336883" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2775,7 +2560,8 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336881" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/BMW.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/BMW.html" id='linkPCBMW' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low 4 last Stochastic (S)
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low 5 last Stochastic (S)
 <br>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337219" target="_blank">BNP "BNP PARIBAS"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337219" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2783,7 +2569,6 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/BNP.html" id='linkPCBNP' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>Buy: New 30 days Low (L)
 <br>Buy: Low 5 last Stochastic (S)
-<br>Buy: Low Stochastic & RSI & MACD- (C)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672224" target="_blank">BNR "BRENNTAG"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672224" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2800,7 +2585,7 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/BSD2.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/BSD2.html" id='linkPCBSD2' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>Buy: New 30 days Low (L)
-<br>Buy: Low 4 last Stochastic (S)
+<br>Buy: Low 5 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671009" target="_blank">BSN "DANONE"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671009" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -2816,6 +2601,7 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=290371930" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CBK.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/CBK.html" id='linkPCCBK' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: RSI Divergence (D)
 <br>Buy: New 30 days Low (L)
 <br>Buy: Low 6 last Stochastic (S)
 <br>Buy: Low 5 last RSI (R)
@@ -2907,6 +2693,7 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337224" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ENI.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/ENI.html" id='linkPCENI' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>Buy: Low 4 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=19597863" target="_blank">ENL "ENEL"</a>
@@ -2964,17 +2751,18 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FPE3.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/FPE3.html" id='linkPCFPE3' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>Buy: New 30 days Low (L)
-<br>Buy: Low 6 last Stochastic (S)
+<br>Buy: Low 7 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336914" target="_blank">FRA "FRAPORT"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336914" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FRA.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/FRA.html" id='linkPCFRA' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672315" target="_blank">FRE "FRESENIUS"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672315" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FRE.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/FRE.html" id='linkPCFRE' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672315" target="_blank">FRE "FRESENIUS"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672315" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FRE.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/FRE.html" id='linkPCFRE' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336958" target="_blank">G1A "GEA GROUP"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336958" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3001,10 +2789,11 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GXI.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/GXI.html" id='linkPCGXI' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672166" target="_blank">GZF "ENGIE"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672166" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GZF.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/GZF.html" id='linkPCGZF' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672166" target="_blank">GZF "ENGIE"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672166" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GZF.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/GZF.html" id='linkPCGZF' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671445" target="_blank">HDI "Home Depot"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671445" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3020,7 +2809,8 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336931" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HEN3.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/HEN3.html" id='linkPCHEN3' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low 5 last Stochastic (S)
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low 6 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=202668674" target="_blank">HFG "Hellofresh"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=202668674" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3031,8 +2821,9 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672152" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HHFA.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/HHFA.html" id='linkPCHHFA' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>Buy: Low 7 last Stochastic (S)
-<br>Buy: Low 4 last RSI (R)
+<br>Buy: Low 5 last RSI (R)
 <br>Buy: Low Stochastic & RSI & MACD- (C)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=124197027" target="_blank">HLE "HELLA"</a>
@@ -3045,16 +2836,19 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HYQ.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/HYQ.html" id='linkPCHYQ' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670961" target="_blank">IBE1 "IBERDROLA"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670961" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/IBE1.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/IBE1.html" id='linkPCIBE1' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670961" target="_blank">IBE1 "IBERDROLA"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670961" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/IBE1.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/IBE1.html" id='linkPCIBE1' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
 <br>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=47173644" target="_blank">IES "INTESA SANPAOLO"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=47173644" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/IES.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/IES.html" id='linkPCIES' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>Buy: New 30 days Low (L)
+<br>Buy: Low 4 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336944" target="_blank">IFX "Infineon Technologies"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336944" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3067,10 +2861,11 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/INN1.html" id='linkPCINN1' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>Buy: New 30 days Low (L)
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=113359031" target="_blank">IXD1 "INDUST. DE DISENO"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=113359031" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/IXD1.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/IXD1.html" id='linkPCIXD1' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=113359031" target="_blank">IXD1 "INDUST. DE DISENO"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=113359031" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/IXD1.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/IXD1.html" id='linkPCIXD1' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336943" target="_blank">JEN "JENOPTIK"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336943" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3086,8 +2881,7 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=287699227" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/KBX.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/KBX.html" id='linkPCKBX' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: New 30 days Low (L)
-<br>Buy: Low 7 last Stochastic (S)
+<br>Buy: Low 6 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670995" target="_blank">KCO "KLOECKNER & CO"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670995" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3128,12 +2922,14 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337154" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/LOR.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/LOR.html" id='linkPCLOR' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low 5 last Stochastic (S)
+<br>Buy: Low 6 last Stochastic (S)
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=11136503" target="_blank">LXS "LANXESS"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=11136503" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/LXS.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/LXS.html" id='linkPCLXS' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=11136503" target="_blank">LXS "LANXESS"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=11136503" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/LXS.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/LXS.html" id='linkPCLXS' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337167" target="_blank">MDO "McDonalds"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337167" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3149,12 +2945,14 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337144" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MOH.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/MOH.html" id='linkPCMOH' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low 5 last Stochastic (S)
+<br>Buy: Low 6 last Stochastic (S)
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336962" target="_blank">MOR "MorphoSys"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336962" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MOR.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/MOR.html" id='linkPCMOR' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336962" target="_blank">MOR "MorphoSys"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336962" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MOR.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/MOR.html" id='linkPCMOR' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336957" target="_blank">MRK "MERCK KGAA"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336957" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3171,7 +2969,6 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MTX.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/MTX.html" id='linkPCMTX' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>Buy: Low 5 last Stochastic (S)
-<br>Buy: Low Stochastic & RSI & MACD- (C)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336963" target="_blank">NDA "AURUBIS"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336963" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3217,7 +3014,8 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72723273" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/PPX.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/PPX.html" id='linkPCPPX' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low 4 last Stochastic (S)
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low 5 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=86976950" target="_blank">PSM "Pro Sieben"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=86976950" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3244,6 +3042,7 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/RHM.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/RHM.html" id='linkPCRHM' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>Buy: New 30 days Low (L)
+<br>Buy: Low Percentage & Stochastic (P)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336970" target="_blank">RWE "RWE"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336970" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3290,7 +3089,7 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336985" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SIE.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/SIE.html" id='linkPCSIE' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low 4 last Stochastic (S)
+<br>Buy: Low 5 last Stochastic (S)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=318293968" target="_blank">SMHN "SUESS MICROTEC"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=318293968" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3352,19 +3151,19 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TL0.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/TL0.html" id='linkPCTL0' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=269296853" target="_blank">TMV "TeamViewer"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=269296853" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TMV.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/TMV.html" id='linkPCTMV' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=269296853" target="_blank">TMV "TeamViewer"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=269296853" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TMV.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/TMV.html" id='linkPCTMV' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low 4 last Stochastic (S)
 <br>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337132" target="_blank">TOTB "TOTAL"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337132" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TOTB.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/TOTB.html" id='linkPCTOTB' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: RSI Divergence (D)
 <br>Buy: New 30 days Low (L)
 <br>Buy: Low 4 last Stochastic (S)
-<br>Buy: Low Stochastic & RSI & MACD- (C)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=170518790" target="_blank">UN01 "UNIPER"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=170518790" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3395,12 +3194,14 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337035" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VOW3.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:green; display: none" href="D:/code/stock-analyse/out/VOW3.html" id='linkPCVOW3' target='_blank'>&nbsp;PC&nbsp;</a>
-<br>Buy: Low 5 last Stochastic (S)
+<br>Buy: New 30 days Low (L)
+<br>Buy: Low 6 last Stochastic (S)
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336926" target="_blank">VVU "VIVENDI"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336926" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VVU.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/VVU.html" id='linkPCVVU' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336926" target="_blank">VVU "VIVENDI"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336926" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VVU.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/VVU.html" id='linkPCVVU' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671534" target="_blank">WAC "WACKER NEUSON"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671534" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3412,10 +3213,11 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/WAF.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/WAF.html" id='linkPCWAF' target='_blank'>&nbsp;PC&nbsp;</a>
 <br>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15083508" target="_blank">WCH "WACKER CHEMIE"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15083508" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/WCH.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/WCH.html" id='linkPCWCH' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15083508" target="_blank">WCH "WACKER CHEMIE"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15083508" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/WCH.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/WCH.html" id='linkPCWCH' target='_blank'>&nbsp;PC&nbsp;</a>
+<br>Buy: New 30 days Low (L)
 <br>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337182" target="_blank">WMT "Wal-Mart Stores"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337182" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -3437,8 +3239,8 @@ imageCRIN.src = urlWithTimeSpan;
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ZO1.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/ZO1.html" id='linkPCZO1' target='_blank'>&nbsp;PC&nbsp;</a>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY0358101/7476231</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY712803-ZZ2.32-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY704659/2188721</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY504223-ZZ2.52-</span></span>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="60%" id="intervalSectionImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
@@ -3467,21 +3269,19 @@ imageDAX.src = urlWithTimeSpan;
 }
 </script>
 <button id="intervalSectionButtonAll1D" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageHOT('1D');
-javascript:updateImagePHI1('1D');
 javascript:updateImageFTE('1D');
+javascript:updateImageGBF('1D');
+javascript:updateImageARL('1D');
+javascript:updateImagePHI1('1D');
+javascript:updateImageHOT('1D');
 javascript:updateImageFNTN('1D');
 javascript:updateImageGYC('1D');
 javascript:updateImageSFQ('1D');
-javascript:updateImageARL('1D');
 javascript:updateImageTNE5('1D');
-javascript:updateImageDXSN('1D');
 javascript:updateImageBYW6('1D');
 javascript:updateImageDBK('1D');
 javascript:updateImageKWS('1D');
 javascript:updateImageINH('1D');
-javascript:updateImageO2D('1D');
-javascript:updateImageGBF('1D');
 javascript:updateImageCCAP('1D');
 javascript:updateImage1TY('1D');
 javascript:updateImageXONA('1D');
@@ -3490,21 +3290,19 @@ javascript:updateImageCRIN('1D');
 javascript:updateImageDAX('1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageHOT('5D');
-javascript:updateImagePHI1('5D');
 javascript:updateImageFTE('5D');
+javascript:updateImageGBF('5D');
+javascript:updateImageARL('5D');
+javascript:updateImagePHI1('5D');
+javascript:updateImageHOT('5D');
 javascript:updateImageFNTN('5D');
 javascript:updateImageGYC('5D');
 javascript:updateImageSFQ('5D');
-javascript:updateImageARL('5D');
 javascript:updateImageTNE5('5D');
-javascript:updateImageDXSN('5D');
 javascript:updateImageBYW6('5D');
 javascript:updateImageDBK('5D');
 javascript:updateImageKWS('5D');
 javascript:updateImageINH('5D');
-javascript:updateImageO2D('5D');
-javascript:updateImageGBF('5D');
 javascript:updateImageCCAP('5D');
 javascript:updateImage1TY('5D');
 javascript:updateImageXONA('5D');
@@ -3513,21 +3311,19 @@ javascript:updateImageCRIN('5D');
 javascript:updateImageDAX('5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageHOT('10D');
-javascript:updateImagePHI1('10D');
 javascript:updateImageFTE('10D');
+javascript:updateImageGBF('10D');
+javascript:updateImageARL('10D');
+javascript:updateImagePHI1('10D');
+javascript:updateImageHOT('10D');
 javascript:updateImageFNTN('10D');
 javascript:updateImageGYC('10D');
 javascript:updateImageSFQ('10D');
-javascript:updateImageARL('10D');
 javascript:updateImageTNE5('10D');
-javascript:updateImageDXSN('10D');
 javascript:updateImageBYW6('10D');
 javascript:updateImageDBK('10D');
 javascript:updateImageKWS('10D');
 javascript:updateImageINH('10D');
-javascript:updateImageO2D('10D');
-javascript:updateImageGBF('10D');
 javascript:updateImageCCAP('10D');
 javascript:updateImage1TY('10D');
 javascript:updateImageXONA('10D');
@@ -3536,21 +3332,19 @@ javascript:updateImageCRIN('10D');
 javascript:updateImageDAX('10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageHOT('3M');
-javascript:updateImagePHI1('3M');
 javascript:updateImageFTE('3M');
+javascript:updateImageGBF('3M');
+javascript:updateImageARL('3M');
+javascript:updateImagePHI1('3M');
+javascript:updateImageHOT('3M');
 javascript:updateImageFNTN('3M');
 javascript:updateImageGYC('3M');
 javascript:updateImageSFQ('3M');
-javascript:updateImageARL('3M');
 javascript:updateImageTNE5('3M');
-javascript:updateImageDXSN('3M');
 javascript:updateImageBYW6('3M');
 javascript:updateImageDBK('3M');
 javascript:updateImageKWS('3M');
 javascript:updateImageINH('3M');
-javascript:updateImageO2D('3M');
-javascript:updateImageGBF('3M');
 javascript:updateImageCCAP('3M');
 javascript:updateImage1TY('3M');
 javascript:updateImageXONA('3M');
@@ -3559,21 +3353,19 @@ javascript:updateImageCRIN('3M');
 javascript:updateImageDAX('3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageHOT('6M');
-javascript:updateImagePHI1('6M');
 javascript:updateImageFTE('6M');
+javascript:updateImageGBF('6M');
+javascript:updateImageARL('6M');
+javascript:updateImagePHI1('6M');
+javascript:updateImageHOT('6M');
 javascript:updateImageFNTN('6M');
 javascript:updateImageGYC('6M');
 javascript:updateImageSFQ('6M');
-javascript:updateImageARL('6M');
 javascript:updateImageTNE5('6M');
-javascript:updateImageDXSN('6M');
 javascript:updateImageBYW6('6M');
 javascript:updateImageDBK('6M');
 javascript:updateImageKWS('6M');
 javascript:updateImageINH('6M');
-javascript:updateImageO2D('6M');
-javascript:updateImageGBF('6M');
 javascript:updateImageCCAP('6M');
 javascript:updateImage1TY('6M');
 javascript:updateImageXONA('6M');
@@ -3582,21 +3374,19 @@ javascript:updateImageCRIN('6M');
 javascript:updateImageDAX('6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageHOT('1Y');
-javascript:updateImagePHI1('1Y');
 javascript:updateImageFTE('1Y');
+javascript:updateImageGBF('1Y');
+javascript:updateImageARL('1Y');
+javascript:updateImagePHI1('1Y');
+javascript:updateImageHOT('1Y');
 javascript:updateImageFNTN('1Y');
 javascript:updateImageGYC('1Y');
 javascript:updateImageSFQ('1Y');
-javascript:updateImageARL('1Y');
 javascript:updateImageTNE5('1Y');
-javascript:updateImageDXSN('1Y');
 javascript:updateImageBYW6('1Y');
 javascript:updateImageDBK('1Y');
 javascript:updateImageKWS('1Y');
 javascript:updateImageINH('1Y');
-javascript:updateImageO2D('1Y');
-javascript:updateImageGBF('1Y');
 javascript:updateImageCCAP('1Y');
 javascript:updateImage1TY('1Y');
 javascript:updateImageXONA('1Y');
@@ -3605,21 +3395,19 @@ javascript:updateImageCRIN('1Y');
 javascript:updateImageDAX('1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageHOT('5Y');
-javascript:updateImagePHI1('5Y');
 javascript:updateImageFTE('5Y');
+javascript:updateImageGBF('5Y');
+javascript:updateImageARL('5Y');
+javascript:updateImagePHI1('5Y');
+javascript:updateImageHOT('5Y');
 javascript:updateImageFNTN('5Y');
 javascript:updateImageGYC('5Y');
 javascript:updateImageSFQ('5Y');
-javascript:updateImageARL('5Y');
 javascript:updateImageTNE5('5Y');
-javascript:updateImageDXSN('5Y');
 javascript:updateImageBYW6('5Y');
 javascript:updateImageDBK('5Y');
 javascript:updateImageKWS('5Y');
 javascript:updateImageINH('5Y');
-javascript:updateImageO2D('5Y');
-javascript:updateImageGBF('5Y');
 javascript:updateImageCCAP('5Y');
 javascript:updateImage1TY('5Y');
 javascript:updateImageXONA('5Y');
@@ -3629,7 +3417,7 @@ javascript:updateImageDAX('5Y');
 ">5Y</button>
 <br><br># Workflow<br><a href="https://github.com/Hefezopf/stock-analyse/actions" target="_blank">Github Action</a><br>
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  8-Jul-2021 06:14</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  9-Jul-2021 06:14</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
