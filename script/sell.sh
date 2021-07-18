@@ -4,8 +4,8 @@
 # and
 # Adding symbol to config/stock_symbols.txt
 
-# Call: sh ./sell.sh SYMBOL
-# Example: sh ./sell.sh BEI
+# Call: sh ./script/sell.sh SYMBOL
+# Example: sh ./script/sell.sh BEI
 # alias sell='/d/code/stock-analyse/script/sell.sh $1'
 # {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
@@ -48,3 +48,19 @@ echo "Transactions: "$count" (150/250)"
 echo "Quali Phase: 01.04. bis 30.09. and"
 echo "Quali Phase: 01.10. bis 31.03."
 echo "$count" >> config/transaction_count.txt
+
+# Write sell/SYMBOL_DATE file
+
+# Check, if quote day is from last trading day, including weekend
+yesterday=$(date --date="-1 day" +"%Y-%m-%d")
+dayOfWeek=$(date +%u)
+if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
+    yesterday=$(date --date="-2 day" +"%Y-%m-%d")
+fi
+if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
+    yesterday=$(date --date="-3 day" +"%Y-%m-%d")
+fi
+transactionSymbolLastDateFile="sell/""$symbolParam"_"$yesterday".txt
+commaListTransaction=$(cut -d , -f 2-90 < "$transactionSymbolLastDateFile")
+echo "$commaListTransaction""{x: 1, y: 10, r: 10}," > sell/"$symbolParam"_"$today".txt
+#rm sell/"$symbolParam"_"$yesterday".txt

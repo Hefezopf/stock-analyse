@@ -14,6 +14,12 @@ TICKER_NAMES_FILE="test/ticker_name_id.txt"
 SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF AG"
 
+@test "WriteTransactionFile" {
+  mkdir -p test/buy
+  run WriteTransactionFile "2021-02-09" "2021-02-08" "$SYMBOL" "test/buy"
+  [ "$status" -eq 0 ]
+}
+
 @test "WriteAlarmAbbrevXAxisFile" {
   mkdir -p test/alarm
   run WriteAlarmAbbrevXAxisFile XAxis1 "$SYMBOL" "test/BEI_2021-02-09.txt" "test/alarm" "*"

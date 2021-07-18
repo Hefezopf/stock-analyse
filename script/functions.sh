@@ -19,9 +19,39 @@ WriteOverallChartsButtons() {
     echo "\">$_timeSpan</button>" 
 }
 
+# WriteTransactionFile function: 
+# Write buy/sell transaction to file in 'buy/sell' dir. E.g: buy/BEI.txt
+# Keep history in file. E.g: buy/BEI_2021-02-09.txt
+# Input: ${x}
+# Output: buy/$symbol.txt file. E.g: buy/BEI.txt
+WriteTransactionFile() {
+    _lastDateInDataFile=$1
+    _beforeLastDateInDataFile=$2
+    _symbolParam=$3
+    _transactionOutputDir=$4
+    
+    mkdir -p "$_transactionOutputDir"
+    transactionSymbolLastDateFile=$_transactionOutputDir/$_symbolParam"_"$_lastDateInDataFile.txt 
+    transactionSymbolBeforeLastDateFile=$_transactionOutputDir/$_symbolParam"_"$_beforeLastDateInDataFile.txt 
+
+    if [ ! -f "$transactionSymbolLastDateFile" ]; then # Todays datefile doesn't exists e.g: buy/BEI_2021-02-09.txt
+        if [ -f "$transactionSymbolBeforeLastDateFile" ]; then # Last datefile exists. Take the last datefile e.g: buy/BEI_2021-02-08.txt
+            commaListTransaction=$(cut -d , -f 2-90 < "$transactionSymbolBeforeLastDateFile")
+            commaListTransaction="$commaListTransaction""{},"
+            echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
+            rm -rf "$transactionSymbolBeforeLastDateFile"
+        else # Last datefile File doesn't exists. Create actual datefile from scratch e.g: buy/BEI_2021-02-09.txt
+            rm -rf "$_transactionOutputDir"/"$_symbolParam"*.txt
+            commaListTransaction="{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},"
+            echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
+        fi
+    fi
+    cp -f "$transactionSymbolLastDateFile" "$_transactionOutputDir"/"$_symbolParam".txt  # Copy e.g: buy/BEI_2021-02-09.txt to buy/BEI.txt
+}
+
 # WriteAlarmAbbrevXAxisFile function: 
 # Write the alarm x-axis file into 'alarm' dir. E.g: alarm/BEI.txt
-# Keep history in datefile. E.g: alarm/BEI_2021-02-09.txt
+# Keep history in file. E.g: alarm/BEI_2021-02-09.txt
 # Input: ${x}
 # Output: alarm/$symbol.txt file. E.g: alarm/BEI.txt
 WriteAlarmAbbrevXAxisFile() {

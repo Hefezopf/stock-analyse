@@ -577,6 +577,19 @@ do
         echo "$commaPriceList"
         cat template/indexPart3.html
 
+    #   WriteTransactionFile "$lastDateInDataFile" "$beforeLastDateInDataFile "$symbol" "buy"
+        cat buy/"$symbol".txt
+#        cat buy/"$symbol"_"$lastDateInDataFile".txt
+        cat template/indexPart3a.html
+       # rm buy/"$symbol".txt # Remove temp SYMBOL file and keep buy/SYMBOL_DATE.txt
+
+  #   WriteTransactionFile "$lastDateInDataFile" "$beforeLastDateInDataFile "$symbol" "sell"
+        cat sell/"$symbol".txt
+        # cat sell/"$symbol"_"$lastDateInDataFile".txt
+        cat template/indexPart3b.html
+      #  rm sell/"$symbol".txt # Remove temp SYMBOL file and keep sell/SYMBOL_DATE.txt
+
+
         echo "'" Average $averageInDays18 "',"
         cat template/indexPart4.html
         echo "$averagePriceList18"
