@@ -20,9 +20,6 @@ if { [ -z "$symbolParam" ]; } then
   exit 1
 fi
 
-# Remove from overall list, if not there do nothing
-#sed -i "s/${symbolParam} //" config/stock_symbols.txt
-
 # Add in front of overall list
 sed -i "0,/^/s//$symbolParam /" config/stock_symbols.txt
 
@@ -50,17 +47,9 @@ echo "Quali Phase: 01.10. bis 31.03."
 echo "$count" >> config/transaction_count.txt
 
 # Write sell/SYMBOL_DATE file
-
-# Check, if quote day is from last trading day, including weekend
-yesterday=$(date --date="-1 day" +"%Y-%m-%d")
-dayOfWeek=$(date +%u)
-if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
-    yesterday=$(date --date="-2 day" +"%Y-%m-%d")
-fi
-if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
-    yesterday=$(date --date="-3 day" +"%Y-%m-%d")
-fi
-transactionSymbolLastDateFile="sell/""$symbolParam"_"$yesterday".txt
-commaListTransaction=$(cut -d , -f 2-90 < "$transactionSymbolLastDateFile")
-echo "$commaListTransaction""{x: 1, y: 10, r: 10}," > sell/"$symbolParam"_"$today".txt
-#rm sell/"$symbolParam"_"$yesterday".txt
+lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
+lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
+transactionSymbolLastDateFile="sell/""$symbolParam"_"$lastDateInDataFile".txt
+commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
+rm sell/"$symbolParam"_"$lastDateInDataFile".txt
+echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > sell/"$symbolParam"_"$lastDateInDataFile".txt

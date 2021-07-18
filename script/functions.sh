@@ -36,13 +36,13 @@ WriteTransactionFile() {
 
     if [ ! -f "$transactionSymbolLastDateFile" ]; then # Todays datefile doesn't exists e.g: buy/BEI_2021-02-09.txt
         if [ -f "$transactionSymbolBeforeLastDateFile" ]; then # Last datefile exists. Take the last datefile e.g: buy/BEI_2021-02-08.txt
-            commaListTransaction=$(cut -d , -f 2-90 < "$transactionSymbolBeforeLastDateFile")
-            commaListTransaction="$commaListTransaction""{},"
+            commaListTransaction=$(cut -d ' ' -f 2-90 < "$transactionSymbolBeforeLastDateFile")
+            commaListTransaction="$commaListTransaction""{}, "
             echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
             rm -rf "$transactionSymbolBeforeLastDateFile"
         else # Last datefile File doesn't exists. Create actual datefile from scratch e.g: buy/BEI_2021-02-09.txt
             rm -rf "$_transactionOutputDir"/"$_symbolParam"*.txt
-            commaListTransaction="{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},"
+            commaListTransaction="{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, "
             echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
         fi
     fi

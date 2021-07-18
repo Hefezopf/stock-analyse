@@ -64,18 +64,9 @@ echo "Quali Phase: 01.10. bis 31.03."
 echo "$count" >> config/transaction_count.txt
 
 # Write buy/SYMBOL_DATE file
-
-# Check, if quote day is from last trading day, including weekend
-yesterday=$(date --date="-1 day" +"%Y-%m-%d")
-dayOfWeek=$(date +%u)
-if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
-    yesterday=$(date --date="-2 day" +"%Y-%m-%d")
-fi
-if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
-    yesterday=$(date --date="-3 day" +"%Y-%m-%d")
-fi
-transactionSymbolLastDateFile="buy/""$symbolParam"_"$yesterday".txt
-commaListTransaction=$(cut -d , -f 2-90 < "$transactionSymbolLastDateFile")
-rm buy/"$symbolParam"_"$yesterday".txt
-echo "$commaListTransaction""{x: 1, y: "$priceParam", r: 10}," > buy/"$symbolParam"_"$yesterday".txt
-#echo "$commaListTransaction""{x: 1, y: "$priceParam", r: 10}," > buy/"$symbolParam"_"$today".txt
+lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
+lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
+transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
+commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
+rm buy/"$symbolParam"_"$lastDateInDataFile".txt
+echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
