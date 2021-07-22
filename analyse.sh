@@ -47,6 +47,8 @@ export MARKET_STACK_ACCESS_KEY3
 export MARKET_STACK_ACCESS_KEY4
 export MARKET_STACK_ACCESS_KEY5
 
+export GITHUB_TOKEN
+
 # Parameter
 symbolsParam=$1
 percentageParam=$2
@@ -135,8 +137,55 @@ body > div {
 </style>
 </head><body>
 <div>
-<!-- <div style=\"font-size: large\"> -->
 <script>
+    function curlSell(symbolParam) {  
+        if (confirm('Sell: Are you sure?') == false) {
+            return;
+        }   
+        var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.setRequestHeader('Authorization', 'token $GITHUB_TOKEN');
+        xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+        }};
+        var data = {
+            event_type: 'sell', 
+            client_payload: {
+                symbol: symbolParam, 
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    }
+    function curlAnalyse(symbolParam) {  
+        if (confirm('Analyse: Are you sure?') == false) {
+            return;
+        }   
+        var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.setRequestHeader('Authorization', 'token $GITHUB_TOKEN');
+        xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+        }};
+        var data = {
+            event_type: 'analyse', 
+            client_payload: {
+                symbols: symbolParam, 
+                percentage: '1', 
+                query: 'offline', 
+                stochastic: '9', 
+                RSI: '25'
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    }
     function decryptElement(ele) {
         var dec = document.getElementById(ele.id).innerHTML;
         dec = dec.split(\"\").reverse().join(\"\"); // reverseString
@@ -218,12 +267,19 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
     exit 6
 fi
 
+if { [ -z "$GITHUB_TOKEN" ]; } then
+    echo "Error GITHUB_TOKEN NOT set!" | tee -a $OUT_RESULT_FILE
+    echo "<br>" >> $OUT_RESULT_FILE
+    echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
+    exit 7
+fi
+
 if { [ "$queryParam" = 'online' ]; } &&
    { [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ] || [ -z "$MARKET_STACK_ACCESS_KEY5" ]; } then
     echo "Error 'online' query: MARKET_STACK_ACCESS_KEY1...5 NOT set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
-    exit 7
+    exit 8
 fi
 
 percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
@@ -837,6 +893,8 @@ do
                   <button id=\"intervalSectionButton6M$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('6M')\">6M</button>
                   <button id=\"intervalSectionButton1Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
                   <button id=\"intervalSectionButton5Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
+                  <button id=\"intervalSectionButtonAnalyse$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlAnalyse('$symbol')\">Analyse</button>
+                  <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
                   <hr id=\"intervalSectionHR$symbol\" style='display: none'>"
             echo "<script>
                 var image$symbol = new Image();
