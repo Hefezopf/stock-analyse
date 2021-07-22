@@ -138,14 +138,36 @@ body > div {
 </head><body>
 <div>
 <script>
+    function getCookie(cname) {
+            var name = cname + '=';
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+    }
     function curlSell(symbolParam) {  
+        //localStorage.setItem('GITHUB_TOKEN', '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-0')
+        var githubToken = localStorage.getItem('GITHUB_TOKEN')
+        //document.cookie="GITHUB_TOKEN=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-0"
+        if(githubToken == null){
+            alert('GITHUB_TOKEN not set in local storage!!');
+            return;
+        }        
         if (confirm('Sell: Are you sure?') == false) {
             return;
-        }   
+        }
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token $GITHUB_TOKEN');
+        xhr.setRequestHeader('Authorization', 'token '+githubToken);
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -160,14 +182,26 @@ body > div {
         };
         xhr.send(JSON.stringify(data));
     }
-    function curlAnalyse(symbolParam) {  
+    function curlAnalyse(symbolParam) {
+
+        console.log('getCookie GITHUB_TOKEN=' + getCookie('GITHUB_TOKEN'));
+
+        //localStorage.setItem('GITHUB_TOKEN', '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-0')
+        var githubToken = localStorage.getItem('GITHUB_TOKEN')
+        console.log('localStorage GITHUB_TOKEN=' + githubToken);
+
+        //document.cookie="GITHUB_TOKEN=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-0"
+        if(githubToken == null){
+            alert('GITHUB_TOKEN not set in local storage!!');
+            return;
+        }
         if (confirm('Analyse: Are you sure?') == false) {
             return;
-        }   
+        }
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token $GITHUB_TOKEN');
+        xhr.setRequestHeader('Authorization', 'token '+githubToken);
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
