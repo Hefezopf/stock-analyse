@@ -267,12 +267,12 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
     exit 6
 fi
 
-if { [ -z "$GITHUB_TOKEN" ]; } then
-    echo "Error GITHUB_TOKEN NOT set!" | tee -a $OUT_RESULT_FILE
-    echo "<br>" >> $OUT_RESULT_FILE
-    echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
-    exit 7
-fi
+# if { [ -z "$GITHUB_TOKEN" ]; } then
+#     echo "Error GITHUB_TOKEN NOT set!" | tee -a $OUT_RESULT_FILE
+#     echo "<br>" >> $OUT_RESULT_FILE
+#     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
+#     exit 7
+# fi
 
 if { [ "$queryParam" = 'online' ]; } &&
    { [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ] || [ -z "$MARKET_STACK_ACCESS_KEY5" ]; } then
