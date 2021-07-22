@@ -154,8 +154,10 @@ body > div {
             return "";
     }
     function curlSell(symbolParam) {  
+        console.log('getCookie GITHUB_TOKEN=' + getCookie('GITHUB_TOKEN'));
         //localStorage.setItem('GITHUB_TOKEN', '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-0')
-        var githubToken = localStorage.getItem('GITHUB_TOKEN')
+        var githubToken = localStorage.getItem('GITHUB_TOKEN');
+        console.log('localStorage GITHUB_TOKEN=' + githubToken);
         //document.cookie="GITHUB_TOKEN=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-0"
         if(githubToken == null){
             alert('GITHUB_TOKEN not set in local storage!!');
@@ -183,13 +185,10 @@ body > div {
         xhr.send(JSON.stringify(data));
     }
     function curlAnalyse(symbolParam) {
-
         console.log('getCookie GITHUB_TOKEN=' + getCookie('GITHUB_TOKEN'));
-
         //localStorage.setItem('GITHUB_TOKEN', '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-0')
         var githubToken = localStorage.getItem('GITHUB_TOKEN')
         console.log('localStorage GITHUB_TOKEN=' + githubToken);
-
         //document.cookie="GITHUB_TOKEN=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-0"
         if(githubToken == null){
             alert('GITHUB_TOKEN not set in local storage!!');
