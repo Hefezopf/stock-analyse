@@ -147,7 +147,7 @@ body > div {
             expires = '; expires=' + date.toUTCString();
         }
         var value = value1+value2;
-        document.cookie = name + '=' + (value || '') + expires + '; path=/';
+        document.cookie = name + '=' + (value || '') + expires + '; path=/' + '; secure';
     }
     setCookie('TOKEN', 'ghp_', 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X', 10000)
     function getCookie(cname) {
@@ -165,29 +165,68 @@ body > div {
             }
             return "";
     }
-    function curlSell(symbolParam) {  
+    function curlBuy(symbolParam, price, pieces) {  
+        if(price == '' || pieces == ''){
+            alert('price or pieces not set!');
+            return;
+        }
         var token;
         var tokenFromCookie = getCookie('TOKEN')
-        console.log('getCookie TOKEN=' + tokenFromCookie);
         if(tokenFromCookie != undefined){
             token = tokenFromCookie.split(' ')[0];
-            console.log('getCookie[0]=' + token);
         }
         if(token == undefined){
             var token = localStorage.getItem('TOKEN');
-            console.log('localStorage TOKEN=' + token);
+        }
+        if(token == null){
+            alert('TOKEN not set!');
+            return;
+        }   
+        if (confirm('Buy: ' + symbolParam + ' Are you sure?') == false) {
+            return;
+        }
+        document.getElementById('intervalSectionInputPriceBuy'+symbolParam).value = '';
+        document.getElementById('intervalSectionInputPiecesBuy'+symbolParam).value = '';
+        var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.setRequestHeader('Authorization', 'token ' + token);
+        xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+        }};
+        var data = {
+            event_type: 'buy', 
+            client_payload: {
+                symbol: symbolParam, 
+                price: price, 
+                pieces: pieces                              
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    }    
+    function curlSell(symbolParam) {  
+        var token;
+        var tokenFromCookie = getCookie('TOKEN')
+        if(tokenFromCookie != undefined){
+            token = tokenFromCookie.split(' ')[0];
+        }
+        if(token == undefined){
+            var token = localStorage.getItem('TOKEN');
         }
         if(token == null){
             alert('TOKEN not set!');
             return;
         }        
-        if (confirm('Sell: Are you sure?') == false) {
+        if (confirm('Sell: ' + symbolParam + ' Are you sure?') == false) {
             return;
         }
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token '+ token);
+        xhr.setRequestHeader('Authorization', 'token ' + token);
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -197,7 +236,7 @@ body > div {
         var data = {
             event_type: 'sell', 
             client_payload: {
-                symbol: symbolParam, 
+                symbol: symbolParam
             }
         };
         xhr.send(JSON.stringify(data));
@@ -205,14 +244,11 @@ body > div {
     function curlAnalyse(symbolParam) {
         var token;
         var tokenFromCookie = getCookie('TOKEN')
-        console.log('getCookie TOKEN=' + tokenFromCookie);
         if(tokenFromCookie != undefined){
             token = tokenFromCookie.split(' ')[0];
-            console.log('getCookie[0]=' + token);
         }
         if(token == undefined){
             var token = localStorage.getItem('TOKEN');
-            console.log('localStorage TOKEN=' + token);
         }
         if(token == null){
             alert('TOKEN not set!');
@@ -224,7 +260,7 @@ body > div {
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token '+ token);
+        xhr.setRequestHeader('Authorization', 'token ' + token);
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -950,8 +986,12 @@ do
                   <button id=\"intervalSectionButton6M$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('6M')\">6M</button>
                   <button id=\"intervalSectionButton1Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
                   <button id=\"intervalSectionButton5Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
+                  <br>
                   <button id=\"intervalSectionButtonAnalyse$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlAnalyse('$symbol')\">Analyse</button>
                   <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
+                  <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy('$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">Buy</button>
+                  Price <input name=\"intervalSectionInputPriceBuy$symbol\" style='display: none' type=\"text\" maxlength=\"5\" value='' id=\"intervalSectionInputPriceBuy$symbol\"/>
+                  Pieces <input name=\"intervalSectionInputPiecesBuy$symbol\" style='display: none' type=\"text\" maxlength=\"5\" value='' id=\"intervalSectionInputPiecesBuy$symbol\"/>
                   <hr id=\"intervalSectionHR$symbol\" style='display: none'>"
             echo "<script>
                 var image$symbol = new Image();
