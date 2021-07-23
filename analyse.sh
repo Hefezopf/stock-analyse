@@ -154,11 +154,19 @@ body > div {
             return "";
     }
     function curlSell(symbolParam) {  
-        console.log('getCookie GITHUB_TOKEN=' + getCookie('GITHUB_TOKEN'));
+        var githubToken;
+        var tokenFromCookie = getCookie('GITHUB_TOKEN')
+        console.log('getCookie GITHUB_TOKEN=' + tokenFromCookie);
+        if(tokenFromCookie != undefined){
+            githubToken = tokenFromCookie.split(' ')[0];
+            console.log('getCookie[0]=' + githubToken);
+        }
+        if(githubToken == undefined){
+            var githubToken = localStorage.getItem('GITHUB_TOKEN');
+            console.log('localStorage GITHUB_TOKEN=' + githubToken);
+        }
         //localStorage.setItem('GITHUB_TOKEN', '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-0')
-        var githubToken = localStorage.getItem('GITHUB_TOKEN');
-        console.log('localStorage GITHUB_TOKEN=' + githubToken);
-        //document.cookie="GITHUB_TOKEN=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-0"
+        //document.cookie=GITHUB_TOKEN=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-0
         if(githubToken == null){
             alert('GITHUB_TOKEN not set in local storage!!');
             return;
@@ -185,11 +193,19 @@ body > div {
         xhr.send(JSON.stringify(data));
     }
     function curlAnalyse(symbolParam) {
-        console.log('getCookie GITHUB_TOKEN=' + getCookie('GITHUB_TOKEN'));
+        var githubToken;
+        var tokenFromCookie = getCookie('GITHUB_TOKEN')
+        console.log('getCookie GITHUB_TOKEN=' + tokenFromCookie);
+        if(tokenFromCookie != undefined){
+            githubToken = tokenFromCookie.split(' ')[0];
+            console.log('getCookie[0]=' + githubToken);
+        }
+        if(githubToken == undefined){
+            var githubToken = localStorage.getItem('GITHUB_TOKEN');
+            console.log('localStorage GITHUB_TOKEN=' + githubToken);
+        }
         //localStorage.setItem('GITHUB_TOKEN', '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-0')
-        var githubToken = localStorage.getItem('GITHUB_TOKEN')
-        console.log('localStorage GITHUB_TOKEN=' + githubToken);
-        //document.cookie="GITHUB_TOKEN=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-0"
+        //document.cookie=GITHUB_TOKEN=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-0
         if(githubToken == null){
             alert('GITHUB_TOKEN not set in local storage!!');
             return;
