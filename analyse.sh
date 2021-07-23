@@ -47,7 +47,7 @@ export MARKET_STACK_ACCESS_KEY3
 export MARKET_STACK_ACCESS_KEY4
 export MARKET_STACK_ACCESS_KEY5
 
-export GITHUB_TOKEN
+export TOKEN
 
 # Parameter
 symbolsParam=$1
@@ -135,9 +135,21 @@ body > div {
     font-size: x-large;
 }}
 </style>
-</head><body>
+</head>
+<body>
 <div>
 <script>
+    function setCookie(name, value1, value2, days) {
+        var expires = '';
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = '; expires=' + date.toUTCString();
+        }
+        var value = value1+value2;
+        document.cookie = name + '=' + (value || '') + expires + '; path=/';
+    }
+    setCookie('TOKEN', 'ghp_', 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X', 10000)
     function getCookie(cname) {
             var name = cname + '=';
             var decodedCookie = decodeURIComponent(document.cookie);
@@ -154,21 +166,19 @@ body > div {
             return "";
     }
     function curlSell(symbolParam) {  
-        var githubToken;
-        var tokenFromCookie = getCookie('GITHUB_TOKEN')
-        console.log('getCookie GITHUB_TOKEN=' + tokenFromCookie);
+        var token;
+        var tokenFromCookie = getCookie('TOKEN')
+        console.log('getCookie TOKEN=' + tokenFromCookie);
         if(tokenFromCookie != undefined){
-            githubToken = tokenFromCookie.split(' ')[0];
-            console.log('getCookie[0]=' + githubToken);
+            token = tokenFromCookie.split(' ')[0];
+            console.log('getCookie[0]=' + token);
         }
-        if(githubToken == undefined){
-            var githubToken = localStorage.getItem('GITHUB_TOKEN');
-            console.log('localStorage GITHUB_TOKEN=' + githubToken);
+        if(token == undefined){
+            var token = localStorage.getItem('TOKEN');
+            console.log('localStorage TOKEN=' + token);
         }
-        //localStorage.setItem('GITHUB_TOKEN', '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-0')
-        //document.cookie=GITHUB_TOKEN=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-0
-        if(githubToken == null){
-            alert('GITHUB_TOKEN not set in local storage!!');
+        if(token == null){
+            alert('TOKEN not set!');
             return;
         }        
         if (confirm('Sell: Are you sure?') == false) {
@@ -177,7 +187,7 @@ body > div {
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token '+githubToken);
+        xhr.setRequestHeader('Authorization', 'token '+ token);
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -193,21 +203,19 @@ body > div {
         xhr.send(JSON.stringify(data));
     }
     function curlAnalyse(symbolParam) {
-        var githubToken;
-        var tokenFromCookie = getCookie('GITHUB_TOKEN')
-        console.log('getCookie GITHUB_TOKEN=' + tokenFromCookie);
+        var token;
+        var tokenFromCookie = getCookie('TOKEN')
+        console.log('getCookie TOKEN=' + tokenFromCookie);
         if(tokenFromCookie != undefined){
-            githubToken = tokenFromCookie.split(' ')[0];
-            console.log('getCookie[0]=' + githubToken);
+            token = tokenFromCookie.split(' ')[0];
+            console.log('getCookie[0]=' + token);
         }
-        if(githubToken == undefined){
-            var githubToken = localStorage.getItem('GITHUB_TOKEN');
-            console.log('localStorage GITHUB_TOKEN=' + githubToken);
+        if(token == undefined){
+            var token = localStorage.getItem('TOKEN');
+            console.log('localStorage TOKEN=' + token);
         }
-        //localStorage.setItem('GITHUB_TOKEN', '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-0')
-        //document.cookie=GITHUB_TOKEN=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-0
-        if(githubToken == null){
-            alert('GITHUB_TOKEN not set in local storage!!');
+        if(token == null){
+            alert('TOKEN not set!');
             return;
         }
         if (confirm('Analyse: Are you sure?') == false) {
@@ -216,7 +224,7 @@ body > div {
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token '+githubToken);
+        xhr.setRequestHeader('Authorization', 'token '+ token);
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -316,8 +324,8 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
     exit 6
 fi
 
-# if { [ -z "$GITHUB_TOKEN" ]; } then
-#     echo "Error GITHUB_TOKEN NOT set!" | tee -a $OUT_RESULT_FILE
+# if { [ -z "$TOKEN" ]; } then
+#     echo "Error TOKEN NOT set!" | tee -a $OUT_RESULT_FILE
 #     echo "<br>" >> $OUT_RESULT_FILE
 #     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
 #     exit 7

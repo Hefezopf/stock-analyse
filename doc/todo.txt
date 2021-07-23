@@ -1,24 +1,30 @@
 TODO:
 -----
 
++rename var githubtoken in Token?
++splitt Value
+-Wie kann Token abgesichert werden - unleserlich im HTML
+
+
 -Token in Storage oder Cookie dauerhaft speichern. Beides zulassen
-localStorage.setItem('GITHUB_TOKEN', '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-0')
-document.cookie = "GITHUB_TOKEN=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-0 expires=Sat, 18 Dec 2055 12:00:00 UTC; path=/";
-document.cookie="GITHUB_TOKEN=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-0"
+localStorage.setItem('TOKEN', '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-0')
+document.cookie="TOKEN=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-0 expires=Sat, 18 Dec 2055 12:00:00 UTC; path=/";
 console.log(document.cookie);
 
 -Mit Handy Analyse btn testen
 
--Sell btn nur bei eigenen anzeigen
-
 -Buy Eingabe Möglichkeit per html via curl?
 
+-Analyse Button weg
 
+-Sortierung nach Tagesgewinn
 
 
 -Buy Price parametrisieren oder last price nehmen?
 -Sell mit Price parametrisieren oder last price nehmen?
 Call: sh ./script/sell.sh SYMBOL
+
+-Macd Strategie: Max low Betrag? Wenn in den letzten 100 Tagen der MACD am tiefsten ist |BETRAG|?
 
 -Detail: Live quote
 
@@ -220,6 +226,10 @@ cURL works only from unrestricted devices!
 Note 'Curl': personal access token:
 GITHUB_TOKEN=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-0
 (GITHUB_TOKEN=cbf8fa08a037b3d1e14c78fc5e991204861a2704-1)
+localStorage.setItem('TOKEN', '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-0')
+document.cookie="TOKEN=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-0 expires=Sat, 18 Dec 2055 12:00:00 UTC; path=/";
+console.log(document.cookie);
+
 curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "MSF", "percentage": "1", "query": "offline", "rated": "underrated", "stochastic": "40"}}'
 !!
 
