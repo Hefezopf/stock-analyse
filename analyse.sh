@@ -47,8 +47,6 @@ export MARKET_STACK_ACCESS_KEY3
 export MARKET_STACK_ACCESS_KEY4
 export MARKET_STACK_ACCESS_KEY5
 
-export TOKEN
-
 # Parameter
 symbolsParam=$1
 percentageParam=$2
@@ -147,9 +145,9 @@ body > div {
             expires = '; expires=' + date.toUTCString();
         }
         var value = value1+value2;
-        document.cookie = name + '=' + (value || '') + expires + '; path=/' + '; secure';
+        document.cookie = name + '=' + (value || '') + expires + '; path=/'; // + '; secure';
     }
-    setCookie('TOKEN', 'ghp_', 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X', 10000)
+    setCookie('TOKEN', 'ghp_', 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X', 10000);
     function getCookie(cname) {
             var name = cname + '=';
             var decodedCookie = decodeURIComponent(document.cookie);
@@ -167,7 +165,7 @@ body > div {
     }
     function curlBuy(symbolParam, price, pieces) {  
         if(price == '' || pieces == ''){
-            alert('price or pieces not set!');
+            alert('Symbol, Price or Pieces not set!');
             return;
         }
         var token;
@@ -359,13 +357,6 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
     exit 6
 fi
-
-# if { [ -z "$TOKEN" ]; } then
-#     echo "Error TOKEN NOT set!" | tee -a $OUT_RESULT_FILE
-#     echo "<br>" >> $OUT_RESULT_FILE
-#     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
-#     exit 7
-# fi
 
 if { [ "$queryParam" = 'online' ]; } &&
    { [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ] || [ -z "$MARKET_STACK_ACCESS_KEY5" ]; } then
@@ -986,12 +977,14 @@ do
                   <button id=\"intervalSectionButton6M$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('6M')\">6M</button>
                   <button id=\"intervalSectionButton1Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
                   <button id=\"intervalSectionButton5Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
-                  <br>
-                  <button id=\"intervalSectionButtonAnalyse$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlAnalyse('$symbol')\">Analyse</button>
-                  <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
-                  <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy('$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">Buy</button>
-                  Price <input name=\"intervalSectionInputPriceBuy$symbol\" style='display: none' type=\"text\" maxlength=\"5\" value='' id=\"intervalSectionInputPriceBuy$symbol\"/>
-                  Pieces <input name=\"intervalSectionInputPiecesBuy$symbol\" style='display: none' type=\"text\" maxlength=\"5\" value='' id=\"intervalSectionInputPiecesBuy$symbol\"/>
+                  <p id='intervalSectionButtonP' style='display: none'>
+                    <button id=\"intervalSectionButtonAnalyse$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlAnalyse('$symbol')\">Analyse</button>
+                    <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
+                    <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
+                        '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
+                    Price <input name='intervalSectionInputPriceBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuy$symbol'/>
+                    Pieces <input name='intervalSectionInputPiecesBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuy$symbol'/>
+                  <p>
                   <hr id=\"intervalSectionHR$symbol\" style='display: none'>"
             echo "<script>
                 var image$symbol = new Image();
@@ -1101,6 +1094,18 @@ fi
     WriteOverallChartsButtons "$symbolsParam" "6M"
     WriteOverallChartsButtons "$symbolsParam" "1Y"
     WriteOverallChartsButtons "$symbolsParam" "5Y"
+
+    # Generell Buy Elements
+    echo "<br>
+          <p id='intervalSectionButtonBuyGenerellP' style='display: none'>
+            Generell Buy Elements:
+            <br>
+            <button id='intervalSectionButtonBuyGenerell' style='height: 35px; width: 60px; display: none' type='button' onClick=\"javascript:curlBuy(
+                document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
+            Symbol <input name='intervalSectionInputSymbolBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputSymbolBuyGenerell'/>
+            Price <input name='intervalSectionInputPriceBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyGenerell'/>
+            Pieces <input name='intervalSectionInputPiecesBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyGenerell'/>
+          <p>"
 
     # Workflow        
     echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br>"
