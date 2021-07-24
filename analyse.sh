@@ -982,8 +982,8 @@ do
                     <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
-                    Price <input name='intervalSectionInputPriceBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuy$symbol'/>
-                    Pieces <input name='intervalSectionInputPiecesBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuy$symbol'/>
+                    Avg.Price <input name='intervalSectionInputPriceBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuy$symbol'/>
+                    All Pieces <input name='intervalSectionInputPiecesBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuy$symbol'/>
                   <p>
                   <hr id=\"intervalSectionHR$symbol\" style='display: none'>"
             echo "<script>
@@ -1098,13 +1098,13 @@ fi
     # Generell Buy Elements
     echo "<br>
           <p id='intervalSectionButtonBuyGenerellP' style='display: none'>
-            Generell Buy Elements:
+            Buy Elements for new Symbols (Enter Values from Depot):
             <br>
             <button id='intervalSectionButtonBuyGenerell' style='height: 35px; width: 60px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
             Symbol <input name='intervalSectionInputSymbolBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputSymbolBuyGenerell'/>
-            Price <input name='intervalSectionInputPriceBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyGenerell'/>
-            Pieces <input name='intervalSectionInputPiecesBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyGenerell'/>
+            Avg.Price <input name='intervalSectionInputPriceBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyGenerell'/>
+            All Pieces <input name='intervalSectionInputPiecesBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyGenerell'/>
           <p>"
 
     # Workflow        
