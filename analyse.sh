@@ -183,8 +183,16 @@ body > div {
         if (confirm('Buy: ' + symbolParam + ' Are you sure?') == false) {
             return;
         }
-        document.getElementById('intervalSectionInputPriceBuy'+symbolParam).value = '';
-        document.getElementById('intervalSectionInputPiecesBuy'+symbolParam).value = '';
+        if(document.getElementById('intervalSectionInputPriceBuy'+symbolParam)){
+            document.getElementById('intervalSectionInputPriceBuy'+symbolParam).value = '';
+        }
+        if(document.getElementById('intervalSectionInputPiecesBuy'+symbolParam)){
+            document.getElementById('intervalSectionInputPiecesBuy'+symbolParam).value = '';
+        }        
+        document.getElementById('intervalSectionInputSymbolBuyGenerell').value = '';
+        document.getElementById('intervalSectionInputPriceBuyGenerell').value = '';
+        document.getElementById('intervalSectionInputPiecesBuyGenerell').value = '';
+
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
@@ -239,6 +247,7 @@ body > div {
         };
         xhr.send(JSON.stringify(data));
     }
+    <!--
     function curlAnalyse(symbolParam) {
         var token;
         var tokenFromCookie = getCookie('TOKEN')
@@ -277,6 +286,7 @@ body > div {
         };
         xhr.send(JSON.stringify(data));
     }
+    -->
     function decryptElement(ele) {
         var dec = document.getElementById(ele.id).innerHTML;
         dec = dec.split(\"\").reverse().join(\"\"); // reverseString
@@ -978,7 +988,7 @@ do
                   <button id=\"intervalSectionButton1Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
                   <button id=\"intervalSectionButton5Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
                   <p id='intervalSectionButtonP' style='display: none'>
-                    <button id=\"intervalSectionButtonAnalyse$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlAnalyse('$symbol')\">Analyse</button>
+                   <!-- <button id=\"intervalSectionButtonAnalyse$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlAnalyse('$symbol')\">Analyse</button> -->
                     <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
@@ -1098,7 +1108,7 @@ fi
     # Generell Buy Elements
     echo "<br>
           <p id='intervalSectionButtonBuyGenerellP' style='display: none'>
-            Buy Elements for new Symbols (Enter Values from Depot):
+            Buy new Symbols (Enter Values from Depot):
             <br>
             <button id='intervalSectionButtonBuyGenerell' style='height: 35px; width: 60px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
