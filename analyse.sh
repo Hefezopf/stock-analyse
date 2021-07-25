@@ -165,7 +165,7 @@ body > div {
     }
     function curlBuy(symbolParam, price, pieces) {  
         if(price == '' || pieces == ''){
-            alert('Symbol, Price or Pieces not set!');
+            alert('Error: Symbol, Price or Pieces not set!');
             return;
         }
         var token;
@@ -177,10 +177,10 @@ body > div {
             var token = localStorage.getItem('TOKEN');
         }
         if(token == null){
-            alert('TOKEN not set!');
+            alert('Error: TOKEN not set!');
             return;
         }   
-        if (confirm('Buy: ' + symbolParam + ' Are you sure?') == false) {
+        if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price) + '€?') == false) {
             return;
         }
         if(document.getElementById('intervalSectionInputPriceBuy'+symbolParam)){
@@ -223,10 +223,10 @@ body > div {
             var token = localStorage.getItem('TOKEN');
         }
         if(token == null){
-            alert('TOKEN not set!');
+            alert('Error: TOKEN not set!');
             return;
         }        
-        if (confirm('Sell: ' + symbolParam + ' Are you sure?') == false) {
+        if (confirm('Sell ' + symbolParam + '?') == false) {
             return;
         }
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
@@ -247,46 +247,6 @@ body > div {
         };
         xhr.send(JSON.stringify(data));
     }
-    <!--
-    function curlAnalyse(symbolParam) {
-        var token;
-        var tokenFromCookie = getCookie('TOKEN')
-        if(tokenFromCookie != undefined){
-            token = tokenFromCookie.split(' ')[0];
-        }
-        if(token == undefined){
-            var token = localStorage.getItem('TOKEN');
-        }
-        if(token == null){
-            alert('TOKEN not set!');
-            return;
-        }
-        if (confirm('Analyse: Are you sure?') == false) {
-            return;
-        }
-        var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token ' + token);
-        xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
-        xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
-        }};
-        var data = {
-            event_type: 'analyse', 
-            client_payload: {
-                symbols: symbolParam, 
-                percentage: '1', 
-                query: 'offline', 
-                stochastic: '9', 
-                RSI: '25'
-            }
-        };
-        xhr.send(JSON.stringify(data));
-    }
-    -->
     function decryptElement(ele) {
         var dec = document.getElementById(ele.id).innerHTML;
         dec = dec.split(\"\").reverse().join(\"\"); // reverseString
@@ -988,12 +948,13 @@ do
                   <button id=\"intervalSectionButton1Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
                   <button id=\"intervalSectionButton5Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
                   <p id='intervalSectionButtonP' style='display: none'>
-                   <!-- <button id=\"intervalSectionButtonAnalyse$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlAnalyse('$symbol')\">Analyse</button> -->
+                    Own Symbol (Enter Values from Depot):
+                    <br>
                     <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
-                    Avg.Price <input name='intervalSectionInputPriceBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuy$symbol'/>
                     All Pieces <input name='intervalSectionInputPiecesBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuy$symbol'/>
+                    Avg. Price <input name='intervalSectionInputPriceBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuy$symbol'/>
                   <p>
                   <hr id=\"intervalSectionHR$symbol\" style='display: none'>"
             echo "<script>
@@ -1113,8 +1074,8 @@ fi
             <button id='intervalSectionButtonBuyGenerell' style='height: 35px; width: 60px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
             Symbol <input name='intervalSectionInputSymbolBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputSymbolBuyGenerell'/>
-            Avg.Price <input name='intervalSectionInputPriceBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyGenerell'/>
             All Pieces <input name='intervalSectionInputPiecesBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyGenerell'/>
+            Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyGenerell'/>
           <p>"
 
     # Workflow        
