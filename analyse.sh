@@ -168,6 +168,7 @@ body > div {
             alert('Error: Symbol, Price or Pieces not set!');
             return;
         }
+        var price = price.replace(',', '.');
         var token;
         var tokenFromCookie = getCookie('TOKEN')
         if(tokenFromCookie != undefined){
