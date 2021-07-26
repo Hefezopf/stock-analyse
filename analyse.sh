@@ -137,50 +137,13 @@ body > div {
 <body>
 <div>
 <script>
-    function setCookie(name, value1, value2, days) {
-        var expires = '';
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days*24*60*60*1000));
-            expires = '; expires=' + date.toUTCString();
-        }
-        var value = value1+value2;
-        document.cookie = name + '=' + (value || '') + expires + '; path=/'; // + '; secure';
-    }
-    setCookie('TOKEN', 'ghp_', 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X', 10000);
-    function getCookie(cname) {
-            var name = cname + '=';
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for(var i = 0; i <ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-    }
-    function curlBuy(symbolParam, price, pieces) {  
+    var token = 'ghp_' + 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X';
+    function curlBuy(symbolParam, price, pieces) {
         if(price == '' || pieces == ''){
             alert('Error: Symbol, Price or Pieces not set!');
             return;
         }
-        var price = price.replace(',', '.');
-        var token;
-        var tokenFromCookie = getCookie('TOKEN')
-        if(tokenFromCookie != undefined){
-            token = tokenFromCookie.split(' ')[0];
-        }
-        if(token == undefined){
-            var token = localStorage.getItem('TOKEN');
-        }
-        if(token == null){
-            alert('Error: TOKEN not set!');
-            return;
-        }   
+        var price = price.replace(',', '.');  
         if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price) + '€?') == false) {
             return;
         }
@@ -214,19 +177,7 @@ body > div {
         };
         xhr.send(JSON.stringify(data));
     }    
-    function curlSell(symbolParam) {  
-        var token;
-        var tokenFromCookie = getCookie('TOKEN')
-        if(tokenFromCookie != undefined){
-            token = tokenFromCookie.split(' ')[0];
-        }
-        if(token == undefined){
-            var token = localStorage.getItem('TOKEN');
-        }
-        if(token == null){
-            alert('Error: TOKEN not set!');
-            return;
-        }        
+    function curlSell(symbolParam) {          
         if (confirm('Sell ' + symbolParam + '?') == false) {
             return;
         }
