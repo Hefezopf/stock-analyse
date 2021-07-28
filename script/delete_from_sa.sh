@@ -20,13 +20,13 @@ if { [ -z "$symbolParam" ]; } then
   exit 1
 fi
 
-# TODO 
 # Delete $SYMBOL in stock_symbols.txt
+cat config/stock_symbols.txt | sed -i s/"$symbolParam "// config/stock_symbols.txt
 
-rm -rf ../out/"$symbolParam".html
-rm -rf ../alarm/"$symbolParam"*.txt
-rm -rf ../buy/"$symbolParam"*.txt
-rm -rf ../data/"$symbolParam"*.txt
-rm -rf ../history/"$symbolParam"*.txt
-rm -rf ../sell/"$symbolParam"*.txt
-
+# Delete all files
+rm -rf out/"$symbolParam".html
+rm -rf alarm/"$symbolParam"*.txt
+rm -rf buy/"$symbolParam"*.txt
+rm -rf data/"$symbolParam"*.txt
+rm -rf history/"$symbolParam"*.txt
+rm -rf sell/"$symbolParam"*.txt
