@@ -144,7 +144,7 @@ body > div {
             return;
         }
         var price = price.replace(',', '.');  
-        if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price).toFixed(2) + '€?') == false) {
+        if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price).toFixed(0) + '€?') == false) {
             return;
         }
         if(document.getElementById('intervalSectionInputPriceBuy'+symbolParam)){
