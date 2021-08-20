@@ -139,11 +139,12 @@ body > div {
 <script>
     var token = 'ghp_' + 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X';
     function curlBuy(symbolParam, price, pieces) {
-        if(price == '' || pieces == ''){
+        if(symbolParam == '' || price == '' || pieces == ''){
             alert('Error: Symbol, Price or Pieces not set!');
             return;
         }
-        var price = price.replace(',', '.');  
+        var price = price.replace(',', '.');
+        var pieces = pieces.replace('.', '');  
         if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price).toFixed(0) + '€?') == false) {
             return;
         }
