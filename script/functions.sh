@@ -269,7 +269,7 @@ WriteComdirectUrlAndStoreFileList() {
     fi
     # Show reason in result file only, if marked as own stock or a 'buy' recommendation
     if [ "$_markerOwnStockParam" = '*' ] || [ "$_linkColorParam" = "$GREEN" ]; then
-        echo "$_reasonParam" >> "$_outResultFileParam"
+        echo "$_reasonParam<br>" >> "$_outResultFileParam"
     fi
 }
 
