@@ -147,7 +147,7 @@ return ret.replace(/ZZ/g, "% ");
 </script>
 # Parameter
 <br>
-Symbols(19):*LHA *BMW *HEN3 *AHLA *HHFA *AMZ *PHI1 *1NBA *NDA *CBK *KWS *DXSN *GEC *TMV *FTE *TNE5 *DBK *XONA *CRIN 
+Symbols(19):*HHFA *LHA *BMW *HEN3 *AHLA *AMZ *PHI1 *1NBA *NDA *CBK *KWS *DXSN *GEC *TMV *FTE *TNE5 *DBK *XONA *CRIN 
 <br>
 Percentage:1 
 <br>
@@ -157,6 +157,140 @@ Stochastic:9
 <br>
 RSI:25
 <br><br># Analyse
+<div style="margin-top: 4px">
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672152" target="_blank">*HHFA "HAMBURGER HAFEN"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672152" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HHFA.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/HHFA.html" id='linkPCHHFA' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+Buy: Low Percentage & Stochastic (P)<br>
+Buy: Low 7 last Stochastic (S)<br>
+<br>
+<script>
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/HHFA.DE?interval=1d')}`)
+.then(response => {
+if (response.ok){
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+const objHHFA = JSON.parse(data.contents);
+var elementRegularMarketTimeHHFA = document.getElementById("neverShowRegularMarketTimeHHFA");
+
+var dateMarketTimeHHFA = new Date(0); 
+var epochMarketTimeHHFA = objHHFA.chart.result[0].meta.regularMarketTime;
+dateMarketTimeHHFA.setUTCSeconds(epochMarketTimeHHFA);
+elementRegularMarketTimeHHFA.innerHTML = ('0'+dateMarketTimeHHFA.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeHHFA.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeHHFA.getSeconds()).slice(-2);
+
+var deltaMinutesHHFA =((new Date().getTime() - dateMarketTimeHHFA.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetHHFA = document.getElementById("intervalSectionRegularMarketTimeOffsetHHFA");
+elementRegularMarketTimeOffsetHHFA.innerHTML = '+' + Math.abs(Math.round(deltaMinutesHHFA)) + 'min';
+
+var elementRegularMarketPriceHHFA = document.getElementById("intervalSectionRegularMarketPriceHHFA");
+elementRegularMarketPriceHHFA.innerHTML = objHHFA.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+var elementPercentageHHFA = document.getElementById("intervalSectionPercentageHHFA");
+var percentValueHHFA = ((objHHFA.chart.result[0].meta.regularMarketPrice / objHHFA.chart.result[0].meta.chartPreviousClose) -1) * 100;
+percentValueHHFA = percentValueHHFA.toFixed(1);
+elementPercentageHHFA.innerHTML = percentValueHHFA + '%';
+if(percentValueHHFA < 0){
+elementPercentageHHFA.style.color = 'red';
+}
+else{
+elementPercentageHHFA.style.color = 'green';
+}
+
+var elementPortfolioValuesHHFA = document.getElementById("intervalSectionPortfolioValuesHHFA");
+var obfuscatedValuePcEuroHHFA = document.getElementById("obfuscatedValuePcEuroHHFA");
+decryptElement(obfuscatedValuePcEuroHHFA);
+var piecesHHFA = obfuscatedValuePcEuroHHFA.innerHTML.split(' pc')[0];
+var buyingValueHHFA = obfuscatedValuePcEuroHHFA.innerHTML.split('/')[0];
+buyingValueHHFA = buyingValueHHFA.split(' ')[2];
+var portfolioValueHHFA = piecesHHFA * objHHFA.chart.result[0].meta.regularMarketPrice;
+var stocksPerformanceHHFA = ((portfolioValueHHFA / buyingValueHHFA)-1)*100;
+elementPortfolioValuesHHFA.innerHTML = piecesHHFA + ' pc ' + buyingValueHHFA + '/' + portfolioValueHHFA.toFixed(0) + '€ ';
+var elementPortfolioGainHHFA = document.getElementById("intervalSectionPortfolioGainHHFA");
+elementPortfolioGainHHFA.innerHTML = stocksPerformanceHHFA.toFixed(1) + '% ' + (portfolioValueHHFA - buyingValueHHFA).toFixed(0) + '€';
+if(stocksPerformanceHHFA < 0){
+elementPortfolioGainHHFA.style.color = 'red';
+}
+else{
+elementPortfolioGainHHFA.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroHHFA);  
+})
+.catch(error => {
+console.error('Error retrieving current quote for: HHFA !!!' + error);
+});
+</script>
+<span id="intervalSectionRegularMarketPriceHHFA" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageHHFA" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeHHFA" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetHHFA" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesHHFA" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainHHFA" style='font-size:xx-large; display: none'></span>
+<br>
+<div id="neverShowDivHHFA" style='display:none'>
+<span id="obfuscatedValuePcEuroHHFA" style='display:none'>YY19402/27702XX0111</span>&nbsp;
+<span id="obfuscatedValueGainHHFA" style='display:none;color:red'>YY182-ZZ4.1-</span>
+<span id="obfuscatedValueCloseBracesHHFA" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionHHFA" style='display: none'><input name="intervalFieldHHFA" type="text" maxlength="7" value="1" id="intervalFieldHHFA"/><button type="button" id="intervalButtonHHFA">Minutes</button><span id="intervalTextHHFA"></span></span>
+<script>
+var intervalVarHHFA;
+function beepHHFA() {
+var elementAlert = document.getElementById("intervalTextHHFA");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarHHFA);
+intervalVarHHFA=undefined;
+}
+function setBeepIntervalHHFA() {
+var intervalValue = document.getElementById("intervalFieldHHFA").value;
+intervalVarHHFA = setInterval(beepHHFA, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextHHFA");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonHHFA").addEventListener("click", setBeepIntervalHHFA);
+</script>
+<br><img width="60%" id="intervalSectionImageHHFA" style='display: none'></img><br>
+<button id="intervalSectionButton1DHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('1D')">1D</button>
+<button id="intervalSectionButton5DHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('5D')">5D</button>
+<button id="intervalSectionButton10DHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('10D')">10D</button>
+<button id="intervalSectionButton3MHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('3M')">3M</button>
+<button id="intervalSectionButton6MHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('6M')">6M</button>
+<button id="intervalSectionButton1YHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('1Y')">1Y</button>
+<button id="intervalSectionButton5YHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+Own Symbol (Enter Values from Depot):
+<br>
+<button id="intervalSectionButtonSellHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('HHFA')">Sell</button>
+<button id="intervalSectionButtonBuyHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'HHFA', document.getElementById('intervalSectionInputPriceBuyHHFA').value, document.getElementById('intervalSectionInputPiecesBuyHHFA').value)">ReBuy</button>
+All Pieces <input name='intervalSectionInputPiecesBuyHHFA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyHHFA'/>
+Avg. Price <input name='intervalSectionInputPriceBuyHHFA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyHHFA'/>
+<p>
+<hr id="intervalSectionHRHHFA" style='display: none'>
+<script>
+var imageHHFA = new Image();
+var TIME_SPANHHFA;
+function updateImageHHFA(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANHHFA=timespan;
+}
+if(imageHHFA.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672152&TIME_SPAN='+TIME_SPANHHFA;
+document.getElementById("intervalSectionImageHHFA").src = urlWithTimeSpan;
+imageHHFA = new Image();
+imageHHFA.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageHHFA, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
 <div style="margin-top: 4px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337096" target="_blank">*LHA "DEUT. LUFTHANSA"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337096" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -695,140 +829,6 @@ imageAHLA = new Image();
 imageAHLA.src = urlWithTimeSpan;
 }
 // setTimeout(updateImageAHLA, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 4px">
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672152" target="_blank">*HHFA "HAMBURGER HAFEN"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672152" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HHFA.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/HHFA.html" id='linkPCHHFA' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Buy: Low Percentage & Stochastic (P)<br>
-Buy: Low 7 last Stochastic (S)<br>
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/HHFA.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objHHFA = JSON.parse(data.contents);
-var elementRegularMarketTimeHHFA = document.getElementById("neverShowRegularMarketTimeHHFA");
-
-var dateMarketTimeHHFA = new Date(0); 
-var epochMarketTimeHHFA = objHHFA.chart.result[0].meta.regularMarketTime;
-dateMarketTimeHHFA.setUTCSeconds(epochMarketTimeHHFA);
-elementRegularMarketTimeHHFA.innerHTML = ('0'+dateMarketTimeHHFA.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeHHFA.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeHHFA.getSeconds()).slice(-2);
-
-var deltaMinutesHHFA =((new Date().getTime() - dateMarketTimeHHFA.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetHHFA = document.getElementById("intervalSectionRegularMarketTimeOffsetHHFA");
-elementRegularMarketTimeOffsetHHFA.innerHTML = '+' + Math.abs(Math.round(deltaMinutesHHFA)) + 'min';
-
-var elementRegularMarketPriceHHFA = document.getElementById("intervalSectionRegularMarketPriceHHFA");
-elementRegularMarketPriceHHFA.innerHTML = objHHFA.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageHHFA = document.getElementById("intervalSectionPercentageHHFA");
-var percentValueHHFA = ((objHHFA.chart.result[0].meta.regularMarketPrice / objHHFA.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueHHFA = percentValueHHFA.toFixed(1);
-elementPercentageHHFA.innerHTML = percentValueHHFA + '%';
-if(percentValueHHFA < 0){
-elementPercentageHHFA.style.color = 'red';
-}
-else{
-elementPercentageHHFA.style.color = 'green';
-}
-
-var elementPortfolioValuesHHFA = document.getElementById("intervalSectionPortfolioValuesHHFA");
-var obfuscatedValuePcEuroHHFA = document.getElementById("obfuscatedValuePcEuroHHFA");
-decryptElement(obfuscatedValuePcEuroHHFA);
-var piecesHHFA = obfuscatedValuePcEuroHHFA.innerHTML.split(' pc')[0];
-var buyingValueHHFA = obfuscatedValuePcEuroHHFA.innerHTML.split('/')[0];
-buyingValueHHFA = buyingValueHHFA.split(' ')[2];
-var portfolioValueHHFA = piecesHHFA * objHHFA.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceHHFA = ((portfolioValueHHFA / buyingValueHHFA)-1)*100;
-elementPortfolioValuesHHFA.innerHTML = piecesHHFA + ' pc ' + buyingValueHHFA + '/' + portfolioValueHHFA.toFixed(0) + '€ ';
-var elementPortfolioGainHHFA = document.getElementById("intervalSectionPortfolioGainHHFA");
-elementPortfolioGainHHFA.innerHTML = stocksPerformanceHHFA.toFixed(1) + '% ' + (portfolioValueHHFA - buyingValueHHFA).toFixed(0) + '€';
-if(stocksPerformanceHHFA < 0){
-elementPortfolioGainHHFA.style.color = 'red';
-}
-else{
-elementPortfolioGainHHFA.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroHHFA);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: HHFA !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceHHFA" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageHHFA" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeHHFA" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetHHFA" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesHHFA" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainHHFA" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivHHFA" style='display:none'>
-<span id="obfuscatedValuePcEuroHHFA" style='display:none'>YY99761/35071XX019</span>&nbsp;
-<span id="obfuscatedValueGainHHFA" style='display:none;color:red'>YY452-ZZ5.1-</span>
-<span id="obfuscatedValueCloseBracesHHFA" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionHHFA" style='display: none'><input name="intervalFieldHHFA" type="text" maxlength="7" value="1" id="intervalFieldHHFA"/><button type="button" id="intervalButtonHHFA">Minutes</button><span id="intervalTextHHFA"></span></span>
-<script>
-var intervalVarHHFA;
-function beepHHFA() {
-var elementAlert = document.getElementById("intervalTextHHFA");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarHHFA);
-intervalVarHHFA=undefined;
-}
-function setBeepIntervalHHFA() {
-var intervalValue = document.getElementById("intervalFieldHHFA").value;
-intervalVarHHFA = setInterval(beepHHFA, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextHHFA");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonHHFA").addEventListener("click", setBeepIntervalHHFA);
-</script>
-<br><img width="60%" id="intervalSectionImageHHFA" style='display: none'></img><br>
-<button id="intervalSectionButton1DHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('1D')">1D</button>
-<button id="intervalSectionButton5DHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('5D')">5D</button>
-<button id="intervalSectionButton10DHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('10D')">10D</button>
-<button id="intervalSectionButton3MHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('3M')">3M</button>
-<button id="intervalSectionButton6MHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('6M')">6M</button>
-<button id="intervalSectionButton1YHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('1Y')">1Y</button>
-<button id="intervalSectionButton5YHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHHFA('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-Own Symbol (Enter Values from Depot):
-<br>
-<button id="intervalSectionButtonSellHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('HHFA')">Sell</button>
-<button id="intervalSectionButtonBuyHHFA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'HHFA', document.getElementById('intervalSectionInputPriceBuyHHFA').value, document.getElementById('intervalSectionInputPiecesBuyHHFA').value)">ReBuy</button>
-All Pieces <input name='intervalSectionInputPiecesBuyHHFA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyHHFA'/>
-Avg. Price <input name='intervalSectionInputPriceBuyHHFA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyHHFA'/>
-<p>
-<hr id="intervalSectionHRHHFA" style='display: none'>
-<script>
-var imageHHFA = new Image();
-var TIME_SPANHHFA;
-function updateImageHHFA(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANHHFA=timespan;
-}
-if(imageHHFA.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672152&TIME_SPAN='+TIME_SPANHHFA;
-document.getElementById("intervalSectionImageHHFA").src = urlWithTimeSpan;
-imageHHFA = new Image();
-imageHHFA.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageHHFA, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <div style="margin-top: 4px">
@@ -2690,8 +2690,8 @@ imageCRIN.src = urlWithTimeSpan;
 }
 </script>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY605039/0020221</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY496982-ZZ7.32-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY891439/9193221</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY127982-ZZ7.32-</span></span>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="60%" id="intervalSectionImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
@@ -2720,11 +2720,11 @@ imageDAX.src = urlWithTimeSpan;
 }
 </script>
 <button id="intervalSectionButtonAll1D" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageHHFA('1D');
 javascript:updateImageLHA('1D');
 javascript:updateImageBMW('1D');
 javascript:updateImageHEN3('1D');
 javascript:updateImageAHLA('1D');
-javascript:updateImageHHFA('1D');
 javascript:updateImageAMZ('1D');
 javascript:updateImagePHI1('1D');
 javascript:updateImage1NBA('1D');
@@ -2742,11 +2742,11 @@ javascript:updateImageCRIN('1D');
 javascript:updateImageDAX('1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageHHFA('5D');
 javascript:updateImageLHA('5D');
 javascript:updateImageBMW('5D');
 javascript:updateImageHEN3('5D');
 javascript:updateImageAHLA('5D');
-javascript:updateImageHHFA('5D');
 javascript:updateImageAMZ('5D');
 javascript:updateImagePHI1('5D');
 javascript:updateImage1NBA('5D');
@@ -2764,11 +2764,11 @@ javascript:updateImageCRIN('5D');
 javascript:updateImageDAX('5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageHHFA('10D');
 javascript:updateImageLHA('10D');
 javascript:updateImageBMW('10D');
 javascript:updateImageHEN3('10D');
 javascript:updateImageAHLA('10D');
-javascript:updateImageHHFA('10D');
 javascript:updateImageAMZ('10D');
 javascript:updateImagePHI1('10D');
 javascript:updateImage1NBA('10D');
@@ -2786,11 +2786,11 @@ javascript:updateImageCRIN('10D');
 javascript:updateImageDAX('10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageHHFA('3M');
 javascript:updateImageLHA('3M');
 javascript:updateImageBMW('3M');
 javascript:updateImageHEN3('3M');
 javascript:updateImageAHLA('3M');
-javascript:updateImageHHFA('3M');
 javascript:updateImageAMZ('3M');
 javascript:updateImagePHI1('3M');
 javascript:updateImage1NBA('3M');
@@ -2808,11 +2808,11 @@ javascript:updateImageCRIN('3M');
 javascript:updateImageDAX('3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageHHFA('6M');
 javascript:updateImageLHA('6M');
 javascript:updateImageBMW('6M');
 javascript:updateImageHEN3('6M');
 javascript:updateImageAHLA('6M');
-javascript:updateImageHHFA('6M');
 javascript:updateImageAMZ('6M');
 javascript:updateImagePHI1('6M');
 javascript:updateImage1NBA('6M');
@@ -2830,11 +2830,11 @@ javascript:updateImageCRIN('6M');
 javascript:updateImageDAX('6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageHHFA('1Y');
 javascript:updateImageLHA('1Y');
 javascript:updateImageBMW('1Y');
 javascript:updateImageHEN3('1Y');
 javascript:updateImageAHLA('1Y');
-javascript:updateImageHHFA('1Y');
 javascript:updateImageAMZ('1Y');
 javascript:updateImagePHI1('1Y');
 javascript:updateImage1NBA('1Y');
@@ -2852,11 +2852,11 @@ javascript:updateImageCRIN('1Y');
 javascript:updateImageDAX('1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageHHFA('5Y');
 javascript:updateImageLHA('5Y');
 javascript:updateImageBMW('5Y');
 javascript:updateImageHEN3('5Y');
 javascript:updateImageAHLA('5Y');
-javascript:updateImageHHFA('5Y');
 javascript:updateImageAMZ('5Y');
 javascript:updateImagePHI1('5Y');
 javascript:updateImage1NBA('5Y');
@@ -2885,7 +2885,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <p>
 <br><br># Workflow<br><a href="https://github.com/Hefezopf/stock-analyse/actions" target="_blank">Github Action</a><br>
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 24-Aug-2021 11:25</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 24-Aug-2021 11:28</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
