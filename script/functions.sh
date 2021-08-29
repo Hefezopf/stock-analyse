@@ -259,7 +259,7 @@ WriteComdirectUrlAndStoreFileList() {
     if [ ! "$_id_notation" = "$ID_NOTATION_STORE_FOR_NEXT_TIME" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
         {
-            echo "<div style=\"margin-top: 4px\">"
+            echo "<div style=\"margin-top: 5px\">"
             echo "<a style=\"color:$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX_6M$_id_notation\" target=\"_blank\">$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
             echo "<a style=\"color:$_linkColorParam\" href=\"$COMDIRECT_URL_PREFIX_5Y$_id_notation\" target=\"_blank\">&nbsp;5Y&nbsp;</a>"
             echo "<a style=\"color:$_linkColorParam\" href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html\" target=\"_blank\">&nbsp;SA&nbsp;</a>"
