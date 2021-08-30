@@ -147,7 +147,7 @@ return ret.replace(/ZZ/g, "% ");
 </script>
 # Parameter
 <br>
-Symbols(20):*1NBA *AHLA *AMG *DXSN *HEN3 *LHA *HHFA *PHI1 *KWS *CBK *BMW *AMZ *NDA *GEC *TMV *FTE *TNE5 *DBK *XONA *CRIN 
+Symbols(20):*1NBA *AHLA *AMG *DXSN *HEN3 *LHA *HHFA *PHI1 *KWS *CBK *BMW *AMZ *NDA *GEC *FTE *TNE5 *DBK *XONA *CRIN  TMV
 <br>
 Percentage:1 
 <br>
@@ -2016,138 +2016,6 @@ imageGEC.src = urlWithTimeSpan;
 }
 </script>
 <div style="margin-top: 5px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=269296853" target="_blank">*TMV "TeamViewer"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=269296853" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TMV.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/TMV.html" id='linkPCTMV' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/TMV.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objTMV = JSON.parse(data.contents);
-var elementRegularMarketTimeTMV = document.getElementById("neverShowRegularMarketTimeTMV");
-
-var dateMarketTimeTMV = new Date(0); 
-var epochMarketTimeTMV = objTMV.chart.result[0].meta.regularMarketTime;
-dateMarketTimeTMV.setUTCSeconds(epochMarketTimeTMV);
-elementRegularMarketTimeTMV.innerHTML = ('0'+dateMarketTimeTMV.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeTMV.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeTMV.getSeconds()).slice(-2);
-
-var deltaMinutesTMV =((new Date().getTime() - dateMarketTimeTMV.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetTMV = document.getElementById("intervalSectionRegularMarketTimeOffsetTMV");
-elementRegularMarketTimeOffsetTMV.innerHTML = '+' + Math.abs(Math.round(deltaMinutesTMV)) + 'min';
-
-var elementRegularMarketPriceTMV = document.getElementById("intervalSectionRegularMarketPriceTMV");
-elementRegularMarketPriceTMV.innerHTML = objTMV.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageTMV = document.getElementById("intervalSectionPercentageTMV");
-var percentValueTMV = ((objTMV.chart.result[0].meta.regularMarketPrice / objTMV.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueTMV = percentValueTMV.toFixed(1);
-elementPercentageTMV.innerHTML = percentValueTMV + '%';
-if(percentValueTMV < 0){
-elementPercentageTMV.style.color = 'red';
-}
-else{
-elementPercentageTMV.style.color = 'green';
-}
-
-var elementPortfolioValuesTMV = document.getElementById("intervalSectionPortfolioValuesTMV");
-var obfuscatedValuePcEuroTMV = document.getElementById("obfuscatedValuePcEuroTMV");
-decryptElement(obfuscatedValuePcEuroTMV);
-var piecesTMV = obfuscatedValuePcEuroTMV.innerHTML.split(' pc')[0];
-var buyingValueTMV = obfuscatedValuePcEuroTMV.innerHTML.split('/')[0];
-buyingValueTMV = buyingValueTMV.split(' ')[2];
-var portfolioValueTMV = piecesTMV * objTMV.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceTMV = ((portfolioValueTMV / buyingValueTMV)-1)*100;
-elementPortfolioValuesTMV.innerHTML = piecesTMV + ' pc ' + buyingValueTMV + '/' + portfolioValueTMV.toFixed(0) + '€ ';
-var elementPortfolioGainTMV = document.getElementById("intervalSectionPortfolioGainTMV");
-elementPortfolioGainTMV.innerHTML = stocksPerformanceTMV.toFixed(1) + '% ' + (portfolioValueTMV - buyingValueTMV).toFixed(0) + '€';
-if(stocksPerformanceTMV < 0){
-elementPortfolioGainTMV.style.color = 'red';
-}
-else{
-elementPortfolioGainTMV.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroTMV);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: TMV !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceTMV" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageTMV" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeTMV" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetTMV" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesTMV" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainTMV" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivTMV" style='display:none'>
-<span id="obfuscatedValuePcEuroTMV" style='display:none'>YY4375/8955XX002</span>&nbsp;
-<span id="obfuscatedValueGainTMV" style='display:none;color:green'>YY631ZZ4.2</span>
-<span id="obfuscatedValueCloseBracesTMV" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionTMV" style='display: none'><input name="intervalFieldTMV" type="text" maxlength="7" value="1" id="intervalFieldTMV"/><button type="button" id="intervalButtonTMV">Minutes</button><span id="intervalTextTMV"></span></span>
-<script>
-var intervalVarTMV;
-function beepTMV() {
-var elementAlert = document.getElementById("intervalTextTMV");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarTMV);
-intervalVarTMV=undefined;
-}
-function setBeepIntervalTMV() {
-var intervalValue = document.getElementById("intervalFieldTMV").value;
-intervalVarTMV = setInterval(beepTMV, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextTMV");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonTMV").addEventListener("click", setBeepIntervalTMV);
-</script>
-<br><img width="60%" id="intervalSectionImageTMV" style='display: none'></img><br>
-<button id="intervalSectionButton1DTMV" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTMV('1D')">1D</button>
-<button id="intervalSectionButton5DTMV" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTMV('5D')">5D</button>
-<button id="intervalSectionButton10DTMV" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTMV('10D')">10D</button>
-<button id="intervalSectionButton3MTMV" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTMV('3M')">3M</button>
-<button id="intervalSectionButton6MTMV" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTMV('6M')">6M</button>
-<button id="intervalSectionButton1YTMV" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTMV('1Y')">1Y</button>
-<button id="intervalSectionButton5YTMV" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTMV('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-Own Symbol (Enter Values from Depot):
-<br>
-<button id="intervalSectionButtonSellTMV" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('TMV')">Sell</button>
-<button id="intervalSectionButtonBuyTMV" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'TMV', document.getElementById('intervalSectionInputPriceBuyTMV').value, document.getElementById('intervalSectionInputPiecesBuyTMV').value)">ReBuy</button>
-All Pieces <input name='intervalSectionInputPiecesBuyTMV' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyTMV'/>
-Avg. Price <input name='intervalSectionInputPriceBuyTMV' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyTMV'/>
-<p>
-<hr id="intervalSectionHRTMV" style='display: none'>
-<script>
-var imageTMV = new Image();
-var TIME_SPANTMV;
-function updateImageTMV(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANTMV=timespan;
-}
-if(imageTMV.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=269296853&TIME_SPAN='+TIME_SPANTMV;
-document.getElementById("intervalSectionImageTMV").src = urlWithTimeSpan;
-imageTMV = new Image();
-imageTMV.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageTMV, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 5px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337235" target="_blank">*FTE "ORANGE"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337235" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FTE.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2807,9 +2675,15 @@ imageCRIN.src = urlWithTimeSpan;
 // setTimeout(updateImageCRIN, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
+<div style="margin-top: 5px">
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=269296853" target="_blank">TMV "TeamViewer"</a>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=269296853" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TMV.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:black; display: none" href="D:/code/stock-analyse/out/TMV.html" id='linkPCTMV' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY658799/1804821</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY522682-ZZ3.22-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY221299/3848721</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY163682-ZZ4.22-</span></span>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="60%" id="intervalSectionImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
@@ -2852,7 +2726,6 @@ javascript:updateImageBMW('1D');
 javascript:updateImageAMZ('1D');
 javascript:updateImageNDA('1D');
 javascript:updateImageGEC('1D');
-javascript:updateImageTMV('1D');
 javascript:updateImageFTE('1D');
 javascript:updateImageTNE5('1D');
 javascript:updateImageDBK('1D');
@@ -2875,7 +2748,6 @@ javascript:updateImageBMW('5D');
 javascript:updateImageAMZ('5D');
 javascript:updateImageNDA('5D');
 javascript:updateImageGEC('5D');
-javascript:updateImageTMV('5D');
 javascript:updateImageFTE('5D');
 javascript:updateImageTNE5('5D');
 javascript:updateImageDBK('5D');
@@ -2898,7 +2770,6 @@ javascript:updateImageBMW('10D');
 javascript:updateImageAMZ('10D');
 javascript:updateImageNDA('10D');
 javascript:updateImageGEC('10D');
-javascript:updateImageTMV('10D');
 javascript:updateImageFTE('10D');
 javascript:updateImageTNE5('10D');
 javascript:updateImageDBK('10D');
@@ -2921,7 +2792,6 @@ javascript:updateImageBMW('3M');
 javascript:updateImageAMZ('3M');
 javascript:updateImageNDA('3M');
 javascript:updateImageGEC('3M');
-javascript:updateImageTMV('3M');
 javascript:updateImageFTE('3M');
 javascript:updateImageTNE5('3M');
 javascript:updateImageDBK('3M');
@@ -2944,7 +2814,6 @@ javascript:updateImageBMW('6M');
 javascript:updateImageAMZ('6M');
 javascript:updateImageNDA('6M');
 javascript:updateImageGEC('6M');
-javascript:updateImageTMV('6M');
 javascript:updateImageFTE('6M');
 javascript:updateImageTNE5('6M');
 javascript:updateImageDBK('6M');
@@ -2967,7 +2836,6 @@ javascript:updateImageBMW('1Y');
 javascript:updateImageAMZ('1Y');
 javascript:updateImageNDA('1Y');
 javascript:updateImageGEC('1Y');
-javascript:updateImageTMV('1Y');
 javascript:updateImageFTE('1Y');
 javascript:updateImageTNE5('1Y');
 javascript:updateImageDBK('1Y');
@@ -2990,7 +2858,6 @@ javascript:updateImageBMW('5Y');
 javascript:updateImageAMZ('5Y');
 javascript:updateImageNDA('5Y');
 javascript:updateImageGEC('5Y');
-javascript:updateImageTMV('5Y');
 javascript:updateImageFTE('5Y');
 javascript:updateImageTNE5('5Y');
 javascript:updateImageDBK('5Y');
@@ -3010,7 +2877,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <p>
 <br><br># Workflow<br><a href="https://github.com/Hefezopf/stock-analyse/actions" target="_blank">Github Action</a><br>
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 30-Aug-2021 10:49</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 30-Aug-2021 13:09</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
