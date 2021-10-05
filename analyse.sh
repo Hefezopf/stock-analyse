@@ -487,6 +487,7 @@ do
 
     tendency18=""
     DetermineTendency "$averagePriceList18"
+    # shellcheck disable=SC2154
     tendency18="$tendency"
 
     tendency38=""
@@ -526,7 +527,7 @@ do
         head -n87 "$DATA_FILE" > "$DATA_FILE_87"
         commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
         resultStrategieUnderratedNewLow=""
-        StrategieUnderratedNewLow 30 "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedNewLow 40 "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
@@ -640,6 +641,7 @@ do
         echo "$commaPriceList"
         cat template/indexPart3.html
 
+        # shellcheck disable=SC2154
         WriteTransactionFile "$lastDateInDataFile" "$beforeLastDateInDataFile" "$symbol" "buy"
         cat buy/"$symbol".txt
         cat template/indexPart3a.html
