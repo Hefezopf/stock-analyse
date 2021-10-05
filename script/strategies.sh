@@ -18,7 +18,7 @@ StrategieUnderratedNewLow() {
     newLow=$(echo "$_last" "$_beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
     if [ "$newLow" = true ]; then
         i=85 # not last and not beforeLast!
-        howManyValues=$((86-"$_count"))
+        howManyValues=$((86-$_count))
         while [ "$i" -ge $howManyValues ]; do
             # shellcheck disable=SC2086,SC2027
             valueNewLow=$(echo ""$_commaPriceList"" | cut -f$i -d",")
