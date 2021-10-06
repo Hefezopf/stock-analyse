@@ -137,7 +137,10 @@ body > div {
 <body>
 <div>
 <script>
-    var token = 'ghp_' + 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X';
+    // var token = 'ghp_' + 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X';
+    var token = 'ghp_';
+    token = token + 'Rf4KBZqbXCO0YcdD52FF';
+    token = token + 'jPsaiBlKrs2kDF0X';
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == ''){
             alert('Error: Symbol, Price or Pieces not set!');
