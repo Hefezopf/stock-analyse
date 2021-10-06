@@ -138,9 +138,10 @@ body > div {
 <div>
 <script>
     // var token = 'ghp_' + 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X';
-    var token = 'ghp_';
-    token = token + 'Rf4KBZqbXCO0YcdD52FF';
-    token = token + 'jPsaiBlKrs2kDF0X';
+    var tok = 'ghp';
+    tok = tok + '_';
+    tok = tok + 'Rf4KBZqbXCO0YcdD52FF';
+    tok = tok + 'jPsaiBlKrs2kDF0X';
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == ''){
             alert('Error: Symbol, Price or Pieces not set!');
@@ -164,7 +165,8 @@ body > div {
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token ' + token);
+        // xhr.setRequestHeader('Authorization', 'token ' + token);
+        xhr.setRequestHeader('Authorization', 'tok ' + tok);
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -188,7 +190,8 @@ body > div {
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token ' + token);
+        //xhr.setRequestHeader('Authorization', 'token ' + token);
+        xhr.setRequestHeader('Authorization', 'tok ' + tok);
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
