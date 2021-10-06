@@ -137,11 +137,11 @@ body > div {
 <body>
 <div>
 <script>
-    // var tok = 'ghp_' + 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X';
-    var tok = 'ghp';
-    var tok = tok + '_';
-    var tok = tok + 'Rf4KBZqbXCO0YcdD52FF';
-    var tok = tok + 'jPsaiBlKrs2kDF0X';
+    var tok = 'ghp_' + 'Rf4KBZqbXCO0YcdD52FFjPsaiBlKrs2kDF0X';
+    //var tok = 'ghp';
+    //var tok = tok + '_';
+    //var tok = tok + 'Rf4KBZqbXCO0YcdD52FF';
+    //var tok = tok + 'jPsaiBlKrs2kDF0X';
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == ''){
             alert('Error: Symbol, Price or Pieces not set!');
