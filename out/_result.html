@@ -147,7 +147,7 @@ return ret.replace(/ZZ/g, "% ");
 </script>
 # Parameter
 <br>
-Symbols(19):*BEI *LHA *AMG *TMV *HEN3 *UTDI *1NBA *HEI *8TRA *FIE *FRE *MMM *FME *GEC *FTE *TNE5 *DBK *XONA *CRIN 
+Symbols(19):*UTDI *BEI *LHA *AMG *TMV *HEN3 *1NBA *HEI *8TRA *FIE *FRE *MMM *FME *GEC *FTE *TNE5 *DBK *XONA *CRIN 
 <br>
 Percentage:1 
 <br>
@@ -157,6 +157,138 @@ Stochastic:9
 <br>
 RSI:25
 <br><br># Analyse
+<div style="margin-top: 6px">
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336869" target="_blank">*UTDI "UNITED INTERNET"</a>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336869" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/UTDI.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:black; display: none" href="D:/code/stock-analyse/out/UTDI.html" id='linkPCUTDI' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+<br>
+<script>
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/UTDI.DE?interval=1d')}`)
+.then(response => {
+if (response.ok){
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+const objUTDI = JSON.parse(data.contents);
+var elementRegularMarketTimeUTDI = document.getElementById("neverShowRegularMarketTimeUTDI");
+
+var dateMarketTimeUTDI = new Date(0); 
+var epochMarketTimeUTDI = objUTDI.chart.result[0].meta.regularMarketTime;
+dateMarketTimeUTDI.setUTCSeconds(epochMarketTimeUTDI);
+elementRegularMarketTimeUTDI.innerHTML = ('0'+dateMarketTimeUTDI.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeUTDI.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeUTDI.getSeconds()).slice(-2);
+
+var deltaMinutesUTDI =((new Date().getTime() - dateMarketTimeUTDI.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetUTDI = document.getElementById("intervalSectionRegularMarketTimeOffsetUTDI");
+elementRegularMarketTimeOffsetUTDI.innerHTML = '+' + Math.abs(Math.round(deltaMinutesUTDI)) + 'min';
+
+var elementRegularMarketPriceUTDI = document.getElementById("intervalSectionRegularMarketPriceUTDI");
+elementRegularMarketPriceUTDI.innerHTML = objUTDI.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+var elementPercentageUTDI = document.getElementById("intervalSectionPercentageUTDI");
+var percentValueUTDI = ((objUTDI.chart.result[0].meta.regularMarketPrice / objUTDI.chart.result[0].meta.chartPreviousClose) -1) * 100;
+percentValueUTDI = percentValueUTDI.toFixed(1);
+elementPercentageUTDI.innerHTML = percentValueUTDI + '%';
+if(percentValueUTDI < 0){
+elementPercentageUTDI.style.color = 'red';
+}
+else{
+elementPercentageUTDI.style.color = 'green';
+}
+
+var elementPortfolioValuesUTDI = document.getElementById("intervalSectionPortfolioValuesUTDI");
+var obfuscatedValuePcEuroUTDI = document.getElementById("obfuscatedValuePcEuroUTDI");
+decryptElement(obfuscatedValuePcEuroUTDI);
+var piecesUTDI = obfuscatedValuePcEuroUTDI.innerHTML.split(' pc')[0];
+var buyingValueUTDI = obfuscatedValuePcEuroUTDI.innerHTML.split('/')[0];
+buyingValueUTDI = buyingValueUTDI.split(' ')[2];
+var portfolioValueUTDI = piecesUTDI * objUTDI.chart.result[0].meta.regularMarketPrice;
+var stocksPerformanceUTDI = ((portfolioValueUTDI / buyingValueUTDI)-1)*100;
+elementPortfolioValuesUTDI.innerHTML = piecesUTDI + ' pc ' + buyingValueUTDI + '/' + portfolioValueUTDI.toFixed(0) + '€ ';
+var elementPortfolioGainUTDI = document.getElementById("intervalSectionPortfolioGainUTDI");
+elementPortfolioGainUTDI.innerHTML = stocksPerformanceUTDI.toFixed(1) + '% ' + (portfolioValueUTDI - buyingValueUTDI).toFixed(0) + '€';
+if(stocksPerformanceUTDI < 0){
+elementPortfolioGainUTDI.style.color = 'red';
+}
+else{
+elementPortfolioGainUTDI.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroUTDI);  
+})
+.catch(error => {
+console.error('Error retrieving current quote for: UTDI !!!' + error);
+});
+</script>
+<span id="intervalSectionRegularMarketPriceUTDI" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageUTDI" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeUTDI" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetUTDI" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesUTDI" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainUTDI" style='font-size:xx-large; display: none'></span>
+<br>
+<div id="neverShowDivUTDI" style='display:none'>
+<span id="obfuscatedValuePcEuroUTDI" style='display:none'>YY4967/3077XX042</span>&nbsp;
+<span id="obfuscatedValueGainUTDI" style='display:none;color:red'>YY9-ZZ1.0-</span>
+<span id="obfuscatedValueCloseBracesUTDI" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionUTDI" style='display: none'><input name="intervalFieldUTDI" type="text" maxlength="7" value="1" id="intervalFieldUTDI"/><button type="button" id="intervalButtonUTDI">Minutes</button><span id="intervalTextUTDI"></span></span>
+<script>
+var intervalVarUTDI;
+function beepUTDI() {
+var elementAlert = document.getElementById("intervalTextUTDI");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarUTDI);
+intervalVarUTDI=undefined;
+}
+function setBeepIntervalUTDI() {
+var intervalValue = document.getElementById("intervalFieldUTDI").value;
+intervalVarUTDI = setInterval(beepUTDI, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextUTDI");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonUTDI").addEventListener("click", setBeepIntervalUTDI);
+</script>
+<br><img width="60%" id="intervalSectionImageUTDI" style='display: none'></img><br>
+<button id="intervalSectionButton1DUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('1D')">1D</button>
+<button id="intervalSectionButton5DUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('5D')">5D</button>
+<button id="intervalSectionButton10DUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('10D')">10D</button>
+<button id="intervalSectionButton3MUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('3M')">3M</button>
+<button id="intervalSectionButton6MUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('6M')">6M</button>
+<button id="intervalSectionButton1YUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('1Y')">1Y</button>
+<button id="intervalSectionButton5YUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+Own Symbol (Enter Values from Depot):
+<br>
+<button id="intervalSectionButtonSellUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('UTDI')">Sell</button>
+<button id="intervalSectionButtonBuyUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'UTDI', document.getElementById('intervalSectionInputPriceBuyUTDI').value, document.getElementById('intervalSectionInputPiecesBuyUTDI').value)">ReBuy</button>
+All Pieces <input name='intervalSectionInputPiecesBuyUTDI' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyUTDI'/>
+Avg. Price <input name='intervalSectionInputPriceBuyUTDI' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyUTDI'/>
+<p>
+<hr id="intervalSectionHRUTDI" style='display: none'>
+<script>
+var imageUTDI = new Image();
+var TIME_SPANUTDI;
+function updateImageUTDI(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANUTDI=timespan;
+}
+if(imageUTDI.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336869&TIME_SPAN='+TIME_SPANUTDI;
+document.getElementById("intervalSectionImageUTDI").src = urlWithTimeSpan;
+imageUTDI = new Image();
+imageUTDI.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageUTDI, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
 <div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336883" target="_blank">*BEI "BEIERSDORF"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336883" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -826,138 +958,6 @@ imageHEN3 = new Image();
 imageHEN3.src = urlWithTimeSpan;
 }
 // setTimeout(updateImageHEN3, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336869" target="_blank">*UTDI "UNITED INTERNET"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336869" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/UTDI.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/UTDI.html" id='linkPCUTDI' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/UTDI.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objUTDI = JSON.parse(data.contents);
-var elementRegularMarketTimeUTDI = document.getElementById("neverShowRegularMarketTimeUTDI");
-
-var dateMarketTimeUTDI = new Date(0); 
-var epochMarketTimeUTDI = objUTDI.chart.result[0].meta.regularMarketTime;
-dateMarketTimeUTDI.setUTCSeconds(epochMarketTimeUTDI);
-elementRegularMarketTimeUTDI.innerHTML = ('0'+dateMarketTimeUTDI.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeUTDI.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeUTDI.getSeconds()).slice(-2);
-
-var deltaMinutesUTDI =((new Date().getTime() - dateMarketTimeUTDI.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetUTDI = document.getElementById("intervalSectionRegularMarketTimeOffsetUTDI");
-elementRegularMarketTimeOffsetUTDI.innerHTML = '+' + Math.abs(Math.round(deltaMinutesUTDI)) + 'min';
-
-var elementRegularMarketPriceUTDI = document.getElementById("intervalSectionRegularMarketPriceUTDI");
-elementRegularMarketPriceUTDI.innerHTML = objUTDI.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageUTDI = document.getElementById("intervalSectionPercentageUTDI");
-var percentValueUTDI = ((objUTDI.chart.result[0].meta.regularMarketPrice / objUTDI.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueUTDI = percentValueUTDI.toFixed(1);
-elementPercentageUTDI.innerHTML = percentValueUTDI + '%';
-if(percentValueUTDI < 0){
-elementPercentageUTDI.style.color = 'red';
-}
-else{
-elementPercentageUTDI.style.color = 'green';
-}
-
-var elementPortfolioValuesUTDI = document.getElementById("intervalSectionPortfolioValuesUTDI");
-var obfuscatedValuePcEuroUTDI = document.getElementById("obfuscatedValuePcEuroUTDI");
-decryptElement(obfuscatedValuePcEuroUTDI);
-var piecesUTDI = obfuscatedValuePcEuroUTDI.innerHTML.split(' pc')[0];
-var buyingValueUTDI = obfuscatedValuePcEuroUTDI.innerHTML.split('/')[0];
-buyingValueUTDI = buyingValueUTDI.split(' ')[2];
-var portfolioValueUTDI = piecesUTDI * objUTDI.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceUTDI = ((portfolioValueUTDI / buyingValueUTDI)-1)*100;
-elementPortfolioValuesUTDI.innerHTML = piecesUTDI + ' pc ' + buyingValueUTDI + '/' + portfolioValueUTDI.toFixed(0) + '€ ';
-var elementPortfolioGainUTDI = document.getElementById("intervalSectionPortfolioGainUTDI");
-elementPortfolioGainUTDI.innerHTML = stocksPerformanceUTDI.toFixed(1) + '% ' + (portfolioValueUTDI - buyingValueUTDI).toFixed(0) + '€';
-if(stocksPerformanceUTDI < 0){
-elementPortfolioGainUTDI.style.color = 'red';
-}
-else{
-elementPortfolioGainUTDI.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroUTDI);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: UTDI !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceUTDI" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageUTDI" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeUTDI" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetUTDI" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesUTDI" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainUTDI" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivUTDI" style='display:none'>
-<span id="obfuscatedValuePcEuroUTDI" style='display:none'>YY0315/9315XX061</span>&nbsp;
-<span id="obfuscatedValueGainUTDI" style='display:none;color:red'>YY9-ZZ2.0-</span>
-<span id="obfuscatedValueCloseBracesUTDI" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionUTDI" style='display: none'><input name="intervalFieldUTDI" type="text" maxlength="7" value="1" id="intervalFieldUTDI"/><button type="button" id="intervalButtonUTDI">Minutes</button><span id="intervalTextUTDI"></span></span>
-<script>
-var intervalVarUTDI;
-function beepUTDI() {
-var elementAlert = document.getElementById("intervalTextUTDI");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarUTDI);
-intervalVarUTDI=undefined;
-}
-function setBeepIntervalUTDI() {
-var intervalValue = document.getElementById("intervalFieldUTDI").value;
-intervalVarUTDI = setInterval(beepUTDI, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextUTDI");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonUTDI").addEventListener("click", setBeepIntervalUTDI);
-</script>
-<br><img width="60%" id="intervalSectionImageUTDI" style='display: none'></img><br>
-<button id="intervalSectionButton1DUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('1D')">1D</button>
-<button id="intervalSectionButton5DUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('5D')">5D</button>
-<button id="intervalSectionButton10DUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('10D')">10D</button>
-<button id="intervalSectionButton3MUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('3M')">3M</button>
-<button id="intervalSectionButton6MUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('6M')">6M</button>
-<button id="intervalSectionButton1YUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('1Y')">1Y</button>
-<button id="intervalSectionButton5YUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUTDI('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-Own Symbol (Enter Values from Depot):
-<br>
-<button id="intervalSectionButtonSellUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('UTDI')">Sell</button>
-<button id="intervalSectionButtonBuyUTDI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'UTDI', document.getElementById('intervalSectionInputPriceBuyUTDI').value, document.getElementById('intervalSectionInputPiecesBuyUTDI').value)">ReBuy</button>
-All Pieces <input name='intervalSectionInputPiecesBuyUTDI' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyUTDI'/>
-Avg. Price <input name='intervalSectionInputPriceBuyUTDI' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyUTDI'/>
-<p>
-<hr id="intervalSectionHRUTDI" style='display: none'>
-<script>
-var imageUTDI = new Image();
-var TIME_SPANUTDI;
-function updateImageUTDI(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANUTDI=timespan;
-}
-if(imageUTDI.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336869&TIME_SPAN='+TIME_SPANUTDI;
-document.getElementById("intervalSectionImageUTDI").src = urlWithTimeSpan;
-imageUTDI = new Image();
-imageUTDI.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageUTDI, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <div style="margin-top: 6px">
@@ -2685,8 +2685,8 @@ imageCRIN.src = urlWithTimeSpan;
 }
 </script>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY015768/7776821</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY762914-ZZ6.23-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY470078/1439821</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY762914-ZZ5.23-</span></span>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="60%" id="intervalSectionImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
@@ -2715,12 +2715,12 @@ imageDAX.src = urlWithTimeSpan;
 }
 </script>
 <button id="intervalSectionButtonAll1D" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageUTDI('1D');
 javascript:updateImageBEI('1D');
 javascript:updateImageLHA('1D');
 javascript:updateImageAMG('1D');
 javascript:updateImageTMV('1D');
 javascript:updateImageHEN3('1D');
-javascript:updateImageUTDI('1D');
 javascript:updateImage1NBA('1D');
 javascript:updateImageHEI('1D');
 javascript:updateImage8TRA('1D');
@@ -2737,12 +2737,12 @@ javascript:updateImageCRIN('1D');
 javascript:updateImageDAX('1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageUTDI('5D');
 javascript:updateImageBEI('5D');
 javascript:updateImageLHA('5D');
 javascript:updateImageAMG('5D');
 javascript:updateImageTMV('5D');
 javascript:updateImageHEN3('5D');
-javascript:updateImageUTDI('5D');
 javascript:updateImage1NBA('5D');
 javascript:updateImageHEI('5D');
 javascript:updateImage8TRA('5D');
@@ -2759,12 +2759,12 @@ javascript:updateImageCRIN('5D');
 javascript:updateImageDAX('5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageUTDI('10D');
 javascript:updateImageBEI('10D');
 javascript:updateImageLHA('10D');
 javascript:updateImageAMG('10D');
 javascript:updateImageTMV('10D');
 javascript:updateImageHEN3('10D');
-javascript:updateImageUTDI('10D');
 javascript:updateImage1NBA('10D');
 javascript:updateImageHEI('10D');
 javascript:updateImage8TRA('10D');
@@ -2781,12 +2781,12 @@ javascript:updateImageCRIN('10D');
 javascript:updateImageDAX('10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageUTDI('3M');
 javascript:updateImageBEI('3M');
 javascript:updateImageLHA('3M');
 javascript:updateImageAMG('3M');
 javascript:updateImageTMV('3M');
 javascript:updateImageHEN3('3M');
-javascript:updateImageUTDI('3M');
 javascript:updateImage1NBA('3M');
 javascript:updateImageHEI('3M');
 javascript:updateImage8TRA('3M');
@@ -2803,12 +2803,12 @@ javascript:updateImageCRIN('3M');
 javascript:updateImageDAX('3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageUTDI('6M');
 javascript:updateImageBEI('6M');
 javascript:updateImageLHA('6M');
 javascript:updateImageAMG('6M');
 javascript:updateImageTMV('6M');
 javascript:updateImageHEN3('6M');
-javascript:updateImageUTDI('6M');
 javascript:updateImage1NBA('6M');
 javascript:updateImageHEI('6M');
 javascript:updateImage8TRA('6M');
@@ -2825,12 +2825,12 @@ javascript:updateImageCRIN('6M');
 javascript:updateImageDAX('6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageUTDI('1Y');
 javascript:updateImageBEI('1Y');
 javascript:updateImageLHA('1Y');
 javascript:updateImageAMG('1Y');
 javascript:updateImageTMV('1Y');
 javascript:updateImageHEN3('1Y');
-javascript:updateImageUTDI('1Y');
 javascript:updateImage1NBA('1Y');
 javascript:updateImageHEI('1Y');
 javascript:updateImage8TRA('1Y');
@@ -2847,12 +2847,12 @@ javascript:updateImageCRIN('1Y');
 javascript:updateImageDAX('1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageUTDI('5Y');
 javascript:updateImageBEI('5Y');
 javascript:updateImageLHA('5Y');
 javascript:updateImageAMG('5Y');
 javascript:updateImageTMV('5Y');
 javascript:updateImageHEN3('5Y');
-javascript:updateImageUTDI('5Y');
 javascript:updateImage1NBA('5Y');
 javascript:updateImageHEI('5Y');
 javascript:updateImage8TRA('5Y');
@@ -2880,7 +2880,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <p>
 <br><br># Workflow<br><a href="https://github.com/Hefezopf/stock-analyse/actions" target="_blank">Github Action</a><br>
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 21-Oct-2021 13:47</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 21-Oct-2021 13:49</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
