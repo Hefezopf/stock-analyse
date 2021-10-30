@@ -353,6 +353,7 @@ do
         fi
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
+        # https://marketstack.com/documentation
         curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "$fileSize" -eq "0" ]; then
