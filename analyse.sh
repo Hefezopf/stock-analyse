@@ -283,8 +283,8 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
 fi
 
 if { [ "$queryParam" = 'online' ]; } &&
-   { [ -z "$MARKET_STACK_ACCESS_KEY" ] || [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ] || [ -z "$MARKET_STACK_ACCESS_KEY5" ]; } then
-    echo "Error 'online' query: MARKET_STACK_ACCESS_KEY1...5 NOT set!" | tee -a $OUT_RESULT_FILE
+   { [ -z "$MARKET_STACK_ACCESS_KEY" ]; } then
+    echo "Error 'online' query: MARKET_STACK_ACCESS_KEY NOT set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
     exit 8
