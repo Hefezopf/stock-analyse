@@ -12,7 +12,7 @@
 # Call example: ./analyse.sh 'BEI' 2 offline 9 25
 # Call example: ./analyse.sh '*BEI' 1 offline 9 25
 # Precondition:
-# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY2, MARKET_STACK_ACCESS_KEY3, MARKET_STACK_ACCESS_KEY4 and MARKET_STACK_ACCESS_KEY5 as ENV Variable (Online)
+# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY, MARKET_STACK_ACCESS_KEY2, MARKET_STACK_ACCESS_KEY3, MARKET_STACK_ACCESS_KEY4 and MARKET_STACK_ACCESS_KEY5 as ENV Variable (Online)
 # Set GPG_PASSPHRASE as ENV Variable
 
 
@@ -41,6 +41,7 @@ ApplyStrategieHorizontalMACD=false
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
 
+export MARKET_STACK_ACCESS_KEY
 export MARKET_STACK_ACCESS_KEY1
 export MARKET_STACK_ACCESS_KEY2
 export MARKET_STACK_ACCESS_KEY3
@@ -282,7 +283,7 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
 fi
 
 if { [ "$queryParam" = 'online' ]; } &&
-   { [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ] || [ -z "$MARKET_STACK_ACCESS_KEY5" ]; } then
+   { [ -z "$MARKET_STACK_ACCESS_KEY" ] || [ -z "$MARKET_STACK_ACCESS_KEY1" ] || [ -z "$MARKET_STACK_ACCESS_KEY2" ] || [ -z "$MARKET_STACK_ACCESS_KEY3" ] || [ -z "$MARKET_STACK_ACCESS_KEY4" ] || [ -z "$MARKET_STACK_ACCESS_KEY5" ]; } then
     echo "Error 'online' query: MARKET_STACK_ACCESS_KEY1...5 NOT set!" | tee -a $OUT_RESULT_FILE
     echo "<br>" >> $OUT_RESULT_FILE
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
@@ -335,22 +336,22 @@ do
     DATA_DATE_FILE=data/$symbol.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-        evenodd=$((tag % 5))
-        if [ "$evenodd" -eq 0 ]; then
-            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY1
-        fi
-        if [ "$evenodd" -eq 1 ]; then
-            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY2
-        fi
-        if [ "$evenodd" -eq 2 ]; then
-            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY3
-        fi
-        if [ "$evenodd" -eq 3 ]; then
-            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY4
-        fi
-        if [ "$evenodd" -eq 4 ]; then
-            MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY5
-        fi
+        # evenodd=$((tag % 5))
+        # if [ "$evenodd" -eq 0 ]; then
+        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY1
+        # fi
+        # if [ "$evenodd" -eq 1 ]; then
+        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY2
+        # fi
+        # if [ "$evenodd" -eq 2 ]; then
+        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY3
+        # fi
+        # if [ "$evenodd" -eq 3 ]; then
+        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY4
+        # fi
+        # if [ "$evenodd" -eq 4 ]; then
+        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY5
+        # fi
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
