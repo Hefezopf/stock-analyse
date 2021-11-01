@@ -8,252 +8,232 @@
 <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
 <title>Result SA</title>
 <style>.green{color:green;} .red{color:red;} .black{color:black;}
- /* iphone 3 */
+/* iphone 3 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) {
 body > div {
-    font-size: xx-large;
+font-size: xx-large;
 }}
-        
+
 /* iphone 4 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 2) {
 body > div {
-    font-size: xx-large;
+font-size: xx-large;
 }}
 
 /* iphone 5 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
 body > div {
-    font-size: xx-large;
+font-size: xx-large;
 }}
 
 /* iphone 6, 6s, 7, 8 */
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
-    body > div {
-    font-size: xx-large;
+body > div {
+font-size: xx-large;
 }}
-    
+
 /* iphone 6+, 6s+, 7+, 8+ */
 @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) { body > div {
-    font-size: xx-large;
-  }}
+font-size: xx-large;
+}}
 
 /* iphone X , XS, 11 Pro, 12 Mini */
 @media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
-    body > div {
-    font-size: xx-large;
+body > div {
+font-size: xx-large;
 }}
 
 /* iphone 12, 12 Pro */
 @media only screen and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
-    body > div {
-    font-size: x-large;
+body > div {
+font-size: x-large;
 }}
 
 /* iphone XR, 11 */
 @media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 2) {body > div {
-    font-size: x-large;
-  } }
-    
+font-size: x-large;
+} }
+
 /* iphone XS Max, 11 Pro Max */
 @media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 3) {
-    body > div {
-    font-size: x-large;
+body > div {
+font-size: x-large;
 }}
 
 /* iphone 12 Pro Max */
 @media only screen and (min-device-width : 428px) and (max-device-height : 926px) and (-webkit-device-pixel-ratio : 3) {
-    body > div {
-    font-size: x-large;
+body > div {
+font-size: x-large;
 }}
 </style>
 </head>
 <body>
 <div>
 <script>
-    var token = 'ghp_' + 'ObTMA4E0iPaImN8UxFxVO0tg3Tu1d329UrOF';
-    function curlBuy(symbolParam, price, pieces) {
-        if(symbolParam == '' || price == '' || pieces == ''){
-            alert('Error: Symbol, Price or Pieces not set!');
-            return;
-        }
-        var price = price.replace(',', '.');
-        var pieces = pieces.replace('.', '');  
-        if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price).toFixed(0) + '€?') == false) {
-            return;
-        }
-        if(document.getElementById('intervalSectionInputPriceBuy'+symbolParam)){
-            document.getElementById('intervalSectionInputPriceBuy'+symbolParam).value = '';
-        }
-        if(document.getElementById('intervalSectionInputPiecesBuy'+symbolParam)){
-            document.getElementById('intervalSectionInputPiecesBuy'+symbolParam).value = '';
-        }        
-        document.getElementById('intervalSectionInputSymbolBuyGenerell').value = '';
-        document.getElementById('intervalSectionInputPriceBuyGenerell').value = '';
-        document.getElementById('intervalSectionInputPiecesBuyGenerell').value = '';
+var token = 'ghp_' + 'ObTMA4E0iPaImN8UxFxVO0tg3Tu1d329UrOF';
+function curlBuy(symbolParam, price, pieces) {
+if(symbolParam == '' || price == '' || pieces == ''){
+alert('Error: Symbol, Price or Pieces not set!');
+return;
+}
+var price = price.replace(',', '.');
+var pieces = pieces.replace('.', '');  
+if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price).toFixed(0) + '€?') == false) {
+return;
+}
+if(document.getElementById('intervalSectionInputPriceBuy'+symbolParam)){
+document.getElementById('intervalSectionInputPriceBuy'+symbolParam).value = '';
+}
+if(document.getElementById('intervalSectionInputPiecesBuy'+symbolParam)){
+document.getElementById('intervalSectionInputPiecesBuy'+symbolParam).value = '';
+}        
+document.getElementById('intervalSectionInputSymbolBuyGenerell').value = '';
+document.getElementById('intervalSectionInputPriceBuyGenerell').value = '';
+document.getElementById('intervalSectionInputPiecesBuyGenerell').value = '';
 
-        var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token ' + token);
-        xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
-        xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
-        }};
-        var data = {
-            event_type: 'buy', 
-            client_payload: {
-                symbol: symbolParam, 
-                price: price, 
-                pieces: pieces                              
-            }
-        };
-        xhr.send(JSON.stringify(data));
-    }    
-    function curlSell(symbolParam) {          
-        if (confirm('Sell ' + symbolParam + '?') == false) {
-            return;
-        }
-        var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token ' + token);
-        xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
-        xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
-        }};
-        var data = {
-            event_type: 'sell', 
-            client_payload: {
-                symbol: symbolParam
-            }
-        };
-        xhr.send(JSON.stringify(data));
-    }
-    function decryptElement(ele) {
-        var dec = document.getElementById(ele.id).innerHTML;
-        dec = dec.split("").reverse().join(""); // reverseString
-        dec = replaceInString(dec);
-        document.getElementById(ele.id).innerHTML = dec;
-    }
-    function replaceInString(str){
-        var ret = str.replace(/XX/g, " pc ");
-        var ret = ret.replace(/YY/g, "€ ");
-        return ret.replace(/ZZ/g, "% ");
-    }    
+var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
+var xhr = new XMLHttpRequest();
+xhr.open('POST', url);
+xhr.setRequestHeader('Authorization', 'token ' + token);
+xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
+xhr.onreadystatechange = function () {
+if (xhr.readyState === 4) {
+console.log(xhr.status);
+console.log(xhr.responseText);
+}};
+var data = {
+event_type: 'buy', 
+client_payload: {
+symbol: symbolParam, 
+price: price, 
+pieces: pieces                              
+}
+};
+xhr.send(JSON.stringify(data));
+}    
+function curlSell(symbolParam) {          
+if (confirm('Sell ' + symbolParam + '?') == false) {
+return;
+}
+var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
+var xhr = new XMLHttpRequest();
+xhr.open('POST', url);
+xhr.setRequestHeader('Authorization', 'token ' + token);
+xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
+xhr.onreadystatechange = function () {
+if (xhr.readyState === 4) {
+console.log(xhr.status);
+console.log(xhr.responseText);
+}};
+var data = {
+event_type: 'sell', 
+client_payload: {
+symbol: symbolParam
+}
+};
+xhr.send(JSON.stringify(data));
+}
+function decryptElement(ele) {
+var dec = document.getElementById(ele.id).innerHTML;
+dec = dec.split("").reverse().join(""); // reverseString
+dec = replaceInString(dec);
+document.getElementById(ele.id).innerHTML = dec;
+}
+function replaceInString(str){
+var ret = str.replace(/XX/g, " pc ");
+var ret = ret.replace(/YY/g, "€ ");
+return ret.replace(/ZZ/g, "% ");
+}    
 </script>
-WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!
-<br><br>
 # Parameter
 <br>
-<<<<<<< HEAD
-Symbols(71):MRX MLP MVV1 NA9 NWO NXU NFN NDX1 NOEJ OHB O4B PA8 PGN PFV PSG PNE3 PCZ PWO PSAN TPE QSC RSL2 RHK RIB SZG SRT SRT3 SHA SLT YSN SJJ F3C SGL ENR SHL WAF SNG SIX2 SIX3 AM3D SHF SYT SOW S9I SBS SMHN SUR SYAB SYZ TTK TLX TTR1 TLIK ULC OSP2 UTDI VTWR VQT VBK VIB3 V6C V3V VTSC VBX WCH WSU WEW WDL WUW YOC TIMA
-=======
 Symbols(1):*DBK
->>>>>>> 9a38321873fba3a18971c58f4e687f6466c3af9e
 <br>
 Percentage:1 
 <br>
-Query:online 
+Query:offline 
 <br>
 Stochastic:9 
 <br>
 RSI:25
 <br><br># Analyse
-<<<<<<< HEAD
-=======
 <div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336876" target="_blank">*DBK "DEUTSCHE BANK"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336876" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DBK.html" target="_blank">&nbsp;SA&nbsp;</a>
 <a style="color:black; display: none" href="D:/code/stock-analyse/out/DBK.html" id='linkPCDBK' target='_blank'>&nbsp;PC&nbsp;</a>
 </div>
->>>>>>> 9a38321873fba3a18971c58f4e687f6466c3af9e
 <br>
-!!! LESS then 100 quotes for MRX
+<script>
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/DBK.DE?interval=1d')}`)
+.then(response => {
+if (response.ok){
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+const objDBK = JSON.parse(data.contents);
+var elementRegularMarketTimeDBK = document.getElementById("neverShowRegularMarketTimeDBK");
+
+var dateMarketTimeDBK = new Date(0); 
+var epochMarketTimeDBK = objDBK.chart.result[0].meta.regularMarketTime;
+dateMarketTimeDBK.setUTCSeconds(epochMarketTimeDBK);
+elementRegularMarketTimeDBK.innerHTML = ('0'+dateMarketTimeDBK.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeDBK.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeDBK.getSeconds()).slice(-2);
+
+var deltaMinutesDBK =((new Date().getTime() - dateMarketTimeDBK.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetDBK = document.getElementById("intervalSectionRegularMarketTimeOffsetDBK");
+elementRegularMarketTimeOffsetDBK.innerHTML = '+' + Math.abs(Math.round(deltaMinutesDBK)) + 'min';
+
+var elementRegularMarketPriceDBK = document.getElementById("intervalSectionRegularMarketPriceDBK");
+elementRegularMarketPriceDBK.innerHTML = objDBK.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+var elementPercentageDBK = document.getElementById("intervalSectionPercentageDBK");
+var percentValueDBK = ((objDBK.chart.result[0].meta.regularMarketPrice / objDBK.chart.result[0].meta.chartPreviousClose) -1) * 100;
+percentValueDBK = percentValueDBK.toFixed(1);
+elementPercentageDBK.innerHTML = percentValueDBK + '%';
+if(percentValueDBK < 0){
+elementPercentageDBK.style.color = 'red';
+}
+else{
+elementPercentageDBK.style.color = 'green';
+}
+
+var elementPortfolioValuesDBK = document.getElementById("intervalSectionPortfolioValuesDBK");
+var obfuscatedValuePcEuroDBK = document.getElementById("obfuscatedValuePcEuroDBK");
+decryptElement(obfuscatedValuePcEuroDBK);
+var piecesDBK = obfuscatedValuePcEuroDBK.innerHTML.split(' pc')[0];
+var buyingValueDBK = obfuscatedValuePcEuroDBK.innerHTML.split('/')[0];
+buyingValueDBK = buyingValueDBK.split(' ')[2];
+var portfolioValueDBK = piecesDBK * objDBK.chart.result[0].meta.regularMarketPrice;
+var stocksPerformanceDBK = ((portfolioValueDBK / buyingValueDBK)-1)*100;
+elementPortfolioValuesDBK.innerHTML = piecesDBK + ' pc ' + buyingValueDBK + '/' + portfolioValueDBK.toFixed(0) + '€ ';
+var elementPortfolioGainDBK = document.getElementById("intervalSectionPortfolioGainDBK");
+elementPortfolioGainDBK.innerHTML = stocksPerformanceDBK.toFixed(1) + '% ' + (portfolioValueDBK - buyingValueDBK).toFixed(0) + '€';
+if(stocksPerformanceDBK < 0){
+elementPortfolioGainDBK.style.color = 'red';
+}
+else{
+elementPortfolioGainDBK.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroDBK);  
+})
+.catch(error => {
+console.error('Error retrieving current quote for: DBK !!!' + error);
+});
+</script>
+<span id="intervalSectionRegularMarketPriceDBK" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageDBK" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeDBK" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetDBK" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesDBK" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainDBK" style='font-size:xx-large; display: none'></span>
 <br>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:MRX</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=344300007" target="_blank">MRX "MEREX JSC"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=344300007" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MRX.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/MRX.html" id='linkPCMRX' target='_blank'>&nbsp;PC&nbsp;</a>
+<div id="neverShowDivDBK" style='display:none'>
+<span id="obfuscatedValuePcEuroDBK" style='display:none'>YY547181/933532XX00361</span>&nbsp;
+<span id="obfuscatedValueGainDBK" style='display:none;color:red'>YY49535-ZZ8.22-</span>
+<span id="obfuscatedValueCloseBracesDBK" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:MLP</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=99991023393799" target="_blank">MLP "MAUI LAND & PINEAPPLE CO"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=99991023393799" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MLP.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/MLP.html" id='linkPCMLP' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:MVV1</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15060550" target="_blank">MVV1 "MVV ENERGIE AG"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15060550" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MVV1.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/MVV1.html" id='linkPCMVV1' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:NA9</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=351408634" target="_blank">NA9 "NAGARRO SE"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=351408634" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NA9.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/NA9.html" id='linkPCNA9' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:NWO</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672415" target="_blank">NWO "NUWAY ORGANIC NATURALS INDIA"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672415" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NWO.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/NWO.html" id='linkPCNWO' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:NXU</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=3241269" target="_blank">NXU "NEXUS AG"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=3241269" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NXU.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/NXU.html" id='linkPCNXU' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:NFN</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=216523093" target="_blank">NFN "NFON AG"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=216523093" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NFN.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/NFN.html" id='linkPCNFN' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:NDX1</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15083505" target="_blank">NDX1 "NORDEX SE"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15083505" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NDX1.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/NDX1.html" id='linkPCNDX1' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:NOEJ</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672364" target="_blank">NOEJ "NORMA GROUP SE"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672364" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NOEJ.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/NOEJ.html" id='linkPCNOEJ' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:OHB</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=3240902" target="_blank">OHB "OPCOM HOLDINGS BHD"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=3240902" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/OHB.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/OHB.html" id='linkPCOHB' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:O4B</b><br>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15205889" target="_blank">O4B "OVB HOLDING AG"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=15205889" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/O4B.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/O4B.html" id='linkPCO4B' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<<<<<<< HEAD
-=======
 <span id="intervalSectionDBK" style='display: none'><input name="intervalFieldDBK" type="text" maxlength="7" value="1" id="intervalFieldDBK"/><button type="button" id="intervalButtonDBK">Minutes</button><span id="intervalTextDBK"></span></span>
 <script>
 var intervalVarDBK;
@@ -379,7 +359,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <p>
 <br><br># Workflow<br><a href="https://github.com/Hefezopf/stock-analyse/actions" target="_blank">Github Action</a><br>
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  1-Nov-2021 20:59</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  1-Nov-2021 22:13</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
@@ -418,4 +398,3 @@ ele.style.display = 'none';
 }   
 </script>
 </body></html>
->>>>>>> 9a38321873fba3a18971c58f4e687f6466c3af9e
