@@ -13,5 +13,5 @@ if { [ -z "$1" ]; } then
   exit 1
 fi
 
-export MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY1
-curl -s --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${1}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}'
+#export MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY
+curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${1}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}'
