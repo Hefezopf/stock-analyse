@@ -42,11 +42,6 @@ ApplyStrategieHorizontalMACD=false
 export LC_ALL=en_US.UTF-8
 
 export MARKET_STACK_ACCESS_KEY
-export MARKET_STACK_ACCESS_KEY1
-export MARKET_STACK_ACCESS_KEY2
-export MARKET_STACK_ACCESS_KEY3
-export MARKET_STACK_ACCESS_KEY4
-export MARKET_STACK_ACCESS_KEY5
 
 # Parameter
 symbolsParam=$1
