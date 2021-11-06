@@ -22,6 +22,6 @@ rm -rf "$OUT_SIMULATE_FILE"
 #                                                                       STOCH_SELL_LEVEL
 #                                                                            INCREMENT_PER_TRADE
 X_TIMES_AMOUNT_PER_TRADE=$(echo "$2" | awk '{print $1 * 2}')
-./simulate/simulate-buyRSILowDivergent-sellHighStoch.sh "$1" "$X_TIMES_AMOUNT_PER_TRADE" "$3" "$4" "$5"
+#./simulate/simulate-buyRSILowDivergent-sellHighStoch.sh "$1" "$X_TIMES_AMOUNT_PER_TRADE" "$3" "$4" "$5"
 
 ./simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5"
