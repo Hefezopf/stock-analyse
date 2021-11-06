@@ -587,7 +587,7 @@ do
         cat template/indexPart1.html
 
         # Color result link in Chart
-        styleComdirectLink="style=\"font-size:xx-large; color:black\""
+        styleComdirectLink="style=\"font-size:50px; color:black\""
         # Red link only for stocks that are marked as own stocks
         if [ "$markerOwnStock" = '*' ] &&
            {
@@ -597,7 +597,7 @@ do
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] ||
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
-            styleComdirectLink="style=\"font-size:xx-large; color:red\""
+            styleComdirectLink="style=\"font-size:50px; color:red\""
         fi
 
         if 
@@ -607,7 +607,7 @@ do
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
-            styleComdirectLink="style=\"font-size:xx-large; color:green\""
+            styleComdirectLink="style=\"font-size:50px; color:green\""
         fi
 
         ID_NOTATION=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
