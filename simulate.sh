@@ -16,10 +16,10 @@
 OUT_SIMULATE_FILE="out/_simulate.txt"
 rm -rf "$OUT_SIMULATE_FILE"
 
-#                                                        SYMBOL
+#                                                        SYMBOLS
 #                                                             AMOUNT_PER_TRADE
-#                                                                  RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE
-#                                                                       STOCH_SELL_LEVEL INCREMENT_PER_TRADE
+#                                                                  RSI_BUY_LEVEL
+#                                                                       STOCH_SELL_LEVEL
 #                                                                            INCREMENT_PER_TRADE
 X_TIMES_AMOUNT_PER_TRADE=$(echo "$2" | awk '{print $1 * 2}')
 ./simulate/simulate-buyRSILowDivergent-sellHighStoch.sh "$1" "$X_TIMES_AMOUNT_PER_TRADE" "$3" "$4" "$5"

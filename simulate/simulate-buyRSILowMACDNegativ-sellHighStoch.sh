@@ -32,6 +32,8 @@ export winOverall=0
 walletOverAll=0
 
 
+#echo "<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" type="image/ico" href="favicon.ico" /><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
+
 echo "" | tee -a $OUT_SIMULATE_FILE
 echo "# Simulate BuyRSILowMACDNegativ SellHighStoch" | tee -a $OUT_SIMULATE_FILE
 echo "#############################################" | tee -a $OUT_SIMULATE_FILE
@@ -149,4 +151,8 @@ creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
     creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h
 fi
+#echo "<br>" >> $OUT_SIMULATE_FILE
 echo "Good Luck! Donate? $creationDate" | tee -a $OUT_SIMULATE_FILE
+
+#echo "</body></html>" >> $OUT_SIMULATE_FILE
+#cp $OUT_SIMULATE_FILE $OUT_SIMULATE_FILE.html
