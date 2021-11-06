@@ -59,7 +59,7 @@ do
     amountPerTrade=$amountPerTradeParam
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
     echo "" | tee -a $OUT_SIMULATE_FILE
-    echo "$symbol $symbolName" | tee -a $OUT_SIMULATE_FILE
+    echo "$symbol $symbolName file:///D:/code/stock-analyse/out/$symbol.html" | tee -a $OUT_SIMULATE_FILE
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
