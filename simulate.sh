@@ -8,12 +8,13 @@
 # 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 91
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # Call example: ./simulate.sh 'BEI ALV' 2000 25 91 1.1
+# Call example: ./simulate.sh 'BEI ALV' 2500 10 96 1.01
 # Grep output to find symbols: grep Position:100 out/_simulate.txt
 
 # Debug mode
 #set -x
 
-OUT_SIMULATE_FILE="out/_simulate.txt"
+OUT_SIMULATE_FILE="out/_simulate.html"
 rm -rf "$OUT_SIMULATE_FILE"
 
 #                                                        SYMBOLS

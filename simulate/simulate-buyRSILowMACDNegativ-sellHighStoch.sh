@@ -9,9 +9,14 @@
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI ALV' 2000 25 91 1.1
 # Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1
+# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01
 
 # Debug mode
 #set -x
+
+# Import
+# shellcheck disable=SC1091
+. ./script/functions.sh
 
 # Parameter
 symbolsParam=$1
@@ -23,7 +28,7 @@ incrementPerTradeParam=$5
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
 
-OUT_SIMULATE_FILE="out/_simulate.txt"
+OUT_SIMULATE_FILE="out/_simulate.html"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 
 #rm -rf "$OUT_SIMULATE_FILE"
@@ -31,24 +36,21 @@ sellAmountOverAll=0
 export winOverall=0
 walletOverAll=0
 
+echo "<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" type="image/ico" href="favicon.ico" /><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
 
-#echo "<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" type="image/ico" href="favicon.ico" /><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
-
-echo "" | tee -a $OUT_SIMULATE_FILE
-echo "# Simulate BuyRSILowMACDNegativ SellHighStoch" | tee -a $OUT_SIMULATE_FILE
-echo "#############################################" | tee -a $OUT_SIMULATE_FILE
-echo "" | tee -a $OUT_SIMULATE_FILE
-echo "# Parameter" | tee -a $OUT_SIMULATE_FILE
+Out "" $OUT_SIMULATE_FILE
+Out "# Simulate BuyRSILowMACDNegativ SellHighStoch" $OUT_SIMULATE_FILE
+Out "#############################################" $OUT_SIMULATE_FILE
+Out "" $OUT_SIMULATE_FILE
+Out "# Parameter" $OUT_SIMULATE_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
-echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_SIMULATE_FILE
-echo "Amount per Trade:$amountPerTradeParam€" | tee -a $OUT_SIMULATE_FILE
-echo "RSI buy Level:$RSIBuyLevelParam" | tee -a $OUT_SIMULATE_FILE
-echo "Stoch sell Level:$StochSellLevelParam" | tee -a $OUT_SIMULATE_FILE
-echo "Increment per Trade:$incrementPerTradeParam" | tee -a $OUT_SIMULATE_FILE
-echo "" | tee -a $OUT_SIMULATE_FILE
-
-echo "# Simulation" | tee -a $OUT_SIMULATE_FILE
+Out "Symbols($countSymbols):$symbolsParam" $OUT_SIMULATE_FILE
+Out "Amount per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
+Out "RSI buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
+Out "Stoch sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
+Out "Increment per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
+Out "" $OUT_SIMULATE_FILE
 
 # Simulate stock for each symbol
 for symbol in $symbolsParam
@@ -60,8 +62,10 @@ do
     piecesHold=0
     amountPerTrade=$amountPerTradeParam
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
-    echo "" | tee -a $OUT_SIMULATE_FILE
-    echo "$symbol $symbolName file:///D:/code/stock-analyse/out/$symbol.html" | tee -a $OUT_SIMULATE_FILE
+    Out "" $OUT_SIMULATE_FILE
+
+    CreateCmdHyperlink "Simulation"
+    echo "<a href=\"file:///""$_directory""/out/""$symbol"".html\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
@@ -87,8 +91,7 @@ do
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
-            echo -e "Buy\tPosition:$RSIindex\t""$piecesPerTrade""pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
-
+            Out "Buy\tPosition:$RSIindex\t""$piecesPerTrade""pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€\tSymbol:$symbol" $OUT_SIMULATE_FILE
             buyingDay=$((buyingDay + RSIindex))
             amountOfTrades=$((amountOfTrades + 1))            
         fi
@@ -99,7 +102,7 @@ do
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
-            echo -e "Sell\tPosition:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
+            Out "Sell\tPosition:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" $OUT_SIMULATE_FILE
             sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
@@ -107,7 +110,7 @@ do
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
             wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-            echo "Intermediate Win=$wallet€ Proz=$intermediateProzWin% Average holding days=$averageHoldingDays days" | tee -a $OUT_SIMULATE_FILE
+            Out "Intermediate Win=$wallet€ Proz=$intermediateProzWin% Average holding days=$averageHoldingDays days" $OUT_SIMULATE_FILE
             simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
             piecesHold=0
             wallet=0
@@ -121,38 +124,37 @@ do
     # Sell all on the last day, to get gid of all stocks for simulation
     if [ "$piecesHold" -gt 0 ]; then
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
-        echo "Sell all on the last day!!" | tee -a $OUT_SIMULATE_FILE
+        Out "Sell all on the last day!!" $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         quoteAt=$(printf "%.2f" "$quoteAt")
-        echo -e "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" | tee -a $OUT_SIMULATE_FILE
+        Out "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" $OUT_SIMULATE_FILE
         sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
         intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
         intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
-        echo "Intermediate Win=$wallet€ Proz=$intermediateProzWin%" | tee -a $OUT_SIMULATE_FILE
+        Out "Intermediate Win=$wallet€ Proz=$intermediateProzWin%" $OUT_SIMULATE_FILE
         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')  
     fi
 
-    echo "---------------" | tee -a $OUT_SIMULATE_FILE
-    echo "SellAmount=$sellAmountOverAll€" | tee -a $OUT_SIMULATE_FILE
-    echo "Simulation Win=$simulationWin€" | tee -a $OUT_SIMULATE_FILE
+    Out "---------------" $OUT_SIMULATE_FILE
+    Out "SellAmount=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+    Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
     winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
-    echo "" | tee -a $OUT_SIMULATE_FILE
+    Out "" $OUT_SIMULATE_FILE
 done
 
-echo "" | tee -a $OUT_SIMULATE_FILE
-echo "===============" | tee -a $OUT_SIMULATE_FILE
-echo "SellAmount=$sellAmountOverAll€" | tee -a $OUT_SIMULATE_FILE
-echo "Win overall=$winOverAll€" | tee -a $OUT_SIMULATE_FILE
-echo "Wallet overall=$walletOverAll€" | tee -a $OUT_SIMULATE_FILE
-echo "" | tee -a $OUT_SIMULATE_FILE
-echo "" | tee -a $OUT_SIMULATE_FILE
+Out "" $OUT_SIMULATE_FILE
+Out "===============" $OUT_SIMULATE_FILE
+Out "SellAmount=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Win overall=$winOverAll€" $OUT_SIMULATE_FILE
+Out "Wallet overall=$walletOverAll€" $OUT_SIMULATE_FILE
+Out "" $OUT_SIMULATE_FILE
+Out "" $OUT_SIMULATE_FILE
+
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
     creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h
 fi
-#echo "<br>" >> $OUT_SIMULATE_FILE
-echo "Good Luck! Donate? $creationDate" | tee -a $OUT_SIMULATE_FILE
 
-#echo "</body></html>" >> $OUT_SIMULATE_FILE
-#cp $OUT_SIMULATE_FILE $OUT_SIMULATE_FILE.html
+Out "Good Luck! Donate? $creationDate" $OUT_SIMULATE_FILE
+echo "</body></html>" >> $OUT_SIMULATE_FILE

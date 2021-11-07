@@ -1,6 +1,16 @@
 name: Simulate
 
 on:
+  schedule:
+  # Every 20 minutes
+  #- cron: "*/20 * * * *"
+  # At 13:00, every Sunday 
+  - cron: "0 13 * * 0"
+  # At 05:00 on Mon, Tue, Wed, Thr, Fri (MEST: run is 2 hours delayed: --> 7:00)
+  #- cron: "0 5 * * 1,2,3,4,5"
+  # At 04:00 on Tue, Wed, Thr, Fri, Sat (MEST: run is 3 hours delayed: --> 7:00)
+  #- cron: "0 4 * * 2,3,4,5,6"
+
   # Can be triggered with cURL
   #repository_dispatch:
     #types: [simulate] 
@@ -32,7 +42,7 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW (175). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
+          #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW (300). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           ownSymbolsVar=$(echo "$ownSymbolsVar" | sed 's/*//g')

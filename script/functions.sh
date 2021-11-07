@@ -273,10 +273,12 @@ WriteComdirectUrlAndStoreFileList() {
     fi
 }
 
-# CreateCmdAnalyseHyperlink function:
+# CreateCmdHyperlink function:
 # Write file Hyperlink in CMD, Only works for windows
-CreateCmdAnalyseHyperlink() {
-    _outputText="# Analyse $symbol $symbolName"
+CreateCmdHyperlink() {
+    _hyperlinkParam=$1
+
+    _outputText="# $_hyperlinkParam $symbol $symbolName"
     if [ "$(uname)" = 'Linux' ]; then
         echo "$_outputText"
     else
@@ -288,4 +290,14 @@ CreateCmdAnalyseHyperlink() {
         # shellcheck disable=SC3037
         echo -e "\e]8;;file:///""$_directory""/out/""$symbol"".html\a$_outputText\e]8;;\a"
     fi
+}
+
+# Out function:
+# Write to console and file
+Out() {
+    _textParam=$1
+    _outFileParam=$2
+
+    echo -e $_textParam | tee -a $_outFileParam
+    echo "<br>" >> $_outFileParam
 }
