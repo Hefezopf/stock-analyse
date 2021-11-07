@@ -66,7 +66,7 @@ jobs:
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
-          git add out/_simulate.txt
+          git add out/_simulate.html
           git commit -am "Github Result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
 
@@ -79,7 +79,7 @@ jobs:
           password: ${{secrets.MAIL_PASSWORD}}          
           subject: Simulate Result ${{github.event_name}} ${{github.event.action}}
           # Read file contents as body:
-          body: file://out/_simulate.txt
+          body: file://out/_simulate.html
           to: ${{secrets.MAIL_ADRESS}}
           from: Github stock-analyse # <githubÄhopf-...de>
           # Optional content type (defaults to text/plain):
