@@ -87,7 +87,6 @@ do
             # Buy on new lows
             newLower=$(echo "$quoteAt" "$lastLowestQuoteAt" | awk '{if ($1 < $2) print "true"; else print "false"}')
             if [ "$newLower" = true ]; then
-
                 piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
                 amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
                 piecesPerTrade=${piecesPerTrade%.*}
@@ -131,7 +130,6 @@ do
 
             lastLowestQuoteAt=$QUOTE_MAX_VALUE
             RSIBuyLevelParam=$3
-
         fi
         RSIindex=$((RSIindex + 1))    
     done
