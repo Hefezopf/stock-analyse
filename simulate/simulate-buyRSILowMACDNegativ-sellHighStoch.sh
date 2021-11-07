@@ -97,8 +97,10 @@ do
                     piecesPerTrade=1
                 fi
                 amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
+                amount=$(printf "%.0f" "$amount")
                 piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
                 wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
+                wallet=$(printf "%.0f" "$wallet")
                 quoteAt=$(printf "%.2f" "$quoteAt")
                 Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmnt:$amount€\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
                 buyingDay=$((buyingDay + RSIindex))
@@ -114,6 +116,7 @@ do
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         if [ "$piecesHold" -gt 0 ]; then                    
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
+            amount=$(printf "%.0f" "$amount")
             quoteAt=$(printf "%.2f" "$quoteAt")
             sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
@@ -131,8 +134,9 @@ do
                 # NOT Sell, if would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then     
                     wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
+                    wallet=$(printf "%.0f" "$wallet")
                     Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmnt:$amount€" $OUT_SIMULATE_FILE
-                    Out "Intermediate Win=$wallet€ Proz=$intermediateProzWin% Avg Holding Days=$averageHoldingDays days" $OUT_SIMULATE_FILE
+                    Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Avg Holding Days=$averageHoldingDays days" $OUT_SIMULATE_FILE
                     simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
                     piecesHold=0
                     wallet=0
@@ -159,14 +163,16 @@ do
         intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
         intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
-        Out "Intermediate Win=$wallet€ Proz=$intermediateProzWin%" $OUT_SIMULATE_FILE
+        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin%" $OUT_SIMULATE_FILE
         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}') 
         lastLowestQuoteAt=$QUOTE_MAX_VALUE 
         RSIBuyLevelParam=$3
     fi
 
     Out "---------------" $OUT_SIMULATE_FILE
+    sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
     Out "Sell Amount=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+    simulationWin=$(printf "%.0f" "$simulationWin")
     Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
     winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
     Out "" $OUT_SIMULATE_FILE
