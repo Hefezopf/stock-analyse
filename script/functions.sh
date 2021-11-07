@@ -299,6 +299,10 @@ Out() {
     _outFileParam=$2
     _e=$3
 
-    echo $_e $_textParam | tee -a $_outFileParam
+    if [ "$_e" = true ]; then
+        echo -e $_textParam | tee -a $_outFileParam
+    else
+        echo $_textParam | tee -a $_outFileParam
+    fi
     echo "<br>" >> $_outFileParam
 }
