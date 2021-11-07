@@ -65,7 +65,8 @@ do
     Out "" $OUT_SIMULATE_FILE
 
     CreateCmdHyperlink "Simulation"
-    echo "<a href=\"file:///""$_directory""/out/""$symbol"".html\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
+    echo "<a href=http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
+    #echo "<a href=\"file:///""$_directory""/out/""$symbol"".html\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
