@@ -102,7 +102,7 @@ do
                 wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
                 wallet=$(printf "%.0f" "$wallet")
                 quoteAt=$(printf "%.2f" "$quoteAt")
-                Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmnt:$amount€\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
+                Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount:$amount€\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
                 buyingDay=$((buyingDay + RSIindex))
                 amountOfTrades=$((amountOfTrades + 1)) 
 
@@ -135,8 +135,8 @@ do
                     wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
                     wallet=$(printf "%.0f" "$wallet")
                     sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
-                    Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmnt:$amount€" $OUT_SIMULATE_FILE
-                    Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Avg Holding Days=$averageHoldingDays days" $OUT_SIMULATE_FILE
+                    Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmount:$amount€" $OUT_SIMULATE_FILE
+                    Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Avg Holding Days=$averageHoldingDaysDays" $OUT_SIMULATE_FILE
                     simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
                     piecesHold=0
                     wallet=0
@@ -169,7 +169,7 @@ do
         RSIBuyLevelParam=$3
     fi
 
-    Out "---------------" $OUT_SIMULATE_FILE
+    Out "--------------------------" $OUT_SIMULATE_FILE
     Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
     Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
     winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
@@ -177,10 +177,9 @@ do
 done
 
 Out "" $OUT_SIMULATE_FILE
-Out "===============" $OUT_SIMULATE_FILE
+Out "==========================" $OUT_SIMULATE_FILE
 Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
-Out "Wallet Overall=$walletOverAll€" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
