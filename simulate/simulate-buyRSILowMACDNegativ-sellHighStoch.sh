@@ -131,21 +131,24 @@ do
             if [ "$isIntermediateProzWinGT" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
                 isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
                 # NOT Sell, if would be a negative trade
-                if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then     
-                    wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-                    wallet=$(printf "%.0f" "$wallet")
-                    sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
-                    Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmount:$amount€" $OUT_SIMULATE_FILE
-                    Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Avg Holding Days=$averageHoldingDaysDays" $OUT_SIMULATE_FILE
-                    simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
-                    piecesHold=0
-                    wallet=0
-                    amountPerTrade="$amountPerTradeParam"
-                    amountOfTrades=0
-                    buyingDay=0
+                if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
+                    # ONLY Sell, if percent is over 1%
+                    if [ "$isIntermediateProzWinGT" -gt 1 ]; then                   
+                        wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
+                        wallet=$(printf "%.0f" "$wallet")
+                        sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
+                        Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmount:$amount€" $OUT_SIMULATE_FILE
+                        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Avg Holding Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
+                        simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
+                        piecesHold=0
+                        wallet=0
+                        amountPerTrade="$amountPerTradeParam"
+                        amountOfTrades=0
+                        buyingDay=0
 
-                    lastLowestQuoteAt=$QUOTE_MAX_VALUE
-                    RSIBuyLevelParam=$3
+                        lastLowestQuoteAt=$QUOTE_MAX_VALUE
+                        RSIBuyLevelParam=$3
+                    fi
                 fi
             fi
         fi
@@ -158,7 +161,7 @@ do
         Out "Sell all on the last day!!" $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         quoteAt=$(printf "%.2f" "$quoteAt")
-        Out "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tAmnt=$amount€" $OUT_SIMULATE_FILE
+        Out "Sell\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tAmnt=$amount€" $OUT_SIMULATE_FILE
         sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
         intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
         intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
