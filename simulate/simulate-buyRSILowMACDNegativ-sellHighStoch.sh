@@ -92,7 +92,7 @@ do
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
-            Out "Buy\tPosition:$RSIindex\t""$piecesPerTrade""pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€\tSymbol:$symbol" $OUT_SIMULATE_FILE true
+            Out "Buy\tPosition:$RSIindex\t""$piecesPerTrade""pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount=$amount€\tpiecesHold=$piecesHold\tWallet=$wallet€\tSymbol:$symbol" $OUT_SIMULATE_FILE
             buyingDay=$((buyingDay + RSIindex))
             amountOfTrades=$((amountOfTrades + 1))            
         fi
@@ -103,7 +103,7 @@ do
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
-            Out "Sell\tPosition:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" $OUT_SIMULATE_FILE true
+            Out "Sell\tPosition:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" $OUT_SIMULATE_FILE
             sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
@@ -128,7 +128,7 @@ do
         Out "Sell all on the last day!!" $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         quoteAt=$(printf "%.2f" "$quoteAt")
-        Out "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" $OUT_SIMULATE_FILE true
+        Out "Sell\t""$piecesHold""pc\tQuote:$quoteAt€\tSellAmount=$amount€\tSymbol:$symbol" $OUT_SIMULATE_FILE
         sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
         intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
         intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
