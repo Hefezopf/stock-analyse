@@ -58,11 +58,12 @@ jobs:
           RSIBuyLevelVar=20
           StockSellLevelVar=91
           incrementPerTradeVar=1.01
+          sellIfOverPercentageParam=5
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh
 
-          sh ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar"
+          sh ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageParam"
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"

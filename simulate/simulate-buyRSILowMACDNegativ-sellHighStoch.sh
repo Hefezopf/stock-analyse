@@ -7,9 +7,10 @@
 # 3. Parameter: RSI_BUY_LEVEL: RSI level when the buying trade will be trigged: like 25
 # 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 91
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
-# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI ALV' 2000 25 91 1.1
-# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1
-# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01
+# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
+# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI ALV' 2000 25 91 1.1 5
+# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 5
+# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01 5
 
 # Debug mode
 #set -x
@@ -24,6 +25,7 @@ amountPerTradeParam=$2
 RSIBuyLevelParam=$3
 StochSellLevelParam=$4
 incrementPerTradeParam=$5
+sellIfOverPercentageParam=$6
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -51,6 +53,7 @@ Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
 Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
 Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
 Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
+Out "Sell if over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 # Simulate stock for each symbol
@@ -122,8 +125,8 @@ do
             if [ "$isIntermediateProzWinGT" = '-' ]; then 
                 isIntermediateProzWinGT=0
             fi
-            # Sell at 5 Percent otr if over Stoch Level
-            if [ "$isIntermediateProzWinGT" -gt '5' ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
+            # Sell at 5 Percent or, if over Stoch Level
+            if [ "$isIntermediateProzWinGT" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
                 isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
                 # NOT Sell, if would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then     
