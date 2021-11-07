@@ -118,7 +118,6 @@ do
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             amount=$(printf "%.0f" "$amount")
             quoteAt=$(printf "%.2f" "$quoteAt")
-            sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
             averageHoldingDays=$(printf "%.1f" "$averageHoldingDays")
@@ -135,6 +134,7 @@ do
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then     
                     wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
                     wallet=$(printf "%.0f" "$wallet")
+                    sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
                     Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmnt:$amount€" $OUT_SIMULATE_FILE
                     Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Avg Holding Days=$averageHoldingDays days" $OUT_SIMULATE_FILE
                     simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
@@ -170,9 +170,7 @@ do
     fi
 
     Out "---------------" $OUT_SIMULATE_FILE
-    sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
-    Out "Sell Amount=$sellAmountOverAll€" $OUT_SIMULATE_FILE
-    simulationWin=$(printf "%.0f" "$simulationWin")
+    Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
     Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
     winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
     Out "" $OUT_SIMULATE_FILE
@@ -180,7 +178,7 @@ done
 
 Out "" $OUT_SIMULATE_FILE
 Out "===============" $OUT_SIMULATE_FILE
-Out "Sell Amount=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
 Out "Wallet Overall=$walletOverAll€" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
