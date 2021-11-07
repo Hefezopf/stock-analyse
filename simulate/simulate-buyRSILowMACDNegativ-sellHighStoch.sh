@@ -30,6 +30,7 @@ export LC_ALL=en_US.UTF-8
 
 OUT_SIMULATE_FILE="out/_simulate.html"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
+QUOTE_MAX_VALUE=999999
 
 #rm -rf "$OUT_SIMULATE_FILE"
 sellAmountOverAll=0
@@ -55,6 +56,7 @@ Out "" $OUT_SIMULATE_FILE
 # Simulate stock for each symbol
 for symbol in $symbolsParam
 do
+    lastLowestQuoteAt=$QUOTE_MAX_VALUE
     amountOfTrades=0
     buyingDay=0
     wallet=0
@@ -65,8 +67,7 @@ do
     Out "" $OUT_SIMULATE_FILE
 
     CreateCmdHyperlink "Simulation"
-    echo "<a href=http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
-    #echo "<a href=\"file:///""$_directory""/out/""$symbol"".html\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
+    echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
@@ -82,19 +83,28 @@ do
         isMACDNegativ=$(echo "$MACDAt" | awk '{print substr ($0, 0, 1)}')
         if [ "$valueRSI" -lt "$RSIBuyLevelParam" ] && [ "$isMACDNegativ" = '-' ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
-            piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
-            amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
-            piecesPerTrade=${piecesPerTrade%.*}
-            if [ "$piecesPerTrade" -eq 0 ]; then
-                piecesPerTrade=1
-            fi
-            amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
-            piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
-            wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-            quoteAt=$(printf "%.2f" "$quoteAt")
-            Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmnt:$amount€\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
-            buyingDay=$((buyingDay + RSIindex))
-            amountOfTrades=$((amountOfTrades + 1))            
+
+            # Buy on new lows
+            newLower=$(echo "$quoteAt" "$lastLowestQuoteAt" | awk '{if ($1 < $2) print "true"; else print "false"}')
+            if [ "$newLower" = true ]; then
+
+                piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
+                amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
+                piecesPerTrade=${piecesPerTrade%.*}
+                if [ "$piecesPerTrade" -eq 0 ]; then
+                    piecesPerTrade=1
+                fi
+                amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
+                piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
+                wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
+                quoteAt=$(printf "%.2f" "$quoteAt")
+                Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmnt:$amount€\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
+                buyingDay=$((buyingDay + RSIindex))
+                amountOfTrades=$((amountOfTrades + 1)) 
+
+                lastLowestQuoteAt="$quoteAt" 
+            fi     
+            RSIBuyLevelParam=100              
         fi
 
         # Sell
@@ -118,6 +128,10 @@ do
             amountPerTrade="$amountPerTradeParam"
             amountOfTrades=0
             buyingDay=0
+
+            lastLowestQuoteAt=$QUOTE_MAX_VALUE
+            RSIBuyLevelParam=$3
+
         fi
         RSIindex=$((RSIindex + 1))    
     done
@@ -134,7 +148,9 @@ do
         intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
         Out "Intermediate Win=$wallet€ Proz=$intermediateProzWin%" $OUT_SIMULATE_FILE
-        simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')  
+        simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}') 
+        lastLowestQuoteAt=$QUOTE_MAX_VALUE 
+        RSIBuyLevelParam=$3
     fi
 
     Out "---------------" $OUT_SIMULATE_FILE
