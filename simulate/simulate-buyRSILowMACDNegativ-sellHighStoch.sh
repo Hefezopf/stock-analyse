@@ -46,10 +46,10 @@ Out "# Parameter" $OUT_SIMULATE_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 Out "Symbols($countSymbols):$symbolsParam" $OUT_SIMULATE_FILE
-Out "Amount per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
-Out "RSI buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
-Out "Stoch sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
-Out "Increment per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
+Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
+Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
+Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
+Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 # Simulate stock for each symbol
@@ -92,7 +92,7 @@ do
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
-            Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmnt:$amount€\tpieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
+            Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmnt:$amount€\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
             buyingDay=$((buyingDay + RSIindex))
             amountOfTrades=$((amountOfTrades + 1))            
         fi
@@ -111,7 +111,7 @@ do
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
             wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-            Out "Intermediate Win=$wallet€ Proz=$intermediateProzWin% Avg holding days=$averageHoldingDays days" $OUT_SIMULATE_FILE
+            Out "Intermediate Win=$wallet€ Proz=$intermediateProzWin% Avg Holding Days=$averageHoldingDays days" $OUT_SIMULATE_FILE
             simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
             piecesHold=0
             wallet=0
@@ -138,7 +138,7 @@ do
     fi
 
     Out "---------------" $OUT_SIMULATE_FILE
-    Out "SellAmount=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+    Out "Sell Amount=$sellAmountOverAll€" $OUT_SIMULATE_FILE
     Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
     winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
     Out "" $OUT_SIMULATE_FILE
@@ -146,9 +146,9 @@ done
 
 Out "" $OUT_SIMULATE_FILE
 Out "===============" $OUT_SIMULATE_FILE
-Out "SellAmount=$sellAmountOverAll€" $OUT_SIMULATE_FILE
-Out "Win overall=$winOverAll€" $OUT_SIMULATE_FILE
-Out "Wallet overall=$walletOverAll€" $OUT_SIMULATE_FILE
+Out "Sell Amount=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
+Out "Wallet Overall=$walletOverAll€" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
@@ -158,4 +158,5 @@ if [ "$(uname)" = 'Linux' ]; then
 fi
 
 Out "Good Luck! Donate? $creationDate" $OUT_SIMULATE_FILE
+Out "" $OUT_SIMULATE_FILE
 echo "</body></html>" >> $OUT_SIMULATE_FILE
