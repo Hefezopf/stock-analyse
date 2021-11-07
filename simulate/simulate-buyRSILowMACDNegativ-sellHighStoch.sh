@@ -112,24 +112,31 @@ do
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
             amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
             quoteAt=$(printf "%.2f" "$quoteAt")
-            Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmnt:$amount€" $OUT_SIMULATE_FILE
+            #Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmnt:$amount€" $OUT_SIMULATE_FILE
             sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
             averageHoldingDays=$(printf "%.1f" "$averageHoldingDays")
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
-            wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-            Out "Intermediate Win=$wallet€ Proz=$intermediateProzWin% Avg Holding Days=$averageHoldingDays days" $OUT_SIMULATE_FILE
-            simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
-            piecesHold=0
-            wallet=0
-            amountPerTrade="$amountPerTradeParam"
-            amountOfTrades=0
-            buyingDay=0
 
-            lastLowestQuoteAt=$QUOTE_MAX_VALUE
-            RSIBuyLevelParam=$3
+      #  wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
+            isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
+            if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then     
+                wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
+
+                Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmnt:$amount€" $OUT_SIMULATE_FILE
+                Out "Intermediate Win=$wallet€ Proz=$intermediateProzWin% Avg Holding Days=$averageHoldingDays days" $OUT_SIMULATE_FILE
+                simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
+                piecesHold=0
+                wallet=0
+                amountPerTrade="$amountPerTradeParam"
+                amountOfTrades=0
+                buyingDay=0
+
+                lastLowestQuoteAt=$QUOTE_MAX_VALUE
+                RSIBuyLevelParam=$3
+            fi
         fi
         RSIindex=$((RSIindex + 1))    
     done
