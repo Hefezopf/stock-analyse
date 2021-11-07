@@ -297,7 +297,8 @@ CreateCmdHyperlink() {
 Out() {
     _textParam=$1
     _outFileParam=$2
+    _e=$3
 
-    echo -e $_textParam | tee -a $_outFileParam
+    echo $_e $_textParam | tee -a $_outFileParam
     echo "<br>" >> $_outFileParam
 }
