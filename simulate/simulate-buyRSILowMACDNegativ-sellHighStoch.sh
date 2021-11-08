@@ -190,7 +190,7 @@ do
         winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
         prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
-        Out "Perc=$prozSimulationWinOverAll%" $OUT_SIMULATE_FILE
+        #Out "Perc=$prozSimulationWinOverAll%" $OUT_SIMULATE_FILE
     fi         
 done
 
