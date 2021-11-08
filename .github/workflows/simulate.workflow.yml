@@ -74,6 +74,13 @@ jobs:
           stockSymbolsVar=$(cat config/stock_symbols.txt)
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
 
+          amountPerTradeVar=2502
+          RSIBuyLevelVar=22
+          StockSellLevelVar=92
+          incrementPerTradeVar=1.2
+          sellIfOverPercentageVar=2
+          keepIfUnderPercentageVar=1
+
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
           RSIBuyLevelInput="${{github.event.inputs.RSIBuyLevelParam}}"
@@ -89,13 +96,6 @@ jobs:
           incrementPerTradeVar=${incrementPerTradeInput:-$incrementPerTradeVar}
           sellIfOverPercentageVar=${sellIfOverPercentageInput:-$sellIfOverPercentageVar}
           keepIfUnderPercentageVar=${keepIfUnderPercentageInput:-$keepIfUnderPercentageVar}
-
-          #amountPerTradeVar=2500
-          #RSIBuyLevelVar=20
-          #StockSellLevelVar=91
-          #incrementPerTradeVar=1.1
-          #sellIfOverPercentageVar=5
-          #keepIfUnderPercentageVar=1
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh
