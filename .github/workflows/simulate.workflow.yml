@@ -23,9 +23,30 @@ on:
         required: false
         default: ''
       amountPerTradeParam:
-        description: 'AMOUNT_PER_TRADE - "2500" means inititial Buy with 2500€'     
+        description: 'AMOUNT_PER_TRADE - "2500" means inititial Buy with 2500€'
         required: true
         default: '2500'
+      RSIBuyLevelParam:
+        description: 'RSI_BUY_LEVEL - "20" means Buy at 20'
+        required: true
+        default: '20'
+      StockSellLevelParam:
+        description: 'STOCH_SELL_LEVEL - "91" means sell at 91'
+        required: true
+        default: '91'
+      incrementPerTradeParam:
+        description: 'INCREMENT_PER_TRADE - "1.1" means 10% more per trade'
+        required: true
+        default: '1.1'
+      sellIfOverPercentageParam:
+        description: 'SELL_IF_OVER_PERCENTAGE - "5" means sell all, if gain is 5% or more'
+        required: true
+        default: '5'
+      keepIfUnderPercentageParam:
+        description: 'KEEP_IF_UNDER_PERCENTAGE - "1" means do NOT sell, if only 1% gain'
+        required: true
+        default: '1'
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -55,17 +76,26 @@ jobs:
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
+          RSIBuyLevelInput="${{github.event.inputs.RSIBuyLevelParam}}"
+          StockSellLevelInput="${{github.event.inputs.StockSellLevelParam}}"
+          incrementPerTradeInput="${{github.event.inputs.incrementPerTradeParam}}"
+          sellIfOverPercentageInput="${{github.event.inputs.sellIfOverPercentageParam}}"
+          keepIfUnderPercentageInput="${{github.event.inputs.keepIfUnderPercentageParam}}"
           
           symbolsVar=${symbolsInput:-$symbolsVar}      
-          amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeInput}  
+          #amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeVar}  
+          #RSIBuyLevelVar=${RSIBuyLevelInput:-$RSIBuyLevelVar}  
+          #StockSellLevelVar=${StockSellLevelInput:-$StockSellLevelVar}  
+          #incrementPerTradeVar=${incrementPerTradeInput:-$incrementPerTradeVar}  
+          #sellIfOverPercentageVar=${sellIfOverPercentageInput:-$sellIfOverPercentageVar}  
+          #keepIfUnderPercentageVar=${keepIfUnderPercentageInput:-$keepIfUnderPercentageVar}  
 
           #amountPerTradeVar=2500
-          RSIBuyLevelVar=20
-          StockSellLevelVar=91
-          incrementPerTradeVar=1.1
-          sellIfOverPercentageVar=5
-          keepIfUnderPercentageVar=1
-
+          #RSIBuyLevelVar=20
+          #StockSellLevelVar=91
+          #incrementPerTradeVar=1.1
+          #sellIfOverPercentageVar=5
+          #keepIfUnderPercentageVar=1
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh
