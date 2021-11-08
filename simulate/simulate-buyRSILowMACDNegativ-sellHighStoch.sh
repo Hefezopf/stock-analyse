@@ -185,11 +185,16 @@ do
     Out "" $OUT_SIMULATE_FILE
 done
 
-Out "" $OUT_SIMULATE_FILE
+Out "# Parameter" $OUT_SIMULATE_FILE
+Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
+Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
+Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
+Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
+Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
+Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
 Out "==========================" $OUT_SIMULATE_FILE
 Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 Out "Sell On Last Day Amount Overall=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
-
 winOverAll=$(printf "%.0f" "$winOverAll")
 Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
 prozWinOverAll=$(echo "$winOverAll€ $sellAmountOverAll€" | awk '{print (($1 / $2 * 100))}')
