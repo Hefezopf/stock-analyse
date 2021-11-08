@@ -8,9 +8,10 @@
 # 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 91
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
-# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI ALV' 2000 25 91 1.1 5
-# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 5
-# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01 5
+# 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
+# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI ALV' 2000 25 91 1.1 5 1
+# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 5 1
+# Call example: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01 5 1
 
 # Debug mode
 #set -x
@@ -26,6 +27,7 @@ RSIBuyLevelParam=$3
 StochSellLevelParam=$4
 incrementPerTradeParam=$5
 sellIfOverPercentageParam=$6
+keepIfUnderPercentageParam=$7
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -33,6 +35,7 @@ export LC_ALL=en_US.UTF-8
 OUT_SIMULATE_FILE="out/_simulate.html"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 QUOTE_MAX_VALUE=999999
+RSI_MAX_VALUE=100
 
 #rm -rf "$OUT_SIMULATE_FILE"
 sellAmountOverAll=0
@@ -53,7 +56,8 @@ Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
 Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
 Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
 Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
-Out "Sell if over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
+Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
+Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 # Simulate stock for each symbol
@@ -108,7 +112,7 @@ do
 
                 lastLowestQuoteAt="$quoteAt" 
             fi     
-            RSIBuyLevelParam=100              
+            RSIBuyLevelParam=$RSI_MAX_VALUE              
         fi
 
         # Sell
@@ -133,7 +137,7 @@ do
                 # NOT Sell, if would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
                     # ONLY Sell, if percent is over 1%
-                    if [ "$isIntermediateProzWinGT" -gt 1 ]; then                   
+                    if [ "$isIntermediateProzWinGT" -gt "$keepIfUnderPercentageParam" ]; then                   
                         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
                         wallet=$(printf "%.0f" "$wallet")
                         sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
