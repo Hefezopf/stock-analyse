@@ -22,7 +22,10 @@ on:
         description: 'SYMBOLS - List of stock symbols like: "DBK BEI".'
         required: false
         default: ''
-
+      amountPerTradeParam:
+        description: 'AMOUNT_PER_TRADE - "2500" means inititial Buy with 2500€'     
+        required: true
+        default: '2500'
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -51,15 +54,18 @@ jobs:
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
-
+          amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
+          
           symbolsVar=${symbolsInput:-$symbolsVar}      
+          amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeInput}  
 
-          amountPerTradeVar=2500
+          #amountPerTradeVar=2500
           RSIBuyLevelVar=20
           StockSellLevelVar=91
           incrementPerTradeVar=1.1
           sellIfOverPercentageVar=5
           keepIfUnderPercentageVar=1
+
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh

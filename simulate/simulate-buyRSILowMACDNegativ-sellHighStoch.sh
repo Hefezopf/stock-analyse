@@ -106,7 +106,7 @@ do
                 wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
                 wallet=$(printf "%.0f" "$wallet")
                 quoteAt=$(printf "%.2f" "$quoteAt")
-                Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tRSI:$valueRSI\tQuote:$quoteAt€\tAmount:$amount€\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
+                Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tRSI:$valueRSI\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
                 buyingDay=$((buyingDay + RSIindex))
                 amountOfTrades=$((amountOfTrades + 1)) 
 
@@ -141,7 +141,7 @@ do
                         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
                         wallet=$(printf "%.0f" "$wallet")
                         sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
-                        Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tStoch:$stochAt\tQuote:$quoteAt€\tAmount:$amount€" $OUT_SIMULATE_FILE
+                        Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount:$amount€\tStoch:$stochAt" $OUT_SIMULATE_FILE
                         Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Avg Holding Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
                         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
                         piecesHold=0
@@ -186,6 +186,7 @@ done
 Out "" $OUT_SIMULATE_FILE
 Out "==========================" $OUT_SIMULATE_FILE
 Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+winOverAll=$(printf "%.0f" "$winOverAll")
 Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
