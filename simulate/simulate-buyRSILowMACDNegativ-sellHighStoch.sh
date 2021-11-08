@@ -59,7 +59,6 @@ Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
 Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
 Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
 Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
-Out "" $OUT_SIMULATE_FILE
 
 # Simulate stock for each symbol
 for symbol in $symbolsParam
@@ -167,31 +166,35 @@ do
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
         Out "Sell all on the last day!!" $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
+        amount=$(printf "%.0f" "$amount")
         quoteAt=$(printf "%.2f" "$quoteAt")
-        Out "Sell\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tAmnt=$amount€" $OUT_SIMULATE_FILE
+        Out "Sell\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€" $OUT_SIMULATE_FILE
         sellOnLastDayAmountOverAll=$(echo "$sellOnLastDayAmountOverAll $amount" | awk '{print ($1 + $2)}')
         sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
         intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
         intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
+        wallet=$(printf "%.0f" "$wallet")
         Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin%" $OUT_SIMULATE_FILE
         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}') 
         lastLowestQuoteAt=$QUOTE_MAX_VALUE 
         RSIBuyLevelParam=$3
     fi
 
-    Out "--------------------------" $OUT_SIMULATE_FILE
-    Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
-    Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
-    winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
-
-prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
-prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
-Out "Perc=$prozSimulationWinOverAll%" $OUT_SIMULATE_FILE
-    
-    Out "" $OUT_SIMULATE_FILE
+    isSimulationWinNull=$(echo "$simulationWin" | awk '{print substr ($0, 0, 1)}')
+    if [ ! "$isSimulationWinNull" = '0' ]; then
+        Out "--------------------------" $OUT_SIMULATE_FILE
+        Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+        simulationWin=$(printf "%.0f" "$simulationWin")
+        Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
+        winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
+        prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
+        prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
+        Out "Perc=$prozSimulationWinOverAll%" $OUT_SIMULATE_FILE
+    fi         
 done
 
+Out "" $OUT_SIMULATE_FILE
 Out "# Parameter" $OUT_SIMULATE_FILE
 Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
 Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
@@ -200,14 +203,15 @@ Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
 Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
 Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
 Out "==========================" $OUT_SIMULATE_FILE
+sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
 Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+sellOnLastDayAmountOverAll=$(printf "%.0f" "$sellOnLastDayAmountOverAll")
 Out "Still in Portfolio After Last Day=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
 Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
 prozWinOverAll=$(echo "$winOverAll $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
 prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
 Out "Perc=$prozWinOverAll%" $OUT_SIMULATE_FILE
-Out "" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
