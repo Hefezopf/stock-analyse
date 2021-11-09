@@ -60,6 +60,11 @@ Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
 Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
 Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
 
+#AARAYYYYYYYY
+declare -a ARRAY_BUY
+declare -a ARRAY_SELL
+#AARAYYYYYYYY
+
 # Simulate stock for each symbol
 for symbol in $symbolsParam
 do
@@ -111,6 +116,21 @@ do
                 amountOfTrades=$((amountOfTrades + 1)) 
 
                 lastLowestQuoteAt="$quoteAt" 
+
+#AARAYYYYYYYY
+for i in "${!ARRAY_BUY[@]}"; do
+    if [ "$i" -eq "$RSIindex" ]; then
+        valueArray="${ARRAY_BUY[i]}"
+        if [ "${ARRAY_BUY[i]}" = '' ]; then
+           echo iiiiiiiiiiiiii
+           valueArray=0
+        fi
+        amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
+    fi
+done
+ARRAY_BUY[RSIindex]=$amount
+#AARAYYYYYYYY
+             
             fi     
             RSIBuyLevelParam=$RSI_MAX_VALUE              
         fi
@@ -154,6 +174,20 @@ do
                         buyingDay=0
                         lastLowestQuoteAt=$QUOTE_MAX_VALUE
                         RSIBuyLevelParam=$3
+
+#AARAYYYYYYYY    
+for i in "${!ARRAY_SELL[@]}"; do
+    if [ "$i" -eq "$RSIindex" ]; then
+        valueArray="${ARRAY_SELL[i]}"
+        if [ "${ARRAY_SELL[i]}" = '' ]; then
+           valueArray=0
+        fi
+        amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
+    fi
+done           
+ARRAY_SELL[RSIindex]=$amount
+#AARAYYYYYYYY
+
                     fi
                 fi
             fi
@@ -193,6 +227,17 @@ do
         #Out "Perc=$prozSimulationWinOverAll%" $OUT_SIMULATE_FILE
     fi         
 done
+
+#AARAYYYYYYYY
+for i in "${!ARRAY_BUY[@]}"; do
+  echo "$i" Buy:"${ARRAY_BUY[i]}"
+done
+
+for j in "${!ARRAY_SELL[@]}"; do
+  echo "$j" Sell:"${ARRAY_SELL[j]}"
+done
+#AARAYYYYYYYY
+
 
 Out "" $OUT_SIMULATE_FILE
 Out "# Parameter" $OUT_SIMULATE_FILE
