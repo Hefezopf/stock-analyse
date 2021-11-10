@@ -60,11 +60,6 @@ Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
 Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
 Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
 
-#AARAYYYYYYYY
-#declare -a ARRAY_BUY
-#declare -a ARRAY_SELL
-#AARAYYYYYYYY
-
 # Simulate stock for each symbol
 for symbol in $symbolsParam
 do
@@ -198,19 +193,19 @@ ARRAY_SELL[RSIindex]=$amount
     # Sell all on the last day, to get gid of all stocks for simulation
     if [ "$piecesHold" -gt 0 ]; then
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
-        Out "Sell all on the last day!!" $OUT_SIMULATE_FILE
+        Out "Keep on the last day!!" $OUT_SIMULATE_FILE
         amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
         amount=$(printf "%.0f" "$amount")
         quoteAt=$(printf "%.2f" "$quoteAt")
-        Out "Sell\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€" $OUT_SIMULATE_FILE
+        Out "Keep\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€" $OUT_SIMULATE_FILE
         sellOnLastDayAmountOverAll=$(echo "$sellOnLastDayAmountOverAll $amount" | awk '{print ($1 + $2)}')
-        sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
-        intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
-        intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
-        wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
-        wallet=$(printf "%.0f" "$wallet")
-        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin%" $OUT_SIMULATE_FILE
-        simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}') 
+       # sellAmountOverAll=$(echo "$sellAmountOverAll $amount" | awk '{print ($1 + $2)}')
+      #  intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
+      #  intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
+      #  wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}') 
+      #  wallet=$(printf "%.0f" "$wallet")
+     #   Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin%" $OUT_SIMULATE_FILE
+   #     simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}') 
         lastLowestQuoteAt=$QUOTE_MAX_VALUE 
         RSIBuyLevelParam=$3
     fi
