@@ -122,7 +122,7 @@ for i in "${!ARRAY_BUY[@]}"; do
     if [ "$i" -eq "$RSIindex" ]; then
         valueArray="${ARRAY_BUY[i]}"
         if [ "${ARRAY_BUY[i]}" = '' ]; then
-           echo iiiiiiiiiiiiii
+           Out iiiiiiiiiiiiii
            valueArray=0
         fi
         amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
@@ -230,11 +230,11 @@ done
 
 #AARAYYYYYYYY
 for i in "${!ARRAY_BUY[@]}"; do
-  echo "$i" Buy:"${ARRAY_BUY[i]}"
+  Out "$i" Buy:"${ARRAY_BUY[i]}"
 done
 
 for j in "${!ARRAY_SELL[@]}"; do
-  echo "$j" Sell:"${ARRAY_SELL[j]}"
+  Out "$j" Sell:"${ARRAY_SELL[j]}"
 done
 #AARAYYYYYYYY
 
