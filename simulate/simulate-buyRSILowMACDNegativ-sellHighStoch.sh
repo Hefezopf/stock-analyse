@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/sh
 
 # This script simulates a given stock quote.
 # Call: simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE
@@ -118,7 +118,7 @@ do
                 lastLowestQuoteAt="$quoteAt" 
 
 #AARAYYYYYYYY
-for item in ${!ARRAY_BUY[@]}; do
+for item in ${ARRAY_BUY[@]}; do
   echo item $item
 done
 for i in "${!ARRAY_BUY[@]}"; do
