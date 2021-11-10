@@ -61,8 +61,8 @@ Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
 Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
 
 #AARAYYYYYYYY
-declare -a ARRAY_BUY
-declare -a ARRAY_SELL
+#declare -a ARRAY_BUY
+#declare -a ARRAY_SELL
 #AARAYYYYYYYY
 
 # Simulate stock for each symbol
