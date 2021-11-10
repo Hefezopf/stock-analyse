@@ -118,9 +118,6 @@ do
                 lastLowestQuoteAt="$quoteAt" 
 
 #AARAYYYYYYYY
-for item in ${ARRAY_BUY[@]}; do
-  echo item $item
-done
 for i in "${!ARRAY_BUY[@]}"; do
     if [ "$i" -eq "$RSIindex" ]; then
         valueArray="${ARRAY_BUY[i]}"
