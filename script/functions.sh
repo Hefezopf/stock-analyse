@@ -298,10 +298,10 @@ Out() {
     _textParam=$1
     _outFileParam=$2
 
-    if [ "$(uname)" = 'Linux' ]; then
-        echo $_textParam | tee -a $_outFileParam
-    else
+   # if [ "$(uname)" = 'Linux' ]; then
+  #      echo $_textParam | tee -a $_outFileParam
+  #  else
         echo -e $_textParam | tee -a $_outFileParam
-    fi
+   # fi
     echo "<br>" >> $_outFileParam
 }
