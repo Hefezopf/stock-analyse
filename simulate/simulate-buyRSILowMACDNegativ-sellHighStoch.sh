@@ -224,25 +224,27 @@ ARRAY_SELL[RSIindex]=$amount
 done
 
 #AARAYYYYYYYY
-for i in "${!ARRAY_BUY[@]}"; do
-  Out "$i Buy:${ARRAY_BUY[i]}" $OUT_SIMULATE_FILE
-done
+# for i in "${!ARRAY_BUY[@]}"; do
+#   Out "$i Buy:${ARRAY_BUY[i]}" $OUT_SIMULATE_FILE
+# done
 
-Out "" $OUT_SIMULATE_FILE
+# Out "" $OUT_SIMULATE_FILE
 
-for j in "${!ARRAY_SELL[@]}"; do
-  Out "$j Sell:-${ARRAY_SELL[j]}" $OUT_SIMULATE_FILE
-done
+# for j in "${!ARRAY_SELL[@]}"; do
+#   Out "$j Sell:-${ARRAY_SELL[j]}" $OUT_SIMULATE_FILE
+# done
 
-Out "" $OUT_SIMULATE_FILE
+# Out "" $OUT_SIMULATE_FILE
 
-for i in "${!ARRAY_SELL[@]}"; do
-    ARRAY_DIFF[i]="-${ARRAY_SELL[i]}"
-done
+
+# for i in "${!ARRAY_SELL[@]}"; do
+#     ARRAY_DIFF[i]="-${ARRAY_SELL[i]}"
+# done
+
 
 Out "" $OUT_SIMULATE_FILE
 #AARAYYYYYYYY
-
+# Copy all into Diff Array
 for i in "${!ARRAY_BUY[@]}"; do
     ARRAY_DIFF[i]="${ARRAY_BUY[i]}"
     for j in "${!ARRAY_SELL[@]}"; do
@@ -250,26 +252,29 @@ for i in "${!ARRAY_BUY[@]}"; do
             valueBuyArray="${ARRAY_BUY[i]}"
             valueSellArray="${ARRAY_SELL[i]}"
             amount=$(echo "$valueBuyArray $valueSellArray" | awk '{print ($1 - $2)}')
-            Out "----------Diff:$amount" $OUT_SIMULATE_FILE
+           # Out "----------Diff:$amount" $OUT_SIMULATE_FILE
             ARRAY_DIFF[i]=$amount
         fi
     done
 done    
 
-Out "" $OUT_SIMULATE_FILE
+# Out "" $OUT_SIMULATE_FILE
 
-for i in "${!ARRAY_DIFF[@]}"; do
-  Out "$i Diff:${ARRAY_DIFF[i]}" $OUT_SIMULATE_FILE
-done
+# # Output Diff Array
+# for i in "${!ARRAY_DIFF[@]}"; do
+#   Out "$i Diff:${ARRAY_DIFF[i]}" $OUT_SIMULATE_FILE
+# done
 
 Out "" $OUT_SIMULATE_FILE
 
 liquidity=0
+# Output Liquidity
 for i in "${!ARRAY_DIFF[@]}"; do
     valueDiffArray="${ARRAY_DIFF[i]}"
     liquidity=$(echo "$liquidity $valueDiffArray" | awk '{print ($1 - $2)}')
     Out "$i Liquidity:$liquidity" $OUT_SIMULATE_FILE
 done
+Out "Currently invested Liquidity (in Stocks):$liquidity" $OUT_SIMULATE_FILE
 #AARAYYYYYYYY
 
 
