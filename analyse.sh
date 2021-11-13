@@ -330,26 +330,11 @@ do
     DATA_DATE_FILE=data/$symbol.txt
     if [ "$queryParam" = 'online' ]; then
         tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-        # evenodd=$((tag % 5))
-        # if [ "$evenodd" -eq 0 ]; then
-        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY1
-        # fi
-        # if [ "$evenodd" -eq 1 ]; then
-        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY2
-        # fi
-        # if [ "$evenodd" -eq 2 ]; then
-        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY3
-        # fi
-        # if [ "$evenodd" -eq 3 ]; then
-        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY4
-        # fi
-        # if [ "$evenodd" -eq 4 ]; then
-        #     MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY5
-        # fi
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
-        curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
+        curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA&limit=100" | jq -jr '.data[]|.date, "T", .close, "T", .volume, "\n"' | awk -F'T' '{print $1 "\t" $3 "\t" $4}' > "$DATA_DATE_FILE"
+#        curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "$fileSize" -eq "0" ]; then
             echo "<br>" >> $OUT_RESULT_FILE
@@ -363,7 +348,29 @@ do
 
     CreateCmdHyperlink "Analyse"
 
-    #Check if 100 last quotes are availible, otherwise fill up to 100 
+
+lastVolumeInFile=$(head -1 "$DATA_DATE_FILE" | cut -f 3)
+lastVolume="MINI"
+if [ "$lastVolumeInFile" -gt 1000 ]; then
+    lastVolume="MINI"
+fi
+if [ "$lastVolumeInFile" -gt 10000 ]; then
+    lastVolume="SMALL"
+fi
+if [ "$lastVolumeInFile" -gt 100000 ]; then
+    lastVolume="MEDIUM"
+fi
+if [ "$lastVolumeInFile" -gt 1000000 ]; then
+   lastVolume="LARGE"
+fi
+if [ "$lastVolumeInFile" -gt 10000000 ]; then
+   lastVolume="EXTRA-LARGE"
+fi
+echo "<br>" >> $OUT_RESULT_FILE
+echo "Volume ("$lastVolumeInFile"): $lastVolume" | tee -a $OUT_RESULT_FILE
+
+
+    # Check if 100 last quotes are availible, otherwise fill up to 100 
     numOfQuotes=$(grep "" -c "$DATA_DATE_FILE")
     if [ "$numOfQuotes" -lt 100 ]; then
         echo "<br>" >> $OUT_RESULT_FILE
@@ -386,7 +393,7 @@ do
         echo "<br>" >> $OUT_RESULT_FILE
         echo "!!! $symbol NOT found in data/$symbol.txt" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
-        # continue with next symbol in the list
+        # Continue with next symbol in the list
         continue
     fi
     
@@ -736,7 +743,10 @@ do
         echo "<p class='p-result'>"
         echo "<span style='color:rgb(153, 102, 255)'>Tendency18:<b>""$tendency18""</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>""$tendency38""</b></span>"
-         echo "</p>"
+
+        echo "&nbsp;<span>Volume:<b>""$lastVolume""</b></span>"
+
+        echo "</p>"
 
         # Strategies output
         # Sell/Buy
