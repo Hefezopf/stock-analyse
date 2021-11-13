@@ -333,8 +333,8 @@ do
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
-        curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA&limit=100" | jq -jr '.data[]|.date, "T", .close, "T", .volume, "\n"' | awk -F'T' '{print $1 "\t" $3 "\t" $4}' > "$DATA_DATE_FILE"
-#        curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
+#        curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA&limit=100" | jq -jr '.data[]|.date, "T", .close, "T", .volume, "\n"' | awk -F'T' '{print $1 "\t" $3 "\t" $4}' > "$DATA_DATE_FILE"
+        curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${symbol}.XETRA&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "$fileSize" -eq "0" ]; then
             echo "<br>" >> $OUT_RESULT_FILE
@@ -349,25 +349,25 @@ do
     CreateCmdHyperlink "Analyse"
 
 
-lastVolumeInFile=$(head -1 "$DATA_DATE_FILE" | cut -f 3)
-lastVolume="MINI"
-if [ "$lastVolumeInFile" -gt 1000 ]; then
-    lastVolume="MINI"
-fi
-if [ "$lastVolumeInFile" -gt 10000 ]; then
-    lastVolume="SMALL"
-fi
-if [ "$lastVolumeInFile" -gt 100000 ]; then
-    lastVolume="MEDIUM"
-fi
-if [ "$lastVolumeInFile" -gt 1000000 ]; then
-   lastVolume="LARGE"
-fi
-if [ "$lastVolumeInFile" -gt 10000000 ]; then
-   lastVolume="EXTRA-LARGE"
-fi
-echo "<br>" >> $OUT_RESULT_FILE
-echo "Volume ("$lastVolumeInFile"): $lastVolume" | tee -a $OUT_RESULT_FILE
+# lastVolumeInFile=$(head -1 "$DATA_DATE_FILE" | cut -f 3)
+# lastVolume="MINI"
+# if [ "$lastVolumeInFile" -gt 1000 ]; then
+#     lastVolume="MINI"
+# fi
+# if [ "$lastVolumeInFile" -gt 10000 ]; then
+#     lastVolume="SMALL"
+# fi
+# if [ "$lastVolumeInFile" -gt 100000 ]; then
+#     lastVolume="MEDIUM"
+# fi
+# if [ "$lastVolumeInFile" -gt 1000000 ]; then
+#    lastVolume="LARGE"
+# fi
+# if [ "$lastVolumeInFile" -gt 10000000 ]; then
+#    lastVolume="EXTRA-LARGE"
+# fi
+# echo "<br>" >> $OUT_RESULT_FILE
+# echo "Volume ("$lastVolumeInFile"): $lastVolume" | tee -a $OUT_RESULT_FILE
 
 
     # Check if 100 last quotes are availible, otherwise fill up to 100 
@@ -743,9 +743,7 @@ echo "Volume ("$lastVolumeInFile"): $lastVolume" | tee -a $OUT_RESULT_FILE
         echo "<p class='p-result'>"
         echo "<span style='color:rgb(153, 102, 255)'>Tendency18:<b>""$tendency18""</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>""$tendency38""</b></span>"
-
-        echo "&nbsp;<span>Volume:<b>""$lastVolume""</b></span>"
-
+        #echo "&nbsp;<span>Volume:<b>""$lastVolume""</b></span>"
         echo "</p>"
 
         # Strategies output
