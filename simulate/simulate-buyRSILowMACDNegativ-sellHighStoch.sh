@@ -100,7 +100,8 @@ do
                 if [ "$piecesPerTrade" -eq 0 ]; then
                     piecesPerTrade=1
                 fi
-                amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
+                # 10 Euro Fees each Buy trade
+                amount=$(echo "$quoteAt $piecesPerTrade 10" | awk '{print ($1 * $2) + $3}')
                 amount=$(printf "%.0f" "$amount")
                 piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
                 wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
@@ -133,8 +134,9 @@ do
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
-        if [ "$piecesHold" -gt 0 ]; then                    
-            amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
+        if [ "$piecesHold" -gt 0 ]; then  
+            # 20 Euro Fees each Sell trade                  
+            amount=$(echo "$quoteAt $piecesHold 20" | awk '{print ($1 * $2) - $3}')
             amount=$(printf "%.0f" "$amount")
             quoteAt=$(printf "%.2f" "$quoteAt")
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
@@ -194,7 +196,8 @@ do
     if [ "$piecesHold" -gt 0 ]; then
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
         Out "Keep on the last day!!" $OUT_SIMULATE_FILE
-        amount=$(echo "$quoteAt $piecesHold" | awk '{print ($1 * $2)}')
+        # 30 Euro Fees each Last Day Sell trade  
+        amount=$(echo "$quoteAt $piecesHold 30" | awk '{print ($1 * $2) - $3}')
         amount=$(printf "%.0f" "$amount")
         quoteAt=$(printf "%.2f" "$quoteAt")
         Out "Keep\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount=$amount€" $OUT_SIMULATE_FILE
