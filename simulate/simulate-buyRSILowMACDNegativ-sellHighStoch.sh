@@ -87,8 +87,15 @@ do
     do
         # Buy
         MACDAt="$(echo "$historyMACDs" | cut -f "$RSIindex" -d ',')"
+        if [ "$RSIindex" -gt 2 ]; then
+            lastMACDAt="$(echo "$historyMACDs" | cut -f "$((RSIindex - 1))" -d ',')"
+            beforeLastMACDAt="$(echo "$historyMACDs" | cut -f "$((RSIindex - 2))" -d ',')"
+        fi
         isMACDNegativ=$(echo "$MACDAt" | awk '{print substr ($0, 0, 1)}')
-        if [ "$valueRSI" -lt "$RSIBuyLevelParam" ] && [ "$isMACDNegativ" = '-' ]; then
+        isLastMACDNegativ=$(echo "$lastMACDAt" | awk '{print substr ($0, 0, 1)}')
+        isbeforeLastMACDNegativ=$(echo "$beforeLastMACDAt" | awk '{print substr ($0, 0, 1)}')
+        # RSI low, last 3 MACD values negativ
+        if [ "$valueRSI" -lt "$RSIBuyLevelParam" ] && [ "$isMACDNegativ" = '-' ] && [ "$isLastMACDNegativ" = '-' ] && [ "$isbeforeLastMACDNegativ" = '-' ]; then
             quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
 
             # Buy on new lows
