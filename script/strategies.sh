@@ -14,6 +14,7 @@ StrategieUnderratedNewLow() {
     _symbolNameParam=$7
     _markerOwnStockParam=$8
     export resultStrategieUnderratedNewLow=""
+    export conditionNewLow=false
 
     newLow=$(echo "$_last" "$_beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
     if [ "$newLow" = true ]; then
@@ -113,7 +114,8 @@ StrategieUnderratedDivergenceRSI() {
     _lastQuoteParam=$7
     _beforeLastQuoteParam=$8
     _lastRSIParam=$9
-    _beforeLastRSIParam=${10} # 10th and more need {}
+    _lowestRSIParam=${10} # 10th and more need {}
+    _conditionNewLowParam=${11} # 11th and more need {}
     export resultStrategieUnderratedDivergenceRSI=""
 
     isMACDNegativ=$(echo "$_lastMACDParam" | awk '{print substr ($0, 0, 1)}')
@@ -121,11 +123,12 @@ StrategieUnderratedDivergenceRSI() {
     if [ "$isMACDNegativ" = '-' ]; then
 #    if [ "$_lastRSIParam" -lt "$_lowRSIValueParam" ] && [ "$isMACDNegativ" = '-' ]; then
 #DDDDD
-#echo _lastRSIParam $_lastRSIParam _beforeLastRSIParam $_beforeLastRSIParam
+#echo conditionNewLow "$conditionNewLow" _lastQuoteParam "$_lastQuoteParam" _beforeLastQuoteParam "$_beforeLastQuoteParam" _lastRSIParam "$_lastRSIParam" _lowestRSIParam "$_lowestRSIParam"
 
-        newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
+#if [ "$conditionNewLow" = true ]; then
+     #   newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
 #DDDDD        
-        if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_lowestRSI" ]; then # && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then 
+        if [ "$_conditionNewLowParam" = true ] && [ "$_lastRSIParam" -ge "$_lowestRSIParam" ]; then # && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then 
 #        if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_beforeLastRSIParam" ]; then # && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then 
 #DDDDD
             alarmAbbrevValue="D+"$alarmAbbrevValue

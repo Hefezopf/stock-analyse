@@ -52,7 +52,7 @@ RSIQuoteParam=$5
 
 # Prepare
 #DDDDD
-_lowestRSI=100
+lowestRSI=100
 #DDDDD
 rm -rf /dev/shm/tmp.*
 mkdir -p out
@@ -522,18 +522,19 @@ do
             StrategieUnderratedLowHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
         fi
 
-        # Buy Strategie: Divergence RSI
-        beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
-        beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
-        resultStrategieUnderratedDivergenceRSI=""
-        StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
-
         # Buy Strategie: New Low
         DATA_FILE_87="$(mktemp -p /dev/shm/)"
         head -n87 "$DATA_FILE" > "$DATA_FILE_87"
         commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
         resultStrategieUnderratedNewLow=""
+        conditionNewLow=false
         StrategieUnderratedNewLow 40 "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+
+        # Buy Strategie: Divergence RSI
+        beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
+        beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
+        resultStrategieUnderratedDivergenceRSI=""
+        StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lowestRSI" "$conditionNewLow"
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""

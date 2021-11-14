@@ -142,8 +142,8 @@ RSIOfDays() {
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
 
 #DDDDD
-if [ $lastRSIQuoteRounded -lt "$_lowestRSI" ]; then 
-    _lowestRSI=$lastRSIQuoteRounded
+if [ $lastRSIQuoteRounded -lt "$lowestRSI" ]; then 
+    lowestRSI=$lastRSIQuoteRounded
 fi
 #DDDDD
 

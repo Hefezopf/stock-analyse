@@ -102,23 +102,23 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
   StrategieUnderratedDivergenceRSI 
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
 
-  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "0" "99" "100" "20" "19"
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "0" "99" "100" "20" "100" "false"
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
   
-  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "100" "100" "20" "19"
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "100" "100" "20" "100" "true"
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
 
-  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "21"
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "25" "true"
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
-
-  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "30" "29"
-  [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
-
-  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "20"
-  [ "$resultStrategieUnderratedDivergenceRSI" == 'Buy: RSI Divergence (D)' ]
 
   resultStrategieUnderratedDivergenceRSI=""
-  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "19"
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "1" "false"
+  [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
+
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "30" "25" "true"
+  [ "$resultStrategieUnderratedDivergenceRSI" == 'Buy: RSI Divergence (D)' ]
+
+  StrategieUnderratedDivergenceRSI 25 "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*" "-1" "99" "100" "20" "1" "true"
   [ "$resultStrategieUnderratedDivergenceRSI" == 'Buy: RSI Divergence (D)' ]
 }
 
