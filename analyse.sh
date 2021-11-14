@@ -526,15 +526,16 @@ do
         DATA_FILE_87="$(mktemp -p /dev/shm/)"
         head -n87 "$DATA_FILE" > "$DATA_FILE_87"
         commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
+        beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
+        beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
         resultStrategieUnderratedNewLow=""
         conditionNewLow=false
         StrategieUnderratedNewLow 40 "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Divergence RSI
-        beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
-        beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
         resultStrategieUnderratedDivergenceRSI=""
-        StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lowestRSI" "$conditionNewLow"
+#echo SSSSlowestRSI "$lowestRSI" conditionNewLow "$conditionNewLow" 
+        StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$lowestRSI" "$conditionNewLow"
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""

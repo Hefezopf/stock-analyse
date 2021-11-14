@@ -143,7 +143,7 @@ RSIOfDays() {
 
 #DDDDD
 if [ $lastRSIQuoteRounded -lt "$lowestRSI" ]; then 
-    lowestRSI=$lastRSIQuoteRounded
+    lowestRSI="$lastRSIQuoteRounded"
 fi
 #DDDDD
 
