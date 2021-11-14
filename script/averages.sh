@@ -135,11 +135,18 @@ RSIOfDays() {
                 RSIQuote=100
             else
                 RSIQuote=$(echo "$RSIwinningDaysAvg $RSIloosingDaysAvg" | awk '{print 100-(100/(1+($1/$2)))}')
-                # slightly different algorithm, but almost no see not difference?!
+                # Slightly different algorithm, but almost see no difference?!
                 #RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
             fi
             beforeLastRSIQuoteRounded="$lastRSIQuoteRounded"
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
+
+#DDDDD
+if [ $lastRSIQuoteRounded -lt "$_lowestRSI" ]; then 
+    _lowestRSI=$lastRSIQuoteRounded
+fi
+#DDDDD
+
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
         i=$((i + 1))

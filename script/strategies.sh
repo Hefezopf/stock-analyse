@@ -117,9 +117,17 @@ StrategieUnderratedDivergenceRSI() {
     export resultStrategieUnderratedDivergenceRSI=""
 
     isMACDNegativ=$(echo "$_lastMACDParam" | awk '{print substr ($0, 0, 1)}')
-    if [ "$_lastRSIParam" -lt "$_lowRSIValueParam" ] && [ "$isMACDNegativ" = '-' ]; then
+#DDDDD
+    if [ "$isMACDNegativ" = '-' ]; then
+#    if [ "$_lastRSIParam" -lt "$_lowRSIValueParam" ] && [ "$isMACDNegativ" = '-' ]; then
+#DDDDD
+#echo _lastRSIParam $_lastRSIParam _beforeLastRSIParam $_beforeLastRSIParam
+
         newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
-        if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_beforeLastRSIParam" ]; then # && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then 
+#DDDDD        
+        if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_lowestRSI" ]; then # && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then 
+#        if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_beforeLastRSIParam" ]; then # && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then 
+#DDDDD
             alarmAbbrevValue="D+"$alarmAbbrevValue
             reasonPrefix="Buy: RSI Divergence (D)"
             resultStrategieUnderratedDivergenceRSI="$reasonPrefix"
