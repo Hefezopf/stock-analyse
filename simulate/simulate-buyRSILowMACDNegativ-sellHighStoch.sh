@@ -41,7 +41,7 @@ RSI_MAX_VALUE=100
 sellAmountOverAll=0
 sellOnLastDayAmountOverAll=0
 export winOverall=0
-walletOverAll=0
+#walletOverAll=0
 
 echo "<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" type="image/ico" href="favicon.ico" /><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
 
@@ -74,7 +74,7 @@ do
     Out "" $OUT_SIMULATE_FILE
 
     CreateCmdHyperlink "Simulation"
-    echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
+    echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
