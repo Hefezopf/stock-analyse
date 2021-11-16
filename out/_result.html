@@ -8,152 +8,146 @@
 <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
 <title>Result SA</title>
 <style>.green{color:green;} .red{color:red;} .black{color:black;}
- /* iphone 3 */
+/* iphone 3 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) {
 body > div {
-    font-size: xx-large;
+font-size: xx-large;
 }}
-        
+
 /* iphone 4 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 2) {
 body > div {
-    font-size: xx-large;
+font-size: xx-large;
 }}
 
 /* iphone 5 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
 body > div {
-    font-size: xx-large;
+font-size: xx-large;
 }}
 
 /* iphone 6, 6s, 7, 8 */
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
-    body > div {
-    font-size: xx-large;
+body > div {
+font-size: xx-large;
 }}
-    
+
 /* iphone 6+, 6s+, 7+, 8+ */
 @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) { body > div {
-    font-size: xx-large;
-  }}
+font-size: xx-large;
+}}
 
 /* iphone X , XS, 11 Pro, 12 Mini */
 @media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
-    body > div {
-    font-size: xx-large;
+body > div {
+font-size: xx-large;
 }}
 
 /* iphone 12, 12 Pro */
 @media only screen and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
-    body > div {
-    font-size: x-large;
+body > div {
+font-size: x-large;
 }}
 
 /* iphone XR, 11 */
 @media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 2) {body > div {
-    font-size: x-large;
-  } }
-    
+font-size: x-large;
+} }
+
 /* iphone XS Max, 11 Pro Max */
 @media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 3) {
-    body > div {
-    font-size: x-large;
+body > div {
+font-size: x-large;
 }}
 
 /* iphone 12 Pro Max */
 @media only screen and (min-device-width : 428px) and (max-device-height : 926px) and (-webkit-device-pixel-ratio : 3) {
-    body > div {
-    font-size: x-large;
+body > div {
+font-size: x-large;
 }}
 </style>
 </head>
 <body>
 <div>
 <script>
-    var token = 'ghp_' + 'ObTMA4E0iPaImN8UxFxVO0tg3Tu1d329UrOF';
-    function curlBuy(symbolParam, price, pieces) {
-        if(symbolParam == '' || price == '' || pieces == ''){
-            alert('Error: Symbol, Price or Pieces not set!');
-            return;
-        }
-        var price = price.replace(',', '.');
-        var pieces = pieces.replace('.', '');  
-        if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price).toFixed(0) + '€?') == false) {
-            return;
-        }
-        if(document.getElementById('intervalSectionInputPriceBuy'+symbolParam)){
-            document.getElementById('intervalSectionInputPriceBuy'+symbolParam).value = '';
-        }
-        if(document.getElementById('intervalSectionInputPiecesBuy'+symbolParam)){
-            document.getElementById('intervalSectionInputPiecesBuy'+symbolParam).value = '';
-        }        
-        document.getElementById('intervalSectionInputSymbolBuyGenerell').value = '';
-        document.getElementById('intervalSectionInputPriceBuyGenerell').value = '';
-        document.getElementById('intervalSectionInputPiecesBuyGenerell').value = '';
+var token = 'ghp_' + 'ObTMA4E0iPaImN8UxFxVO0tg3Tu1d329UrOF';
+function curlBuy(symbolParam, price, pieces) {
+if(symbolParam == '' || price == '' || pieces == ''){
+alert('Error: Symbol, Price or Pieces not set!');
+return;
+}
+var price = price.replace(',', '.');
+var pieces = pieces.replace('.', '');  
+if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price).toFixed(0) + '€?') == false) {
+return;
+}
+if(document.getElementById('intervalSectionInputPriceBuy'+symbolParam)){
+document.getElementById('intervalSectionInputPriceBuy'+symbolParam).value = '';
+}
+if(document.getElementById('intervalSectionInputPiecesBuy'+symbolParam)){
+document.getElementById('intervalSectionInputPiecesBuy'+symbolParam).value = '';
+}        
+document.getElementById('intervalSectionInputSymbolBuyGenerell').value = '';
+document.getElementById('intervalSectionInputPriceBuyGenerell').value = '';
+document.getElementById('intervalSectionInputPiecesBuyGenerell').value = '';
 
-        var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token ' + token);
-        xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
-        xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
-        }};
-        var data = {
-            event_type: 'buy', 
-            client_payload: {
-                symbol: symbolParam, 
-                price: price, 
-                pieces: pieces                              
-            }
-        };
-        xhr.send(JSON.stringify(data));
-    }    
-    function curlSell(symbolParam) {          
-        if (confirm('Sell ' + symbolParam + '?') == false) {
-            return;
-        }
-        var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token ' + token);
-        xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
-        xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
-        }};
-        var data = {
-            event_type: 'sell', 
-            client_payload: {
-                symbol: symbolParam
-            }
-        };
-        xhr.send(JSON.stringify(data));
-    }
-    function decryptElement(ele) {
-        var dec = document.getElementById(ele.id).innerHTML;
-        dec = dec.split("").reverse().join(""); // reverseString
-        dec = replaceInString(dec);
-        document.getElementById(ele.id).innerHTML = dec;
-    }
-    function replaceInString(str){
-        var ret = str.replace(/XX/g, " pc ");
-        var ret = ret.replace(/YY/g, "€ ");
-        return ret.replace(/ZZ/g, "% ");
-    }    
+var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
+var xhr = new XMLHttpRequest();
+xhr.open('POST', url);
+xhr.setRequestHeader('Authorization', 'token ' + token);
+xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
+xhr.onreadystatechange = function () {
+if (xhr.readyState === 4) {
+console.log(xhr.status);
+console.log(xhr.responseText);
+}};
+var data = {
+event_type: 'buy', 
+client_payload: {
+symbol: symbolParam, 
+price: price, 
+pieces: pieces                              
+}
+};
+xhr.send(JSON.stringify(data));
+}    
+function curlSell(symbolParam) {          
+if (confirm('Sell ' + symbolParam + '?') == false) {
+return;
+}
+var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
+var xhr = new XMLHttpRequest();
+xhr.open('POST', url);
+xhr.setRequestHeader('Authorization', 'token ' + token);
+xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
+xhr.onreadystatechange = function () {
+if (xhr.readyState === 4) {
+console.log(xhr.status);
+console.log(xhr.responseText);
+}};
+var data = {
+event_type: 'sell', 
+client_payload: {
+symbol: symbolParam
+}
+};
+xhr.send(JSON.stringify(data));
+}
+function decryptElement(ele) {
+var dec = document.getElementById(ele.id).innerHTML;
+dec = dec.split("").reverse().join(""); // reverseString
+dec = replaceInString(dec);
+document.getElementById(ele.id).innerHTML = dec;
+}
+function replaceInString(str){
+var ret = str.replace(/XX/g, " pc ");
+var ret = ret.replace(/YY/g, "€ ");
+return ret.replace(/ZZ/g, "% ");
+}    
 </script>
-WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!
-<br><br>
 # Parameter
 <br>
-<<<<<<< HEAD
-Symbols(261):UTDI DWNI TMV 1COV 1N8 1NBA 1TY 1U1 2OY 6MK 8TRA ABEA ADJ ADS AFX AHLA AHOG AIL AIR AIXA ALV AMD AMZ APC ARL ASL ASME AT1 AXA B4B BAC BAS BAYN BC8 BCO BEI BMW BNP BNR BOSS BSD2 BSN BYW6 CAT1 CBK CCC3 CEC CHV CIS CMC COK COP DAI DEQ DEZ DHER DPW DRW3 DTE DUE EBA ENI ENL EOAN EUZ EVK EVT FB2A FIE FNTN FOO FPE3 FRA G1A G24 GBF GCP GIS GOS GXI GYC GZF HDI HEI HFG HHFA HLE HNR1 HOT HYQ IBE1 IES IFX INH INL INN1 IXD1 JEN JNJ KBX KCO KGX KRN KWS LEG LEO LHA LIN LNSX LOR LXS MDO MMM MOH MOR MRK MSF MTX MUV2 NDA NEM NFC NKE NOA3 O2D ORC PAT PFE PHI1 PPX PSM PUM QCI QIA RAA RHM RWE S92 SAE SAP SAX SDF SFQ SIE SND SNW SQU SRB SY1 SZU TEG TKA TL0 TOTB UN01 UNH VAR1 VNA VOS VOW3 VVU WAC WMT ZAL ZEG ZO1 AAD AOF AG1 BSL CWC CE2 EVD DMP DB1 GIL PBB DWS FTK GFT GLJ HLAG HBH INS JUN3 KU2 MLP MVV1 NA9 NWO NXU NDX1 NOEJ PFV TPE RHK SZG SHA YSN SGL ENR SHL WAF SIX2 SOW SBS SYAB TTK ULC WCH WUW RRTL DIC SON1 TOM MAT1 HIA1 NTO SFT RAK MBI TKD MMO NSE 1RH MZA LCJ KEE NKN MFZ NT5 ABW MARA NTT OLY1 IOC TDK FUC CNN1 KHE 3AG1 1JP S3X G9Y SMM SRP KPI1 FUH EJR CL2 KOM1 TMI YOJ SEH TKK1 MIE1 0C2 XMF MUR1 DSE SUK
-=======
 Symbols(1):*DBK
->>>>>>> 1becc23ef83128ec3909705bb39f0bedd07662d3
 <br>
 Percentage:1 
 <br>
@@ -163,8 +157,6 @@ Stochastic:9
 <br>
 RSI:25
 <br><br># Analyse
-<<<<<<< HEAD
-=======
 <div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336876" target="_blank">*DBK "DEUTSCHE BANK"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336876" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -367,7 +359,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <p>
 <br><br># Workflow<br><a href="https://github.com/Hefezopf/stock-analyse/actions" target="_blank">Github Action</a><br>
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a><br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 16-Nov-2021 10:50</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 16-Nov-2021 17:39</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
@@ -406,4 +398,3 @@ ele.style.display = 'none';
 }   
 </script>
 </body></html>
->>>>>>> 1becc23ef83128ec3909705bb39f0bedd07662d3
