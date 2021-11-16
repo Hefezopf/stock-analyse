@@ -534,7 +534,6 @@ do
 
         # Buy Strategie: Divergence RSI
         resultStrategieUnderratedDivergenceRSI=""
-#echo SSSSlowestRSI "$lowestRSI" conditionNewLow "$conditionNewLow" 
         StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$lowestRSI" "$conditionNewLow"
 
         # Buy Strategie: Low Percentage & Stochastic
@@ -625,7 +624,7 @@ do
         echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
 
-        echo "&nbsp;&nbsp;<span style='font-size:xx-large; color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.2f" "$percentLastDay")
         isNegativ=$(echo "$percentLastDay" | awk '{print substr ($0, 0, 1)}')
@@ -633,7 +632,7 @@ do
         if [ "$isNegativ" = '-' ]; then
             _linkColor="$RED"
         fi
-        echo "&nbsp;<span style='font-size:xx-large; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
+        echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
       
         cat template/indexPart1a.html
 
@@ -717,8 +716,8 @@ do
 
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-        echo "&nbsp;&nbsp;<span style='font-size:xx-large; color:rgb(0, 0, 0)'><b>$last€</b></span>"
-        echo "&nbsp;<span style='font-size:xx-large; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
+        echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
 
         # Check, if quote day is from last trading day, including weekend
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")

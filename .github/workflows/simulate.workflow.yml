@@ -43,9 +43,9 @@ on:
         required: true
         default: '5'
       keepIfUnderPercentageParam:
-        description: 'KEEP_IF_UNDER_PERCENTAGE - "1" means do NOT sell, if only 1% gain'
+        description: 'KEEP_IF_UNDER_PERCENTAGE - "3" means do NOT sell, if only 3% gain'
         required: true
-        default: '1'
+        default: '3'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -79,7 +79,7 @@ jobs:
           StockSellLevelVar=71
           incrementPerTradeVar=1.01
           sellIfOverPercentageVar=5
-          keepIfUnderPercentageVar=1
+          keepIfUnderPercentageVar=3
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"

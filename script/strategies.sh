@@ -696,7 +696,7 @@ StrategieUnderratedXLowStochastic() {
 }
 
 # StrategieOverratedHighStochasticHighRSIHighMACD function:
-# Strategie: High Stochastic and High RSI last quote over highRSIValue
+# Strategie: High Stochastic and High RSI last quote over highRSIValue and + MACD
 # Input: ${x}
 # Output: resultStrategieOverratedHighStochasticHighRSIHighMACD
 StrategieOverratedHighStochasticHighRSIHighMACD() {
@@ -725,7 +725,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
 }
 
 # StrategieUnderratedLowStochasticLowRSILowMACD function:
-# Strategie: Low Stochastic and Low RSI last quote under lowRSIValue
+# Strategie: Low Stochastic and Low RSI last quote under lowRSIValue and - MACD
 # Input: ${x}
 # Output: resultStrategieLowStochasticUnderratedLowRSI
 StrategieUnderratedLowStochasticLowRSILowMACD() {
