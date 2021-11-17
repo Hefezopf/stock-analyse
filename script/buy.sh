@@ -16,7 +16,9 @@ symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 # Price has to be without comma
 priceParam=$(echo "$2" | sed 's/,/./g')
 
-echo "(re)buy $symbolParam $priceParam $3 ..."
+summe=$(echo "$priceParam $3" | awk '{print $1 * $2}')
+#summe=$(printf "%.1f" "$summe")
+echo "(re)buy $symbolParam $priceParam $3 = $summe €"
 
 if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$3" ]; } then
   echo "Not all parameters specified!"
