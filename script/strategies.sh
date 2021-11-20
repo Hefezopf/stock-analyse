@@ -406,12 +406,7 @@ StrategieUnderratedLowHorizontalMACD() {
     _markerOwnStockParam=$5
     export resultStrategieUnderratedLowHorizontalMACD=""
 
-#echo StrategieUnderratedLowHorizontalMACD...........
-#echo _MACDQuoteListParam..........."$_MACDQuoteListParam"
-
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
-#echo _MACDQuoteListParam...........
-
         # Remove leading commas
         _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
         jj_index=0
@@ -437,13 +432,10 @@ StrategieUnderratedLowHorizontalMACD() {
         # Check if MACD is horizontal?
         # BeforeLast Value
         difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
-        isNegativ=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')
-#echo difference "$difference"...........        
+        isNegativ=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')      
         # Negativ -> down
         # If first criterium negativ -> first step Alarm!
         if [ "$isNegativ" = '-' ] || [ "$difference" = 0 ]; then
-#echo isNegativ...........
-
             # Last Value
             difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
             difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
@@ -451,11 +443,8 @@ StrategieUnderratedLowHorizontalMACD() {
             isMACDGenerellNegativ=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
             isDifferenceNullPlus=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')
             isDifference2_3NullPlus=$(echo "$difference2_3" | awk '{print substr ($0, 0, 1)}')
-#echo difference2_3 "$difference2_3" isDifference2_3NullPlus "$isDifference2_3NullPlus"....            
-            #isDifference0_2Negativ=$(echo "$difference0_2" | awk '{print substr ($0, 0, 1)}')            
             # If second criterium positiv -> Alarm! -ge
             if [ "$isDifference2_3NullPlus" = '-' ] &&  [ "$isDifferenceNullPlus" = '0' ] && [ "$isMACDGenerellNegativ" = '-' ]; then
-#            if [ "$difference" = 0 ] && [ "$isMACDGenerellNegativ" = '-' ] && [ "$isDifference0_2Negativ" = '-' ]; then
                 isMACDHorizontalAlarm=true
             else
                 isMACDHorizontalAlarm=false
