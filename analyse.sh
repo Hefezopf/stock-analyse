@@ -270,6 +270,7 @@ UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$stochasti
 if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$CalculateMACD" = true ]; then
     echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!" | tee -a $OUT_RESULT_FILE
     echo "<br><br>" >> $OUT_RESULT_FILE
+    ApplyStrategieHorizontalMACD=false
 fi
 
 if { [ -z "$GPG_PASSPHRASE" ]; } then
