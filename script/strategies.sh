@@ -418,6 +418,9 @@ StrategieUnderratedLowHorizontalMACD() {
         # shellcheck disable=SC2001
         for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
+            if [ "$jj_index" = 71 ]; then
+                valueMACDLast_3="$valueMACD" 
+            fi
             if [ "$jj_index" = 72 ]; then
                 valueMACDLast_2="$valueMACD" 
             fi
@@ -444,12 +447,14 @@ StrategieUnderratedLowHorizontalMACD() {
             # Last Value
             difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
             difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
+            difference2_3=$(echo "$valueMACDLast_2 $valueMACDLast_3" | awk '{print ($1 - $2)}')
             isMACDGenerellNegativ=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
             isDifferenceNullPlus=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')
-#echo isDifferenceNullPlus "$isDifferenceNullPlus" difference "$difference" difference0_2 "$difference0_2"...........            
+            isDifference2_3NullPlus=$(echo "$difference2_3" | awk '{print substr ($0, 0, 1)}')
+#echo difference2_3 "$difference2_3" isDifference2_3NullPlus "$isDifference2_3NullPlus"....            
             #isDifference0_2Negativ=$(echo "$difference0_2" | awk '{print substr ($0, 0, 1)}')            
             # If second criterium positiv -> Alarm! -ge
-            if [ "$isDifferenceNullPlus" = '0' ] && [ "$isMACDGenerellNegativ" = '-' ]; then
+            if [ "$isDifference2_3NullPlus" = '-' ] &&  [ "$isDifferenceNullPlus" = '0' ] && [ "$isMACDGenerellNegativ" = '-' ]; then
 #            if [ "$difference" = 0 ] && [ "$isMACDGenerellNegativ" = '-' ] && [ "$isDifference0_2Negativ" = '-' ]; then
                 isMACDHorizontalAlarm=true
             else
