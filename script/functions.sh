@@ -277,6 +277,7 @@ WriteComdirectUrlAndStoreFileList() {
 # Write file Hyperlink in CMD, Only works for windows
 CreateCmdHyperlink() {
     _hyperlinkParam=$1
+    #export _outputText=""
 
     _outputText="# $_hyperlinkParam $symbol $symbolName"
     if [ "$(uname)" = 'Linux' ]; then
@@ -298,10 +299,6 @@ Out() {
     _textParam=$1
     _outFileParam=$2
 
-   # if [ "$(uname)" = 'Linux' ]; then
-  #      echo $_textParam | tee -a $_outFileParam
-  #  else
-        echo -e "$_textParam" | tee -a "$_outFileParam"
-   # fi
+    echo -e "$_textParam" | tee -a "$_outFileParam"
     echo "<br>" >> "$_outFileParam"
 }

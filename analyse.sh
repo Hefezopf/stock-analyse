@@ -332,7 +332,7 @@ do
     DATA_FILE="$(mktemp -p /dev/shm/)"
     DATA_DATE_FILE=data/$symbol.txt
     if [ "$queryParam" = 'online' ]; then
-        tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
+        #tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
         DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
