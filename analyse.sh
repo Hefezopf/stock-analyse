@@ -36,7 +36,7 @@ fi
 
 # Switches to turn on/off Strategies. Default is 'true'
 ApplyStrategieByTendency=false
-ApplyStrategieHorizontalMACD=false
+ApplyStrategieHorizontalMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
