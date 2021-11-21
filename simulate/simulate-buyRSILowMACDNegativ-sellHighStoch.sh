@@ -42,7 +42,6 @@ sellAmountOverAll=0
 sellOnLastDayAmountOverAll=0
 export winOverall=0
 export _outputText=""
-#walletOverAll=0
 
  # shellcheck disable=SC2140
 echo "<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" type="image/ico" href="favicon.ico" /><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
@@ -122,19 +121,18 @@ do
 
                 lastLowestQuoteAt="$quoteAt" 
 
-#AARAYYYYYYYY
+                # Calculate ARRAY_BUY
                 for i in "${!ARRAY_BUY[@]}"; do
                     if [ "$i" -eq "$RSIindex" ]; then
                         valueArray="${ARRAY_BUY[i]}"
                         if [ "${ARRAY_BUY[i]}" = '' ]; then
-                        Out iiiiiiiiiiiiii $OUT_SIMULATE_FILE
-                        valueArray=0
+                            Out "SHOUD NOT HAPPEN" $OUT_SIMULATE_FILE
+                            valueArray=0
                         fi
                         amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
                     fi
                 done
                 ARRAY_BUY[RSIindex]=$amount
-#AARAYYYYYYYY
              
             fi     
             RSIBuyLevelParam=$RSI_MAX_VALUE              
@@ -181,18 +179,17 @@ do
                         lastLowestQuoteAt=$QUOTE_MAX_VALUE
                         RSIBuyLevelParam=$3
 
-#AARAYYYYYYYY    
+                        # Calculate ARRAY_SELL
                         for i in "${!ARRAY_SELL[@]}"; do
                             if [ "$i" -eq "$RSIindex" ]; then
                                 valueArray="${ARRAY_SELL[i]}"
                                 if [ "${ARRAY_SELL[i]}" = '' ]; then
-                                valueArray=0
+                                    valueArray=0
                                 fi
                                 amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
                             fi
                         done           
                         ARRAY_SELL[RSIindex]=$amount
-#AARAYYYYYYYY
 
                     fi
                 fi
