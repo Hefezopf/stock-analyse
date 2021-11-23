@@ -410,9 +410,17 @@ StrategieUnderratedLowHorizontalMACD() {
         # Remove leading commas
         _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
         jj_index=0
+        valueNewMACDLow=100
         # shellcheck disable=SC2001
         for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
+            isMACDHorizontalAlarm=false
+            isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
+            if [ "$isNewMACDLower" = true ]; then
+                valueNewMACDLow="$valueMACD"
+                isMACDHorizontalAlarm=true
+            fi
+
             if [ "$jj_index" = 71 ]; then
                 valueMACDLast_3="$valueMACD" 
             fi
@@ -427,8 +435,7 @@ StrategieUnderratedLowHorizontalMACD() {
             fi
             jj_index=$((jj_index + 1))
         done
-
-        isMACDHorizontalAlarm=false
+  
         # Check if MACD is horizontal?
         # BeforeLast Value
         difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
@@ -446,8 +453,6 @@ StrategieUnderratedLowHorizontalMACD() {
             # If second criterium positiv -> Alarm! -ge
             if [ "$isDifference2_3NullPlus" = '-' ] &&  [ "$isDifferenceNullPlus" = '0' ] && [ "$isMACDGenerellNegativ" = '-' ]; then
                 isMACDHorizontalAlarm=true
-            else
-                isMACDHorizontalAlarm=false
             fi
         fi
         # is MACD horizontal?
