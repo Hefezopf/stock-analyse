@@ -416,7 +416,8 @@ StrategieUnderratedLowHorizontalMACD() {
         do
             isMACDHorizontalAlarm=false
             isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
-            if [ "$isNewMACDLower" = true ]; then
+            isNegativMACD=$(echo "$valueMACD" | awk '{print substr ($0, 0, 1)}')
+            if [ "$isNewMACDLower" = true ] && [ "$isNegativMACD" = '-' ]; then
                 valueNewMACDLow="$valueMACD"
                 isMACDHorizontalAlarm=true
             fi
