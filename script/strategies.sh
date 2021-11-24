@@ -414,14 +414,6 @@ StrategieUnderratedLowHorizontalMACD() {
         # shellcheck disable=SC2001
         for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
-            isMACDHorizontalAlarm=false
-            isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
-            isNegativMACD=$(echo "$valueMACD" | awk '{print substr ($0, 0, 1)}')
-            if [ "$isNewMACDLower" = true ] && [ "$isNegativMACD" = '-' ]; then
-                valueNewMACDLow="$valueMACD"
-                isMACDHorizontalAlarm=true
-            fi
-
             if [ "$jj_index" = 71 ]; then
                 valueMACDLast_3="$valueMACD" 
             fi
@@ -435,6 +427,19 @@ StrategieUnderratedLowHorizontalMACD() {
                 valueMACDLast_0="$valueMACD" 
             fi
             jj_index=$((jj_index + 1))
+
+            isMACDHorizontalAlarm=false
+            isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
+            if [ "$isNewMACDLower" = true ]; then    
+                valueNewMACDLow="$valueMACD"    
+                isNegativMACDLast_0=$(echo "$valueMACDLast_0" | awk '{print substr ($0, 0, 1)}')
+                isNegativMACDLast_1=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
+                isNegativMACDLast_2=$(echo "$valueMACDLast_2" | awk '{print substr ($0, 0, 1)}')
+                isNegativMACDLast_3=$(echo "$valueMACDLast_3" | awk '{print substr ($0, 0, 1)}')
+                if [ "$isNegativMACDLast_0" = '-' ] && [ "$isNegativMACDLast_1" = '-' ] && [ "$isNegativMACDLast_2" = '-' ] && [ "$isNegativMACDLast_3" = '-' ]; then
+                    isMACDHorizontalAlarm=true
+                fi
+            fi            
         done
   
         # Check if MACD is horizontal?
