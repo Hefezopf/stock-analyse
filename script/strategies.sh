@@ -333,7 +333,7 @@ StrategieUnderratedXLowRSI() {
 }
 
 # StrategieOverratedHighHorizontalMACD function:
-# Strategie: MACD value high approch horizontal level. MACD must be in the positiv/upper half
+# Strategie: MACD value high approch level. MACD must be in the positiv/upper half
 # Input: ${x}
 # Output: resultStrategieOverratedHighHorizontalMACD
 StrategieOverratedHighHorizontalMACD() {
@@ -386,7 +386,7 @@ StrategieOverratedHighHorizontalMACD() {
         # is MACD horizontal?
         if [ "$isMACDHorizontalAlarm" = true ]; then
             alarmAbbrevValue=M-$alarmAbbrevValue
-            reasonPrefix="Sell: High horizontal MACD (M)"
+            reasonPrefix="Sell: High MACD (M)"
             resultStrategieOverratedHighHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
             echo "$resultStrategieOverratedHighHorizontalMACD"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"
@@ -395,7 +395,7 @@ StrategieOverratedHighHorizontalMACD() {
 }
 
 # StrategieUnderratedLowHorizontalMACD function:
-# Strategie: MACD value low approch horizontal level. MACD must be in the negativ/lower half
+# Strategie: MACD value low approch level. MACD must be in the negativ/lower half
 # Input: ${x}
 # Output: resultStrategieUnderratedLowHorizontalMACD
 StrategieUnderratedLowHorizontalMACD() {
@@ -464,7 +464,7 @@ StrategieUnderratedLowHorizontalMACD() {
         # is MACD horizontal?
         if [ "$isMACDHorizontalAlarm" = true ]; then
             alarmAbbrevValue=M+$alarmAbbrevValue
-            reasonPrefix="Buy: Low horizontal MACD (M)"
+            reasonPrefix="Buy: Low MACD (M)"
             resultStrategieUnderratedLowHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
             echo "$resultStrategieUnderratedLowHorizontalMACD"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"               
