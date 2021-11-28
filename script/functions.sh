@@ -292,7 +292,7 @@ CreateCmdHyperlink() {
         _suffixPath=${_suffix:2:200}
         _directory=$_driveLetter":"$_suffixPath
         # shellcheck disable=SC3037
-        echo -e "\e]8;;file:///""$_directory""/$_outDirParam/""$symbol"".html\a$_outputText\e]8;;\a"
+        echo -e "\e]8;;file:///$_directory/$_outDirParam/$symbol.html\a$_outputText\e]8;;\a"
     fi
 }
 

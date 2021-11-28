@@ -66,6 +66,7 @@ Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
 for symbol in $symbolsParam
 do
     ARRAY_TX_INDEX=()
+    ARRAY_TX_BUY_PRICE=({} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {})
     lastLowestQuoteAt=$QUOTE_MAX_VALUE
     amountOfTrades=0
     buyingDay=0
@@ -88,6 +89,7 @@ do
     # shellcheck disable=SC2001
     for valueRSI in $(echo "$historyRSIs" | sed "s/,/ /g")
     do
+        ARRAY_TX_BUY_PRICE[RSIindex]="{}"
         # Buy
         MACDAt="$(echo "$historyMACDs" | cut -f "$RSIindex" -d ',')"
         if [ "$RSIindex" -gt 2 ]; then
@@ -136,6 +138,7 @@ do
                 done
                 ARRAY_BUY[RSIindex]=$amount
                 ARRAY_TX_INDEX[RSIindex]="BUY+"
+                ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
             fi     
             RSIBuyLevelParam=$RSI_MAX_VALUE              
         fi
@@ -225,6 +228,7 @@ do
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
     fi 
 
+    # Write Simulate HTML files
     cp out/"$symbol".html simulate/out/"$symbol".html
     xAxis="$alarmAbbrevTemplate"
     for i in "${!ARRAY_TX_INDEX[@]}"; do
@@ -233,6 +237,20 @@ do
     done
     sed -i "/labels: /c\labels: [$xAxis" simulate/out/"$symbol".html
 
+    buySequence=$(cat "buy/$symbol""_*.txt")
+    buySequence=$(echo "$buySequence" | sed "s/"{"//g")
+    buySequence=$(echo "$buySequence" | sed "s/"},"//g")
+    buySequence=$(echo "$buySequence" | sed -e "s/^[[:space:]]*//g")
+    buySequence=$(echo "$buySequence" | sed -e "s/[[:space:]]*$//g")
+    buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
+    for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
+        if [ "$i" -ge '26' ]; then
+            buySequenceReplaced="$buySequenceReplaced${ARRAY_TX_BUY_PRICE[i]},"
+        fi
+    done
+    #buySequenceReplaced=$(echo "$buySequenceReplaced" | sed "s/"A"/{/g")
+    #buySequenceReplaced=$(echo "$buySequenceReplaced" | sed "s/"Z"/}/g")
+    sed -i "/$buySequence/c$buySequenceReplaced" "simulate/out/$symbol.html"
 done
 
 Out "" $OUT_SIMULATE_FILE
