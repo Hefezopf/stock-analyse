@@ -277,6 +277,7 @@ WriteComdirectUrlAndStoreFileList() {
 # Write file Hyperlink in CMD, Only works for windows
 CreateCmdHyperlink() {
     _hyperlinkParam=$1
+    _outDirParam=$2
     #export _outputText=""
 
     _outputText="# $_hyperlinkParam $symbol $symbolName"
@@ -289,7 +290,7 @@ CreateCmdHyperlink() {
         _suffixPath=${_suffix:2:200}
         _directory=$_driveLetter":"$_suffixPath
         # shellcheck disable=SC3037
-        echo -e "\e]8;;file:///""$_directory""/out/""$symbol"".html\a$_outputText\e]8;;\a"
+        echo -e "\e]8;;file:///""$_directory""/"$_outDirParam"/""$symbol"".html\a$_outputText\e]8;;\a"
     fi
 }
 

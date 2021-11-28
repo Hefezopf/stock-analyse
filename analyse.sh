@@ -351,7 +351,7 @@ do
 
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
 
-    CreateCmdHyperlink "Analyse"
+    CreateCmdHyperlink "Analyse" "out"
 
 
 # lastVolumeInFile=$(head -1 "$DATA_DATE_FILE" | cut -f 3)

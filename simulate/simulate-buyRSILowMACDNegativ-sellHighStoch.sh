@@ -74,8 +74,8 @@ do
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
     Out "" $OUT_SIMULATE_FILE
 
-    CreateCmdHyperlink "Simulation"
-    echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
+    CreateCmdHyperlink "Simulation" "simulate/out"
+    echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
@@ -221,7 +221,10 @@ do
         winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
         prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
-    fi         
+    fi 
+
+    cp out/$symbol.html simulate/out/$symbol.html
+    sed -i '/labels: /c\labels: ['14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'' simulate/out/$symbol.html
 done
 
 # for i in "${!ARRAY_BUY[@]}"; do
