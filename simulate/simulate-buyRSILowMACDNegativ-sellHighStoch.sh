@@ -40,6 +40,7 @@ RSI_MAX_VALUE=100
 #rm -rf "$OUT_SIMULATE_FILE"
 sellAmountOverAll=0
 sellOnLastDayAmountOverAll=0
+export alarmAbbrevTemplate # from functions.sh
 export winOverall=0
 export _outputText=""
 
@@ -64,6 +65,7 @@ Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
 # Simulate stock for each symbol
 for symbol in $symbolsParam
 do
+    ARRAY_TX_INDEX=()
     lastLowestQuoteAt=$QUOTE_MAX_VALUE
     amountOfTrades=0
     buyingDay=0
@@ -133,7 +135,7 @@ do
                     fi
                 done
                 ARRAY_BUY[RSIindex]=$amount
-                ARRAY_TX_INDEX[RSIindex]="buy+"
+                ARRAY_TX_INDEX[RSIindex]="BUY+"
             fi     
             RSIBuyLevelParam=$RSI_MAX_VALUE              
         fi
@@ -190,7 +192,7 @@ do
                             fi
                         done           
                         ARRAY_SELL[RSIindex]=$amount
-                        ARRAY_TX_INDEX[RSIindex]="sell-"
+                        ARRAY_TX_INDEX[RSIindex]="SELL-$simulationWin"
                     fi
                 fi
             fi
@@ -224,7 +226,7 @@ do
     fi 
 
     cp out/"$symbol".html simulate/out/"$symbol".html
-    xAxis="'14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
+    xAxis="$alarmAbbrevTemplate"
     for i in "${!ARRAY_TX_INDEX[@]}"; do
         # shellcheck disable=SC2001
         xAxis=$(echo "$xAxis" | sed "s/$i/${ARRAY_TX_INDEX[i]}/g")
@@ -232,16 +234,6 @@ do
     sed -i "/labels: /c\labels: [$xAxis" simulate/out/"$symbol".html
 
 done
-
-# for i in "${!ARRAY_BUY[@]}"; do
-#   Out "$i Buy:${ARRAY_BUY[i]}" $OUT_SIMULATE_FILE
-# done
-
-# Out "" $OUT_SIMULATE_FILE
-
-# for j in "${!ARRAY_SELL[@]}"; do
-#   Out "$j Sell:-${ARRAY_SELL[j]}" $OUT_SIMULATE_FILE
-# done
 
 Out "" $OUT_SIMULATE_FILE
 
@@ -260,13 +252,6 @@ for i in "${!ARRAY_BUY[@]}"; do
         fi
     done
 done    
-
-# Out "" $OUT_SIMULATE_FILE
-
-# Output Diff Array
-# for i in "${!ARRAY_DIFF[@]}"; do
-#   Out "$i Diff:${ARRAY_DIFF[i]}" $OUT_SIMULATE_FILE
-# done
 
 Out "" $OUT_SIMULATE_FILE
 
