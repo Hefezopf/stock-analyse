@@ -51,9 +51,7 @@ stochasticPercentageParam=$4
 RSIQuoteParam=$5
 
 # Prepare
-#DDDDD
 lowestRSI=100
-#DDDDD
 rm -rf /dev/shm/tmp.*
 mkdir -p out
 mkdir -p temp

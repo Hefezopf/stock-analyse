@@ -105,6 +105,7 @@ jobs:
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add out/_simulate.html
+          git add simulate/out/*.html
           git commit -am "Github Result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
 
