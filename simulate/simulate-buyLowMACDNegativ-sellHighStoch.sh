@@ -14,7 +14,7 @@
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01 5 1
 
 # Debug mode
-set -x
+#set -x
 
 # Import
 # shellcheck disable=SC1091
@@ -246,8 +246,12 @@ do
     buySequence=$(cat buy/"$symbol"_*.txt)
     buySequence=$(echo "$buySequence" | sed "s/"{"//g")
     buySequence=$(echo "$buySequence" | sed "s/"},"//g")
-    buySequence=$(echo "$buySequence" | sed -e "s/^[[:space:]]*//g")
-    buySequence=$(echo "$buySequence" | sed -e "s/[[:space:]]*$//g")
+    #buySequence=$(echo "$buySequence" | sed -e "s/^[[:space:]]*//g")
+    buySequence=$(echo "$buySequence" | sed "s/^\s*//g")
+    #buySequence=$(echo "$buySequence" | sed -e "s/[[:space:]]*$//g")
+    buySequence=$(echo "$buySequence" | sed "s/\s*$//g")
+#echo buySequence:"$buySequence"xxxx  
+#exit
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
         if [ "$i" -ge '26' ]; then
