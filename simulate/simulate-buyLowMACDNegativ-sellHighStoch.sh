@@ -252,7 +252,7 @@ do
     #buySequence=$(echo "$buySequence" | sed -e "s/[[:space:]]*$//g")
 #    buySequence=$(echo "$buySequence" | sed "s/\s*$//g")
     buySequence=$(echo "$buySequence" | sed "s/ *$//g")
-# echo buySequence:"$buySequence"xxxx  
+echo buySequence:"$buySequence"xxxx  
 # exit
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
@@ -262,7 +262,8 @@ do
     done
     #buySequenceReplaced=$(echo "$buySequenceReplaced" | sed "s/"A"/{/g")
     #buySequenceReplaced=$(echo "$buySequenceReplaced" | sed "s/"Z"/}/g")
-    sed -i "/"$buySequence"/c"$buySequenceReplaced"" "simulate/out/$symbol.html"
+    sed -i "/XXXXX/c"$buySequenceReplaced"" "simulate/out/$symbol.html"
+#    sed -i "/"$buySequence"/c"$buySequenceReplaced"" "simulate/out/$symbol.html"
 done
 
 Out "" $OUT_SIMULATE_FILE
