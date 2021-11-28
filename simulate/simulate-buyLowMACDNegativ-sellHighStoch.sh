@@ -243,37 +243,41 @@ do
     done
     sed -i "/labels: /c\labels: ["$xAxis"" simulate/out/"$symbol".html
 
+    # Draw buyings
     buySequence=$(cat buy/"$symbol"_*.txt)
     buySequence=$(echo "$buySequence" | sed "s/"{"//g")
     buySequence=$(echo "$buySequence" | sed "s/"},"//g")
-   # buySequence=$(echo "$buySequence" | sed "s/^............................................................................//")
+    buySequenceIterater="$buySequence"
+
+    for (( i=0; i<${#buySequenceIterater}; i++ )); do
+        if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
+            buySequence=$(echo "$buySequence" | sed "s/^.//") # Remove leading spaces
+        fi
+    done
+
+    if [ "${#buySequence}" -gt 1 ]; then # Check if empty
+        buySequence="x:$buySequence"
+        #echo NOT_EMPTYequence:"$buySequence"xxxx
+    else
+        buySequence="{},{},"
+#        buySequence="{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},"
+    fi
 
     buySequenceIterater="$buySequence"
     for (( i=0; i<${#buySequenceIterater}; i++ )); do
         if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
-            buySequence=$(echo "$buySequence" | sed "s/^.//")
+            buySequence=$(echo "$buySequence" | sed "s/.$//") # Remove trailing spaces
         fi
     done
-    buySequence="x:$buySequence"
-
-#echo buySequence:"$buySequence"xxxx  
-
-    buySequenceIterater="$buySequence"
-    for (( i=0; i<${#buySequenceIterater}; i++ )); do
-        #echo vvv:"${buySequenceIterater:$i:1}"  
-        if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
-            buySequence=$(echo "$buySequence" | sed "s/.$//")
-        fi
-    done
-   # buySequence=$(echo "$buySequence" | sed "s/..$//")
-#echo buySequence:"$buySequence"xxxx  
-#exit
+    
+    # Write to simulate/out
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
         if [ "$i" -ge '26' ]; then
             buySequenceReplaced="$buySequenceReplaced"${ARRAY_TX_BUY_PRICE[i]}","
         fi
     done
+
     sed -i "/"$buySequence"/c"$buySequenceReplaced"" "simulate/out/$symbol.html"
 done
 

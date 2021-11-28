@@ -242,7 +242,6 @@ do
     buySequence=$(echo "$buySequence" | sed "s/"},"//g")
     #buySequence=$(echo "$buySequence" | sed -e "s/^[[:space:]]*//g")
     buySequence=$(echo "$buySequence" | sed "s/^ *//g")
-    #buySequence=$(echo "$buySequence" | sed -e "s/[[:space:]]*$//g")
     buySequence=$(echo "$buySequence" | sed "s/ *$//g")
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
