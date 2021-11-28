@@ -456,7 +456,7 @@ StrategieUnderratedLowHorizontalMACD() {
             isMACDGenerellNegativ=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
             isDifferenceNullPlus=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')
             isDifference2_3NullPlus=$(echo "$difference2_3" | awk '{print substr ($0, 0, 1)}')
-            # If second criterium positiv -> Alarm! -ge
+            # If second criterium positiv -> Alarm!
             if [ "$isDifference2_3NullPlus" = '-' ] &&  [ "$isDifferenceNullPlus" = '0' ] && [ "$isMACDGenerellNegativ" = '-' ]; then
                 isMACDHorizontalAlarm=true
             fi

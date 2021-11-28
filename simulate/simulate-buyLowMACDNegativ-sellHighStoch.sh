@@ -49,7 +49,7 @@ echo "<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="sh
 
 Out "" $OUT_SIMULATE_FILE
 Out "# Simulate BuyLowMACDNegativ SellHighStoch" $OUT_SIMULATE_FILE
-Out "#############################################" $OUT_SIMULATE_FILE
+Out "##########################################" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 Out "# Parameter" $OUT_SIMULATE_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
@@ -110,7 +110,7 @@ do
             isMACDGenerellNegativ=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
             isDifferenceNullPlus=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')
             isDifference2_3NullPlus=$(echo "$difference2_3" | awk '{print substr ($0, 0, 1)}')
-            # If second criterium positiv -> Alarm! -ge
+            # If second criterium positiv -> Alarm!
             if [ "$isDifference2_3NullPlus" = '-' ] &&  [ "$isDifferenceNullPlus" = '0' ] && [ "$isMACDGenerellNegativ" = '-' ]; then
 #echo quoteAt "$quoteAt" valueMACDLast_0 "$valueMACDLast_0" valueMACDLast_1 "$valueMACDLast_1" valueMACDLast_2 "$valueMACDLast_2" valueMACDLast_3 "$valueMACDLast_3"
                 isMACDHorizontalAlarm=true
@@ -151,6 +151,7 @@ do
                 fi
             done
             ARRAY_BUY[RSIindex]=$amount
+            ARRAY_TX_INDEX[RSIindex]="buy+"
         fi
 
         # Sell
@@ -205,7 +206,7 @@ do
                             fi
                         done           
                         ARRAY_SELL[RSIindex]=$amount
-
+                        ARRAY_TX_INDEX[RSIindex]="sell-"
                     fi
                 fi
             fi
@@ -238,8 +239,14 @@ do
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
     fi
 
-    cp out/$symbol.html simulate/out/$symbol.html
-    sed -i '/labels: /c\labels: ['14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'' simulate/out/$symbol.html
+    cp out/"$symbol".html simulate/out/"$symbol".html
+    xAxis="'14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
+    for i in "${!ARRAY_TX_INDEX[@]}"; do
+        Out "$i Tx:${ARRAY_TX_INDEX[i]}" $OUT_SIMULATE_FILE
+        xAxis=$(echo "$xAxis" | sed "s/"$i"/"${ARRAY_TX_INDEX[i]}"/g")
+    done
+    sed -i "/labels: /c\labels: ["$xAxis"" simulate/out/"$symbol".html
+
 done
 
 # for i in "${!ARRAY_BUY[@]}"; do
