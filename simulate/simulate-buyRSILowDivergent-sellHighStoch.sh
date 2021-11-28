@@ -23,7 +23,7 @@ incrementPerTradeParam=$5
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
 
-OUT_SIMULATE_FILE="out/_simulate.html"
+OUT_SIMULATE_FILE="simulate/out/_simulate.html"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 
 RSI_MAX_BUY_LEVEL=42

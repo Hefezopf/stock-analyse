@@ -11,12 +11,12 @@
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
 # Call example: ./simulate.sh 'BEI ALV' 2000 25 91 1.1 5 1
 # Call example: ./simulate.sh 'BEI ALV' 2500 10 96 1.01 5 1
-# Grep output to find symbols: grep Position:100 out/_simulate.html
+# Grep output to find symbols: grep Position:100 simulate/out/_simulate.html
 
 # Debug mode
 #set -x
 
-OUT_SIMULATE_FILE="out/_simulate.html"
+OUT_SIMULATE_FILE="simulate/out/_simulate.html"
 rm -rf "$OUT_SIMULATE_FILE"
 
 #                                                        SYMBOLS
