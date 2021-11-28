@@ -14,7 +14,7 @@
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01 5 1
 
 # Debug mode
-set -x
+#set -x
 
 # Import
 # shellcheck disable=SC1091
@@ -246,24 +246,35 @@ do
     buySequence=$(cat buy/"$symbol"_*.txt)
     buySequence=$(echo "$buySequence" | sed "s/"{"//g")
     buySequence=$(echo "$buySequence" | sed "s/"},"//g")
-    #buySequence=$(echo "$buySequence" | sed -e "s/^[[:space:]]*//g")
-    buySequence=$(echo "$buySequence" | sed "s/^ *//g")
-  #  buySequence=$(echo "$buySequence" | sed "s/^\s*//g")
-    #buySequence=$(echo "$buySequence" | sed -e "s/[[:space:]]*$//g")
-#    buySequence=$(echo "$buySequence" | sed "s/\s*$//g")
-    buySequence=$(echo "$buySequence" | sed "s/ *$//g")
-echo buySequence:"$buySequence"xxxx  
-# exit
+   # buySequence=$(echo "$buySequence" | sed "s/^............................................................................//")
+
+    buySequenceIterater="$buySequence"
+    for (( i=0; i<${#buySequenceIterater}; i++ )); do
+        if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
+            buySequence=$(echo "$buySequence" | sed "s/^.//")
+        fi
+    done
+    buySequence="x:$buySequence"
+
+#echo buySequence:"$buySequence"xxxx  
+
+    buySequenceIterater="$buySequence"
+    for (( i=0; i<${#buySequenceIterater}; i++ )); do
+        #echo vvv:"${buySequenceIterater:$i:1}"  
+        if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
+            buySequence=$(echo "$buySequence" | sed "s/.$//")
+        fi
+    done
+   # buySequence=$(echo "$buySequence" | sed "s/..$//")
+#echo buySequence:"$buySequence"xxxx  
+#exit
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
         if [ "$i" -ge '26' ]; then
             buySequenceReplaced="$buySequenceReplaced"${ARRAY_TX_BUY_PRICE[i]}","
         fi
     done
-    #buySequenceReplaced=$(echo "$buySequenceReplaced" | sed "s/"A"/{/g")
-    #buySequenceReplaced=$(echo "$buySequenceReplaced" | sed "s/"Z"/}/g")
-    sed -i "/XXXXX/c"$buySequenceReplaced"" "simulate/out/$symbol.html"
-#    sed -i "/"$buySequence"/c"$buySequenceReplaced"" "simulate/out/$symbol.html"
+    sed -i "/"$buySequence"/c"$buySequenceReplaced"" "simulate/out/$symbol.html"
 done
 
 Out "" $OUT_SIMULATE_FILE
