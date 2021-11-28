@@ -14,7 +14,7 @@
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01 5 1
 
 # Debug mode
-#set -x
+set -x
 
 # Import
 # shellcheck disable=SC1091
