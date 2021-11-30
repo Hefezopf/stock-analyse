@@ -244,33 +244,6 @@ do
         xAxis=$(echo "$xAxis" | sed "s/"$i"/"${ARRAY_TX_INDEX[i]}"/g")
     done   
     sed -i "/labels: /c\labels: ["$xAxis"" simulate/out/"$symbol".html
-
-    # Draw buyings
-#     buySequence=$(cat buy/"$symbol"_*.txt)
-#     buySequence=$(echo "$buySequence" | sed "s/"{"//g")
-#     buySequence=$(echo "$buySequence" | sed "s/"},"//g")
-#     buySequenceIterater="$buySequence"
-
-#     for (( i=0; i<${#buySequenceIterater}; i++ )); do
-#         if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
-#             buySequence=$(echo "$buySequence" | sed "s/^.//") # Remove leading spaces
-#         fi
-#     done
-
-#     if [ "${#buySequence}" -gt 1 ]; then # Check if empty
-#         buySequence="x:$buySequence"
-#         #echo NOT_EMPTYequence:"$buySequence"xxxx
-#     else
-#         buySequence="{},{},"
-# #        buySequence="{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},"
-#     fi
-
-    # buySequenceIterater="$buySequence"
-    # for (( i=0; i<${#buySequenceIterater}; i++ )); do
-    #     if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
-    #         buySequence=$(echo "$buySequence" | sed "s/.$//") # Remove trailing spaces
-    #     fi
-    # done
     
     # Write to simulate/out
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
@@ -284,6 +257,14 @@ do
     fileContent=$(cat "simulate/out/$symbol.html")
     fileContentAfterAwk=$(echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}")
     echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
+
+    # cat "simulate/out/$symbol.html" | tr "\t" " " > "simulate/out/$symbol.html_temp"
+    # rm "simulate/out/$symbol.html"
+    # mv "simulate/out/$symbol.html_temp" "simulate/out/$symbol.html"
+    # averageSequence="data: [526.00,526.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,]},"
+    # fileContent=$(cat "simulate/out/$symbol.html")
+    # fileContentAfterAwk=$(echo "$fileContent" | awk '/,   ]} $/ { print var; next; }; { print; }' var="${averageSequence}")
+    # echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
 done
 
 Out "" $OUT_SIMULATE_FILE
