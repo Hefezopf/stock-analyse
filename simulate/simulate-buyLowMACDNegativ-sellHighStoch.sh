@@ -237,38 +237,40 @@ do
 
     # Write Simulate HTML files
     cp out/"$symbol".html simulate/out/"$symbol".html
+
+    # Write X-Axis
     xAxis="$alarmAbbrevTemplate"
     for i in "${!ARRAY_TX_INDEX[@]}"; do
         xAxis=$(echo "$xAxis" | sed "s/"$i"/"${ARRAY_TX_INDEX[i]}"/g")
-    done
+    done   
     sed -i "/labels: /c\labels: ["$xAxis"" simulate/out/"$symbol".html
 
     # Draw buyings
-    buySequence=$(cat buy/"$symbol"_*.txt)
-    buySequence=$(echo "$buySequence" | sed "s/"{"//g")
-    buySequence=$(echo "$buySequence" | sed "s/"},"//g")
-    buySequenceIterater="$buySequence"
+#     buySequence=$(cat buy/"$symbol"_*.txt)
+#     buySequence=$(echo "$buySequence" | sed "s/"{"//g")
+#     buySequence=$(echo "$buySequence" | sed "s/"},"//g")
+#     buySequenceIterater="$buySequence"
 
-    for (( i=0; i<${#buySequenceIterater}; i++ )); do
-        if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
-            buySequence=$(echo "$buySequence" | sed "s/^.//") # Remove leading spaces
-        fi
-    done
+#     for (( i=0; i<${#buySequenceIterater}; i++ )); do
+#         if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
+#             buySequence=$(echo "$buySequence" | sed "s/^.//") # Remove leading spaces
+#         fi
+#     done
 
-    if [ "${#buySequence}" -gt 1 ]; then # Check if empty
-        buySequence="x:$buySequence"
-        #echo NOT_EMPTYequence:"$buySequence"xxxx
-    else
-        buySequence="{},{},"
-#        buySequence="{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},"
-    fi
+#     if [ "${#buySequence}" -gt 1 ]; then # Check if empty
+#         buySequence="x:$buySequence"
+#         #echo NOT_EMPTYequence:"$buySequence"xxxx
+#     else
+#         buySequence="{},{},"
+# #        buySequence="{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},"
+#     fi
 
-    buySequenceIterater="$buySequence"
-    for (( i=0; i<${#buySequenceIterater}; i++ )); do
-        if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
-            buySequence=$(echo "$buySequence" | sed "s/.$//") # Remove trailing spaces
-        fi
-    done
+    # buySequenceIterater="$buySequence"
+    # for (( i=0; i<${#buySequenceIterater}; i++ )); do
+    #     if [ "${buySequenceIterater:$i:1}" = ' ' ]; then
+    #         buySequence=$(echo "$buySequence" | sed "s/.$//") # Remove trailing spaces
+    #     fi
+    # done
     
     # Write to simulate/out
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
@@ -278,7 +280,10 @@ do
         fi
     done
 
-    sed -i "/"$buySequence"/c"$buySequenceReplaced"" "simulate/out/$symbol.html"
+    # Write simulation buy values
+    fileContent=$(cat "simulate/out/$symbol.html")
+    fileContentAfterAwk=$(echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}")
+    echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
 done
 
 Out "" $OUT_SIMULATE_FILE
