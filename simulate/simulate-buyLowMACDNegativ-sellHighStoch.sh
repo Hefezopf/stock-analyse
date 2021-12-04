@@ -238,14 +238,14 @@ do
     # Write Simulate HTML files
     cp out/"$symbol".html simulate/out/"$symbol".html
 
-    # Write X-Axis
+    # Write/Replace X-Axis
     xAxis="$alarmAbbrevTemplate"
     for i in "${!ARRAY_TX_INDEX[@]}"; do
         xAxis=$(echo "$xAxis" | sed "s/"$i"/"${ARRAY_TX_INDEX[i]}"/g")
     done   
     sed -i "/labels: /c\labels: ["$xAxis"" simulate/out/"$symbol".html
     
-    # Write to simulate/out
+    # Write/Replace to simulate/out
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
         if [ "$i" -ge '26' ]; then
@@ -253,7 +253,7 @@ do
         fi
     done
 
-    # Write simulation buy values
+    # Write/Replace simulation buy values
     fileContent=$(cat "simulate/out/$symbol.html")
     fileContentAfterAwk=$(echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}")
     echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
