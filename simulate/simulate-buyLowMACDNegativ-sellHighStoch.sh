@@ -68,6 +68,7 @@ for symbol in $symbolsParam
 do
     ARRAY_TX_INDEX=()
     ARRAY_TX_BUY_PRICE=({} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {})
+    ARRAY_TX_SELL_PRICE=({} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {})
     lastLowestQuoteAt=$QUOTE_MAX_VALUE
     amountOfTrades=0
     buyingDay=0
@@ -93,6 +94,7 @@ do
     for valueMACD in $(echo "$historyMACDs" | sed "s/,/ /g")
     do
         ARRAY_TX_BUY_PRICE[RSIindex]="{}"
+        ARRAY_TX_SELL_PRICE[RSIindex]="{}"
         valueMACDLast_3="$valueMACDLast_2" 
         valueMACDLast_2="$valueMACDLast_1" 
         valueMACDLast_1="$valueMACDLast_0" 
@@ -203,6 +205,7 @@ do
                         done           
                         ARRAY_SELL[RSIindex]=$amount
                         ARRAY_TX_INDEX[RSIindex]="SELL-$simulationWin"
+                        ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
                     fi
                 fi
             fi
@@ -245,26 +248,26 @@ do
     done   
     sed -i "/labels: /c\labels: ["$xAxis"" simulate/out/"$symbol".html
     
-    # Write/Replace to simulate/out
+    # Write/Replace "buy"
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
         if [ "$i" -ge '26' ]; then
             buySequenceReplaced="$buySequenceReplaced"${ARRAY_TX_BUY_PRICE[i]}","
         fi
     done
-
-    # Write/Replace simulation buy values
+    # Write/Replace simulation "buy" values
     fileContent=$(cat "simulate/out/$symbol.html")
     fileContentAfterAwk=$(echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}")
-    echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
 
-    # cat "simulate/out/$symbol.html" | tr "\t" " " > "simulate/out/$symbol.html_temp"
-    # rm "simulate/out/$symbol.html"
-    # mv "simulate/out/$symbol.html_temp" "simulate/out/$symbol.html"
-    # averageSequence="data: [526.00,526.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,516.00,]},"
-    # fileContent=$(cat "simulate/out/$symbol.html")
-    # fileContentAfterAwk=$(echo "$fileContent" | awk '/,   ]} $/ { print var; next; }; { print; }' var="${averageSequence}")
-    # echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
+    # Write/Replace "sell"
+    sellSequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
+    for i in "${!ARRAY_TX_SELL_PRICE[@]}"; do
+        if [ "$i" -ge '26' ]; then
+            sellSequenceReplaced="$sellSequenceReplaced"${ARRAY_TX_SELL_PRICE[i]}","
+        fi
+    done
+    # Write/Replace simulation "sell" values. Replace line 181!
+    sed -i "181s/.*/"$sellSequenceReplaced"/" simulate/out/"$symbol".html
 done
 
 Out "" $OUT_SIMULATE_FILE
