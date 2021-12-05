@@ -90,6 +90,7 @@ do
     historyMACDs=$(echo "$historyMACDs" | cut -b 64-10000)
     RSIindex=26
     valueNewMACDLow=100
+    beforeLastQuote="$QUOTE_MAX_VALUE"
     # shellcheck disable=SC2001
     for valueMACD in $(echo "$historyMACDs" | sed "s/,/ /g")
     do
@@ -99,8 +100,6 @@ do
         valueMACDLast_2="$valueMACDLast_1" 
         valueMACDLast_1="$valueMACDLast_0" 
         valueMACDLast_0="$valueMACD" 
-
-        quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
 
         isMACDHorizontalAlarm=false
         isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
@@ -115,8 +114,12 @@ do
             fi
         fi 
 
+        beforeLastQuote="$quoteAt"
+        quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
+        conditionNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
+
         # is MACD horizontal?
-        if [ "$isMACDHorizontalAlarm" = true ]; then
+        if [ "$isMACDHorizontalAlarm" = true ] && [ "$conditionNewLow" = true ]; then
             piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
             amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
             piecesPerTrade=${piecesPerTrade%.*}
@@ -244,7 +247,7 @@ do
     # Write/Replace X-Axis
     xAxis="$alarmAbbrevTemplate"",'100'"
     for i in "${!ARRAY_TX_INDEX[@]}"; do
-        # Buy may replace some Sell-xXX values -> looks Strange: 'SELL-9BUY
+        # Buy may replace some Sell-XXX values -> looks strange: 'SELL-9BUY
         xAxis=$(echo "$xAxis" | sed "s/$i/${ARRAY_TX_INDEX[i]}/g")
     done
     sed -i "/labels: /c\labels: ["$xAxis"" simulate/out/"$symbol".html
