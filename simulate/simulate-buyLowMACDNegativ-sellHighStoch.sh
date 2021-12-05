@@ -122,8 +122,13 @@ do
         # lastStoch
         lastStoch="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
 
+        # lastRSI
+        lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')" 
+
+#echo lastRSI "$lastRSI" RSIBuyLevelParam "$RSIBuyLevelParam"
+
         # is MACD horizontal?
-        if [ "$isMACDHorizontalAlarm" = true ] && [ "$conditionNewLow" = true ] && [ "$lastStoch" = 0 ]; then
+        if [ "$isMACDHorizontalAlarm" = true ] && [ "$conditionNewLow" = true ] && [ "$lastStoch" = 0 ] && [ "$lastRSI" -le "$RSIBuyLevelParam" ]; then
             piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
             amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
             piecesPerTrade=${piecesPerTrade%.*}
