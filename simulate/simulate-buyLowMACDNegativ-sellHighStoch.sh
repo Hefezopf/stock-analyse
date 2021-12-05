@@ -114,12 +114,16 @@ do
             fi
         fi 
 
+        # conditionNewLow
         beforeLastQuote="$quoteAt"
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         conditionNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
 
+        # lastStoch
+        lastStoch="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
+
         # is MACD horizontal?
-        if [ "$isMACDHorizontalAlarm" = true ] && [ "$conditionNewLow" = true ]; then
+        if [ "$isMACDHorizontalAlarm" = true ] && [ "$conditionNewLow" = true ] && [ "$lastStoch" = 0 ]; then
             piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
             amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
             piecesPerTrade=${piecesPerTrade%.*}
