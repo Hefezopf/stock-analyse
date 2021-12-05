@@ -238,14 +238,15 @@ do
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
     fi
 
-    # Write Simulate HTML files
+    # Copy HTML file:  out -> simulate/out
     cp out/"$symbol".html simulate/out/"$symbol".html
 
     # Write/Replace X-Axis
-    xAxis="$alarmAbbrevTemplate"
+    xAxis="$alarmAbbrevTemplate"",'100'"
     for i in "${!ARRAY_TX_INDEX[@]}"; do
-        xAxis=$(echo "$xAxis" | sed "s/"$i"/"${ARRAY_TX_INDEX[i]}"/g")
-    done   
+        # Buy may replace some Sell-xXX values -> looks Strange: 'SELL-9BUY
+        xAxis=$(echo "$xAxis" | sed "s/$i/${ARRAY_TX_INDEX[i]}/g")
+    done
     sed -i "/labels: /c\labels: ["$xAxis"" simulate/out/"$symbol".html
     
     # Write/Replace "buy"
@@ -258,6 +259,7 @@ do
     # Write/Replace simulation "buy" values
     fileContent=$(cat "simulate/out/$symbol.html")
     fileContentAfterAwk=$(echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}")
+    echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
 
     # Write/Replace "sell"
     sellSequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
@@ -267,7 +269,7 @@ do
         fi
     done
     # Write/Replace simulation "sell" values. Replace line 181!
-    sed -i "181s/.*/"$sellSequenceReplaced"/" simulate/out/"$symbol".html
+    sed -i "181s/.*/$sellSequenceReplaced/" simulate/out/"$symbol".html
 done
 
 Out "" $OUT_SIMULATE_FILE

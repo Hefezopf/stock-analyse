@@ -237,21 +237,27 @@ do
     done
     sed -i "/labels: /c\labels: [$xAxis" simulate/out/"$symbol".html
 
-    buySequence=$(cat "buy/$symbol""_*.txt")
-    buySequence=$(echo "$buySequence" | sed "s/"{"//g")
-    buySequence=$(echo "$buySequence" | sed "s/"},"//g")
-    #buySequence=$(echo "$buySequence" | sed -e "s/^[[:space:]]*//g")
-    buySequence=$(echo "$buySequence" | sed "s/^ *//g")
-    buySequence=$(echo "$buySequence" | sed "s/ *$//g")
+    # Write/Replace "buy"
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
         if [ "$i" -ge '26' ]; then
             buySequenceReplaced="$buySequenceReplaced${ARRAY_TX_BUY_PRICE[i]},"
         fi
     done
-    #buySequenceReplaced=$(echo "$buySequenceReplaced" | sed "s/"A"/{/g")
-    #buySequenceReplaced=$(echo "$buySequenceReplaced" | sed "s/"Z"/}/g")
-    sed -i "/$buySequence/c$buySequenceReplaced" "simulate/out/$symbol.html"
+    # Write/Replace simulation "buy" values
+    fileContent=$(cat "simulate/out/$symbol.html")
+    echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}"
+#    fileContentAfterAwk=$(echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}")
+
+    # Write/Replace "sell"
+    sellSequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
+    for i in "${!ARRAY_TX_SELL_PRICE[@]}"; do
+        if [ "$i" -ge '26' ]; then
+            sellSequenceReplaced="$sellSequenceReplaced${ARRAY_TX_SELL_PRICE[i]},"
+        fi
+    done
+    # Write/Replace simulation "sell" values. Replace line 181!
+    sed -i "181s/.*/$sellSequenceReplaced/" simulate/out/"$symbol".html
 done
 
 Out "" $OUT_SIMULATE_FILE
