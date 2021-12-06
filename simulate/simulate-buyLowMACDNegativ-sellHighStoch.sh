@@ -76,6 +76,14 @@ do
     simulationWin=0
     piecesHold=0
     amountPerTrade=$amountPerTradeParam
+
+    # Stocks with prefix '*' are marked as own stocks
+    markerOwnStock=""
+    if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
+        markerOwnStock="*"
+        symbol=$(echo "$symbol" | cut -b 2-6)
+    fi
+
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
     Out "" $OUT_SIMULATE_FILE
 
@@ -124,8 +132,6 @@ do
 
         # lastRSI
         lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')" 
-
-#echo lastRSI "$lastRSI" RSIBuyLevelParam "$RSIBuyLevelParam"
 
         # is MACD horizontal?
         if [ "$isMACDHorizontalAlarm" = true ] && [ "$conditionNewLow" = true ] && [ "$lastStoch" = 0 ] && [ "$lastRSI" -le "$RSIBuyLevelParam" ]; then
@@ -280,8 +286,16 @@ do
             sellSequenceReplaced="$sellSequenceReplaced"${ARRAY_TX_SELL_PRICE[i]}","
         fi
     done
-    # Write/Replace simulation "sell" values. Replace line 181!
+    # Write/Replace simulation "sell" values. Replace line!
     sed -i "181s/.*/$sellSequenceReplaced/" simulate/out/"$symbol".html
+
+    # Write/Replace timestamp. Replace line!
+    creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
+    if [ "$(uname)" = 'Linux' ]; then
+        creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h
+    fi    
+    GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! $creationDate<p>"
+    sed -i "515s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
 done
 
 Out "" $OUT_SIMULATE_FILE
@@ -339,11 +353,12 @@ prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
 Out "Perc=$prozWinOverAll%" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
-creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
-if [ "$(uname)" = 'Linux' ]; then
-    creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h
-fi
 
-Out "Good Luck! Donate? $creationDate" $OUT_SIMULATE_FILE
+# Workflow        
+echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br>" >> $OUT_SIMULATE_FILE
+echo "<br># Result<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a><br>" >> $OUT_SIMULATE_FILE
+echo "<br>" >> $OUT_SIMULATE_FILE
+
+Out "Good Luck! $creationDate" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 echo "</body></html>" >> $OUT_SIMULATE_FILE
