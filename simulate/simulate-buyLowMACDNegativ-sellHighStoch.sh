@@ -348,17 +348,23 @@ sellOnLastDayAmountOverAll=$(printf "%.0f" "$sellOnLastDayAmountOverAll")
 Out "Still in Portfolio After Last Day=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
 Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
-prozWinOverAll=$(echo "$winOverAll $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
-prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
+
+if [ "$sellAmountOverAll" = 0 ]; then
+    prozWinOverAll=0               
+else
+    prozWinOverAll=$(echo "$winOverAll $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
+    prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
+fi
 Out "Perc=$prozWinOverAll%" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
-
 # Workflow        
 echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br>" >> $OUT_SIMULATE_FILE
-echo "<br># Result<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a><br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a><br>" >> $OUT_SIMULATE_FILE
+echo "<br># Result<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a>" >> $OUT_SIMULATE_FILE
+echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a>" >> $OUT_SIMULATE_FILE
+echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html\" target=\"_blank\">Simulation</a><br>" >> $OUT_SIMULATE_FILE
 echo "<br>" >> $OUT_SIMULATE_FILE
 
-Out "Good Luck! $creationDate" $OUT_SIMULATE_FILE
+Out "Good Luck!$creationDate" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 echo "</body></html>" >> $OUT_SIMULATE_FILE
