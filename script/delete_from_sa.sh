@@ -30,3 +30,4 @@ rm -rf buy/"$symbolParam"*.txt
 rm -rf data/"$symbolParam"*.txt
 rm -rf history/"$symbolParam"*.txt
 rm -rf sell/"$symbolParam"*.txt
+rm -rf simulate/out/"$symbolParam"*.html
