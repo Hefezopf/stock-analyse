@@ -281,9 +281,10 @@ do
         fi
     done
     # Write/Replace simulation "buy" values
-    fileContent=$(cat "simulate/out/$symbol.html")
-    fileContentAfterAwk=$(echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}")
-    echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
+    # fileContent=$(cat "simulate/out/$symbol.html")
+    # fileContentAfterAwk=$(echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}")
+    # echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
+    sed -i "174s/.*/$buySequenceReplaced/" simulate/out/"$symbol".html    
 
     # Write/Replace "sell"
     sellSequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
