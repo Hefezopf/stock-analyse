@@ -183,22 +183,23 @@ do
             averageHoldingDays=$(printf "%.1f" "$averageHoldingDays")
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}') 
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
-            isIntermediateProzWinFirstDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')  
-            isIntermediateProzWinTwoDigits=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 2)}')  
-            if [ "$isIntermediateProzWinFirstDigit" = '-' ]; then 
-                isIntermediateProzWinFirstDigit=0
+            intermediateProzWinFirstDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 1, 1)}')
+            intermediateProzWinSecondDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 2, 1)}')
+#echo intermediateProzWinFirstDigit "$intermediateProzWinFirstDigit" intermediateProzWinSecondDigit "$intermediateProzWinSecondDigit"
+            if [ "$intermediateProzWinFirstDigit" = '-' ]; then 
+                intermediateProzWinFirstDigit=0
             else
-                if [ "$isIntermediateProzWinFirstDigit" = '1' ] && [ "$isIntermediateProzWinTwoDigits" -ge 10 ]; then
-                    isIntermediateProzWinFirstDigit=100
+                if [ "$intermediateProzWinFirstDigit" -eq 1 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
+                    intermediateProzWinFirstDigit=100
                 fi
             fi
             # Sell at Percent Param or, if over Stoch Level Param
-            if [ "$isIntermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
+            if [ "$intermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
                 isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
                 # NOT Sell, if would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
                     # ONLY Sell, if percent is over 1%
-                    if [ "$isIntermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then                   
+                    if [ "$intermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then                   
                         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
                         wallet=$(printf "%.0f" "$wallet")
                         sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
