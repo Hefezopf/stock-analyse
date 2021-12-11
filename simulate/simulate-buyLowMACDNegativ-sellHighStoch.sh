@@ -183,17 +183,22 @@ do
             averageHoldingDays=$(printf "%.1f" "$averageHoldingDays")
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}') 
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
-            isIntermediateProzWinGT=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')    
-            if [ "$isIntermediateProzWinGT" = '-' ]; then 
-                isIntermediateProzWinGT=0
+            isIntermediateProzWinFirstDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')  
+            isIntermediateProzWinTwoDigits=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 2)}')  
+            if [ "$isIntermediateProzWinFirstDigit" = '-' ]; then 
+                isIntermediateProzWinFirstDigit=0
+            else
+                if [ "$isIntermediateProzWinFirstDigit" = '1' ] && [ "$isIntermediateProzWinTwoDigits" -ge 10 ]; then
+                    isIntermediateProzWinFirstDigit=100
+                fi
             fi
-            # Sell at 5 Percent or, if over Stoch Level
-            if [ "$isIntermediateProzWinGT" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
+            # Sell at Percent Param or, if over Stoch Level Param
+            if [ "$isIntermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
                 isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
                 # NOT Sell, if would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
                     # ONLY Sell, if percent is over 1%
-                    if [ "$isIntermediateProzWinGT" -gt "$keepIfUnderPercentageParam" ]; then                   
+                    if [ "$isIntermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then                   
                         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
                         wallet=$(printf "%.0f" "$wallet")
                         sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
