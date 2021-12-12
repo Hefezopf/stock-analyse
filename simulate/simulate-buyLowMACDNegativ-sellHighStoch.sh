@@ -123,9 +123,17 @@ do
         fi 
 
         # conditionNewLow
-        beforeLastQuote="$quoteAt"
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         conditionNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
+        if [ "$conditionNewLow" = true ]; then
+            beforeLastQuote="$quoteAt"
+        fi
+
+        if [ "${#ARRAY_BUY[@]}" -gt 0 ]; then
+            isBuyArrayFilled=true
+        else
+            isBuyArrayFilled=false
+        fi
 
         # lastStoch
         lastStoch="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
@@ -133,8 +141,21 @@ do
         # lastRSI
         lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')" 
 
+        # Allways buy, if allready hold pieces and new low
+        if [ "$isBuyArrayFilled" = true ] && [ "$piecesHold" -gt 0 ] && [ "$conditionNewLow" = true ]; then
+            buyCond1=true
+        else
+            buyCond1=false            
+        fi 
+
         # is MACD horizontal?
         if [ "$isMACDHorizontalAlarm" = true ] && [ "$conditionNewLow" = true ] && [ "$lastStoch" = 0 ] && [ "$lastRSI" -le "$RSIBuyLevelParam" ]; then
+            buyCond2=true
+        else
+            buyCond2=false
+        fi
+
+        if [ "$buyCond1" = true ] || [ "$buyCond2" = true ]; then
             piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
             amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
             piecesPerTrade=${piecesPerTrade%.*}
@@ -185,7 +206,6 @@ do
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
             intermediateProzWinFirstDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 1, 1)}')
             intermediateProzWinSecondDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 2, 1)}')
-#echo intermediateProzWinFirstDigit "$intermediateProzWinFirstDigit" intermediateProzWinSecondDigit "$intermediateProzWinSecondDigit"
             if [ "$intermediateProzWinFirstDigit" = '-' ]; then 
                 intermediateProzWinFirstDigit=0
             else
@@ -310,6 +330,7 @@ Out "" $OUT_SIMULATE_FILE
 for i in "${!ARRAY_SELL[@]}"; do
     ARRAY_DIFF[i]="-${ARRAY_SELL[i]}"
 done
+
 # Copy all into Diff Array
 for i in "${!ARRAY_BUY[@]}"; do
     ARRAY_DIFF[i]="${ARRAY_BUY[i]}"
