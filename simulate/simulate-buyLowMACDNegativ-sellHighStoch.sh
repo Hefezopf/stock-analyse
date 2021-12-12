@@ -351,14 +351,14 @@ liquidity=0
 for i in "${!ARRAY_DIFF[@]}"; do
     valueDiffArray="${ARRAY_DIFF[i]}"
     liquidity=$(echo "$liquidity $valueDiffArray" | awk '{print ($1 - $2)}')
-    Out "$i Liquidity:$liquidity" $OUT_SIMULATE_FILE
+    Out "$i Liquidity:$liquidity€" $OUT_SIMULATE_FILE
 done
 
 isLiquidityNegativ=$(echo "$liquidity" | awk '{print substr ($0, 0, 1)}')
 if [ "$isLiquidityNegativ" = '-' ]; then
-    Out "Currently invested (in Stocks):$liquidity" $OUT_SIMULATE_FILE                
+    Out "Currently invested (in Stocks):$liquidity€" $OUT_SIMULATE_FILE                
 else
-    Out "Currently Liquidity Cash to spend:$liquidity" $OUT_SIMULATE_FILE
+    Out "Currently Liquidity Cash to spend:$liquidity€" $OUT_SIMULATE_FILE
 fi
 
 Out "" $OUT_SIMULATE_FILE
@@ -393,6 +393,6 @@ echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/s
 echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html\" target=\"_blank\">Simulation</a><br>" >> $OUT_SIMULATE_FILE
 echo "<br>" >> $OUT_SIMULATE_FILE
 
-Out "Good Luck!$creationDate" $OUT_SIMULATE_FILE
+Out "Good Luck! $creationDate" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 echo "</body></html>" >> $OUT_SIMULATE_FILE
