@@ -36,6 +36,7 @@ OUT_SIMULATE_FILE="simulate/out/_simulate.html"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 QUOTE_MAX_VALUE=999999
 RSI_MAX_VALUE=100
+ARRAY_BUY_POS_SIM=()
 
 mkdir -p simulate/out
 #rm -rf "$OUT_SIMULATE_FILE"
@@ -88,7 +89,7 @@ do
     Out "" $OUT_SIMULATE_FILE
 
     CreateCmdHyperlink "Simulation" "simulate/out"
-    echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
+    echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
@@ -186,6 +187,11 @@ do
                     amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
                 fi
             done
+
+            if [ "$RSIindex" -eq 100 ]; then
+                ARRAY_BUY_POS_SIM+=("$symbol")
+            fi
+
             ARRAY_BUY[RSIindex]=$amount
             ARRAY_TX_INDEX[RSIindex]="BUY+"
             ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
@@ -301,9 +307,6 @@ do
         fi
     done
     # Write/Replace simulation "buy" values
-    # fileContent=$(cat "simulate/out/$symbol.html")
-    # fileContentAfterAwk=$(echo "$fileContent" | awk '/^{},/ { print var; next; }; { print; }' var="${buySequenceReplaced}")
-    # echo "$fileContentAfterAwk" > "simulate/out/$symbol.html"
     sed -i "174s/.*/$buySequenceReplaced/" simulate/out/"$symbol".html    
 
     # Write/Replace "sell"
@@ -344,8 +347,6 @@ for i in "${!ARRAY_BUY[@]}"; do
     done
 done    
 
-Out "" $OUT_SIMULATE_FILE
-
 liquidity=0
 # Output Liquidity
 for i in "${!ARRAY_DIFF[@]}"; do
@@ -360,6 +361,14 @@ if [ "$isLiquidityNegativ" = '-' ]; then
 else
     Out "Currently Liquidity Cash to spend:$liquidity€" $OUT_SIMULATE_FILE
 fi
+
+Out "" $OUT_SIMULATE_FILE
+Out "# Buy now" $OUT_SIMULATE_FILE
+for value in "${ARRAY_BUY_POS_SIM[@]}"
+do
+    echo "<a href=\"http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">$value</a><br>" >> $OUT_SIMULATE_FILE
+    echo "$value" 
+done
 
 Out "" $OUT_SIMULATE_FILE
 Out "# Parameter" $OUT_SIMULATE_FILE
