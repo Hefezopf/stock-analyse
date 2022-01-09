@@ -26,7 +26,7 @@ rm -rf "$OUT_SIMULATE_FILE"
 #                                                                            INCREMENT_PER_TRADE
 #                                                                               SELL_IF_OVER_PERCENTAGE
 #                                                                                   KEEP_IF_UNDER_PERCENTAGE
-X_TIMES_AMOUNT_PER_TRADE=$(echo "$2" | awk '{print $1 * 2}')
+#X_TIMES_AMOUNT_PER_TRADE=$(echo "$2" | awk '{print $1 * 2}')
 
 ./simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5" "$6" "$7"
 
