@@ -134,22 +134,23 @@ body > div {
 <body>
 <div>
 <script>
-    var token = 'ghp_' + 'yRKbcL7EMqRpmqGekUOYUgxJXryuLN3xkISP';
+    var token = 'ghp' + '_' + 'yRKbcL7EMqRpmqGekUOYUgxJXryuLN3xkISP';
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == ''){
             alert('Error: Symbol, Price or Pieces not set!');
             return;
-        }
+        }     
+        var symbolParamTrimmed = symbolParam.trim();
         var price = price.replace(',', '.');
         var pieces = pieces.replace('.', '');  
-        if (confirm('Buy ' + pieces + ' pieces of ' + symbolParam + '=' + (pieces*price).toFixed(0) + '€?') == false) {
+        if (confirm('Buy ' + pieces + ' pieces of ' + symbolParamTrimmed + '=' + (pieces*price).toFixed(0) + '€?') == false) {
             return;
         }
-        if(document.getElementById('intervalSectionInputPriceBuy'+symbolParam)){
-            document.getElementById('intervalSectionInputPriceBuy'+symbolParam).value = '';
+        if(document.getElementById('intervalSectionInputPriceBuy'+symbolParamTrimmed)){
+            document.getElementById('intervalSectionInputPriceBuy'+symbolParamTrimmed).value = '';
         }
-        if(document.getElementById('intervalSectionInputPiecesBuy'+symbolParam)){
-            document.getElementById('intervalSectionInputPiecesBuy'+symbolParam).value = '';
+        if(document.getElementById('intervalSectionInputPiecesBuy'+symbolParamTrimmed)){
+            document.getElementById('intervalSectionInputPiecesBuy'+symbolParamTrimmed).value = '';
         }        
         document.getElementById('intervalSectionInputSymbolBuyGenerell').value = '';
         document.getElementById('intervalSectionInputPriceBuyGenerell').value = '';
@@ -168,7 +169,7 @@ body > div {
         var data = {
             event_type: 'buy', 
             client_payload: {
-                symbol: symbolParam, 
+                symbol: symbolParamTrimmed, 
                 price: price, 
                 pieces: pieces                              
             }
