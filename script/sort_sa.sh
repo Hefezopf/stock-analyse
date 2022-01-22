@@ -8,4 +8,4 @@
 echo "Sorting..."
 
 # Delete $SYMBOL in stock_symbols.txt
-cat ../config/stock_symbols.txt | tr " " "\n" | sort | tr "\n" " " > ../config/stock_symbols.txt
+cat config/stock_symbols.txt | tr " " "\n" | sort | tr "\n" " " > config/stock_symbols.txt
