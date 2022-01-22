@@ -1,11 +1,18 @@
 name: Sort
 
 # Controls when the action will run. 
-on:       
+on:
+  # Can be triggered with cURL
+  repository_dispatch:
+    types: [sort] 
+   
   schedule:
+  # Every 23th day
+  #- cron: "0 0 23 * *"
   # Every 4th month
-  #- cron: "0 0 1 */4 *"
-  - cron: "0,5,10,15,20,25,30,35,40,45,50,55  * * * *"
+  - cron: "0 0 1 */4 *"
+  # At 30 min past the hour = once a hour
+  #- cron: "30 * * * *"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
