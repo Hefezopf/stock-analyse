@@ -33,11 +33,12 @@ jobs:
 
           chmod +x ./script/sort_sa.sh
 
-          sh ./script/sort_sa.sh
+          #sh ./script/sort_sa.sh
+          cat config/stock_symbols.txt | tr " " "\n" | sort | tr "\n" " " > config/stock_symbols.txt
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
-          git add config/*.txt
+          git add config/stock_symbols.txt
           git commit -am "Github Sorting Result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
 
