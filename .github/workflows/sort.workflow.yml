@@ -3,12 +3,12 @@ name: Sort
 # Controls when the action will run. 
 on:
   # Can be triggered with cURL
- # repository_dispatch:
-  #  types: [sort] 
-   
+  repository_dispatch:
+    types: [sort]
+
   schedule:
   # Every 23th day
-  - cron: "12 12 24,25,26,27 * *"
+  - cron: "16 16 24,25,26,27 * *"
   # Every 4th month
   #- cron: "0 0 1 */4 *"
   # At 30 min past the hour = once a hour
@@ -31,7 +31,14 @@ jobs:
         run: |
           echo "Sort Symbols ..."
 
+ls 
+ls -lias config/stock_symbols.txt
+cat config/stock_symbols.txt
+
           cat config/stock_symbols.txt | tr " " "\n" | sort | tr "\n" " " > config/stock_symbols.txt
+
+ls -lias
+ls -lias config/stock_symbols.txt
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
@@ -46,7 +53,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}          
-          subject: Schedule Result ${{github.event_name}} ${{github.event.action}}
+          subject: Sort Result ${{github.event_name}} ${{github.event.action}}
           # Read file contents as body:
           body: file://template/email.html
           #body: file://out/_result.html
