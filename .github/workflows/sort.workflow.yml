@@ -35,14 +35,14 @@ jobs:
         run: |
           echo "Sort Symbols ..."
 
-          ls 
-          ls -lias config/stock_symbols.txt
-          cat config/stock_symbols.txt
+          #ls 
+          #ls -lias config/stock_symbols.txt
+          #cat config/stock_symbols.txt
 
           cat config/stock_symbols.txt | tr " " "\n" | sort | tr "\n" " " > config/stock_symbols.txt
 
-          ls -lias
-          ls -lias config/stock_symbols.txt
+          #ls -lias
+          #ls -lias config/stock_symbols.txt
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
