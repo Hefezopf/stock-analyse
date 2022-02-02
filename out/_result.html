@@ -148,7 +148,7 @@ return ret.replace(/ZZ/g, "% ");
 </script>
 # Parameter
 <br>
-Symbols(19):*SY1 *INS *VH2 *AG1 *DHER *EUZ *NEM *PFV *MOR *2B70 *EXH6 *CWC *QIA *TNE5 *GEC *FTE *DBK *CRIN  AFX
+Symbols(18):*SY1 *INS *VH2 *AG1 *DHER *EUZ *NEM *PFV *MOR *2B70 *EXH6 *CWC *TNE5 *GEC *FTE *DBK *CRIN  QIA
 <br>
 Percentage:1 
 <br>
@@ -1750,138 +1750,6 @@ imageCWC.src = urlWithTimeSpan;
 }
 </script>
 <div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">*QIA "QIAGEN"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/QIA.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/QIA.html" id='linkPCQIA' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/QIA.DE?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objQIA = JSON.parse(data.contents);
-var elementRegularMarketTimeQIA = document.getElementById("neverShowRegularMarketTimeQIA");
-
-var dateMarketTimeQIA = new Date(0); 
-var epochMarketTimeQIA = objQIA.chart.result[0].meta.regularMarketTime;
-dateMarketTimeQIA.setUTCSeconds(epochMarketTimeQIA);
-elementRegularMarketTimeQIA.innerHTML = ('0'+dateMarketTimeQIA.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeQIA.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeQIA.getSeconds()).slice(-2);
-
-var deltaMinutesQIA =((new Date().getTime() - dateMarketTimeQIA.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetQIA = document.getElementById("intervalSectionRegularMarketTimeOffsetQIA");
-elementRegularMarketTimeOffsetQIA.innerHTML = '+' + Math.abs(Math.round(deltaMinutesQIA)) + 'min';
-
-var elementRegularMarketPriceQIA = document.getElementById("intervalSectionRegularMarketPriceQIA");
-elementRegularMarketPriceQIA.innerHTML = objQIA.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageQIA = document.getElementById("intervalSectionPercentageQIA");
-var percentValueQIA = ((objQIA.chart.result[0].meta.regularMarketPrice / objQIA.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueQIA = percentValueQIA.toFixed(1);
-elementPercentageQIA.innerHTML = percentValueQIA + '%';
-if(percentValueQIA < 0){
-elementPercentageQIA.style.color = 'red';
-}
-else{
-elementPercentageQIA.style.color = 'green';
-}
-
-var elementPortfolioValuesQIA = document.getElementById("intervalSectionPortfolioValuesQIA");
-var obfuscatedValuePcEuroQIA = document.getElementById("obfuscatedValuePcEuroQIA");
-decryptElement(obfuscatedValuePcEuroQIA);
-var piecesQIA = obfuscatedValuePcEuroQIA.innerHTML.split(' pc')[0];
-var buyingValueQIA = obfuscatedValuePcEuroQIA.innerHTML.split('/')[0];
-buyingValueQIA = buyingValueQIA.split(' ')[2];
-var portfolioValueQIA = piecesQIA * objQIA.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceQIA = ((portfolioValueQIA / buyingValueQIA)-1)*100;
-elementPortfolioValuesQIA.innerHTML = piecesQIA + ' pc ' + buyingValueQIA + '/' + portfolioValueQIA.toFixed(0) + '€ ';
-var elementPortfolioGainQIA = document.getElementById("intervalSectionPortfolioGainQIA");
-elementPortfolioGainQIA.innerHTML = stocksPerformanceQIA.toFixed(1) + '% ' + (portfolioValueQIA - buyingValueQIA).toFixed(0) + '€';
-if(stocksPerformanceQIA < 0){
-elementPortfolioGainQIA.style.color = 'red';
-}
-else{
-elementPortfolioGainQIA.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroQIA);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: QIA !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceQIA" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageQIA" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeQIA" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetQIA" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesQIA" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainQIA" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivQIA" style='display:none'>
-<span id="obfuscatedValuePcEuroQIA" style='display:none'>YY8938/5718XX091</span>&nbsp;
-<span id="obfuscatedValueGainQIA" style='display:none;color:green'>YY322ZZ7.2</span>
-<span id="obfuscatedValueCloseBracesQIA" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionQIA" style='display: none'><input name="intervalFieldQIA" type="text" maxlength="7" value="1" id="intervalFieldQIA"/><button type="button" id="intervalButtonQIA">Minutes</button><span id="intervalTextQIA"></span></span>
-<script>
-var intervalVarQIA;
-function beepQIA() {
-var elementAlert = document.getElementById("intervalTextQIA");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarQIA);
-intervalVarQIA=undefined;
-}
-function setBeepIntervalQIA() {
-var intervalValue = document.getElementById("intervalFieldQIA").value;
-intervalVarQIA = setInterval(beepQIA, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextQIA");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonQIA").addEventListener("click", setBeepIntervalQIA);
-</script>
-<br><img width="50%" id="intervalSectionImageQIA" style='display: none'></img><br>
-<button id="intervalSectionButton1DQIA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageQIA('1D')">1D</button>
-<button id="intervalSectionButton5DQIA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageQIA('5D')">5D</button>
-<button id="intervalSectionButton10DQIA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageQIA('10D')">10D</button>
-<button id="intervalSectionButton3MQIA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageQIA('3M')">3M</button>
-<button id="intervalSectionButton6MQIA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageQIA('6M')">6M</button>
-<button id="intervalSectionButton1YQIA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageQIA('1Y')">1Y</button>
-<button id="intervalSectionButton5YQIA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageQIA('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-Own Symbol (Enter Values from Depot):
-<br>
-<button id="intervalSectionButtonSellQIA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('QIA')">Sell</button>
-<button id="intervalSectionButtonBuyQIA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'QIA', document.getElementById('intervalSectionInputPriceBuyQIA').value, document.getElementById('intervalSectionInputPiecesBuyQIA').value)">ReBuy</button>
-All Pieces <input name='intervalSectionInputPiecesBuyQIA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyQIA'/>
-Avg. Price <input name='intervalSectionInputPriceBuyQIA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyQIA'/>
-<p>
-<hr id="intervalSectionHRQIA" style='display: none'>
-<script>
-var imageQIA = new Image();
-var TIME_SPANQIA;
-function updateImageQIA(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANQIA=timespan;
-}
-if(imageQIA.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337229&TIME_SPAN='+TIME_SPANQIA;
-document.getElementById("intervalSectionImageQIA").src = urlWithTimeSpan;
-imageQIA = new Image();
-imageQIA.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageQIA, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
 <a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337133" target="_blank">*TNE5 "TELEFONICA S.A."</a>
 <a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337133" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:red" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TNE5.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2551,14 +2419,14 @@ imageCRIN.src = urlWithTimeSpan;
 }
 </script>
 <div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336888" target="_blank">AFX "Carl Zeiss Meditec"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336888" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AFX.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/AFX.html" id='linkPCAFX' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">QIA "QIAGEN"</a>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337229" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/QIA.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:black; display: none" href="D:/code/stock-analyse/out/QIA.html" id='linkPCQIA' target='_blank'>&nbsp;PC&nbsp;</a>
 </div>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY439609/0158011</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY675102-ZZ2.81-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY635898/5330011</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY997102-ZZ3.81-</span></span>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="50%" id="intervalSectionImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
@@ -2599,7 +2467,6 @@ javascript:updateImageMOR('1D');
 javascript:updateImage2B70('1D');
 javascript:updateImageEXH6('1D');
 javascript:updateImageCWC('1D');
-javascript:updateImageQIA('1D');
 javascript:updateImageTNE5('1D');
 javascript:updateImageGEC('1D');
 javascript:updateImageFTE('1D');
@@ -2620,7 +2487,6 @@ javascript:updateImageMOR('5D');
 javascript:updateImage2B70('5D');
 javascript:updateImageEXH6('5D');
 javascript:updateImageCWC('5D');
-javascript:updateImageQIA('5D');
 javascript:updateImageTNE5('5D');
 javascript:updateImageGEC('5D');
 javascript:updateImageFTE('5D');
@@ -2641,7 +2507,6 @@ javascript:updateImageMOR('10D');
 javascript:updateImage2B70('10D');
 javascript:updateImageEXH6('10D');
 javascript:updateImageCWC('10D');
-javascript:updateImageQIA('10D');
 javascript:updateImageTNE5('10D');
 javascript:updateImageGEC('10D');
 javascript:updateImageFTE('10D');
@@ -2662,7 +2527,6 @@ javascript:updateImageMOR('3M');
 javascript:updateImage2B70('3M');
 javascript:updateImageEXH6('3M');
 javascript:updateImageCWC('3M');
-javascript:updateImageQIA('3M');
 javascript:updateImageTNE5('3M');
 javascript:updateImageGEC('3M');
 javascript:updateImageFTE('3M');
@@ -2683,7 +2547,6 @@ javascript:updateImageMOR('6M');
 javascript:updateImage2B70('6M');
 javascript:updateImageEXH6('6M');
 javascript:updateImageCWC('6M');
-javascript:updateImageQIA('6M');
 javascript:updateImageTNE5('6M');
 javascript:updateImageGEC('6M');
 javascript:updateImageFTE('6M');
@@ -2704,7 +2567,6 @@ javascript:updateImageMOR('1Y');
 javascript:updateImage2B70('1Y');
 javascript:updateImageEXH6('1Y');
 javascript:updateImageCWC('1Y');
-javascript:updateImageQIA('1Y');
 javascript:updateImageTNE5('1Y');
 javascript:updateImageGEC('1Y');
 javascript:updateImageFTE('1Y');
@@ -2725,7 +2587,6 @@ javascript:updateImageMOR('5Y');
 javascript:updateImage2B70('5Y');
 javascript:updateImageEXH6('5Y');
 javascript:updateImageCWC('5Y');
-javascript:updateImageQIA('5Y');
 javascript:updateImageTNE5('5Y');
 javascript:updateImageGEC('5Y');
 javascript:updateImageFTE('5Y');
@@ -2747,7 +2608,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  2-Feb-2022 09:21</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  2-Feb-2022 09:23</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
