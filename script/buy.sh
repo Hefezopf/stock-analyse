@@ -5,8 +5,8 @@
 # Removing symbol from config/stock_symbols.txt
 # Covers rebuy scenario as well!
 
-# Call: sh ./script/buy.sh SYMBOL PRICE PIECES
-# Example: sh ./script/buy.sh BEI 9.99 100
+# Call: sh ./script/buy.sh SYMBOL PIECES PRICE
+# Example: sh ./script/buy.sh BEI 100 9.99 
 # alias buy='/d/code/stock-analyse/script/buy.sh $1 $2 $3'
 # {"event_type": "buy", "client_payload": {"symbol": "BEI", "price": "9.99", "pieces": "100"}}
 
@@ -14,24 +14,24 @@
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 # Price has to be without comma
-priceParam=$(echo "$2" | sed 's/,/./g')
+priceParam=$(echo "$3" | sed 's/,/./g')
 
-if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$3" ]; } then
+if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$2" ]; } then
   echo "Not all parameters specified!"
-  echo "Call: sh ./buy.sh SYMBOL PRICE PIECES"
-  echo "Example: sh ./buy.sh BEI 9.99 100"
+  echo "Call: sh ./buy.sh SYMBOL PIECES PRICE"
+  echo "Example: sh ./buy.sh BEI 100 9.99"
   exit 1
 fi
 
-summe=$(echo "$priceParam $3" | awk '{print $1 * $2}')
+summe=$(echo "$priceParam $2" | awk '{print $1 * $2}')
 #summe=$(printf "%.1f" "$summe")
-echo "(re)buy $symbolParam $priceParam $3 = $summe €"
+echo "(re)buy $symbolParam $2 $priceParam = $summe €"
 
 #case "$symbolParam" in
 #    ''|*[!A-Z]*) echo "Error: SYMBOL Not a valid alpha numeric!" >&2; exit 2 ;;
 #esac
 
-case "$3" in
+case "$2" in
     ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
 esac
 
@@ -46,7 +46,7 @@ sed -i "/^$symbolParam /d" config/own_symbols.txt
 
 # Add in front of own list
 today=$(date --date="-0 day" +"%Y-%m-%d")
-sed -i '1 i\'$symbolParam' '$priceParam' '$today' '$3'' config/own_symbols.txt
+sed -i '1 i\'$symbolParam' '$priceParam' '$today' '$2'' config/own_symbols.txt
 
 # Encript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
