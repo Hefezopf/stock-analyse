@@ -25,7 +25,7 @@ fi
 
 summe=$(echo "$priceParam $2" | awk '{print $1 * $2}')
 #summe=$(printf "%.1f" "$summe")
-echo "(re)buy $symbolParam $2 $priceParam = $summe €"
+echo "(re)buy $symbolParam $2 $priceParam = ${summe%.*} €"
 
 #case "$symbolParam" in
 #    ''|*[!A-Z]*) echo "Error: SYMBOL Not a valid alpha numeric!" >&2; exit 2 ;;
