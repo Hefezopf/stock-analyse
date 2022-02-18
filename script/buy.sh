@@ -16,16 +16,16 @@ symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 # Price has to be without comma
 priceParam=$(echo "$2" | sed 's/,/./g')
 
-summe=$(echo "$priceParam $3" | awk '{print $1 * $2}')
-#summe=$(printf "%.1f" "$summe")
-echo "(re)buy $symbolParam $priceParam $3 = $summe €"
-
 if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$3" ]; } then
   echo "Not all parameters specified!"
   echo "Call: sh ./buy.sh SYMBOL PRICE PIECES"
   echo "Example: sh ./buy.sh BEI 9.99 100"
   exit 1
 fi
+
+summe=$(echo "$priceParam $3" | awk '{print $1 * $2}')
+#summe=$(printf "%.1f" "$summe")
+echo "(re)buy $symbolParam $priceParam $3 = $summe €"
 
 #case "$symbolParam" in
 #    ''|*[!A-Z]*) echo "Error: SYMBOL Not a valid alpha numeric!" >&2; exit 2 ;;
