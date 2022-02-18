@@ -13,25 +13,28 @@
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
+# Pieces has to be without dot
+piecesParam=$(echo "$2" | sed 's/\.//g')
+
 # Price has to be without comma
 priceParam=$(echo "$3" | sed 's/,/./g')
 
-if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$2" ]; } then
+if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$piecesParam" ]; } then
   echo "Not all parameters specified!"
   echo "Call: sh ./buy.sh SYMBOL PIECES PRICE"
   echo "Example: sh ./buy.sh BEI 100 9.99"
   exit 1
 fi
 
-summe=$(echo "$priceParam $2" | awk '{print $1 * $2}')
+summe=$(echo "$priceParam $piecesParam" | awk '{print $1 * $2}')
 #summe=$(printf "%.1f" "$summe")
-echo "(re)buy $symbolParam $2 $priceParam = ${summe%.*} €"
+echo "(re)buy $symbolParam $piecesParam $priceParam = ${summe%.*} €"
 
 #case "$symbolParam" in
 #    ''|*[!A-Z]*) echo "Error: SYMBOL Not a valid alpha numeric!" >&2; exit 2 ;;
 #esac
 
-case "$2" in
+case "$piecesParam" in
     ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
 esac
 
@@ -46,7 +49,7 @@ sed -i "/^$symbolParam /d" config/own_symbols.txt
 
 # Add in front of own list
 today=$(date --date="-0 day" +"%Y-%m-%d")
-sed -i '1 i\'$symbolParam' '$priceParam' '$today' '$2'' config/own_symbols.txt
+sed -i '1 i\'$symbolParam' '$priceParam' '$today' '$piecesParam'' config/own_symbols.txt
 
 # Encript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
