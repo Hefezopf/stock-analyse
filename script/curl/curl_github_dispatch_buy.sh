@@ -19,4 +19,4 @@ if { [ -z "$symbolParam" ] || [ -z "$2" ] || [ -z "$3" ]; } then
   exit 1
 fi
 
-curl -X POST -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "buy", "client_payload": {"symbol": "'$symbolParam'", "price": "'$3'", "pieces": "'$2'"}}'
+curl -X POST -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "buy", "client_payload": {"symbol": "'$symbolParam'", "pieces": "'$2'", "price": "'$3'"}}'
