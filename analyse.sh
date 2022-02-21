@@ -52,7 +52,9 @@ RSIQuoteParam=$5
 
 # Prepare
 lowestRSI=100
-rm -rf /dev/shm/tmp.*
+TEMP_DIR=/tmp
+#TEMP_DIR=/dev/shm
+rm -rf "$TEMP_DIR"/tmp.*
 mkdir -p out
 mkdir -p temp
 cp template/favicon.ico out
@@ -329,11 +331,11 @@ do
     # Get stock data
     echo ""
     echo "# Get $symbol $symbolName"
-    DATA_FILE="$(mktemp -p /dev/shm/)"
+    DATA_FILE="$(mktemp -p "$TEMP_DIR"/)"
     DATA_DATE_FILE=data/$symbol.txt
     if [ "$queryParam" = 'online' ]; then
         #tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
-        DATA_DATE_FILE_TEMP="$(mktemp -p /dev/shm/)"
+        DATA_DATE_FILE_TEMP="$(mktemp -p "$TEMP_DIR"/)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
         #exchange="XFRA" # Frankfurt
@@ -526,7 +528,7 @@ do
         fi
 
         # Buy Strategie: New Low
-        DATA_FILE_87="$(mktemp -p /dev/shm/)"
+        DATA_FILE_87="$(mktemp -p "$TEMP_DIR"/)"
         head -n87 "$DATA_FILE" > "$DATA_FILE_87"
         commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
         beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
