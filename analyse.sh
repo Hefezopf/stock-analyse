@@ -50,6 +50,7 @@ queryParam=$3
 stochasticPercentageParam=$4
 RSIQuoteParam=$5
 
+
 # Prepare
 lowestRSI=100
 rm -rf /dev/shm/tmp.*
