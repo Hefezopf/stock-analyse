@@ -43,6 +43,9 @@ export LC_ALL=en_US.UTF-8
 
 export MARKET_STACK_ACCESS_KEY
 
+#export TEMP_DIR=/tmp
+export TEMP_DIR=/dev/shm
+
 # Parameter
 symbolsParam=$1
 percentageParam=$2
@@ -52,8 +55,6 @@ RSIQuoteParam=$5
 
 # Prepare
 lowestRSI=100
-#TEMP_DIR=/tmp
-TEMP_DIR=/dev/shm
 rm -rf "$TEMP_DIR"/tmp.*
 mkdir -p out
 mkdir -p temp
