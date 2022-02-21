@@ -171,8 +171,8 @@ body > div {
             event_type: 'buy', 
             client_payload: {
                 symbol: symbolParamTrimmed, 
-                price: price, 
-                pieces: pieces                              
+                pieces: pieces,
+                price: price,            
             }
         };
         xhr.send(JSON.stringify(data));
