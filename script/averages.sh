@@ -108,8 +108,8 @@ RSIOfDays() {
     _dataFileParam=$2
     export RSIQuoteList
 
-    RSIwinningDaysFile="$(mktemp -p "$TEMP_DIR")"
-    RSIloosingDaysFile="$(mktemp -p "$TEMP_DIR")"
+    RSIwinningDaysFile="$(mktemp -p /dev/shm)"
+    RSIloosingDaysFile="$(mktemp -p /dev/shm)"
     i=1
     while [ "$i" -le 100 ]; do
         i=$((i + 1))
@@ -161,7 +161,7 @@ StochasticOfDays() {
     _dataFileParam=$2
     export stochasticQuoteList
 
-    stochasticFile="$(mktemp -p "$TEMP_DIR")"
+    stochasticFile="$(mktemp -p /dev/shm)"
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
     # Fill with blank comma seperated data
