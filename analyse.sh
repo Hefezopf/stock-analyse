@@ -52,8 +52,8 @@ RSIQuoteParam=$5
 
 # Prepare
 lowestRSI=100
-TEMP_DIR=/tmp
-#TEMP_DIR=/dev/shm
+#TEMP_DIR=/tmp
+TEMP_DIR=/dev/shm
 rm -rf "$TEMP_DIR"/tmp.*
 mkdir -p out
 mkdir -p temp
