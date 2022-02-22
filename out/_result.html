@@ -148,7 +148,7 @@ return ret.replace(/ZZ/g, "% ");
 </script>
 # Parameter
 <br>
-Symbols(1):*DBK
+Symbols(1):*mmm
 <br>
 Percentage:1 
 <br>
@@ -159,15 +159,147 @@ Stochastic:9
 RSI:25
 <br><br># Analyse
 <div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336876" target="_blank">*DBK "DEUTSCHE BANK"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336876" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DBK.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/DBK.html" id='linkPCDBK' target='_blank'>&nbsp;PC&nbsp;</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671860" target="_blank">*MMM "3M CO"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671860" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MMM.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/MMM.html" id='linkPCMMM' target='_blank'>&nbsp;PC&nbsp;</a>
 </div>
+Buy: Low MACD (M)<br>
+Buy: New 40 days Low (L)<br>
+Buy: RSI Divergence (D)<br>
+Buy: Low Percentage & Stochastic (P)<br>
+Buy: Low 7 last Stochastic (S)<br>
+Buy: Low 4 last RSI (R)<br>
+Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
+<script>
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/MMM.DE?interval=1d')}`)
+.then(response => {
+if (response.ok){
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+const objMMM = JSON.parse(data.contents);
+var elementRegularMarketTimeMMM = document.getElementById("neverShowRegularMarketTimeMMM");
+
+var dateMarketTimeMMM = new Date(0); 
+var epochMarketTimeMMM = objMMM.chart.result[0].meta.regularMarketTime;
+dateMarketTimeMMM.setUTCSeconds(epochMarketTimeMMM);
+elementRegularMarketTimeMMM.innerHTML = ('0'+dateMarketTimeMMM.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeMMM.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeMMM.getSeconds()).slice(-2);
+
+var deltaMinutesMMM =((new Date().getTime() - dateMarketTimeMMM.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetMMM = document.getElementById("intervalSectionRegularMarketTimeOffsetMMM");
+elementRegularMarketTimeOffsetMMM.innerHTML = '+' + Math.abs(Math.round(deltaMinutesMMM)) + 'min';
+
+var elementRegularMarketPriceMMM = document.getElementById("intervalSectionRegularMarketPriceMMM");
+elementRegularMarketPriceMMM.innerHTML = objMMM.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+var elementPercentageMMM = document.getElementById("intervalSectionPercentageMMM");
+var percentValueMMM = ((objMMM.chart.result[0].meta.regularMarketPrice / objMMM.chart.result[0].meta.chartPreviousClose) -1) * 100;
+percentValueMMM = percentValueMMM.toFixed(1);
+elementPercentageMMM.innerHTML = percentValueMMM + '%';
+if(percentValueMMM < 0){
+elementPercentageMMM.style.color = 'red';
+}
+else{
+elementPercentageMMM.style.color = 'green';
+}
+
+var elementPortfolioValuesMMM = document.getElementById("intervalSectionPortfolioValuesMMM");
+var obfuscatedValuePcEuroMMM = document.getElementById("obfuscatedValuePcEuroMMM");
+decryptElement(obfuscatedValuePcEuroMMM);
+var piecesMMM = obfuscatedValuePcEuroMMM.innerHTML.split(' pc')[0];
+var buyingValueMMM = obfuscatedValuePcEuroMMM.innerHTML.split('/')[0];
+buyingValueMMM = buyingValueMMM.split(' ')[2];
+var portfolioValueMMM = piecesMMM * objMMM.chart.result[0].meta.regularMarketPrice;
+var stocksPerformanceMMM = ((portfolioValueMMM / buyingValueMMM)-1)*100;
+elementPortfolioValuesMMM.innerHTML = piecesMMM + ' pc ' + buyingValueMMM + '/' + portfolioValueMMM.toFixed(0) + '€ ';
+var elementPortfolioGainMMM = document.getElementById("intervalSectionPortfolioGainMMM");
+elementPortfolioGainMMM.innerHTML = stocksPerformanceMMM.toFixed(1) + '% ' + (portfolioValueMMM - buyingValueMMM).toFixed(0) + '€';
+if(stocksPerformanceMMM < 0){
+elementPortfolioGainMMM.style.color = 'red';
+}
+else{
+elementPortfolioGainMMM.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroMMM);  
+})
+.catch(error => {
+console.error('Error retrieving current quote for: MMM !!!' + error);
+});
+</script>
+<span id="intervalSectionRegularMarketPriceMMM" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageMMM" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeMMM" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetMMM" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesMMM" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainMMM" style='font-size:xx-large; display: none'></span>
+<br>
+<div id="neverShowDivMMM" style='display:none'>
+<span id="obfuscatedValuePcEuroMMM" style='display:none'>YY03181/62381XX041</span>&nbsp;
+<span id="obfuscatedValueGainMMM" style='display:none;color:red'>YY691-ZZ1.1-</span>
+<span id="obfuscatedValueCloseBracesMMM" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionMMM" style='display: none'><input name="intervalFieldMMM" type="text" maxlength="7" value="1" id="intervalFieldMMM"/><button type="button" id="intervalButtonMMM">Minutes</button><span id="intervalTextMMM"></span></span>
+<script>
+var intervalVarMMM;
+function beepMMM() {
+var elementAlert = document.getElementById("intervalTextMMM");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarMMM);
+intervalVarMMM=undefined;
+}
+function setBeepIntervalMMM() {
+var intervalValue = document.getElementById("intervalFieldMMM").value;
+intervalVarMMM = setInterval(beepMMM, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextMMM");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonMMM").addEventListener("click", setBeepIntervalMMM);
+</script>
+<br><img width="50%" id="intervalSectionImageMMM" style='display: none'></img><br>
+<button id="intervalSectionButton1DMMM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMMM('1D')">1D</button>
+<button id="intervalSectionButton5DMMM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMMM('5D')">5D</button>
+<button id="intervalSectionButton10DMMM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMMM('10D')">10D</button>
+<button id="intervalSectionButton3MMMM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMMM('3M')">3M</button>
+<button id="intervalSectionButton6MMMM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMMM('6M')">6M</button>
+<button id="intervalSectionButton1YMMM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMMM('1Y')">1Y</button>
+<button id="intervalSectionButton5YMMM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMMM('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+Own Symbol (Enter Values from Depot):
+<br>
+<button id="intervalSectionButtonSellMMM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('MMM')">Sell</button>
+<button id="intervalSectionButtonBuyMMM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'MMM', document.getElementById('intervalSectionInputPriceBuyMMM').value, document.getElementById('intervalSectionInputPiecesBuyMMM').value)">ReBuy</button>
+All Pieces <input name='intervalSectionInputPiecesBuyMMM' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyMMM'/>
+Avg. Price <input name='intervalSectionInputPriceBuyMMM' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyMMM'/>
+<p>
+<hr id="intervalSectionHRMMM" style='display: none'>
+<script>
+var imageMMM = new Image();
+var TIME_SPANMMM;
+function updateImageMMM(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANMMM=timespan;
+}
+if(imageMMM.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46671860&TIME_SPAN='+TIME_SPANMMM;
+document.getElementById("intervalSectionImageMMM").src = urlWithTimeSpan;
+imageMMM = new Image();
+imageMMM.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageMMM, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'></span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'></span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY03181/62381</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY691-ZZ1.1-</span></span>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="50%" id="intervalSectionImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
@@ -196,31 +328,31 @@ imageDAX.src = urlWithTimeSpan;
 }
 </script>
 <button id="intervalSectionButtonAll1D" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageDBK('1D');
+javascript:updateImagemmm('1D');
 javascript:updateImageDAX('1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageDBK('5D');
+javascript:updateImagemmm('5D');
 javascript:updateImageDAX('5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageDBK('10D');
+javascript:updateImagemmm('10D');
 javascript:updateImageDAX('10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageDBK('3M');
+javascript:updateImagemmm('3M');
 javascript:updateImageDAX('3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageDBK('6M');
+javascript:updateImagemmm('6M');
 javascript:updateImageDAX('6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageDBK('1Y');
+javascript:updateImagemmm('1Y');
 javascript:updateImageDAX('1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageDBK('5Y');
+javascript:updateImagemmm('5Y');
 javascript:updateImageDAX('5Y');
 ">5Y</button>
 <br>
