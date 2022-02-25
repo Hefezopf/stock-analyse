@@ -1,6 +1,19 @@
 TODO:
 -----
 
+
+curl -L -s "https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=328873513" | grep -ioF "Mrd."
+curl -L -s "https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=328873513" | grep -ioF "Mio."
+
+#!/bin/bash
+echo "Start!"
+while read p; do
+  echo "$p"
+  echo curl -L -s "$p" | grep -ioF "Mio."
+done <url_list.txt
+
+
+
 (-* in der xAchse weg lassen, denn wenn ich ?) nein denn bei Käufen die lange her sind weis ich nicht mehr das es meine sind!
 
 +Sorting Automatisieren alle 4 Monate? Mit Workflow?
