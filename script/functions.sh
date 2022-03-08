@@ -137,7 +137,7 @@ CurlSymbolName() {
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
             echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999" | tee -a "$_tickerNameIdFileParam"
-            tempTickerNameIdFile="$(mktemp -p /dev/shm/)"
+            tempTickerNameIdFile="$(mktemp -p $TEMP_DIR)"
             sort -k 1 "$_tickerNameIdFileParam" > "$tempTickerNameIdFile"
             mv "$tempTickerNameIdFile" "$_tickerNameIdFileParam"
             # Can requested in bulk request as an option!
