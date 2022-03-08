@@ -6,11 +6,45 @@ curl -L -s "https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=3288
 curl -L -s "https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=328873513" | grep -ioF "Mio."
 
 #!/bin/bash
-echo "Start!"
-while read p; do
-  echo "$p"
-  echo curl -L -s "$p" | grep -ioF "Mio."
-done <url_list.txt
+input="url_list.txt"
+#cat "$input"
+while read line; do
+  echo $line
+  #line="DE000A255F11?ID_NOTATION=328873513"
+   #line="$line"
+  # url="https://nutzer.comdirect.de/inf/aktien/${line}"
+  # echo $url
+   url="https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=$line&freeAverage1=38"
+   echo $url
+   #access_key=${MARKET_STACK_ACCESS_KEY}
+     #   exchange="XETRA"
+    #    curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
+
+
+#  curl -s --location --request GET "https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=328873513" | grep -ioF "Mio."
+  curl -s --location --request GET "$url" | grep -ioF "Mio."
+    #curl -s --location --request GET $line > "temp.txt"
+  #sleep 2
+  # >> temp.txt
+  #| grep -ioF "Mio."
+done < $input
+
+
+
+#!/usr/bin/env bash
+
+{ IFS= read -rd '' value <url_list.txt;} 2>/dev/null
+
+#printf "%s" "$value"
+line=$(printf "%s" "$value")
+echo line="$line"
+url="https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=$line"
+echo $url
+   
+curl -s --location --request GET "$url" | grep -ioF "Mio."
+
+
+
 
 
 (-* in der xAchse weg lassen, denn wenn ich ?) nein denn bei Käufen die lange her sind weis ich nicht mehr das es meine sind!
