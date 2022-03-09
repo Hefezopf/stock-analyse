@@ -1,9 +1,7 @@
 TODO:
 -----
 
-
-curl -L -s "https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=328873513" | grep -ioF "Mrd."
-curl -L -s "https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=328873513" | grep -ioF "Mio."
+curl -L -s "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=137447337" | grep -ioF "Mio.&nbsp;EUR"
 
 #!/bin/bash
 input="url_list.txt"
@@ -21,8 +19,8 @@ while read line; do
     #    curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
 
 
-#  curl -s --location --request GET "https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=328873513" | grep -ioF "Mio."
-  curl -s --location --request GET "$url" | grep -ioF "Mio."
+#  curl -s --location --request GET "https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=328873513" | grep -ioF "Mio.&nbsp;EUR"
+  curl -s --location --request GET "$url" | grep -ioF "Mio.&nbsp;EUR"
     #curl -s --location --request GET $line > "temp.txt"
   #sleep 2
   # >> temp.txt
@@ -41,7 +39,7 @@ echo line="$line"
 url="https://nutzer.comdirect.de/inf/aktien/DE000A255F11?ID_NOTATION=$line"
 echo $url
    
-curl -s --location --request GET "$url" | grep -ioF "Mio."
+curl -s --location --request GET "$url" | grep -ioF "Mio.&nbsp;EUR"
 
 
 
@@ -293,6 +291,10 @@ Check Ckeckbox: workflow (Update GitHub Action workflows)
 git remote -v
 git remote remove origin
 git remote add origin https://ghp_ XXXX fWYED11UzfLqo8gZ0dBvVC8yTZj7F00SeEQB-0@github.com/Hefezopf/stock-analyse.git
+
+
+Too many request per Hour?
+curl -I https://api.github.com/users/octocat
 
 
 localStorage.setItem('TOKEN', 'ghp_ XXXX yRKbcL7EMqRpmqGekUOYUgxJXryuLN3xkISP-0')

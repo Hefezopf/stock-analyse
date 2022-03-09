@@ -27,12 +27,7 @@ if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$piecesParam" ]; } t
 fi
 
 summe=$(echo "$priceParam $piecesParam" | awk '{print $1 * $2}')
-#summe=$(printf "%.1f" "$summe")
 echo "(re)buy $symbolParam $piecesParam $priceParam = ${summe%.*} €"
-
-#case "$symbolParam" in
-#    ''|*[!A-Z]*) echo "Error: SYMBOL Not a valid alpha numeric!" >&2; exit 2 ;;
-#esac
 
 case "$piecesParam" in
     ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
