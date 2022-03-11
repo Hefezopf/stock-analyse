@@ -75,4 +75,5 @@ rm buy/"$symbolParam"_"$lastDateInDataFile".txt
 echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
 
 echo ""
+
 ./script/view_portfolio.sh
