@@ -6,17 +6,14 @@
 # Example: sh ./script/sell.sh BEI
 # alias sell='/d/code/stock-analyse/script/sell.sh $1'
 # {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
-
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 echo "Sell $symbolParam"
-
 if { [ -z "$symbolParam" ]; } then
   echo "Not all parameters specified!"
   echo "Example: curl_github_dispatch_sell.sh BEI"
   exit 1
 fi
-
 # Add symbol in front of overall list
 sed -i "0,/^/s//$symbolParam /" config/stock_symbols.txt
 # Encrypt
