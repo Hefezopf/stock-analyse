@@ -9,11 +9,11 @@
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 echo "Sell $symbolParam"
-if { [ -z "$symbolParam" ]; } then
-  echo "Not all parameters specified!"
-  echo "Example: curl_github_dispatch_sell.sh BEI"
-  exit 1
-fi
+#if { [ -z "$symbolParam" ]; } then
+#  echo "Not all parameters specified!"
+#  echo "Example: curl_github_dispatch_sell.sh BEI"
+#  exit 1
+#fi
 # Add symbol in front of overall list
 sed -i "0,/^/s//$symbolParam /" config/stock_symbols.txt
 # Encrypt
