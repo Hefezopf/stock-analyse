@@ -97,6 +97,11 @@ jobs:
 
           chmod +x ./analyse.sh
 
+          # Temp Solution: Always run with ownSymbolsVar -> ignore Param
+          ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          symbolsVar=$ownSymbolsVar
+          # Temp Solution: Always run with ownSymbolsVar -> ignore Param
+
           sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
 
           git config user.email ${{secrets.MAIL_ADRESS}}
