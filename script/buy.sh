@@ -74,7 +74,7 @@ commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm buy/"$symbolParam"_"$lastDateInDataFile".txt
 echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
 
-echo ""
+#echo ""
 
-chmod +x ./script/view_portfolio.sh
-./script/view_portfolio.sh
+#chmod +x ./script/view_portfolio.sh
+#./script/view_portfolio.sh
