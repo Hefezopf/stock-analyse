@@ -27,7 +27,8 @@ if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$piecesParam" ]; } t
 fi
 
 summe=$(echo "$priceParam $piecesParam" | awk '{print $1 * $2}')
-echo "(re)buy $symbolParam $piecesParam $priceParam = ${summe%.*} €"
+summe=${summe%.*}
+echo "(re)buy $symbolParam $piecesParam $priceParam = $summe €"
 
 case "$piecesParam" in
     ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
@@ -39,12 +40,14 @@ sed -i "s/$symbolParam //" config/stock_symbols.txt
 # Decript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
 
-# Rebuy: Remove from own list, if not there do nothing
+# Rebuy: Remove from own list, if symbol is not found -> do nothing
 sed -i "/^$symbolParam /d" config/own_symbols.txt
 
-# Add in front of own list
+# Add symbol in front of own list
+TICKER_NAME_ID_FILE=./config/ticker_name_id.txt
+SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" $TICKER_NAME_ID_FILE | cut -f 2)
 today=$(date --date="-0 day" +"%Y-%m-%d")
-sed -i '1 i\'$symbolParam' '$priceParam' '$today' '$piecesParam'' config/own_symbols.txt
+sed -i '1 i\'$symbolParam' '$priceParam'€ '$today' '$piecesParam' '$summe'€ '$SYMBOL_NAME'' config/own_symbols.txt
 
 # Encript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
@@ -70,3 +73,8 @@ transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm buy/"$symbolParam"_"$lastDateInDataFile".txt
 echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
+
+#echo ""
+
+#chmod +x ./script/view_portfolio.sh
+#./script/view_portfolio.sh

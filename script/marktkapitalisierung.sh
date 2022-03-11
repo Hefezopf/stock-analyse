@@ -4,7 +4,6 @@
 # Example: sh ./script/marktkapitalisierung.sh 'BEI VH2' 
 # alias ???='/d/code/stock-analyse/script/marktkapitalisierung.sh $1'
 
-
 # Marktkapitalisierung only Mio!: VH2 "FRIEDRICH VORWERK":ID_NOTATION=328873513
 # Marktkapitalisierung only Mio!: SGL "SGL CARBON":ID_NOTATION=10336984
 # Marktkapitalisierung only Mio!: NWO "New Work":ID_NOTATION=46672415
@@ -24,7 +23,6 @@
 # Marktkapitalisierung only Mio!: SHA "SCHAEFFLER":ID_NOTATION=144386033
 # Marktkapitalisierung only Mio!: TTK "TAKKT":ID_NOTATION=47173648
 # Marktkapitalisierung only Mio!: VOS "VOSSLOH":ID_NOTATION=10337036
-
 
 TICKER_NAME_ID_FILE=../config/ticker_name_id.txt
 symbolsParam=$1
