@@ -20,13 +20,13 @@ if { [ -z "$symbolParam" ]; } then
   exit 1
 fi
 
-# Add in front of overall list
+# Add symbol in front of overall list
 sed -i "0,/^/s//$symbolParam /" config/stock_symbols.txt
 
 # Encrypt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
 
-# Remove from own list
+# Remove symbol from own list
 sed -i "/^$symbolParam /d" config/own_symbols.txt
 
 # Decrypt
