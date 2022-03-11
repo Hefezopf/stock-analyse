@@ -76,4 +76,5 @@ echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > buy/"$sym
 
 echo ""
 
+chmod +x ./script/view_portfolio.sh
 ./script/view_portfolio.sh
