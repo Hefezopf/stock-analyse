@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 # Removing *symbol from config/own_symbols.txt
 # and
 # Adding symbol to config/stock_symbols.txt
