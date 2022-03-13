@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Removing *symbol from config/own_symbols.txt
