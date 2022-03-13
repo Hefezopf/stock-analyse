@@ -46,6 +46,9 @@ sed -i "/^$symbolParam /d" config/own_symbols.txt
 # Add symbol in front of own list
 TICKER_NAME_ID_FILE=./config/ticker_name_id.txt
 SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" $TICKER_NAME_ID_FILE | cut -f 2)
+# SYMBOL_NAME has to be without "
+SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
+
 today=$(date --date="-0 day" +"%Y-%m-%d")
 sed -i '1 i\'$symbolParam' '$priceParam'€ '$today' '$piecesParam' '$summe'€ '$SYMBOL_NAME'' config/own_symbols.txt
 
