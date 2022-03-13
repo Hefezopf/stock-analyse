@@ -22,9 +22,10 @@ sed 's/ /\t/g' config/own_symbols_temp_format.txt
 
 rm -rf config/own_symbols_temp_format.txt
 
+echo ""
+
 # Read TX
-#echo ""
-#count=$(cat config/transaction_count.txt)
-#echo "Transactions: "$count" (150/250)"
-#echo "Quali Phase: 01.04. bis 30.09. and"
-#echo "Quali Phase: 01.10. bis 31.03."
+count=$(cat config/transaction_count.txt)
+echo "Transactions: "$count" (150/250)"
+echo "Quali Phase: 01.04. bis 30.09. and"
+echo "Quali Phase: 01.10. bis 31.03."
