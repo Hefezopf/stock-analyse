@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Removing *symbol from config/own_symbols.txt
 # and
 # Adding symbol to config/stock_symbols.txt
@@ -14,7 +13,7 @@ symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 echo "Sell $symbolParam"
 
-if { [ -z "$symbolParam" ]; } then
+if [ -z "$symbolParam" ]; then
   echo "Not all parameters specified!"
   echo "Example: curl_github_dispatch_sell.sh BEI"
   exit 1
