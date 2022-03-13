@@ -1,4 +1,5 @@
-#!/bin/sh
+
+#!/bin/bash
 
 # Removing *symbol from config/own_symbols.txt
 # and
