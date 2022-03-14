@@ -51,10 +51,10 @@ SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" $TICKER_NAME_ID_FILE | cut -f 2)
 # SYMBOL_NAME has to be without Hochkomma '"'
 SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
 # SYMBOL_NAME has to be without blank ' '
-SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ //g')
+SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
 
 today=$(date --date="-0 day" +"%Y-%m-%d")
-sed -i '1 i\'$symbolParam' '$priceParam'€ '$today' '$piecesParam' '$summe'€ '$SYMBOL_NAME'' config/own_symbols.txt
+sed -i '1 i\'$symbolParam' '$priceParam' '$today' '$piecesParam' '$summe'€ '$SYMBOL_NAME'' config/own_symbols.txt
 
 # Encript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
