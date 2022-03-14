@@ -50,7 +50,7 @@ TICKER_NAME_ID_FILE=./config/ticker_name_id.txt
 SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" $TICKER_NAME_ID_FILE | cut -f 2)
 # SYMBOL_NAME has to be without Hochkomma '"'
 SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
-# SYMBOL_NAME has to be without blank ' '
+# SYMBOL_NAME has to be without blank ' ' -> replace with dash '-'
 SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
 
 today=$(date --date="-0 day" +"%Y-%m-%d")
