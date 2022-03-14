@@ -143,7 +143,7 @@ body > div {
             return;
         }     
         var symbolParamTrimmed = symbolParam.trim();
-        var price = price.replace(',', '.').toFixed(2);
+        var price = parseFloat(price.replace(',', '.')).toFixed(2);
         var pieces = pieces.replace('.', '');  
         if (confirm('Buy ' + pieces + ' pieces of ' + symbolParamTrimmed + '=' + (pieces*price).toFixed(0) + '€?') == false) {
             return;
