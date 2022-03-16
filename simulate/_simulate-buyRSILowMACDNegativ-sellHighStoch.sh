@@ -317,7 +317,7 @@ Out "" $OUT_SIMULATE_FILE
 
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
-    creationDate=$(TZ=EST-2EDT date +"%e-%b-%Y %R") # +2h
+    creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +2h
 fi
 
 Out "Good Luck! Donate? $creationDate" $OUT_SIMULATE_FILE
