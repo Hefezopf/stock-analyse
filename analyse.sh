@@ -12,7 +12,7 @@
 # Call example: ./analyse.sh 'BEI' 2 offline 9 25
 # Call example: ./analyse.sh '*BEI' 1 offline 9 25
 # Precondition:
-# Set MARKET_STACK_ACCESS_KEY1, MARKET_STACK_ACCESS_KEY, MARKET_STACK_ACCESS_KEY2, MARKET_STACK_ACCESS_KEY3, MARKET_STACK_ACCESS_KEY4 and MARKET_STACK_ACCESS_KEY5 as ENV Variable (Online)
+# Set MARKET_STACK_ACCESS_KEY as ENV Variable (Online)
 # Set GPG_PASSPHRASE as ENV Variable
 
 
