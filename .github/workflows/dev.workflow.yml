@@ -97,6 +97,11 @@ jobs:
 
           chmod +x ./analyse.sh
 
+          # In case of shell errors with end of line: end of file unexpected (expecting "then")
+          sed -i 's/\r$//' ./script/*.sh
+          sed -i 's/\r$//' ./script/curl/*.sh
+          sed -i 's/\r$//' ./simulate/*.sh
+
           # Temp Solution: Always run with ownSymbolsVar -> ignore Param
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')

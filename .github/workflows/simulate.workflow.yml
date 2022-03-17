@@ -97,6 +97,9 @@ jobs:
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh
+          
+          # In case of shell errors with end of line: end of file unexpected (expecting "then")
+          sed -i 's/\r$//' ./simulate/*.sh
 
           sh ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar"
 
