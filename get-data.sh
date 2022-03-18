@@ -359,7 +359,7 @@ do
         if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
             echo "OK, quote from last trading day"
             symbolsWithData=$(echo "$symbol $symbolsWithData")
-            CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 2
+            CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14
         else # NOK!
             echo "remove $symbol" 
             rm -rf "$DATA_DATE_FILE"
