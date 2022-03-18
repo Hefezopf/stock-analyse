@@ -36,13 +36,6 @@ fi
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
 do
-    # Stocks with prefix '*' are marked as own stocks
-    # markerOwnStock=""
-    # if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-    #     markerOwnStock="*"
-    #     symbol=$(echo "$symbol" | cut -b 2-6)
-    # fi
-
     symbolExists=$(grep -n "$symbol" config/stock_symbols.txt)
     if [ "$symbolExists" ]; then
         echo ""

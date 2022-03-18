@@ -48,7 +48,8 @@ do
   #echo $symbol $SYMBOL_NAME:ID_NOTATION=$ID_NOTATION
   echo $symbol ...
 
-  result=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" | grep -ioF "Mio.&nbsp;EUR<")
+  result=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" | grep -ioF "Mio.&nbsp;EUR")
+#  result=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" | grep -ioF "Mio.&nbsp;EUR<")
   if [ "$result" ]; then
     echo Marktkapitalisierung under 1 Mrd. Euro!: $symbol $SYMBOL_NAME:ID_NOTATION=$ID_NOTATION
   fi
