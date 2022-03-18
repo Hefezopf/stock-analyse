@@ -24,8 +24,18 @@
 # Marktkapitalisierung only Mio!: TTK "TAKKT":ID_NOTATION=47173648
 # Marktkapitalisierung only Mio!: VOS "VOSSLOH":ID_NOTATION=10337036
 
-TICKER_NAME_ID_FILE=../config/ticker_name_id.txt
+#set -x
+
+TICKER_NAME_ID_FILE=config/ticker_name_id.txt
+#TICKER_NAME_ID_FILE=../config/ticker_name_id.txt
 symbolsParam=$1
+
+if  [ -z "$symbolsParam" ]; then
+  echo "Not all parameters specified!"
+  echo "Call: sh ./script/marktkapitalisierung.sh SYMBOLS"
+  echo "Example: sh ./script/marktkapitalisierung.sh 'BEI VH2'"
+  exit 1
+fi
 
 for symbol in $symbolsParam
 do
@@ -36,9 +46,10 @@ do
   ID_NOTATION=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
   SYMBOL_NAME=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 2)
   #echo $symbol $SYMBOL_NAME:ID_NOTATION=$ID_NOTATION
+  echo $symbol ...
 
   result=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" | grep -ioF "Mio.&nbsp;EUR<")
   if [ "$result" ]; then
-    echo Marktkapitalisierung only Mio!: $symbol $SYMBOL_NAME:ID_NOTATION=$ID_NOTATION
+    echo Marktkapitalisierung under 1 Mrd. Euro!: $symbol $SYMBOL_NAME:ID_NOTATION=$ID_NOTATION
   fi
 done
