@@ -7,7 +7,7 @@
 # 3. Parameter: RSI_BUY_LEVEL: RSI level when the buying trade will be trigged: like 25
 # 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 91
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
-# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
+# NOT USED!!! -----# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI' 2500 13 71 1.1 5 2
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 5 1
@@ -26,7 +26,7 @@ amountPerTradeParam=$2
 RSIBuyLevelParam=$3
 StochSellLevelParam=$4
 incrementPerTradeParam=$5
-sellIfOverPercentageParam=$6
+sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
 
 # Settings for currency formating like ',' or '.' with 'printf'
@@ -60,7 +60,7 @@ Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
 Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
 Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
 Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
-Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
+Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE # NOT USED!!!
 Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
 
 # Simulate stock for each symbol
@@ -159,6 +159,8 @@ do
         else
             isMACDhorizontalAndLastStochNeg=false
         fi
+
+#echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower
 
         if [ "$isHoldPiecesAndNewLow" = true ] || [ "$isMACDhorizontalAndLastStochNeg" = true ]; then
             piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
@@ -267,12 +269,18 @@ do
                             fi
                         done           
                         ARRAY_SELL[RSIindex]=$amount
-                        ARRAY_TX_INDEX[RSIindex]="$simulationWin€+$intermediateProzWin%"
+                        ARRAY_TX_INDEX[RSIindex]="+$simulationWin€+$intermediateProzWin%"
                         ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
                     fi
                 fi
             fi
         fi
+
+        # Reset MACD
+        if [ "$stochAt" -gt "$StochSellLevelParam" ] && [ "$piecesHold" -eq 0 ]; then
+            valueNewMACDLow=100
+        fi
+
         RSIindex=$((RSIindex + 1))    
     done
 
