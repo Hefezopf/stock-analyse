@@ -99,6 +99,10 @@ do
     historyMACDs=$(echo "$historyMACDs" | cut -b 64-10000)
     RSIindex=26
     valueNewMACDLow=100
+    valueMACDLast_3="-1" 
+    valueMACDLast_2="-1" 
+    valueMACDLast_1="-1" 
+    valueMACDLast_0="-1"     
     beforeLastQuote="$QUOTE_MAX_VALUE"
     # shellcheck disable=SC2001
     for valueMACD in $(echo "$historyMACDs" | sed "s/,/ /g")
@@ -123,10 +127,10 @@ do
             fi
         fi 
 
-        # conditionNewLow
+        # isNewLow
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
-        conditionNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
-        if [ "$conditionNewLow" = true ]; then
+        isNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
+        if [ "$isNewLow" = true ]; then
             beforeLastQuote="$quoteAt"
         fi
 
@@ -143,20 +147,20 @@ do
         lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')" 
 
         # Allways buy, if allready hold pieces and new low
-        if [ "$isBuyArrayFilled" = true ] && [ "$piecesHold" -gt 0 ] && [ "$conditionNewLow" = true ]; then
-            buyCond1=true
+        if [ "$isBuyArrayFilled" = true ] && [ "$piecesHold" -gt 0 ] && [ "$isNewLow" = true ]; then
+            isHoldPiecesAndNewLow=true
         else
-            buyCond1=false            
+            isHoldPiecesAndNewLow=false            
         fi 
 
-        # is MACD horizontal?
-        if [ "$isMACDHorizontalAlarm" = true ] && [ "$conditionNewLow" = true ] && [ "$lastStoch" = 0 ] && [ "$lastRSI" -le "$RSIBuyLevelParam" ]; then
-            buyCond2=true
+        # is MACD horizontal and lastStoch?
+        if [ "$isMACDHorizontalAlarm" = true ] && [ "$isNewLow" = true ] && [ "$lastStoch" = 0 ] && [ "$lastRSI" -le "$RSIBuyLevelParam" ]; then
+            isMACDhorizontalAndLastStochNeg=true
         else
-            buyCond2=false
+            isMACDhorizontalAndLastStochNeg=false
         fi
 
-        if [ "$buyCond1" = true ] || [ "$buyCond2" = true ]; then
+        if [ "$isHoldPiecesAndNewLow" = true ] || [ "$isMACDhorizontalAndLastStochNeg" = true ]; then
             piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
             amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
             piecesPerTrade=${piecesPerTrade%.*}
@@ -193,7 +197,7 @@ do
             fi
 
             ARRAY_BUY[RSIindex]=$amount
-            ARRAY_TX_INDEX[RSIindex]="$wallet€" # $intermediateProzWin%"
+            ARRAY_TX_INDEX[RSIindex]="$wallet€"
             ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
         fi
 
@@ -227,7 +231,6 @@ do
                 fi
             fi
             # Sell if over Percentage Param (5%) or, if over Stoch Level Param (71)
-#echo stochAt $stochAt StochSellLevelParam $StochSellLevelParam intermediateProzWin $intermediateProzWin intermediateProzWinFirstDigit $intermediateProzWinFirstDigit
             if [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             #if [ "$intermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
                 isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
@@ -251,6 +254,7 @@ do
                         buyingDay=0
                         lastLowestQuoteAt=$QUOTE_MAX_VALUE
                         RSIBuyLevelParam=$3
+    valueNewMACDLow=100
 
                         # Calculate ARRAY_SELL
                         for i in "${!ARRAY_SELL[@]}"; do
@@ -264,7 +268,6 @@ do
                         done           
                         ARRAY_SELL[RSIindex]=$amount
                         ARRAY_TX_INDEX[RSIindex]="$simulationWin€+$intermediateProzWin%"
-#                        ARRAY_TX_INDEX[RSIindex]="SELL+$simulationWin€+$intermediateProzWin%"
                         ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
                     fi
                 fi
