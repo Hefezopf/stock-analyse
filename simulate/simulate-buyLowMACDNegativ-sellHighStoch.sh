@@ -9,7 +9,7 @@
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
-# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI ALV' 2000 25 91 1.1 5 1
+# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI' 2500 13 71 1.1 5 2
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 5 1
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01 5 1
 
