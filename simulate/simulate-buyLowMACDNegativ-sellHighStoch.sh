@@ -115,7 +115,7 @@ do
         valueMACDLast_0="$valueMACD" 
 
         isMACDHorizontalAlarm=false
-        isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
+        isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
         if [ "$isNewMACDLower" = true ]; then    
             valueNewMACDLow="$valueMACD"    
             isNegativMACDLast_0=$(echo "$valueMACDLast_0" | awk '{print substr ($0, 0, 1)}')
@@ -277,7 +277,8 @@ do
         fi
 
         # Reset MACD
-        if [ "$stochAt" -gt "$StochSellLevelParam" ] && [ "$piecesHold" -eq 0 ]; then
+        if [ "$lastRSI" -gt 40 ] && [ "$piecesHold" -eq 0 ]; then
+#        if [ "$lastStoch" -gt "$StochSellLevelParam" ] && [ "$piecesHold" -eq 0 ]; then
             valueNewMACDLow=100
         fi
 
