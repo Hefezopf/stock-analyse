@@ -193,7 +193,7 @@ do
             fi
 
             ARRAY_BUY[RSIindex]=$amount
-            ARRAY_TX_INDEX[RSIindex]="BUY$intermediateProzWin%"
+            ARRAY_TX_INDEX[RSIindex]="$wallet€" # $intermediateProzWin%"
             ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
         fi
 
@@ -263,7 +263,8 @@ do
                             fi
                         done           
                         ARRAY_SELL[RSIindex]=$amount
-                        ARRAY_TX_INDEX[RSIindex]="SELL+$simulationWin+$intermediateProzWinFirstDigit%"
+                        ARRAY_TX_INDEX[RSIindex]="$simulationWin€+$intermediateProzWin%"
+#                        ARRAY_TX_INDEX[RSIindex]="SELL+$simulationWin€+$intermediateProzWin%"
                         ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
                     fi
                 fi
