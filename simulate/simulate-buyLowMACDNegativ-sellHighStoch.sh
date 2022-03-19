@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # This script simulates a given stock quote.
-# Call: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE
+# Call: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE SELL_IF_OVER_PERCENTAGE KEEP_IF_UNDER_PERCENTAGE
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI ALV BAS ...'
 # 2. Parameter: AMOUNT_PER_TRADE: How much money will be spent on a single trade; like 2000€
 # 3. Parameter: RSI_BUY_LEVEL: RSI level when the buying trade will be trigged: like 25
@@ -39,7 +39,6 @@ RSI_MAX_VALUE=100
 ARRAY_BUY_POS_SIM=()
 
 mkdir -p simulate/out
-#rm -rf "$OUT_SIMULATE_FILE"
 sellAmountOverAll=0
 sellOnLastDayAmountOverAll=0
 export alarmAbbrevTemplate # from functions.sh
@@ -214,17 +213,26 @@ do
             intermediateProzWinSecondDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 2, 1)}')
             if [ "$intermediateProzWinFirstDigit" = '-' ]; then 
                 intermediateProzWinFirstDigit=0
-            else
+            else 
+                # Special cases: if gains are 2 Number digits like (11.1%, 22.1% or 33.1%)
+                if [ "$intermediateProzWinFirstDigit" -eq 3 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
+                    intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
+                fi
+                if [ "$intermediateProzWinFirstDigit" -eq 2 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
+                    intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
+                fi
                 if [ "$intermediateProzWinFirstDigit" -eq 1 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
-                    intermediateProzWinFirstDigit=100
+                    intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
                 fi
             fi
-            # Sell at Percent Param or, if over Stoch Level Param
-            if [ "$intermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
+            # Sell if over Percentage Param (5%) or, if over Stoch Level Param (71)
+#echo stochAt $stochAt StochSellLevelParam $StochSellLevelParam intermediateProzWin $intermediateProzWin intermediateProzWinFirstDigit $intermediateProzWinFirstDigit
+            if [ "$stochAt" -gt "$StochSellLevelParam" ]; then
+            #if [ "$intermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
                 isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
-                # NOT Sell, if would be a negative trade
+                # NOT Sell, if tx would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
-                    # ONLY Sell, if percent is over 1%
+                    # ONLY Sell, if gain percent is over KEEP_IF_UNDER_PERCENTAGE (1%)
                     if [ "$intermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then                   
                         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
                         wallet=$(printf "%.0f" "$wallet")
@@ -288,7 +296,7 @@ do
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
     fi
 
-    # Copy HTML file:  out -> simulate/out
+    # Copy HTML file: out -> simulate/out
     cp out/"$symbol".html simulate/out/"$symbol".html
 
     # Write/Replace X-Axis
