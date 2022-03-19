@@ -75,6 +75,7 @@ do
     wallet=0
     simulationWin=0
     piecesHold=0
+    intermediateProzWin=0
     amountPerTrade=$amountPerTradeParam
 
     # Stocks with prefix '*' are marked as own stocks
@@ -192,14 +193,14 @@ do
             fi
 
             ARRAY_BUY[RSIindex]=$amount
-            ARRAY_TX_INDEX[RSIindex]="BUY+"
+            ARRAY_TX_INDEX[RSIindex]="BUY$intermediateProzWin%"
             ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
         fi
 
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
-        if [ "$piecesHold" -gt 0 ]; then  
+        if [ "$piecesHold" -gt 0 ]; then
             # 20 Euro Fees each Sell trade                  
             amount=$(echo "$quoteAt $piecesHold 20" | awk '{print ($1 * $2) - $3}')
             amount=$(printf "%.0f" "$amount")
@@ -262,7 +263,7 @@ do
                             fi
                         done           
                         ARRAY_SELL[RSIindex]=$amount
-                        ARRAY_TX_INDEX[RSIindex]="SELL-$simulationWin"
+                        ARRAY_TX_INDEX[RSIindex]="SELL+$simulationWin+$intermediateProzWinFirstDigit%"
                         ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
                     fi
                 fi
