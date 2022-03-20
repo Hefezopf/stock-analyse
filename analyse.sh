@@ -722,8 +722,21 @@ do
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
         echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
-        echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
-        
+        echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
+
+        # Branche
+        branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
+        # Market Cap
+        marketCap=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 4)
+        echo "<span style='font-size:50px'>"$branche"</span>" 
+        echo "<span style='font-size:50px'>Market Cap:"$marketCap "Mrd. €</span></p><br>" 
+        isNummeric="[[:digit:]]"
+        if [[ $marketCap =~ $isNummeric ]]; then
+            # Progressbar / Gauge
+            echo "<style>#progress:after { content: ''; display: block; background: green; width: "$marketCap"px; height: 100%; border-radius: 9px; }</style>"
+            echo "<div id='progress' style='background: #333; border-radius: 13px;height: 20px; width: 98%; padding: 3px;'></div><br>"           
+        fi
+
         # Check, if quote day is from last trading day, including weekend
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")
         dayOfWeek=$(date +%u)
@@ -778,11 +791,11 @@ do
         echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>" 
 
         # Branche
-        branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
-        echo "<p><b>Branche: $branche</b>&nbsp;"
-        # Market Cap
-        marketCap=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 4)
-        echo "<b>Market Cap: $marketCap Mrd. €</b></p>"
+        # branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
+        # echo "<p><b>Branche: $branche</b>&nbsp;"
+        # # Market Cap
+        # marketCap=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 4)
+        # echo "<b>Market Cap: $marketCap Mrd. €</b></p>"
 
         echo "$GOOD_LUCK"
 
