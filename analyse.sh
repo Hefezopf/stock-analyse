@@ -723,7 +723,7 @@ do
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
         echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
         echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
-
+        
         # Check, if quote day is from last trading day, including weekend
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")
         dayOfWeek=$(date +%u)
@@ -734,6 +734,7 @@ do
             yesterday=$(date --date="-3 day" +"%Y-%m-%d")
         fi
         echo "<p class='p-result'>"
+        
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
         if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
             echo "<b>$quoteDate</b>"
@@ -752,7 +753,6 @@ do
         echo "<p class='p-result'>"
         echo "<span style='color:rgb(153, 102, 255)'>Tendency18:<b>""$tendency18""</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>""$tendency38""</b></span>"
-        #echo "&nbsp;<span>Volume:<b>""$lastVolume""</b></span>"
         echo "</p>"
 
         # Strategies output
@@ -775,7 +775,12 @@ do
         echo "<p class='p-result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
         echo "<p class='p-result' style='color:rgb(255, 159, 64)'><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"
         echo "<p class='p-result' style='color:rgb(255, 205, 86)'><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"        
+        echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>" 
+
+        # Marktkapitalisierung
+        marktKap=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 4)
+        echo "<b>Marktkapitalisierung: $marktKap Mrd. €</b></p>" 
+
         echo "$GOOD_LUCK"
 
         cat template/indexPart13.html
@@ -788,7 +793,6 @@ do
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
-        #stockLastBuyingDate=$(grep "$symbol" $OWN_SYMBOLS_FILE | cut -f3 -d ' ')
         stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE | cut -f4 -d ' ')
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
         stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
