@@ -43,7 +43,7 @@ do
        # sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap"000"/g" "$TICKER_NAME_ID_FILE"
     else
         echo "ERROR: $symbol $ID_NOTATION= ETF or market cap too small! $marktkap"
-        marktkap="0"
+        marktkap="?"
         errorSymbols=$(echo "$symbol $errorSymbols")
     fi
   fi
