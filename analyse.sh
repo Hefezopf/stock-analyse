@@ -728,10 +728,11 @@ do
         branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
         # Market Cap
         marketCap=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 4)
-        echo "<span style='font-size:50px'>"$branche"</span>" 
-        echo "<span style='font-size:50px'>Market Cap:"$marketCap "Mrd. €</span></p><br>" 
-        isNummeric="[[:digit:]]"
-        if [[ $marketCap =~ $isNummeric ]]; then
+        echo "<span style='font-size:50px'>$branche</span>" 
+        echo "<span style='font-size:50px'>Market Cap:$marketCap Mrd. €</span></p><br>" 
+       # isNummeric="[[:digit:]]"
+        if [ ! "$marketCap" = '?' ]; then
+#        if [[ $marketCap =~ $isNummeric ]]; then
             # Progressbar / Gauge
             echo "<style>#progress:after { content: ''; display: block; background: green; width: "$marketCap"px; height: 100%; border-radius: 9px; }</style>"
             echo "<div id='progress' style='background: #333; border-radius: 13px;height: 20px; width: 98%; padding: 3px;'></div><br>"           
