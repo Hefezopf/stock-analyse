@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# Call: sh ./script/marktkapitalisierung-update.sh SYMBOLS
-# Example: sh ./script/marktkapitalisierung-update.sh 'BEI VH2' 
-# alias ???='/d/code/stock-analyse/script/marktkapitalisierung-update.sh $1'
+# Call: sh ./script/marketcap-update.sh SYMBOLS
+# Example: sh ./script/marketcap-update.sh 'BEI VH2' 
+# alias ???='/d/code/stock-analyse/script/marketcap-update.sh $1'
 
 #set -x
 
@@ -11,8 +11,8 @@ symbolsParam=$1
 
 if  [ -z "$symbolsParam" ]; then
   echo "Not all parameters specified!"
-  echo "Call: sh ./script/marktkapitalisierung-update.sh SYMBOLS"
-  echo "Example: sh ./script/marktkapitalisierung-update.sh 'BEI VH2'"
+  echo "Call: sh ./script/marketcap-update.sh SYMBOLS"
+  echo "Example: sh ./script/marketcap-update.sh 'BEI VH2'"
   exit 1
 fi
 
@@ -42,7 +42,7 @@ do
         # Replace till end of line: idempotent!
        # sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap"000"/g" "$TICKER_NAME_ID_FILE"
     else
-        echo "ERROR: $symbol $ID_NOTATION= ETF or Marktkapitalisierung too small! $marktkap"
+        echo "ERROR: $symbol $ID_NOTATION= ETF or market cap too small! $marktkap"
         marktkap="0"
         errorSymbols=$(echo "$symbol $errorSymbols")
     fi
