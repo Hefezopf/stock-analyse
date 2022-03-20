@@ -1,4 +1,4 @@
-name: Sort
+name: MarketCap
 
 # Controls when the action will run. 
 on:
@@ -7,8 +7,8 @@ on:
     types: [sort]
 
   schedule:
-  # Every frist day of each month
-  - cron: "0 0 1 */1 *"
+  # Every second (2.) day of each month
+  - cron: "0 0 2 */1 *"
   # Every frist day of each 2nd month
   #- cron: "0 0 1 */2 *"
   # Every frist day of each 4th month
@@ -27,16 +27,28 @@ jobs:
       - uses: actions/checkout@v2
             
       # Runs a set of commands using the runners shell
-      - name: Run Sort Symbols
+      - name: Run Market Cap Update
         run: |
-          echo "Sort Symbols ..."
+          echo "Market Cap Update for Symbols ..."
 
-          cat config/stock_symbols.txt | tr " " "\n" | sort | tr "\n" " " > config/stock_symbols.txt
+          export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
+
+          #Depot+DAX+MDAX+TDAX+SDAX+Eurostoxx+DOW (326). Not working properly, in marketstack.com (ENR SU1N AOX AI3A SEJ1 PPB PER):
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
+          ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          rm -rf config/own_symbols.txt
+          stockSymbolsVar=$(cat config/stock_symbols.txt)
+          symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
+
+          chmod +x ./script/marketcap-update.sh
+
+          sh ./script/marketcap-update.sh "$symbolsVar"
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
-          git add config/stock_symbols.txt
-          git commit -am "Github Sorting Result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
+          git add config/ticker_name_id.txt
+          git commit -am "Github Market Cap Update Result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
 
       - name: Send result via email
@@ -46,7 +58,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}          
-          subject: Sort Result ${{github.event_name}} ${{github.event.action}}
+          subject: Market Cap Update Result ${{github.event_name}} ${{github.event.action}}
           # Read file contents as body:
           body: file://template/email.html
           #body: file://out/_result.html
