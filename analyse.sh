@@ -724,16 +724,17 @@ do
         echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
         echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
 
-        # Branche
-        branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
         # Market Cap
         marketCap=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 4)
-        echo "<span style='font-size:50px'>$branche</span>" 
-        echo "<span style='font-size:50px'>&nbsp;$marketCap Mrd. €</span></p><br>" 
+        echo "<span style='font-size:50px'>$marketCap Mrd. €</span>&nbsp;&nbsp;" 
+        # Branche
+        branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
+        echo "<span style='font-size:50px'>$branche</span></p>" 
+        # Market Cap Gauge
         if [ ! "$marketCap" = '?' ]; then
             # Progressbar / Gauge
-            echo "<style>#progress:after { content: ''; display: block; background: green; width: ""$marketCap""px; height: 100%; border-radius: 9px; }</style>"
-            echo "<div id='progress' style='background: #333; border-radius: 13px;height: 20px; width: 98%; padding: 3px;'></div><br>"           
+            echo "<style>#progress:after { content: ''; display: block; background: orange; width: ""$marketCap""px; height: 100%; border-radius: 9px; }</style>"
+            echo "<div id='progress' style='background: rgb(218, 216, 216); border-radius: 13px;height: 20px; width: 98%; padding: 3px;'></div><br>"           
         fi
 
         # Check, if quote day is from last trading day, including weekend
