@@ -35,7 +35,6 @@ export LC_ALL=en_US.UTF-8
 OUT_SIMULATE_FILE="simulate/out/_simulate.html"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 QUOTE_MAX_VALUE=999999
-RSI_MAX_VALUE=100
 ARRAY_BUY_POS_SIM=()
 
 mkdir -p simulate/out
@@ -78,10 +77,7 @@ do
     intermediateProzWin=0
     amountPerTrade=$amountPerTradeParam
 
-    # Stocks with prefix '*' are marked as own stocks
-    markerOwnStock=""
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-        markerOwnStock="*"
         symbol=$(echo "$symbol" | cut -b 2-6)
     fi
 
@@ -223,15 +219,19 @@ do
             else 
                 # Special cases: if gains are 2 Number digits like (11.1%, 22.1%, 33.1%, or 44.1)
                 if [ "$intermediateProzWinFirstDigit" -eq 4 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
+                    # shellcheck disable=SC2116
                     intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
                 fi
                 if [ "$intermediateProzWinFirstDigit" -eq 3 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
+                    # shellcheck disable=SC2116
                     intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
                 fi
                 if [ "$intermediateProzWinFirstDigit" -eq 2 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
+                    # shellcheck disable=SC2116
                     intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
                 fi
                 if [ "$intermediateProzWinFirstDigit" -eq 1 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
+                    # shellcheck disable=SC2116
                     intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
                 fi
             fi
