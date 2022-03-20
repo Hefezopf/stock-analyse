@@ -777,9 +777,12 @@ do
         echo "<p class='p-result' style='color:rgb(255, 205, 86)'><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
         echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>" 
 
+        # Branche
+        branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
+        echo "<p><b>Branche: $branche</b>&nbsp;"
         # Market Cap
         marketCap=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 4)
-        echo "<b>Market Cap: $marketCap Mrd. €</b></p>" 
+        echo "<b>Market Cap: $marketCap Mrd. €</b></p>"
 
         echo "$GOOD_LUCK"
 

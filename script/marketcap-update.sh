@@ -28,24 +28,51 @@ do
   echo $symbol ...
 
   # Mrd.
-  marktkap=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" | grep -m 1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
+  curlRespone=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+  marktkap=$(echo "$curlRespone" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
   if [ "$marktkap" ]; then
     echo "$symbol $marktkap Mrd."
   else
     # Bil.
-    marktkap=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" | grep -m 1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
+    marktkap=$(echo "$curlRespone" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
     if [ "$marktkap" ]; then
         marktkap=$(echo "$marktkap"000"")
-        echo "$symbol $marktkap Mrd."
+        echo "$symbol Market Cap:$marktkap Mrd."
     else
         marktkap="?"
-        errorSymbols=$(echo "$symbol $errorSymbols")
-        echo "ERROR: $symbol $ID_NOTATION= ETF or market cap too small! $marktkap"
+        marktkapErrorSymbols=$(echo "$symbol $marktkapErrorSymbols")
+        echo "ERROR Market Cap: $symbol $ID_NOTATION= ETF or market cap too small! $marktkap"
     fi
   fi
   # Replace till end of line: idempotent!
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap/g" "$TICKER_NAME_ID_FILE"
+
+  # Branche
+  branche=$(echo "$curlRespone" | grep -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-)
+  if [ "$branche" ]; then
+      echo "$symbol Branche: $branche"
+  else
+    # Branche ><
+    branche=$(echo "$curlRespone" | grep -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-)
+    if [ "$branche" ]; then
+      branche=$(echo \""$branche\"")
+      echo "$symbol Branche: $branche"
+    else
+      branche="?"
+      brancheErrorSymbols=$(echo "$symbol $brancheErrorSymbols")
+      echo "ERROR branche: $symbol $ID_NOTATION! $branche"
+    fi
+  fi
+  branche=$(echo $branche | sed "s/\//-/g")
+  # Replace till end of line: idempotent!
+  sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche/g" "$TICKER_NAME_ID_FILE"
 done
 
-echo ""
-echo "Symbols with Error: errorSymbols=$errorSymbols"
+if [ "$marktkapErrorSymbols" ]; then
+    echo ""
+    echo "Symbols with Error: marktkapErrorSymbols=$marktkapErrorSymbols"
+fi
+if [ "$brancheErrorSymbols" ]; then
+    echo ""
+    echo "Symbols with Error: brancheErrorSymbols=$brancheErrorSymbols"
+fi
