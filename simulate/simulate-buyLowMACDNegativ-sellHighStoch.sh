@@ -9,7 +9,7 @@
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # NOT USED!!! -----# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
-# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI' 2500 13 71 1.1 5 2
+# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI' 2500 13 70 1.1 5 2
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 5 1
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01 5 1
 
@@ -221,7 +221,10 @@ do
             if [ "$intermediateProzWinFirstDigit" = '-' ]; then 
                 intermediateProzWinFirstDigit=0
             else 
-                # Special cases: if gains are 2 Number digits like (11.1%, 22.1% or 33.1%)
+                # Special cases: if gains are 2 Number digits like (11.1%, 22.1%, 33.1%, or 44.1)
+                if [ "$intermediateProzWinFirstDigit" -eq 4 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
+                    intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
+                fi
                 if [ "$intermediateProzWinFirstDigit" -eq 3 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
                     intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
                 fi
@@ -232,7 +235,7 @@ do
                     intermediateProzWinFirstDigit=$(echo "$intermediateProzWinFirstDigit""$intermediateProzWinSecondDigit")
                 fi
             fi
-            # Sell if over Percentage Param (5%) or, if over Stoch Level Param (71)
+            # Sell if over Percentage Param (5%) or, if over Stoch Level Param (70)
             if [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             #if [ "$intermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
                 isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
@@ -256,7 +259,8 @@ do
                         buyingDay=0
                         lastLowestQuoteAt=$QUOTE_MAX_VALUE
                         RSIBuyLevelParam=$3
-    valueNewMACDLow=100
+                        # Reset MACD
+                        valueNewMACDLow=100
 
                         # Calculate ARRAY_SELL
                         for i in "${!ARRAY_SELL[@]}"; do
@@ -278,7 +282,6 @@ do
 
         # Reset MACD
         if [ "$lastRSI" -gt 40 ] && [ "$piecesHold" -eq 0 ]; then
-#        if [ "$lastStoch" -gt "$StochSellLevelParam" ] && [ "$piecesHold" -eq 0 ]; then
             valueNewMACDLow=100
         fi
 
