@@ -15,7 +15,6 @@
 # Set MARKET_STACK_ACCESS_KEY as ENV Variable (Online)
 # Set GPG_PASSPHRASE as ENV Variable
 
-
 # Debug mode
 #set -x
 
@@ -334,7 +333,6 @@ do
     DATA_FILE="$(mktemp -p $TEMP_DIR)"
     DATA_DATE_FILE=data/$symbol.txt
     if [ "$queryParam" = 'online' ]; then
-        #tag=$(date +"%s") # Second -> date +"%s" ; Day -> date +"%d"
         DATA_DATE_FILE_TEMP="$(mktemp -p $TEMP_DIR)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
@@ -355,28 +353,6 @@ do
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
 
     CreateCmdHyperlink "Analyse" "out"
-
-
-# lastVolumeInFile=$(head -1 "$DATA_DATE_FILE" | cut -f 3)
-# lastVolume="MINI"
-# if [ "$lastVolumeInFile" -gt 1000 ]; then
-#     lastVolume="MINI"
-# fi
-# if [ "$lastVolumeInFile" -gt 10000 ]; then
-#     lastVolume="SMALL"
-# fi
-# if [ "$lastVolumeInFile" -gt 100000 ]; then
-#     lastVolume="MEDIUM"
-# fi
-# if [ "$lastVolumeInFile" -gt 1000000 ]; then
-#    lastVolume="LARGE"
-# fi
-# if [ "$lastVolumeInFile" -gt 10000000 ]; then
-#    lastVolume="EXTRA-LARGE"
-# fi
-# echo "<br>" >> $OUT_RESULT_FILE
-# echo "Volume ("$lastVolumeInFile"): $lastVolume" | tee -a $OUT_RESULT_FILE
-
 
     # Check if 100 last quotes are availible, otherwise fill up to 100 
     numOfQuotes=$(grep "" -c "$DATA_DATE_FILE")
@@ -730,9 +706,8 @@ do
         # Branche
         branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
         echo "<span style='font-size:50px'>$branche</span></p>" 
-        # Market Cap Gauge
+        # Market Cap Progressbar
         if [ ! "$marketCap" = '?' ]; then
-            # Progressbar / Gauge
             echo "<style>#progress:after { content: ''; display: block; background: orange; width: ""$marketCap""px; height: 100%; border-radius: 9px; }</style>"
             echo "<div id='progress' style='background: rgb(218, 216, 216); border-radius: 13px;height: 20px; width: 98%; padding: 3px;'></div><br>"           
         fi
@@ -788,14 +763,7 @@ do
         echo "<p class='p-result' style='color:rgb(205, 205, 0)'><b>" "$resultStrategieOverratedByPercentAndStochastic" "</b></p>"
         echo "<p class='p-result' style='color:rgb(255, 159, 64)'><b>" "$resultStrategieOverratedXHighStochastic" "</b></p>"
         echo "<p class='p-result' style='color:rgb(255, 205, 86)'><b>" "$resultStrategieOverratedXHighRSI" "</b></p>"
-        echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>" 
-
-        # Branche
-        # branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
-        # echo "<p><b>Branche: $branche</b>&nbsp;"
-        # # Market Cap
-        # marketCap=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 4)
-        # echo "<b>Market Cap: $marketCap Mrd. €</b></p>"
+        echo "<p class='p-result' style='color:rgb(139, 126, 102)'><b>" "$resultStrategieOverratedHighStochasticHighRSIHighMACD" "</b></p>"
 
         echo "$GOOD_LUCK"
 
