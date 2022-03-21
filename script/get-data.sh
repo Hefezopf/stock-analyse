@@ -12,9 +12,6 @@
 
 . ./script/functions.sh
 
-# Settings for currency formating like ',' or '.' with 'printf'
-#export LC_ALL=en_US.UTF-8
-
 export MARKET_STACK_ACCESS_KEY
 
 # Parameter
@@ -22,7 +19,6 @@ symbolsParam=$1
 
 # Prepare
 TEMP_DIR=/tmp
-#TEMP_DIR=/dev/shm
 rm -rf $TEMP_DIR/tmp.*
 mkdir -p temp
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt
