@@ -137,14 +137,14 @@ body > div {
     var token = 'ghp' + '_' + 'fWYED11UzfLqo8gZ0dBvVC8yTZj7F00SeEQB';
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == ''){
-            var currentInnerHTMLValueIntervalSectionRegularMarketPrice = document.getElementById('intervalSectionRegularMarketPrice'+symbolParam);
-            if(currentInnerHTMLValueIntervalSectionRegularMarketPrice){
-                var currentStockValue = currentInnerHTMLValueIntervalSectionRegularMarketPrice.innerHTML.replace('€', '');
-                var piecesSuggestion2500 = (2500 / currentStockValue).toFixed(0);
-                var piecesSuggestion3500 = (3500 / currentStockValue).toFixed(0);
-                alert('Error: Symbol, Price or Pieces not set!\n' + piecesSuggestion2500 + ' pieces are 2500 €\n' + piecesSuggestion3500 + ' pieces are 3500 €');
-            }
-            else {
+        //    var currentInnerHTMLValueIntervalSectionRegularMarketPrice = document.getElementById('intervalSectionRegularMarketPrice'+symbolParam);
+         //   if(currentInnerHTMLValueIntervalSectionRegularMarketPrice){
+         //       var currentStockValue = currentInnerHTMLValueIntervalSectionRegularMarketPrice.innerHTML.replace('€', '');
+               // var piecesSuggestion2500 = (2500 / currentStockValue).toFixed(0);
+               // var piecesSuggestion3500 = (3500 / currentStockValue).toFixed(0);
+              //  alert('Error: Symbol, Price or Pieces not set!\n' + piecesSuggestion2500 + ' pieces are 2500 €\n' + piecesSuggestion3500 + ' pieces are 3500 €');
+          //  }
+          //  else {
                 alert('Error: Symbol, Price or Pieces not set!');
             }
             return;
