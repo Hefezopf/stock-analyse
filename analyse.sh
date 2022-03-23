@@ -1062,8 +1062,8 @@ fi
 } >> "$OUT_RESULT_FILE"
 
 # Minify _result.html file
-sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE"
-sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE"
+sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
+sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \ in Javascript!
 
 # Delete decrypted, readable prortfolio file
 rm -rf $OWN_SYMBOLS_FILE
