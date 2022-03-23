@@ -719,13 +719,13 @@ do
 
         # Market Cap
         marketCap=$(echo "$lineFromTickerFile" | cut -f 4)
-        echo "<span style='font-size:50px'>$marketCap Mrd.€&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
+        echo "<span style='font-size:50px'>$marketCap Mrd.€&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         # KGVe
         kgve=$(echo "$lineFromTickerFile" | cut -f 6)
-        echo "<span style='font-size:50px'>KGVe:$kgve&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
+        echo "<span style='font-size:50px'>KGV:$kgve&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         # DIVe
         dive=$(echo "$lineFromTickerFile" | cut -f 7)
-        echo "<span style='font-size:50px'>DIVe:$dive%&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
+        echo "<span style='font-size:50px'>DIV:$dive%&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         # Branche
         branche=$(echo "$lineFromTickerFile" | cut -f 5)
         echo "<span style='font-size:50px'>$branche</span></p>" 
