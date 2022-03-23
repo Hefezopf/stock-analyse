@@ -24,8 +24,9 @@ do
   if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
     symbol=$(echo "$symbol" | cut -b 2-6)
   fi
-  ID_NOTATION=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
-  SYMBOL_NAME=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 2)
+  lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
+  ID_NOTATION=$(echo "$lineFromTickerFile"  | cut -f 3)
+  SYMBOL_NAME=$(echo "$lineFromTickerFile"  | cut -f 2)
   echo $symbol ...
 
   result=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" | grep -ioF "#160;Mio.&nbsp;EUR")

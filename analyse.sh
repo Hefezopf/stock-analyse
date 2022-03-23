@@ -365,7 +365,8 @@ do
         fi
     fi
 
-    symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
+    lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
+    symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
 
     CreateCmdHyperlink "Analyse" "out"
 
@@ -617,7 +618,7 @@ do
             styleComdirectLink="style=\"font-size:50px; color:green\""
         fi
 
-        ID_NOTATION=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
+        ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
         echo "<p><a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
 
@@ -717,12 +718,16 @@ do
         echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
 
         # Market Cap
-        marketCap=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 4)
-        echo "<span style='font-size:50px'>$marketCap Mrd. € -</span>&nbsp;" 
-        kgve=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 6)
-        echo "<span style='font-size:50px'>KGVe: $kgve -</span>&nbsp;" 
+        marketCap=$(echo "$lineFromTickerFile" | cut -f 4)
+        echo "<span style='font-size:50px'>$marketCap Mrd.€&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
+        # KGVe
+        kgve=$(echo "$lineFromTickerFile" | cut -f 6)
+        echo "<span style='font-size:50px'>KGVe:$kgve&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
+        # DIVe
+        dive=$(echo "$lineFromTickerFile" | cut -f 7)
+        echo "<span style='font-size:50px'>DIVe:$dive%&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         # Branche
-        branche=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 5)
+        branche=$(echo "$lineFromTickerFile" | cut -f 5)
         echo "<span style='font-size:50px'>$branche</span></p>" 
         # Market Cap Progressbar
         if [ ! "$marketCap" = '?' ]; then

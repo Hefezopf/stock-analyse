@@ -18,12 +18,13 @@ fi
 
 for symbol in $symbolsParam
 do
-  # Remove prefix '*' if persent
+  # Remove prefix '*', if present
   if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
     symbol=$(echo "$symbol" | cut -b 2-6)
   fi
-  ID_NOTATION=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 3)
-  SYMBOL_NAME=$(grep -m1 -P "$symbol\t" $TICKER_NAME_ID_FILE | cut -f 2)
+  lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
+  ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
+  SYMBOL_NAME=$(echo "$lineFromTickerFile" | cut -f 2)
 
   echo $symbol ...
 
@@ -31,13 +32,13 @@ do
   curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
   marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
   if [ "$marktkap" ]; then
-    echo "$symbol Market Cap:$marktkap Mrd."
+    echo "$symbol Market Cap:$marktkap Mrd.€"
   else
     # Bil.
     marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
     if [ "$marktkap" ]; then
         marktkap=$(echo "$marktkap"000"")
-        echo "$symbol Market Cap:$marktkap Mrd."
+        echo "$symbol Market Cap:$marktkap Mrd.€"
     else
         marktkap="?"
         marktkapErrorSymbols=$(echo "$symbol $marktkapErrorSymbols")
@@ -50,11 +51,15 @@ do
   # Branche
   branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-)
   if [ "$branche" ]; then
+      # Replace ' /' with ',', because error with linux
+      branche=$(echo $branche | sed "s/ \//,/g")  
       echo "$symbol Branche: $branche"
   else
     # Branche ><
     branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-)
     if [ "$branche" ]; then
+      # Replace ' /' with ',', because error with linux
+      branche=$(echo $branche | sed "s/ \//,/g")    
       branche=$(echo \""$branche\"")
       echo "$symbol Branche: $branche"
     else
@@ -63,13 +68,10 @@ do
       echo "ERROR Branche: $symbol $ID_NOTATION! $branche"
     fi
   fi
-  # Replace ' /' with ',', because error with linux
-  branche=$(echo $branche | sed "s/ \//,/g")
   # Replace till end of line: idempotent!
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche/g" "$TICKER_NAME_ID_FILE"
 
   # KGVe
-  # ...
   kgve=$(echo "$curlResponse" | grep -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
   if [ "$kgve" ]; then
       echo "$symbol KGVe: $kgve"
@@ -78,13 +80,22 @@ do
     kgveErrorSymbols=$(echo "$symbol $kgveErrorSymbols")
     echo "ERROR KGVe: $symbol $ID_NOTATION! $kgve"
   fi
-  # Replace '.' with '', because readablity
-  #kgve=$(echo $kgve | sed "s/\.///g")  
   # Replace till end of line: idempotent!
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve/g" "$TICKER_NAME_ID_FILE"
 
   # DIVe
-  # ...
+  dive=$(echo "$curlResponse" | grep -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"&"  | cut -c 4-)
+  if [ "$dive" ]; then
+      # Replace ',' with '.'
+      dive=$(echo $dive | sed "s/,/./g")  
+      echo "$symbol DIVe: $dive%"
+  else
+    dive="?"
+    diveErrorSymbols=$(echo "$symbol $diveErrorSymbols")
+    echo "ERROR DIVe: $symbol $ID_NOTATION! $dive"
+  fi
+  # Replace till end of line: idempotent!
+  sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive/g" "$TICKER_NAME_ID_FILE"
 
 done
 
@@ -99,4 +110,8 @@ fi
 if [ "$kgveErrorSymbols" ]; then
     echo ""
     echo "Symbols with KGVe Error: kgveErrorSymbols=$kgveErrorSymbols"
+fi
+if [ "$diveErrorSymbols" ]; then
+    echo ""
+    echo "Symbols with DIVe Error: diveErrorSymbols=$diveErrorSymbols"
 fi
