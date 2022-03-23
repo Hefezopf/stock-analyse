@@ -707,7 +707,7 @@ do
         echo "<span style='font-size:50px'>$branche</span></p>" 
         # Market Cap Progressbar
         if [ ! "$marketCap" = '?' ]; then
-            marketCap=$((marketCap * 3)) # Scale factor in progressbar
+            marketCap=$((marketCap * 4)) # Scale factor in progressbar
             echo "<style>#progress:after { content: ''; display: block; background: orange; width: ""$marketCap""px; height: 100%; border-radius: 9px; }</style>"
             echo "<div id='progress' style='background: rgb(218, 216, 216); border-radius: 13px;height: 20px; width: 98%; padding: 3px;'></div><br>"           
         fi
