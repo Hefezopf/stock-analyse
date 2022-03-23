@@ -441,7 +441,7 @@ do
     # Calculate Stochastic 14 values
     stochasticInDays14=14
     lastStochasticQuoteRounded=0
-    beforeLastStochasticQuoteRounded=0
+    ##beforeLastStochasticQuoteRounded=0
     stochasticQuoteList=""
     if [ "$CalculateStochastic" = true ]; then
         StochasticOfDays $stochasticInDays14 "$DATA_FILE"
@@ -540,7 +540,8 @@ do
 
         # Sell Strategie: Stochastic When Own
         resultStrategieOverratedStochasticWhenOwn=""
-        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$beforeLastStochasticQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+##        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$beforeLastStochasticQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: Divergence RSI
         resultStrategieOverratedDivergenceRSI=""

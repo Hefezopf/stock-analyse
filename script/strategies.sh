@@ -47,15 +47,15 @@ StrategieUnderratedNewLow() {
 StrategieOverratedStochasticWhenOwn() { 
     _highStochValueParam=$1
     _lastStochParam=$2
-    _beforeLastStochParam=$3
-    _outResultFileParam=$4
-    _symbolParam=$5
-    _symbolNameParam=$6
-    _markerOwnStockParam=$7
+    ##_beforeLastStochParam=$3
+    _outResultFileParam=$3
+    _symbolParam=$4
+    _symbolNameParam=$5
+    _markerOwnStockParam=$6
     export resultStrategieOverratedStochasticWhenOwn=""
 
     if [ "$_lastStochParam" -gt "$_highStochValueParam" ]; then     
-        if [ "$_beforeLastStochParam" -le "$_highStochValueParam" ]; then     
+       ## if [ "$_beforeLastStochParam" -le "$_highStochValueParam" ]; then     
             if [ "$_markerOwnStockParam" = '*' ]; then
                 alarmAbbrevValue="O-"$alarmAbbrevValue
                 reasonPrefix="Sell: Stochastic Own (O)"
@@ -63,7 +63,7 @@ StrategieOverratedStochasticWhenOwn() {
                 echo "$resultStrategieOverratedStochasticWhenOwn"
                 WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"         
             fi
-        fi
+       ## fi
     fi
 }
 
