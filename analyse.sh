@@ -749,7 +749,7 @@ do
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
         if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
             echo "<b>$quoteDate</b>"
-        else # NOK!
+        else # NOK! -> orange
             echo "<br><b style='color:orange; font-size:xx-large'>->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
             echo "<b style='color:orange; font-size:xx-large'>$quoteDate</b>"
         fi
@@ -795,7 +795,7 @@ do
 
     # Minify Symbol.html file
     sed -i "s/^[ \t]*//g" "$indexSymbolFile"
-    sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile"
+    sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript!
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
@@ -1067,7 +1067,7 @@ fi
 
 # Minify _result.html file
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
-sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \ in Javascript!
+sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!
 
 # Delete decrypted, readable prortfolio file
 rm -rf $OWN_SYMBOLS_FILE
