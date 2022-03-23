@@ -84,7 +84,7 @@ do
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve/g" "$TICKER_NAME_ID_FILE"
 
   # DIVe
-  dive=$(echo "$curlResponse" | grep -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"&"  | cut -c 4-)
+  dive=$(echo "$curlResponse" | grep -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d","  | cut -c 4-)
   if [ "$dive" ]; then
       # Replace ',' with '.'
       dive=$(echo $dive | sed "s/,/./g")  
