@@ -17,7 +17,6 @@ Alerts via email.
 ## Outputs:
 - out/SYMBOL.html
 
-
 # Execute
 
 ## Run CMD CLI
@@ -33,15 +32,13 @@ Alerts via email.
 ## Github Action
 https://github.com/Hefezopf/stock-analyse/actions
 
-
 ## Scheduled Cron Job
 Scheduled Cron Jobs is pre configured in this action
 
 https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.workflow.yml
 
-
 ## cURL
-./curl_github_dispatch_analyse.sh "BEI ALV" 1 offline 9 25
+sh ./script/curl_github_dispatch_analyse.sh "BEI ALV" 1 offline 9 25
 
 or Example cURL
 
@@ -49,10 +46,13 @@ curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.
 
 other cURLs
 
-./curl_github_dispatch_buy.sh BEI 9.99
+sh ./script/curl_github_dispatch_buy.sh BEI 9.99
 
-./curl_github_dispatch_sell.sh BEI
+sh ./script/curl_github_dispatch_sell.sh BEI
 
+sh ./script/curl/curl_github_dispatch_marketcap.sh BEI
+
+sh ./script/curl/curl_github_dispatch_sort.sh
 
 or via Apps
 
@@ -93,4 +93,3 @@ curl --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type
 
 # Honor Open Source
 [Donate?](https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8 "Donate?")
-
