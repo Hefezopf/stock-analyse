@@ -76,10 +76,15 @@ echo "$count" >> config/transaction_count.txt
 # Write buy/SYMBOL_DATE file
 lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
 lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
+
+# Min. r:6! Stand was r:10! Example: 3000€=6; 9000€=18;
+#radiusOfBuy=10
+radiusOfBuy=$((summe/1000*2))
+
 transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm buy/"$symbolParam"_"$lastDateInDataFile".txt
-echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
+echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:"$radiusOfBuy"}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
 
 #echo ""
 
