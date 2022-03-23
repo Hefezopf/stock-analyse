@@ -143,12 +143,12 @@ body > div {
                 var piecesSuggestion3000 = (3000 / currentStockValue).toFixed(0);
                 var piecesSuggestion3500 = (3500 / currentStockValue).toFixed(0);
                 var piecesSuggestion4000 = (4000 / currentStockValue).toFixed(0);
-                alert('Error: Symbol, Price or Pieces not set!\n' + piecesSuggestion3000 + ' pieces are 3000 €\n' + piecesSuggestion3500 + ' pieces are 3500 €\n' + piecesSuggestion4000 + ' pieces are 4000 €\n');
+                alert('Error: Symbol, Price or Pieces not set!\r' + piecesSuggestion3000 + ' pieces are 3000 €\r' + piecesSuggestion3500 + ' pieces are 3500 €\r' + piecesSuggestion4000 + ' pieces are 4000 €');
             }
             else {
                   if(symbolParam == '' && price != '' && pieces == '') {
                       var piecesSuggestion3000 = (3000 / price).toFixed(0);
-                      alert('Error: Symbol, Price or Pieces not set!\n' + piecesSuggestion3000 + ' pieces are 3000 €\n');
+                      alert('Error: Symbol, Price or Pieces not set!\r' + piecesSuggestion3000 + ' pieces are 3000 €');
                   }
                   else {
                     alert('Error: Symbol, Price or Pieces not set!');
