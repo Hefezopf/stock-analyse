@@ -42,6 +42,10 @@ sed -i "s/$symbolParam //" config/stock_symbols.txt
 # Decript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
 
+lineFromOwnSymbolsFile=$(grep -m1 -P "$symbol" config/own_symbols.txt)
+piecesFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 4 -d' ')
+newlyAddedPiece=$((piecesParam - piecesFromOwnSymbolsFile))
+
 # Rebuy: Remove from own list, if symbol is not found -> do nothing
 sed -i "/^$symbolParam /d" config/own_symbols.txt
 
@@ -77,9 +81,9 @@ echo "$count" >> config/transaction_count.txt
 lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
 lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
 
-# Min. r:6! Stand was r:10! Example: 3000€=6; 9000€=18;
-#radiusOfBuy=10
-radiusOfBuy=$((summe/1000*2))
+# Min. r:6! Standart was r:10! Example: 3000€=6; 9000€=18;
+radiusOfBuy=$(echo "$priceParam $newlyAddedPiece" | awk '{print $1 * $2 / 400}')
+radiusOfBuy=${radiusOfBuy%.*}
 
 transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
