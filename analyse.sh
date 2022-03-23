@@ -136,10 +136,26 @@ body > div {
 <script>
     var token = 'ghp' + '_' + 'fWYED11UzfLqo8gZ0dBvVC8yTZj7F00SeEQB';
     function curlBuy(symbolParam, price, pieces) {
-        if(symbolParam == '' || price == '' || pieces == ''){
-            alert('Error: Symbol, Price or Pieces not set!');
+        if(symbolParam == '' || price == '' || pieces == '') {
+            var currentInnerHTMLValueIntervalSectionRegularMarketPrice = document.getElementById('intervalSectionRegularMarketPrice'+symbolParam);
+            if(currentInnerHTMLValueIntervalSectionRegularMarketPrice) {
+                var currentStockValue = currentInnerHTMLValueIntervalSectionRegularMarketPrice.innerHTML.replace('€', '');
+                var piecesSuggestion3000 = (3000 / currentStockValue).toFixed(0);
+                var piecesSuggestion3500 = (3500 / currentStockValue).toFixed(0);
+                var piecesSuggestion4000 = (4000 / currentStockValue).toFixed(0);
+                alert('Error: Symbol, Price or Pieces not set!\n' + piecesSuggestion3000 + ' pieces are 3000 €\n' + piecesSuggestion3500 + ' pieces are 3500 €\n' + piecesSuggestion4000 + ' pieces are 4000 €\n');
+            }
+            else {
+                  if(symbolParam == '' && price != '' && pieces == '') {
+                      var piecesSuggestion3000 = (3000 / price).toFixed(0);
+                      alert('Error: Symbol, Price or Pieces not set!\n' + piecesSuggestion3000 + ' pieces are 3000 €\n');
+                  }
+                  else {
+                    alert('Error: Symbol, Price or Pieces not set!');
+                }
+            }
             return;
-        }     
+        }    			     
         var symbolParamTrimmed = symbolParam.trim();
         var price = parseFloat(price.replace(',', '.')).toFixed(2);
         var pieces = pieces.replace('.', '');  
