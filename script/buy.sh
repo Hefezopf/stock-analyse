@@ -12,6 +12,9 @@
 
 #set -x
 
+OWN_SYMBOLS_FILE="config/own_symbols.txt"
+TICKER_NAME_ID_FILE="./config/ticker_name_id.txt"
+
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
@@ -30,7 +33,7 @@ fi
 
 summe=$(echo "$priceParam $piecesParam" | awk '{print $1 * $2}')
 summe=${summe%.*}
-echo "(re)buy $symbolParam $piecesParam $priceParam = $summe €"
+echo "(re)buy $symbolParam $piecesParam $priceParam = $summe€"
 
 case "$piecesParam" in
     ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
@@ -40,17 +43,21 @@ esac
 sed -i "s/$symbolParam //" config/stock_symbols.txt
 
 # Decript
-gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
+gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 
-lineFromOwnSymbolsFile=$(grep -m1 -P "$symbol" config/own_symbols.txt)
+sleep 1
+
+lineFromOwnSymbolsFile=$(grep -m1 -P "$symbolParam" "$OWN_SYMBOLS_FILE")
+#echo lineFromOwnSymbolsFile $lineFromOwnSymbolsFile
 piecesFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 4 -d' ')
-newlyAddedPiece=$((piecesParam - piecesFromOwnSymbolsFile))
+#echo piecesFromOwnSymbolsFile $piecesFromOwnSymbolsFile
+newlyAddedPieces=$((piecesParam - piecesFromOwnSymbolsFile))
+#echo piecesParam $piecesParam priceParam $priceParam newlyAddedPieces $newlyAddedPieces
 
 # Rebuy: Remove from own list, if symbol is not found -> do nothing
-sed -i "/^$symbolParam /d" config/own_symbols.txt
+sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
 
 # Add symbol in front of own list
-TICKER_NAME_ID_FILE=./config/ticker_name_id.txt
 SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" $TICKER_NAME_ID_FILE | cut -f 2)
 # SYMBOL_NAME has to be without Hochkomma '"'
 SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
@@ -58,13 +65,10 @@ SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
 SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
 
 today=$(date --date="-0 day" +"%Y-%m-%d")
-sed -i '1 i\'$symbolParam' '$priceParam' '$today' '$piecesParam' '$summe'€ '$SYMBOL_NAME'' config/own_symbols.txt
+sed -i '1 i\'$symbolParam' '$priceParam' '$today' '$piecesParam' '$summe'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
 
 # Encript
-gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
-
-# Delete readable file
-rm -rf config/own_symbols.txt
+gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c "$OWN_SYMBOLS_FILE" 2>/dev/null
 
 echo ""
 
@@ -82,13 +86,17 @@ lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
 lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
 
 # Min. r:6! Standart was r:10! Example: 3000€=6; 9000€=18;
-radiusOfBuy=$(echo "$priceParam $newlyAddedPiece" | awk '{print $1 * $2 / 400}')
+radiusOfBuy=$(echo "$priceParam $newlyAddedPieces" | awk '{print $1 * $2 / 400}')
 radiusOfBuy=${radiusOfBuy%.*}
+#echo radiusOfBuy $radiusOfBuy
 
 transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm buy/"$symbolParam"_"$lastDateInDataFile".txt
 echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:"$radiusOfBuy"}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
+
+# Delete readable file
+rm -rf "$OWN_SYMBOLS_FILE"
 
 #echo ""
 
