@@ -719,10 +719,10 @@ do
 
         # KGVe
         kgve=$(echo "$lineFromTickerFile" | cut -f 6)
-        echo "<span style='font-size:50px'>KGV:$kgve&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
+        echo "<span style='font-size:50px'>KGV&nbsp;$kgve&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         # DIVe
         dive=$(echo "$lineFromTickerFile" | cut -f 7)
-        echo "<span style='font-size:50px'>DIV:$dive%&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
+        echo "<span style='font-size:50px'>DIV&nbsp;$dive%&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         # Branche
         branche=$(echo "$lineFromTickerFile" | cut -f 5)
         echo "<span style='font-size:50px'>$branche</span></p>" 
@@ -731,8 +731,8 @@ do
         #echo "<span style='font-size:50px'>$marketCap Mrd.€&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         if [ ! "$marketCapFromFile" = '?' ]; then
             marketCapScaled=$((marketCapFromFile * 4)) # Scale factor in progressbar
-            echo "<style>#progress:after { content: ''; display: block; background: orange; width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -20px;}</style>"
-            echo "<div id='progress' style='background: rgb(218, 216, 216); border-radius: 13px;height: 20px; width: 98%; padding: 3px;'>Markt Kapitalisierung: "$marketCapFromFile" Mrd.€</div><br>"           
+            echo "<style>#progress:after { content: ''; display: block; background: orange; width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
+            echo "<div id='progress' style='background: rgb(218, 216, 216); border-radius: 13px;height: 20px; width: 98%; padding: 3px;'>&nbsp;Markt Kapitalisierung&nbsp;"$marketCapFromFile" Mrd.€</div><br>"           
         fi
 
         # Check, if quote day is from last trading day, including weekend
