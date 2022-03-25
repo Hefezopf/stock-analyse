@@ -339,7 +339,7 @@ do
         symbol=$(echo "$symbol" | cut -b 2-6)
     fi
 
-    # Curl symbol name with delay of 14sec because of REST API restrictions
+    # Curl symbol name with delay of 14sec because of REST API restrictions (apprx. 5 Rq/min)
     CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14
 
     # Get stock data
