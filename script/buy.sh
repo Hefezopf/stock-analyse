@@ -86,7 +86,7 @@ lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
 lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
 
 # Min. r:6! Standart was r:10! Example: 3000€=6; 9000€=18;
-radiusOfBuy=$(echo "$priceParam $newlyAddedPieces" | awk '{print $1 * $2 / 400}')
+radiusOfBuy=$(echo "$priceParam $newlyAddedPieces" | awk '{print $1 * $2 / 350}')
 radiusOfBuy=${radiusOfBuy%.*}
 #echo radiusOfBuy $radiusOfBuy
 
