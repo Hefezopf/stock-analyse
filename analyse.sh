@@ -730,9 +730,9 @@ do
         marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
         #echo "<span style='font-size:50px'>$marketCap Mrd.€&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         if [ ! "$marketCapFromFile" = '?' ]; then
-            marketCapScaled=$((marketCapFromFile * 4)) # Scale factor in progressbar
-            echo "<style>#progress:after { content: ''; display: block; background: orange; width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
-            echo "<div id='progress' style='background: rgb(218, 216, 216); border-radius: 13px;height: 20px; width: 98%; padding: 3px;'>&nbsp;Markt Kapitalisierung&nbsp;"$marketCapFromFile" Mrd.€</div><br>"           
+            marketCapScaled=$((marketCapFromFile * 5)) # Scale factor in progressbar
+            echo "<style>#progress:after { content: ''; display: block; background: rgb(247, 216, 159); width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
+            echo "<div id='progress' style='background: rgb(240, 236, 236); border-radius: 13px;height: 20px; width: 98%; padding: 3px;'>&nbsp;Markt Kapitalisierung&nbsp;"$marketCapFromFile" Mrd.€</div><br>"           
         fi
 
         # Check, if quote day is from last trading day, including weekend
