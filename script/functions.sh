@@ -123,7 +123,7 @@ DetermineTendency() {
     fi
 }
 
-# CurlSymbolName function:
+# CurlSymbolName function: Curl and write Line to TICKER_NAME_ID_FILE
 # Input: ${x}
 # Output: -
 CurlSymbolName() {
