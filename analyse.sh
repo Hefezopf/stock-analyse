@@ -342,6 +342,15 @@ do
     # Curl and write Line to TICKER_NAME_ID_FILE. Delay of 14sec because of REST API restrictions (apprx. 5 Rq/min)
     CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14
 
+    lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
+    symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+    exchange=$(echo "$lineFromTickerFile" | cut -f 8)
+    if [ ! "$exchange" ]; then # Default = XETRA
+        #exchange="XFRA" # Frankfurt
+        exchange="XETRA"
+    fi
+#echo exchange $exchange lineFromTickerFile $lineFromTickerFile
+
     # Get stock data
     echo ""
     echo "# Get $symbol $symbolName"
@@ -351,8 +360,6 @@ do
         DATA_DATE_FILE_TEMP="$(mktemp -p $TEMP_DIR)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
-        #exchange="XFRA" # Frankfurt
-        exchange="XETRA"
         curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         # With volume
         # curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "T", .volume, "\n"' | awk -F'T' '{print $1 "\t" $3 "\t" $4}' > "$DATA_DATE_FILE"
@@ -364,9 +371,6 @@ do
             mv "$DATA_DATE_FILE_TEMP" "$DATA_DATE_FILE"
         fi
     fi
-
-    lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
-    symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
 
     CreateCmdHyperlink "Analyse" "out"
 
@@ -753,6 +757,7 @@ do
             echo "<br><b style='color:orange; font-size:xx-large'>->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
             echo "<b style='color:orange; font-size:xx-large'>$quoteDate</b>"
         fi
+        echo "<b>&nbsp;"$exchange"</b>"
 
         echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Avg18:<b>""$average18""€</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>""$average38""€</b></span>"
