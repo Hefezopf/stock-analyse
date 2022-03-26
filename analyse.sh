@@ -731,8 +731,8 @@ do
         #echo "<span style='font-size:50px'>$marketCap Mrd.€&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         if [ ! "$marketCapFromFile" = '?' ]; then
             marketCapScaled=$((marketCapFromFile * 5)) # Scale factor in progressbar
-            echo "<style>#progress:after { content: ''; display: block; background: rgb(247, 216, 159); width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
-            echo "<div id='progress' style='background: rgb(240, 236, 236); border-radius: 13px;height: 20px; width: 98%; padding: 3px;'>&nbsp;Markt Kapitalisierung&nbsp;"$marketCapFromFile" Mrd.€</div><br>"           
+            echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
+            echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px;height: 24px; width: 98%; padding: 3px; text-align: center'>&nbsp;Markt Kapitalisierung&nbsp;"$marketCapFromFile" Mrd.€</div><br>"           
         fi
 
         # Check, if quote day is from last trading day, including weekend
