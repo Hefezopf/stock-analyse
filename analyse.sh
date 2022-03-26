@@ -732,7 +732,6 @@ do
         echo "<span style='font-size:50px'>$branche</span></p>" 
         # Market Cap Progressbar
         marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
-        #echo "<span style='font-size:50px'>$marketCap Mrd.€&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         if [ ! "$marketCapFromFile" = '?' ]; then
             marketCapScaled=$((marketCapFromFile * 5)) # Scale factor in progressbar
             # shellcheck disable=SC2086,SC2027
