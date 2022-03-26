@@ -351,8 +351,8 @@ do
         DATA_DATE_FILE_TEMP="$(mktemp -p $TEMP_DIR)"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
-        exchange="XFRA" # Frankfurt
-        #exchange="XETRA"
+        #exchange="XFRA" # Frankfurt
+        exchange="XETRA"
         curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         # With volume
         # curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "T", .volume, "\n"' | awk -F'T' '{print $1 "\t" $3 "\t" $4}' > "$DATA_DATE_FILE"
