@@ -350,7 +350,8 @@ do
         creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +2h
     fi    
     GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! $creationDate<p>"
-    sed -i "515s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
+    # ATTENTION Line number may change, if there will be development!
+    sed -i "520s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
 done
 
 Out "" $OUT_SIMULATE_FILE
