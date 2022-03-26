@@ -735,8 +735,9 @@ do
         #echo "<span style='font-size:50px'>$marketCap Mrd.€&nbsp;&nbsp;&nbsp;</span>&nbsp;" 
         if [ ! "$marketCapFromFile" = '?' ]; then
             marketCapScaled=$((marketCapFromFile * 5)) # Scale factor in progressbar
+            # shellcheck disable=SC2086,SC2027
             echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
-            echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px;height: 24px; width: 98%; padding: 3px; text-align: center'>&nbsp;Markt Kapitalisierung&nbsp;"$marketCapFromFile" Mrd.€</div><br>"           
+            echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px;height: 24px; width: 98%; padding: 3px; text-align: center'>&nbsp;Markt Kapitalisierung&nbsp;$marketCapFromFile Mrd.€</div><br>"           
         fi
 
         # Check, if quote day is from last trading day, including weekend
@@ -757,7 +758,7 @@ do
             echo "<br><b style='color:orange; font-size:xx-large'>->OLD DATA:$markerOwnStock$symbol</b><br>" >> $OUT_RESULT_FILE
             echo "<b style='color:orange; font-size:xx-large'>$quoteDate</b>"
         fi
-        echo "<b>&nbsp;"$exchange"</b>"
+        echo "<b>&nbsp;$exchange</b>"
 
         echo "&nbsp;<span style='color:rgb(153, 102, 255)'>Avg18:<b>""$average18""€</b></span>"
         echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>""$average38""€</b></span>"
