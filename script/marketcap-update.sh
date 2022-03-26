@@ -23,8 +23,14 @@ do
     symbol=$(echo "$symbol" | cut -b 2-6)
   fi
   lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
-  ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
   SYMBOL_NAME=$(echo "$lineFromTickerFile" | cut -f 2)
+  ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
+  EXCHANGE=$(echo "$lineFromTickerFile" | cut -f 8)
+  if [ ! "$EXCHANGE" ]; then # Default = XETRA
+    #EXCHANGE="XFRA" # Frankfurt
+    #EXCHANGE="XETRA"
+    EXCHANGE="XETRA"
+  fi
 
   echo $symbol ...
 
@@ -95,7 +101,7 @@ do
     echo "ERROR DIVe: $symbol $ID_NOTATION! $dive"
   fi
   # Replace till end of line: idempotent!
-  sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive/g" "$TICKER_NAME_ID_FILE"
+  sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$EXCHANGE/g" "$TICKER_NAME_ID_FILE"
 
 done
 
