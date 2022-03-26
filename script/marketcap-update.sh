@@ -28,7 +28,6 @@ do
   EXCHANGE=$(echo "$lineFromTickerFile" | cut -f 8)
   if [ ! "$EXCHANGE" ]; then # Default = XETRA
     #EXCHANGE="XFRA" # Frankfurt
-    #EXCHANGE="XETRA"
     EXCHANGE="XETRA"
   fi
 
@@ -48,7 +47,7 @@ do
     else
         marktkap="?"
         marktkapErrorSymbols=$(echo "$symbol $marktkapErrorSymbols")
-        echo "ERROR Market Cap: $symbol $ID_NOTATION -> ETF or market cap too small! $marktkap"
+        echo "ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, ETF or Market Cap too small! $marktkap"
     fi
   fi
   # Replace till end of line: idempotent!
