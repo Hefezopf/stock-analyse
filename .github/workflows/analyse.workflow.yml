@@ -5,7 +5,7 @@
 name: Analyse
 
 env:
-  symbolsEnv: '*HLE' # If here is more then 1 symbol -> Error!
+  symbolsEnv: '*MBG' # If here is more then 1 symbol -> Error!
   percentageEnv: '1'
   queryEnv: 'offline'
   stochasticEnv: '9'
@@ -21,9 +21,9 @@ on:
   workflow_dispatch:
     inputs:
       symbolsParam:
-        description: 'SYMBOLS - List of stock symbols like: "*DBK BEI". Own stocks marked *'
+        description: 'SYMBOLS - List of stock symbols like: "*MBG DBK". Own stocks marked *'
         required: true
-        default: '*HLE *O2D *CCAP *DXSN MOR FPE3'
+        default: '*MBG DBK'
       percentageParam:
         description: 'PERCENTAGE - "1" means 1 percent'     
         required: true
