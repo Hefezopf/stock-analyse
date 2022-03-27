@@ -29,7 +29,7 @@ jobs:
           export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #Depot+DAX+MDAX+TDAX+SDAX+Eurostoxx+DOW (397)
+          #Depot+DAX+MDAX+TDAX+SDAX+Eurostoxx+DOW (432)
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
