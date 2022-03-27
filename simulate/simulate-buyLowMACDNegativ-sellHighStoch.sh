@@ -11,7 +11,7 @@
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI' 2500 13 70 1.1 5 2
 # Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 5 1
-# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 10 96 1.01 5 1
+# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 14 70 1.01 5 1
 
 # Debug mode
 #set -x
@@ -196,7 +196,11 @@ do
 
             ARRAY_BUY[RSIindex]=$amount
             ARRAY_TX_INDEX[RSIindex]="$wallet€"
-            ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
+            # Min. r:6! Standard was r:10! Example: 2500€=9; 2700€=10; 3000€=12;
+            radiusOfBuy=$(echo "$amount" | awk '{print $1 / 250}')
+            radiusOfBuy=${radiusOfBuy%.*}
+            #echo radiusOfBuy $radiusOfBuy
+            ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:"$quoteAt",r:"$radiusOfBuy"}"
         fi
 
         # Sell
@@ -274,7 +278,11 @@ do
                         done           
                         ARRAY_SELL[RSIindex]=$amount
                         ARRAY_TX_INDEX[RSIindex]="+$simulationWin€+$intermediateProzWin%"
-                        ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
+                        # Min. r:6! Standard was r:10! Example: 8000€=36; 25000=89;
+                        radiusOfSell=$(echo "$amount" | awk '{print $1 / 250}')
+                        radiusOfSell=${radiusOfSell%.*}
+                        #echo radiusOfSell $radiusOfSell
+                        ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:"$quoteAt",r:"$radiusOfSell"}"
                     fi
                 fi
             fi
