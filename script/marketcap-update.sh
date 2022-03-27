@@ -31,6 +31,7 @@ do
     EXCHANGE="XETRA"
   fi
 
+  echo ""
   echo $symbol ...
 
   # Mrd.
@@ -47,7 +48,7 @@ do
     else
         marktkap="?"
         marktkapErrorSymbols=$(echo "$symbol $marktkapErrorSymbols")
-        echo "ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, ETF or Market Cap too small! $marktkap"
+        echo "--> ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, ETF or Market Cap too small! $marktkap"
     fi
   fi
   # Replace till end of line: idempotent!
@@ -70,7 +71,7 @@ do
     else
       branche="?"
       brancheErrorSymbols=$(echo "$symbol $brancheErrorSymbols")
-      echo "ERROR Branche: $symbol $ID_NOTATION! $branche"
+      echo "--> ERROR Branche: $symbol $ID_NOTATION! $branche"
     fi
   fi
   # Replace till end of line: idempotent!
@@ -83,7 +84,7 @@ do
   else
     kgve="?"
     kgveErrorSymbols=$(echo "$symbol $kgveErrorSymbols")
-    echo "ERROR KGVe: $symbol $ID_NOTATION! $kgve"
+    echo "--> ERROR KGVe: $symbol $ID_NOTATION! $kgve"
   fi
   # Replace till end of line: idempotent!
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve/g" "$TICKER_NAME_ID_FILE"
@@ -97,7 +98,7 @@ do
   else
     dive="?"
     diveErrorSymbols=$(echo "$symbol $diveErrorSymbols")
-    echo "ERROR DIVe: $symbol $ID_NOTATION! $dive"
+    echo "--> ERROR DIVe: $symbol $ID_NOTATION! $dive"
   fi
   # Replace till end of line: idempotent!
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$EXCHANGE/g" "$TICKER_NAME_ID_FILE"
