@@ -103,6 +103,22 @@ do
   # Replace till end of line: idempotent!
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$EXCHANGE/g" "$TICKER_NAME_ID_FILE"
 
+  # Spread
+  spread=$(echo "$curlResponse" | grep -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")
+  if [ "$spread" ]; then
+      # Replace ',' with '.'
+      #spread=$(echo $spread | sed "s/,/./g")  
+      echo "$symbol Spread: $spread.xx%"
+      if [ "$spread" -gt 1 ]; then
+        highSpreadSymbols=$(echo "$symbol $highSpreadSymbols")
+      fi
+  else
+    spread="?"
+    spreadErrorSymbols=$(echo "$symbol $spreadErrorSymbols")
+    echo "--> ERROR Spread: $symbol $ID_NOTATION! $spread"
+  fi
+
+
 done
 
 if [ "$marktkapErrorSymbols" ]; then
@@ -121,3 +137,13 @@ if [ "$diveErrorSymbols" ]; then
     echo ""
     echo "Symbols with DIVe Error: diveErrorSymbols=$diveErrorSymbols"
 fi
+if [ "$spreadErrorSymbols" ]; then
+    echo ""
+    echo "Symbols with Spread Error: spreadErrorSymbols=$spreadErrorSymbols"
+fi
+if [ "$highSpreadSymbols" ]; then
+    echo ""
+    echo "Symbols with HIGH Spread: highSpreadSymbols=$highSpreadSymbols"
+fi
+
+
