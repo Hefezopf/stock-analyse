@@ -21,7 +21,7 @@
 . ./script/functions.sh
 
 # Parameter
-symbolsParam=$1
+symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 amountPerTradeParam=$2
 RSIBuyLevelParam=$3
 StochSellLevelParam=$4
@@ -197,10 +197,11 @@ do
             ARRAY_BUY[RSIindex]=$amount
             ARRAY_TX_INDEX[RSIindex]="$wallet€"
             # Min. r:6! Standard was r:10! Example: 2500€=9; 2700€=10; 3000€=12;
-            radiusOfBuy=$(echo "$amount" | awk '{print $1 / 250}')
-            radiusOfBuy=${radiusOfBuy%.*}
-            #echo radiusOfBuy $radiusOfBuy
-            ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:"$quoteAt",r:"$radiusOfBuy"}"
+            #radiusOfBuy=$(echo "$amount" | awk '{print $1 / 250}')
+            #radiusOfBuy=${radiusOfBuy%.*}
+#echo radiusOfBuy $radiusOfBuy
+            ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:"$quoteAt",r:10}"
+#            ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:"$quoteAt",r:"$radiusOfBuy"}"
         fi
 
         # Sell
@@ -279,10 +280,11 @@ do
                         ARRAY_SELL[RSIindex]=$amount
                         ARRAY_TX_INDEX[RSIindex]="+$simulationWin€+$intermediateProzWin%"
                         # Min. r:6! Standard was r:10! Example: 8000€=36; 25000=89;
-                        radiusOfSell=$(echo "$amount" | awk '{print $1 / 250}')
-                        radiusOfSell=${radiusOfSell%.*}
-                        #echo radiusOfSell $radiusOfSell
-                        ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:"$quoteAt",r:"$radiusOfSell"}"
+                        #radiusOfSell=$(echo "$amount" | awk '{print $1 / 250}')
+                        #radiusOfSell=${radiusOfSell%.*}
+#echo radiusOfSell $radiusOfSell
+                        ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:"$quoteAt",r:10}"
+                        #ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:"$quoteAt",r:"$radiusOfSell"}"
                     fi
                 fi
             fi

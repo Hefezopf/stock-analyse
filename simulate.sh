@@ -10,7 +10,7 @@
 # 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
 # Call example: ./simulate.sh 'BEI ALV' 2000 25 91 1.1 5 1
-# Call example: ./simulate.sh 'BEI ALV' 2500 10 96 1.01 5 1
+# Call example: ./simulate.sh 'BEI ALV' 2500 14 71 1.01 5 1
 # Grep output to find symbols: grep Position:100 simulate/out/_simulate.html
 
 # Debug mode
