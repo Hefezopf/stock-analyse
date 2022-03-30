@@ -86,14 +86,14 @@ lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
 lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
 
 # Min. r:6! Standard was r:10! Example: 3000€=6; 9000€=18;
-radiusOfBuy=$(echo "$priceParam $newlyAddedPieces" | awk '{print $1 * $2 / 300}')
-radiusOfBuy=${radiusOfBuy%.*}
+#radiusOfBuy=$(echo "$priceParam $newlyAddedPieces" | awk '{print $1 * $2 / 300}')
+#radiusOfBuy=${radiusOfBuy%.*}
 #echo radiusOfBuy $radiusOfBuy
 
 transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm buy/"$symbolParam"_"$lastDateInDataFile".txt
-echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:"$radiusOfBuy"}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
+echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
 
 # Delete readable file
 rm -rf "$OWN_SYMBOLS_FILE"
