@@ -1,6 +1,69 @@
 TODO:
 -----
 
+            # RealTimeQuote
+            echo "<script>
+            fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337028')}\`)
+            .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Network response error!');
+                })
+                .then(data => {
+                    let position1 = data.contents.indexOf('-size-24 icon--cd-positive\"><svg class=\"icon__svg\" focusable=\"false\"><use xlink:href=\"/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24\"/></svg></span><span class=\"realtime-indicator--value ');
+                    let position2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+                    console.log('yyyyyyyposition1:' + position1);
+                    console.log('yyyyyyyposition2:' + position2);
+                    realTimeQuote = data.contents.slice(position1+195, position2);
+                    console.log('yyyyyyyrealTimeQuote:' + realTimeQuote);
+                })
+                .catch(error => {
+                    console.error('Error retrieving current quote for: $symbol !!!' + error);
+                });
+            </script>"
+
+            echo "<span id=\"intervalSectionRealTimeQuote$symbol\" style='font-size:xx-large; display: none'>---</span>&nbsp;
+                  <span id=\"intervalSectionRegularMarketPrice$symbol\" style='font-size:xx-large; display: none'>---</span>&nbsp;
+
+
+
+        <script>
+            var myHeaders = new Headers();
+            myHeaders.append('origin', 'x-requested-with');
+            myHeaders.append('mode', 'cors');
+            myHeaders.append('cache', 'no-cache');
+            myHeaders.append('credentials', 'same-origin');
+            myHeaders.append('origin', 'x-requested-with');
+            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337028')}`, myHeaders)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Network response error!');
+                })
+                .then(data => {
+                    let position1 = data.contents.indexOf('realtime-indicator--value text-size--xxlarge text-weight--medium');
+                    let position2 = data.contents.indexOf('</span><span class=\"text-size--medium outer-spacing--xxsmall-left outer-spacing--small-top\">EUR</span></div>');
+                    console.log('yyyyyyyposition1:' + position1);
+                    console.log('yyyyyyyposition2:' + position2);
+                    realTimeQuote = data.contents.slice(position1 + 66, position2);
+                    console.log('yyyyyyyrealTimeQuote:' + realTimeQuote);
+
+                    var elementIntervalSectionRealTimeQuote = document.getElementById("intervalSectionRealTimeQuoteTKA");
+                    elementIntervalSectionRealTimeQuote.innerHTML = realTimeQuote;
+                })
+                .catch(error => {
+                    console.error('Error retrieving current quote for: TKA !!!' + error);
+                });
+        </script>
+
+
+
+
+
+
+
 -F statt DE
 fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.DE?interval=1d')}\`)
 
