@@ -827,7 +827,7 @@ do
         {   
             # RegularMarketPrice
             echo "<script>
-            fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.DE?interval=1d')}\`)
+            fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.F?interval=1d')}\`)
             .then(response => {
                 if (response.ok){
                     return response.json();
