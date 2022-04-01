@@ -31,7 +31,9 @@ jobs:
         run: |
           echo "Sort Symbols ..."
 
-          cat config/stock_symbols.txt | tr " " "\n" | sort | tr "\n" " " > config/stock_symbols.txt
+          chmod +x ./script/sort_sa.sh
+
+          sh ./script/sort_sa.sh
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
