@@ -6,6 +6,14 @@ on:
   repository_dispatch:
     types: [sort]
 
+  # Can be triggered manually
+  workflow_dispatch:
+    inputs:
+      symbolParam:
+        description: 'DUMMY - xxx'
+        required: false
+        default: 'XXX'
+
   schedule:
   # Every frist day of each month
   - cron: "0 0 1 */1 *"
