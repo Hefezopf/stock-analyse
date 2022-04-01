@@ -6,6 +6,14 @@ on:
   repository_dispatch:
     types: [marketcap]
 
+  # Can be triggered manually
+  workflow_dispatch:
+    inputs:
+      symbolParam:
+        description: 'DUMMY - xxx'
+        required: false
+        default: 'XXX'
+
   schedule:
   # Every second (2.) day of each month
   - cron: "0 0 2 */1 *"
