@@ -932,7 +932,6 @@ do
                   <button id=\"intervalSectionButton1Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
                   <button id=\"intervalSectionButton5Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
                   <p id='intervalSectionButtonP' style='display: none'>
-                    <br>
                     <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
@@ -1057,7 +1056,7 @@ fi
             <button id='intervalSectionButtonBuyGenerell' style='height: 35px; width: 60px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
             Symbol <input name='intervalSectionInputSymbolBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputSymbolBuyGenerell'/>
-            All Pieces <input name='intervalSectionInputPiecesBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyGenerell'/>
+            Overall Pieces <input name='intervalSectionInputPiecesBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyGenerell'/>
             Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyGenerell'/>
           <p>"
 
