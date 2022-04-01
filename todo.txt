@@ -251,6 +251,7 @@ shellcheck --shell=bash script/functions.sh
 
 
 REST Api
+https://apilayer.com
 https://marketstack.com/dashboard
 marketstack@hopf-it.de
 m*2-1
@@ -409,3 +410,24 @@ alias jq=/c/tools/jq/jq
 # In case of shell errors with end of line: end of file unexpected (expecting "then")
 sed -i 's/\r$//' ./script/sell.sh
 sed -i 's/\r$//' ./script/*.sh
+
+
+.bash_profile settings:
+# Stock-Analyse
+cd /d/code/stock-analyse
+export MARKET_STACK_ACCESS_KEY="65a28efc2d3xxxxx"
+export X_OPENFIGI_APIKEY="X-OPENFIGI-APIKEY: 55c6xxxxxx"
+#https://github.com/settings/tokens -> Personal access tokens
+export GITHUB_TOKEN=ghp_fWxxxxx
+export GPG_PASSPHRASE="g*1"
+
+# Alias Stock Analyse
+alias sa='cd /d/code/stock-analyse'
+alias cdsa='cd /d/code/stock-analyse'
+alias buy='/d/code/stock-analyse/script/buy.sh $1 $2'
+alias sell='/d/code/stock-analyse/script/sell.sh $1'
+alias calc='/d/code/stock-analyse/script/calc.sh $1 $2 $3 $4'
+alias vp='/d/code/stock-analyse/script/view_portfolio.sh'
+alias dfsa='/d/code/stock-analyse/script/delete_from_sa.sh $1'
+alias sortsa='/d/code/stock-analyse/script/sort_sa.sh'
+alias jq='/d/tools/jq/jq-win64.exe'
