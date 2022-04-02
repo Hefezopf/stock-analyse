@@ -56,7 +56,7 @@ jobs:
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/ticker_name_id.txt
-          git commit -am "Github Market Cap Update Result ${{github.event_name}} ${{github.event.action}}" --allow-empty 
+          git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty 
           git push 
 
       - name: Send result via email
