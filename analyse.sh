@@ -562,7 +562,6 @@ do
         # Sell Strategie: Stochastic When Own
         resultStrategieOverratedStochasticWhenOwn=""
         StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
-##        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$beforeLastStochasticQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: Divergence RSI
         resultStrategieOverratedDivergenceRSI=""
@@ -1072,7 +1071,7 @@ fi
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!
 
-# Delete decrypted, readable prortfolio file
+# Delete decrypted, readable portfolio file
 rm -rf $OWN_SYMBOLS_FILE
 
 # Time measurement
