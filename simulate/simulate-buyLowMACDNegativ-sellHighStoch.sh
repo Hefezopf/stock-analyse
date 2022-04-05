@@ -342,7 +342,8 @@ do
         fi
     done
     # Write/Replace simulation "buy" values
-    sed -i "174s/.*/$buySequenceReplaced/" simulate/out/"$symbol".html    
+    # ATTENTION Line number may change, if there will be development!
+    sed -i "177s/.*/$buySequenceReplaced/" simulate/out/"$symbol".html    
 
     # Write/Replace "sell"
     sellSequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
@@ -352,7 +353,8 @@ do
         fi
     done
     # Write/Replace simulation "sell" values. Replace line!
-    sed -i "181s/.*/$sellSequenceReplaced/" simulate/out/"$symbol".html
+    # ATTENTION Line number may change, if there will be development!
+    sed -i "184s/.*/$sellSequenceReplaced/" simulate/out/"$symbol".html
 
     # Write/Replace timestamp. Replace line!
     creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
@@ -361,7 +363,7 @@ do
     fi    
     GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! $creationDate<p>"
     # ATTENTION Line number may change, if there will be development!
-    sed -i "521s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
+    sed -i "524s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
 done
 
 Out "" $OUT_SIMULATE_FILE
