@@ -359,7 +359,7 @@ do
     # Write/Replace timestamp. Replace line!
     creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
     if [ "$(uname)" = 'Linux' ]; then
-        creationDate=$(TZ=EST-2EDT date +"%e-%b-%Y %R") # +2h
+        creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h
     fi    
     GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! $creationDate<p>"
     # ATTENTION Line number may change, if there will be development!
