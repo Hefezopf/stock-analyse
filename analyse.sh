@@ -827,7 +827,7 @@ do
 
             # RealTimeQuote
             echo "<script>
-            var realTimeQuote$symbol;
+           // var realTimeQuote$symbol;
             fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION="$ID_NOTATION"')}\`)
             .then(response => {
                     if (response.ok) {
@@ -838,85 +838,55 @@ do
                 .then(data => {
                     let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive\"><svg class=\"icon__svg\" focusable=\"false\"><use xlink:href=\"/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24\"/></svg></span><span class=\"realtime-indicator--value ');
                     let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-                    //console.log('yyyyyyyposition1:' + positionQuote1);
-                    //console.log('yyyyyyyposition2:' + positionQuote2);
                     var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-                    //console.log('yyyyyyyrealTimeQuote:' + realTimeQuote);
                     var elementRealTimeQuote$symbol = document.getElementById(\"intervalSectionRealTimeQuote$symbol\");  
                     realTimeQuote$symbol = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
                     elementRealTimeQuote$symbol.innerHTML = realTimeQuote$symbol + '€';
-
                     let positionProz1 = data.contents.indexOf('&#160;%');
-                    //let positionProz2 = data.contents.indexOf('text-size--xlarge outer-spacing--xsmall-left-lg color--cd-');
-                    var realTimeProz = data.contents.slice(positionProz1-5, positionProz1);
-                    console.log('yyyyyyyrealTimeProz:' + realTimeProz);
+                    var realTimeProz$symbol = data.contents.slice(positionProz1-5, positionProz1);
+                    console.log('yyyyyyyrealTimeProz$symbol:' + realTimeProz$symbol);
                     var elementPercentage$symbol = document.getElementById(\"intervalSectionPercentage$symbol\");
-                    elementPercentage$symbol.innerHTML = realTimeProz + '%';
+                    elementPercentage$symbol.innerHTML = realTimeProz$symbol + '%';
+                    if(parseFloat(realTimeProz$symbol.replace(',', '.')) < 0){
+                        elementPercentage$symbol.style.color = 'red';
+                    }
+                    else{
+                        elementPercentage$symbol.style.color = 'green';
+                    }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTime$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTime$symbol:' + dateTime$symbol);
+// var deltaMinutes$symbol =((new Date().getTime() - dateMarketTime$symbol.getTime()) / 1000) / 60;
+                var elementRegularMarketTimeOffset$symbol = document.getElementById(\"intervalSectionRegularMarketTimeOffset$symbol\");
+                elementRegularMarketTimeOffset$symbol.innerHTML = dateTime$symbol;
+//                elementRegularMarketTimeOffset$symbol.innerHTML = '+' + Math.abs(Math.round(deltaMinutes$symbol)) + 'min';
+
+
+                    var elementPortfolioValues$symbol = document.getElementById(\"intervalSectionPortfolioValues$symbol\");
+                    var obfuscatedValuePcEuro$symbol = document.getElementById(\"obfuscatedValuePcEuro$symbol\");
+                    decryptElement(obfuscatedValuePcEuro$symbol);
+                    var pieces$symbol = obfuscatedValuePcEuro$symbol.innerHTML.split(' pc')[0];
+                    var buyingValue$symbol = obfuscatedValuePcEuro$symbol.innerHTML.split('/')[0];
+                    buyingValue$symbol = buyingValue$symbol.split(' ')[2];
+                    var portfolioValue$symbol = pieces$symbol * realTimeQuote$symbol;
+                    var stocksPerformance$symbol = ((portfolioValue$symbol / buyingValue$symbol)-1)*100;
+                    elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + portfolioValue$symbol.toFixed(0) + '€ ';
+                    var elementPortfolioGain$symbol = document.getElementById(\"intervalSectionPortfolioGain$symbol\");
+                    elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
+                    if(stocksPerformance$symbol < 0){
+                        elementPortfolioGain$symbol.style.color = 'red';
+                    }
+                    else{
+                        elementPortfolioGain$symbol.style.color = 'green';
+                    }
+                    decryptElement(obfuscatedValuePcEuro$symbol);
                 })
                 .catch(error => {
                     console.error('Error retrieving current quote for: $symbol !!!' + error);
                 });
             </script>"
                         
-            # RegularMarketPrice
-            echo "<script>
-            fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.F?interval=1d')}\`)
-            .then(response => {
-                if (response.ok){
-                    return response.json();
-                }
-                throw new Error('Network response error!');
-            })
-            .then(data => {
-                const obj$symbol = JSON.parse(data.contents);
-                var elementRegularMarketTime$symbol = document.getElementById(\"neverShowRegularMarketTime$symbol\");
-
-                var dateMarketTime$symbol = new Date(0); 
-                var epochMarketTime$symbol = obj$symbol.chart.result[0].meta.regularMarketTime;
-                dateMarketTime$symbol.setUTCSeconds(epochMarketTime$symbol);
-                //elementRegularMarketTime$symbol.innerHTML = ('0'+dateMarketTime$symbol.getHours()).slice(-2) + ':' + ('0'+dateMarketTime$symbol.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTime$symbol.getSeconds()).slice(-2);
-
-                var deltaMinutes$symbol =((new Date().getTime() - dateMarketTime$symbol.getTime()) / 1000) / 60;
-                var elementRegularMarketTimeOffset$symbol = document.getElementById(\"intervalSectionRegularMarketTimeOffset$symbol\");
-                //elementRegularMarketTimeOffset$symbol.innerHTML = '+' + Math.abs(Math.round(deltaMinutes$symbol)) + 'min';
-
-                var elementRegularMarketPrice$symbol = document.getElementById(\"intervalSectionRegularMarketPrice$symbol\");
-                //elementRegularMarketPrice$symbol.innerHTML = obj$symbol.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-                var elementPercentage$symbol = document.getElementById(\"intervalSectionPercentage$symbol\");
-                var percentValue$symbol = ((realTimeQuote$symbol / obj$symbol.chart.result[0].meta.chartPreviousClose) -1) * 100;
-                percentValue$symbol = percentValue$symbol.toFixed(1);
-                //elementPercentage$symbol.innerHTML = percentValue$symbol + '%';
-                if(percentValue$symbol < 0){
-                    elementPercentage$symbol.style.color = 'red';
-                }
-                else{
-                    elementPercentage$symbol.style.color = 'green';
-                }
-
-                var elementPortfolioValues$symbol = document.getElementById(\"intervalSectionPortfolioValues$symbol\");
-                var obfuscatedValuePcEuro$symbol = document.getElementById(\"obfuscatedValuePcEuro$symbol\");
-                decryptElement(obfuscatedValuePcEuro$symbol);
-                var pieces$symbol = obfuscatedValuePcEuro$symbol.innerHTML.split(' pc')[0];
-                var buyingValue$symbol = obfuscatedValuePcEuro$symbol.innerHTML.split('/')[0];
-                buyingValue$symbol = buyingValue$symbol.split(' ')[2];
-                var portfolioValue$symbol = pieces$symbol * obj$symbol.chart.result[0].meta.regularMarketPrice;
-                var stocksPerformance$symbol = ((portfolioValue$symbol / buyingValue$symbol)-1)*100;
-                elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + portfolioValue$symbol.toFixed(0) + '€ ';
-                var elementPortfolioGain$symbol = document.getElementById(\"intervalSectionPortfolioGain$symbol\");
-                elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
-                if(stocksPerformance$symbol < 0){
-                    elementPortfolioGain$symbol.style.color = 'red';
-                }
-                else{
-                    elementPortfolioGain$symbol.style.color = 'green';
-                }
-                decryptElement(obfuscatedValuePcEuro$symbol);  
-            })
-            .catch(error => {
-                    console.error('Error retrieving current quote for: $symbol !!!' + error);
-            });
-            </script>"
-
             echo "<span id=\"intervalSectionRealTimeQuote$symbol\" style='font-size:xx-large; display: none'>---</span>&nbsp;
                   <span id=\"intervalSectionPercentage$symbol\" style='font-size:xx-large; display: none'></span>&nbsp;
                   <span id=\"neverShowRegularMarketTime$symbol\" style='display: none'></span>
