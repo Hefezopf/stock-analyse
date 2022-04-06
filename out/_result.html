@@ -164,7 +164,7 @@ return ret.replace(/ZZ/g, "% ");
 </script>
 # Parameter
 <br>
-Symbols(28):*TKA *HEN3 *KGX *STM *JEN *TRVC *DUE *AOX *SAX *O3P *VAS *JUN3 *NVV1 *DWNI *GYC *IXD1 *VNA *LEG *TEG *AG1 *PHI1 *UNVB *EUZ *IWLE *CRIN *AOMD *TNE5 *GEC 
+Symbols(27):*TKA *HEN3 *KGX *STM *JEN *TRVC *DUE *AOX *SAX *O3P *VAS *JUN3 *NVV1 *DWNI *GYC *IXD1 *VNA *LEG *TEG *AG1 *PHI1 *UNVB *EUZ *IWLE *CRIN *AOMD *TNE5
 <br>
 Percentage:1 
 <br>
@@ -187,38 +187,41 @@ Buy: Low 6 last Stochastic (S)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/TKA.F?interval=1d')}`)
+// var realTimeQuoteTKA;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337028')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objTKA = JSON.parse(data.contents);
-var elementRegularMarketTimeTKA = document.getElementById("neverShowRegularMarketTimeTKA");
-
-var dateMarketTimeTKA = new Date(0); 
-var epochMarketTimeTKA = objTKA.chart.result[0].meta.regularMarketTime;
-dateMarketTimeTKA.setUTCSeconds(epochMarketTimeTKA);
-elementRegularMarketTimeTKA.innerHTML = ('0'+dateMarketTimeTKA.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeTKA.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeTKA.getSeconds()).slice(-2);
-
-var deltaMinutesTKA =((new Date().getTime() - dateMarketTimeTKA.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetTKA = document.getElementById("intervalSectionRegularMarketTimeOffsetTKA");
-elementRegularMarketTimeOffsetTKA.innerHTML = '+' + Math.abs(Math.round(deltaMinutesTKA)) + 'min';
-
-var elementRegularMarketPriceTKA = document.getElementById("intervalSectionRegularMarketPriceTKA");
-elementRegularMarketPriceTKA.innerHTML = objTKA.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteTKA = document.getElementById("intervalSectionRealTimeQuoteTKA");  
+realTimeQuoteTKA = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteTKA.innerHTML = realTimeQuoteTKA + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzTKA = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzTKA:' + realTimeProzTKA);
 var elementPercentageTKA = document.getElementById("intervalSectionPercentageTKA");
-var percentValueTKA = ((objTKA.chart.result[0].meta.regularMarketPrice / objTKA.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueTKA = percentValueTKA.toFixed(1);
-elementPercentageTKA.innerHTML = percentValueTKA + '%';
-if(percentValueTKA < 0){
+elementPercentageTKA.innerHTML = realTimeProzTKA + '%';
+if(parseFloat(realTimeProzTKA.replace(',', '.')) < 0){
 elementPercentageTKA.style.color = 'red';
 }
 else{
 elementPercentageTKA.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeTKA = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeTKA:' + dateTimeTKA);
+// var deltaMinutesTKA =((new Date().getTime() - dateMarketTimeTKA.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetTKA = document.getElementById("intervalSectionRegularMarketTimeOffsetTKA");
+elementRegularMarketTimeOffsetTKA.innerHTML = dateTimeTKA;
+//                elementRegularMarketTimeOffsetTKA.innerHTML = '+' + Math.abs(Math.round(deltaMinutesTKA)) + 'min';
+
 
 var elementPortfolioValuesTKA = document.getElementById("intervalSectionPortfolioValuesTKA");
 var obfuscatedValuePcEuroTKA = document.getElementById("obfuscatedValuePcEuroTKA");
@@ -226,7 +229,7 @@ decryptElement(obfuscatedValuePcEuroTKA);
 var piecesTKA = obfuscatedValuePcEuroTKA.innerHTML.split(' pc')[0];
 var buyingValueTKA = obfuscatedValuePcEuroTKA.innerHTML.split('/')[0];
 buyingValueTKA = buyingValueTKA.split(' ')[2];
-var portfolioValueTKA = piecesTKA * objTKA.chart.result[0].meta.regularMarketPrice;
+var portfolioValueTKA = piecesTKA * realTimeQuoteTKA;
 var stocksPerformanceTKA = ((portfolioValueTKA / buyingValueTKA)-1)*100;
 elementPortfolioValuesTKA.innerHTML = piecesTKA + ' pc ' + buyingValueTKA + '/' + portfolioValueTKA.toFixed(0) + '€ ';
 var elementPortfolioGainTKA = document.getElementById("intervalSectionPortfolioGainTKA");
@@ -237,13 +240,13 @@ elementPortfolioGainTKA.style.color = 'red';
 else{
 elementPortfolioGainTKA.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroTKA);  
+decryptElement(obfuscatedValuePcEuroTKA);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: TKA !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceTKA" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteTKA" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageTKA" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeTKA" style='display: none'></span>
 
@@ -322,38 +325,41 @@ Buy: Low 5 last Stochastic (S)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/HEN3.F?interval=1d')}`)
+// var realTimeQuoteHEN3;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336931')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objHEN3 = JSON.parse(data.contents);
-var elementRegularMarketTimeHEN3 = document.getElementById("neverShowRegularMarketTimeHEN3");
-
-var dateMarketTimeHEN3 = new Date(0); 
-var epochMarketTimeHEN3 = objHEN3.chart.result[0].meta.regularMarketTime;
-dateMarketTimeHEN3.setUTCSeconds(epochMarketTimeHEN3);
-elementRegularMarketTimeHEN3.innerHTML = ('0'+dateMarketTimeHEN3.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeHEN3.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeHEN3.getSeconds()).slice(-2);
-
-var deltaMinutesHEN3 =((new Date().getTime() - dateMarketTimeHEN3.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetHEN3 = document.getElementById("intervalSectionRegularMarketTimeOffsetHEN3");
-elementRegularMarketTimeOffsetHEN3.innerHTML = '+' + Math.abs(Math.round(deltaMinutesHEN3)) + 'min';
-
-var elementRegularMarketPriceHEN3 = document.getElementById("intervalSectionRegularMarketPriceHEN3");
-elementRegularMarketPriceHEN3.innerHTML = objHEN3.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteHEN3 = document.getElementById("intervalSectionRealTimeQuoteHEN3");  
+realTimeQuoteHEN3 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteHEN3.innerHTML = realTimeQuoteHEN3 + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzHEN3 = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzHEN3:' + realTimeProzHEN3);
 var elementPercentageHEN3 = document.getElementById("intervalSectionPercentageHEN3");
-var percentValueHEN3 = ((objHEN3.chart.result[0].meta.regularMarketPrice / objHEN3.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueHEN3 = percentValueHEN3.toFixed(1);
-elementPercentageHEN3.innerHTML = percentValueHEN3 + '%';
-if(percentValueHEN3 < 0){
+elementPercentageHEN3.innerHTML = realTimeProzHEN3 + '%';
+if(parseFloat(realTimeProzHEN3.replace(',', '.')) < 0){
 elementPercentageHEN3.style.color = 'red';
 }
 else{
 elementPercentageHEN3.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeHEN3 = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeHEN3:' + dateTimeHEN3);
+// var deltaMinutesHEN3 =((new Date().getTime() - dateMarketTimeHEN3.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetHEN3 = document.getElementById("intervalSectionRegularMarketTimeOffsetHEN3");
+elementRegularMarketTimeOffsetHEN3.innerHTML = dateTimeHEN3;
+//                elementRegularMarketTimeOffsetHEN3.innerHTML = '+' + Math.abs(Math.round(deltaMinutesHEN3)) + 'min';
+
 
 var elementPortfolioValuesHEN3 = document.getElementById("intervalSectionPortfolioValuesHEN3");
 var obfuscatedValuePcEuroHEN3 = document.getElementById("obfuscatedValuePcEuroHEN3");
@@ -361,7 +367,7 @@ decryptElement(obfuscatedValuePcEuroHEN3);
 var piecesHEN3 = obfuscatedValuePcEuroHEN3.innerHTML.split(' pc')[0];
 var buyingValueHEN3 = obfuscatedValuePcEuroHEN3.innerHTML.split('/')[0];
 buyingValueHEN3 = buyingValueHEN3.split(' ')[2];
-var portfolioValueHEN3 = piecesHEN3 * objHEN3.chart.result[0].meta.regularMarketPrice;
+var portfolioValueHEN3 = piecesHEN3 * realTimeQuoteHEN3;
 var stocksPerformanceHEN3 = ((portfolioValueHEN3 / buyingValueHEN3)-1)*100;
 elementPortfolioValuesHEN3.innerHTML = piecesHEN3 + ' pc ' + buyingValueHEN3 + '/' + portfolioValueHEN3.toFixed(0) + '€ ';
 var elementPortfolioGainHEN3 = document.getElementById("intervalSectionPortfolioGainHEN3");
@@ -372,13 +378,13 @@ elementPortfolioGainHEN3.style.color = 'red';
 else{
 elementPortfolioGainHEN3.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroHEN3);  
+decryptElement(obfuscatedValuePcEuroHEN3);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: HEN3 !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceHEN3" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteHEN3" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageHEN3" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeHEN3" style='display: none'></span>
 
@@ -455,38 +461,41 @@ Buy: Low 5 last Stochastic (S)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/KGX.F?interval=1d')}`)
+// var realTimeQuoteKGX;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=89777142')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objKGX = JSON.parse(data.contents);
-var elementRegularMarketTimeKGX = document.getElementById("neverShowRegularMarketTimeKGX");
-
-var dateMarketTimeKGX = new Date(0); 
-var epochMarketTimeKGX = objKGX.chart.result[0].meta.regularMarketTime;
-dateMarketTimeKGX.setUTCSeconds(epochMarketTimeKGX);
-elementRegularMarketTimeKGX.innerHTML = ('0'+dateMarketTimeKGX.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeKGX.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeKGX.getSeconds()).slice(-2);
-
-var deltaMinutesKGX =((new Date().getTime() - dateMarketTimeKGX.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetKGX = document.getElementById("intervalSectionRegularMarketTimeOffsetKGX");
-elementRegularMarketTimeOffsetKGX.innerHTML = '+' + Math.abs(Math.round(deltaMinutesKGX)) + 'min';
-
-var elementRegularMarketPriceKGX = document.getElementById("intervalSectionRegularMarketPriceKGX");
-elementRegularMarketPriceKGX.innerHTML = objKGX.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteKGX = document.getElementById("intervalSectionRealTimeQuoteKGX");  
+realTimeQuoteKGX = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteKGX.innerHTML = realTimeQuoteKGX + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzKGX = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzKGX:' + realTimeProzKGX);
 var elementPercentageKGX = document.getElementById("intervalSectionPercentageKGX");
-var percentValueKGX = ((objKGX.chart.result[0].meta.regularMarketPrice / objKGX.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueKGX = percentValueKGX.toFixed(1);
-elementPercentageKGX.innerHTML = percentValueKGX + '%';
-if(percentValueKGX < 0){
+elementPercentageKGX.innerHTML = realTimeProzKGX + '%';
+if(parseFloat(realTimeProzKGX.replace(',', '.')) < 0){
 elementPercentageKGX.style.color = 'red';
 }
 else{
 elementPercentageKGX.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeKGX = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeKGX:' + dateTimeKGX);
+// var deltaMinutesKGX =((new Date().getTime() - dateMarketTimeKGX.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetKGX = document.getElementById("intervalSectionRegularMarketTimeOffsetKGX");
+elementRegularMarketTimeOffsetKGX.innerHTML = dateTimeKGX;
+//                elementRegularMarketTimeOffsetKGX.innerHTML = '+' + Math.abs(Math.round(deltaMinutesKGX)) + 'min';
+
 
 var elementPortfolioValuesKGX = document.getElementById("intervalSectionPortfolioValuesKGX");
 var obfuscatedValuePcEuroKGX = document.getElementById("obfuscatedValuePcEuroKGX");
@@ -494,7 +503,7 @@ decryptElement(obfuscatedValuePcEuroKGX);
 var piecesKGX = obfuscatedValuePcEuroKGX.innerHTML.split(' pc')[0];
 var buyingValueKGX = obfuscatedValuePcEuroKGX.innerHTML.split('/')[0];
 buyingValueKGX = buyingValueKGX.split(' ')[2];
-var portfolioValueKGX = piecesKGX * objKGX.chart.result[0].meta.regularMarketPrice;
+var portfolioValueKGX = piecesKGX * realTimeQuoteKGX;
 var stocksPerformanceKGX = ((portfolioValueKGX / buyingValueKGX)-1)*100;
 elementPortfolioValuesKGX.innerHTML = piecesKGX + ' pc ' + buyingValueKGX + '/' + portfolioValueKGX.toFixed(0) + '€ ';
 var elementPortfolioGainKGX = document.getElementById("intervalSectionPortfolioGainKGX");
@@ -505,13 +514,13 @@ elementPortfolioGainKGX.style.color = 'red';
 else{
 elementPortfolioGainKGX.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroKGX);  
+decryptElement(obfuscatedValuePcEuroKGX);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: KGX !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceKGX" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteKGX" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageKGX" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeKGX" style='display: none'></span>
 
@@ -589,38 +598,41 @@ Buy: Low Percentage & Stochastic (P)<br>
 Buy: Low 6 last Stochastic (S)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/STM.F?interval=1d')}`)
+// var realTimeQuoteSTM;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=103514041')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objSTM = JSON.parse(data.contents);
-var elementRegularMarketTimeSTM = document.getElementById("neverShowRegularMarketTimeSTM");
-
-var dateMarketTimeSTM = new Date(0); 
-var epochMarketTimeSTM = objSTM.chart.result[0].meta.regularMarketTime;
-dateMarketTimeSTM.setUTCSeconds(epochMarketTimeSTM);
-elementRegularMarketTimeSTM.innerHTML = ('0'+dateMarketTimeSTM.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeSTM.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeSTM.getSeconds()).slice(-2);
-
-var deltaMinutesSTM =((new Date().getTime() - dateMarketTimeSTM.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetSTM = document.getElementById("intervalSectionRegularMarketTimeOffsetSTM");
-elementRegularMarketTimeOffsetSTM.innerHTML = '+' + Math.abs(Math.round(deltaMinutesSTM)) + 'min';
-
-var elementRegularMarketPriceSTM = document.getElementById("intervalSectionRegularMarketPriceSTM");
-elementRegularMarketPriceSTM.innerHTML = objSTM.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteSTM = document.getElementById("intervalSectionRealTimeQuoteSTM");  
+realTimeQuoteSTM = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteSTM.innerHTML = realTimeQuoteSTM + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzSTM = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzSTM:' + realTimeProzSTM);
 var elementPercentageSTM = document.getElementById("intervalSectionPercentageSTM");
-var percentValueSTM = ((objSTM.chart.result[0].meta.regularMarketPrice / objSTM.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueSTM = percentValueSTM.toFixed(1);
-elementPercentageSTM.innerHTML = percentValueSTM + '%';
-if(percentValueSTM < 0){
+elementPercentageSTM.innerHTML = realTimeProzSTM + '%';
+if(parseFloat(realTimeProzSTM.replace(',', '.')) < 0){
 elementPercentageSTM.style.color = 'red';
 }
 else{
 elementPercentageSTM.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeSTM = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeSTM:' + dateTimeSTM);
+// var deltaMinutesSTM =((new Date().getTime() - dateMarketTimeSTM.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetSTM = document.getElementById("intervalSectionRegularMarketTimeOffsetSTM");
+elementRegularMarketTimeOffsetSTM.innerHTML = dateTimeSTM;
+//                elementRegularMarketTimeOffsetSTM.innerHTML = '+' + Math.abs(Math.round(deltaMinutesSTM)) + 'min';
+
 
 var elementPortfolioValuesSTM = document.getElementById("intervalSectionPortfolioValuesSTM");
 var obfuscatedValuePcEuroSTM = document.getElementById("obfuscatedValuePcEuroSTM");
@@ -628,7 +640,7 @@ decryptElement(obfuscatedValuePcEuroSTM);
 var piecesSTM = obfuscatedValuePcEuroSTM.innerHTML.split(' pc')[0];
 var buyingValueSTM = obfuscatedValuePcEuroSTM.innerHTML.split('/')[0];
 buyingValueSTM = buyingValueSTM.split(' ')[2];
-var portfolioValueSTM = piecesSTM * objSTM.chart.result[0].meta.regularMarketPrice;
+var portfolioValueSTM = piecesSTM * realTimeQuoteSTM;
 var stocksPerformanceSTM = ((portfolioValueSTM / buyingValueSTM)-1)*100;
 elementPortfolioValuesSTM.innerHTML = piecesSTM + ' pc ' + buyingValueSTM + '/' + portfolioValueSTM.toFixed(0) + '€ ';
 var elementPortfolioGainSTM = document.getElementById("intervalSectionPortfolioGainSTM");
@@ -639,13 +651,13 @@ elementPortfolioGainSTM.style.color = 'red';
 else{
 elementPortfolioGainSTM.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroSTM);  
+decryptElement(obfuscatedValuePcEuroSTM);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: STM !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceSTM" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteSTM" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageSTM" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeSTM" style='display: none'></span>
 
@@ -723,38 +735,41 @@ Buy: Low 5 last Stochastic (S)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/JEN.F?interval=1d')}`)
+// var realTimeQuoteJEN;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336943')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objJEN = JSON.parse(data.contents);
-var elementRegularMarketTimeJEN = document.getElementById("neverShowRegularMarketTimeJEN");
-
-var dateMarketTimeJEN = new Date(0); 
-var epochMarketTimeJEN = objJEN.chart.result[0].meta.regularMarketTime;
-dateMarketTimeJEN.setUTCSeconds(epochMarketTimeJEN);
-elementRegularMarketTimeJEN.innerHTML = ('0'+dateMarketTimeJEN.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeJEN.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeJEN.getSeconds()).slice(-2);
-
-var deltaMinutesJEN =((new Date().getTime() - dateMarketTimeJEN.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetJEN = document.getElementById("intervalSectionRegularMarketTimeOffsetJEN");
-elementRegularMarketTimeOffsetJEN.innerHTML = '+' + Math.abs(Math.round(deltaMinutesJEN)) + 'min';
-
-var elementRegularMarketPriceJEN = document.getElementById("intervalSectionRegularMarketPriceJEN");
-elementRegularMarketPriceJEN.innerHTML = objJEN.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteJEN = document.getElementById("intervalSectionRealTimeQuoteJEN");  
+realTimeQuoteJEN = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteJEN.innerHTML = realTimeQuoteJEN + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzJEN = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzJEN:' + realTimeProzJEN);
 var elementPercentageJEN = document.getElementById("intervalSectionPercentageJEN");
-var percentValueJEN = ((objJEN.chart.result[0].meta.regularMarketPrice / objJEN.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueJEN = percentValueJEN.toFixed(1);
-elementPercentageJEN.innerHTML = percentValueJEN + '%';
-if(percentValueJEN < 0){
+elementPercentageJEN.innerHTML = realTimeProzJEN + '%';
+if(parseFloat(realTimeProzJEN.replace(',', '.')) < 0){
 elementPercentageJEN.style.color = 'red';
 }
 else{
 elementPercentageJEN.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeJEN = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeJEN:' + dateTimeJEN);
+// var deltaMinutesJEN =((new Date().getTime() - dateMarketTimeJEN.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetJEN = document.getElementById("intervalSectionRegularMarketTimeOffsetJEN");
+elementRegularMarketTimeOffsetJEN.innerHTML = dateTimeJEN;
+//                elementRegularMarketTimeOffsetJEN.innerHTML = '+' + Math.abs(Math.round(deltaMinutesJEN)) + 'min';
+
 
 var elementPortfolioValuesJEN = document.getElementById("intervalSectionPortfolioValuesJEN");
 var obfuscatedValuePcEuroJEN = document.getElementById("obfuscatedValuePcEuroJEN");
@@ -762,7 +777,7 @@ decryptElement(obfuscatedValuePcEuroJEN);
 var piecesJEN = obfuscatedValuePcEuroJEN.innerHTML.split(' pc')[0];
 var buyingValueJEN = obfuscatedValuePcEuroJEN.innerHTML.split('/')[0];
 buyingValueJEN = buyingValueJEN.split(' ')[2];
-var portfolioValueJEN = piecesJEN * objJEN.chart.result[0].meta.regularMarketPrice;
+var portfolioValueJEN = piecesJEN * realTimeQuoteJEN;
 var stocksPerformanceJEN = ((portfolioValueJEN / buyingValueJEN)-1)*100;
 elementPortfolioValuesJEN.innerHTML = piecesJEN + ' pc ' + buyingValueJEN + '/' + portfolioValueJEN.toFixed(0) + '€ ';
 var elementPortfolioGainJEN = document.getElementById("intervalSectionPortfolioGainJEN");
@@ -773,13 +788,13 @@ elementPortfolioGainJEN.style.color = 'red';
 else{
 elementPortfolioGainJEN.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroJEN);  
+decryptElement(obfuscatedValuePcEuroJEN);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: JEN !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceJEN" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteJEN" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageJEN" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeJEN" style='display: none'></span>
 
@@ -856,38 +871,41 @@ Buy: Low 5 last Stochastic (S)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/TRVC.F?interval=1d')}`)
+// var realTimeQuoteTRVC;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672221')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objTRVC = JSON.parse(data.contents);
-var elementRegularMarketTimeTRVC = document.getElementById("neverShowRegularMarketTimeTRVC");
-
-var dateMarketTimeTRVC = new Date(0); 
-var epochMarketTimeTRVC = objTRVC.chart.result[0].meta.regularMarketTime;
-dateMarketTimeTRVC.setUTCSeconds(epochMarketTimeTRVC);
-elementRegularMarketTimeTRVC.innerHTML = ('0'+dateMarketTimeTRVC.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeTRVC.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeTRVC.getSeconds()).slice(-2);
-
-var deltaMinutesTRVC =((new Date().getTime() - dateMarketTimeTRVC.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetTRVC = document.getElementById("intervalSectionRegularMarketTimeOffsetTRVC");
-elementRegularMarketTimeOffsetTRVC.innerHTML = '+' + Math.abs(Math.round(deltaMinutesTRVC)) + 'min';
-
-var elementRegularMarketPriceTRVC = document.getElementById("intervalSectionRegularMarketPriceTRVC");
-elementRegularMarketPriceTRVC.innerHTML = objTRVC.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteTRVC = document.getElementById("intervalSectionRealTimeQuoteTRVC");  
+realTimeQuoteTRVC = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteTRVC.innerHTML = realTimeQuoteTRVC + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzTRVC = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzTRVC:' + realTimeProzTRVC);
 var elementPercentageTRVC = document.getElementById("intervalSectionPercentageTRVC");
-var percentValueTRVC = ((objTRVC.chart.result[0].meta.regularMarketPrice / objTRVC.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueTRVC = percentValueTRVC.toFixed(1);
-elementPercentageTRVC.innerHTML = percentValueTRVC + '%';
-if(percentValueTRVC < 0){
+elementPercentageTRVC.innerHTML = realTimeProzTRVC + '%';
+if(parseFloat(realTimeProzTRVC.replace(',', '.')) < 0){
 elementPercentageTRVC.style.color = 'red';
 }
 else{
 elementPercentageTRVC.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeTRVC = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeTRVC:' + dateTimeTRVC);
+// var deltaMinutesTRVC =((new Date().getTime() - dateMarketTimeTRVC.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetTRVC = document.getElementById("intervalSectionRegularMarketTimeOffsetTRVC");
+elementRegularMarketTimeOffsetTRVC.innerHTML = dateTimeTRVC;
+//                elementRegularMarketTimeOffsetTRVC.innerHTML = '+' + Math.abs(Math.round(deltaMinutesTRVC)) + 'min';
+
 
 var elementPortfolioValuesTRVC = document.getElementById("intervalSectionPortfolioValuesTRVC");
 var obfuscatedValuePcEuroTRVC = document.getElementById("obfuscatedValuePcEuroTRVC");
@@ -895,7 +913,7 @@ decryptElement(obfuscatedValuePcEuroTRVC);
 var piecesTRVC = obfuscatedValuePcEuroTRVC.innerHTML.split(' pc')[0];
 var buyingValueTRVC = obfuscatedValuePcEuroTRVC.innerHTML.split('/')[0];
 buyingValueTRVC = buyingValueTRVC.split(' ')[2];
-var portfolioValueTRVC = piecesTRVC * objTRVC.chart.result[0].meta.regularMarketPrice;
+var portfolioValueTRVC = piecesTRVC * realTimeQuoteTRVC;
 var stocksPerformanceTRVC = ((portfolioValueTRVC / buyingValueTRVC)-1)*100;
 elementPortfolioValuesTRVC.innerHTML = piecesTRVC + ' pc ' + buyingValueTRVC + '/' + portfolioValueTRVC.toFixed(0) + '€ ';
 var elementPortfolioGainTRVC = document.getElementById("intervalSectionPortfolioGainTRVC");
@@ -906,13 +924,13 @@ elementPortfolioGainTRVC.style.color = 'red';
 else{
 elementPortfolioGainTRVC.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroTRVC);  
+decryptElement(obfuscatedValuePcEuroTRVC);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: TRVC !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceTRVC" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteTRVC" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageTRVC" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeTRVC" style='display: none'></span>
 
@@ -991,38 +1009,41 @@ Buy: Low 4 last Stochastic (S)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/DUE.F?interval=1d')}`)
+// var realTimeQuoteDUE;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46670754')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objDUE = JSON.parse(data.contents);
-var elementRegularMarketTimeDUE = document.getElementById("neverShowRegularMarketTimeDUE");
-
-var dateMarketTimeDUE = new Date(0); 
-var epochMarketTimeDUE = objDUE.chart.result[0].meta.regularMarketTime;
-dateMarketTimeDUE.setUTCSeconds(epochMarketTimeDUE);
-elementRegularMarketTimeDUE.innerHTML = ('0'+dateMarketTimeDUE.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeDUE.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeDUE.getSeconds()).slice(-2);
-
-var deltaMinutesDUE =((new Date().getTime() - dateMarketTimeDUE.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetDUE = document.getElementById("intervalSectionRegularMarketTimeOffsetDUE");
-elementRegularMarketTimeOffsetDUE.innerHTML = '+' + Math.abs(Math.round(deltaMinutesDUE)) + 'min';
-
-var elementRegularMarketPriceDUE = document.getElementById("intervalSectionRegularMarketPriceDUE");
-elementRegularMarketPriceDUE.innerHTML = objDUE.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteDUE = document.getElementById("intervalSectionRealTimeQuoteDUE");  
+realTimeQuoteDUE = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteDUE.innerHTML = realTimeQuoteDUE + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzDUE = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzDUE:' + realTimeProzDUE);
 var elementPercentageDUE = document.getElementById("intervalSectionPercentageDUE");
-var percentValueDUE = ((objDUE.chart.result[0].meta.regularMarketPrice / objDUE.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueDUE = percentValueDUE.toFixed(1);
-elementPercentageDUE.innerHTML = percentValueDUE + '%';
-if(percentValueDUE < 0){
+elementPercentageDUE.innerHTML = realTimeProzDUE + '%';
+if(parseFloat(realTimeProzDUE.replace(',', '.')) < 0){
 elementPercentageDUE.style.color = 'red';
 }
 else{
 elementPercentageDUE.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeDUE = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeDUE:' + dateTimeDUE);
+// var deltaMinutesDUE =((new Date().getTime() - dateMarketTimeDUE.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetDUE = document.getElementById("intervalSectionRegularMarketTimeOffsetDUE");
+elementRegularMarketTimeOffsetDUE.innerHTML = dateTimeDUE;
+//                elementRegularMarketTimeOffsetDUE.innerHTML = '+' + Math.abs(Math.round(deltaMinutesDUE)) + 'min';
+
 
 var elementPortfolioValuesDUE = document.getElementById("intervalSectionPortfolioValuesDUE");
 var obfuscatedValuePcEuroDUE = document.getElementById("obfuscatedValuePcEuroDUE");
@@ -1030,7 +1051,7 @@ decryptElement(obfuscatedValuePcEuroDUE);
 var piecesDUE = obfuscatedValuePcEuroDUE.innerHTML.split(' pc')[0];
 var buyingValueDUE = obfuscatedValuePcEuroDUE.innerHTML.split('/')[0];
 buyingValueDUE = buyingValueDUE.split(' ')[2];
-var portfolioValueDUE = piecesDUE * objDUE.chart.result[0].meta.regularMarketPrice;
+var portfolioValueDUE = piecesDUE * realTimeQuoteDUE;
 var stocksPerformanceDUE = ((portfolioValueDUE / buyingValueDUE)-1)*100;
 elementPortfolioValuesDUE.innerHTML = piecesDUE + ' pc ' + buyingValueDUE + '/' + portfolioValueDUE.toFixed(0) + '€ ';
 var elementPortfolioGainDUE = document.getElementById("intervalSectionPortfolioGainDUE");
@@ -1041,13 +1062,13 @@ elementPortfolioGainDUE.style.color = 'red';
 else{
 elementPortfolioGainDUE.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroDUE);  
+decryptElement(obfuscatedValuePcEuroDUE);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: DUE !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceDUE" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteDUE" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageDUE" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeDUE" style='display: none'></span>
 
@@ -1121,38 +1142,41 @@ imageDUE.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/AOX.F?interval=1d')}`)
+// var realTimeQuoteAOX;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672066')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objAOX = JSON.parse(data.contents);
-var elementRegularMarketTimeAOX = document.getElementById("neverShowRegularMarketTimeAOX");
-
-var dateMarketTimeAOX = new Date(0); 
-var epochMarketTimeAOX = objAOX.chart.result[0].meta.regularMarketTime;
-dateMarketTimeAOX.setUTCSeconds(epochMarketTimeAOX);
-elementRegularMarketTimeAOX.innerHTML = ('0'+dateMarketTimeAOX.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeAOX.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeAOX.getSeconds()).slice(-2);
-
-var deltaMinutesAOX =((new Date().getTime() - dateMarketTimeAOX.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetAOX = document.getElementById("intervalSectionRegularMarketTimeOffsetAOX");
-elementRegularMarketTimeOffsetAOX.innerHTML = '+' + Math.abs(Math.round(deltaMinutesAOX)) + 'min';
-
-var elementRegularMarketPriceAOX = document.getElementById("intervalSectionRegularMarketPriceAOX");
-elementRegularMarketPriceAOX.innerHTML = objAOX.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteAOX = document.getElementById("intervalSectionRealTimeQuoteAOX");  
+realTimeQuoteAOX = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteAOX.innerHTML = realTimeQuoteAOX + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzAOX = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzAOX:' + realTimeProzAOX);
 var elementPercentageAOX = document.getElementById("intervalSectionPercentageAOX");
-var percentValueAOX = ((objAOX.chart.result[0].meta.regularMarketPrice / objAOX.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueAOX = percentValueAOX.toFixed(1);
-elementPercentageAOX.innerHTML = percentValueAOX + '%';
-if(percentValueAOX < 0){
+elementPercentageAOX.innerHTML = realTimeProzAOX + '%';
+if(parseFloat(realTimeProzAOX.replace(',', '.')) < 0){
 elementPercentageAOX.style.color = 'red';
 }
 else{
 elementPercentageAOX.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeAOX = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeAOX:' + dateTimeAOX);
+// var deltaMinutesAOX =((new Date().getTime() - dateMarketTimeAOX.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetAOX = document.getElementById("intervalSectionRegularMarketTimeOffsetAOX");
+elementRegularMarketTimeOffsetAOX.innerHTML = dateTimeAOX;
+//                elementRegularMarketTimeOffsetAOX.innerHTML = '+' + Math.abs(Math.round(deltaMinutesAOX)) + 'min';
+
 
 var elementPortfolioValuesAOX = document.getElementById("intervalSectionPortfolioValuesAOX");
 var obfuscatedValuePcEuroAOX = document.getElementById("obfuscatedValuePcEuroAOX");
@@ -1160,7 +1184,7 @@ decryptElement(obfuscatedValuePcEuroAOX);
 var piecesAOX = obfuscatedValuePcEuroAOX.innerHTML.split(' pc')[0];
 var buyingValueAOX = obfuscatedValuePcEuroAOX.innerHTML.split('/')[0];
 buyingValueAOX = buyingValueAOX.split(' ')[2];
-var portfolioValueAOX = piecesAOX * objAOX.chart.result[0].meta.regularMarketPrice;
+var portfolioValueAOX = piecesAOX * realTimeQuoteAOX;
 var stocksPerformanceAOX = ((portfolioValueAOX / buyingValueAOX)-1)*100;
 elementPortfolioValuesAOX.innerHTML = piecesAOX + ' pc ' + buyingValueAOX + '/' + portfolioValueAOX.toFixed(0) + '€ ';
 var elementPortfolioGainAOX = document.getElementById("intervalSectionPortfolioGainAOX");
@@ -1171,13 +1195,13 @@ elementPortfolioGainAOX.style.color = 'red';
 else{
 elementPortfolioGainAOX.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroAOX);  
+decryptElement(obfuscatedValuePcEuroAOX);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: AOX !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceAOX" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteAOX" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageAOX" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeAOX" style='display: none'></span>
 
@@ -1256,38 +1280,41 @@ Buy: Low 6 last Stochastic (S)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/SAX.F?interval=1d')}`)
+// var realTimeQuoteSAX;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672329')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objSAX = JSON.parse(data.contents);
-var elementRegularMarketTimeSAX = document.getElementById("neverShowRegularMarketTimeSAX");
-
-var dateMarketTimeSAX = new Date(0); 
-var epochMarketTimeSAX = objSAX.chart.result[0].meta.regularMarketTime;
-dateMarketTimeSAX.setUTCSeconds(epochMarketTimeSAX);
-elementRegularMarketTimeSAX.innerHTML = ('0'+dateMarketTimeSAX.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeSAX.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeSAX.getSeconds()).slice(-2);
-
-var deltaMinutesSAX =((new Date().getTime() - dateMarketTimeSAX.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetSAX = document.getElementById("intervalSectionRegularMarketTimeOffsetSAX");
-elementRegularMarketTimeOffsetSAX.innerHTML = '+' + Math.abs(Math.round(deltaMinutesSAX)) + 'min';
-
-var elementRegularMarketPriceSAX = document.getElementById("intervalSectionRegularMarketPriceSAX");
-elementRegularMarketPriceSAX.innerHTML = objSAX.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteSAX = document.getElementById("intervalSectionRealTimeQuoteSAX");  
+realTimeQuoteSAX = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteSAX.innerHTML = realTimeQuoteSAX + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzSAX = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzSAX:' + realTimeProzSAX);
 var elementPercentageSAX = document.getElementById("intervalSectionPercentageSAX");
-var percentValueSAX = ((objSAX.chart.result[0].meta.regularMarketPrice / objSAX.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueSAX = percentValueSAX.toFixed(1);
-elementPercentageSAX.innerHTML = percentValueSAX + '%';
-if(percentValueSAX < 0){
+elementPercentageSAX.innerHTML = realTimeProzSAX + '%';
+if(parseFloat(realTimeProzSAX.replace(',', '.')) < 0){
 elementPercentageSAX.style.color = 'red';
 }
 else{
 elementPercentageSAX.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeSAX = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeSAX:' + dateTimeSAX);
+// var deltaMinutesSAX =((new Date().getTime() - dateMarketTimeSAX.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetSAX = document.getElementById("intervalSectionRegularMarketTimeOffsetSAX");
+elementRegularMarketTimeOffsetSAX.innerHTML = dateTimeSAX;
+//                elementRegularMarketTimeOffsetSAX.innerHTML = '+' + Math.abs(Math.round(deltaMinutesSAX)) + 'min';
+
 
 var elementPortfolioValuesSAX = document.getElementById("intervalSectionPortfolioValuesSAX");
 var obfuscatedValuePcEuroSAX = document.getElementById("obfuscatedValuePcEuroSAX");
@@ -1295,7 +1322,7 @@ decryptElement(obfuscatedValuePcEuroSAX);
 var piecesSAX = obfuscatedValuePcEuroSAX.innerHTML.split(' pc')[0];
 var buyingValueSAX = obfuscatedValuePcEuroSAX.innerHTML.split('/')[0];
 buyingValueSAX = buyingValueSAX.split(' ')[2];
-var portfolioValueSAX = piecesSAX * objSAX.chart.result[0].meta.regularMarketPrice;
+var portfolioValueSAX = piecesSAX * realTimeQuoteSAX;
 var stocksPerformanceSAX = ((portfolioValueSAX / buyingValueSAX)-1)*100;
 elementPortfolioValuesSAX.innerHTML = piecesSAX + ' pc ' + buyingValueSAX + '/' + portfolioValueSAX.toFixed(0) + '€ ';
 var elementPortfolioGainSAX = document.getElementById("intervalSectionPortfolioGainSAX");
@@ -1306,13 +1333,13 @@ elementPortfolioGainSAX.style.color = 'red';
 else{
 elementPortfolioGainSAX.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroSAX);  
+decryptElement(obfuscatedValuePcEuroSAX);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: SAX !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceSAX" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteSAX" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageSAX" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeSAX" style='display: none'></span>
 
@@ -1387,38 +1414,41 @@ imageSAX.src = urlWithTimeSpan;
 Buy: Low Percentage & Stochastic (P)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/O3P.F?interval=1d')}`)
+// var realTimeQuoteO3P;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=72663856')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objO3P = JSON.parse(data.contents);
-var elementRegularMarketTimeO3P = document.getElementById("neverShowRegularMarketTimeO3P");
-
-var dateMarketTimeO3P = new Date(0); 
-var epochMarketTimeO3P = objO3P.chart.result[0].meta.regularMarketTime;
-dateMarketTimeO3P.setUTCSeconds(epochMarketTimeO3P);
-elementRegularMarketTimeO3P.innerHTML = ('0'+dateMarketTimeO3P.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeO3P.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeO3P.getSeconds()).slice(-2);
-
-var deltaMinutesO3P =((new Date().getTime() - dateMarketTimeO3P.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetO3P = document.getElementById("intervalSectionRegularMarketTimeOffsetO3P");
-elementRegularMarketTimeOffsetO3P.innerHTML = '+' + Math.abs(Math.round(deltaMinutesO3P)) + 'min';
-
-var elementRegularMarketPriceO3P = document.getElementById("intervalSectionRegularMarketPriceO3P");
-elementRegularMarketPriceO3P.innerHTML = objO3P.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteO3P = document.getElementById("intervalSectionRealTimeQuoteO3P");  
+realTimeQuoteO3P = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteO3P.innerHTML = realTimeQuoteO3P + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzO3P = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzO3P:' + realTimeProzO3P);
 var elementPercentageO3P = document.getElementById("intervalSectionPercentageO3P");
-var percentValueO3P = ((objO3P.chart.result[0].meta.regularMarketPrice / objO3P.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueO3P = percentValueO3P.toFixed(1);
-elementPercentageO3P.innerHTML = percentValueO3P + '%';
-if(percentValueO3P < 0){
+elementPercentageO3P.innerHTML = realTimeProzO3P + '%';
+if(parseFloat(realTimeProzO3P.replace(',', '.')) < 0){
 elementPercentageO3P.style.color = 'red';
 }
 else{
 elementPercentageO3P.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeO3P = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeO3P:' + dateTimeO3P);
+// var deltaMinutesO3P =((new Date().getTime() - dateMarketTimeO3P.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetO3P = document.getElementById("intervalSectionRegularMarketTimeOffsetO3P");
+elementRegularMarketTimeOffsetO3P.innerHTML = dateTimeO3P;
+//                elementRegularMarketTimeOffsetO3P.innerHTML = '+' + Math.abs(Math.round(deltaMinutesO3P)) + 'min';
+
 
 var elementPortfolioValuesO3P = document.getElementById("intervalSectionPortfolioValuesO3P");
 var obfuscatedValuePcEuroO3P = document.getElementById("obfuscatedValuePcEuroO3P");
@@ -1426,7 +1456,7 @@ decryptElement(obfuscatedValuePcEuroO3P);
 var piecesO3P = obfuscatedValuePcEuroO3P.innerHTML.split(' pc')[0];
 var buyingValueO3P = obfuscatedValuePcEuroO3P.innerHTML.split('/')[0];
 buyingValueO3P = buyingValueO3P.split(' ')[2];
-var portfolioValueO3P = piecesO3P * objO3P.chart.result[0].meta.regularMarketPrice;
+var portfolioValueO3P = piecesO3P * realTimeQuoteO3P;
 var stocksPerformanceO3P = ((portfolioValueO3P / buyingValueO3P)-1)*100;
 elementPortfolioValuesO3P.innerHTML = piecesO3P + ' pc ' + buyingValueO3P + '/' + portfolioValueO3P.toFixed(0) + '€ ';
 var elementPortfolioGainO3P = document.getElementById("intervalSectionPortfolioGainO3P");
@@ -1437,13 +1467,13 @@ elementPortfolioGainO3P.style.color = 'red';
 else{
 elementPortfolioGainO3P.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroO3P);  
+decryptElement(obfuscatedValuePcEuroO3P);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: O3P !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceO3P" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteO3P" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageO3P" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeO3P" style='display: none'></span>
 
@@ -1522,38 +1552,41 @@ Buy: Low 4 last Stochastic (S)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/VAS.F?interval=1d')}`)
+// var realTimeQuoteVAS;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=57652069')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objVAS = JSON.parse(data.contents);
-var elementRegularMarketTimeVAS = document.getElementById("neverShowRegularMarketTimeVAS");
-
-var dateMarketTimeVAS = new Date(0); 
-var epochMarketTimeVAS = objVAS.chart.result[0].meta.regularMarketTime;
-dateMarketTimeVAS.setUTCSeconds(epochMarketTimeVAS);
-elementRegularMarketTimeVAS.innerHTML = ('0'+dateMarketTimeVAS.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeVAS.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeVAS.getSeconds()).slice(-2);
-
-var deltaMinutesVAS =((new Date().getTime() - dateMarketTimeVAS.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetVAS = document.getElementById("intervalSectionRegularMarketTimeOffsetVAS");
-elementRegularMarketTimeOffsetVAS.innerHTML = '+' + Math.abs(Math.round(deltaMinutesVAS)) + 'min';
-
-var elementRegularMarketPriceVAS = document.getElementById("intervalSectionRegularMarketPriceVAS");
-elementRegularMarketPriceVAS.innerHTML = objVAS.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteVAS = document.getElementById("intervalSectionRealTimeQuoteVAS");  
+realTimeQuoteVAS = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteVAS.innerHTML = realTimeQuoteVAS + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzVAS = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzVAS:' + realTimeProzVAS);
 var elementPercentageVAS = document.getElementById("intervalSectionPercentageVAS");
-var percentValueVAS = ((objVAS.chart.result[0].meta.regularMarketPrice / objVAS.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueVAS = percentValueVAS.toFixed(1);
-elementPercentageVAS.innerHTML = percentValueVAS + '%';
-if(percentValueVAS < 0){
+elementPercentageVAS.innerHTML = realTimeProzVAS + '%';
+if(parseFloat(realTimeProzVAS.replace(',', '.')) < 0){
 elementPercentageVAS.style.color = 'red';
 }
 else{
 elementPercentageVAS.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeVAS = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeVAS:' + dateTimeVAS);
+// var deltaMinutesVAS =((new Date().getTime() - dateMarketTimeVAS.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetVAS = document.getElementById("intervalSectionRegularMarketTimeOffsetVAS");
+elementRegularMarketTimeOffsetVAS.innerHTML = dateTimeVAS;
+//                elementRegularMarketTimeOffsetVAS.innerHTML = '+' + Math.abs(Math.round(deltaMinutesVAS)) + 'min';
+
 
 var elementPortfolioValuesVAS = document.getElementById("intervalSectionPortfolioValuesVAS");
 var obfuscatedValuePcEuroVAS = document.getElementById("obfuscatedValuePcEuroVAS");
@@ -1561,7 +1594,7 @@ decryptElement(obfuscatedValuePcEuroVAS);
 var piecesVAS = obfuscatedValuePcEuroVAS.innerHTML.split(' pc')[0];
 var buyingValueVAS = obfuscatedValuePcEuroVAS.innerHTML.split('/')[0];
 buyingValueVAS = buyingValueVAS.split(' ')[2];
-var portfolioValueVAS = piecesVAS * objVAS.chart.result[0].meta.regularMarketPrice;
+var portfolioValueVAS = piecesVAS * realTimeQuoteVAS;
 var stocksPerformanceVAS = ((portfolioValueVAS / buyingValueVAS)-1)*100;
 elementPortfolioValuesVAS.innerHTML = piecesVAS + ' pc ' + buyingValueVAS + '/' + portfolioValueVAS.toFixed(0) + '€ ';
 var elementPortfolioGainVAS = document.getElementById("intervalSectionPortfolioGainVAS");
@@ -1572,13 +1605,13 @@ elementPortfolioGainVAS.style.color = 'red';
 else{
 elementPortfolioGainVAS.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroVAS);  
+decryptElement(obfuscatedValuePcEuroVAS);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: VAS !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceVAS" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteVAS" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageVAS" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeVAS" style='display: none'></span>
 
@@ -1656,38 +1689,41 @@ Buy: Low Percentage & Stochastic (P)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/JUN3.F?interval=1d')}`)
+// var realTimeQuoteJUN3;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336942')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objJUN3 = JSON.parse(data.contents);
-var elementRegularMarketTimeJUN3 = document.getElementById("neverShowRegularMarketTimeJUN3");
-
-var dateMarketTimeJUN3 = new Date(0); 
-var epochMarketTimeJUN3 = objJUN3.chart.result[0].meta.regularMarketTime;
-dateMarketTimeJUN3.setUTCSeconds(epochMarketTimeJUN3);
-elementRegularMarketTimeJUN3.innerHTML = ('0'+dateMarketTimeJUN3.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeJUN3.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeJUN3.getSeconds()).slice(-2);
-
-var deltaMinutesJUN3 =((new Date().getTime() - dateMarketTimeJUN3.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetJUN3 = document.getElementById("intervalSectionRegularMarketTimeOffsetJUN3");
-elementRegularMarketTimeOffsetJUN3.innerHTML = '+' + Math.abs(Math.round(deltaMinutesJUN3)) + 'min';
-
-var elementRegularMarketPriceJUN3 = document.getElementById("intervalSectionRegularMarketPriceJUN3");
-elementRegularMarketPriceJUN3.innerHTML = objJUN3.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteJUN3 = document.getElementById("intervalSectionRealTimeQuoteJUN3");  
+realTimeQuoteJUN3 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteJUN3.innerHTML = realTimeQuoteJUN3 + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzJUN3 = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzJUN3:' + realTimeProzJUN3);
 var elementPercentageJUN3 = document.getElementById("intervalSectionPercentageJUN3");
-var percentValueJUN3 = ((objJUN3.chart.result[0].meta.regularMarketPrice / objJUN3.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueJUN3 = percentValueJUN3.toFixed(1);
-elementPercentageJUN3.innerHTML = percentValueJUN3 + '%';
-if(percentValueJUN3 < 0){
+elementPercentageJUN3.innerHTML = realTimeProzJUN3 + '%';
+if(parseFloat(realTimeProzJUN3.replace(',', '.')) < 0){
 elementPercentageJUN3.style.color = 'red';
 }
 else{
 elementPercentageJUN3.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeJUN3 = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeJUN3:' + dateTimeJUN3);
+// var deltaMinutesJUN3 =((new Date().getTime() - dateMarketTimeJUN3.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetJUN3 = document.getElementById("intervalSectionRegularMarketTimeOffsetJUN3");
+elementRegularMarketTimeOffsetJUN3.innerHTML = dateTimeJUN3;
+//                elementRegularMarketTimeOffsetJUN3.innerHTML = '+' + Math.abs(Math.round(deltaMinutesJUN3)) + 'min';
+
 
 var elementPortfolioValuesJUN3 = document.getElementById("intervalSectionPortfolioValuesJUN3");
 var obfuscatedValuePcEuroJUN3 = document.getElementById("obfuscatedValuePcEuroJUN3");
@@ -1695,7 +1731,7 @@ decryptElement(obfuscatedValuePcEuroJUN3);
 var piecesJUN3 = obfuscatedValuePcEuroJUN3.innerHTML.split(' pc')[0];
 var buyingValueJUN3 = obfuscatedValuePcEuroJUN3.innerHTML.split('/')[0];
 buyingValueJUN3 = buyingValueJUN3.split(' ')[2];
-var portfolioValueJUN3 = piecesJUN3 * objJUN3.chart.result[0].meta.regularMarketPrice;
+var portfolioValueJUN3 = piecesJUN3 * realTimeQuoteJUN3;
 var stocksPerformanceJUN3 = ((portfolioValueJUN3 / buyingValueJUN3)-1)*100;
 elementPortfolioValuesJUN3.innerHTML = piecesJUN3 + ' pc ' + buyingValueJUN3 + '/' + portfolioValueJUN3.toFixed(0) + '€ ';
 var elementPortfolioGainJUN3 = document.getElementById("intervalSectionPortfolioGainJUN3");
@@ -1706,13 +1742,13 @@ elementPortfolioGainJUN3.style.color = 'red';
 else{
 elementPortfolioGainJUN3.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroJUN3);  
+decryptElement(obfuscatedValuePcEuroJUN3);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: JUN3 !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceJUN3" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteJUN3" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageJUN3" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeJUN3" style='display: none'></span>
 
@@ -1789,38 +1825,41 @@ Buy: RSI Divergence (D)<br>
 Buy: Low Percentage & Stochastic (P)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/NVV1.F?interval=1d')}`)
+// var realTimeQuoteNVV1;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=310683061')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objNVV1 = JSON.parse(data.contents);
-var elementRegularMarketTimeNVV1 = document.getElementById("neverShowRegularMarketTimeNVV1");
-
-var dateMarketTimeNVV1 = new Date(0); 
-var epochMarketTimeNVV1 = objNVV1.chart.result[0].meta.regularMarketTime;
-dateMarketTimeNVV1.setUTCSeconds(epochMarketTimeNVV1);
-elementRegularMarketTimeNVV1.innerHTML = ('0'+dateMarketTimeNVV1.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeNVV1.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeNVV1.getSeconds()).slice(-2);
-
-var deltaMinutesNVV1 =((new Date().getTime() - dateMarketTimeNVV1.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetNVV1 = document.getElementById("intervalSectionRegularMarketTimeOffsetNVV1");
-elementRegularMarketTimeOffsetNVV1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesNVV1)) + 'min';
-
-var elementRegularMarketPriceNVV1 = document.getElementById("intervalSectionRegularMarketPriceNVV1");
-elementRegularMarketPriceNVV1.innerHTML = objNVV1.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteNVV1 = document.getElementById("intervalSectionRealTimeQuoteNVV1");  
+realTimeQuoteNVV1 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteNVV1.innerHTML = realTimeQuoteNVV1 + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzNVV1 = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzNVV1:' + realTimeProzNVV1);
 var elementPercentageNVV1 = document.getElementById("intervalSectionPercentageNVV1");
-var percentValueNVV1 = ((objNVV1.chart.result[0].meta.regularMarketPrice / objNVV1.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueNVV1 = percentValueNVV1.toFixed(1);
-elementPercentageNVV1.innerHTML = percentValueNVV1 + '%';
-if(percentValueNVV1 < 0){
+elementPercentageNVV1.innerHTML = realTimeProzNVV1 + '%';
+if(parseFloat(realTimeProzNVV1.replace(',', '.')) < 0){
 elementPercentageNVV1.style.color = 'red';
 }
 else{
 elementPercentageNVV1.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeNVV1 = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeNVV1:' + dateTimeNVV1);
+// var deltaMinutesNVV1 =((new Date().getTime() - dateMarketTimeNVV1.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetNVV1 = document.getElementById("intervalSectionRegularMarketTimeOffsetNVV1");
+elementRegularMarketTimeOffsetNVV1.innerHTML = dateTimeNVV1;
+//                elementRegularMarketTimeOffsetNVV1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesNVV1)) + 'min';
+
 
 var elementPortfolioValuesNVV1 = document.getElementById("intervalSectionPortfolioValuesNVV1");
 var obfuscatedValuePcEuroNVV1 = document.getElementById("obfuscatedValuePcEuroNVV1");
@@ -1828,7 +1867,7 @@ decryptElement(obfuscatedValuePcEuroNVV1);
 var piecesNVV1 = obfuscatedValuePcEuroNVV1.innerHTML.split(' pc')[0];
 var buyingValueNVV1 = obfuscatedValuePcEuroNVV1.innerHTML.split('/')[0];
 buyingValueNVV1 = buyingValueNVV1.split(' ')[2];
-var portfolioValueNVV1 = piecesNVV1 * objNVV1.chart.result[0].meta.regularMarketPrice;
+var portfolioValueNVV1 = piecesNVV1 * realTimeQuoteNVV1;
 var stocksPerformanceNVV1 = ((portfolioValueNVV1 / buyingValueNVV1)-1)*100;
 elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + buyingValueNVV1 + '/' + portfolioValueNVV1.toFixed(0) + '€ ';
 var elementPortfolioGainNVV1 = document.getElementById("intervalSectionPortfolioGainNVV1");
@@ -1839,13 +1878,13 @@ elementPortfolioGainNVV1.style.color = 'red';
 else{
 elementPortfolioGainNVV1.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroNVV1);  
+decryptElement(obfuscatedValuePcEuroNVV1);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: NVV1 !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceNVV1" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteNVV1" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageNVV1" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeNVV1" style='display: none'></span>
 
@@ -1923,38 +1962,41 @@ Buy: Low 4 last RSI (R)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/DWNI.F?interval=1d')}`)
+// var realTimeQuoteDWNI;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672410')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objDWNI = JSON.parse(data.contents);
-var elementRegularMarketTimeDWNI = document.getElementById("neverShowRegularMarketTimeDWNI");
-
-var dateMarketTimeDWNI = new Date(0); 
-var epochMarketTimeDWNI = objDWNI.chart.result[0].meta.regularMarketTime;
-dateMarketTimeDWNI.setUTCSeconds(epochMarketTimeDWNI);
-elementRegularMarketTimeDWNI.innerHTML = ('0'+dateMarketTimeDWNI.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeDWNI.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeDWNI.getSeconds()).slice(-2);
-
-var deltaMinutesDWNI =((new Date().getTime() - dateMarketTimeDWNI.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetDWNI = document.getElementById("intervalSectionRegularMarketTimeOffsetDWNI");
-elementRegularMarketTimeOffsetDWNI.innerHTML = '+' + Math.abs(Math.round(deltaMinutesDWNI)) + 'min';
-
-var elementRegularMarketPriceDWNI = document.getElementById("intervalSectionRegularMarketPriceDWNI");
-elementRegularMarketPriceDWNI.innerHTML = objDWNI.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteDWNI = document.getElementById("intervalSectionRealTimeQuoteDWNI");  
+realTimeQuoteDWNI = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteDWNI.innerHTML = realTimeQuoteDWNI + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzDWNI = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzDWNI:' + realTimeProzDWNI);
 var elementPercentageDWNI = document.getElementById("intervalSectionPercentageDWNI");
-var percentValueDWNI = ((objDWNI.chart.result[0].meta.regularMarketPrice / objDWNI.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueDWNI = percentValueDWNI.toFixed(1);
-elementPercentageDWNI.innerHTML = percentValueDWNI + '%';
-if(percentValueDWNI < 0){
+elementPercentageDWNI.innerHTML = realTimeProzDWNI + '%';
+if(parseFloat(realTimeProzDWNI.replace(',', '.')) < 0){
 elementPercentageDWNI.style.color = 'red';
 }
 else{
 elementPercentageDWNI.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeDWNI = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeDWNI:' + dateTimeDWNI);
+// var deltaMinutesDWNI =((new Date().getTime() - dateMarketTimeDWNI.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetDWNI = document.getElementById("intervalSectionRegularMarketTimeOffsetDWNI");
+elementRegularMarketTimeOffsetDWNI.innerHTML = dateTimeDWNI;
+//                elementRegularMarketTimeOffsetDWNI.innerHTML = '+' + Math.abs(Math.round(deltaMinutesDWNI)) + 'min';
+
 
 var elementPortfolioValuesDWNI = document.getElementById("intervalSectionPortfolioValuesDWNI");
 var obfuscatedValuePcEuroDWNI = document.getElementById("obfuscatedValuePcEuroDWNI");
@@ -1962,7 +2004,7 @@ decryptElement(obfuscatedValuePcEuroDWNI);
 var piecesDWNI = obfuscatedValuePcEuroDWNI.innerHTML.split(' pc')[0];
 var buyingValueDWNI = obfuscatedValuePcEuroDWNI.innerHTML.split('/')[0];
 buyingValueDWNI = buyingValueDWNI.split(' ')[2];
-var portfolioValueDWNI = piecesDWNI * objDWNI.chart.result[0].meta.regularMarketPrice;
+var portfolioValueDWNI = piecesDWNI * realTimeQuoteDWNI;
 var stocksPerformanceDWNI = ((portfolioValueDWNI / buyingValueDWNI)-1)*100;
 elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + buyingValueDWNI + '/' + portfolioValueDWNI.toFixed(0) + '€ ';
 var elementPortfolioGainDWNI = document.getElementById("intervalSectionPortfolioGainDWNI");
@@ -1973,13 +2015,13 @@ elementPortfolioGainDWNI.style.color = 'red';
 else{
 elementPortfolioGainDWNI.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroDWNI);  
+decryptElement(obfuscatedValuePcEuroDWNI);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: DWNI !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceDWNI" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteDWNI" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageDWNI" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeDWNI" style='display: none'></span>
 
@@ -2054,38 +2096,41 @@ imageDWNI.src = urlWithTimeSpan;
 Buy: Low 4 last Stochastic (S)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/GYC.F?interval=1d')}`)
+// var realTimeQuoteGYC;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=194616562')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objGYC = JSON.parse(data.contents);
-var elementRegularMarketTimeGYC = document.getElementById("neverShowRegularMarketTimeGYC");
-
-var dateMarketTimeGYC = new Date(0); 
-var epochMarketTimeGYC = objGYC.chart.result[0].meta.regularMarketTime;
-dateMarketTimeGYC.setUTCSeconds(epochMarketTimeGYC);
-elementRegularMarketTimeGYC.innerHTML = ('0'+dateMarketTimeGYC.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeGYC.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeGYC.getSeconds()).slice(-2);
-
-var deltaMinutesGYC =((new Date().getTime() - dateMarketTimeGYC.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetGYC = document.getElementById("intervalSectionRegularMarketTimeOffsetGYC");
-elementRegularMarketTimeOffsetGYC.innerHTML = '+' + Math.abs(Math.round(deltaMinutesGYC)) + 'min';
-
-var elementRegularMarketPriceGYC = document.getElementById("intervalSectionRegularMarketPriceGYC");
-elementRegularMarketPriceGYC.innerHTML = objGYC.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteGYC = document.getElementById("intervalSectionRealTimeQuoteGYC");  
+realTimeQuoteGYC = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteGYC.innerHTML = realTimeQuoteGYC + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzGYC = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzGYC:' + realTimeProzGYC);
 var elementPercentageGYC = document.getElementById("intervalSectionPercentageGYC");
-var percentValueGYC = ((objGYC.chart.result[0].meta.regularMarketPrice / objGYC.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueGYC = percentValueGYC.toFixed(1);
-elementPercentageGYC.innerHTML = percentValueGYC + '%';
-if(percentValueGYC < 0){
+elementPercentageGYC.innerHTML = realTimeProzGYC + '%';
+if(parseFloat(realTimeProzGYC.replace(',', '.')) < 0){
 elementPercentageGYC.style.color = 'red';
 }
 else{
 elementPercentageGYC.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeGYC = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeGYC:' + dateTimeGYC);
+// var deltaMinutesGYC =((new Date().getTime() - dateMarketTimeGYC.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetGYC = document.getElementById("intervalSectionRegularMarketTimeOffsetGYC");
+elementRegularMarketTimeOffsetGYC.innerHTML = dateTimeGYC;
+//                elementRegularMarketTimeOffsetGYC.innerHTML = '+' + Math.abs(Math.round(deltaMinutesGYC)) + 'min';
+
 
 var elementPortfolioValuesGYC = document.getElementById("intervalSectionPortfolioValuesGYC");
 var obfuscatedValuePcEuroGYC = document.getElementById("obfuscatedValuePcEuroGYC");
@@ -2093,7 +2138,7 @@ decryptElement(obfuscatedValuePcEuroGYC);
 var piecesGYC = obfuscatedValuePcEuroGYC.innerHTML.split(' pc')[0];
 var buyingValueGYC = obfuscatedValuePcEuroGYC.innerHTML.split('/')[0];
 buyingValueGYC = buyingValueGYC.split(' ')[2];
-var portfolioValueGYC = piecesGYC * objGYC.chart.result[0].meta.regularMarketPrice;
+var portfolioValueGYC = piecesGYC * realTimeQuoteGYC;
 var stocksPerformanceGYC = ((portfolioValueGYC / buyingValueGYC)-1)*100;
 elementPortfolioValuesGYC.innerHTML = piecesGYC + ' pc ' + buyingValueGYC + '/' + portfolioValueGYC.toFixed(0) + '€ ';
 var elementPortfolioGainGYC = document.getElementById("intervalSectionPortfolioGainGYC");
@@ -2104,13 +2149,13 @@ elementPortfolioGainGYC.style.color = 'red';
 else{
 elementPortfolioGainGYC.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroGYC);  
+decryptElement(obfuscatedValuePcEuroGYC);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: GYC !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceGYC" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteGYC" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageGYC" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeGYC" style='display: none'></span>
 
@@ -2186,38 +2231,41 @@ Buy: Low Percentage & Stochastic (P)<br>
 Buy: Low 4 last Stochastic (S)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/IXD1.F?interval=1d')}`)
+// var realTimeQuoteIXD1;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=113359031')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objIXD1 = JSON.parse(data.contents);
-var elementRegularMarketTimeIXD1 = document.getElementById("neverShowRegularMarketTimeIXD1");
-
-var dateMarketTimeIXD1 = new Date(0); 
-var epochMarketTimeIXD1 = objIXD1.chart.result[0].meta.regularMarketTime;
-dateMarketTimeIXD1.setUTCSeconds(epochMarketTimeIXD1);
-elementRegularMarketTimeIXD1.innerHTML = ('0'+dateMarketTimeIXD1.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeIXD1.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeIXD1.getSeconds()).slice(-2);
-
-var deltaMinutesIXD1 =((new Date().getTime() - dateMarketTimeIXD1.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetIXD1 = document.getElementById("intervalSectionRegularMarketTimeOffsetIXD1");
-elementRegularMarketTimeOffsetIXD1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesIXD1)) + 'min';
-
-var elementRegularMarketPriceIXD1 = document.getElementById("intervalSectionRegularMarketPriceIXD1");
-elementRegularMarketPriceIXD1.innerHTML = objIXD1.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteIXD1 = document.getElementById("intervalSectionRealTimeQuoteIXD1");  
+realTimeQuoteIXD1 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteIXD1.innerHTML = realTimeQuoteIXD1 + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzIXD1 = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzIXD1:' + realTimeProzIXD1);
 var elementPercentageIXD1 = document.getElementById("intervalSectionPercentageIXD1");
-var percentValueIXD1 = ((objIXD1.chart.result[0].meta.regularMarketPrice / objIXD1.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueIXD1 = percentValueIXD1.toFixed(1);
-elementPercentageIXD1.innerHTML = percentValueIXD1 + '%';
-if(percentValueIXD1 < 0){
+elementPercentageIXD1.innerHTML = realTimeProzIXD1 + '%';
+if(parseFloat(realTimeProzIXD1.replace(',', '.')) < 0){
 elementPercentageIXD1.style.color = 'red';
 }
 else{
 elementPercentageIXD1.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeIXD1 = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeIXD1:' + dateTimeIXD1);
+// var deltaMinutesIXD1 =((new Date().getTime() - dateMarketTimeIXD1.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetIXD1 = document.getElementById("intervalSectionRegularMarketTimeOffsetIXD1");
+elementRegularMarketTimeOffsetIXD1.innerHTML = dateTimeIXD1;
+//                elementRegularMarketTimeOffsetIXD1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesIXD1)) + 'min';
+
 
 var elementPortfolioValuesIXD1 = document.getElementById("intervalSectionPortfolioValuesIXD1");
 var obfuscatedValuePcEuroIXD1 = document.getElementById("obfuscatedValuePcEuroIXD1");
@@ -2225,7 +2273,7 @@ decryptElement(obfuscatedValuePcEuroIXD1);
 var piecesIXD1 = obfuscatedValuePcEuroIXD1.innerHTML.split(' pc')[0];
 var buyingValueIXD1 = obfuscatedValuePcEuroIXD1.innerHTML.split('/')[0];
 buyingValueIXD1 = buyingValueIXD1.split(' ')[2];
-var portfolioValueIXD1 = piecesIXD1 * objIXD1.chart.result[0].meta.regularMarketPrice;
+var portfolioValueIXD1 = piecesIXD1 * realTimeQuoteIXD1;
 var stocksPerformanceIXD1 = ((portfolioValueIXD1 / buyingValueIXD1)-1)*100;
 elementPortfolioValuesIXD1.innerHTML = piecesIXD1 + ' pc ' + buyingValueIXD1 + '/' + portfolioValueIXD1.toFixed(0) + '€ ';
 var elementPortfolioGainIXD1 = document.getElementById("intervalSectionPortfolioGainIXD1");
@@ -2236,13 +2284,13 @@ elementPortfolioGainIXD1.style.color = 'red';
 else{
 elementPortfolioGainIXD1.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroIXD1);  
+decryptElement(obfuscatedValuePcEuroIXD1);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: IXD1 !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceIXD1" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteIXD1" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageIXD1" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeIXD1" style='display: none'></span>
 
@@ -2316,38 +2364,41 @@ imageIXD1.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/VNA.F?interval=1d')}`)
+// var realTimeQuoteVNA;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=89777125')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objVNA = JSON.parse(data.contents);
-var elementRegularMarketTimeVNA = document.getElementById("neverShowRegularMarketTimeVNA");
-
-var dateMarketTimeVNA = new Date(0); 
-var epochMarketTimeVNA = objVNA.chart.result[0].meta.regularMarketTime;
-dateMarketTimeVNA.setUTCSeconds(epochMarketTimeVNA);
-elementRegularMarketTimeVNA.innerHTML = ('0'+dateMarketTimeVNA.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeVNA.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeVNA.getSeconds()).slice(-2);
-
-var deltaMinutesVNA =((new Date().getTime() - dateMarketTimeVNA.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetVNA = document.getElementById("intervalSectionRegularMarketTimeOffsetVNA");
-elementRegularMarketTimeOffsetVNA.innerHTML = '+' + Math.abs(Math.round(deltaMinutesVNA)) + 'min';
-
-var elementRegularMarketPriceVNA = document.getElementById("intervalSectionRegularMarketPriceVNA");
-elementRegularMarketPriceVNA.innerHTML = objVNA.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteVNA = document.getElementById("intervalSectionRealTimeQuoteVNA");  
+realTimeQuoteVNA = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteVNA.innerHTML = realTimeQuoteVNA + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzVNA = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzVNA:' + realTimeProzVNA);
 var elementPercentageVNA = document.getElementById("intervalSectionPercentageVNA");
-var percentValueVNA = ((objVNA.chart.result[0].meta.regularMarketPrice / objVNA.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueVNA = percentValueVNA.toFixed(1);
-elementPercentageVNA.innerHTML = percentValueVNA + '%';
-if(percentValueVNA < 0){
+elementPercentageVNA.innerHTML = realTimeProzVNA + '%';
+if(parseFloat(realTimeProzVNA.replace(',', '.')) < 0){
 elementPercentageVNA.style.color = 'red';
 }
 else{
 elementPercentageVNA.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeVNA = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeVNA:' + dateTimeVNA);
+// var deltaMinutesVNA =((new Date().getTime() - dateMarketTimeVNA.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetVNA = document.getElementById("intervalSectionRegularMarketTimeOffsetVNA");
+elementRegularMarketTimeOffsetVNA.innerHTML = dateTimeVNA;
+//                elementRegularMarketTimeOffsetVNA.innerHTML = '+' + Math.abs(Math.round(deltaMinutesVNA)) + 'min';
+
 
 var elementPortfolioValuesVNA = document.getElementById("intervalSectionPortfolioValuesVNA");
 var obfuscatedValuePcEuroVNA = document.getElementById("obfuscatedValuePcEuroVNA");
@@ -2355,7 +2406,7 @@ decryptElement(obfuscatedValuePcEuroVNA);
 var piecesVNA = obfuscatedValuePcEuroVNA.innerHTML.split(' pc')[0];
 var buyingValueVNA = obfuscatedValuePcEuroVNA.innerHTML.split('/')[0];
 buyingValueVNA = buyingValueVNA.split(' ')[2];
-var portfolioValueVNA = piecesVNA * objVNA.chart.result[0].meta.regularMarketPrice;
+var portfolioValueVNA = piecesVNA * realTimeQuoteVNA;
 var stocksPerformanceVNA = ((portfolioValueVNA / buyingValueVNA)-1)*100;
 elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + buyingValueVNA + '/' + portfolioValueVNA.toFixed(0) + '€ ';
 var elementPortfolioGainVNA = document.getElementById("intervalSectionPortfolioGainVNA");
@@ -2366,13 +2417,13 @@ elementPortfolioGainVNA.style.color = 'red';
 else{
 elementPortfolioGainVNA.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroVNA);  
+decryptElement(obfuscatedValuePcEuroVNA);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: VNA !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceVNA" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteVNA" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageVNA" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeVNA" style='display: none'></span>
 
@@ -2446,38 +2497,41 @@ imageVNA.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/LEG.F?interval=1d')}`)
+// var realTimeQuoteLEG;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=76456982')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objLEG = JSON.parse(data.contents);
-var elementRegularMarketTimeLEG = document.getElementById("neverShowRegularMarketTimeLEG");
-
-var dateMarketTimeLEG = new Date(0); 
-var epochMarketTimeLEG = objLEG.chart.result[0].meta.regularMarketTime;
-dateMarketTimeLEG.setUTCSeconds(epochMarketTimeLEG);
-elementRegularMarketTimeLEG.innerHTML = ('0'+dateMarketTimeLEG.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeLEG.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeLEG.getSeconds()).slice(-2);
-
-var deltaMinutesLEG =((new Date().getTime() - dateMarketTimeLEG.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetLEG = document.getElementById("intervalSectionRegularMarketTimeOffsetLEG");
-elementRegularMarketTimeOffsetLEG.innerHTML = '+' + Math.abs(Math.round(deltaMinutesLEG)) + 'min';
-
-var elementRegularMarketPriceLEG = document.getElementById("intervalSectionRegularMarketPriceLEG");
-elementRegularMarketPriceLEG.innerHTML = objLEG.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteLEG = document.getElementById("intervalSectionRealTimeQuoteLEG");  
+realTimeQuoteLEG = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteLEG.innerHTML = realTimeQuoteLEG + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzLEG = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzLEG:' + realTimeProzLEG);
 var elementPercentageLEG = document.getElementById("intervalSectionPercentageLEG");
-var percentValueLEG = ((objLEG.chart.result[0].meta.regularMarketPrice / objLEG.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueLEG = percentValueLEG.toFixed(1);
-elementPercentageLEG.innerHTML = percentValueLEG + '%';
-if(percentValueLEG < 0){
+elementPercentageLEG.innerHTML = realTimeProzLEG + '%';
+if(parseFloat(realTimeProzLEG.replace(',', '.')) < 0){
 elementPercentageLEG.style.color = 'red';
 }
 else{
 elementPercentageLEG.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeLEG = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeLEG:' + dateTimeLEG);
+// var deltaMinutesLEG =((new Date().getTime() - dateMarketTimeLEG.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetLEG = document.getElementById("intervalSectionRegularMarketTimeOffsetLEG");
+elementRegularMarketTimeOffsetLEG.innerHTML = dateTimeLEG;
+//                elementRegularMarketTimeOffsetLEG.innerHTML = '+' + Math.abs(Math.round(deltaMinutesLEG)) + 'min';
+
 
 var elementPortfolioValuesLEG = document.getElementById("intervalSectionPortfolioValuesLEG");
 var obfuscatedValuePcEuroLEG = document.getElementById("obfuscatedValuePcEuroLEG");
@@ -2485,7 +2539,7 @@ decryptElement(obfuscatedValuePcEuroLEG);
 var piecesLEG = obfuscatedValuePcEuroLEG.innerHTML.split(' pc')[0];
 var buyingValueLEG = obfuscatedValuePcEuroLEG.innerHTML.split('/')[0];
 buyingValueLEG = buyingValueLEG.split(' ')[2];
-var portfolioValueLEG = piecesLEG * objLEG.chart.result[0].meta.regularMarketPrice;
+var portfolioValueLEG = piecesLEG * realTimeQuoteLEG;
 var stocksPerformanceLEG = ((portfolioValueLEG / buyingValueLEG)-1)*100;
 elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + buyingValueLEG + '/' + portfolioValueLEG.toFixed(0) + '€ ';
 var elementPortfolioGainLEG = document.getElementById("intervalSectionPortfolioGainLEG");
@@ -2496,13 +2550,13 @@ elementPortfolioGainLEG.style.color = 'red';
 else{
 elementPortfolioGainLEG.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroLEG);  
+decryptElement(obfuscatedValuePcEuroLEG);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: LEG !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceLEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteLEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageLEG" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeLEG" style='display: none'></span>
 
@@ -2576,38 +2630,41 @@ imageLEG.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/TEG.F?interval=1d')}`)
+// var realTimeQuoteTEG;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672272')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objTEG = JSON.parse(data.contents);
-var elementRegularMarketTimeTEG = document.getElementById("neverShowRegularMarketTimeTEG");
-
-var dateMarketTimeTEG = new Date(0); 
-var epochMarketTimeTEG = objTEG.chart.result[0].meta.regularMarketTime;
-dateMarketTimeTEG.setUTCSeconds(epochMarketTimeTEG);
-elementRegularMarketTimeTEG.innerHTML = ('0'+dateMarketTimeTEG.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeTEG.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeTEG.getSeconds()).slice(-2);
-
-var deltaMinutesTEG =((new Date().getTime() - dateMarketTimeTEG.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetTEG = document.getElementById("intervalSectionRegularMarketTimeOffsetTEG");
-elementRegularMarketTimeOffsetTEG.innerHTML = '+' + Math.abs(Math.round(deltaMinutesTEG)) + 'min';
-
-var elementRegularMarketPriceTEG = document.getElementById("intervalSectionRegularMarketPriceTEG");
-elementRegularMarketPriceTEG.innerHTML = objTEG.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteTEG = document.getElementById("intervalSectionRealTimeQuoteTEG");  
+realTimeQuoteTEG = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteTEG.innerHTML = realTimeQuoteTEG + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzTEG = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzTEG:' + realTimeProzTEG);
 var elementPercentageTEG = document.getElementById("intervalSectionPercentageTEG");
-var percentValueTEG = ((objTEG.chart.result[0].meta.regularMarketPrice / objTEG.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueTEG = percentValueTEG.toFixed(1);
-elementPercentageTEG.innerHTML = percentValueTEG + '%';
-if(percentValueTEG < 0){
+elementPercentageTEG.innerHTML = realTimeProzTEG + '%';
+if(parseFloat(realTimeProzTEG.replace(',', '.')) < 0){
 elementPercentageTEG.style.color = 'red';
 }
 else{
 elementPercentageTEG.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeTEG = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeTEG:' + dateTimeTEG);
+// var deltaMinutesTEG =((new Date().getTime() - dateMarketTimeTEG.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetTEG = document.getElementById("intervalSectionRegularMarketTimeOffsetTEG");
+elementRegularMarketTimeOffsetTEG.innerHTML = dateTimeTEG;
+//                elementRegularMarketTimeOffsetTEG.innerHTML = '+' + Math.abs(Math.round(deltaMinutesTEG)) + 'min';
+
 
 var elementPortfolioValuesTEG = document.getElementById("intervalSectionPortfolioValuesTEG");
 var obfuscatedValuePcEuroTEG = document.getElementById("obfuscatedValuePcEuroTEG");
@@ -2615,7 +2672,7 @@ decryptElement(obfuscatedValuePcEuroTEG);
 var piecesTEG = obfuscatedValuePcEuroTEG.innerHTML.split(' pc')[0];
 var buyingValueTEG = obfuscatedValuePcEuroTEG.innerHTML.split('/')[0];
 buyingValueTEG = buyingValueTEG.split(' ')[2];
-var portfolioValueTEG = piecesTEG * objTEG.chart.result[0].meta.regularMarketPrice;
+var portfolioValueTEG = piecesTEG * realTimeQuoteTEG;
 var stocksPerformanceTEG = ((portfolioValueTEG / buyingValueTEG)-1)*100;
 elementPortfolioValuesTEG.innerHTML = piecesTEG + ' pc ' + buyingValueTEG + '/' + portfolioValueTEG.toFixed(0) + '€ ';
 var elementPortfolioGainTEG = document.getElementById("intervalSectionPortfolioGainTEG");
@@ -2626,13 +2683,13 @@ elementPortfolioGainTEG.style.color = 'red';
 else{
 elementPortfolioGainTEG.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroTEG);  
+decryptElement(obfuscatedValuePcEuroTEG);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: TEG !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceTEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteTEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageTEG" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeTEG" style='display: none'></span>
 
@@ -2707,38 +2764,41 @@ imageTEG.src = urlWithTimeSpan;
 Sell: Stochastic Own (O)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/AG1.F?interval=1d')}`)
+// var realTimeQuoteAG1;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=322520116')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objAG1 = JSON.parse(data.contents);
-var elementRegularMarketTimeAG1 = document.getElementById("neverShowRegularMarketTimeAG1");
-
-var dateMarketTimeAG1 = new Date(0); 
-var epochMarketTimeAG1 = objAG1.chart.result[0].meta.regularMarketTime;
-dateMarketTimeAG1.setUTCSeconds(epochMarketTimeAG1);
-elementRegularMarketTimeAG1.innerHTML = ('0'+dateMarketTimeAG1.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeAG1.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeAG1.getSeconds()).slice(-2);
-
-var deltaMinutesAG1 =((new Date().getTime() - dateMarketTimeAG1.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetAG1 = document.getElementById("intervalSectionRegularMarketTimeOffsetAG1");
-elementRegularMarketTimeOffsetAG1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesAG1)) + 'min';
-
-var elementRegularMarketPriceAG1 = document.getElementById("intervalSectionRegularMarketPriceAG1");
-elementRegularMarketPriceAG1.innerHTML = objAG1.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteAG1 = document.getElementById("intervalSectionRealTimeQuoteAG1");  
+realTimeQuoteAG1 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteAG1.innerHTML = realTimeQuoteAG1 + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzAG1 = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzAG1:' + realTimeProzAG1);
 var elementPercentageAG1 = document.getElementById("intervalSectionPercentageAG1");
-var percentValueAG1 = ((objAG1.chart.result[0].meta.regularMarketPrice / objAG1.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueAG1 = percentValueAG1.toFixed(1);
-elementPercentageAG1.innerHTML = percentValueAG1 + '%';
-if(percentValueAG1 < 0){
+elementPercentageAG1.innerHTML = realTimeProzAG1 + '%';
+if(parseFloat(realTimeProzAG1.replace(',', '.')) < 0){
 elementPercentageAG1.style.color = 'red';
 }
 else{
 elementPercentageAG1.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeAG1 = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeAG1:' + dateTimeAG1);
+// var deltaMinutesAG1 =((new Date().getTime() - dateMarketTimeAG1.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetAG1 = document.getElementById("intervalSectionRegularMarketTimeOffsetAG1");
+elementRegularMarketTimeOffsetAG1.innerHTML = dateTimeAG1;
+//                elementRegularMarketTimeOffsetAG1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesAG1)) + 'min';
+
 
 var elementPortfolioValuesAG1 = document.getElementById("intervalSectionPortfolioValuesAG1");
 var obfuscatedValuePcEuroAG1 = document.getElementById("obfuscatedValuePcEuroAG1");
@@ -2746,7 +2806,7 @@ decryptElement(obfuscatedValuePcEuroAG1);
 var piecesAG1 = obfuscatedValuePcEuroAG1.innerHTML.split(' pc')[0];
 var buyingValueAG1 = obfuscatedValuePcEuroAG1.innerHTML.split('/')[0];
 buyingValueAG1 = buyingValueAG1.split(' ')[2];
-var portfolioValueAG1 = piecesAG1 * objAG1.chart.result[0].meta.regularMarketPrice;
+var portfolioValueAG1 = piecesAG1 * realTimeQuoteAG1;
 var stocksPerformanceAG1 = ((portfolioValueAG1 / buyingValueAG1)-1)*100;
 elementPortfolioValuesAG1.innerHTML = piecesAG1 + ' pc ' + buyingValueAG1 + '/' + portfolioValueAG1.toFixed(0) + '€ ';
 var elementPortfolioGainAG1 = document.getElementById("intervalSectionPortfolioGainAG1");
@@ -2757,13 +2817,13 @@ elementPortfolioGainAG1.style.color = 'red';
 else{
 elementPortfolioGainAG1.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroAG1);  
+decryptElement(obfuscatedValuePcEuroAG1);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: AG1 !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceAG1" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteAG1" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageAG1" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeAG1" style='display: none'></span>
 
@@ -2837,38 +2897,41 @@ imageAG1.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/PHI1.F?interval=1d')}`)
+// var realTimeQuotePHI1;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337264')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objPHI1 = JSON.parse(data.contents);
-var elementRegularMarketTimePHI1 = document.getElementById("neverShowRegularMarketTimePHI1");
-
-var dateMarketTimePHI1 = new Date(0); 
-var epochMarketTimePHI1 = objPHI1.chart.result[0].meta.regularMarketTime;
-dateMarketTimePHI1.setUTCSeconds(epochMarketTimePHI1);
-elementRegularMarketTimePHI1.innerHTML = ('0'+dateMarketTimePHI1.getHours()).slice(-2) + ':' + ('0'+dateMarketTimePHI1.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimePHI1.getSeconds()).slice(-2);
-
-var deltaMinutesPHI1 =((new Date().getTime() - dateMarketTimePHI1.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetPHI1 = document.getElementById("intervalSectionRegularMarketTimeOffsetPHI1");
-elementRegularMarketTimeOffsetPHI1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesPHI1)) + 'min';
-
-var elementRegularMarketPricePHI1 = document.getElementById("intervalSectionRegularMarketPricePHI1");
-elementRegularMarketPricePHI1.innerHTML = objPHI1.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuotePHI1 = document.getElementById("intervalSectionRealTimeQuotePHI1");  
+realTimeQuotePHI1 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuotePHI1.innerHTML = realTimeQuotePHI1 + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzPHI1 = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzPHI1:' + realTimeProzPHI1);
 var elementPercentagePHI1 = document.getElementById("intervalSectionPercentagePHI1");
-var percentValuePHI1 = ((objPHI1.chart.result[0].meta.regularMarketPrice / objPHI1.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValuePHI1 = percentValuePHI1.toFixed(1);
-elementPercentagePHI1.innerHTML = percentValuePHI1 + '%';
-if(percentValuePHI1 < 0){
+elementPercentagePHI1.innerHTML = realTimeProzPHI1 + '%';
+if(parseFloat(realTimeProzPHI1.replace(',', '.')) < 0){
 elementPercentagePHI1.style.color = 'red';
 }
 else{
 elementPercentagePHI1.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimePHI1 = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimePHI1:' + dateTimePHI1);
+// var deltaMinutesPHI1 =((new Date().getTime() - dateMarketTimePHI1.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetPHI1 = document.getElementById("intervalSectionRegularMarketTimeOffsetPHI1");
+elementRegularMarketTimeOffsetPHI1.innerHTML = dateTimePHI1;
+//                elementRegularMarketTimeOffsetPHI1.innerHTML = '+' + Math.abs(Math.round(deltaMinutesPHI1)) + 'min';
+
 
 var elementPortfolioValuesPHI1 = document.getElementById("intervalSectionPortfolioValuesPHI1");
 var obfuscatedValuePcEuroPHI1 = document.getElementById("obfuscatedValuePcEuroPHI1");
@@ -2876,7 +2939,7 @@ decryptElement(obfuscatedValuePcEuroPHI1);
 var piecesPHI1 = obfuscatedValuePcEuroPHI1.innerHTML.split(' pc')[0];
 var buyingValuePHI1 = obfuscatedValuePcEuroPHI1.innerHTML.split('/')[0];
 buyingValuePHI1 = buyingValuePHI1.split(' ')[2];
-var portfolioValuePHI1 = piecesPHI1 * objPHI1.chart.result[0].meta.regularMarketPrice;
+var portfolioValuePHI1 = piecesPHI1 * realTimeQuotePHI1;
 var stocksPerformancePHI1 = ((portfolioValuePHI1 / buyingValuePHI1)-1)*100;
 elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + buyingValuePHI1 + '/' + portfolioValuePHI1.toFixed(0) + '€ ';
 var elementPortfolioGainPHI1 = document.getElementById("intervalSectionPortfolioGainPHI1");
@@ -2887,13 +2950,13 @@ elementPortfolioGainPHI1.style.color = 'red';
 else{
 elementPortfolioGainPHI1.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroPHI1);  
+decryptElement(obfuscatedValuePcEuroPHI1);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: PHI1 !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPricePHI1" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuotePHI1" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentagePHI1" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimePHI1" style='display: none'></span>
 
@@ -2970,38 +3033,41 @@ Sell: High Percentage & Stochastic (P)<br>
 Sell: High 4 last Stochastic (S)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/UNVB.F?interval=1d')}`)
+// var realTimeQuoteUNVB;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=102864892')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objUNVB = JSON.parse(data.contents);
-var elementRegularMarketTimeUNVB = document.getElementById("neverShowRegularMarketTimeUNVB");
-
-var dateMarketTimeUNVB = new Date(0); 
-var epochMarketTimeUNVB = objUNVB.chart.result[0].meta.regularMarketTime;
-dateMarketTimeUNVB.setUTCSeconds(epochMarketTimeUNVB);
-elementRegularMarketTimeUNVB.innerHTML = ('0'+dateMarketTimeUNVB.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeUNVB.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeUNVB.getSeconds()).slice(-2);
-
-var deltaMinutesUNVB =((new Date().getTime() - dateMarketTimeUNVB.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetUNVB = document.getElementById("intervalSectionRegularMarketTimeOffsetUNVB");
-elementRegularMarketTimeOffsetUNVB.innerHTML = '+' + Math.abs(Math.round(deltaMinutesUNVB)) + 'min';
-
-var elementRegularMarketPriceUNVB = document.getElementById("intervalSectionRegularMarketPriceUNVB");
-elementRegularMarketPriceUNVB.innerHTML = objUNVB.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteUNVB = document.getElementById("intervalSectionRealTimeQuoteUNVB");  
+realTimeQuoteUNVB = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteUNVB.innerHTML = realTimeQuoteUNVB + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzUNVB = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzUNVB:' + realTimeProzUNVB);
 var elementPercentageUNVB = document.getElementById("intervalSectionPercentageUNVB");
-var percentValueUNVB = ((objUNVB.chart.result[0].meta.regularMarketPrice / objUNVB.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueUNVB = percentValueUNVB.toFixed(1);
-elementPercentageUNVB.innerHTML = percentValueUNVB + '%';
-if(percentValueUNVB < 0){
+elementPercentageUNVB.innerHTML = realTimeProzUNVB + '%';
+if(parseFloat(realTimeProzUNVB.replace(',', '.')) < 0){
 elementPercentageUNVB.style.color = 'red';
 }
 else{
 elementPercentageUNVB.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeUNVB = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeUNVB:' + dateTimeUNVB);
+// var deltaMinutesUNVB =((new Date().getTime() - dateMarketTimeUNVB.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetUNVB = document.getElementById("intervalSectionRegularMarketTimeOffsetUNVB");
+elementRegularMarketTimeOffsetUNVB.innerHTML = dateTimeUNVB;
+//                elementRegularMarketTimeOffsetUNVB.innerHTML = '+' + Math.abs(Math.round(deltaMinutesUNVB)) + 'min';
+
 
 var elementPortfolioValuesUNVB = document.getElementById("intervalSectionPortfolioValuesUNVB");
 var obfuscatedValuePcEuroUNVB = document.getElementById("obfuscatedValuePcEuroUNVB");
@@ -3009,7 +3075,7 @@ decryptElement(obfuscatedValuePcEuroUNVB);
 var piecesUNVB = obfuscatedValuePcEuroUNVB.innerHTML.split(' pc')[0];
 var buyingValueUNVB = obfuscatedValuePcEuroUNVB.innerHTML.split('/')[0];
 buyingValueUNVB = buyingValueUNVB.split(' ')[2];
-var portfolioValueUNVB = piecesUNVB * objUNVB.chart.result[0].meta.regularMarketPrice;
+var portfolioValueUNVB = piecesUNVB * realTimeQuoteUNVB;
 var stocksPerformanceUNVB = ((portfolioValueUNVB / buyingValueUNVB)-1)*100;
 elementPortfolioValuesUNVB.innerHTML = piecesUNVB + ' pc ' + buyingValueUNVB + '/' + portfolioValueUNVB.toFixed(0) + '€ ';
 var elementPortfolioGainUNVB = document.getElementById("intervalSectionPortfolioGainUNVB");
@@ -3020,13 +3086,13 @@ elementPortfolioGainUNVB.style.color = 'red';
 else{
 elementPortfolioGainUNVB.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroUNVB);  
+decryptElement(obfuscatedValuePcEuroUNVB);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: UNVB !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceUNVB" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteUNVB" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageUNVB" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeUNVB" style='display: none'></span>
 
@@ -3100,38 +3166,41 @@ imageUNVB.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/EUZ.F?interval=1d')}`)
+// var realTimeQuoteEUZ;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=260319089')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objEUZ = JSON.parse(data.contents);
-var elementRegularMarketTimeEUZ = document.getElementById("neverShowRegularMarketTimeEUZ");
-
-var dateMarketTimeEUZ = new Date(0); 
-var epochMarketTimeEUZ = objEUZ.chart.result[0].meta.regularMarketTime;
-dateMarketTimeEUZ.setUTCSeconds(epochMarketTimeEUZ);
-elementRegularMarketTimeEUZ.innerHTML = ('0'+dateMarketTimeEUZ.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeEUZ.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeEUZ.getSeconds()).slice(-2);
-
-var deltaMinutesEUZ =((new Date().getTime() - dateMarketTimeEUZ.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetEUZ = document.getElementById("intervalSectionRegularMarketTimeOffsetEUZ");
-elementRegularMarketTimeOffsetEUZ.innerHTML = '+' + Math.abs(Math.round(deltaMinutesEUZ)) + 'min';
-
-var elementRegularMarketPriceEUZ = document.getElementById("intervalSectionRegularMarketPriceEUZ");
-elementRegularMarketPriceEUZ.innerHTML = objEUZ.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteEUZ = document.getElementById("intervalSectionRealTimeQuoteEUZ");  
+realTimeQuoteEUZ = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteEUZ.innerHTML = realTimeQuoteEUZ + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzEUZ = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzEUZ:' + realTimeProzEUZ);
 var elementPercentageEUZ = document.getElementById("intervalSectionPercentageEUZ");
-var percentValueEUZ = ((objEUZ.chart.result[0].meta.regularMarketPrice / objEUZ.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueEUZ = percentValueEUZ.toFixed(1);
-elementPercentageEUZ.innerHTML = percentValueEUZ + '%';
-if(percentValueEUZ < 0){
+elementPercentageEUZ.innerHTML = realTimeProzEUZ + '%';
+if(parseFloat(realTimeProzEUZ.replace(',', '.')) < 0){
 elementPercentageEUZ.style.color = 'red';
 }
 else{
 elementPercentageEUZ.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeEUZ = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeEUZ:' + dateTimeEUZ);
+// var deltaMinutesEUZ =((new Date().getTime() - dateMarketTimeEUZ.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetEUZ = document.getElementById("intervalSectionRegularMarketTimeOffsetEUZ");
+elementRegularMarketTimeOffsetEUZ.innerHTML = dateTimeEUZ;
+//                elementRegularMarketTimeOffsetEUZ.innerHTML = '+' + Math.abs(Math.round(deltaMinutesEUZ)) + 'min';
+
 
 var elementPortfolioValuesEUZ = document.getElementById("intervalSectionPortfolioValuesEUZ");
 var obfuscatedValuePcEuroEUZ = document.getElementById("obfuscatedValuePcEuroEUZ");
@@ -3139,7 +3208,7 @@ decryptElement(obfuscatedValuePcEuroEUZ);
 var piecesEUZ = obfuscatedValuePcEuroEUZ.innerHTML.split(' pc')[0];
 var buyingValueEUZ = obfuscatedValuePcEuroEUZ.innerHTML.split('/')[0];
 buyingValueEUZ = buyingValueEUZ.split(' ')[2];
-var portfolioValueEUZ = piecesEUZ * objEUZ.chart.result[0].meta.regularMarketPrice;
+var portfolioValueEUZ = piecesEUZ * realTimeQuoteEUZ;
 var stocksPerformanceEUZ = ((portfolioValueEUZ / buyingValueEUZ)-1)*100;
 elementPortfolioValuesEUZ.innerHTML = piecesEUZ + ' pc ' + buyingValueEUZ + '/' + portfolioValueEUZ.toFixed(0) + '€ ';
 var elementPortfolioGainEUZ = document.getElementById("intervalSectionPortfolioGainEUZ");
@@ -3150,13 +3219,13 @@ elementPortfolioGainEUZ.style.color = 'red';
 else{
 elementPortfolioGainEUZ.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroEUZ);  
+decryptElement(obfuscatedValuePcEuroEUZ);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: EUZ !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceEUZ" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteEUZ" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageEUZ" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeEUZ" style='display: none'></span>
 
@@ -3232,38 +3301,41 @@ Sell: High MACD (M)<br>
 Sell: High 6 last RSI (R)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/IWLE.F?interval=1d')}`)
+// var realTimeQuoteIWLE;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=256835748')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objIWLE = JSON.parse(data.contents);
-var elementRegularMarketTimeIWLE = document.getElementById("neverShowRegularMarketTimeIWLE");
-
-var dateMarketTimeIWLE = new Date(0); 
-var epochMarketTimeIWLE = objIWLE.chart.result[0].meta.regularMarketTime;
-dateMarketTimeIWLE.setUTCSeconds(epochMarketTimeIWLE);
-elementRegularMarketTimeIWLE.innerHTML = ('0'+dateMarketTimeIWLE.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeIWLE.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeIWLE.getSeconds()).slice(-2);
-
-var deltaMinutesIWLE =((new Date().getTime() - dateMarketTimeIWLE.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetIWLE = document.getElementById("intervalSectionRegularMarketTimeOffsetIWLE");
-elementRegularMarketTimeOffsetIWLE.innerHTML = '+' + Math.abs(Math.round(deltaMinutesIWLE)) + 'min';
-
-var elementRegularMarketPriceIWLE = document.getElementById("intervalSectionRegularMarketPriceIWLE");
-elementRegularMarketPriceIWLE.innerHTML = objIWLE.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteIWLE = document.getElementById("intervalSectionRealTimeQuoteIWLE");  
+realTimeQuoteIWLE = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteIWLE.innerHTML = realTimeQuoteIWLE + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzIWLE = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzIWLE:' + realTimeProzIWLE);
 var elementPercentageIWLE = document.getElementById("intervalSectionPercentageIWLE");
-var percentValueIWLE = ((objIWLE.chart.result[0].meta.regularMarketPrice / objIWLE.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueIWLE = percentValueIWLE.toFixed(1);
-elementPercentageIWLE.innerHTML = percentValueIWLE + '%';
-if(percentValueIWLE < 0){
+elementPercentageIWLE.innerHTML = realTimeProzIWLE + '%';
+if(parseFloat(realTimeProzIWLE.replace(',', '.')) < 0){
 elementPercentageIWLE.style.color = 'red';
 }
 else{
 elementPercentageIWLE.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeIWLE = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeIWLE:' + dateTimeIWLE);
+// var deltaMinutesIWLE =((new Date().getTime() - dateMarketTimeIWLE.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetIWLE = document.getElementById("intervalSectionRegularMarketTimeOffsetIWLE");
+elementRegularMarketTimeOffsetIWLE.innerHTML = dateTimeIWLE;
+//                elementRegularMarketTimeOffsetIWLE.innerHTML = '+' + Math.abs(Math.round(deltaMinutesIWLE)) + 'min';
+
 
 var elementPortfolioValuesIWLE = document.getElementById("intervalSectionPortfolioValuesIWLE");
 var obfuscatedValuePcEuroIWLE = document.getElementById("obfuscatedValuePcEuroIWLE");
@@ -3271,7 +3343,7 @@ decryptElement(obfuscatedValuePcEuroIWLE);
 var piecesIWLE = obfuscatedValuePcEuroIWLE.innerHTML.split(' pc')[0];
 var buyingValueIWLE = obfuscatedValuePcEuroIWLE.innerHTML.split('/')[0];
 buyingValueIWLE = buyingValueIWLE.split(' ')[2];
-var portfolioValueIWLE = piecesIWLE * objIWLE.chart.result[0].meta.regularMarketPrice;
+var portfolioValueIWLE = piecesIWLE * realTimeQuoteIWLE;
 var stocksPerformanceIWLE = ((portfolioValueIWLE / buyingValueIWLE)-1)*100;
 elementPortfolioValuesIWLE.innerHTML = piecesIWLE + ' pc ' + buyingValueIWLE + '/' + portfolioValueIWLE.toFixed(0) + '€ ';
 var elementPortfolioGainIWLE = document.getElementById("intervalSectionPortfolioGainIWLE");
@@ -3282,13 +3354,13 @@ elementPortfolioGainIWLE.style.color = 'red';
 else{
 elementPortfolioGainIWLE.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroIWLE);  
+decryptElement(obfuscatedValuePcEuroIWLE);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: IWLE !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceIWLE" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteIWLE" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageIWLE" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeIWLE" style='display: none'></span>
 
@@ -3362,38 +3434,41 @@ imageIWLE.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/CRIN.F?interval=1d')}`)
+// var realTimeQuoteCRIN;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=180798778')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objCRIN = JSON.parse(data.contents);
-var elementRegularMarketTimeCRIN = document.getElementById("neverShowRegularMarketTimeCRIN");
-
-var dateMarketTimeCRIN = new Date(0); 
-var epochMarketTimeCRIN = objCRIN.chart.result[0].meta.regularMarketTime;
-dateMarketTimeCRIN.setUTCSeconds(epochMarketTimeCRIN);
-elementRegularMarketTimeCRIN.innerHTML = ('0'+dateMarketTimeCRIN.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeCRIN.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeCRIN.getSeconds()).slice(-2);
-
-var deltaMinutesCRIN =((new Date().getTime() - dateMarketTimeCRIN.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetCRIN = document.getElementById("intervalSectionRegularMarketTimeOffsetCRIN");
-elementRegularMarketTimeOffsetCRIN.innerHTML = '+' + Math.abs(Math.round(deltaMinutesCRIN)) + 'min';
-
-var elementRegularMarketPriceCRIN = document.getElementById("intervalSectionRegularMarketPriceCRIN");
-elementRegularMarketPriceCRIN.innerHTML = objCRIN.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteCRIN = document.getElementById("intervalSectionRealTimeQuoteCRIN");  
+realTimeQuoteCRIN = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteCRIN.innerHTML = realTimeQuoteCRIN + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzCRIN = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzCRIN:' + realTimeProzCRIN);
 var elementPercentageCRIN = document.getElementById("intervalSectionPercentageCRIN");
-var percentValueCRIN = ((objCRIN.chart.result[0].meta.regularMarketPrice / objCRIN.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueCRIN = percentValueCRIN.toFixed(1);
-elementPercentageCRIN.innerHTML = percentValueCRIN + '%';
-if(percentValueCRIN < 0){
+elementPercentageCRIN.innerHTML = realTimeProzCRIN + '%';
+if(parseFloat(realTimeProzCRIN.replace(',', '.')) < 0){
 elementPercentageCRIN.style.color = 'red';
 }
 else{
 elementPercentageCRIN.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeCRIN = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeCRIN:' + dateTimeCRIN);
+// var deltaMinutesCRIN =((new Date().getTime() - dateMarketTimeCRIN.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetCRIN = document.getElementById("intervalSectionRegularMarketTimeOffsetCRIN");
+elementRegularMarketTimeOffsetCRIN.innerHTML = dateTimeCRIN;
+//                elementRegularMarketTimeOffsetCRIN.innerHTML = '+' + Math.abs(Math.round(deltaMinutesCRIN)) + 'min';
+
 
 var elementPortfolioValuesCRIN = document.getElementById("intervalSectionPortfolioValuesCRIN");
 var obfuscatedValuePcEuroCRIN = document.getElementById("obfuscatedValuePcEuroCRIN");
@@ -3401,7 +3476,7 @@ decryptElement(obfuscatedValuePcEuroCRIN);
 var piecesCRIN = obfuscatedValuePcEuroCRIN.innerHTML.split(' pc')[0];
 var buyingValueCRIN = obfuscatedValuePcEuroCRIN.innerHTML.split('/')[0];
 buyingValueCRIN = buyingValueCRIN.split(' ')[2];
-var portfolioValueCRIN = piecesCRIN * objCRIN.chart.result[0].meta.regularMarketPrice;
+var portfolioValueCRIN = piecesCRIN * realTimeQuoteCRIN;
 var stocksPerformanceCRIN = ((portfolioValueCRIN / buyingValueCRIN)-1)*100;
 elementPortfolioValuesCRIN.innerHTML = piecesCRIN + ' pc ' + buyingValueCRIN + '/' + portfolioValueCRIN.toFixed(0) + '€ ';
 var elementPortfolioGainCRIN = document.getElementById("intervalSectionPortfolioGainCRIN");
@@ -3412,13 +3487,13 @@ elementPortfolioGainCRIN.style.color = 'red';
 else{
 elementPortfolioGainCRIN.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroCRIN);  
+decryptElement(obfuscatedValuePcEuroCRIN);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: CRIN !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceCRIN" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteCRIN" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageCRIN" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeCRIN" style='display: none'></span>
 
@@ -3493,38 +3568,41 @@ imageCRIN.src = urlWithTimeSpan;
 Buy: Low Percentage & Stochastic (P)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/AOMD.F?interval=1d')}`)
+// var realTimeQuoteAOMD;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671038')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objAOMD = JSON.parse(data.contents);
-var elementRegularMarketTimeAOMD = document.getElementById("neverShowRegularMarketTimeAOMD");
-
-var dateMarketTimeAOMD = new Date(0); 
-var epochMarketTimeAOMD = objAOMD.chart.result[0].meta.regularMarketTime;
-dateMarketTimeAOMD.setUTCSeconds(epochMarketTimeAOMD);
-elementRegularMarketTimeAOMD.innerHTML = ('0'+dateMarketTimeAOMD.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeAOMD.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeAOMD.getSeconds()).slice(-2);
-
-var deltaMinutesAOMD =((new Date().getTime() - dateMarketTimeAOMD.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetAOMD = document.getElementById("intervalSectionRegularMarketTimeOffsetAOMD");
-elementRegularMarketTimeOffsetAOMD.innerHTML = '+' + Math.abs(Math.round(deltaMinutesAOMD)) + 'min';
-
-var elementRegularMarketPriceAOMD = document.getElementById("intervalSectionRegularMarketPriceAOMD");
-elementRegularMarketPriceAOMD.innerHTML = objAOMD.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteAOMD = document.getElementById("intervalSectionRealTimeQuoteAOMD");  
+realTimeQuoteAOMD = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteAOMD.innerHTML = realTimeQuoteAOMD + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzAOMD = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzAOMD:' + realTimeProzAOMD);
 var elementPercentageAOMD = document.getElementById("intervalSectionPercentageAOMD");
-var percentValueAOMD = ((objAOMD.chart.result[0].meta.regularMarketPrice / objAOMD.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueAOMD = percentValueAOMD.toFixed(1);
-elementPercentageAOMD.innerHTML = percentValueAOMD + '%';
-if(percentValueAOMD < 0){
+elementPercentageAOMD.innerHTML = realTimeProzAOMD + '%';
+if(parseFloat(realTimeProzAOMD.replace(',', '.')) < 0){
 elementPercentageAOMD.style.color = 'red';
 }
 else{
 elementPercentageAOMD.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeAOMD = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeAOMD:' + dateTimeAOMD);
+// var deltaMinutesAOMD =((new Date().getTime() - dateMarketTimeAOMD.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetAOMD = document.getElementById("intervalSectionRegularMarketTimeOffsetAOMD");
+elementRegularMarketTimeOffsetAOMD.innerHTML = dateTimeAOMD;
+//                elementRegularMarketTimeOffsetAOMD.innerHTML = '+' + Math.abs(Math.round(deltaMinutesAOMD)) + 'min';
+
 
 var elementPortfolioValuesAOMD = document.getElementById("intervalSectionPortfolioValuesAOMD");
 var obfuscatedValuePcEuroAOMD = document.getElementById("obfuscatedValuePcEuroAOMD");
@@ -3532,7 +3610,7 @@ decryptElement(obfuscatedValuePcEuroAOMD);
 var piecesAOMD = obfuscatedValuePcEuroAOMD.innerHTML.split(' pc')[0];
 var buyingValueAOMD = obfuscatedValuePcEuroAOMD.innerHTML.split('/')[0];
 buyingValueAOMD = buyingValueAOMD.split(' ')[2];
-var portfolioValueAOMD = piecesAOMD * objAOMD.chart.result[0].meta.regularMarketPrice;
+var portfolioValueAOMD = piecesAOMD * realTimeQuoteAOMD;
 var stocksPerformanceAOMD = ((portfolioValueAOMD / buyingValueAOMD)-1)*100;
 elementPortfolioValuesAOMD.innerHTML = piecesAOMD + ' pc ' + buyingValueAOMD + '/' + portfolioValueAOMD.toFixed(0) + '€ ';
 var elementPortfolioGainAOMD = document.getElementById("intervalSectionPortfolioGainAOMD");
@@ -3543,13 +3621,13 @@ elementPortfolioGainAOMD.style.color = 'red';
 else{
 elementPortfolioGainAOMD.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroAOMD);  
+decryptElement(obfuscatedValuePcEuroAOMD);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: AOMD !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceAOMD" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteAOMD" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageAOMD" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeAOMD" style='display: none'></span>
 
@@ -3628,38 +3706,41 @@ Sell: High 7 last RSI (R)<br>
 Sell: High Stochastic & RSI & MACD+ (C)<br>
 <br>
 <script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/TNE5.F?interval=1d')}`)
+// var realTimeQuoteTNE5;
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337133')}`)
 .then(response => {
-if (response.ok){
+if (response.ok) {
 return response.json();
 }
 throw new Error('Network response error!');
 })
 .then(data => {
-const objTNE5 = JSON.parse(data.contents);
-var elementRegularMarketTimeTNE5 = document.getElementById("neverShowRegularMarketTimeTNE5");
-
-var dateMarketTimeTNE5 = new Date(0); 
-var epochMarketTimeTNE5 = objTNE5.chart.result[0].meta.regularMarketTime;
-dateMarketTimeTNE5.setUTCSeconds(epochMarketTimeTNE5);
-elementRegularMarketTimeTNE5.innerHTML = ('0'+dateMarketTimeTNE5.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeTNE5.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeTNE5.getSeconds()).slice(-2);
-
-var deltaMinutesTNE5 =((new Date().getTime() - dateMarketTimeTNE5.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetTNE5 = document.getElementById("intervalSectionRegularMarketTimeOffsetTNE5");
-elementRegularMarketTimeOffsetTNE5.innerHTML = '+' + Math.abs(Math.round(deltaMinutesTNE5)) + 'min';
-
-var elementRegularMarketPriceTNE5 = document.getElementById("intervalSectionRegularMarketPriceTNE5");
-elementRegularMarketPriceTNE5.innerHTML = objTNE5.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteTNE5 = document.getElementById("intervalSectionRealTimeQuoteTNE5");  
+realTimeQuoteTNE5 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteTNE5.innerHTML = realTimeQuoteTNE5 + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzTNE5 = data.contents.slice(positionProz1-5, positionProz1);
+console.log('yyyyyyyrealTimeProzTNE5:' + realTimeProzTNE5);
 var elementPercentageTNE5 = document.getElementById("intervalSectionPercentageTNE5");
-var percentValueTNE5 = ((objTNE5.chart.result[0].meta.regularMarketPrice / objTNE5.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueTNE5 = percentValueTNE5.toFixed(1);
-elementPercentageTNE5.innerHTML = percentValueTNE5 + '%';
-if(percentValueTNE5 < 0){
+elementPercentageTNE5.innerHTML = realTimeProzTNE5 + '%';
+if(parseFloat(realTimeProzTNE5.replace(',', '.')) < 0){
 elementPercentageTNE5.style.color = 'red';
 }
 else{
 elementPercentageTNE5.style.color = 'green';
 }
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var dateTimeTNE5 = data.contents.slice(positionTime1+4, positionTime1+12);
+console.log('yyyyyyydateTimeTNE5:' + dateTimeTNE5);
+// var deltaMinutesTNE5 =((new Date().getTime() - dateMarketTimeTNE5.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetTNE5 = document.getElementById("intervalSectionRegularMarketTimeOffsetTNE5");
+elementRegularMarketTimeOffsetTNE5.innerHTML = dateTimeTNE5;
+//                elementRegularMarketTimeOffsetTNE5.innerHTML = '+' + Math.abs(Math.round(deltaMinutesTNE5)) + 'min';
+
 
 var elementPortfolioValuesTNE5 = document.getElementById("intervalSectionPortfolioValuesTNE5");
 var obfuscatedValuePcEuroTNE5 = document.getElementById("obfuscatedValuePcEuroTNE5");
@@ -3667,7 +3748,7 @@ decryptElement(obfuscatedValuePcEuroTNE5);
 var piecesTNE5 = obfuscatedValuePcEuroTNE5.innerHTML.split(' pc')[0];
 var buyingValueTNE5 = obfuscatedValuePcEuroTNE5.innerHTML.split('/')[0];
 buyingValueTNE5 = buyingValueTNE5.split(' ')[2];
-var portfolioValueTNE5 = piecesTNE5 * objTNE5.chart.result[0].meta.regularMarketPrice;
+var portfolioValueTNE5 = piecesTNE5 * realTimeQuoteTNE5;
 var stocksPerformanceTNE5 = ((portfolioValueTNE5 / buyingValueTNE5)-1)*100;
 elementPortfolioValuesTNE5.innerHTML = piecesTNE5 + ' pc ' + buyingValueTNE5 + '/' + portfolioValueTNE5.toFixed(0) + '€ ';
 var elementPortfolioGainTNE5 = document.getElementById("intervalSectionPortfolioGainTNE5");
@@ -3678,13 +3759,13 @@ elementPortfolioGainTNE5.style.color = 'red';
 else{
 elementPortfolioGainTNE5.style.color = 'green';
 }
-decryptElement(obfuscatedValuePcEuroTNE5);  
+decryptElement(obfuscatedValuePcEuroTNE5);
 })
 .catch(error => {
 console.error('Error retrieving current quote for: TNE5 !!!' + error);
 });
 </script>
-<span id="intervalSectionRegularMarketPriceTNE5" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionRealTimeQuoteTNE5" style='font-size:xx-large; display: none'>---</span>&nbsp;
 <span id="intervalSectionPercentageTNE5" style='font-size:xx-large; display: none'></span>&nbsp;
 <span id="neverShowRegularMarketTimeTNE5" style='display: none'></span>
 
@@ -3750,143 +3831,9 @@ imageTNE5.src = urlWithTimeSpan;
 // setTimeout(updateImageTNE5, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div style="margin-top: 6px">
-<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337135" target="_blank">*GEC "General Electric"</a>
-<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337135" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:red" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GEC.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:red; display: none" href="D:/code/stock-analyse/out/GEC.html" id='linkPCGEC' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Sell: Stochastic Own (O)<br>
-Sell: High Percentage & Stochastic (P)<br>
-Sell: High 4 last Stochastic (S)<br>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:*GEC</b><br>
-<br>
-<script>
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/GEC.F?interval=1d')}`)
-.then(response => {
-if (response.ok){
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-const objGEC = JSON.parse(data.contents);
-var elementRegularMarketTimeGEC = document.getElementById("neverShowRegularMarketTimeGEC");
-
-var dateMarketTimeGEC = new Date(0); 
-var epochMarketTimeGEC = objGEC.chart.result[0].meta.regularMarketTime;
-dateMarketTimeGEC.setUTCSeconds(epochMarketTimeGEC);
-elementRegularMarketTimeGEC.innerHTML = ('0'+dateMarketTimeGEC.getHours()).slice(-2) + ':' + ('0'+dateMarketTimeGEC.getMinutes()).slice(-2) + ':' + ('0'+dateMarketTimeGEC.getSeconds()).slice(-2);
-
-var deltaMinutesGEC =((new Date().getTime() - dateMarketTimeGEC.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetGEC = document.getElementById("intervalSectionRegularMarketTimeOffsetGEC");
-elementRegularMarketTimeOffsetGEC.innerHTML = '+' + Math.abs(Math.round(deltaMinutesGEC)) + 'min';
-
-var elementRegularMarketPriceGEC = document.getElementById("intervalSectionRegularMarketPriceGEC");
-elementRegularMarketPriceGEC.innerHTML = objGEC.chart.result[0].meta.regularMarketPrice.toFixed(2) + '€';
-var elementPercentageGEC = document.getElementById("intervalSectionPercentageGEC");
-var percentValueGEC = ((objGEC.chart.result[0].meta.regularMarketPrice / objGEC.chart.result[0].meta.chartPreviousClose) -1) * 100;
-percentValueGEC = percentValueGEC.toFixed(1);
-elementPercentageGEC.innerHTML = percentValueGEC + '%';
-if(percentValueGEC < 0){
-elementPercentageGEC.style.color = 'red';
-}
-else{
-elementPercentageGEC.style.color = 'green';
-}
-
-var elementPortfolioValuesGEC = document.getElementById("intervalSectionPortfolioValuesGEC");
-var obfuscatedValuePcEuroGEC = document.getElementById("obfuscatedValuePcEuroGEC");
-decryptElement(obfuscatedValuePcEuroGEC);
-var piecesGEC = obfuscatedValuePcEuroGEC.innerHTML.split(' pc')[0];
-var buyingValueGEC = obfuscatedValuePcEuroGEC.innerHTML.split('/')[0];
-buyingValueGEC = buyingValueGEC.split(' ')[2];
-var portfolioValueGEC = piecesGEC * objGEC.chart.result[0].meta.regularMarketPrice;
-var stocksPerformanceGEC = ((portfolioValueGEC / buyingValueGEC)-1)*100;
-elementPortfolioValuesGEC.innerHTML = piecesGEC + ' pc ' + buyingValueGEC + '/' + portfolioValueGEC.toFixed(0) + '€ ';
-var elementPortfolioGainGEC = document.getElementById("intervalSectionPortfolioGainGEC");
-elementPortfolioGainGEC.innerHTML = stocksPerformanceGEC.toFixed(1) + '% ' + (portfolioValueGEC - buyingValueGEC).toFixed(0) + '€';
-if(stocksPerformanceGEC < 0){
-elementPortfolioGainGEC.style.color = 'red';
-}
-else{
-elementPortfolioGainGEC.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroGEC);  
-})
-.catch(error => {
-console.error('Error retrieving current quote for: GEC !!!' + error);
-});
-</script>
-<span id="intervalSectionRegularMarketPriceGEC" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageGEC" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeGEC" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetGEC" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesGEC" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainGEC" style='font-size:xx-large; display: none'></span>
-<br>
-<div id="neverShowDivGEC" style='display:none'>
-<span id="obfuscatedValuePcEuroGEC" style='display:none'>YY829671/497232XX5212</span>&nbsp;
-<span id="obfuscatedValueGainGEC" style='display:none;color:red'>YY66855-ZZ0.42-</span>
-<span id="obfuscatedValueCloseBracesGEC" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionGEC" style='display: none'><input name="intervalFieldGEC" type="text" maxlength="7" value="1" id="intervalFieldGEC"/><button type="button" id="intervalButtonGEC">Minutes</button><span id="intervalTextGEC"></span></span>
-<script>
-var intervalVarGEC;
-function beepGEC() {
-var elementAlert = document.getElementById("intervalTextGEC");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarGEC);
-intervalVarGEC=undefined;
-}
-function setBeepIntervalGEC() {
-var intervalValue = document.getElementById("intervalFieldGEC").value;
-intervalVarGEC = setInterval(beepGEC, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextGEC");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonGEC").addEventListener("click", setBeepIntervalGEC);
-</script>
-<br><img width="50%" id="intervalSectionImageGEC" style='display: none'></img><br>
-<button id="intervalSectionButton1DGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('1D')">1D</button>
-<button id="intervalSectionButton5DGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('5D')">5D</button>
-<button id="intervalSectionButton10DGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('10D')">10D</button>
-<button id="intervalSectionButton3MGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('3M')">3M</button>
-<button id="intervalSectionButton6MGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('6M')">6M</button>
-<button id="intervalSectionButton1YGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('1Y')">1Y</button>
-<button id="intervalSectionButton5YGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('GEC')">Sell</button>
-<button id="intervalSectionButtonBuyGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'GEC', document.getElementById('intervalSectionInputPriceBuyGEC').value, document.getElementById('intervalSectionInputPiecesBuyGEC').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyGEC' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyGEC'/>
-Avg. Price <input name='intervalSectionInputPriceBuyGEC' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyGEC'/>
-<p>
-<hr id="intervalSectionHRGEC" style='display: none'>
-<script>
-var imageGEC = new Image();
-var TIME_SPANGEC;
-function updateImageGEC(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANGEC=timespan;
-}
-if(imageGEC.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337135&TIME_SPAN='+TIME_SPANGEC;
-document.getElementById("intervalSectionImageGEC").src = urlWithTimeSpan;
-imageGEC = new Image();
-imageGEC.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageGEC, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY6705321/6946241</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY024191-ZZ4.31-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY8418501/2073911</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY455531-ZZ4.11-</span></span>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="50%" id="intervalSectionImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
@@ -3942,7 +3889,6 @@ javascript:updateImageIWLE('1D');
 javascript:updateImageCRIN('1D');
 javascript:updateImageAOMD('1D');
 javascript:updateImageTNE5('1D');
-javascript:updateImageGEC('1D');
 javascript:updateImageDAX('1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -3973,7 +3919,6 @@ javascript:updateImageIWLE('5D');
 javascript:updateImageCRIN('5D');
 javascript:updateImageAOMD('5D');
 javascript:updateImageTNE5('5D');
-javascript:updateImageGEC('5D');
 javascript:updateImageDAX('5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -4004,7 +3949,6 @@ javascript:updateImageIWLE('10D');
 javascript:updateImageCRIN('10D');
 javascript:updateImageAOMD('10D');
 javascript:updateImageTNE5('10D');
-javascript:updateImageGEC('10D');
 javascript:updateImageDAX('10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -4035,7 +3979,6 @@ javascript:updateImageIWLE('3M');
 javascript:updateImageCRIN('3M');
 javascript:updateImageAOMD('3M');
 javascript:updateImageTNE5('3M');
-javascript:updateImageGEC('3M');
 javascript:updateImageDAX('3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -4066,7 +4009,6 @@ javascript:updateImageIWLE('6M');
 javascript:updateImageCRIN('6M');
 javascript:updateImageAOMD('6M');
 javascript:updateImageTNE5('6M');
-javascript:updateImageGEC('6M');
 javascript:updateImageDAX('6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -4097,7 +4039,6 @@ javascript:updateImageIWLE('1Y');
 javascript:updateImageCRIN('1Y');
 javascript:updateImageAOMD('1Y');
 javascript:updateImageTNE5('1Y');
-javascript:updateImageGEC('1Y');
 javascript:updateImageDAX('1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -4128,7 +4069,6 @@ javascript:updateImageIWLE('5Y');
 javascript:updateImageCRIN('5Y');
 javascript:updateImageAOMD('5Y');
 javascript:updateImageTNE5('5Y');
-javascript:updateImageGEC('5Y');
 javascript:updateImageDAX('5Y');
 ">5Y</button>
 <br>
@@ -4145,7 +4085,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  6-Apr-2022 17:36</p><br></div>
+<p style="text-align: right; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a>  6-Apr-2022 21:42</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
