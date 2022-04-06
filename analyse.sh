@@ -827,7 +827,6 @@ do
 
             # RealTimeQuote
             echo "<script>
-           // var realTimeQuote$symbol;
             fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION="$ID_NOTATION"')}\`)
             .then(response => {
                     if (response.ok) {
@@ -844,7 +843,6 @@ do
                     elementRealTimeQuote$symbol.innerHTML = realTimeQuote$symbol + '€';
                     let positionProz1 = data.contents.indexOf('&#160;%');
                     var realTimeProz$symbol = data.contents.slice(positionProz1-5, positionProz1);
-                    console.log('yyyyyyyrealTimeProz$symbol:' + realTimeProz$symbol);
                     var elementPercentage$symbol = document.getElementById(\"intervalSectionPercentage$symbol\");
                     elementPercentage$symbol.innerHTML = realTimeProz$symbol + '%';
                     if(parseFloat(realTimeProz$symbol.replace(',', '.')) < 0){
@@ -854,13 +852,20 @@ do
                         elementPercentage$symbol.style.color = 'green';
                     }
 
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var dateTime$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
-console.log('yyyyyyydateTime$symbol:' + dateTime$symbol);
-// var deltaMinutes$symbol =((new Date().getTime() - dateMarketTime$symbol.getTime()) / 1000) / 60;
-                var elementRegularMarketTimeOffset$symbol = document.getElementById(\"intervalSectionRegularMarketTimeOffset$symbol\");
-                elementRegularMarketTimeOffset$symbol.innerHTML = dateTime$symbol;
-//                elementRegularMarketTimeOffset$symbol.innerHTML = '+' + Math.abs(Math.round(deltaMinutes$symbol)) + 'min';
+var hours$symbol = dateTime$symbol.slice(0, 2);
+var minutes$symbol = dateTime$symbol.slice(3, 5);
+var seconds$symbol = dateTime$symbol.slice(6, 8);
+const dateEclpsed$symbol = new Date();
+dateEclpsed$symbol.setHours(hours$symbol);
+dateEclpsed$symbol.setMinutes(minutes$symbol);
+dateEclpsed$symbol.setSeconds(seconds$symbol);
+console.log('++++++++++++++dateEclpsed$symbol:' + dateEclpsed$symbol);
+var deltaMinutes$symbol =((new Date().getTime() - dateEclpsed$symbol.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffset$symbol = document.getElementById(\"intervalSectionRegularMarketTimeOffset$symbol\");
+elementRegularMarketTimeOffset$symbol.innerHTML = deltaMinutes$symbol.toFixed(0) + 'min';
 
 
                     var elementPortfolioValues$symbol = document.getElementById(\"intervalSectionPortfolioValues$symbol\");
