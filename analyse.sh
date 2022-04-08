@@ -56,6 +56,8 @@ rm -rf $TEMP_DIR/tmp.*
 mkdir -p out
 mkdir -p temp
 cp template/favicon.ico out
+# TODO check
+cp template/favicon.ico .
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
