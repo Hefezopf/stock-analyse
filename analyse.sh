@@ -162,7 +162,9 @@ body > div {
     // Spinner
     var counterFetchLoaded = 0;
     var counterOwnStocks = 0;
-    var token = 'ghp' + '_' + 'fWYED11UzfLqo8gZ0dBvVC8yTZj7F00SeEQB';
+    var token = 'ghp' + 
+    '_' + 
+    'fWYED11UzfLqo8gZ0dBvVC8yTZj7F00SeEQB';
 
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == '') {
