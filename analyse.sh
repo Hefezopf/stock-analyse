@@ -51,11 +51,15 @@ RSIQuoteParam=$5
 
 # Prepare
 lowestRSI=100
+# For Spinner
+counterOwnStocks=0
 TEMP_DIR=/tmp
 rm -rf $TEMP_DIR/tmp.*
 mkdir -p out
 mkdir -p temp
 cp template/favicon.ico out
+# TODO check
+cp template/favicon.ico .
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
@@ -129,11 +133,37 @@ body > div {
     body > div {
     font-size: x-large;
 }}
+
+/* Spinner */
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 </style>
 </head>
 <body>
 <div>
 <script>
+    // Spinner
+    var counterFetchLoaded = 0;
+    var counterOwnStocks = 0;
+
     var token = 'ghp' + '_' + 'fWYED11UzfLqo8gZ0dBvVC8yTZj7F00SeEQB';
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == '') {
@@ -269,6 +299,20 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
     function hideElement(ele) {
         ele.style.display = 'none';
     }   
+
+    // Spinner
+    var intervalLoadingSpinnerId = setInterval(function() {
+        if(counterFetchLoaded >= counterOwnStocks){
+            hideSpinner();
+            clearInterval(intervalLoadingSpinnerId);
+        }
+    }, 1000);
+
+    function hideSpinner() {
+        //console.log('...hide');
+        spinnerElement = document.querySelectorAll('[id ^= \"spinner\"]');
+        Array.prototype.forEach.call(spinnerElement, hideElement);
+    }
 </script>
 </body></html>"
 START_TIME_MEASUREMENT=$(date +%s);
@@ -313,6 +357,9 @@ RSIQuoteUpper=$((100-RSIQuoteParam))
 # Stochastics percentage
 stochasticPercentageLower=$stochasticPercentageParam
 stochasticPercentageUpper=$((100-stochasticPercentageParam))
+
+# Spinner
+echo "<div id='spinner' style='display: X'; class='loader'></div>" >> $OUT_RESULT_FILE
 
 echo "# Parameter" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
@@ -804,6 +851,10 @@ do
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
+
+        # For Spinner
+        counterOwnStocks=$((counterOwnStocks+1))
+
         stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE | cut -f4 -d ' ')
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
         stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
@@ -827,8 +878,17 @@ do
 
             # RealTimeQuote
             echo "<script>
+
+            // For Spinner
+            counterOwnStocks=$counterOwnStocks;
+
             fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION="$ID_NOTATION"')}\`)
             .then(response => {
+
+                    // For Spinner
+                    counterFetchLoaded++;
+                   // console.log('counterFetchLoaded++...');
+
                     if (response.ok) {
                         return response.json();
                     }
@@ -852,21 +912,19 @@ do
                         elementPercentage$symbol.style.color = 'green';
                     }
 
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var dateTime$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
-var hours$symbol = dateTime$symbol.slice(0, 2);
-var minutes$symbol = dateTime$symbol.slice(3, 5);
-var seconds$symbol = dateTime$symbol.slice(6, 8);
-const dateEclpsed$symbol = new Date();
-dateEclpsed$symbol.setHours(hours$symbol);
-dateEclpsed$symbol.setMinutes(minutes$symbol);
-dateEclpsed$symbol.setSeconds(seconds$symbol);
-console.log('++++++++++++++dateEclpsed$symbol:' + dateEclpsed$symbol);
-var deltaMinutes$symbol =((new Date().getTime() - dateEclpsed$symbol.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffset$symbol = document.getElementById(\"intervalSectionRegularMarketTimeOffset$symbol\");
-elementRegularMarketTimeOffset$symbol.innerHTML = deltaMinutes$symbol.toFixed(0) + 'min';
-
+                    let positionTime1 = data.contents.indexOf(' -  ');
+                    var dateTime$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
+                    var hours$symbol = dateTime$symbol.slice(0, 2);
+                    var minutes$symbol = dateTime$symbol.slice(3, 5);
+                    var seconds$symbol = dateTime$symbol.slice(6, 8);
+                    const dateEclpsed$symbol = new Date();
+                    dateEclpsed$symbol.setHours(hours$symbol);
+                    dateEclpsed$symbol.setMinutes(minutes$symbol);
+                    dateEclpsed$symbol.setSeconds(seconds$symbol);
+                   // console.log('++++++++++++++dateEclpsed$symbol:' + dateEclpsed$symbol);
+                    var deltaMinutes$symbol =((new Date().getTime() - dateEclpsed$symbol.getTime()) / 1000) / 60;
+                    var elementRegularMarketTimeOffset$symbol = document.getElementById(\"intervalSectionRegularMarketTimeOffset$symbol\");
+                    elementRegularMarketTimeOffset$symbol.innerHTML = deltaMinutes$symbol.toFixed(0) + 'min';
 
                     var elementPortfolioValues$symbol = document.getElementById(\"intervalSectionPortfolioValues$symbol\");
                     var obfuscatedValuePcEuro$symbol = document.getElementById(\"obfuscatedValuePcEuro$symbol\");
