@@ -58,8 +58,6 @@ rm -rf $TEMP_DIR/tmp.*
 mkdir -p out
 mkdir -p temp
 cp template/favicon.ico out
-# TODO check
-cp template/favicon.ico .
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 OWN_SYMBOLS_FILE=config/own_symbols.txt
@@ -1072,7 +1070,7 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
 fi
 {
     # Overall
-    echo "<br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>"
+    echo "<br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall Yesterday (Not Realtime!)<br>"
     echo "<span id=\"obfuscatedValueBuyingOverall\" style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
     echo "<span id=\"obfuscatedValueGainOverall\" style='font-size:xx-large; display:none; color:$_linkColor'>$obfuscatedValueGainOverall</span></span>"
     echo "<hr id=\"intervalSectionHROverall\" style='display: none'>"
