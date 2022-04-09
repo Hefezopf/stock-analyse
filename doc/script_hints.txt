@@ -65,3 +65,13 @@
 -F statt DE
 fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/$symbol.DE?interval=1d')}\`)
 
+
+
+let position1 = data.contents.indexOf('<div class="realtime-indicator"><span class="icon icon--cd_point-full-24 icon--size-24 icon--cd-positive outer-spacing--xsmall-top"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value text-size--xxlarge text-weight--medium">');
+let position2 = data.contents.indexOf('</span><span class="text-size--medium outer-spacing--xxsmall-left outer-spacing--small-top">EUR</span></div>');
+console.log('yyyyyyyposition1:' + position1);
+console.log('yyyyyyyposition2:' + position2);
+realTimeQuote = data.contents.slice(position1+337, position2);
+console.log('yyyyyyyrealTimeQuote:' + realTimeQuote);
+var elementPercentageTKA = document.getElementById("intervalSectionRealTimeQuoteTKA");
+elementPercentageTKA.innerHTML = realTimeQuote;
