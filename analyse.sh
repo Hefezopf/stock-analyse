@@ -160,11 +160,12 @@ body > div {
 <body>
 <div>
 <script>
+    // Global Varables
     // Spinner
     var counterFetchLoaded = 0;
     var counterOwnStocks = 0;
-
     var token = 'ghp' + '_' + 'fWYED11UzfLqo8gZ0dBvVC8yTZj7F00SeEQB';
+
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == '') {
             var currentInnerHTMLValueIntervalSectionRegularMarketPrice = document.getElementById('intervalSectionRegularMarketPrice'+symbolParam);
@@ -261,12 +262,12 @@ creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
     creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h
 fi
-GOOD_LUCK="<p style=\"text-align: right; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a> $creationDate</p>"
+GOOD_LUCK="<p style=\"text-align: left; padding-right: 50px\">Good Luck! <a href=\"https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8\" target=\"_blank\">Donate?</a> $creationDate</p>"
 HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
 <script>
     var sound=$SOUND; // Only once assigned, for all beeps
 
-    // Show link if on PC
+    // Show local link, if on PC
     if(location.href.startsWith('file')){
         linkPCValues = document.querySelectorAll('[id ^= \"linkPC\"]');
         Array.prototype.forEach.call(linkPCValues, revealElement);
@@ -309,7 +310,6 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
     }, 1000);
 
     function hideSpinner() {
-        //console.log('...hide');
         spinnerElement = document.querySelectorAll('[id ^= \"spinner\"]');
         Array.prototype.forEach.call(spinnerElement, hideElement);
     }
@@ -393,10 +393,8 @@ do
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     exchange=$(echo "$lineFromTickerFile" | cut -f 8)
     if [ ! "$exchange" ]; then # Default = XETRA
-        #exchange="XFRA" # Frankfurt
         exchange="XETRA"
     fi
-#echo exchange $exchange lineFromTickerFile $lineFromTickerFile
 
     # Get stock data
     echo ""
@@ -408,8 +406,6 @@ do
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
         curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
-        # With volume
-        # curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "T", .volume, "\n"' | awk -F'T' '{print $1 "\t" $3 "\t" $4}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "$fileSize" -eq "0" ]; then
             echo "<br>" >> $OUT_RESULT_FILE
@@ -884,11 +880,6 @@ do
 
             fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION="$ID_NOTATION"')}\`)
             .then(response => {
-
-                    // For Spinner
-                    counterFetchLoaded++;
-                   // console.log('counterFetchLoaded++...');
-
                     if (response.ok) {
                         return response.json();
                     }
@@ -913,15 +904,18 @@ do
                     }
 
                     let positionTime1 = data.contents.indexOf(' -  ');
-                    var dateTime$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
-                    var hours$symbol = dateTime$symbol.slice(0, 2);
-                    var minutes$symbol = dateTime$symbol.slice(3, 5);
-                    var seconds$symbol = dateTime$symbol.slice(6, 8);
-                    const dateEclpsed$symbol = new Date();
+                    var time$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
+                    var hours$symbol = time$symbol.slice(0, 2);
+                    var minutes$symbol = time$symbol.slice(3, 5);
+                    var seconds$symbol = time$symbol.slice(6, 8);
+                    var date$symbol = data.contents.slice(positionTime1-9, positionTime1-1);
+                    var days$symbol = date$symbol.slice(0, 2);
+                    var month$symbol = date$symbol.slice(3, 5)-1;
+                    var year$symbol = "20"+date$symbol.slice(6, 8);
+                    const dateEclpsed$symbol = new Date(year$symbol, month$symbol, days$symbol);
                     dateEclpsed$symbol.setHours(hours$symbol);
                     dateEclpsed$symbol.setMinutes(minutes$symbol);
                     dateEclpsed$symbol.setSeconds(seconds$symbol);
-                   // console.log('++++++++++++++dateEclpsed$symbol:' + dateEclpsed$symbol);
                     var deltaMinutes$symbol =((new Date().getTime() - dateEclpsed$symbol.getTime()) / 1000) / 60;
                     var elementRegularMarketTimeOffset$symbol = document.getElementById(\"intervalSectionRegularMarketTimeOffset$symbol\");
                     elementRegularMarketTimeOffset$symbol.innerHTML = deltaMinutes$symbol.toFixed(0) + 'min';
@@ -944,9 +938,15 @@ do
                         elementPortfolioGain$symbol.style.color = 'green';
                     }
                     decryptElement(obfuscatedValuePcEuro$symbol);
+
+                    // For Spinner
+                    counterFetchLoaded++;
                 })
                 .catch(error => {
                     console.error('Error retrieving current quote for: $symbol !!!' + error);
+
+                    // For Spinner
+                    counterFetchLoaded++;
                 });
             </script>"
                         
@@ -956,7 +956,7 @@ do
                   
                   <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='font-size:large; display: none'></span>&nbsp;
                   <span id=\"intervalSectionPortfolioValues$symbol\" style='font-size:large; display: none'></span>
-                  <span id=\"intervalSectionPortfolioGain$symbol\" style='font-size:xx-large; display: none'></span>
+                  <span id=\"intervalSectionPortfolioGain$symbol\" style='font-size:large; display: none'></span>
                   <br>"                  
 
             # ObfuscatedValue neverShowDiv (Yesterday)
@@ -1075,6 +1075,7 @@ fi
     echo "<br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall (Yesterday)<br>"
     echo "<span id=\"obfuscatedValueBuyingOverall\" style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
     echo "<span id=\"obfuscatedValueGainOverall\" style='font-size:xx-large; display:none; color:$_linkColor'>$obfuscatedValueGainOverall</span></span>"
+    echo "<hr id=\"intervalSectionHROverall\" style='display: none'>"
 
     # DAX
     echo "<span id=\"intervalSectionHeadlineDAX\" style='display:none'><br>DAX<br></span>"
