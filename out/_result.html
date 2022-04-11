@@ -194,7 +194,7 @@ return ret.replace(/ZZ/g, "% ");
 <div id='spinner' style='display: X'; class='loader'></div>
 # Parameter
 <br>
-Symbols(29):*AOX *DWNI *STM *SAX *O3P *GYC *JUN3 *8TRA *BCY *KGX *JEN *TRVC *DUE *VNA *HEN3 *VAS *NVV1 *IXD1 *LEG *TEG *AG1 *PHI1 *UNVB *EUZ *IWLE *CRIN *AOMD *TNE5 *GEC 
+Symbols(29):*NVV1 *SAX *JEN *VNA *DUE *JUN3 *DWNI *AOX *STM *O3P *GYC *8TRA *BCY *KGX *TRVC *HEN3 *VAS *IXD1 *LEG *TEG *AG1 *PHI1 *UNVB *EUZ *IWLE *CRIN *AOMD *TNE5 *GEC 
 <br>
 Percentage:1 
 <br>
@@ -205,6 +205,1075 @@ Stochastic:9
 RSI:25
 <br><br># Analyse
 <div style="margin-top: 6px">
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=310683061" target="_blank">*NVV1 "NOVAVAX"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=310683061" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NVV1.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/NVV1.html" id='linkPCNVV1' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+Buy: Low Percentage & Stochastic (P)<br>
+Buy: Low 4 last Stochastic (S)<br>
+<br>
+<script>
+
+// For Spinner
+counterOwnStocks=1;
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=310683061')}`)
+.then(response => {
+if (response.ok) {
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteNVV1 = document.getElementById("intervalSectionRealTimeQuoteNVV1");  
+realTimeQuoteNVV1 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteNVV1.innerHTML = realTimeQuoteNVV1 + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzNVV1 = data.contents.slice(positionProz1-5, positionProz1);
+var elementPercentageNVV1 = document.getElementById("intervalSectionPercentageNVV1");
+elementPercentageNVV1.innerHTML = realTimeProzNVV1 + '%';
+if(parseFloat(realTimeProzNVV1.replace(',', '.')) < 0){
+elementPercentageNVV1.style.color = 'red';
+}
+else{
+elementPercentageNVV1.style.color = 'green';
+}
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var timeNVV1 = data.contents.slice(positionTime1+4, positionTime1+12);
+var hoursNVV1 = timeNVV1.slice(0, 2);
+var minutesNVV1 = timeNVV1.slice(3, 5);
+var secondsNVV1 = timeNVV1.slice(6, 8);
+var dateNVV1 = data.contents.slice(positionTime1-9, positionTime1-1);
+var daysNVV1 = dateNVV1.slice(0, 2);
+var monthNVV1 = dateNVV1.slice(3, 5)-1;
+var yearNVV1 = 20+dateNVV1.slice(6, 8);
+const dateEclpsedNVV1 = new Date(yearNVV1, monthNVV1, daysNVV1);
+dateEclpsedNVV1.setHours(hoursNVV1);
+dateEclpsedNVV1.setMinutes(minutesNVV1);
+dateEclpsedNVV1.setSeconds(secondsNVV1);
+var deltaMinutesNVV1 =((new Date().getTime() - dateEclpsedNVV1.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetNVV1 = document.getElementById("intervalSectionRegularMarketTimeOffsetNVV1");
+elementRegularMarketTimeOffsetNVV1.innerHTML = deltaMinutesNVV1.toFixed(0) + 'min';
+
+var elementPortfolioValuesNVV1 = document.getElementById("intervalSectionPortfolioValuesNVV1");
+var obfuscatedValuePcEuroNVV1 = document.getElementById("obfuscatedValuePcEuroNVV1");
+decryptElement(obfuscatedValuePcEuroNVV1);
+var piecesNVV1 = obfuscatedValuePcEuroNVV1.innerHTML.split(' pc')[0];
+var buyingValueNVV1 = obfuscatedValuePcEuroNVV1.innerHTML.split('/')[0];
+buyingValueNVV1 = buyingValueNVV1.split(' ')[2];
+var portfolioValueNVV1 = piecesNVV1 * realTimeQuoteNVV1;
+var stocksPerformanceNVV1 = ((portfolioValueNVV1 / buyingValueNVV1)-1)*100;
+elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + buyingValueNVV1 + '/' + portfolioValueNVV1.toFixed(0) + '€ ';
+var elementPortfolioGainNVV1 = document.getElementById("intervalSectionPortfolioGainNVV1");
+elementPortfolioGainNVV1.innerHTML = stocksPerformanceNVV1.toFixed(1) + '% ' + (portfolioValueNVV1 - buyingValueNVV1).toFixed(0) + '€';
+if(stocksPerformanceNVV1 < 0){
+elementPortfolioGainNVV1.style.color = 'red';
+}
+else{
+elementPortfolioGainNVV1.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroNVV1);
+
+// For Spinner
+counterFetchLoaded++;
+})
+.catch(error => {
+console.error('Error retrieving current quote for: NVV1 !!!' + error);
+
+// For Spinner
+counterFetchLoaded++;
+});
+</script>
+<span id="intervalSectionRealTimeQuoteNVV1" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageNVV1" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeNVV1" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetNVV1" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesNVV1" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainNVV1" style='font-size:large; display: none'></span>
+<br>
+<div id="neverShowDivNVV1" style='display:none'>
+<span id="obfuscatedValuePcEuroNVV1" style='display:none'>YY56631/55551XX052</span>&nbsp;
+<span id="obfuscatedValueGainNVV1" style='display:none;color:red'>YY0981-ZZ2.21-</span>
+<span id="obfuscatedValueCloseBracesNVV1" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionNVV1" style='display: none'><input name="intervalFieldNVV1" type="text" maxlength="7" value="1" id="intervalFieldNVV1"/><button type="button" id="intervalButtonNVV1">Minutes</button><span id="intervalTextNVV1"></span></span>
+<script>
+var intervalVarNVV1;
+function beepNVV1() {
+var elementAlert = document.getElementById("intervalTextNVV1");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarNVV1);
+intervalVarNVV1=undefined;
+}
+function setBeepIntervalNVV1() {
+var intervalValue = document.getElementById("intervalFieldNVV1").value;
+intervalVarNVV1 = setInterval(beepNVV1, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextNVV1");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonNVV1").addEventListener("click", setBeepIntervalNVV1);
+</script>
+<br><img width="50%" id="intervalSectionImageNVV1" style='display: none'></img><br>
+<button id="intervalSectionButton1DNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('1D')">1D</button>
+<button id="intervalSectionButton5DNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('5D')">5D</button>
+<button id="intervalSectionButton10DNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('10D')">10D</button>
+<button id="intervalSectionButton3MNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('3M')">3M</button>
+<button id="intervalSectionButton6MNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('6M')">6M</button>
+<button id="intervalSectionButton1YNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('1Y')">1Y</button>
+<button id="intervalSectionButton5YNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+<button id="intervalSectionButtonSellNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('NVV1')">Sell</button>
+<button id="intervalSectionButtonBuyNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'NVV1', document.getElementById('intervalSectionInputPriceBuyNVV1').value, document.getElementById('intervalSectionInputPiecesBuyNVV1').value)">ReBuy</button>
+Overall Pieces <input name='intervalSectionInputPiecesBuyNVV1' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyNVV1'/>
+Avg. Price <input name='intervalSectionInputPriceBuyNVV1' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyNVV1'/>
+<p>
+<hr id="intervalSectionHRNVV1" style='display: none'>
+<script>
+var imageNVV1 = new Image();
+var TIME_SPANNVV1;
+function updateImageNVV1(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANNVV1=timespan;
+}
+if(imageNVV1.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=310683061&TIME_SPAN='+TIME_SPANNVV1;
+document.getElementById("intervalSectionImageNVV1").src = urlWithTimeSpan;
+imageNVV1 = new Image();
+imageNVV1.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageNVV1, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<div style="margin-top: 6px">
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672329" target="_blank">*SAX "STROEER MEDIA"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672329" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SAX.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/SAX.html" id='linkPCSAX' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+Buy: Low MACD (M)<br>
+Buy: Low Percentage & Stochastic (P)<br>
+Buy: Low 7 last Stochastic (S)<br>
+Buy: Low 4 last RSI (R)<br>
+Buy: Low Stochastic & RSI & MACD- (C)<br>
+<br>
+<script>
+
+// For Spinner
+counterOwnStocks=2;
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672329')}`)
+.then(response => {
+if (response.ok) {
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteSAX = document.getElementById("intervalSectionRealTimeQuoteSAX");  
+realTimeQuoteSAX = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteSAX.innerHTML = realTimeQuoteSAX + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzSAX = data.contents.slice(positionProz1-5, positionProz1);
+var elementPercentageSAX = document.getElementById("intervalSectionPercentageSAX");
+elementPercentageSAX.innerHTML = realTimeProzSAX + '%';
+if(parseFloat(realTimeProzSAX.replace(',', '.')) < 0){
+elementPercentageSAX.style.color = 'red';
+}
+else{
+elementPercentageSAX.style.color = 'green';
+}
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var timeSAX = data.contents.slice(positionTime1+4, positionTime1+12);
+var hoursSAX = timeSAX.slice(0, 2);
+var minutesSAX = timeSAX.slice(3, 5);
+var secondsSAX = timeSAX.slice(6, 8);
+var dateSAX = data.contents.slice(positionTime1-9, positionTime1-1);
+var daysSAX = dateSAX.slice(0, 2);
+var monthSAX = dateSAX.slice(3, 5)-1;
+var yearSAX = 20+dateSAX.slice(6, 8);
+const dateEclpsedSAX = new Date(yearSAX, monthSAX, daysSAX);
+dateEclpsedSAX.setHours(hoursSAX);
+dateEclpsedSAX.setMinutes(minutesSAX);
+dateEclpsedSAX.setSeconds(secondsSAX);
+var deltaMinutesSAX =((new Date().getTime() - dateEclpsedSAX.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetSAX = document.getElementById("intervalSectionRegularMarketTimeOffsetSAX");
+elementRegularMarketTimeOffsetSAX.innerHTML = deltaMinutesSAX.toFixed(0) + 'min';
+
+var elementPortfolioValuesSAX = document.getElementById("intervalSectionPortfolioValuesSAX");
+var obfuscatedValuePcEuroSAX = document.getElementById("obfuscatedValuePcEuroSAX");
+decryptElement(obfuscatedValuePcEuroSAX);
+var piecesSAX = obfuscatedValuePcEuroSAX.innerHTML.split(' pc')[0];
+var buyingValueSAX = obfuscatedValuePcEuroSAX.innerHTML.split('/')[0];
+buyingValueSAX = buyingValueSAX.split(' ')[2];
+var portfolioValueSAX = piecesSAX * realTimeQuoteSAX;
+var stocksPerformanceSAX = ((portfolioValueSAX / buyingValueSAX)-1)*100;
+elementPortfolioValuesSAX.innerHTML = piecesSAX + ' pc ' + buyingValueSAX + '/' + portfolioValueSAX.toFixed(0) + '€ ';
+var elementPortfolioGainSAX = document.getElementById("intervalSectionPortfolioGainSAX");
+elementPortfolioGainSAX.innerHTML = stocksPerformanceSAX.toFixed(1) + '% ' + (portfolioValueSAX - buyingValueSAX).toFixed(0) + '€';
+if(stocksPerformanceSAX < 0){
+elementPortfolioGainSAX.style.color = 'red';
+}
+else{
+elementPortfolioGainSAX.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroSAX);
+
+// For Spinner
+counterFetchLoaded++;
+})
+.catch(error => {
+console.error('Error retrieving current quote for: SAX !!!' + error);
+
+// For Spinner
+counterFetchLoaded++;
+});
+</script>
+<span id="intervalSectionRealTimeQuoteSAX" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageSAX" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeSAX" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetSAX" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesSAX" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainSAX" style='font-size:large; display: none'></span>
+<br>
+<div id="neverShowDivSAX" style='display:none'>
+<span id="obfuscatedValuePcEuroSAX" style='display:none'>YY05541/56741XX052</span>&nbsp;
+<span id="obfuscatedValueGainSAX" style='display:none;color:red'>YY512-ZZ5.1-</span>
+<span id="obfuscatedValueCloseBracesSAX" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionSAX" style='display: none'><input name="intervalFieldSAX" type="text" maxlength="7" value="1" id="intervalFieldSAX"/><button type="button" id="intervalButtonSAX">Minutes</button><span id="intervalTextSAX"></span></span>
+<script>
+var intervalVarSAX;
+function beepSAX() {
+var elementAlert = document.getElementById("intervalTextSAX");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarSAX);
+intervalVarSAX=undefined;
+}
+function setBeepIntervalSAX() {
+var intervalValue = document.getElementById("intervalFieldSAX").value;
+intervalVarSAX = setInterval(beepSAX, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextSAX");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonSAX").addEventListener("click", setBeepIntervalSAX);
+</script>
+<br><img width="50%" id="intervalSectionImageSAX" style='display: none'></img><br>
+<button id="intervalSectionButton1DSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('1D')">1D</button>
+<button id="intervalSectionButton5DSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('5D')">5D</button>
+<button id="intervalSectionButton10DSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('10D')">10D</button>
+<button id="intervalSectionButton3MSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('3M')">3M</button>
+<button id="intervalSectionButton6MSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('6M')">6M</button>
+<button id="intervalSectionButton1YSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('1Y')">1Y</button>
+<button id="intervalSectionButton5YSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+<button id="intervalSectionButtonSellSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('SAX')">Sell</button>
+<button id="intervalSectionButtonBuySAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'SAX', document.getElementById('intervalSectionInputPriceBuySAX').value, document.getElementById('intervalSectionInputPiecesBuySAX').value)">ReBuy</button>
+Overall Pieces <input name='intervalSectionInputPiecesBuySAX' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuySAX'/>
+Avg. Price <input name='intervalSectionInputPriceBuySAX' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuySAX'/>
+<p>
+<hr id="intervalSectionHRSAX" style='display: none'>
+<script>
+var imageSAX = new Image();
+var TIME_SPANSAX;
+function updateImageSAX(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANSAX=timespan;
+}
+if(imageSAX.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672329&TIME_SPAN='+TIME_SPANSAX;
+document.getElementById("intervalSectionImageSAX").src = urlWithTimeSpan;
+imageSAX = new Image();
+imageSAX.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageSAX, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<div style="margin-top: 6px">
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336943" target="_blank">*JEN "JENOPTIK"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336943" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/JEN.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/JEN.html" id='linkPCJEN' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+Buy: Low MACD (M)<br>
+Buy: New 40 days Low (L)<br>
+Buy: RSI Divergence (D)<br>
+Buy: Low Percentage & Stochastic (P)<br>
+Buy: Low 7 last Stochastic (S)<br>
+Buy: Low 4 last RSI (R)<br>
+Buy: Low Stochastic & RSI & MACD- (C)<br>
+<br>
+<script>
+
+// For Spinner
+counterOwnStocks=3;
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336943')}`)
+.then(response => {
+if (response.ok) {
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteJEN = document.getElementById("intervalSectionRealTimeQuoteJEN");  
+realTimeQuoteJEN = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteJEN.innerHTML = realTimeQuoteJEN + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzJEN = data.contents.slice(positionProz1-5, positionProz1);
+var elementPercentageJEN = document.getElementById("intervalSectionPercentageJEN");
+elementPercentageJEN.innerHTML = realTimeProzJEN + '%';
+if(parseFloat(realTimeProzJEN.replace(',', '.')) < 0){
+elementPercentageJEN.style.color = 'red';
+}
+else{
+elementPercentageJEN.style.color = 'green';
+}
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var timeJEN = data.contents.slice(positionTime1+4, positionTime1+12);
+var hoursJEN = timeJEN.slice(0, 2);
+var minutesJEN = timeJEN.slice(3, 5);
+var secondsJEN = timeJEN.slice(6, 8);
+var dateJEN = data.contents.slice(positionTime1-9, positionTime1-1);
+var daysJEN = dateJEN.slice(0, 2);
+var monthJEN = dateJEN.slice(3, 5)-1;
+var yearJEN = 20+dateJEN.slice(6, 8);
+const dateEclpsedJEN = new Date(yearJEN, monthJEN, daysJEN);
+dateEclpsedJEN.setHours(hoursJEN);
+dateEclpsedJEN.setMinutes(minutesJEN);
+dateEclpsedJEN.setSeconds(secondsJEN);
+var deltaMinutesJEN =((new Date().getTime() - dateEclpsedJEN.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetJEN = document.getElementById("intervalSectionRegularMarketTimeOffsetJEN");
+elementRegularMarketTimeOffsetJEN.innerHTML = deltaMinutesJEN.toFixed(0) + 'min';
+
+var elementPortfolioValuesJEN = document.getElementById("intervalSectionPortfolioValuesJEN");
+var obfuscatedValuePcEuroJEN = document.getElementById("obfuscatedValuePcEuroJEN");
+decryptElement(obfuscatedValuePcEuroJEN);
+var piecesJEN = obfuscatedValuePcEuroJEN.innerHTML.split(' pc')[0];
+var buyingValueJEN = obfuscatedValuePcEuroJEN.innerHTML.split('/')[0];
+buyingValueJEN = buyingValueJEN.split(' ')[2];
+var portfolioValueJEN = piecesJEN * realTimeQuoteJEN;
+var stocksPerformanceJEN = ((portfolioValueJEN / buyingValueJEN)-1)*100;
+elementPortfolioValuesJEN.innerHTML = piecesJEN + ' pc ' + buyingValueJEN + '/' + portfolioValueJEN.toFixed(0) + '€ ';
+var elementPortfolioGainJEN = document.getElementById("intervalSectionPortfolioGainJEN");
+elementPortfolioGainJEN.innerHTML = stocksPerformanceJEN.toFixed(1) + '% ' + (portfolioValueJEN - buyingValueJEN).toFixed(0) + '€';
+if(stocksPerformanceJEN < 0){
+elementPortfolioGainJEN.style.color = 'red';
+}
+else{
+elementPortfolioGainJEN.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroJEN);
+
+// For Spinner
+counterFetchLoaded++;
+})
+.catch(error => {
+console.error('Error retrieving current quote for: JEN !!!' + error);
+
+// For Spinner
+counterFetchLoaded++;
+});
+</script>
+<span id="intervalSectionRealTimeQuoteJEN" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageJEN" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeJEN" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetJEN" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesJEN" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainJEN" style='font-size:large; display: none'></span>
+<br>
+<div id="neverShowDivJEN" style='display:none'>
+<span id="obfuscatedValuePcEuroJEN" style='display:none'>YY50561/91571XX096</span>&nbsp;
+<span id="obfuscatedValueGainJEN" style='display:none;color:red'>YY4101-ZZ8.5-</span>
+<span id="obfuscatedValueCloseBracesJEN" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionJEN" style='display: none'><input name="intervalFieldJEN" type="text" maxlength="7" value="1" id="intervalFieldJEN"/><button type="button" id="intervalButtonJEN">Minutes</button><span id="intervalTextJEN"></span></span>
+<script>
+var intervalVarJEN;
+function beepJEN() {
+var elementAlert = document.getElementById("intervalTextJEN");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarJEN);
+intervalVarJEN=undefined;
+}
+function setBeepIntervalJEN() {
+var intervalValue = document.getElementById("intervalFieldJEN").value;
+intervalVarJEN = setInterval(beepJEN, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextJEN");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonJEN").addEventListener("click", setBeepIntervalJEN);
+</script>
+<br><img width="50%" id="intervalSectionImageJEN" style='display: none'></img><br>
+<button id="intervalSectionButton1DJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('1D')">1D</button>
+<button id="intervalSectionButton5DJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('5D')">5D</button>
+<button id="intervalSectionButton10DJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('10D')">10D</button>
+<button id="intervalSectionButton3MJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('3M')">3M</button>
+<button id="intervalSectionButton6MJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('6M')">6M</button>
+<button id="intervalSectionButton1YJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('1Y')">1Y</button>
+<button id="intervalSectionButton5YJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+<button id="intervalSectionButtonSellJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('JEN')">Sell</button>
+<button id="intervalSectionButtonBuyJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'JEN', document.getElementById('intervalSectionInputPriceBuyJEN').value, document.getElementById('intervalSectionInputPiecesBuyJEN').value)">ReBuy</button>
+Overall Pieces <input name='intervalSectionInputPiecesBuyJEN' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyJEN'/>
+Avg. Price <input name='intervalSectionInputPriceBuyJEN' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyJEN'/>
+<p>
+<hr id="intervalSectionHRJEN" style='display: none'>
+<script>
+var imageJEN = new Image();
+var TIME_SPANJEN;
+function updateImageJEN(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANJEN=timespan;
+}
+if(imageJEN.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336943&TIME_SPAN='+TIME_SPANJEN;
+document.getElementById("intervalSectionImageJEN").src = urlWithTimeSpan;
+imageJEN = new Image();
+imageJEN.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageJEN, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<div style="margin-top: 6px">
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">*VNA "Vonovia"</a>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VNA.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:black; display: none" href="D:/code/stock-analyse/out/VNA.html" id='linkPCVNA' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+<br>
+<script>
+
+// For Spinner
+counterOwnStocks=4;
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=89777125')}`)
+.then(response => {
+if (response.ok) {
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteVNA = document.getElementById("intervalSectionRealTimeQuoteVNA");  
+realTimeQuoteVNA = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteVNA.innerHTML = realTimeQuoteVNA + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzVNA = data.contents.slice(positionProz1-5, positionProz1);
+var elementPercentageVNA = document.getElementById("intervalSectionPercentageVNA");
+elementPercentageVNA.innerHTML = realTimeProzVNA + '%';
+if(parseFloat(realTimeProzVNA.replace(',', '.')) < 0){
+elementPercentageVNA.style.color = 'red';
+}
+else{
+elementPercentageVNA.style.color = 'green';
+}
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var timeVNA = data.contents.slice(positionTime1+4, positionTime1+12);
+var hoursVNA = timeVNA.slice(0, 2);
+var minutesVNA = timeVNA.slice(3, 5);
+var secondsVNA = timeVNA.slice(6, 8);
+var dateVNA = data.contents.slice(positionTime1-9, positionTime1-1);
+var daysVNA = dateVNA.slice(0, 2);
+var monthVNA = dateVNA.slice(3, 5)-1;
+var yearVNA = 20+dateVNA.slice(6, 8);
+const dateEclpsedVNA = new Date(yearVNA, monthVNA, daysVNA);
+dateEclpsedVNA.setHours(hoursVNA);
+dateEclpsedVNA.setMinutes(minutesVNA);
+dateEclpsedVNA.setSeconds(secondsVNA);
+var deltaMinutesVNA =((new Date().getTime() - dateEclpsedVNA.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetVNA = document.getElementById("intervalSectionRegularMarketTimeOffsetVNA");
+elementRegularMarketTimeOffsetVNA.innerHTML = deltaMinutesVNA.toFixed(0) + 'min';
+
+var elementPortfolioValuesVNA = document.getElementById("intervalSectionPortfolioValuesVNA");
+var obfuscatedValuePcEuroVNA = document.getElementById("obfuscatedValuePcEuroVNA");
+decryptElement(obfuscatedValuePcEuroVNA);
+var piecesVNA = obfuscatedValuePcEuroVNA.innerHTML.split(' pc')[0];
+var buyingValueVNA = obfuscatedValuePcEuroVNA.innerHTML.split('/')[0];
+buyingValueVNA = buyingValueVNA.split(' ')[2];
+var portfolioValueVNA = piecesVNA * realTimeQuoteVNA;
+var stocksPerformanceVNA = ((portfolioValueVNA / buyingValueVNA)-1)*100;
+elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + buyingValueVNA + '/' + portfolioValueVNA.toFixed(0) + '€ ';
+var elementPortfolioGainVNA = document.getElementById("intervalSectionPortfolioGainVNA");
+elementPortfolioGainVNA.innerHTML = stocksPerformanceVNA.toFixed(1) + '% ' + (portfolioValueVNA - buyingValueVNA).toFixed(0) + '€';
+if(stocksPerformanceVNA < 0){
+elementPortfolioGainVNA.style.color = 'red';
+}
+else{
+elementPortfolioGainVNA.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroVNA);
+
+// For Spinner
+counterFetchLoaded++;
+})
+.catch(error => {
+console.error('Error retrieving current quote for: VNA !!!' + error);
+
+// For Spinner
+counterFetchLoaded++;
+});
+</script>
+<span id="intervalSectionRealTimeQuoteVNA" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageVNA" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeVNA" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetVNA" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesVNA" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainVNA" style='font-size:large; display: none'></span>
+<br>
+<div id="neverShowDivVNA" style='display:none'>
+<span id="obfuscatedValuePcEuroVNA" style='display:none'>YY86131/43431XX023</span>&nbsp;
+<span id="obfuscatedValueGainVNA" style='display:none;color:red'>YY662-ZZ0.2-</span>
+<span id="obfuscatedValueCloseBracesVNA" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionVNA" style='display: none'><input name="intervalFieldVNA" type="text" maxlength="7" value="1" id="intervalFieldVNA"/><button type="button" id="intervalButtonVNA">Minutes</button><span id="intervalTextVNA"></span></span>
+<script>
+var intervalVarVNA;
+function beepVNA() {
+var elementAlert = document.getElementById("intervalTextVNA");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarVNA);
+intervalVarVNA=undefined;
+}
+function setBeepIntervalVNA() {
+var intervalValue = document.getElementById("intervalFieldVNA").value;
+intervalVarVNA = setInterval(beepVNA, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextVNA");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonVNA").addEventListener("click", setBeepIntervalVNA);
+</script>
+<br><img width="50%" id="intervalSectionImageVNA" style='display: none'></img><br>
+<button id="intervalSectionButton1DVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('1D')">1D</button>
+<button id="intervalSectionButton5DVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('5D')">5D</button>
+<button id="intervalSectionButton10DVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('10D')">10D</button>
+<button id="intervalSectionButton3MVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('3M')">3M</button>
+<button id="intervalSectionButton6MVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('6M')">6M</button>
+<button id="intervalSectionButton1YVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('1Y')">1Y</button>
+<button id="intervalSectionButton5YVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+<button id="intervalSectionButtonSellVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('VNA')">Sell</button>
+<button id="intervalSectionButtonBuyVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'VNA', document.getElementById('intervalSectionInputPriceBuyVNA').value, document.getElementById('intervalSectionInputPiecesBuyVNA').value)">ReBuy</button>
+Overall Pieces <input name='intervalSectionInputPiecesBuyVNA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyVNA'/>
+Avg. Price <input name='intervalSectionInputPriceBuyVNA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyVNA'/>
+<p>
+<hr id="intervalSectionHRVNA" style='display: none'>
+<script>
+var imageVNA = new Image();
+var TIME_SPANVNA;
+function updateImageVNA(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANVNA=timespan;
+}
+if(imageVNA.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=89777125&TIME_SPAN='+TIME_SPANVNA;
+document.getElementById("intervalSectionImageVNA").src = urlWithTimeSpan;
+imageVNA = new Image();
+imageVNA.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageVNA, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<div style="margin-top: 6px">
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670754" target="_blank">*DUE "DUERR"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670754" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DUE.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/DUE.html" id='linkPCDUE' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+Buy: Low Percentage & Stochastic (P)<br>
+Buy: Low 7 last Stochastic (S)<br>
+Buy: Low 4 last RSI (R)<br>
+Buy: Low Stochastic & RSI & MACD- (C)<br>
+<br>
+<script>
+
+// For Spinner
+counterOwnStocks=5;
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46670754')}`)
+.then(response => {
+if (response.ok) {
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteDUE = document.getElementById("intervalSectionRealTimeQuoteDUE");  
+realTimeQuoteDUE = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteDUE.innerHTML = realTimeQuoteDUE + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzDUE = data.contents.slice(positionProz1-5, positionProz1);
+var elementPercentageDUE = document.getElementById("intervalSectionPercentageDUE");
+elementPercentageDUE.innerHTML = realTimeProzDUE + '%';
+if(parseFloat(realTimeProzDUE.replace(',', '.')) < 0){
+elementPercentageDUE.style.color = 'red';
+}
+else{
+elementPercentageDUE.style.color = 'green';
+}
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var timeDUE = data.contents.slice(positionTime1+4, positionTime1+12);
+var hoursDUE = timeDUE.slice(0, 2);
+var minutesDUE = timeDUE.slice(3, 5);
+var secondsDUE = timeDUE.slice(6, 8);
+var dateDUE = data.contents.slice(positionTime1-9, positionTime1-1);
+var daysDUE = dateDUE.slice(0, 2);
+var monthDUE = dateDUE.slice(3, 5)-1;
+var yearDUE = 20+dateDUE.slice(6, 8);
+const dateEclpsedDUE = new Date(yearDUE, monthDUE, daysDUE);
+dateEclpsedDUE.setHours(hoursDUE);
+dateEclpsedDUE.setMinutes(minutesDUE);
+dateEclpsedDUE.setSeconds(secondsDUE);
+var deltaMinutesDUE =((new Date().getTime() - dateEclpsedDUE.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetDUE = document.getElementById("intervalSectionRegularMarketTimeOffsetDUE");
+elementRegularMarketTimeOffsetDUE.innerHTML = deltaMinutesDUE.toFixed(0) + 'min';
+
+var elementPortfolioValuesDUE = document.getElementById("intervalSectionPortfolioValuesDUE");
+var obfuscatedValuePcEuroDUE = document.getElementById("obfuscatedValuePcEuroDUE");
+decryptElement(obfuscatedValuePcEuroDUE);
+var piecesDUE = obfuscatedValuePcEuroDUE.innerHTML.split(' pc')[0];
+var buyingValueDUE = obfuscatedValuePcEuroDUE.innerHTML.split('/')[0];
+buyingValueDUE = buyingValueDUE.split(' ')[2];
+var portfolioValueDUE = piecesDUE * realTimeQuoteDUE;
+var stocksPerformanceDUE = ((portfolioValueDUE / buyingValueDUE)-1)*100;
+elementPortfolioValuesDUE.innerHTML = piecesDUE + ' pc ' + buyingValueDUE + '/' + portfolioValueDUE.toFixed(0) + '€ ';
+var elementPortfolioGainDUE = document.getElementById("intervalSectionPortfolioGainDUE");
+elementPortfolioGainDUE.innerHTML = stocksPerformanceDUE.toFixed(1) + '% ' + (portfolioValueDUE - buyingValueDUE).toFixed(0) + '€';
+if(stocksPerformanceDUE < 0){
+elementPortfolioGainDUE.style.color = 'red';
+}
+else{
+elementPortfolioGainDUE.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroDUE);
+
+// For Spinner
+counterFetchLoaded++;
+})
+.catch(error => {
+console.error('Error retrieving current quote for: DUE !!!' + error);
+
+// For Spinner
+counterFetchLoaded++;
+});
+</script>
+<span id="intervalSectionRealTimeQuoteDUE" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageDUE" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeDUE" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetDUE" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesDUE" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainDUE" style='font-size:large; display: none'></span>
+<br>
+<div id="neverShowDivDUE" style='display:none'>
+<span id="obfuscatedValuePcEuroDUE" style='display:none'>YY37631/02041XX055</span>&nbsp;
+<span id="obfuscatedValueGainDUE" style='display:none;color:red'>YY743-ZZ5.2-</span>
+<span id="obfuscatedValueCloseBracesDUE" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionDUE" style='display: none'><input name="intervalFieldDUE" type="text" maxlength="7" value="1" id="intervalFieldDUE"/><button type="button" id="intervalButtonDUE">Minutes</button><span id="intervalTextDUE"></span></span>
+<script>
+var intervalVarDUE;
+function beepDUE() {
+var elementAlert = document.getElementById("intervalTextDUE");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarDUE);
+intervalVarDUE=undefined;
+}
+function setBeepIntervalDUE() {
+var intervalValue = document.getElementById("intervalFieldDUE").value;
+intervalVarDUE = setInterval(beepDUE, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextDUE");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonDUE").addEventListener("click", setBeepIntervalDUE);
+</script>
+<br><img width="50%" id="intervalSectionImageDUE" style='display: none'></img><br>
+<button id="intervalSectionButton1DDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('1D')">1D</button>
+<button id="intervalSectionButton5DDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('5D')">5D</button>
+<button id="intervalSectionButton10DDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('10D')">10D</button>
+<button id="intervalSectionButton3MDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('3M')">3M</button>
+<button id="intervalSectionButton6MDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('6M')">6M</button>
+<button id="intervalSectionButton1YDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('1Y')">1Y</button>
+<button id="intervalSectionButton5YDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+<button id="intervalSectionButtonSellDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('DUE')">Sell</button>
+<button id="intervalSectionButtonBuyDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'DUE', document.getElementById('intervalSectionInputPriceBuyDUE').value, document.getElementById('intervalSectionInputPiecesBuyDUE').value)">ReBuy</button>
+Overall Pieces <input name='intervalSectionInputPiecesBuyDUE' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyDUE'/>
+Avg. Price <input name='intervalSectionInputPriceBuyDUE' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyDUE'/>
+<p>
+<hr id="intervalSectionHRDUE" style='display: none'>
+<script>
+var imageDUE = new Image();
+var TIME_SPANDUE;
+function updateImageDUE(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANDUE=timespan;
+}
+if(imageDUE.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46670754&TIME_SPAN='+TIME_SPANDUE;
+document.getElementById("intervalSectionImageDUE").src = urlWithTimeSpan;
+imageDUE = new Image();
+imageDUE.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageDUE, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<div style="margin-top: 6px">
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336942" target="_blank">*JUN3 "JUNGHEINRICH"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336942" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/JUN3.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/JUN3.html" id='linkPCJUN3' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+Buy: Low Percentage & Stochastic (P)<br>
+Buy: Low 5 last Stochastic (S)<br>
+Buy: Low 4 last RSI (R)<br>
+Buy: Low Stochastic & RSI & MACD- (C)<br>
+<br>
+<script>
+
+// For Spinner
+counterOwnStocks=6;
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336942')}`)
+.then(response => {
+if (response.ok) {
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteJUN3 = document.getElementById("intervalSectionRealTimeQuoteJUN3");  
+realTimeQuoteJUN3 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteJUN3.innerHTML = realTimeQuoteJUN3 + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzJUN3 = data.contents.slice(positionProz1-5, positionProz1);
+var elementPercentageJUN3 = document.getElementById("intervalSectionPercentageJUN3");
+elementPercentageJUN3.innerHTML = realTimeProzJUN3 + '%';
+if(parseFloat(realTimeProzJUN3.replace(',', '.')) < 0){
+elementPercentageJUN3.style.color = 'red';
+}
+else{
+elementPercentageJUN3.style.color = 'green';
+}
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var timeJUN3 = data.contents.slice(positionTime1+4, positionTime1+12);
+var hoursJUN3 = timeJUN3.slice(0, 2);
+var minutesJUN3 = timeJUN3.slice(3, 5);
+var secondsJUN3 = timeJUN3.slice(6, 8);
+var dateJUN3 = data.contents.slice(positionTime1-9, positionTime1-1);
+var daysJUN3 = dateJUN3.slice(0, 2);
+var monthJUN3 = dateJUN3.slice(3, 5)-1;
+var yearJUN3 = 20+dateJUN3.slice(6, 8);
+const dateEclpsedJUN3 = new Date(yearJUN3, monthJUN3, daysJUN3);
+dateEclpsedJUN3.setHours(hoursJUN3);
+dateEclpsedJUN3.setMinutes(minutesJUN3);
+dateEclpsedJUN3.setSeconds(secondsJUN3);
+var deltaMinutesJUN3 =((new Date().getTime() - dateEclpsedJUN3.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetJUN3 = document.getElementById("intervalSectionRegularMarketTimeOffsetJUN3");
+elementRegularMarketTimeOffsetJUN3.innerHTML = deltaMinutesJUN3.toFixed(0) + 'min';
+
+var elementPortfolioValuesJUN3 = document.getElementById("intervalSectionPortfolioValuesJUN3");
+var obfuscatedValuePcEuroJUN3 = document.getElementById("obfuscatedValuePcEuroJUN3");
+decryptElement(obfuscatedValuePcEuroJUN3);
+var piecesJUN3 = obfuscatedValuePcEuroJUN3.innerHTML.split(' pc')[0];
+var buyingValueJUN3 = obfuscatedValuePcEuroJUN3.innerHTML.split('/')[0];
+buyingValueJUN3 = buyingValueJUN3.split(' ')[2];
+var portfolioValueJUN3 = piecesJUN3 * realTimeQuoteJUN3;
+var stocksPerformanceJUN3 = ((portfolioValueJUN3 / buyingValueJUN3)-1)*100;
+elementPortfolioValuesJUN3.innerHTML = piecesJUN3 + ' pc ' + buyingValueJUN3 + '/' + portfolioValueJUN3.toFixed(0) + '€ ';
+var elementPortfolioGainJUN3 = document.getElementById("intervalSectionPortfolioGainJUN3");
+elementPortfolioGainJUN3.innerHTML = stocksPerformanceJUN3.toFixed(1) + '% ' + (portfolioValueJUN3 - buyingValueJUN3).toFixed(0) + '€';
+if(stocksPerformanceJUN3 < 0){
+elementPortfolioGainJUN3.style.color = 'red';
+}
+else{
+elementPortfolioGainJUN3.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroJUN3);
+
+// For Spinner
+counterFetchLoaded++;
+})
+.catch(error => {
+console.error('Error retrieving current quote for: JUN3 !!!' + error);
+
+// For Spinner
+counterFetchLoaded++;
+});
+</script>
+<span id="intervalSectionRealTimeQuoteJUN3" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageJUN3" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeJUN3" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetJUN3" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesJUN3" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainJUN3" style='font-size:large; display: none'></span>
+<br>
+<div id="neverShowDivJUN3" style='display:none'>
+<span id="obfuscatedValuePcEuroJUN3" style='display:none'>YY92601/22801XX054</span>&nbsp;
+<span id="obfuscatedValueGainJUN3" style='display:none;color:red'>YY391-ZZ8.1-</span>
+<span id="obfuscatedValueCloseBracesJUN3" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionJUN3" style='display: none'><input name="intervalFieldJUN3" type="text" maxlength="7" value="1" id="intervalFieldJUN3"/><button type="button" id="intervalButtonJUN3">Minutes</button><span id="intervalTextJUN3"></span></span>
+<script>
+var intervalVarJUN3;
+function beepJUN3() {
+var elementAlert = document.getElementById("intervalTextJUN3");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarJUN3);
+intervalVarJUN3=undefined;
+}
+function setBeepIntervalJUN3() {
+var intervalValue = document.getElementById("intervalFieldJUN3").value;
+intervalVarJUN3 = setInterval(beepJUN3, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextJUN3");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonJUN3").addEventListener("click", setBeepIntervalJUN3);
+</script>
+<br><img width="50%" id="intervalSectionImageJUN3" style='display: none'></img><br>
+<button id="intervalSectionButton1DJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('1D')">1D</button>
+<button id="intervalSectionButton5DJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('5D')">5D</button>
+<button id="intervalSectionButton10DJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('10D')">10D</button>
+<button id="intervalSectionButton3MJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('3M')">3M</button>
+<button id="intervalSectionButton6MJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('6M')">6M</button>
+<button id="intervalSectionButton1YJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('1Y')">1Y</button>
+<button id="intervalSectionButton5YJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+<button id="intervalSectionButtonSellJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('JUN3')">Sell</button>
+<button id="intervalSectionButtonBuyJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'JUN3', document.getElementById('intervalSectionInputPriceBuyJUN3').value, document.getElementById('intervalSectionInputPiecesBuyJUN3').value)">ReBuy</button>
+Overall Pieces <input name='intervalSectionInputPiecesBuyJUN3' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyJUN3'/>
+Avg. Price <input name='intervalSectionInputPriceBuyJUN3' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyJUN3'/>
+<p>
+<hr id="intervalSectionHRJUN3" style='display: none'>
+<script>
+var imageJUN3 = new Image();
+var TIME_SPANJUN3;
+function updateImageJUN3(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANJUN3=timespan;
+}
+if(imageJUN3.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336942&TIME_SPAN='+TIME_SPANJUN3;
+document.getElementById("intervalSectionImageJUN3").src = urlWithTimeSpan;
+imageJUN3 = new Image();
+imageJUN3.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageJUN3, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<div style="margin-top: 6px">
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672410" target="_blank">*DWNI "DEUT. WOHNEN"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672410" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DWNI.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/DWNI.html" id='linkPCDWNI' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+Buy: Low Percentage & Stochastic (P)<br>
+Buy: Low 7 last Stochastic (S)<br>
+Buy: Low 7 last RSI (R)<br>
+Buy: Low Stochastic & RSI & MACD- (C)<br>
+<br>
+<script>
+
+// For Spinner
+counterOwnStocks=7;
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672410')}`)
+.then(response => {
+if (response.ok) {
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteDWNI = document.getElementById("intervalSectionRealTimeQuoteDWNI");  
+realTimeQuoteDWNI = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteDWNI.innerHTML = realTimeQuoteDWNI + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzDWNI = data.contents.slice(positionProz1-5, positionProz1);
+var elementPercentageDWNI = document.getElementById("intervalSectionPercentageDWNI");
+elementPercentageDWNI.innerHTML = realTimeProzDWNI + '%';
+if(parseFloat(realTimeProzDWNI.replace(',', '.')) < 0){
+elementPercentageDWNI.style.color = 'red';
+}
+else{
+elementPercentageDWNI.style.color = 'green';
+}
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var timeDWNI = data.contents.slice(positionTime1+4, positionTime1+12);
+var hoursDWNI = timeDWNI.slice(0, 2);
+var minutesDWNI = timeDWNI.slice(3, 5);
+var secondsDWNI = timeDWNI.slice(6, 8);
+var dateDWNI = data.contents.slice(positionTime1-9, positionTime1-1);
+var daysDWNI = dateDWNI.slice(0, 2);
+var monthDWNI = dateDWNI.slice(3, 5)-1;
+var yearDWNI = 20+dateDWNI.slice(6, 8);
+const dateEclpsedDWNI = new Date(yearDWNI, monthDWNI, daysDWNI);
+dateEclpsedDWNI.setHours(hoursDWNI);
+dateEclpsedDWNI.setMinutes(minutesDWNI);
+dateEclpsedDWNI.setSeconds(secondsDWNI);
+var deltaMinutesDWNI =((new Date().getTime() - dateEclpsedDWNI.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetDWNI = document.getElementById("intervalSectionRegularMarketTimeOffsetDWNI");
+elementRegularMarketTimeOffsetDWNI.innerHTML = deltaMinutesDWNI.toFixed(0) + 'min';
+
+var elementPortfolioValuesDWNI = document.getElementById("intervalSectionPortfolioValuesDWNI");
+var obfuscatedValuePcEuroDWNI = document.getElementById("obfuscatedValuePcEuroDWNI");
+decryptElement(obfuscatedValuePcEuroDWNI);
+var piecesDWNI = obfuscatedValuePcEuroDWNI.innerHTML.split(' pc')[0];
+var buyingValueDWNI = obfuscatedValuePcEuroDWNI.innerHTML.split('/')[0];
+buyingValueDWNI = buyingValueDWNI.split(' ')[2];
+var portfolioValueDWNI = piecesDWNI * realTimeQuoteDWNI;
+var stocksPerformanceDWNI = ((portfolioValueDWNI / buyingValueDWNI)-1)*100;
+elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + buyingValueDWNI + '/' + portfolioValueDWNI.toFixed(0) + '€ ';
+var elementPortfolioGainDWNI = document.getElementById("intervalSectionPortfolioGainDWNI");
+elementPortfolioGainDWNI.innerHTML = stocksPerformanceDWNI.toFixed(1) + '% ' + (portfolioValueDWNI - buyingValueDWNI).toFixed(0) + '€';
+if(stocksPerformanceDWNI < 0){
+elementPortfolioGainDWNI.style.color = 'red';
+}
+else{
+elementPortfolioGainDWNI.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroDWNI);
+
+// For Spinner
+counterFetchLoaded++;
+})
+.catch(error => {
+console.error('Error retrieving current quote for: DWNI !!!' + error);
+
+// For Spinner
+counterFetchLoaded++;
+});
+</script>
+<span id="intervalSectionRealTimeQuoteDWNI" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageDWNI" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeDWNI" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetDWNI" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesDWNI" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainDWNI" style='font-size:large; display: none'></span>
+<br>
+<div id="neverShowDivDWNI" style='display:none'>
+<span id="obfuscatedValuePcEuroDWNI" style='display:none'>YY46062/70272XX009</span>&nbsp;
+<span id="obfuscatedValueGainDWNI" style='display:none;color:red'>YY3411-ZZ2.4-</span>
+<span id="obfuscatedValueCloseBracesDWNI" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionDWNI" style='display: none'><input name="intervalFieldDWNI" type="text" maxlength="7" value="1" id="intervalFieldDWNI"/><button type="button" id="intervalButtonDWNI">Minutes</button><span id="intervalTextDWNI"></span></span>
+<script>
+var intervalVarDWNI;
+function beepDWNI() {
+var elementAlert = document.getElementById("intervalTextDWNI");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarDWNI);
+intervalVarDWNI=undefined;
+}
+function setBeepIntervalDWNI() {
+var intervalValue = document.getElementById("intervalFieldDWNI").value;
+intervalVarDWNI = setInterval(beepDWNI, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextDWNI");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonDWNI").addEventListener("click", setBeepIntervalDWNI);
+</script>
+<br><img width="50%" id="intervalSectionImageDWNI" style='display: none'></img><br>
+<button id="intervalSectionButton1DDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('1D')">1D</button>
+<button id="intervalSectionButton5DDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('5D')">5D</button>
+<button id="intervalSectionButton10DDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('10D')">10D</button>
+<button id="intervalSectionButton3MDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('3M')">3M</button>
+<button id="intervalSectionButton6MDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('6M')">6M</button>
+<button id="intervalSectionButton1YDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('1Y')">1Y</button>
+<button id="intervalSectionButton5YDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+<button id="intervalSectionButtonSellDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('DWNI')">Sell</button>
+<button id="intervalSectionButtonBuyDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'DWNI', document.getElementById('intervalSectionInputPriceBuyDWNI').value, document.getElementById('intervalSectionInputPiecesBuyDWNI').value)">ReBuy</button>
+Overall Pieces <input name='intervalSectionInputPiecesBuyDWNI' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyDWNI'/>
+Avg. Price <input name='intervalSectionInputPriceBuyDWNI' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyDWNI'/>
+<p>
+<hr id="intervalSectionHRDWNI" style='display: none'>
+<script>
+var imageDWNI = new Image();
+var TIME_SPANDWNI;
+function updateImageDWNI(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANDWNI=timespan;
+}
+if(imageDWNI.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672410&TIME_SPAN='+TIME_SPANDWNI;
+document.getElementById("intervalSectionImageDWNI").src = urlWithTimeSpan;
+imageDWNI = new Image();
+imageDWNI.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageDWNI, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
+<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672066" target="_blank">*AOX "ALSTRIA OFFICE"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672066" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AOX.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -214,7 +1283,7 @@ RSI:25
 <script>
 
 // For Spinner
-counterOwnStocks=1;
+counterOwnStocks=8;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672066')}`)
 .then(response => {
@@ -354,159 +1423,6 @@ imageAOX.src = urlWithTimeSpan;
 }
 </script>
 <div style="margin-top: 6px">
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672410" target="_blank">*DWNI "DEUT. WOHNEN"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672410" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DWNI.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/DWNI.html" id='linkPCDWNI' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Buy: Low Percentage & Stochastic (P)<br>
-Buy: Low 7 last Stochastic (S)<br>
-Buy: Low 7 last RSI (R)<br>
-Buy: Low Stochastic & RSI & MACD- (C)<br>
-<br>
-<script>
-
-// For Spinner
-counterOwnStocks=2;
-
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672410')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteDWNI = document.getElementById("intervalSectionRealTimeQuoteDWNI");  
-realTimeQuoteDWNI = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteDWNI.innerHTML = realTimeQuoteDWNI + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzDWNI = data.contents.slice(positionProz1-5, positionProz1);
-var elementPercentageDWNI = document.getElementById("intervalSectionPercentageDWNI");
-elementPercentageDWNI.innerHTML = realTimeProzDWNI + '%';
-if(parseFloat(realTimeProzDWNI.replace(',', '.')) < 0){
-elementPercentageDWNI.style.color = 'red';
-}
-else{
-elementPercentageDWNI.style.color = 'green';
-}
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeDWNI = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursDWNI = timeDWNI.slice(0, 2);
-var minutesDWNI = timeDWNI.slice(3, 5);
-var secondsDWNI = timeDWNI.slice(6, 8);
-var dateDWNI = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysDWNI = dateDWNI.slice(0, 2);
-var monthDWNI = dateDWNI.slice(3, 5)-1;
-var yearDWNI = 20+dateDWNI.slice(6, 8);
-const dateEclpsedDWNI = new Date(yearDWNI, monthDWNI, daysDWNI);
-dateEclpsedDWNI.setHours(hoursDWNI);
-dateEclpsedDWNI.setMinutes(minutesDWNI);
-dateEclpsedDWNI.setSeconds(secondsDWNI);
-var deltaMinutesDWNI =((new Date().getTime() - dateEclpsedDWNI.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetDWNI = document.getElementById("intervalSectionRegularMarketTimeOffsetDWNI");
-elementRegularMarketTimeOffsetDWNI.innerHTML = deltaMinutesDWNI.toFixed(0) + 'min';
-
-var elementPortfolioValuesDWNI = document.getElementById("intervalSectionPortfolioValuesDWNI");
-var obfuscatedValuePcEuroDWNI = document.getElementById("obfuscatedValuePcEuroDWNI");
-decryptElement(obfuscatedValuePcEuroDWNI);
-var piecesDWNI = obfuscatedValuePcEuroDWNI.innerHTML.split(' pc')[0];
-var buyingValueDWNI = obfuscatedValuePcEuroDWNI.innerHTML.split('/')[0];
-buyingValueDWNI = buyingValueDWNI.split(' ')[2];
-var portfolioValueDWNI = piecesDWNI * realTimeQuoteDWNI;
-var stocksPerformanceDWNI = ((portfolioValueDWNI / buyingValueDWNI)-1)*100;
-elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + buyingValueDWNI + '/' + portfolioValueDWNI.toFixed(0) + '€ ';
-var elementPortfolioGainDWNI = document.getElementById("intervalSectionPortfolioGainDWNI");
-elementPortfolioGainDWNI.innerHTML = stocksPerformanceDWNI.toFixed(1) + '% ' + (portfolioValueDWNI - buyingValueDWNI).toFixed(0) + '€';
-if(stocksPerformanceDWNI < 0){
-elementPortfolioGainDWNI.style.color = 'red';
-}
-else{
-elementPortfolioGainDWNI.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroDWNI);
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: DWNI !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteDWNI" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageDWNI" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeDWNI" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetDWNI" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesDWNI" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainDWNI" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivDWNI" style='display:none'>
-<span id="obfuscatedValuePcEuroDWNI" style='display:none'>YY02712/28822XX057</span>&nbsp;
-<span id="obfuscatedValueGainDWNI" style='display:none;color:red'>YY2611-ZZ1.5-</span>
-<span id="obfuscatedValueCloseBracesDWNI" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionDWNI" style='display: none'><input name="intervalFieldDWNI" type="text" maxlength="7" value="1" id="intervalFieldDWNI"/><button type="button" id="intervalButtonDWNI">Minutes</button><span id="intervalTextDWNI"></span></span>
-<script>
-var intervalVarDWNI;
-function beepDWNI() {
-var elementAlert = document.getElementById("intervalTextDWNI");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarDWNI);
-intervalVarDWNI=undefined;
-}
-function setBeepIntervalDWNI() {
-var intervalValue = document.getElementById("intervalFieldDWNI").value;
-intervalVarDWNI = setInterval(beepDWNI, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextDWNI");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonDWNI").addEventListener("click", setBeepIntervalDWNI);
-</script>
-<br><img width="50%" id="intervalSectionImageDWNI" style='display: none'></img><br>
-<button id="intervalSectionButton1DDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('1D')">1D</button>
-<button id="intervalSectionButton5DDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('5D')">5D</button>
-<button id="intervalSectionButton10DDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('10D')">10D</button>
-<button id="intervalSectionButton3MDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('3M')">3M</button>
-<button id="intervalSectionButton6MDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('6M')">6M</button>
-<button id="intervalSectionButton1YDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('1Y')">1Y</button>
-<button id="intervalSectionButton5YDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('DWNI')">Sell</button>
-<button id="intervalSectionButtonBuyDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'DWNI', document.getElementById('intervalSectionInputPriceBuyDWNI').value, document.getElementById('intervalSectionInputPiecesBuyDWNI').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyDWNI' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyDWNI'/>
-Avg. Price <input name='intervalSectionInputPriceBuyDWNI' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyDWNI'/>
-<p>
-<hr id="intervalSectionHRDWNI" style='display: none'>
-<script>
-var imageDWNI = new Image();
-var TIME_SPANDWNI;
-function updateImageDWNI(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANDWNI=timespan;
-}
-if(imageDWNI.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672410&TIME_SPAN='+TIME_SPANDWNI;
-document.getElementById("intervalSectionImageDWNI").src = urlWithTimeSpan;
-imageDWNI = new Image();
-imageDWNI.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageDWNI, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=103514041" target="_blank">*STM "Stabilus"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=103514041" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/STM.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -519,7 +1435,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=3;
+counterOwnStocks=9;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=103514041')}`)
 .then(response => {
@@ -659,160 +1575,6 @@ imageSTM.src = urlWithTimeSpan;
 }
 </script>
 <div style="margin-top: 6px">
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672329" target="_blank">*SAX "STROEER MEDIA"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672329" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SAX.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/SAX.html" id='linkPCSAX' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Buy: Low MACD (M)<br>
-Buy: Low Percentage & Stochastic (P)<br>
-Buy: Low 7 last Stochastic (S)<br>
-Buy: Low 4 last RSI (R)<br>
-Buy: Low Stochastic & RSI & MACD- (C)<br>
-<br>
-<script>
-
-// For Spinner
-counterOwnStocks=4;
-
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672329')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteSAX = document.getElementById("intervalSectionRealTimeQuoteSAX");  
-realTimeQuoteSAX = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteSAX.innerHTML = realTimeQuoteSAX + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzSAX = data.contents.slice(positionProz1-5, positionProz1);
-var elementPercentageSAX = document.getElementById("intervalSectionPercentageSAX");
-elementPercentageSAX.innerHTML = realTimeProzSAX + '%';
-if(parseFloat(realTimeProzSAX.replace(',', '.')) < 0){
-elementPercentageSAX.style.color = 'red';
-}
-else{
-elementPercentageSAX.style.color = 'green';
-}
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeSAX = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursSAX = timeSAX.slice(0, 2);
-var minutesSAX = timeSAX.slice(3, 5);
-var secondsSAX = timeSAX.slice(6, 8);
-var dateSAX = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysSAX = dateSAX.slice(0, 2);
-var monthSAX = dateSAX.slice(3, 5)-1;
-var yearSAX = 20+dateSAX.slice(6, 8);
-const dateEclpsedSAX = new Date(yearSAX, monthSAX, daysSAX);
-dateEclpsedSAX.setHours(hoursSAX);
-dateEclpsedSAX.setMinutes(minutesSAX);
-dateEclpsedSAX.setSeconds(secondsSAX);
-var deltaMinutesSAX =((new Date().getTime() - dateEclpsedSAX.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetSAX = document.getElementById("intervalSectionRegularMarketTimeOffsetSAX");
-elementRegularMarketTimeOffsetSAX.innerHTML = deltaMinutesSAX.toFixed(0) + 'min';
-
-var elementPortfolioValuesSAX = document.getElementById("intervalSectionPortfolioValuesSAX");
-var obfuscatedValuePcEuroSAX = document.getElementById("obfuscatedValuePcEuroSAX");
-decryptElement(obfuscatedValuePcEuroSAX);
-var piecesSAX = obfuscatedValuePcEuroSAX.innerHTML.split(' pc')[0];
-var buyingValueSAX = obfuscatedValuePcEuroSAX.innerHTML.split('/')[0];
-buyingValueSAX = buyingValueSAX.split(' ')[2];
-var portfolioValueSAX = piecesSAX * realTimeQuoteSAX;
-var stocksPerformanceSAX = ((portfolioValueSAX / buyingValueSAX)-1)*100;
-elementPortfolioValuesSAX.innerHTML = piecesSAX + ' pc ' + buyingValueSAX + '/' + portfolioValueSAX.toFixed(0) + '€ ';
-var elementPortfolioGainSAX = document.getElementById("intervalSectionPortfolioGainSAX");
-elementPortfolioGainSAX.innerHTML = stocksPerformanceSAX.toFixed(1) + '% ' + (portfolioValueSAX - buyingValueSAX).toFixed(0) + '€';
-if(stocksPerformanceSAX < 0){
-elementPortfolioGainSAX.style.color = 'red';
-}
-else{
-elementPortfolioGainSAX.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroSAX);
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: SAX !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteSAX" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageSAX" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeSAX" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetSAX" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesSAX" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainSAX" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivSAX" style='display:none'>
-<span id="obfuscatedValuePcEuroSAX" style='display:none'>YY67401/70801XX081</span>&nbsp;
-<span id="obfuscatedValueGainSAX" style='display:none;color:red'>YY133-ZZ1.3-</span>
-<span id="obfuscatedValueCloseBracesSAX" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionSAX" style='display: none'><input name="intervalFieldSAX" type="text" maxlength="7" value="1" id="intervalFieldSAX"/><button type="button" id="intervalButtonSAX">Minutes</button><span id="intervalTextSAX"></span></span>
-<script>
-var intervalVarSAX;
-function beepSAX() {
-var elementAlert = document.getElementById("intervalTextSAX");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarSAX);
-intervalVarSAX=undefined;
-}
-function setBeepIntervalSAX() {
-var intervalValue = document.getElementById("intervalFieldSAX").value;
-intervalVarSAX = setInterval(beepSAX, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextSAX");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonSAX").addEventListener("click", setBeepIntervalSAX);
-</script>
-<br><img width="50%" id="intervalSectionImageSAX" style='display: none'></img><br>
-<button id="intervalSectionButton1DSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('1D')">1D</button>
-<button id="intervalSectionButton5DSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('5D')">5D</button>
-<button id="intervalSectionButton10DSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('10D')">10D</button>
-<button id="intervalSectionButton3MSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('3M')">3M</button>
-<button id="intervalSectionButton6MSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('6M')">6M</button>
-<button id="intervalSectionButton1YSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('1Y')">1Y</button>
-<button id="intervalSectionButton5YSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('SAX')">Sell</button>
-<button id="intervalSectionButtonBuySAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'SAX', document.getElementById('intervalSectionInputPriceBuySAX').value, document.getElementById('intervalSectionInputPiecesBuySAX').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuySAX' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuySAX'/>
-Avg. Price <input name='intervalSectionInputPriceBuySAX' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuySAX'/>
-<p>
-<hr id="intervalSectionHRSAX" style='display: none'>
-<script>
-var imageSAX = new Image();
-var TIME_SPANSAX;
-function updateImageSAX(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANSAX=timespan;
-}
-if(imageSAX.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672329&TIME_SPAN='+TIME_SPANSAX;
-document.getElementById("intervalSectionImageSAX").src = urlWithTimeSpan;
-imageSAX = new Image();
-imageSAX.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageSAX, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72663856" target="_blank">*O3P "OESTERREICH. POST"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72663856" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/O3P.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -823,7 +1585,7 @@ Buy: Low 4 last Stochastic (S)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=5;
+counterOwnStocks=10;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=72663856')}`)
 .then(response => {
@@ -973,7 +1735,7 @@ Buy: Low 4 last Stochastic (S)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=6;
+counterOwnStocks=11;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=194616562')}`)
 .then(response => {
@@ -1113,159 +1875,6 @@ imageGYC.src = urlWithTimeSpan;
 }
 </script>
 <div style="margin-top: 6px">
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336942" target="_blank">*JUN3 "JUNGHEINRICH"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336942" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/JUN3.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/JUN3.html" id='linkPCJUN3' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Buy: Low Percentage & Stochastic (P)<br>
-Buy: Low 5 last Stochastic (S)<br>
-Buy: Low 4 last RSI (R)<br>
-Buy: Low Stochastic & RSI & MACD- (C)<br>
-<br>
-<script>
-
-// For Spinner
-counterOwnStocks=7;
-
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336942')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteJUN3 = document.getElementById("intervalSectionRealTimeQuoteJUN3");  
-realTimeQuoteJUN3 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteJUN3.innerHTML = realTimeQuoteJUN3 + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzJUN3 = data.contents.slice(positionProz1-5, positionProz1);
-var elementPercentageJUN3 = document.getElementById("intervalSectionPercentageJUN3");
-elementPercentageJUN3.innerHTML = realTimeProzJUN3 + '%';
-if(parseFloat(realTimeProzJUN3.replace(',', '.')) < 0){
-elementPercentageJUN3.style.color = 'red';
-}
-else{
-elementPercentageJUN3.style.color = 'green';
-}
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeJUN3 = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursJUN3 = timeJUN3.slice(0, 2);
-var minutesJUN3 = timeJUN3.slice(3, 5);
-var secondsJUN3 = timeJUN3.slice(6, 8);
-var dateJUN3 = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysJUN3 = dateJUN3.slice(0, 2);
-var monthJUN3 = dateJUN3.slice(3, 5)-1;
-var yearJUN3 = 20+dateJUN3.slice(6, 8);
-const dateEclpsedJUN3 = new Date(yearJUN3, monthJUN3, daysJUN3);
-dateEclpsedJUN3.setHours(hoursJUN3);
-dateEclpsedJUN3.setMinutes(minutesJUN3);
-dateEclpsedJUN3.setSeconds(secondsJUN3);
-var deltaMinutesJUN3 =((new Date().getTime() - dateEclpsedJUN3.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetJUN3 = document.getElementById("intervalSectionRegularMarketTimeOffsetJUN3");
-elementRegularMarketTimeOffsetJUN3.innerHTML = deltaMinutesJUN3.toFixed(0) + 'min';
-
-var elementPortfolioValuesJUN3 = document.getElementById("intervalSectionPortfolioValuesJUN3");
-var obfuscatedValuePcEuroJUN3 = document.getElementById("obfuscatedValuePcEuroJUN3");
-decryptElement(obfuscatedValuePcEuroJUN3);
-var piecesJUN3 = obfuscatedValuePcEuroJUN3.innerHTML.split(' pc')[0];
-var buyingValueJUN3 = obfuscatedValuePcEuroJUN3.innerHTML.split('/')[0];
-buyingValueJUN3 = buyingValueJUN3.split(' ')[2];
-var portfolioValueJUN3 = piecesJUN3 * realTimeQuoteJUN3;
-var stocksPerformanceJUN3 = ((portfolioValueJUN3 / buyingValueJUN3)-1)*100;
-elementPortfolioValuesJUN3.innerHTML = piecesJUN3 + ' pc ' + buyingValueJUN3 + '/' + portfolioValueJUN3.toFixed(0) + '€ ';
-var elementPortfolioGainJUN3 = document.getElementById("intervalSectionPortfolioGainJUN3");
-elementPortfolioGainJUN3.innerHTML = stocksPerformanceJUN3.toFixed(1) + '% ' + (portfolioValueJUN3 - buyingValueJUN3).toFixed(0) + '€';
-if(stocksPerformanceJUN3 < 0){
-elementPortfolioGainJUN3.style.color = 'red';
-}
-else{
-elementPortfolioGainJUN3.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroJUN3);
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: JUN3 !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteJUN3" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageJUN3" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeJUN3" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetJUN3" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesJUN3" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainJUN3" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivJUN3" style='display:none'>
-<span id="obfuscatedValuePcEuroJUN3" style='display:none'>YY6807/2727XX003</span>&nbsp;
-<span id="obfuscatedValueGainJUN3" style='display:none;color:red'>YY681-ZZ6.2-</span>
-<span id="obfuscatedValueCloseBracesJUN3" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionJUN3" style='display: none'><input name="intervalFieldJUN3" type="text" maxlength="7" value="1" id="intervalFieldJUN3"/><button type="button" id="intervalButtonJUN3">Minutes</button><span id="intervalTextJUN3"></span></span>
-<script>
-var intervalVarJUN3;
-function beepJUN3() {
-var elementAlert = document.getElementById("intervalTextJUN3");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarJUN3);
-intervalVarJUN3=undefined;
-}
-function setBeepIntervalJUN3() {
-var intervalValue = document.getElementById("intervalFieldJUN3").value;
-intervalVarJUN3 = setInterval(beepJUN3, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextJUN3");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonJUN3").addEventListener("click", setBeepIntervalJUN3);
-</script>
-<br><img width="50%" id="intervalSectionImageJUN3" style='display: none'></img><br>
-<button id="intervalSectionButton1DJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('1D')">1D</button>
-<button id="intervalSectionButton5DJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('5D')">5D</button>
-<button id="intervalSectionButton10DJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('10D')">10D</button>
-<button id="intervalSectionButton3MJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('3M')">3M</button>
-<button id="intervalSectionButton6MJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('6M')">6M</button>
-<button id="intervalSectionButton1YJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('1Y')">1Y</button>
-<button id="intervalSectionButton5YJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('JUN3')">Sell</button>
-<button id="intervalSectionButtonBuyJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'JUN3', document.getElementById('intervalSectionInputPriceBuyJUN3').value, document.getElementById('intervalSectionInputPiecesBuyJUN3').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyJUN3' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyJUN3'/>
-Avg. Price <input name='intervalSectionInputPriceBuyJUN3' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyJUN3'/>
-<p>
-<hr id="intervalSectionHRJUN3" style='display: none'>
-<script>
-var imageJUN3 = new Image();
-var TIME_SPANJUN3;
-function updateImageJUN3(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANJUN3=timespan;
-}
-if(imageJUN3.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336942&TIME_SPAN='+TIME_SPANJUN3;
-document.getElementById("intervalSectionImageJUN3").src = urlWithTimeSpan;
-imageJUN3 = new Image();
-imageJUN3.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageJUN3, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=260507989" target="_blank">*8TRA "TRATON"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=260507989" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/8TRA.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -1277,7 +1886,7 @@ Buy: Low 3 last RSI (R)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=8;
+counterOwnStocks=12;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=260507989')}`)
 .then(response => {
@@ -1428,7 +2037,7 @@ Buy: Low 4 last RSI (R)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=9;
+counterOwnStocks=13;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672133')}`)
 .then(response => {
@@ -1582,7 +2191,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=10;
+counterOwnStocks=14;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=89777142')}`)
 .then(response => {
@@ -1722,162 +2331,6 @@ imageKGX.src = urlWithTimeSpan;
 }
 </script>
 <div style="margin-top: 6px">
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336943" target="_blank">*JEN "JENOPTIK"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336943" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/JEN.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/JEN.html" id='linkPCJEN' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Buy: Low MACD (M)<br>
-Buy: New 40 days Low (L)<br>
-Buy: RSI Divergence (D)<br>
-Buy: Low Percentage & Stochastic (P)<br>
-Buy: Low 7 last Stochastic (S)<br>
-Buy: Low 4 last RSI (R)<br>
-Buy: Low Stochastic & RSI & MACD- (C)<br>
-<br>
-<script>
-
-// For Spinner
-counterOwnStocks=11;
-
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336943')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteJEN = document.getElementById("intervalSectionRealTimeQuoteJEN");  
-realTimeQuoteJEN = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteJEN.innerHTML = realTimeQuoteJEN + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzJEN = data.contents.slice(positionProz1-5, positionProz1);
-var elementPercentageJEN = document.getElementById("intervalSectionPercentageJEN");
-elementPercentageJEN.innerHTML = realTimeProzJEN + '%';
-if(parseFloat(realTimeProzJEN.replace(',', '.')) < 0){
-elementPercentageJEN.style.color = 'red';
-}
-else{
-elementPercentageJEN.style.color = 'green';
-}
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeJEN = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursJEN = timeJEN.slice(0, 2);
-var minutesJEN = timeJEN.slice(3, 5);
-var secondsJEN = timeJEN.slice(6, 8);
-var dateJEN = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysJEN = dateJEN.slice(0, 2);
-var monthJEN = dateJEN.slice(3, 5)-1;
-var yearJEN = 20+dateJEN.slice(6, 8);
-const dateEclpsedJEN = new Date(yearJEN, monthJEN, daysJEN);
-dateEclpsedJEN.setHours(hoursJEN);
-dateEclpsedJEN.setMinutes(minutesJEN);
-dateEclpsedJEN.setSeconds(secondsJEN);
-var deltaMinutesJEN =((new Date().getTime() - dateEclpsedJEN.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetJEN = document.getElementById("intervalSectionRegularMarketTimeOffsetJEN");
-elementRegularMarketTimeOffsetJEN.innerHTML = deltaMinutesJEN.toFixed(0) + 'min';
-
-var elementPortfolioValuesJEN = document.getElementById("intervalSectionPortfolioValuesJEN");
-var obfuscatedValuePcEuroJEN = document.getElementById("obfuscatedValuePcEuroJEN");
-decryptElement(obfuscatedValuePcEuroJEN);
-var piecesJEN = obfuscatedValuePcEuroJEN.innerHTML.split(' pc')[0];
-var buyingValueJEN = obfuscatedValuePcEuroJEN.innerHTML.split('/')[0];
-buyingValueJEN = buyingValueJEN.split(' ')[2];
-var portfolioValueJEN = piecesJEN * realTimeQuoteJEN;
-var stocksPerformanceJEN = ((portfolioValueJEN / buyingValueJEN)-1)*100;
-elementPortfolioValuesJEN.innerHTML = piecesJEN + ' pc ' + buyingValueJEN + '/' + portfolioValueJEN.toFixed(0) + '€ ';
-var elementPortfolioGainJEN = document.getElementById("intervalSectionPortfolioGainJEN");
-elementPortfolioGainJEN.innerHTML = stocksPerformanceJEN.toFixed(1) + '% ' + (portfolioValueJEN - buyingValueJEN).toFixed(0) + '€';
-if(stocksPerformanceJEN < 0){
-elementPortfolioGainJEN.style.color = 'red';
-}
-else{
-elementPortfolioGainJEN.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroJEN);
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: JEN !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteJEN" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageJEN" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeJEN" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetJEN" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesJEN" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainJEN" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivJEN" style='display:none'>
-<span id="obfuscatedValuePcEuroJEN" style='display:none'>YY71921/34931XX045</span>&nbsp;
-<span id="obfuscatedValueGainJEN" style='display:none;color:red'>YY6201-ZZ4.7-</span>
-<span id="obfuscatedValueCloseBracesJEN" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionJEN" style='display: none'><input name="intervalFieldJEN" type="text" maxlength="7" value="1" id="intervalFieldJEN"/><button type="button" id="intervalButtonJEN">Minutes</button><span id="intervalTextJEN"></span></span>
-<script>
-var intervalVarJEN;
-function beepJEN() {
-var elementAlert = document.getElementById("intervalTextJEN");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarJEN);
-intervalVarJEN=undefined;
-}
-function setBeepIntervalJEN() {
-var intervalValue = document.getElementById("intervalFieldJEN").value;
-intervalVarJEN = setInterval(beepJEN, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextJEN");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonJEN").addEventListener("click", setBeepIntervalJEN);
-</script>
-<br><img width="50%" id="intervalSectionImageJEN" style='display: none'></img><br>
-<button id="intervalSectionButton1DJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('1D')">1D</button>
-<button id="intervalSectionButton5DJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('5D')">5D</button>
-<button id="intervalSectionButton10DJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('10D')">10D</button>
-<button id="intervalSectionButton3MJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('3M')">3M</button>
-<button id="intervalSectionButton6MJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('6M')">6M</button>
-<button id="intervalSectionButton1YJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('1Y')">1Y</button>
-<button id="intervalSectionButton5YJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('JEN')">Sell</button>
-<button id="intervalSectionButtonBuyJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'JEN', document.getElementById('intervalSectionInputPriceBuyJEN').value, document.getElementById('intervalSectionInputPiecesBuyJEN').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyJEN' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyJEN'/>
-Avg. Price <input name='intervalSectionInputPriceBuyJEN' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyJEN'/>
-<p>
-<hr id="intervalSectionHRJEN" style='display: none'>
-<script>
-var imageJEN = new Image();
-var TIME_SPANJEN;
-function updateImageJEN(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANJEN=timespan;
-}
-if(imageJEN.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336943&TIME_SPAN='+TIME_SPANJEN;
-document.getElementById("intervalSectionImageJEN").src = urlWithTimeSpan;
-imageJEN = new Image();
-imageJEN.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageJEN, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672221" target="_blank">*TRVC "CITIGROUP"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672221" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TRVC.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -1889,7 +2342,7 @@ Buy: Low 3 last RSI (R)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=12;
+counterOwnStocks=15;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672221')}`)
 .then(response => {
@@ -2029,308 +2482,6 @@ imageTRVC.src = urlWithTimeSpan;
 }
 </script>
 <div style="margin-top: 6px">
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670754" target="_blank">*DUE "DUERR"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670754" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DUE.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/DUE.html" id='linkPCDUE' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Buy: Low Percentage & Stochastic (P)<br>
-Buy: Low 7 last Stochastic (S)<br>
-Buy: Low 4 last RSI (R)<br>
-Buy: Low Stochastic & RSI & MACD- (C)<br>
-<br>
-<script>
-
-// For Spinner
-counterOwnStocks=13;
-
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46670754')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteDUE = document.getElementById("intervalSectionRealTimeQuoteDUE");  
-realTimeQuoteDUE = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteDUE.innerHTML = realTimeQuoteDUE + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzDUE = data.contents.slice(positionProz1-5, positionProz1);
-var elementPercentageDUE = document.getElementById("intervalSectionPercentageDUE");
-elementPercentageDUE.innerHTML = realTimeProzDUE + '%';
-if(parseFloat(realTimeProzDUE.replace(',', '.')) < 0){
-elementPercentageDUE.style.color = 'red';
-}
-else{
-elementPercentageDUE.style.color = 'green';
-}
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeDUE = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursDUE = timeDUE.slice(0, 2);
-var minutesDUE = timeDUE.slice(3, 5);
-var secondsDUE = timeDUE.slice(6, 8);
-var dateDUE = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysDUE = dateDUE.slice(0, 2);
-var monthDUE = dateDUE.slice(3, 5)-1;
-var yearDUE = 20+dateDUE.slice(6, 8);
-const dateEclpsedDUE = new Date(yearDUE, monthDUE, daysDUE);
-dateEclpsedDUE.setHours(hoursDUE);
-dateEclpsedDUE.setMinutes(minutesDUE);
-dateEclpsedDUE.setSeconds(secondsDUE);
-var deltaMinutesDUE =((new Date().getTime() - dateEclpsedDUE.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetDUE = document.getElementById("intervalSectionRegularMarketTimeOffsetDUE");
-elementRegularMarketTimeOffsetDUE.innerHTML = deltaMinutesDUE.toFixed(0) + 'min';
-
-var elementPortfolioValuesDUE = document.getElementById("intervalSectionPortfolioValuesDUE");
-var obfuscatedValuePcEuroDUE = document.getElementById("obfuscatedValuePcEuroDUE");
-decryptElement(obfuscatedValuePcEuroDUE);
-var piecesDUE = obfuscatedValuePcEuroDUE.innerHTML.split(' pc')[0];
-var buyingValueDUE = obfuscatedValuePcEuroDUE.innerHTML.split('/')[0];
-buyingValueDUE = buyingValueDUE.split(' ')[2];
-var portfolioValueDUE = piecesDUE * realTimeQuoteDUE;
-var stocksPerformanceDUE = ((portfolioValueDUE / buyingValueDUE)-1)*100;
-elementPortfolioValuesDUE.innerHTML = piecesDUE + ' pc ' + buyingValueDUE + '/' + portfolioValueDUE.toFixed(0) + '€ ';
-var elementPortfolioGainDUE = document.getElementById("intervalSectionPortfolioGainDUE");
-elementPortfolioGainDUE.innerHTML = stocksPerformanceDUE.toFixed(1) + '% ' + (portfolioValueDUE - buyingValueDUE).toFixed(0) + '€';
-if(stocksPerformanceDUE < 0){
-elementPortfolioGainDUE.style.color = 'red';
-}
-else{
-elementPortfolioGainDUE.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroDUE);
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: DUE !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteDUE" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageDUE" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeDUE" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetDUE" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesDUE" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainDUE" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivDUE" style='display:none'>
-<span id="obfuscatedValuePcEuroDUE" style='display:none'>YY4499/02301XX004</span>&nbsp;
-<span id="obfuscatedValueGainDUE" style='display:none;color:red'>YY673-ZZ6.3-</span>
-<span id="obfuscatedValueCloseBracesDUE" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionDUE" style='display: none'><input name="intervalFieldDUE" type="text" maxlength="7" value="1" id="intervalFieldDUE"/><button type="button" id="intervalButtonDUE">Minutes</button><span id="intervalTextDUE"></span></span>
-<script>
-var intervalVarDUE;
-function beepDUE() {
-var elementAlert = document.getElementById("intervalTextDUE");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarDUE);
-intervalVarDUE=undefined;
-}
-function setBeepIntervalDUE() {
-var intervalValue = document.getElementById("intervalFieldDUE").value;
-intervalVarDUE = setInterval(beepDUE, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextDUE");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonDUE").addEventListener("click", setBeepIntervalDUE);
-</script>
-<br><img width="50%" id="intervalSectionImageDUE" style='display: none'></img><br>
-<button id="intervalSectionButton1DDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('1D')">1D</button>
-<button id="intervalSectionButton5DDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('5D')">5D</button>
-<button id="intervalSectionButton10DDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('10D')">10D</button>
-<button id="intervalSectionButton3MDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('3M')">3M</button>
-<button id="intervalSectionButton6MDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('6M')">6M</button>
-<button id="intervalSectionButton1YDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('1Y')">1Y</button>
-<button id="intervalSectionButton5YDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('DUE')">Sell</button>
-<button id="intervalSectionButtonBuyDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'DUE', document.getElementById('intervalSectionInputPriceBuyDUE').value, document.getElementById('intervalSectionInputPiecesBuyDUE').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyDUE' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyDUE'/>
-Avg. Price <input name='intervalSectionInputPriceBuyDUE' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyDUE'/>
-<p>
-<hr id="intervalSectionHRDUE" style='display: none'>
-<script>
-var imageDUE = new Image();
-var TIME_SPANDUE;
-function updateImageDUE(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANDUE=timespan;
-}
-if(imageDUE.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46670754&TIME_SPAN='+TIME_SPANDUE;
-document.getElementById("intervalSectionImageDUE").src = urlWithTimeSpan;
-imageDUE = new Image();
-imageDUE.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageDUE, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">*VNA "Vonovia"</a>
-<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VNA.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:black; display: none" href="D:/code/stock-analyse/out/VNA.html" id='linkPCVNA' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-<br>
-<script>
-
-// For Spinner
-counterOwnStocks=14;
-
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=89777125')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteVNA = document.getElementById("intervalSectionRealTimeQuoteVNA");  
-realTimeQuoteVNA = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteVNA.innerHTML = realTimeQuoteVNA + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzVNA = data.contents.slice(positionProz1-5, positionProz1);
-var elementPercentageVNA = document.getElementById("intervalSectionPercentageVNA");
-elementPercentageVNA.innerHTML = realTimeProzVNA + '%';
-if(parseFloat(realTimeProzVNA.replace(',', '.')) < 0){
-elementPercentageVNA.style.color = 'red';
-}
-else{
-elementPercentageVNA.style.color = 'green';
-}
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeVNA = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursVNA = timeVNA.slice(0, 2);
-var minutesVNA = timeVNA.slice(3, 5);
-var secondsVNA = timeVNA.slice(6, 8);
-var dateVNA = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysVNA = dateVNA.slice(0, 2);
-var monthVNA = dateVNA.slice(3, 5)-1;
-var yearVNA = 20+dateVNA.slice(6, 8);
-const dateEclpsedVNA = new Date(yearVNA, monthVNA, daysVNA);
-dateEclpsedVNA.setHours(hoursVNA);
-dateEclpsedVNA.setMinutes(minutesVNA);
-dateEclpsedVNA.setSeconds(secondsVNA);
-var deltaMinutesVNA =((new Date().getTime() - dateEclpsedVNA.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetVNA = document.getElementById("intervalSectionRegularMarketTimeOffsetVNA");
-elementRegularMarketTimeOffsetVNA.innerHTML = deltaMinutesVNA.toFixed(0) + 'min';
-
-var elementPortfolioValuesVNA = document.getElementById("intervalSectionPortfolioValuesVNA");
-var obfuscatedValuePcEuroVNA = document.getElementById("obfuscatedValuePcEuroVNA");
-decryptElement(obfuscatedValuePcEuroVNA);
-var piecesVNA = obfuscatedValuePcEuroVNA.innerHTML.split(' pc')[0];
-var buyingValueVNA = obfuscatedValuePcEuroVNA.innerHTML.split('/')[0];
-buyingValueVNA = buyingValueVNA.split(' ')[2];
-var portfolioValueVNA = piecesVNA * realTimeQuoteVNA;
-var stocksPerformanceVNA = ((portfolioValueVNA / buyingValueVNA)-1)*100;
-elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + buyingValueVNA + '/' + portfolioValueVNA.toFixed(0) + '€ ';
-var elementPortfolioGainVNA = document.getElementById("intervalSectionPortfolioGainVNA");
-elementPortfolioGainVNA.innerHTML = stocksPerformanceVNA.toFixed(1) + '% ' + (portfolioValueVNA - buyingValueVNA).toFixed(0) + '€';
-if(stocksPerformanceVNA < 0){
-elementPortfolioGainVNA.style.color = 'red';
-}
-else{
-elementPortfolioGainVNA.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroVNA);
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: VNA !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteVNA" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageVNA" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeVNA" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetVNA" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesVNA" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainVNA" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivVNA" style='display:none'>
-<span id="obfuscatedValuePcEuroVNA" style='display:none'>YY3509/6239XX022</span>&nbsp;
-<span id="obfuscatedValueGainVNA" style='display:none;color:red'>YY372-ZZ9.2-</span>
-<span id="obfuscatedValueCloseBracesVNA" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionVNA" style='display: none'><input name="intervalFieldVNA" type="text" maxlength="7" value="1" id="intervalFieldVNA"/><button type="button" id="intervalButtonVNA">Minutes</button><span id="intervalTextVNA"></span></span>
-<script>
-var intervalVarVNA;
-function beepVNA() {
-var elementAlert = document.getElementById("intervalTextVNA");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarVNA);
-intervalVarVNA=undefined;
-}
-function setBeepIntervalVNA() {
-var intervalValue = document.getElementById("intervalFieldVNA").value;
-intervalVarVNA = setInterval(beepVNA, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextVNA");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonVNA").addEventListener("click", setBeepIntervalVNA);
-</script>
-<br><img width="50%" id="intervalSectionImageVNA" style='display: none'></img><br>
-<button id="intervalSectionButton1DVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('1D')">1D</button>
-<button id="intervalSectionButton5DVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('5D')">5D</button>
-<button id="intervalSectionButton10DVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('10D')">10D</button>
-<button id="intervalSectionButton3MVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('3M')">3M</button>
-<button id="intervalSectionButton6MVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('6M')">6M</button>
-<button id="intervalSectionButton1YVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('1Y')">1Y</button>
-<button id="intervalSectionButton5YVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('VNA')">Sell</button>
-<button id="intervalSectionButtonBuyVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'VNA', document.getElementById('intervalSectionInputPriceBuyVNA').value, document.getElementById('intervalSectionInputPiecesBuyVNA').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyVNA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyVNA'/>
-Avg. Price <input name='intervalSectionInputPriceBuyVNA' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyVNA'/>
-<p>
-<hr id="intervalSectionHRVNA" style='display: none'>
-<script>
-var imageVNA = new Image();
-var TIME_SPANVNA;
-function updateImageVNA(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANVNA=timespan;
-}
-if(imageVNA.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=89777125&TIME_SPAN='+TIME_SPANVNA;
-document.getElementById("intervalSectionImageVNA").src = urlWithTimeSpan;
-imageVNA = new Image();
-imageVNA.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageVNA, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336931" target="_blank">*HEN3 "HENKEL VZ"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336931" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HEN3.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2340,7 +2491,7 @@ imageVNA.src = urlWithTimeSpan;
 <script>
 
 // For Spinner
-counterOwnStocks=15;
+counterOwnStocks=16;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336931')}`)
 .then(response => {
@@ -2491,7 +2642,7 @@ Buy: Low 6 last Stochastic (S)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=16;
+counterOwnStocks=17;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=57652069')}`)
 .then(response => {
@@ -2628,157 +2779,6 @@ imageVAS = new Image();
 imageVAS.src = urlWithTimeSpan;
 }
 // setTimeout(updateImageVAS, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=310683061" target="_blank">*NVV1 "NOVAVAX"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=310683061" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NVV1.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/NVV1.html" id='linkPCNVV1' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Buy: Low Percentage & Stochastic (P)<br>
-Buy: Low 4 last Stochastic (S)<br>
-<br>
-<script>
-
-// For Spinner
-counterOwnStocks=17;
-
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=310683061')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteNVV1 = document.getElementById("intervalSectionRealTimeQuoteNVV1");  
-realTimeQuoteNVV1 = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteNVV1.innerHTML = realTimeQuoteNVV1 + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzNVV1 = data.contents.slice(positionProz1-5, positionProz1);
-var elementPercentageNVV1 = document.getElementById("intervalSectionPercentageNVV1");
-elementPercentageNVV1.innerHTML = realTimeProzNVV1 + '%';
-if(parseFloat(realTimeProzNVV1.replace(',', '.')) < 0){
-elementPercentageNVV1.style.color = 'red';
-}
-else{
-elementPercentageNVV1.style.color = 'green';
-}
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeNVV1 = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursNVV1 = timeNVV1.slice(0, 2);
-var minutesNVV1 = timeNVV1.slice(3, 5);
-var secondsNVV1 = timeNVV1.slice(6, 8);
-var dateNVV1 = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysNVV1 = dateNVV1.slice(0, 2);
-var monthNVV1 = dateNVV1.slice(3, 5)-1;
-var yearNVV1 = 20+dateNVV1.slice(6, 8);
-const dateEclpsedNVV1 = new Date(yearNVV1, monthNVV1, daysNVV1);
-dateEclpsedNVV1.setHours(hoursNVV1);
-dateEclpsedNVV1.setMinutes(minutesNVV1);
-dateEclpsedNVV1.setSeconds(secondsNVV1);
-var deltaMinutesNVV1 =((new Date().getTime() - dateEclpsedNVV1.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetNVV1 = document.getElementById("intervalSectionRegularMarketTimeOffsetNVV1");
-elementRegularMarketTimeOffsetNVV1.innerHTML = deltaMinutesNVV1.toFixed(0) + 'min';
-
-var elementPortfolioValuesNVV1 = document.getElementById("intervalSectionPortfolioValuesNVV1");
-var obfuscatedValuePcEuroNVV1 = document.getElementById("obfuscatedValuePcEuroNVV1");
-decryptElement(obfuscatedValuePcEuroNVV1);
-var piecesNVV1 = obfuscatedValuePcEuroNVV1.innerHTML.split(' pc')[0];
-var buyingValueNVV1 = obfuscatedValuePcEuroNVV1.innerHTML.split('/')[0];
-buyingValueNVV1 = buyingValueNVV1.split(' ')[2];
-var portfolioValueNVV1 = piecesNVV1 * realTimeQuoteNVV1;
-var stocksPerformanceNVV1 = ((portfolioValueNVV1 / buyingValueNVV1)-1)*100;
-elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + buyingValueNVV1 + '/' + portfolioValueNVV1.toFixed(0) + '€ ';
-var elementPortfolioGainNVV1 = document.getElementById("intervalSectionPortfolioGainNVV1");
-elementPortfolioGainNVV1.innerHTML = stocksPerformanceNVV1.toFixed(1) + '% ' + (portfolioValueNVV1 - buyingValueNVV1).toFixed(0) + '€';
-if(stocksPerformanceNVV1 < 0){
-elementPortfolioGainNVV1.style.color = 'red';
-}
-else{
-elementPortfolioGainNVV1.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroNVV1);
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: NVV1 !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteNVV1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageNVV1" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeNVV1" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetNVV1" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesNVV1" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainNVV1" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivNVV1" style='display:none'>
-<span id="obfuscatedValuePcEuroNVV1" style='display:none'>YY2929/93111XX071</span>&nbsp;
-<span id="obfuscatedValueGainNVV1" style='display:none;color:red'>YY7481-ZZ6.61-</span>
-<span id="obfuscatedValueCloseBracesNVV1" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionNVV1" style='display: none'><input name="intervalFieldNVV1" type="text" maxlength="7" value="1" id="intervalFieldNVV1"/><button type="button" id="intervalButtonNVV1">Minutes</button><span id="intervalTextNVV1"></span></span>
-<script>
-var intervalVarNVV1;
-function beepNVV1() {
-var elementAlert = document.getElementById("intervalTextNVV1");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarNVV1);
-intervalVarNVV1=undefined;
-}
-function setBeepIntervalNVV1() {
-var intervalValue = document.getElementById("intervalFieldNVV1").value;
-intervalVarNVV1 = setInterval(beepNVV1, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextNVV1");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonNVV1").addEventListener("click", setBeepIntervalNVV1);
-</script>
-<br><img width="50%" id="intervalSectionImageNVV1" style='display: none'></img><br>
-<button id="intervalSectionButton1DNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('1D')">1D</button>
-<button id="intervalSectionButton5DNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('5D')">5D</button>
-<button id="intervalSectionButton10DNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('10D')">10D</button>
-<button id="intervalSectionButton3MNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('3M')">3M</button>
-<button id="intervalSectionButton6MNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('6M')">6M</button>
-<button id="intervalSectionButton1YNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('1Y')">1Y</button>
-<button id="intervalSectionButton5YNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('NVV1')">Sell</button>
-<button id="intervalSectionButtonBuyNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'NVV1', document.getElementById('intervalSectionInputPriceBuyNVV1').value, document.getElementById('intervalSectionInputPiecesBuyNVV1').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyNVV1' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyNVV1'/>
-Avg. Price <input name='intervalSectionInputPriceBuyNVV1' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyNVV1'/>
-<p>
-<hr id="intervalSectionHRNVV1" style='display: none'>
-<script>
-var imageNVV1 = new Image();
-var TIME_SPANNVV1;
-function updateImageNVV1(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANNVV1=timespan;
-}
-if(imageNVV1.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=310683061&TIME_SPAN='+TIME_SPANNVV1;
-document.getElementById("intervalSectionImageNVV1").src = urlWithTimeSpan;
-imageNVV1 = new Image();
-imageNVV1.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageNVV1, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <div style="margin-top: 6px">
@@ -4582,8 +4582,8 @@ imageGEC.src = urlWithTimeSpan;
 }
 </script>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall Yesterday (Not Realtime!)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY028798/7232211</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY705422-ZZ0.02-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY685529/0699411</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY473422-ZZ5.91-</span></span>
 <hr id="intervalSectionHROverall" style='display: none'>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="50%" id="intervalSectionImageDAX" style='display: none'></img><br>
@@ -4613,23 +4613,23 @@ imageDAX.src = urlWithTimeSpan;
 }
 </script>
 <button id="intervalSectionButtonAll1D" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageAOX('1D');
-javascript:updateImageDWNI('1D');
-javascript:updateImageSTM('1D');
+javascript:updateImageNVV1('1D');
 javascript:updateImageSAX('1D');
+javascript:updateImageJEN('1D');
+javascript:updateImageVNA('1D');
+javascript:updateImageDUE('1D');
+javascript:updateImageJUN3('1D');
+javascript:updateImageDWNI('1D');
+javascript:updateImageAOX('1D');
+javascript:updateImageSTM('1D');
 javascript:updateImageO3P('1D');
 javascript:updateImageGYC('1D');
-javascript:updateImageJUN3('1D');
 javascript:updateImage8TRA('1D');
 javascript:updateImageBCY('1D');
 javascript:updateImageKGX('1D');
-javascript:updateImageJEN('1D');
 javascript:updateImageTRVC('1D');
-javascript:updateImageDUE('1D');
-javascript:updateImageVNA('1D');
 javascript:updateImageHEN3('1D');
 javascript:updateImageVAS('1D');
-javascript:updateImageNVV1('1D');
 javascript:updateImageIXD1('1D');
 javascript:updateImageLEG('1D');
 javascript:updateImageTEG('1D');
@@ -4645,23 +4645,23 @@ javascript:updateImageGEC('1D');
 javascript:updateImageDAX('1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageAOX('5D');
-javascript:updateImageDWNI('5D');
-javascript:updateImageSTM('5D');
+javascript:updateImageNVV1('5D');
 javascript:updateImageSAX('5D');
+javascript:updateImageJEN('5D');
+javascript:updateImageVNA('5D');
+javascript:updateImageDUE('5D');
+javascript:updateImageJUN3('5D');
+javascript:updateImageDWNI('5D');
+javascript:updateImageAOX('5D');
+javascript:updateImageSTM('5D');
 javascript:updateImageO3P('5D');
 javascript:updateImageGYC('5D');
-javascript:updateImageJUN3('5D');
 javascript:updateImage8TRA('5D');
 javascript:updateImageBCY('5D');
 javascript:updateImageKGX('5D');
-javascript:updateImageJEN('5D');
 javascript:updateImageTRVC('5D');
-javascript:updateImageDUE('5D');
-javascript:updateImageVNA('5D');
 javascript:updateImageHEN3('5D');
 javascript:updateImageVAS('5D');
-javascript:updateImageNVV1('5D');
 javascript:updateImageIXD1('5D');
 javascript:updateImageLEG('5D');
 javascript:updateImageTEG('5D');
@@ -4677,23 +4677,23 @@ javascript:updateImageGEC('5D');
 javascript:updateImageDAX('5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageAOX('10D');
-javascript:updateImageDWNI('10D');
-javascript:updateImageSTM('10D');
+javascript:updateImageNVV1('10D');
 javascript:updateImageSAX('10D');
+javascript:updateImageJEN('10D');
+javascript:updateImageVNA('10D');
+javascript:updateImageDUE('10D');
+javascript:updateImageJUN3('10D');
+javascript:updateImageDWNI('10D');
+javascript:updateImageAOX('10D');
+javascript:updateImageSTM('10D');
 javascript:updateImageO3P('10D');
 javascript:updateImageGYC('10D');
-javascript:updateImageJUN3('10D');
 javascript:updateImage8TRA('10D');
 javascript:updateImageBCY('10D');
 javascript:updateImageKGX('10D');
-javascript:updateImageJEN('10D');
 javascript:updateImageTRVC('10D');
-javascript:updateImageDUE('10D');
-javascript:updateImageVNA('10D');
 javascript:updateImageHEN3('10D');
 javascript:updateImageVAS('10D');
-javascript:updateImageNVV1('10D');
 javascript:updateImageIXD1('10D');
 javascript:updateImageLEG('10D');
 javascript:updateImageTEG('10D');
@@ -4709,23 +4709,23 @@ javascript:updateImageGEC('10D');
 javascript:updateImageDAX('10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageAOX('3M');
-javascript:updateImageDWNI('3M');
-javascript:updateImageSTM('3M');
+javascript:updateImageNVV1('3M');
 javascript:updateImageSAX('3M');
+javascript:updateImageJEN('3M');
+javascript:updateImageVNA('3M');
+javascript:updateImageDUE('3M');
+javascript:updateImageJUN3('3M');
+javascript:updateImageDWNI('3M');
+javascript:updateImageAOX('3M');
+javascript:updateImageSTM('3M');
 javascript:updateImageO3P('3M');
 javascript:updateImageGYC('3M');
-javascript:updateImageJUN3('3M');
 javascript:updateImage8TRA('3M');
 javascript:updateImageBCY('3M');
 javascript:updateImageKGX('3M');
-javascript:updateImageJEN('3M');
 javascript:updateImageTRVC('3M');
-javascript:updateImageDUE('3M');
-javascript:updateImageVNA('3M');
 javascript:updateImageHEN3('3M');
 javascript:updateImageVAS('3M');
-javascript:updateImageNVV1('3M');
 javascript:updateImageIXD1('3M');
 javascript:updateImageLEG('3M');
 javascript:updateImageTEG('3M');
@@ -4741,23 +4741,23 @@ javascript:updateImageGEC('3M');
 javascript:updateImageDAX('3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageAOX('6M');
-javascript:updateImageDWNI('6M');
-javascript:updateImageSTM('6M');
+javascript:updateImageNVV1('6M');
 javascript:updateImageSAX('6M');
+javascript:updateImageJEN('6M');
+javascript:updateImageVNA('6M');
+javascript:updateImageDUE('6M');
+javascript:updateImageJUN3('6M');
+javascript:updateImageDWNI('6M');
+javascript:updateImageAOX('6M');
+javascript:updateImageSTM('6M');
 javascript:updateImageO3P('6M');
 javascript:updateImageGYC('6M');
-javascript:updateImageJUN3('6M');
 javascript:updateImage8TRA('6M');
 javascript:updateImageBCY('6M');
 javascript:updateImageKGX('6M');
-javascript:updateImageJEN('6M');
 javascript:updateImageTRVC('6M');
-javascript:updateImageDUE('6M');
-javascript:updateImageVNA('6M');
 javascript:updateImageHEN3('6M');
 javascript:updateImageVAS('6M');
-javascript:updateImageNVV1('6M');
 javascript:updateImageIXD1('6M');
 javascript:updateImageLEG('6M');
 javascript:updateImageTEG('6M');
@@ -4773,23 +4773,23 @@ javascript:updateImageGEC('6M');
 javascript:updateImageDAX('6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageAOX('1Y');
-javascript:updateImageDWNI('1Y');
-javascript:updateImageSTM('1Y');
+javascript:updateImageNVV1('1Y');
 javascript:updateImageSAX('1Y');
+javascript:updateImageJEN('1Y');
+javascript:updateImageVNA('1Y');
+javascript:updateImageDUE('1Y');
+javascript:updateImageJUN3('1Y');
+javascript:updateImageDWNI('1Y');
+javascript:updateImageAOX('1Y');
+javascript:updateImageSTM('1Y');
 javascript:updateImageO3P('1Y');
 javascript:updateImageGYC('1Y');
-javascript:updateImageJUN3('1Y');
 javascript:updateImage8TRA('1Y');
 javascript:updateImageBCY('1Y');
 javascript:updateImageKGX('1Y');
-javascript:updateImageJEN('1Y');
 javascript:updateImageTRVC('1Y');
-javascript:updateImageDUE('1Y');
-javascript:updateImageVNA('1Y');
 javascript:updateImageHEN3('1Y');
 javascript:updateImageVAS('1Y');
-javascript:updateImageNVV1('1Y');
 javascript:updateImageIXD1('1Y');
 javascript:updateImageLEG('1Y');
 javascript:updateImageTEG('1Y');
@@ -4805,23 +4805,23 @@ javascript:updateImageGEC('1Y');
 javascript:updateImageDAX('1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
-javascript:updateImageAOX('5Y');
-javascript:updateImageDWNI('5Y');
-javascript:updateImageSTM('5Y');
+javascript:updateImageNVV1('5Y');
 javascript:updateImageSAX('5Y');
+javascript:updateImageJEN('5Y');
+javascript:updateImageVNA('5Y');
+javascript:updateImageDUE('5Y');
+javascript:updateImageJUN3('5Y');
+javascript:updateImageDWNI('5Y');
+javascript:updateImageAOX('5Y');
+javascript:updateImageSTM('5Y');
 javascript:updateImageO3P('5Y');
 javascript:updateImageGYC('5Y');
-javascript:updateImageJUN3('5Y');
 javascript:updateImage8TRA('5Y');
 javascript:updateImageBCY('5Y');
 javascript:updateImageKGX('5Y');
-javascript:updateImageJEN('5Y');
 javascript:updateImageTRVC('5Y');
-javascript:updateImageDUE('5Y');
-javascript:updateImageVNA('5Y');
 javascript:updateImageHEN3('5Y');
 javascript:updateImageVAS('5Y');
-javascript:updateImageNVV1('5Y');
 javascript:updateImageIXD1('5Y');
 javascript:updateImageLEG('5Y');
 javascript:updateImageTEG('5Y');
@@ -4850,7 +4850,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 10-Apr-2022 21:17</p><br></div>
+<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 11-Apr-2022 11:03</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
