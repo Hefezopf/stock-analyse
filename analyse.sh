@@ -162,10 +162,10 @@ body > div {
     // Spinner
     var counterFetchLoaded = 0;
     var counterOwnStocks = 0;
-    // var token = 'ghp' + 
-    // '_' + 
-    // 'fWYED11UzfLqo8gZ0dBvVC8yTZj7F00SeEQB';
-    var token = '$GITHUB_TOKEN'
+    var token = 'ghp' + 
+    '_' + 
+    'fWYED11UzfLqo8gZ0dBvVC8yTZj7F00SeEQB';
+    // var token = '$GITHUB_TOKEN'
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == '') {
             var currentInnerHTMLValueIntervalSectionRegularMarketPrice = document.getElementById('intervalSectionRegularMarketPrice'+symbolParam);
