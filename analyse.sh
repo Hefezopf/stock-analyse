@@ -928,7 +928,8 @@ do
                     buyingValue$symbol = buyingValue$symbol.split(' ')[2];
                     var portfolioValue$symbol = pieces$symbol * realTimeQuote$symbol;
                     var stocksPerformance$symbol = ((portfolioValue$symbol / buyingValue$symbol)-1)*100;
-                    elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + portfolioValue$symbol.toFixed(0) + '€ ';
+                    elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + portfolioValue$symbol.toFixed(0) + '€ ';
+                    // elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + portfolioValue$symbol.toFixed(0) + '€ ';
                     var elementPortfolioGain$symbol = document.getElementById(\"intervalSectionPortfolioGain$symbol\");
                     elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
                     if(stocksPerformance$symbol < 0){
