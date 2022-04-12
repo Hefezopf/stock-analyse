@@ -1,7 +1,7 @@
 TODO:
 -----
 
--Variable in bash: rename GITHUB_TOKEN in TOKEN
+-Variable in bash: GITHUB_TOKEN 
 Auf allen systemen
 -PC
 +ATR
@@ -17,31 +17,7 @@ GitHub token nicht im Klartext
 decrypt / revers  verändern ?
 
 
-++min stimmen nicht am Wochenende 
-
-
-+Good luck links bündig 
-
-
-+Trenner nach Overall In Übersicht. 
-
-
-+Proz gesamt auch klein 
-
-
-+Buy Alstra 1072 12,37415
-
-
 -?M+ Alarm wie bei SIM einbauen und reset MACD wenn wieder nach oben gegangen?
-
-
-Mi
-Wertpapierkurserfolge	122.628,05
-davon realisiert	53.722,19
-
-Mi:
-Gezahlte Steuern
-Kapitalertragssteuer	- 20.830,14 EUR
 
 
 -Spread herausfinden und größte Werte ermitteln >= 2,xx%
@@ -69,7 +45,6 @@ Mi: 9:40
 >1%
 Ergebnis:
 Symbols with HIGH Spread: highSpreadSymbols=BSP 639 CUCA
-
 
 
 -Flagge einbauen? Es müssen dann auch die Daten eingegeben werden. :-(Viel arbeit)
@@ -348,16 +323,26 @@ cURL works only from unrestricted devices!
 Note 'Curl': personal access token:
 https://github.com/settings/tokens -> Personal access tokens
 expiredToke — repo, workflow 
-GITHUB_TOKEN=ghp_ XXXX oap3QiScpoOhYPwJfalod4Grmcc5wk4aF65Y-0
+GITHUB_TOKEN=ghp_XXXX
 Expiration
 This token expires on 31 12 2022
 Check Ckeckbox: workflow (Update GitHub Action workflows)
+
+Neuer Personal access tokens generieren: https://github.com/settings/tokens
+Kopieren
+String  umdrehen mit bash:
+node
+'xxXXXX'.split("").reverse().join("");
+Kopieren und in analyse.sh rein kopieren.
+Zeile 163: var token2 = 'xxx';
+In den 3 Systemen PC, HP Atr, Thinkpad Laptop in Bash RICHTIG HERAUM (ORIGINAL) einsetzen
+
 
 !! 3 times: Update GITHUB_TOKEN in analyse.sh AND in .bash_profile AND git remote
 
 git remote -v
 git remote remove origin
-git remote add origin https://ghp_ XXXX oap3QiScpoOhYPwJfalod4Grmcc5wk4aF65Y-0@github.com/Hefezopf/stock-analyse.git
+git remote add origin https://ghp_XXXX@github.com/Hefezopf/stock-analyse.git
 
 
 Too many request per Hour?

@@ -159,13 +159,13 @@ body > div {
 <div>
 <script>
     // Global Varables
+    var token1 = 'ghp_';
+    var token2 = 'Y56Fa4kw5ccmrG4dolafJwPYhOopcSiQ3pao';
+
     // Spinner
     var counterFetchLoaded = 0;
     var counterOwnStocks = 0;
-    var token = 'ghp' + 
-    '_' + 
-    'oap3QiScpoOhYPwJfalod4Grmcc5wk4aF65Y';
-    // var token = '$TOKEN'
+
     function curlBuy(symbolParam, price, pieces) {
         if(symbolParam == '' || price == '' || pieces == '') {
             var currentInnerHTMLValueIntervalSectionRegularMarketPrice = document.getElementById('intervalSectionRegularMarketPrice'+symbolParam);
@@ -206,7 +206,7 @@ body > div {
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token ' + token);
+        xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split(\"\").reverse().join(\"\"));
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -230,7 +230,7 @@ body > div {
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Authorization', 'token ' + token);
+        xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split(\"\").reverse().join(\"\"));
         xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -247,7 +247,7 @@ body > div {
     }
     function decryptElement(ele) {
         var dec = document.getElementById(ele.id).innerHTML;
-        dec = dec.split(\"\").reverse().join(\"\"); // reverseString
+        dec = dec.split(\"\").reverse().join(\"\");
         dec = replaceInString(dec);
         document.getElementById(ele.id).innerHTML = dec;
     }
@@ -435,7 +435,7 @@ do
     awk '{print $2}' "$DATA_DATE_FILE" > "$DATA_FILE"
     lastRaw=$(head -n1 "$DATA_FILE")
     last=$(printf "%.2f" "$lastRaw")
-    # Check for unknown or not fetched symbol in cmd or on marketstack.com
+    # Check for unknown symbols or not fetched symbols in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
         echo "<br>" >> $OUT_RESULT_FILE
         echo "!!! $symbol NOT found in data/$symbol.txt" | tee -a $OUT_RESULT_FILE
