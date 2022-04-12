@@ -35,7 +35,8 @@ jobs:
           echo "Start sell ..."
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
-
+          export TOKEN=${{secrets.TOKEN}}
+          
           symbolDefault='${{github.event.client_payload.symbol}}'
 
           symbolInput="${{github.event.inputs.symbolParam}}"
