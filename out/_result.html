@@ -194,7 +194,7 @@ return ret.replace(/ZZ/g, "% ");
 <div id='spinner' style='display: X'; class='loader'></div>
 # Parameter
 <br>
-Symbols(31):*ADN1 *VNA *KGX *STM *JUN3 *DWNI *DUE *JEN *SAX *GYC *8TRA *FFH *MTX *HEN3 *VAS *NVV1 *O3P *BCY *TRVC *IXD1 *LEG *TEG *AG1 *PHI1 *UNVB *EUZ *IWLE *CRIN *AOMD *TNE5 *GEC 
+Symbols(31):*LEG *ADN1 *VNA *KGX *STM *JUN3 *DWNI *DUE *JEN *SAX *GYC *8TRA *FFH *MTX *HEN3 *VAS *NVV1 *O3P *BCY *TRVC *IXD1 *TEG *AG1 *PHI1 *UNVB *EUZ *IWLE *CRIN *AOMD *TNE5 *GEC 
 <br>
 Percentage:1 
 <br>
@@ -204,6 +204,157 @@ Stochastic:9
 <br>
 RSI:25
 <br><br># Analyse
+<div style="margin-top: 6px">
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=76456982" target="_blank">*LEG "LEG Immobilien"</a>
+<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=76456982" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/LEG.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:green; display: none" href="D:/code/stock-analyse/out/LEG.html" id='linkPCLEG' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+Buy: Low Percentage & Stochastic (P)<br>
+<br>
+<script>
+
+// For Spinner
+counterOwnStocks=1;
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=76456982')}`)
+.then(response => {
+if (response.ok) {
+return response.json();
+}
+throw new Error('Network response error!');
+})
+.then(data => {
+let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
+let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
+var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
+var elementRealTimeQuoteLEG = document.getElementById("intervalSectionRealTimeQuoteLEG");  
+realTimeQuoteLEG = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
+elementRealTimeQuoteLEG.innerHTML = realTimeQuoteLEG + '€';
+let positionProz1 = data.contents.indexOf('&#160;%');
+var realTimeProzLEG = data.contents.slice(positionProz1-5, positionProz1);
+var elementPercentageLEG = document.getElementById("intervalSectionPercentageLEG");
+elementPercentageLEG.innerHTML = realTimeProzLEG + '%';
+if(parseFloat(realTimeProzLEG.replace(',', '.')) < 0){
+elementPercentageLEG.style.color = 'red';
+}
+else{
+elementPercentageLEG.style.color = 'green';
+}
+
+let positionTime1 = data.contents.indexOf(' -  ');
+var timeLEG = data.contents.slice(positionTime1+4, positionTime1+12);
+var hoursLEG = timeLEG.slice(0, 2);
+var minutesLEG = timeLEG.slice(3, 5);
+var secondsLEG = timeLEG.slice(6, 8);
+var dateLEG = data.contents.slice(positionTime1-9, positionTime1-1);
+var daysLEG = dateLEG.slice(0, 2);
+var monthLEG = dateLEG.slice(3, 5)-1;
+var yearLEG = 20+dateLEG.slice(6, 8);
+const dateEclpsedLEG = new Date(yearLEG, monthLEG, daysLEG);
+dateEclpsedLEG.setHours(hoursLEG);
+dateEclpsedLEG.setMinutes(minutesLEG);
+dateEclpsedLEG.setSeconds(secondsLEG);
+var deltaMinutesLEG =((new Date().getTime() - dateEclpsedLEG.getTime()) / 1000) / 60;
+var elementRegularMarketTimeOffsetLEG = document.getElementById("intervalSectionRegularMarketTimeOffsetLEG");
+elementRegularMarketTimeOffsetLEG.innerHTML = deltaMinutesLEG.toFixed(0) + 'min';
+
+var elementPortfolioValuesLEG = document.getElementById("intervalSectionPortfolioValuesLEG");
+var obfuscatedValuePcEuroLEG = document.getElementById("obfuscatedValuePcEuroLEG");
+decryptElement(obfuscatedValuePcEuroLEG);
+var piecesLEG = obfuscatedValuePcEuroLEG.innerHTML.split(' pc')[0];
+var buyingValueLEG = obfuscatedValuePcEuroLEG.innerHTML.split('/')[0];
+buyingValueLEG = buyingValueLEG.split(' ')[2];
+var portfolioValueLEG = piecesLEG * realTimeQuoteLEG;
+var stocksPerformanceLEG = ((portfolioValueLEG / buyingValueLEG)-1)*100;
+elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + portfolioValueLEG.toFixed(0) + '€ ';
+// elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + buyingValueLEG + '/' + portfolioValueLEG.toFixed(0) + '€ ';
+var elementPortfolioGainLEG = document.getElementById("intervalSectionPortfolioGainLEG");
+elementPortfolioGainLEG.innerHTML = stocksPerformanceLEG.toFixed(1) + '% ' + (portfolioValueLEG - buyingValueLEG).toFixed(0) + '€';
+if(stocksPerformanceLEG < 0){
+elementPortfolioGainLEG.style.color = 'red';
+}
+else{
+elementPortfolioGainLEG.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroLEG);
+
+// For Spinner
+counterFetchLoaded++;
+})
+.catch(error => {
+console.error('Error retrieving current quote for: LEG !!!' + error);
+
+// For Spinner
+counterFetchLoaded++;
+});
+</script>
+<span id="intervalSectionRealTimeQuoteLEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id="intervalSectionPercentageLEG" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="neverShowRegularMarketTimeLEG" style='display: none'></span>
+
+<span id="intervalSectionRegularMarketTimeOffsetLEG" style='font-size:large; display: none'></span>&nbsp;
+<span id="intervalSectionPortfolioValuesLEG" style='font-size:large; display: none'></span>
+<span id="intervalSectionPortfolioGainLEG" style='font-size:large; display: none'></span>
+<br>
+<div id="neverShowDivLEG" style='display:none'>
+<span id="obfuscatedValuePcEuroLEG" style='display:none'>YY21921/29821XX521</span>&nbsp;
+<span id="obfuscatedValueGainLEG" style='display:none;color:green'>YY02ZZ2.0</span>
+<span id="obfuscatedValueCloseBracesLEG" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id="intervalSectionLEG" style='display: none'><input name="intervalFieldLEG" type="text" maxlength="7" value="1" id="intervalFieldLEG"/><button type="button" id="intervalButtonLEG">Minutes</button><span id="intervalTextLEG"></span></span>
+<script>
+var intervalVarLEG;
+function beepLEG() {
+var elementAlert = document.getElementById("intervalTextLEG");
+elementAlert.innerHTML = " ALERT!!!";
+elementAlert.style.color = 'red';
+sound.play();
+clearInterval(intervalVarLEG);
+intervalVarLEG=undefined;
+}
+function setBeepIntervalLEG() {
+var intervalValue = document.getElementById("intervalFieldLEG").value;
+intervalVarLEG = setInterval(beepLEG, intervalValue*60*1000); //60*1000
+var elementIntervalText = document.getElementById("intervalTextLEG");
+elementIntervalText.innerHTML = ' ...'+intervalValue;
+elementIntervalText.style.color = 'green';
+}
+document.getElementById("intervalButtonLEG").addEventListener("click", setBeepIntervalLEG);
+</script>
+<br><img width="50%" id="intervalSectionImageLEG" style='display: none'></img><br>
+<button id="intervalSectionButton1DLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('1D')">1D</button>
+<button id="intervalSectionButton5DLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('5D')">5D</button>
+<button id="intervalSectionButton10DLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('10D')">10D</button>
+<button id="intervalSectionButton3MLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('3M')">3M</button>
+<button id="intervalSectionButton6MLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('6M')">6M</button>
+<button id="intervalSectionButton1YLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('1Y')">1Y</button>
+<button id="intervalSectionButton5YLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('5Y')">5Y</button>
+<p id='intervalSectionButtonP' style='display: none'>
+<button id="intervalSectionButtonSellLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('LEG')">Sell</button>
+<button id="intervalSectionButtonBuyLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
+'LEG', document.getElementById('intervalSectionInputPriceBuyLEG').value, document.getElementById('intervalSectionInputPiecesBuyLEG').value)">ReBuy</button>
+Overall Pieces <input name='intervalSectionInputPiecesBuyLEG' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyLEG'/>
+Avg. Price <input name='intervalSectionInputPriceBuyLEG' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyLEG'/>
+<p>
+<hr id="intervalSectionHRLEG" style='display: none'>
+<script>
+var imageLEG = new Image();
+var TIME_SPANLEG;
+function updateImageLEG(timespan)
+{
+if(timespan !== undefined) {
+TIME_SPANLEG=timespan;
+}
+if(imageLEG.complete) {
+var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=76456982&TIME_SPAN='+TIME_SPANLEG;
+document.getElementById("intervalSectionImageLEG").src = urlWithTimeSpan;
+imageLEG = new Image();
+imageLEG.src = urlWithTimeSpan;
+}
+// setTimeout(updateImageLEG, 5*60*1000); // 5 Minutes // 5*60*1000
+}
+</script>
 <div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=82490665" target="_blank">*ADN1 "ADESSO"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=82490665" target="_blank">&nbsp;5Y&nbsp;</a>
@@ -218,7 +369,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=1;
+counterOwnStocks=2;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=82490665')}`)
 .then(response => {
@@ -372,7 +523,7 @@ Buy: Low Percentage & Stochastic (P)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=2;
+counterOwnStocks=3;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=89777125')}`)
 .then(response => {
@@ -527,7 +678,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=3;
+counterOwnStocks=4;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=89777142')}`)
 .then(response => {
@@ -683,7 +834,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=4;
+counterOwnStocks=5;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=103514041')}`)
 .then(response => {
@@ -836,7 +987,7 @@ Buy: Low 5 last RSI (R)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=5;
+counterOwnStocks=6;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336942')}`)
 .then(response => {
@@ -993,7 +1144,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=6;
+counterOwnStocks=7;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672410')}`)
 .then(response => {
@@ -1147,7 +1298,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=7;
+counterOwnStocks=8;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46670754')}`)
 .then(response => {
@@ -1302,7 +1453,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=8;
+counterOwnStocks=9;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336943')}`)
 .then(response => {
@@ -1457,7 +1608,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=9;
+counterOwnStocks=10;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672329')}`)
 .then(response => {
@@ -1611,7 +1762,7 @@ Buy: Low 4 last Stochastic (S)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=10;
+counterOwnStocks=11;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=194616562')}`)
 .then(response => {
@@ -1765,7 +1916,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=11;
+counterOwnStocks=12;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=260507989')}`)
 .then(response => {
@@ -1919,7 +2070,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=12;
+counterOwnStocks=13;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671447')}`)
 .then(response => {
@@ -2073,7 +2224,7 @@ Buy: Low Stochastic & RSI & MACD- (C)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=13;
+counterOwnStocks=14;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672379')}`)
 .then(response => {
@@ -2223,7 +2374,7 @@ imageMTX.src = urlWithTimeSpan;
 <script>
 
 // For Spinner
-counterOwnStocks=14;
+counterOwnStocks=15;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336931')}`)
 .then(response => {
@@ -2375,7 +2526,7 @@ Buy: Low 4 last RSI (R)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=15;
+counterOwnStocks=16;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=57652069')}`)
 .then(response => {
@@ -2526,7 +2677,7 @@ Buy: Low 5 last Stochastic (S)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=16;
+counterOwnStocks=17;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=310683061')}`)
 .then(response => {
@@ -2676,7 +2827,7 @@ imageNVV1.src = urlWithTimeSpan;
 <script>
 
 // For Spinner
-counterOwnStocks=17;
+counterOwnStocks=18;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=72663856')}`)
 .then(response => {
@@ -2827,7 +2978,7 @@ Buy: Low 6 last RSI (R)<br>
 <script>
 
 // For Spinner
-counterOwnStocks=18;
+counterOwnStocks=19;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672133')}`)
 .then(response => {
@@ -2977,7 +3128,7 @@ imageBCY.src = urlWithTimeSpan;
 <script>
 
 // For Spinner
-counterOwnStocks=19;
+counterOwnStocks=20;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672221')}`)
 .then(response => {
@@ -3127,7 +3278,7 @@ imageTRVC.src = urlWithTimeSpan;
 <script>
 
 // For Spinner
-counterOwnStocks=20;
+counterOwnStocks=21;
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=113359031')}`)
 .then(response => {
@@ -3265,157 +3416,6 @@ imageIXD1 = new Image();
 imageIXD1.src = urlWithTimeSpan;
 }
 // setTimeout(updateImageIXD1, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-<div style="margin-top: 6px">
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=76456982" target="_blank">*LEG "LEG Immobilien"</a>
-<a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=76456982" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/LEG.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:green; display: none" href="D:/code/stock-analyse/out/LEG.html" id='linkPCLEG' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Buy: Low Percentage & Stochastic (P)<br>
-<br>
-<script>
-
-// For Spinner
-counterOwnStocks=21;
-
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=76456982')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteLEG = document.getElementById("intervalSectionRealTimeQuoteLEG");  
-realTimeQuoteLEG = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteLEG.innerHTML = realTimeQuoteLEG + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzLEG = data.contents.slice(positionProz1-5, positionProz1);
-var elementPercentageLEG = document.getElementById("intervalSectionPercentageLEG");
-elementPercentageLEG.innerHTML = realTimeProzLEG + '%';
-if(parseFloat(realTimeProzLEG.replace(',', '.')) < 0){
-elementPercentageLEG.style.color = 'red';
-}
-else{
-elementPercentageLEG.style.color = 'green';
-}
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeLEG = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursLEG = timeLEG.slice(0, 2);
-var minutesLEG = timeLEG.slice(3, 5);
-var secondsLEG = timeLEG.slice(6, 8);
-var dateLEG = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysLEG = dateLEG.slice(0, 2);
-var monthLEG = dateLEG.slice(3, 5)-1;
-var yearLEG = 20+dateLEG.slice(6, 8);
-const dateEclpsedLEG = new Date(yearLEG, monthLEG, daysLEG);
-dateEclpsedLEG.setHours(hoursLEG);
-dateEclpsedLEG.setMinutes(minutesLEG);
-dateEclpsedLEG.setSeconds(secondsLEG);
-var deltaMinutesLEG =((new Date().getTime() - dateEclpsedLEG.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetLEG = document.getElementById("intervalSectionRegularMarketTimeOffsetLEG");
-elementRegularMarketTimeOffsetLEG.innerHTML = deltaMinutesLEG.toFixed(0) + 'min';
-
-var elementPortfolioValuesLEG = document.getElementById("intervalSectionPortfolioValuesLEG");
-var obfuscatedValuePcEuroLEG = document.getElementById("obfuscatedValuePcEuroLEG");
-decryptElement(obfuscatedValuePcEuroLEG);
-var piecesLEG = obfuscatedValuePcEuroLEG.innerHTML.split(' pc')[0];
-var buyingValueLEG = obfuscatedValuePcEuroLEG.innerHTML.split('/')[0];
-buyingValueLEG = buyingValueLEG.split(' ')[2];
-var portfolioValueLEG = piecesLEG * realTimeQuoteLEG;
-var stocksPerformanceLEG = ((portfolioValueLEG / buyingValueLEG)-1)*100;
-elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + portfolioValueLEG.toFixed(0) + '€ ';
-// elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + buyingValueLEG + '/' + portfolioValueLEG.toFixed(0) + '€ ';
-var elementPortfolioGainLEG = document.getElementById("intervalSectionPortfolioGainLEG");
-elementPortfolioGainLEG.innerHTML = stocksPerformanceLEG.toFixed(1) + '% ' + (portfolioValueLEG - buyingValueLEG).toFixed(0) + '€';
-if(stocksPerformanceLEG < 0){
-elementPortfolioGainLEG.style.color = 'red';
-}
-else{
-elementPortfolioGainLEG.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroLEG);
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: LEG !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteLEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageLEG" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeLEG" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetLEG" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesLEG" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainLEG" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivLEG" style='display:none'>
-<span id="obfuscatedValuePcEuroLEG" style='display:none'>YY7929/5739XX09</span>&nbsp;
-<span id="obfuscatedValueGainLEG" style='display:none;color:red'>YY87-ZZ8.0-</span>
-<span id="obfuscatedValueCloseBracesLEG" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionLEG" style='display: none'><input name="intervalFieldLEG" type="text" maxlength="7" value="1" id="intervalFieldLEG"/><button type="button" id="intervalButtonLEG">Minutes</button><span id="intervalTextLEG"></span></span>
-<script>
-var intervalVarLEG;
-function beepLEG() {
-var elementAlert = document.getElementById("intervalTextLEG");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarLEG);
-intervalVarLEG=undefined;
-}
-function setBeepIntervalLEG() {
-var intervalValue = document.getElementById("intervalFieldLEG").value;
-intervalVarLEG = setInterval(beepLEG, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextLEG");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonLEG").addEventListener("click", setBeepIntervalLEG);
-</script>
-<br><img width="50%" id="intervalSectionImageLEG" style='display: none'></img><br>
-<button id="intervalSectionButton1DLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('1D')">1D</button>
-<button id="intervalSectionButton5DLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('5D')">5D</button>
-<button id="intervalSectionButton10DLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('10D')">10D</button>
-<button id="intervalSectionButton3MLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('3M')">3M</button>
-<button id="intervalSectionButton6MLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('6M')">6M</button>
-<button id="intervalSectionButton1YLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('1Y')">1Y</button>
-<button id="intervalSectionButton5YLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('LEG')">Sell</button>
-<button id="intervalSectionButtonBuyLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'LEG', document.getElementById('intervalSectionInputPriceBuyLEG').value, document.getElementById('intervalSectionInputPiecesBuyLEG').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyLEG' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyLEG'/>
-Avg. Price <input name='intervalSectionInputPriceBuyLEG' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyLEG'/>
-<p>
-<hr id="intervalSectionHRLEG" style='display: none'>
-<script>
-var imageLEG = new Image();
-var TIME_SPANLEG;
-function updateImageLEG(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANLEG=timespan;
-}
-if(imageLEG.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=76456982&TIME_SPAN='+TIME_SPANLEG;
-document.getElementById("intervalSectionImageLEG").src = urlWithTimeSpan;
-imageLEG = new Image();
-imageLEG.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageLEG, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
 <div style="margin-top: 6px">
@@ -4934,8 +4934,8 @@ imageGEC.src = urlWithTimeSpan;
 }
 </script>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall Yesterday (Not Realtime!)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY9584001/6955321</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY737032-ZZ7.81-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY4748001/3119321</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY936032-ZZ6.81-</span></span>
 <hr id="intervalSectionHROverall" style='display: none'>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="50%" id="intervalSectionImageDAX" style='display: none'></img><br>
@@ -4965,6 +4965,7 @@ imageDAX.src = urlWithTimeSpan;
 }
 </script>
 <button id="intervalSectionButtonAll1D" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageLEG('1D');
 javascript:updateImageADN1('1D');
 javascript:updateImageVNA('1D');
 javascript:updateImageKGX('1D');
@@ -4985,7 +4986,6 @@ javascript:updateImageO3P('1D');
 javascript:updateImageBCY('1D');
 javascript:updateImageTRVC('1D');
 javascript:updateImageIXD1('1D');
-javascript:updateImageLEG('1D');
 javascript:updateImageTEG('1D');
 javascript:updateImageAG1('1D');
 javascript:updateImagePHI1('1D');
@@ -4999,6 +4999,7 @@ javascript:updateImageGEC('1D');
 javascript:updateImageDAX('1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageLEG('5D');
 javascript:updateImageADN1('5D');
 javascript:updateImageVNA('5D');
 javascript:updateImageKGX('5D');
@@ -5019,7 +5020,6 @@ javascript:updateImageO3P('5D');
 javascript:updateImageBCY('5D');
 javascript:updateImageTRVC('5D');
 javascript:updateImageIXD1('5D');
-javascript:updateImageLEG('5D');
 javascript:updateImageTEG('5D');
 javascript:updateImageAG1('5D');
 javascript:updateImagePHI1('5D');
@@ -5033,6 +5033,7 @@ javascript:updateImageGEC('5D');
 javascript:updateImageDAX('5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageLEG('10D');
 javascript:updateImageADN1('10D');
 javascript:updateImageVNA('10D');
 javascript:updateImageKGX('10D');
@@ -5053,7 +5054,6 @@ javascript:updateImageO3P('10D');
 javascript:updateImageBCY('10D');
 javascript:updateImageTRVC('10D');
 javascript:updateImageIXD1('10D');
-javascript:updateImageLEG('10D');
 javascript:updateImageTEG('10D');
 javascript:updateImageAG1('10D');
 javascript:updateImagePHI1('10D');
@@ -5067,6 +5067,7 @@ javascript:updateImageGEC('10D');
 javascript:updateImageDAX('10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageLEG('3M');
 javascript:updateImageADN1('3M');
 javascript:updateImageVNA('3M');
 javascript:updateImageKGX('3M');
@@ -5087,7 +5088,6 @@ javascript:updateImageO3P('3M');
 javascript:updateImageBCY('3M');
 javascript:updateImageTRVC('3M');
 javascript:updateImageIXD1('3M');
-javascript:updateImageLEG('3M');
 javascript:updateImageTEG('3M');
 javascript:updateImageAG1('3M');
 javascript:updateImagePHI1('3M');
@@ -5101,6 +5101,7 @@ javascript:updateImageGEC('3M');
 javascript:updateImageDAX('3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageLEG('6M');
 javascript:updateImageADN1('6M');
 javascript:updateImageVNA('6M');
 javascript:updateImageKGX('6M');
@@ -5121,7 +5122,6 @@ javascript:updateImageO3P('6M');
 javascript:updateImageBCY('6M');
 javascript:updateImageTRVC('6M');
 javascript:updateImageIXD1('6M');
-javascript:updateImageLEG('6M');
 javascript:updateImageTEG('6M');
 javascript:updateImageAG1('6M');
 javascript:updateImagePHI1('6M');
@@ -5135,6 +5135,7 @@ javascript:updateImageGEC('6M');
 javascript:updateImageDAX('6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageLEG('1Y');
 javascript:updateImageADN1('1Y');
 javascript:updateImageVNA('1Y');
 javascript:updateImageKGX('1Y');
@@ -5155,7 +5156,6 @@ javascript:updateImageO3P('1Y');
 javascript:updateImageBCY('1Y');
 javascript:updateImageTRVC('1Y');
 javascript:updateImageIXD1('1Y');
-javascript:updateImageLEG('1Y');
 javascript:updateImageTEG('1Y');
 javascript:updateImageAG1('1Y');
 javascript:updateImagePHI1('1Y');
@@ -5169,6 +5169,7 @@ javascript:updateImageGEC('1Y');
 javascript:updateImageDAX('1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
+javascript:updateImageLEG('5Y');
 javascript:updateImageADN1('5Y');
 javascript:updateImageVNA('5Y');
 javascript:updateImageKGX('5Y');
@@ -5189,7 +5190,6 @@ javascript:updateImageO3P('5Y');
 javascript:updateImageBCY('5Y');
 javascript:updateImageTRVC('5Y');
 javascript:updateImageIXD1('5Y');
-javascript:updateImageLEG('5Y');
 javascript:updateImageTEG('5Y');
 javascript:updateImageAG1('5Y');
 javascript:updateImagePHI1('5Y');
@@ -5216,7 +5216,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 13-Apr-2022 10:05</p><br></div>
+<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 13-Apr-2022 16:53</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
