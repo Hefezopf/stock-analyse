@@ -156,8 +156,74 @@ body > div {
 </style>
 </head>
 <body>
-<div>
+<div id=\"symbolsListId\">
 <script>
+    function doSortDaily() {
+        var container = document.getElementById(\"symbolsListId\");
+        var elements = container.childNodes;
+        var sortPositivValues = [];
+        var sortNegativValues = [];
+        for (var i=0; i<elements.length; i++) {
+            // skip nodes without an ID
+            if (!elements[i].id) {
+                continue;
+            }
+
+            var sortPart = elements[i].id.split(\"+\");
+            // only add the element for sorting if it has a plus in it
+            if (sortPart.length > 1) {
+                /*
+                * prepare the ID for faster comparison
+                * array will contain:
+                *   [0] => number which will be used for sorting 
+                *   [1] => element
+                * 1 * something is the fastest way I know to convert a string to a
+                * number. It should be a number to make it sort in a natural way,
+                * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
+                */
+                sortPositivValues.push([ 1 * sortPart[1] , elements[i] ]);
+            }
+
+            var sortPart = elements[i].id.split(\"-\");
+            // only add the element for sorting if it has a dash in it
+            if (sortPart.length > 1) {
+                /*
+                * prepare the ID for faster comparison
+                * array will contain:
+                *   [0] => number which will be used for sorting 
+                *   [1] => element
+                * 1 * something is the fastest way I know to convert a string to a
+                * number. It should be a number to make it sort in a natural way,
+                * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
+                */
+                sortNegativValues.push([ 1 * sortPart[1] , elements[i] ]);
+            }        
+        }
+        // sort the array sortPositivValues, elements with the highest ID will be first
+        sortPositivValues.sort(function(x, y) {
+            // first array element is the number, used for comparison
+            return y[0] - x[0];
+        });
+        // sort the array sortNegativValues, elements with the lowest ID will be first
+        sortNegativValues.sort(function(x, y) {
+            // first array element is the number, used for comparison
+            return x[0] - y[0];
+        });    
+        // finally append the sorted elements again, the old element will be moved to
+        // the new position
+        for (var i=0; i<sortPositivValues.length; i++) {
+            // remember that the second array element contains the element itself
+            container.appendChild(sortPositivValues[i][1]);
+        }
+        for (var i=0; i<sortNegativValues.length; i++) {
+            container.appendChild(sortNegativValues[i][1]);
+        }    
+    }
+    var btnSortDaily = document.createElement(\"button\");
+    btnSortDaily.onclick = doSortDaily;
+    btnSortDaily.innerHTML = \"Sort +Daily%\";
+    document.body.appendChild(btnSortDaily);
+
     // Global Varables
     var token1 = 'ghp_';
     var token2 = 'Y56Fa4kw5ccmrG4dolafJwPYhOopcSiQ3pao';
@@ -385,6 +451,9 @@ do
         markerOwnStock="*"
         symbol=$(echo "$symbol" | cut -b 2-6)
     fi
+
+    # Sorting
+    echo "<div id='symbolLineId$symbol'>"  >> $OUT_RESULT_FILE
 
     # Curl and write Line to TICKER_NAME_ID_FILE. Delay of 14sec because of REST API restrictions (apprx. 5 Rq/min)
     CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14
@@ -871,13 +940,10 @@ do
         fi
 
         {   
-
             # RealTimeQuote
             echo "<script>
-
             // For Spinner
             counterOwnStocks=$counterOwnStocks;
-
             fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION="$ID_NOTATION"')}\`)
             .then(response => {
                     if (response.ok) {
@@ -902,6 +968,10 @@ do
                     else{
                         elementPercentage$symbol.style.color = 'green';
                     }
+
+                    // Sorting
+                    var nummeric = realTimeProz$symbol.replace(',', '')
+                    document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+nummeric;
 
                     let positionTime1 = data.contents.indexOf(' -  ');
                     var time$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -990,7 +1060,7 @@ do
             </script>"
 
             # Image Chart
-            echo "<br><img width=\"70%\" id=\"intervalSectionImage$symbol\" style='display: none'></img><br>
+            echo "<br><img width=\"68%\" id=\"intervalSectionImage$symbol\" style='display: none'></img><br>
                   <button id=\"intervalSectionButton1D$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">1D</button>
                   <button id=\"intervalSectionButton5D$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">5D</button>
                   <button id=\"intervalSectionButton10D$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">10D</button>
@@ -1023,6 +1093,10 @@ do
                   // setTimeout(updateImage$symbol, 5*60*1000); // 5 Minutes // 5*60*1000
                 }
             </script>"
+
+            # Sorting End symbolsListId
+            echo "</div>"
+
         } >> $OUT_RESULT_FILE
 
         # Collect Values for Overall
@@ -1080,7 +1154,7 @@ fi
 
     # DAX
     echo "<span id=\"intervalSectionHeadlineDAX\" style='display:none'><br>DAX<br></span>"
-    echo "<img width=\"70%\" id=\"intervalSectionImageDAX\" style='display: none'></img><br>
+    echo "<img width=\"68%\" id=\"intervalSectionImageDAX\" style='display: none'></img><br>
         <button id=\"intervalSectionButton1DDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('1D')\">1D</button>
         <button id=\"intervalSectionButton5DDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('5D')\">5D</button>
         <button id=\"intervalSectionButton10DDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('10D')\">10D</button>
