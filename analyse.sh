@@ -990,7 +990,7 @@ do
             </script>"
 
             # Image Chart
-            echo "<br><img width=\"55%\" id=\"intervalSectionImage$symbol\" style='display: none'></img><br>
+            echo "<br><img width=\"64%\" id=\"intervalSectionImage$symbol\" style='display: none'></img><br>
                   <button id=\"intervalSectionButton1D$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1D')\">1D</button>
                   <button id=\"intervalSectionButton5D$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5D')\">5D</button>
                   <button id=\"intervalSectionButton10D$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('10D')\">10D</button>
@@ -1080,7 +1080,7 @@ fi
 
     # DAX
     echo "<span id=\"intervalSectionHeadlineDAX\" style='display:none'><br>DAX<br></span>"
-    echo "<img width=\"55%\" id=\"intervalSectionImageDAX\" style='display: none'></img><br>
+    echo "<img width=\"64%\" id=\"intervalSectionImageDAX\" style='display: none'></img><br>
         <button id=\"intervalSectionButton1DDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('1D')\">1D</button>
         <button id=\"intervalSectionButton5DDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('5D')\">5D</button>
         <button id=\"intervalSectionButton10DDAX\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImageDAX('10D')\">10D</button>
