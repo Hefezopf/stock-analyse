@@ -90,8 +90,74 @@ animation: spin 2s linear infinite;
 </style>
 </head>
 <body>
-<div>
+<div id="symbolsListId">
 <script>
+function doSortDaily() {
+var container = document.getElementById("symbolsListId");
+var elements = container.childNodes;
+var sortPositivValues = [];
+var sortNegativValues = [];
+for (var i=0; i<elements.length; i++) {
+// skip nodes without an ID
+if (!elements[i].id) {
+continue;
+}
+
+var sortPart = elements[i].id.split("+");
+// only add the element for sorting if it has a plus in it
+if (sortPart.length > 1) {
+/*
+* prepare the ID for faster comparison
+* array will contain:
+*   [0] => number which will be used for sorting 
+*   [1] => element
+* 1 * something is the fastest way I know to convert a string to a
+* number. It should be a number to make it sort in a natural way,
+* so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
+*/
+sortPositivValues.push([ 1 * sortPart[1] , elements[i] ]);
+}
+
+var sortPart = elements[i].id.split("-");
+// only add the element for sorting if it has a dash in it
+if (sortPart.length > 1) {
+/*
+* prepare the ID for faster comparison
+* array will contain:
+*   [0] => number which will be used for sorting 
+*   [1] => element
+* 1 * something is the fastest way I know to convert a string to a
+* number. It should be a number to make it sort in a natural way,
+* so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
+*/
+sortNegativValues.push([ 1 * sortPart[1] , elements[i] ]);
+}        
+}
+// sort the array sortPositivValues, elements with the highest ID will be first
+sortPositivValues.sort(function(x, y) {
+// first array element is the number, used for comparison
+return y[0] - x[0];
+});
+// sort the array sortNegativValues, elements with the lowest ID will be first
+sortNegativValues.sort(function(x, y) {
+// first array element is the number, used for comparison
+return x[0] - y[0];
+});    
+// finally append the sorted elements again, the old element will be moved to
+// the new position
+for (var i=0; i<sortPositivValues.length; i++) {
+// remember that the second array element contains the element itself
+container.appendChild(sortPositivValues[i][1]);
+}
+for (var i=0; i<sortNegativValues.length; i++) {
+container.appendChild(sortNegativValues[i][1]);
+}    
+}
+var btnSortDaily = document.createElement("button");
+btnSortDaily.onclick = doSortDaily;
+btnSortDaily.innerHTML = "Sort +Daily%";
+document.body.appendChild(btnSortDaily);
+
 // Global Varables
 var token1 = 'ghp_';
 var token2 = 'Y56Fa4kw5ccmrG4dolafJwPYhOopcSiQ3pao';
@@ -204,7 +270,8 @@ Stochastic:9
 <br>
 RSI:25
 <br><br># Analyse
-<div id="firstlineIdTRVC-111" style="margin-top: 6px">
+<div id='symbolLineIdTRVC'>
+<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672221" target="_blank">*TRVC "CITIGROUP"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672221" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TRVC.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -212,10 +279,8 @@ RSI:25
 </div>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=1;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672221')}`)
 .then(response => {
 if (response.ok) {
@@ -240,6 +305,10 @@ elementPercentageTRVC.style.color = 'red';
 else{
 elementPercentageTRVC.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzTRVC.replace(',', '')
+document.getElementById('symbolLineIdTRVC').id = 'symbolLineIdTRVC'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeTRVC = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -321,7 +390,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonTRVC").addEventListener("click", setBeepIntervalTRVC);
 </script>
-<br><img width="70%" id="intervalSectionImageTRVC" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageTRVC" style='display: none'></img><br>
 <button id="intervalSectionButton1DTRVC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTRVC('1D')">1D</button>
 <button id="intervalSectionButton5DTRVC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTRVC('5D')">5D</button>
 <button id="intervalSectionButton10DTRVC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTRVC('10D')">10D</button>
@@ -354,7 +423,9 @@ imageTRVC.src = urlWithTimeSpan;
 // setTimeout(updateImageTRVC, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdTEG-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdTEG'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672272" target="_blank">*TEG "TAG IMMOBILIEN"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672272" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TEG.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -365,10 +436,8 @@ Buy: RSI Divergence (D)<br>
 Buy: Low Percentage & Stochastic (P)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=2;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672272')}`)
 .then(response => {
 if (response.ok) {
@@ -393,6 +462,10 @@ elementPercentageTEG.style.color = 'red';
 else{
 elementPercentageTEG.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzTEG.replace(',', '')
+document.getElementById('symbolLineIdTEG').id = 'symbolLineIdTEG'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeTEG = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -474,7 +547,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonTEG").addEventListener("click", setBeepIntervalTEG);
 </script>
-<br><img width="70%" id="intervalSectionImageTEG" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageTEG" style='display: none'></img><br>
 <button id="intervalSectionButton1DTEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTEG('1D')">1D</button>
 <button id="intervalSectionButton5DTEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTEG('5D')">5D</button>
 <button id="intervalSectionButton10DTEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTEG('10D')">10D</button>
@@ -507,7 +580,9 @@ imageTEG.src = urlWithTimeSpan;
 // setTimeout(updateImageTEG, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdPHI1-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdPHI1'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337264" target="_blank">*PHI1 "KONINKLI PHILIPS"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337264" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/PHI1.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -518,10 +593,8 @@ Buy: RSI Divergence (D)<br>
 Buy: Low Percentage & Stochastic (P)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=3;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337264')}`)
 .then(response => {
 if (response.ok) {
@@ -546,6 +619,10 @@ elementPercentagePHI1.style.color = 'red';
 else{
 elementPercentagePHI1.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzPHI1.replace(',', '')
+document.getElementById('symbolLineIdPHI1').id = 'symbolLineIdPHI1'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timePHI1 = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -627,7 +704,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonPHI1").addEventListener("click", setBeepIntervalPHI1);
 </script>
-<br><img width="70%" id="intervalSectionImagePHI1" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImagePHI1" style='display: none'></img><br>
 <button id="intervalSectionButton1DPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('1D')">1D</button>
 <button id="intervalSectionButton5DPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('5D')">5D</button>
 <button id="intervalSectionButton10DPHI1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImagePHI1('10D')">10D</button>
@@ -660,7 +737,9 @@ imagePHI1.src = urlWithTimeSpan;
 // setTimeout(updateImagePHI1, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdEUZ-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdEUZ'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=260319089" target="_blank">*EUZ "ECKERT & ZIEGLER"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=260319089" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/EUZ.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -670,10 +749,8 @@ Buy: Low Percentage & Stochastic (P)<br>
 Buy: Low 6 last Stochastic (S)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=4;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=260319089')}`)
 .then(response => {
 if (response.ok) {
@@ -698,6 +775,10 @@ elementPercentageEUZ.style.color = 'red';
 else{
 elementPercentageEUZ.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzEUZ.replace(',', '')
+document.getElementById('symbolLineIdEUZ').id = 'symbolLineIdEUZ'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeEUZ = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -779,7 +860,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonEUZ").addEventListener("click", setBeepIntervalEUZ);
 </script>
-<br><img width="70%" id="intervalSectionImageEUZ" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageEUZ" style='display: none'></img><br>
 <button id="intervalSectionButton1DEUZ" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageEUZ('1D')">1D</button>
 <button id="intervalSectionButton5DEUZ" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageEUZ('5D')">5D</button>
 <button id="intervalSectionButton10DEUZ" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageEUZ('10D')">10D</button>
@@ -812,7 +893,9 @@ imageEUZ.src = urlWithTimeSpan;
 // setTimeout(updateImageEUZ, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdDWNI-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdDWNI'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672410" target="_blank">*DWNI "DEUT. WOHNEN"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672410" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DWNI.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -827,10 +910,8 @@ Buy: Low 7 last RSI (R)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=5;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672410')}`)
 .then(response => {
 if (response.ok) {
@@ -855,6 +936,10 @@ elementPercentageDWNI.style.color = 'red';
 else{
 elementPercentageDWNI.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzDWNI.replace(',', '')
+document.getElementById('symbolLineIdDWNI').id = 'symbolLineIdDWNI'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeDWNI = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -936,7 +1021,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonDWNI").addEventListener("click", setBeepIntervalDWNI);
 </script>
-<br><img width="70%" id="intervalSectionImageDWNI" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageDWNI" style='display: none'></img><br>
 <button id="intervalSectionButton1DDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('1D')">1D</button>
 <button id="intervalSectionButton5DDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('5D')">5D</button>
 <button id="intervalSectionButton10DDWNI" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDWNI('10D')">10D</button>
@@ -969,7 +1054,9 @@ imageDWNI.src = urlWithTimeSpan;
 // setTimeout(updateImageDWNI, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdGYC-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdGYC'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=194616562" target="_blank">*GYC "GRAND CITY PROP."</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=194616562" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GYC.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -981,10 +1068,8 @@ Buy: Low Percentage & Stochastic (P)<br>
 Buy: Low 4 last Stochastic (S)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=6;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=194616562')}`)
 .then(response => {
 if (response.ok) {
@@ -1009,6 +1094,10 @@ elementPercentageGYC.style.color = 'red';
 else{
 elementPercentageGYC.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzGYC.replace(',', '')
+document.getElementById('symbolLineIdGYC').id = 'symbolLineIdGYC'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeGYC = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -1090,7 +1179,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonGYC").addEventListener("click", setBeepIntervalGYC);
 </script>
-<br><img width="70%" id="intervalSectionImageGYC" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageGYC" style='display: none'></img><br>
 <button id="intervalSectionButton1DGYC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGYC('1D')">1D</button>
 <button id="intervalSectionButton5DGYC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGYC('5D')">5D</button>
 <button id="intervalSectionButton10DGYC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGYC('10D')">10D</button>
@@ -1123,7 +1212,9 @@ imageGYC.src = urlWithTimeSpan;
 // setTimeout(updateImageGYC, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdFFH-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdFFH'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671447" target="_blank">*FFH "Fifth Third Bancorp"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671447" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FFH.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -1137,10 +1228,8 @@ Buy: Low 6 last RSI (R)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=7;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671447')}`)
 .then(response => {
 if (response.ok) {
@@ -1165,6 +1254,10 @@ elementPercentageFFH.style.color = 'red';
 else{
 elementPercentageFFH.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzFFH.replace(',', '')
+document.getElementById('symbolLineIdFFH').id = 'symbolLineIdFFH'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeFFH = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -1246,7 +1339,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonFFH").addEventListener("click", setBeepIntervalFFH);
 </script>
-<br><img width="70%" id="intervalSectionImageFFH" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageFFH" style='display: none'></img><br>
 <button id="intervalSectionButton1DFFH" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageFFH('1D')">1D</button>
 <button id="intervalSectionButton5DFFH" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageFFH('5D')">5D</button>
 <button id="intervalSectionButton10DFFH" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageFFH('10D')">10D</button>
@@ -1279,7 +1372,9 @@ imageFFH.src = urlWithTimeSpan;
 // setTimeout(updateImageFFH, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdLEG-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdLEG'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=76456982" target="_blank">*LEG "LEG Immobilien"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=76456982" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/LEG.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -1291,10 +1386,8 @@ Buy: Low Percentage & Stochastic (P)<br>
 Buy: Low 4 last Stochastic (S)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=8;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=76456982')}`)
 .then(response => {
 if (response.ok) {
@@ -1319,6 +1412,10 @@ elementPercentageLEG.style.color = 'red';
 else{
 elementPercentageLEG.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzLEG.replace(',', '')
+document.getElementById('symbolLineIdLEG').id = 'symbolLineIdLEG'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeLEG = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -1400,7 +1497,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonLEG").addEventListener("click", setBeepIntervalLEG);
 </script>
-<br><img width="70%" id="intervalSectionImageLEG" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageLEG" style='display: none'></img><br>
 <button id="intervalSectionButton1DLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('1D')">1D</button>
 <button id="intervalSectionButton5DLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('5D')">5D</button>
 <button id="intervalSectionButton10DLEG" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageLEG('10D')">10D</button>
@@ -1433,7 +1530,9 @@ imageLEG.src = urlWithTimeSpan;
 // setTimeout(updateImageLEG, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdADN1-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdADN1'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=82490665" target="_blank">*ADN1 "ADESSO"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=82490665" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ADN1.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -1447,10 +1546,8 @@ Buy: Low 4 last RSI (R)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=9;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=82490665')}`)
 .then(response => {
 if (response.ok) {
@@ -1475,6 +1572,10 @@ elementPercentageADN1.style.color = 'red';
 else{
 elementPercentageADN1.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzADN1.replace(',', '')
+document.getElementById('symbolLineIdADN1').id = 'symbolLineIdADN1'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeADN1 = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -1556,7 +1657,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonADN1").addEventListener("click", setBeepIntervalADN1);
 </script>
-<br><img width="70%" id="intervalSectionImageADN1" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageADN1" style='display: none'></img><br>
 <button id="intervalSectionButton1DADN1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageADN1('1D')">1D</button>
 <button id="intervalSectionButton5DADN1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageADN1('5D')">5D</button>
 <button id="intervalSectionButton10DADN1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageADN1('10D')">10D</button>
@@ -1589,7 +1690,9 @@ imageADN1.src = urlWithTimeSpan;
 // setTimeout(updateImageADN1, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdVNA-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdVNA'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">*VNA "Vonovia"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777125" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VNA.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -1602,10 +1705,8 @@ Buy: Low Percentage & Stochastic (P)<br>
 Buy: Low 4 last Stochastic (S)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=10;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=89777125')}`)
 .then(response => {
 if (response.ok) {
@@ -1630,6 +1731,10 @@ elementPercentageVNA.style.color = 'red';
 else{
 elementPercentageVNA.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzVNA.replace(',', '')
+document.getElementById('symbolLineIdVNA').id = 'symbolLineIdVNA'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeVNA = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -1711,7 +1816,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonVNA").addEventListener("click", setBeepIntervalVNA);
 </script>
-<br><img width="70%" id="intervalSectionImageVNA" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageVNA" style='display: none'></img><br>
 <button id="intervalSectionButton1DVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('1D')">1D</button>
 <button id="intervalSectionButton5DVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('5D')">5D</button>
 <button id="intervalSectionButton10DVNA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVNA('10D')">10D</button>
@@ -1744,7 +1849,9 @@ imageVNA.src = urlWithTimeSpan;
 // setTimeout(updateImageVNA, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdKGX-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdKGX'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777142" target="_blank">*KGX "KION"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=89777142" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/KGX.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -1755,10 +1862,8 @@ Buy: Low 7 last Stochastic (S)<br>
 Buy: Low 6 last RSI (R)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=11;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=89777142')}`)
 .then(response => {
 if (response.ok) {
@@ -1783,6 +1888,10 @@ elementPercentageKGX.style.color = 'red';
 else{
 elementPercentageKGX.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzKGX.replace(',', '')
+document.getElementById('symbolLineIdKGX').id = 'symbolLineIdKGX'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeKGX = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -1864,7 +1973,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonKGX").addEventListener("click", setBeepIntervalKGX);
 </script>
-<br><img width="70%" id="intervalSectionImageKGX" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageKGX" style='display: none'></img><br>
 <button id="intervalSectionButton1DKGX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageKGX('1D')">1D</button>
 <button id="intervalSectionButton5DKGX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageKGX('5D')">5D</button>
 <button id="intervalSectionButton10DKGX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageKGX('10D')">10D</button>
@@ -1897,7 +2006,9 @@ imageKGX.src = urlWithTimeSpan;
 // setTimeout(updateImageKGX, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdSTM-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdSTM'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=103514041" target="_blank">*STM "Stabilus"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=103514041" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/STM.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -1911,10 +2022,8 @@ Buy: Low 5 last RSI (R)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=12;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=103514041')}`)
 .then(response => {
 if (response.ok) {
@@ -1939,6 +2048,10 @@ elementPercentageSTM.style.color = 'red';
 else{
 elementPercentageSTM.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzSTM.replace(',', '')
+document.getElementById('symbolLineIdSTM').id = 'symbolLineIdSTM'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeSTM = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -2020,7 +2133,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonSTM").addEventListener("click", setBeepIntervalSTM);
 </script>
-<br><img width="70%" id="intervalSectionImageSTM" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageSTM" style='display: none'></img><br>
 <button id="intervalSectionButton1DSTM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSTM('1D')">1D</button>
 <button id="intervalSectionButton5DSTM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSTM('5D')">5D</button>
 <button id="intervalSectionButton10DSTM" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSTM('10D')">10D</button>
@@ -2053,7 +2166,9 @@ imageSTM.src = urlWithTimeSpan;
 // setTimeout(updateImageSTM, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdJUN3-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdJUN3'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336942" target="_blank">*JUN3 "JUNGHEINRICH"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336942" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/JUN3.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2065,10 +2180,8 @@ Buy: Low Percentage & Stochastic (P)<br>
 Buy: Low 7 last Stochastic (S)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=13;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336942')}`)
 .then(response => {
 if (response.ok) {
@@ -2093,6 +2206,10 @@ elementPercentageJUN3.style.color = 'red';
 else{
 elementPercentageJUN3.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzJUN3.replace(',', '')
+document.getElementById('symbolLineIdJUN3').id = 'symbolLineIdJUN3'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeJUN3 = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -2174,7 +2291,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonJUN3").addEventListener("click", setBeepIntervalJUN3);
 </script>
-<br><img width="70%" id="intervalSectionImageJUN3" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageJUN3" style='display: none'></img><br>
 <button id="intervalSectionButton1DJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('1D')">1D</button>
 <button id="intervalSectionButton5DJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('5D')">5D</button>
 <button id="intervalSectionButton10DJUN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJUN3('10D')">10D</button>
@@ -2207,7 +2324,9 @@ imageJUN3.src = urlWithTimeSpan;
 // setTimeout(updateImageJUN3, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdDUE-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdDUE'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670754" target="_blank">*DUE "DUERR"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46670754" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DUE.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2221,10 +2340,8 @@ Buy: Low 7 last RSI (R)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=14;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46670754')}`)
 .then(response => {
 if (response.ok) {
@@ -2249,6 +2366,10 @@ elementPercentageDUE.style.color = 'red';
 else{
 elementPercentageDUE.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzDUE.replace(',', '')
+document.getElementById('symbolLineIdDUE').id = 'symbolLineIdDUE'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeDUE = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -2330,7 +2451,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonDUE").addEventListener("click", setBeepIntervalDUE);
 </script>
-<br><img width="70%" id="intervalSectionImageDUE" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageDUE" style='display: none'></img><br>
 <button id="intervalSectionButton1DDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('1D')">1D</button>
 <button id="intervalSectionButton5DDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('5D')">5D</button>
 <button id="intervalSectionButton10DDUE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDUE('10D')">10D</button>
@@ -2363,7 +2484,9 @@ imageDUE.src = urlWithTimeSpan;
 // setTimeout(updateImageDUE, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdJEN-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdJEN'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336943" target="_blank">*JEN "JENOPTIK"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336943" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/JEN.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2376,10 +2499,8 @@ Buy: Low 7 last RSI (R)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=15;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336943')}`)
 .then(response => {
 if (response.ok) {
@@ -2404,6 +2525,10 @@ elementPercentageJEN.style.color = 'red';
 else{
 elementPercentageJEN.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzJEN.replace(',', '')
+document.getElementById('symbolLineIdJEN').id = 'symbolLineIdJEN'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeJEN = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -2485,7 +2610,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonJEN").addEventListener("click", setBeepIntervalJEN);
 </script>
-<br><img width="70%" id="intervalSectionImageJEN" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageJEN" style='display: none'></img><br>
 <button id="intervalSectionButton1DJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('1D')">1D</button>
 <button id="intervalSectionButton5DJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('5D')">5D</button>
 <button id="intervalSectionButton10DJEN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageJEN('10D')">10D</button>
@@ -2518,7 +2643,9 @@ imageJEN.src = urlWithTimeSpan;
 // setTimeout(updateImageJEN, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdSAX-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdSAX'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672329" target="_blank">*SAX "STROEER MEDIA"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672329" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SAX.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2531,10 +2658,8 @@ Buy: Low 7 last RSI (R)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=16;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672329')}`)
 .then(response => {
 if (response.ok) {
@@ -2559,6 +2684,10 @@ elementPercentageSAX.style.color = 'red';
 else{
 elementPercentageSAX.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzSAX.replace(',', '')
+document.getElementById('symbolLineIdSAX').id = 'symbolLineIdSAX'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeSAX = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -2640,7 +2769,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonSAX").addEventListener("click", setBeepIntervalSAX);
 </script>
-<br><img width="70%" id="intervalSectionImageSAX" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageSAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('1D')">1D</button>
 <button id="intervalSectionButton5DSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('5D')">5D</button>
 <button id="intervalSectionButton10DSAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageSAX('10D')">10D</button>
@@ -2673,7 +2802,9 @@ imageSAX.src = urlWithTimeSpan;
 // setTimeout(updateImageSAX, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineId8TRA-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineId8TRA'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=260507989" target="_blank">*8TRA "TRATON"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=260507989" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/8TRA.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2684,10 +2815,8 @@ Buy: Low 6 last Stochastic (S)<br>
 Buy: Low 5 last RSI (R)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=17;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=260507989')}`)
 .then(response => {
 if (response.ok) {
@@ -2712,6 +2841,10 @@ elementPercentage8TRA.style.color = 'red';
 else{
 elementPercentage8TRA.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProz8TRA.replace(',', '')
+document.getElementById('symbolLineId8TRA').id = 'symbolLineId8TRA'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var time8TRA = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -2793,7 +2926,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButton8TRA").addEventListener("click", setBeepInterval8TRA);
 </script>
-<br><img width="70%" id="intervalSectionImage8TRA" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImage8TRA" style='display: none'></img><br>
 <button id="intervalSectionButton1D8TRA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImage8TRA('1D')">1D</button>
 <button id="intervalSectionButton5D8TRA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImage8TRA('5D')">5D</button>
 <button id="intervalSectionButton10D8TRA" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImage8TRA('10D')">10D</button>
@@ -2826,7 +2959,9 @@ image8TRA.src = urlWithTimeSpan;
 // setTimeout(updateImage8TRA, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdMTX-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdMTX'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672379" target="_blank">*MTX "MTU Aero Engine"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672379" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MTX.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2840,10 +2975,8 @@ Buy: Low 4 last RSI (R)<br>
 Buy: Low Stochastic & RSI & MACD- (C)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=18;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672379')}`)
 .then(response => {
 if (response.ok) {
@@ -2868,6 +3001,10 @@ elementPercentageMTX.style.color = 'red';
 else{
 elementPercentageMTX.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzMTX.replace(',', '')
+document.getElementById('symbolLineIdMTX').id = 'symbolLineIdMTX'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeMTX = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -2949,7 +3086,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonMTX").addEventListener("click", setBeepIntervalMTX);
 </script>
-<br><img width="70%" id="intervalSectionImageMTX" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageMTX" style='display: none'></img><br>
 <button id="intervalSectionButton1DMTX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMTX('1D')">1D</button>
 <button id="intervalSectionButton5DMTX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMTX('5D')">5D</button>
 <button id="intervalSectionButton10DMTX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageMTX('10D')">10D</button>
@@ -2982,7 +3119,9 @@ imageMTX.src = urlWithTimeSpan;
 // setTimeout(updateImageMTX, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdHEN3-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdHEN3'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336931" target="_blank">*HEN3 "HENKEL VZ"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10336931" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HEN3.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -2991,10 +3130,8 @@ imageMTX.src = urlWithTimeSpan;
 Buy: Low Percentage & Stochastic (P)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=19;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10336931')}`)
 .then(response => {
 if (response.ok) {
@@ -3019,6 +3156,10 @@ elementPercentageHEN3.style.color = 'red';
 else{
 elementPercentageHEN3.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzHEN3.replace(',', '')
+document.getElementById('symbolLineIdHEN3').id = 'symbolLineIdHEN3'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeHEN3 = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -3100,7 +3241,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonHEN3").addEventListener("click", setBeepIntervalHEN3);
 </script>
-<br><img width="70%" id="intervalSectionImageHEN3" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageHEN3" style='display: none'></img><br>
 <button id="intervalSectionButton1DHEN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHEN3('1D')">1D</button>
 <button id="intervalSectionButton5DHEN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHEN3('5D')">5D</button>
 <button id="intervalSectionButton10DHEN3" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageHEN3('10D')">10D</button>
@@ -3133,7 +3274,9 @@ imageHEN3.src = urlWithTimeSpan;
 // setTimeout(updateImageHEN3, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdVAS-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdVAS'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=57652069" target="_blank">*VAS "VOESTALPINE"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=57652069" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/VAS.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -3142,10 +3285,8 @@ imageHEN3.src = urlWithTimeSpan;
 Buy: Low 4 last RSI (R)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=20;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=57652069')}`)
 .then(response => {
 if (response.ok) {
@@ -3170,6 +3311,10 @@ elementPercentageVAS.style.color = 'red';
 else{
 elementPercentageVAS.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzVAS.replace(',', '')
+document.getElementById('symbolLineIdVAS').id = 'symbolLineIdVAS'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeVAS = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -3251,7 +3396,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonVAS").addEventListener("click", setBeepIntervalVAS);
 </script>
-<br><img width="70%" id="intervalSectionImageVAS" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageVAS" style='display: none'></img><br>
 <button id="intervalSectionButton1DVAS" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVAS('1D')">1D</button>
 <button id="intervalSectionButton5DVAS" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVAS('5D')">5D</button>
 <button id="intervalSectionButton10DVAS" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageVAS('10D')">10D</button>
@@ -3284,7 +3429,9 @@ imageVAS.src = urlWithTimeSpan;
 // setTimeout(updateImageVAS, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdNVV1-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdNVV1'>
+<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=310683061" target="_blank">*NVV1 "NOVAVAX"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=310683061" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NVV1.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -3292,10 +3439,8 @@ imageVAS.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=21;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=310683061')}`)
 .then(response => {
 if (response.ok) {
@@ -3320,6 +3465,10 @@ elementPercentageNVV1.style.color = 'red';
 else{
 elementPercentageNVV1.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzNVV1.replace(',', '')
+document.getElementById('symbolLineIdNVV1').id = 'symbolLineIdNVV1'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeNVV1 = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -3401,7 +3550,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonNVV1").addEventListener("click", setBeepIntervalNVV1);
 </script>
-<br><img width="70%" id="intervalSectionImageNVV1" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageNVV1" style='display: none'></img><br>
 <button id="intervalSectionButton1DNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('1D')">1D</button>
 <button id="intervalSectionButton5DNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('5D')">5D</button>
 <button id="intervalSectionButton10DNVV1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageNVV1('10D')">10D</button>
@@ -3434,7 +3583,9 @@ imageNVV1.src = urlWithTimeSpan;
 // setTimeout(updateImageNVV1, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdO3P-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdO3P'>
+<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72663856" target="_blank">*O3P "OESTERREICH. POST"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72663856" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/O3P.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -3442,10 +3593,8 @@ imageNVV1.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=22;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=72663856')}`)
 .then(response => {
 if (response.ok) {
@@ -3470,6 +3619,10 @@ elementPercentageO3P.style.color = 'red';
 else{
 elementPercentageO3P.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzO3P.replace(',', '')
+document.getElementById('symbolLineIdO3P').id = 'symbolLineIdO3P'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeO3P = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -3551,7 +3704,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonO3P").addEventListener("click", setBeepIntervalO3P);
 </script>
-<br><img width="70%" id="intervalSectionImageO3P" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageO3P" style='display: none'></img><br>
 <button id="intervalSectionButton1DO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('1D')">1D</button>
 <button id="intervalSectionButton5DO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('5D')">5D</button>
 <button id="intervalSectionButton10DO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('10D')">10D</button>
@@ -3584,7 +3737,9 @@ imageO3P.src = urlWithTimeSpan;
 // setTimeout(updateImageO3P, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdBCY-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdBCY'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672133" target="_blank">*BCY "Barclays Bank"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672133" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/BCY.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -3593,10 +3748,8 @@ imageO3P.src = urlWithTimeSpan;
 Buy: Low 7 last RSI (R)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=23;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672133')}`)
 .then(response => {
 if (response.ok) {
@@ -3621,6 +3774,10 @@ elementPercentageBCY.style.color = 'red';
 else{
 elementPercentageBCY.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzBCY.replace(',', '')
+document.getElementById('symbolLineIdBCY').id = 'symbolLineIdBCY'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeBCY = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -3702,7 +3859,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonBCY").addEventListener("click", setBeepIntervalBCY);
 </script>
-<br><img width="70%" id="intervalSectionImageBCY" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageBCY" style='display: none'></img><br>
 <button id="intervalSectionButton1DBCY" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageBCY('1D')">1D</button>
 <button id="intervalSectionButton5DBCY" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageBCY('5D')">5D</button>
 <button id="intervalSectionButton10DBCY" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageBCY('10D')">10D</button>
@@ -3735,7 +3892,9 @@ imageBCY.src = urlWithTimeSpan;
 // setTimeout(updateImageBCY, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdIXD1-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdIXD1'>
+<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=113359031" target="_blank">*IXD1 "INDUST. DE DISENO"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=113359031" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/IXD1.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -3743,10 +3902,8 @@ imageBCY.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=24;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=113359031')}`)
 .then(response => {
 if (response.ok) {
@@ -3771,6 +3928,10 @@ elementPercentageIXD1.style.color = 'red';
 else{
 elementPercentageIXD1.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzIXD1.replace(',', '')
+document.getElementById('symbolLineIdIXD1').id = 'symbolLineIdIXD1'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeIXD1 = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -3852,7 +4013,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonIXD1").addEventListener("click", setBeepIntervalIXD1);
 </script>
-<br><img width="70%" id="intervalSectionImageIXD1" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageIXD1" style='display: none'></img><br>
 <button id="intervalSectionButton1DIXD1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageIXD1('1D')">1D</button>
 <button id="intervalSectionButton5DIXD1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageIXD1('5D')">5D</button>
 <button id="intervalSectionButton10DIXD1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageIXD1('10D')">10D</button>
@@ -3885,7 +4046,9 @@ imageIXD1.src = urlWithTimeSpan;
 // setTimeout(updateImageIXD1, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdAG1-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdAG1'>
+<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=322520116" target="_blank">*AG1 "AUTO1"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=322520116" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AG1.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -3893,10 +4056,8 @@ imageIXD1.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=25;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=322520116')}`)
 .then(response => {
 if (response.ok) {
@@ -3921,6 +4082,10 @@ elementPercentageAG1.style.color = 'red';
 else{
 elementPercentageAG1.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzAG1.replace(',', '')
+document.getElementById('symbolLineIdAG1').id = 'symbolLineIdAG1'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeAG1 = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -4002,7 +4167,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonAG1").addEventListener("click", setBeepIntervalAG1);
 </script>
-<br><img width="70%" id="intervalSectionImageAG1" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageAG1" style='display: none'></img><br>
 <button id="intervalSectionButton1DAG1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageAG1('1D')">1D</button>
 <button id="intervalSectionButton5DAG1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageAG1('5D')">5D</button>
 <button id="intervalSectionButton10DAG1" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageAG1('10D')">10D</button>
@@ -4035,7 +4200,9 @@ imageAG1.src = urlWithTimeSpan;
 // setTimeout(updateImageAG1, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdUNVB-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdUNVB'>
+<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=102864892" target="_blank">*UNVB "Unilever"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=102864892" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/UNVB.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -4043,10 +4210,8 @@ imageAG1.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=26;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=102864892')}`)
 .then(response => {
 if (response.ok) {
@@ -4071,6 +4236,10 @@ elementPercentageUNVB.style.color = 'red';
 else{
 elementPercentageUNVB.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzUNVB.replace(',', '')
+document.getElementById('symbolLineIdUNVB').id = 'symbolLineIdUNVB'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeUNVB = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -4152,7 +4321,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonUNVB").addEventListener("click", setBeepIntervalUNVB);
 </script>
-<br><img width="70%" id="intervalSectionImageUNVB" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageUNVB" style='display: none'></img><br>
 <button id="intervalSectionButton1DUNVB" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUNVB('1D')">1D</button>
 <button id="intervalSectionButton5DUNVB" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUNVB('5D')">5D</button>
 <button id="intervalSectionButton10DUNVB" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageUNVB('10D')">10D</button>
@@ -4185,7 +4354,9 @@ imageUNVB.src = urlWithTimeSpan;
 // setTimeout(updateImageUNVB, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdIWLE-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdIWLE'>
+<div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=256835748" target="_blank">*IWLE "ISH MSCI World"</a>
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=256835748" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:green" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/IWLE.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -4194,10 +4365,8 @@ imageUNVB.src = urlWithTimeSpan;
 Buy: Low 4 last Stochastic (S)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=27;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=256835748')}`)
 .then(response => {
 if (response.ok) {
@@ -4222,6 +4391,10 @@ elementPercentageIWLE.style.color = 'red';
 else{
 elementPercentageIWLE.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzIWLE.replace(',', '')
+document.getElementById('symbolLineIdIWLE').id = 'symbolLineIdIWLE'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeIWLE = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -4303,7 +4476,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonIWLE").addEventListener("click", setBeepIntervalIWLE);
 </script>
-<br><img width="70%" id="intervalSectionImageIWLE" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageIWLE" style='display: none'></img><br>
 <button id="intervalSectionButton1DIWLE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageIWLE('1D')">1D</button>
 <button id="intervalSectionButton5DIWLE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageIWLE('5D')">5D</button>
 <button id="intervalSectionButton10DIWLE" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageIWLE('10D')">10D</button>
@@ -4336,7 +4509,9 @@ imageIWLE.src = urlWithTimeSpan;
 // setTimeout(updateImageIWLE, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdCRIN-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdCRIN'>
+<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=180798778" target="_blank">*CRIN "UNICREDIT"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=180798778" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CRIN.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -4344,10 +4519,8 @@ imageIWLE.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=28;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=180798778')}`)
 .then(response => {
 if (response.ok) {
@@ -4372,6 +4545,10 @@ elementPercentageCRIN.style.color = 'red';
 else{
 elementPercentageCRIN.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzCRIN.replace(',', '')
+document.getElementById('symbolLineIdCRIN').id = 'symbolLineIdCRIN'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeCRIN = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -4453,7 +4630,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonCRIN").addEventListener("click", setBeepIntervalCRIN);
 </script>
-<br><img width="70%" id="intervalSectionImageCRIN" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageCRIN" style='display: none'></img><br>
 <button id="intervalSectionButton1DCRIN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageCRIN('1D')">1D</button>
 <button id="intervalSectionButton5DCRIN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageCRIN('5D')">5D</button>
 <button id="intervalSectionButton10DCRIN" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageCRIN('10D')">10D</button>
@@ -4486,7 +4663,9 @@ imageCRIN.src = urlWithTimeSpan;
 // setTimeout(updateImageCRIN, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdAOMD-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdAOMD'>
+<div style="margin-top: 6px">
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671038" target="_blank">*AOMD "ALSTOM"</a>
 <a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46671038" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AOMD.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -4494,10 +4673,8 @@ imageCRIN.src = urlWithTimeSpan;
 </div>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=29;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671038')}`)
 .then(response => {
 if (response.ok) {
@@ -4522,6 +4699,10 @@ elementPercentageAOMD.style.color = 'red';
 else{
 elementPercentageAOMD.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzAOMD.replace(',', '')
+document.getElementById('symbolLineIdAOMD').id = 'symbolLineIdAOMD'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeAOMD = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -4603,7 +4784,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonAOMD").addEventListener("click", setBeepIntervalAOMD);
 </script>
-<br><img width="70%" id="intervalSectionImageAOMD" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageAOMD" style='display: none'></img><br>
 <button id="intervalSectionButton1DAOMD" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageAOMD('1D')">1D</button>
 <button id="intervalSectionButton5DAOMD" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageAOMD('5D')">5D</button>
 <button id="intervalSectionButton10DAOMD" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageAOMD('10D')">10D</button>
@@ -4636,7 +4817,9 @@ imageAOMD.src = urlWithTimeSpan;
 // setTimeout(updateImageAOMD, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdTNE5-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdTNE5'>
+<div style="margin-top: 6px">
 <a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337133" target="_blank">*TNE5 "TELEFONICA S.A."</a>
 <a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337133" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:red" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TNE5.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -4650,10 +4833,8 @@ Sell: High 7 last RSI (R)<br>
 Sell: High Stochastic & RSI & MACD+ (C)<br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=30;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337133')}`)
 .then(response => {
 if (response.ok) {
@@ -4678,6 +4859,10 @@ elementPercentageTNE5.style.color = 'red';
 else{
 elementPercentageTNE5.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzTNE5.replace(',', '')
+document.getElementById('symbolLineIdTNE5').id = 'symbolLineIdTNE5'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeTNE5 = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -4759,7 +4944,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonTNE5").addEventListener("click", setBeepIntervalTNE5);
 </script>
-<br><img width="70%" id="intervalSectionImageTNE5" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageTNE5" style='display: none'></img><br>
 <button id="intervalSectionButton1DTNE5" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTNE5('1D')">1D</button>
 <button id="intervalSectionButton5DTNE5" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTNE5('5D')">5D</button>
 <button id="intervalSectionButton10DTNE5" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageTNE5('10D')">10D</button>
@@ -4792,7 +4977,9 @@ imageTNE5.src = urlWithTimeSpan;
 // setTimeout(updateImageTNE5, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
-<div id="firstlineIdGEC-111" style="margin-top: 6px">
+</div>
+<div id='symbolLineIdGEC'>
+<div style="margin-top: 6px">
 <a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337135" target="_blank">*GEC "General Electric"</a>
 <a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337135" target="_blank">&nbsp;5Y&nbsp;</a>
 <a style="color:red" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GEC.html" target="_blank">&nbsp;SA&nbsp;</a>
@@ -4804,10 +4991,8 @@ Sell: High 4 last Stochastic (S)<br>
 <br><b style='color:orange; font-size:xx-large'>->OLD DATA:*GEC</b><br>
 <br>
 <script>
-
 // For Spinner
 counterOwnStocks=31;
-
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337135')}`)
 .then(response => {
 if (response.ok) {
@@ -4832,6 +5017,10 @@ elementPercentageGEC.style.color = 'red';
 else{
 elementPercentageGEC.style.color = 'green';
 }
+
+// Sorting
+var nummeric = realTimeProzGEC.replace(',', '')
+document.getElementById('symbolLineIdGEC').id = 'symbolLineIdGEC'+nummeric;
 
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeGEC = data.contents.slice(positionTime1+4, positionTime1+12);
@@ -4913,7 +5102,7 @@ elementIntervalText.style.color = 'green';
 }
 document.getElementById("intervalButtonGEC").addEventListener("click", setBeepIntervalGEC);
 </script>
-<br><img width="70%" id="intervalSectionImageGEC" style='display: none'></img><br>
+<br><img width="68%" id="intervalSectionImageGEC" style='display: none'></img><br>
 <button id="intervalSectionButton1DGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('1D')">1D</button>
 <button id="intervalSectionButton5DGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('5D')">5D</button>
 <button id="intervalSectionButton10DGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('10D')">10D</button>
@@ -4946,12 +5135,13 @@ imageGEC.src = urlWithTimeSpan;
 // setTimeout(updateImageGEC, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 </script>
+</div>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall Yesterday (Not Realtime!)<br>
 <span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY4032301/9487621</span>
 <span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY545532-ZZ6.81-</span></span>
 <hr id="intervalSectionHROverall" style='display: none'>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
-<img width="70%" id="intervalSectionImageDAX" style='display: none'></img><br>
+<img width="68%" id="intervalSectionImageDAX" style='display: none'></img><br>
 <button id="intervalSectionButton1DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('1D')">1D</button>
 <button id="intervalSectionButton5DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('5D')">5D</button>
 <button id="intervalSectionButton10DDAX" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageDAX('10D')">10D</button>
@@ -5229,7 +5419,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: no
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 14-Apr-2022 11:46</p><br></div>
+<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 14-Apr-2022 22:04</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
