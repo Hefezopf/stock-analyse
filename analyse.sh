@@ -183,49 +183,31 @@ body > div {
                 */
                 sortPositivValues.push([ 1 * sortPart[1] , elements[i] ]);
             }
-
             var sortPart = elements[i].id.split(\"-\");
-            // only add the element for sorting if it has a dash in it
             if (sortPart.length > 1) {
-                /*
-                * prepare the ID for faster comparison
-                * array will contain:
-                *   [0] => number which will be used for sorting 
-                *   [1] => element
-                * 1 * something is the fastest way I know to convert a string to a
-                * number. It should be a number to make it sort in a natural way,
-                * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
-                */
                 sortNegativValues.push([ 1 * sortPart[1] , elements[i] ]);
             }        
         }
-        // sort the array sortPositivValues, elements with the highest ID will be first
+        
+        // Sort the array sortPositivValues, elements with the highest ID will be first
         sortPositivValues.sort(function(x, y) {
-            // first array element is the number, used for comparison
             return y[0] - x[0];
         });
-        // sort the array sortNegativValues, elements with the lowest ID will be first
         sortNegativValues.sort(function(x, y) {
-            // first array element is the number, used for comparison
             return x[0] - y[0];
         });    
-        // finally append the sorted elements again, the old element will be moved to
-        // the new position
+
+        // Clear page
+        document.getElementById('symbolsListId').innerHTML = '';
+
+        // Append the sorted elements again, the old element will be moved to the new position
         for (var i=0; i<sortPositivValues.length; i++) {
-            // remember that the second array element contains the element itself
             container.appendChild(sortPositivValues[i][1]);
         }
         for (var i=0; i<sortNegativValues.length; i++) {
             container.appendChild(sortNegativValues[i][1]);
         }    
     }
-    var btnSortDaily = document.createElement('button');
-    btnSortDaily.onclick = doSortDaily;
-    btnSortDaily.innerHTML = 'Sort Daily';
-    btnSortDaily.style.height = '35px';
-    btnSortDaily.style.width = '90px';
-    //btnSortDaily.type = 'button';
-    document.body.appendChild(btnSortDaily);
 
     // Global Varables
     var token1 = 'ghp_';
@@ -443,7 +425,8 @@ echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "<br><br># Analyse" >> $OUT_RESULT_FILE
+
+echo "<br><br># Analyse <button id=\"intervalSectionButton\" style='height: 35px; width: 90px; display: none' type=\"button\" onClick=\"javascript:doSortDaily()\">Sort Daily</button>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
