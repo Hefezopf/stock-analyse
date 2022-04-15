@@ -219,9 +219,12 @@ body > div {
             container.appendChild(sortNegativValues[i][1]);
         }    
     }
-    var btnSortDaily = document.createElement(\"button\");
+    var btnSortDaily = document.createElement('button');
     btnSortDaily.onclick = doSortDaily;
-    btnSortDaily.innerHTML = \"Sort +Daily%\";
+    btnSortDaily.innerHTML = 'Sort Daily';
+    btnSortDaily.style.height = '35px';
+    btnSortDaily.style.width = '90px';
+    //btnSortDaily.type = 'button';
     document.body.appendChild(btnSortDaily);
 
     // Global Varables
