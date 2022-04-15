@@ -161,8 +161,8 @@ body > div {
     function doSortDaily() {
         var container = document.getElementById(\"symbolsListId\");
         var elements = container.childNodes;
-        var sortPositivValues = [];
-        var sortNegativValues = [];
+        var sortPositivDailyValues = [];
+        var sortNegativDailyValues = [];
         for (var i=0; i<elements.length; i++) {
             // skip nodes without an ID
             if (!elements[i].id) {
@@ -181,19 +181,19 @@ body > div {
                 * number. It should be a number to make it sort in a natural way,
                 * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
                 */
-                sortPositivValues.push([ 1 * sortPart[1] , elements[i] ]);
+                sortPositivDailyValues.push([ 1 * sortPart[1] , elements[i] ]);
             }
-            var sortPart = elements[i].id.split(\"-\");
+            sortPart = elements[i].id.split(\"-\");
             if (sortPart.length > 1) {
-                sortNegativValues.push([ 1 * sortPart[1] , elements[i] ]);
+                sortNegativDailyValues.push([ 1 * sortPart[1] , elements[i] ]);
             }        
         }
-        
-        // Sort the array sortPositivValues, elements with the highest ID will be first
-        sortPositivValues.sort(function(x, y) {
+
+        // Sort the array sortPositivDailyValues, elements with the highest ID will be first
+        sortPositivDailyValues.sort(function(x, y) {
             return y[0] - x[0];
         });
-        sortNegativValues.sort(function(x, y) {
+        sortNegativDailyValues.sort(function(x, y) {
             return x[0] - y[0];
         });    
 
@@ -201,11 +201,11 @@ body > div {
         document.getElementById('symbolsListId').innerHTML = '';
 
         // Append the sorted elements again, the old element will be moved to the new position
-        for (var i=0; i<sortPositivValues.length; i++) {
-            container.appendChild(sortPositivValues[i][1]);
+        for (var i=0; i<sortPositivDailyValues.length; i++) {
+            container.appendChild(sortPositivDailyValues[i][1]);
         }
-        for (var i=0; i<sortNegativValues.length; i++) {
-            container.appendChild(sortNegativValues[i][1]);
+        for (var i=0; i<sortNegativDailyValues.length; i++) {
+            container.appendChild(sortNegativDailyValues[i][1]);
         }    
     }
 
