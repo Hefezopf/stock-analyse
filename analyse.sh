@@ -959,10 +959,12 @@ do
                     realTimeQuote$symbol = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
                     elementRealTimeQuote$symbol.innerHTML = realTimeQuote$symbol + '€';
                     let positionProz1 = data.contents.indexOf('&#160;%');
-                    var realTimeProz$symbol = data.contents.slice(positionProz1-5, positionProz1);
+                    var realTimeProz$symbol = data.contents.slice(positionProz1-6, positionProz1);
+                    realTimeProz$symbol = realTimeProz$symbol.replace(' ', '')
+                    realTimeProz$symbol = realTimeProz$symbol.replace(',', '.')
                     var elementPercentage$symbol = document.getElementById(\"intervalSectionPercentage$symbol\");
                     elementPercentage$symbol.innerHTML = realTimeProz$symbol + '%';
-                    if(parseFloat(realTimeProz$symbol.replace(',', '.')) < 0){
+                    if(parseFloat(realTimeProz$symbol) < 0){
                         elementPercentage$symbol.style.color = 'red';
                     }
                     else{
@@ -970,8 +972,8 @@ do
                     }
 
                     // Sorting
-                    var nummeric = realTimeProz$symbol.replace(',', '')
-                    document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+nummeric;
+                    var numeric = realTimeProz$symbol.replace(',', '')
+                    document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+numeric;
 
                     let positionTime1 = data.contents.indexOf(' -  ');
                     var time$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
