@@ -357,6 +357,8 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
         if(counterFetchLoaded >= counterOwnStocks){
             hideSpinner();
             clearInterval(intervalLoadingSpinnerId);
+            // Enable Sort Button
+            document.querySelector('#intervalSectionButton').disabled = false;
         }
     }, 1000);
 
@@ -426,7 +428,7 @@ echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 
-echo "<br><br># Analyse <button id=\"intervalSectionButton\" style='height: 35px; width: 90px; display: none' type=\"button\" onClick=\"javascript:doSortDaily()\">Sort Daily</button>" >> $OUT_RESULT_FILE
+echo "<br><br># Analyse <button id=\"intervalSectionButton\" style='height: 35px; width: 90px; display: none' disabled=\"true\" type=\"button\" onClick=\"javascript:doSortDaily()\">Sort Daily</button>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
