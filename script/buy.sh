@@ -33,7 +33,8 @@ fi
 
 summe=$(echo "$priceParam $piecesParam" | awk '{print $1 * $2}')
 summe=${summe%.*}
-echo "(re)buy $symbolParam $piecesParam $priceParam = $summe€"
+echo $summe | clip
+echo "(re)buy $symbolParam $piecesParam $priceParam = $summe€ (in clipboard)"
 
 case "$piecesParam" in
     ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
