@@ -1029,7 +1029,7 @@ do
                  </div>"
 
             # Interval Beep
-            echo "<span id=\"intervalSection$symbol\" style='display: none'><input name=\"intervalField$symbol\" type=\"text\" maxlength=\"7\" value=\"1\" id=\"intervalField$symbol\"/><button type=\"button\" id=\"intervalButton$symbol\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
+            echo "<span id=\"intervalSection$symbol\" style='display: none'><input name=\"intervalField$symbol\" id=\"intervalField$symbol\" type=\"text\" style=\"height: 29px;\" maxlength=\"3\" size=\"3\" value=\"10\"/>&nbsp;<button type=\"button\" id=\"intervalButton$symbol\" style=\"height: 35px;\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
             echo "<script>
                 var intervalVar$symbol;
                 function beep$symbol() {
@@ -1063,8 +1063,8 @@ do
                     <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
-                    Overall Pieces <input name='intervalSectionInputPiecesBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuy$symbol'/>
-                    Avg. Price <input name='intervalSectionInputPriceBuy$symbol' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuy$symbol'/>
+                    Overall Pieces <input name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
+                    Avg. Price <input name='intervalSectionInputPriceBuy$symbol' id='intervalSectionInputPriceBuy$symbol' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
                   <p>
                   <hr id=\"intervalSectionHR$symbol\" style='display: none'>"
             echo "<script>
@@ -1188,9 +1188,9 @@ fi
             <br>
             <button id='intervalSectionButtonBuyGenerell' style='height: 35px; width: 60px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
-            Symbol <input name='intervalSectionInputSymbolBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputSymbolBuyGenerell'/>
-            Overall Pieces <input name='intervalSectionInputPiecesBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPiecesBuyGenerell'/>
-            Avg. Price <input name='intervalSectionInputPriceBuyGenerell' style='display: none' type='text' maxlength='7' value='' size='5' id='intervalSectionInputPriceBuyGenerell'/>
+            Symbol <input name='intervalSectionInputSymbolBuyGenerell' id='intervalSectionInputSymbolBuyGenerell' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
+            Overall Pieces <input name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
+            Avg. Price <input name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
           <p>"
 
     # Workflow        
