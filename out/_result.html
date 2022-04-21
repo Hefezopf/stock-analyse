@@ -245,7 +245,7 @@ return ret.replace(/ZZ/g, "% ");
 <div id='spinner' style='display: X'; class='loader'></div>
 # Parameter
 <br>
-Symbols(33):*1QZ *NVV1 *DWNI *DHER *VNA *FPE3 *TEG *GYC *AG1 *EUZ *JEN *ADN1 *KGX *STM *LEG *HEN3 *FFH *DUE *JUN3 *8TRA *TRVC *PHI1 *SAX *MTX *VAS *O3P *BCY *UNVB *IWLE *CRIN *AOMD *TNE5 *GEC 
+Symbols(33):*1QZ *NVV1 *DWNI *DHER *VNA *FPE3 *TEG *GYC *AG1 *EUZ *JEN *ADN1 *KGX *STM *LEG *HEN3 *FFH *DUE *JUN3 *8TRA *TRVC *PHI1 *SAX *MTX *VAS *BCY *UNVB *IWLE *CRIN *AOMD *TNE5 *GEC  O3P
 <br>
 Percentage:1 
 <br>
@@ -4212,164 +4212,6 @@ imageVAS.src = urlWithTimeSpan;
 }
 </script>
 </div>
-<div id='symbolLineIdO3P'>
-<div style="margin-top: 6px">
-<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72663856" target="_blank">*O3P "OESTERREICH. POST"</a>
-<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72663856" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:red" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/O3P.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:red; display: none" href="D:/code/stock-analyse/out/O3P.html" id='linkPCO3P' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Sell: Stochastic Own (O)<br>
-<br>
-<script>
-// For Spinner
-counterOwnStocks=26;
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=72663856')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteO3P = document.getElementById("intervalSectionRealTimeQuoteO3P");  
-realTimeQuoteO3P = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteO3P.innerHTML = realTimeQuoteO3P + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzO3P = data.contents.slice(positionProz1-6, positionProz1);
-realTimeProzO3P = realTimeProzO3P.replace(' ', '')
-realTimeProzO3P = realTimeProzO3P.replace(',', '.')
-var elementPercentageO3P = document.getElementById("intervalSectionPercentageO3P");
-elementPercentageO3P.innerHTML = realTimeProzO3P + '%';
-if(parseFloat(realTimeProzO3P) < 0){
-elementPercentageO3P.style.color = 'red';
-}
-else{
-elementPercentageO3P.style.color = 'green';
-}
-
-// Sorting
-var numeric = realTimeProzO3P.replace(',', '')
-document.getElementById('symbolLineIdO3P').id = 'symbolLineIdO3P'+numeric;
-//document.querySelectorAll('[id ^= "symbolLineIdO3P"]').id = 'symbolLineIdO3P'+numeric;         
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeO3P = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursO3P = timeO3P.slice(0, 2);
-var minutesO3P = timeO3P.slice(3, 5);
-var secondsO3P = timeO3P.slice(6, 8);
-var dateO3P = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysO3P = dateO3P.slice(0, 2);
-var monthO3P = dateO3P.slice(3, 5)-1;
-var yearO3P = 20+dateO3P.slice(6, 8);
-const dateEclpsedO3P = new Date(yearO3P, monthO3P, daysO3P);
-dateEclpsedO3P.setHours(hoursO3P);
-dateEclpsedO3P.setMinutes(minutesO3P);
-dateEclpsedO3P.setSeconds(secondsO3P);
-var deltaMinutesO3P =((new Date().getTime() - dateEclpsedO3P.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetO3P = document.getElementById("intervalSectionRegularMarketTimeOffsetO3P");
-elementRegularMarketTimeOffsetO3P.innerHTML = deltaMinutesO3P.toFixed(0) + 'min';
-
-var elementPortfolioValuesO3P = document.getElementById("intervalSectionPortfolioValuesO3P");
-var obfuscatedValuePcEuroO3P = document.getElementById("obfuscatedValuePcEuroO3P");
-decryptElement(obfuscatedValuePcEuroO3P);
-var piecesO3P = obfuscatedValuePcEuroO3P.innerHTML.split(' pc')[0];
-var buyingValueO3P = obfuscatedValuePcEuroO3P.innerHTML.split('/')[0];
-buyingValueO3P = buyingValueO3P.split(' ')[2];
-var portfolioValueO3P = piecesO3P * realTimeQuoteO3P;
-var stocksPerformanceO3P = ((portfolioValueO3P / buyingValueO3P)-1)*100;
-elementPortfolioValuesO3P.innerHTML = piecesO3P + ' pc ' + portfolioValueO3P.toFixed(0) + '€ ';
-// elementPortfolioValuesO3P.innerHTML = piecesO3P + ' pc ' + buyingValueO3P + '/' + portfolioValueO3P.toFixed(0) + '€ ';
-var elementPortfolioGainO3P = document.getElementById("intervalSectionPortfolioGainO3P");
-elementPortfolioGainO3P.innerHTML = stocksPerformanceO3P.toFixed(1) + '% ' + (portfolioValueO3P - buyingValueO3P).toFixed(0) + '€';
-if(stocksPerformanceO3P < 0){
-elementPortfolioGainO3P.style.color = 'red';
-}
-else{
-elementPortfolioGainO3P.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroO3P);
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: O3P !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteO3P" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageO3P" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeO3P" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetO3P" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesO3P" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainO3P" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivO3P" style='display:none'>
-<span id="obfuscatedValuePcEuroO3P" style='display:none'>YY52661/02261XX005</span>&nbsp;
-<span id="obfuscatedValueGainO3P" style='display:none;color:green'>YY504ZZ5.2</span>
-<span id="obfuscatedValueCloseBracesO3P" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionO3P" style='display: none'><input name="intervalFieldO3P" id="intervalFieldO3P" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonO3P" style="height: 35px;">Minutes</button><span id="intervalTextO3P"></span></span>
-<script>
-var intervalVarO3P;
-function beepO3P() {
-var elementAlert = document.getElementById("intervalTextO3P");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarO3P);
-intervalVarO3P=undefined;
-}
-function setBeepIntervalO3P() {
-var intervalValue = document.getElementById("intervalFieldO3P").value;
-intervalVarO3P = setInterval(beepO3P, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextO3P");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonO3P").addEventListener("click", setBeepIntervalO3P);
-</script>
-<br><img width="68%" id="intervalSectionImageO3P" style='display: none'></img><br>
-<button id="intervalSectionButton1DO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('1D')">1D</button>
-<button id="intervalSectionButton5DO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('5D')">5D</button>
-<button id="intervalSectionButton10DO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('10D')">10D</button>
-<button id="intervalSectionButton3MO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('3M')">3M</button>
-<button id="intervalSectionButton6MO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('6M')">6M</button>
-<button id="intervalSectionButton1YO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('1Y')">1Y</button>
-<button id="intervalSectionButton5YO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageO3P('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('O3P')">Sell</button>
-<button id="intervalSectionButtonBuyO3P" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'O3P', document.getElementById('intervalSectionInputPriceBuyO3P').value, document.getElementById('intervalSectionInputPiecesBuyO3P').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyO3P' id='intervalSectionInputPiecesBuyO3P' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
-Avg. Price <input name='intervalSectionInputPriceBuyO3P' id='intervalSectionInputPriceBuyO3P' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
-<p>
-<hr id="intervalSectionHRO3P" style='display: none'>
-<script>
-var imageO3P = new Image();
-var TIME_SPANO3P;
-function updateImageO3P(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANO3P=timespan;
-}
-if(imageO3P.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72663856&TIME_SPAN='+TIME_SPANO3P;
-document.getElementById("intervalSectionImageO3P").src = urlWithTimeSpan;
-imageO3P = new Image();
-imageO3P.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageO3P, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-</div>
 <div id='symbolLineIdBCY'>
 <div style="margin-top: 6px">
 <a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=46672133" target="_blank">*BCY "Barclays Bank"</a>
@@ -4381,7 +4223,7 @@ Sell: Stochastic Own (O)<br>
 <br>
 <script>
 // For Spinner
-counterOwnStocks=27;
+counterOwnStocks=26;
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46672133')}`)
 .then(response => {
 if (response.ok) {
@@ -4538,7 +4380,7 @@ imageBCY.src = urlWithTimeSpan;
 <br>
 <script>
 // For Spinner
-counterOwnStocks=28;
+counterOwnStocks=27;
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=102864892')}`)
 .then(response => {
 if (response.ok) {
@@ -4696,7 +4538,7 @@ Buy: Low 5 last Stochastic (S)<br>
 <br>
 <script>
 // For Spinner
-counterOwnStocks=29;
+counterOwnStocks=28;
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=256835748')}`)
 .then(response => {
 if (response.ok) {
@@ -4853,7 +4695,7 @@ imageIWLE.src = urlWithTimeSpan;
 <br>
 <script>
 // For Spinner
-counterOwnStocks=30;
+counterOwnStocks=29;
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=180798778')}`)
 .then(response => {
 if (response.ok) {
@@ -5010,7 +4852,7 @@ imageCRIN.src = urlWithTimeSpan;
 <br>
 <script>
 // For Spinner
-counterOwnStocks=31;
+counterOwnStocks=30;
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671038')}`)
 .then(response => {
 if (response.ok) {
@@ -5168,7 +5010,7 @@ Sell: High 7 last RSI (R)<br>
 <br>
 <script>
 // For Spinner
-counterOwnStocks=32;
+counterOwnStocks=31;
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337133')}`)
 .then(response => {
 if (response.ok) {
@@ -5329,7 +5171,7 @@ Sell: High 4 last Stochastic (S)<br>
 <br>
 <script>
 // For Spinner
-counterOwnStocks=33;
+counterOwnStocks=32;
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337135')}`)
 .then(response => {
 if (response.ok) {
@@ -5476,9 +5318,16 @@ imageGEC.src = urlWithTimeSpan;
 }
 </script>
 </div>
+<div id='symbolLineIdO3P'>
+<div style="margin-top: 6px">
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72663856" target="_blank">O3P "OESTERREICH. POST"</a>
+<a style="color:black" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=72663856" target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="color:black" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/O3P.html" target="_blank">&nbsp;SA&nbsp;</a>
+<a style="color:black; display: none" href="D:/code/stock-analyse/out/O3P.html" id='linkPCO3P' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall Yesterday (Not Realtime!)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY7001421/8343641</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY134222-ZZ2.51-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY2834221/8127441</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY638222-ZZ4.51-</span></span>
 <hr id="intervalSectionHROverall" style='display: none'>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="68%" id="intervalSectionImageDAX" style='display: none'></img><br>
@@ -5533,7 +5382,6 @@ javascript:updateImagePHI1('1D');
 javascript:updateImageSAX('1D');
 javascript:updateImageMTX('1D');
 javascript:updateImageVAS('1D');
-javascript:updateImageO3P('1D');
 javascript:updateImageBCY('1D');
 javascript:updateImageUNVB('1D');
 javascript:updateImageIWLE('1D');
@@ -5569,7 +5417,6 @@ javascript:updateImagePHI1('5D');
 javascript:updateImageSAX('5D');
 javascript:updateImageMTX('5D');
 javascript:updateImageVAS('5D');
-javascript:updateImageO3P('5D');
 javascript:updateImageBCY('5D');
 javascript:updateImageUNVB('5D');
 javascript:updateImageIWLE('5D');
@@ -5605,7 +5452,6 @@ javascript:updateImagePHI1('10D');
 javascript:updateImageSAX('10D');
 javascript:updateImageMTX('10D');
 javascript:updateImageVAS('10D');
-javascript:updateImageO3P('10D');
 javascript:updateImageBCY('10D');
 javascript:updateImageUNVB('10D');
 javascript:updateImageIWLE('10D');
@@ -5641,7 +5487,6 @@ javascript:updateImagePHI1('3M');
 javascript:updateImageSAX('3M');
 javascript:updateImageMTX('3M');
 javascript:updateImageVAS('3M');
-javascript:updateImageO3P('3M');
 javascript:updateImageBCY('3M');
 javascript:updateImageUNVB('3M');
 javascript:updateImageIWLE('3M');
@@ -5677,7 +5522,6 @@ javascript:updateImagePHI1('6M');
 javascript:updateImageSAX('6M');
 javascript:updateImageMTX('6M');
 javascript:updateImageVAS('6M');
-javascript:updateImageO3P('6M');
 javascript:updateImageBCY('6M');
 javascript:updateImageUNVB('6M');
 javascript:updateImageIWLE('6M');
@@ -5713,7 +5557,6 @@ javascript:updateImagePHI1('1Y');
 javascript:updateImageSAX('1Y');
 javascript:updateImageMTX('1Y');
 javascript:updateImageVAS('1Y');
-javascript:updateImageO3P('1Y');
 javascript:updateImageBCY('1Y');
 javascript:updateImageUNVB('1Y');
 javascript:updateImageIWLE('1Y');
@@ -5749,7 +5592,6 @@ javascript:updateImagePHI1('5Y');
 javascript:updateImageSAX('5Y');
 javascript:updateImageMTX('5Y');
 javascript:updateImageVAS('5Y');
-javascript:updateImageO3P('5Y');
 javascript:updateImageBCY('5Y');
 javascript:updateImageUNVB('5Y');
 javascript:updateImageIWLE('5Y');
@@ -5773,7 +5615,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' id='intervalSectio
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 21-Apr-2022 09:24</p><br></div>
+<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 21-Apr-2022 17:41</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
