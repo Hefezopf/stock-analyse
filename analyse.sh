@@ -959,22 +959,6 @@ do
                         elementPercentage$symbol.style.color = 'green';
                     }
 
-                    // Sorting
-
-                    // if 0,00% then add '+' -> +0,00%
-
-if(realTimeProz$symbol[0] === ' '){
-    console.log(realTimeProz$symbol);
-    realTimeProz$symbol = '+' + realTimeProz$symbol.substring(1);
-    console.log(\"if 0,00% then add '+' -> +0,00%\");
-    console.log(realTimeProz$symbol);
-}
-
-                    var numeric = realTimeProz$symbol.replace(',', '')
-                    var firstElement = document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]');
-                    firstElement[0].id = 'symbolLineId$symbol'+numeric;
-                    //document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+numeric;      
-
                     let positionTime1 = data.contents.indexOf(' -  ');
                     var time$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
                     var hours$symbol = time$symbol.slice(0, 2);
@@ -1011,6 +995,35 @@ if(realTimeProz$symbol[0] === ' '){
                         elementPortfolioGain$symbol.style.color = 'green';
                     }
                     decryptElement(obfuscatedValuePcEuro$symbol);
+
+
+                    // Sorting
+
+                    // if 0,00% then add '+' -> +0,00%
+
+if(realTimeProz$symbol[0] === ' '){
+    console.log(realTimeProz$symbol);
+    realTimeProz$symbol = '+' + realTimeProz$symbol.substring(1);
+    console.log(\"if 0,00% then add '+' -> +0,00%\");
+    console.log(realTimeProz$symbol);
+}
+
+
+// sample: id='symbolLineIdEUZ-1.15+1.11'
+                   // var numericRealTimeProz$symbol = realTimeProz$symbol.replace(',', '');
+                    var numericRealTimeProz$symbol = realTimeProz$symbol.replace('.', '');
+                    var firstElement = document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]');
+                    var numericOverallProz$symbol;
+                    if(stocksPerformance$symbol >= 0){
+                        numericOverallProz$symbol = '+' + stocksPerformance$symbol.toFixed(2);
+                    }
+                    numericOverallProz$symbol += stocksPerformance$symbol.toFixed(2);
+                    numericOverallProz$symbol = numericOverallProz$symbol.replace('.', '');
+                    firstElement[0].id = 'symbolLineId$symbol'+numericRealTimeProz$symbol;
+                    //firstElement[0].id = 'symbolLineId$symbol'+numericRealTimeProz$symbol+numericOverallProz$symbol;
+                    //document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+numericRealTimeProz$symbol;      
+
+
 
                     // For Spinner
                     counterFetchLoaded++;
