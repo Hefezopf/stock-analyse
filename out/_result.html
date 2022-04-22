@@ -245,7 +245,7 @@ return ret.replace(/ZZ/g, "% ");
 <div id='spinner' style='display: X'; class='loader'></div>
 # Parameter
 <br>
-Symbols(27):*NVV1 *AMD *1QZ *DHER *EUZ *WDP *DWNI *VNA *FPE3 *TEG *GYC *AG1 *ADN1 *KGX *STM *LEG *HEN3 *FFH *TRVC *PHI1 *SAX *BCY *IWLE *CRIN *AOMD *TNE5 *GEC 
+Symbols(26):*NVV1 *AMD *1QZ *DHER *EUZ *WDP *DWNI *VNA *FPE3 *TEG *GYC *AG1 *ADN1 *KGX *STM *LEG *HEN3 *FFH *TRVC *PHI1 *SAX *BCY *IWLE *CRIN *AOMD *TNE5
 <br>
 Percentage:1 
 <br>
@@ -299,6 +299,9 @@ else{
 elementPercentageNVV1.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeNVV1 = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursNVV1 = timeNVV1.slice(0, 2);
@@ -328,13 +331,7 @@ elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + portfolioValueNVV1.
 // elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + buyingValueNVV1 + '/' + portfolioValueNVV1.toFixed(0) + '€ ';
 var elementPortfolioGainNVV1 = document.getElementById("intervalSectionPortfolioGainNVV1");
 elementPortfolioGainNVV1.innerHTML = stocksPerformanceNVV1.toFixed(1) + '% ' + (portfolioValueNVV1 - buyingValueNVV1).toFixed(0) + '€';
-if(stocksPerformanceNVV1 < 0){
-elementPortfolioGainNVV1.style.color = 'red';
-}
-else{
-elementPortfolioGainNVV1.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroNVV1);
+
 
 
 // Sorting
@@ -353,7 +350,7 @@ console.log(realTimeProzNVV1);
 // var numericRealTimeProzNVV1 = realTimeProzNVV1.replace(',', '');
 var numericRealTimeProzNVV1 = realTimeProzNVV1.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdNVV1"]');
-var numericOverallProzNVV1;
+var numericOverallProzNVV1 = '';
 if(stocksPerformanceNVV1 >= 0){
 numericOverallProzNVV1 = '+' + stocksPerformanceNVV1.toFixed(2);
 }
@@ -364,6 +361,15 @@ firstElement[0].id = 'symbolLineIdNVV1'+numericRealTimeProzNVV1;
 //document.getElementById('symbolLineIdNVV1').id = 'symbolLineIdNVV1'+numericRealTimeProzNVV1;      
 
 
+
+
+if(stocksPerformanceNVV1 < 0){
+elementPortfolioGainNVV1.style.color = 'red';
+}
+else{
+elementPortfolioGainNVV1.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroNVV1);
 
 // For Spinner
 counterFetchLoaded++;
@@ -486,6 +492,9 @@ else{
 elementPercentageAMD.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeAMD = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursAMD = timeAMD.slice(0, 2);
@@ -515,13 +524,7 @@ elementPortfolioValuesAMD.innerHTML = piecesAMD + ' pc ' + portfolioValueAMD.toF
 // elementPortfolioValuesAMD.innerHTML = piecesAMD + ' pc ' + buyingValueAMD + '/' + portfolioValueAMD.toFixed(0) + '€ ';
 var elementPortfolioGainAMD = document.getElementById("intervalSectionPortfolioGainAMD");
 elementPortfolioGainAMD.innerHTML = stocksPerformanceAMD.toFixed(1) + '% ' + (portfolioValueAMD - buyingValueAMD).toFixed(0) + '€';
-if(stocksPerformanceAMD < 0){
-elementPortfolioGainAMD.style.color = 'red';
-}
-else{
-elementPortfolioGainAMD.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroAMD);
+
 
 
 // Sorting
@@ -540,7 +543,7 @@ console.log(realTimeProzAMD);
 // var numericRealTimeProzAMD = realTimeProzAMD.replace(',', '');
 var numericRealTimeProzAMD = realTimeProzAMD.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdAMD"]');
-var numericOverallProzAMD;
+var numericOverallProzAMD = '';
 if(stocksPerformanceAMD >= 0){
 numericOverallProzAMD = '+' + stocksPerformanceAMD.toFixed(2);
 }
@@ -551,6 +554,15 @@ firstElement[0].id = 'symbolLineIdAMD'+numericRealTimeProzAMD;
 //document.getElementById('symbolLineIdAMD').id = 'symbolLineIdAMD'+numericRealTimeProzAMD;      
 
 
+
+
+if(stocksPerformanceAMD < 0){
+elementPortfolioGainAMD.style.color = 'red';
+}
+else{
+elementPortfolioGainAMD.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroAMD);
 
 // For Spinner
 counterFetchLoaded++;
@@ -674,6 +686,9 @@ else{
 elementPercentage1QZ.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var time1QZ = data.contents.slice(positionTime1+4, positionTime1+12);
 var hours1QZ = time1QZ.slice(0, 2);
@@ -703,13 +718,7 @@ elementPortfolioValues1QZ.innerHTML = pieces1QZ + ' pc ' + portfolioValue1QZ.toF
 // elementPortfolioValues1QZ.innerHTML = pieces1QZ + ' pc ' + buyingValue1QZ + '/' + portfolioValue1QZ.toFixed(0) + '€ ';
 var elementPortfolioGain1QZ = document.getElementById("intervalSectionPortfolioGain1QZ");
 elementPortfolioGain1QZ.innerHTML = stocksPerformance1QZ.toFixed(1) + '% ' + (portfolioValue1QZ - buyingValue1QZ).toFixed(0) + '€';
-if(stocksPerformance1QZ < 0){
-elementPortfolioGain1QZ.style.color = 'red';
-}
-else{
-elementPortfolioGain1QZ.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuro1QZ);
+
 
 
 // Sorting
@@ -728,7 +737,7 @@ console.log(realTimeProz1QZ);
 // var numericRealTimeProz1QZ = realTimeProz1QZ.replace(',', '');
 var numericRealTimeProz1QZ = realTimeProz1QZ.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineId1QZ"]');
-var numericOverallProz1QZ;
+var numericOverallProz1QZ = '';
 if(stocksPerformance1QZ >= 0){
 numericOverallProz1QZ = '+' + stocksPerformance1QZ.toFixed(2);
 }
@@ -739,6 +748,15 @@ firstElement[0].id = 'symbolLineId1QZ'+numericRealTimeProz1QZ;
 //document.getElementById('symbolLineId1QZ').id = 'symbolLineId1QZ'+numericRealTimeProz1QZ;      
 
 
+
+
+if(stocksPerformance1QZ < 0){
+elementPortfolioGain1QZ.style.color = 'red';
+}
+else{
+elementPortfolioGain1QZ.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuro1QZ);
 
 // For Spinner
 counterFetchLoaded++;
@@ -859,6 +877,9 @@ else{
 elementPercentageDHER.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeDHER = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursDHER = timeDHER.slice(0, 2);
@@ -888,13 +909,7 @@ elementPortfolioValuesDHER.innerHTML = piecesDHER + ' pc ' + portfolioValueDHER.
 // elementPortfolioValuesDHER.innerHTML = piecesDHER + ' pc ' + buyingValueDHER + '/' + portfolioValueDHER.toFixed(0) + '€ ';
 var elementPortfolioGainDHER = document.getElementById("intervalSectionPortfolioGainDHER");
 elementPortfolioGainDHER.innerHTML = stocksPerformanceDHER.toFixed(1) + '% ' + (portfolioValueDHER - buyingValueDHER).toFixed(0) + '€';
-if(stocksPerformanceDHER < 0){
-elementPortfolioGainDHER.style.color = 'red';
-}
-else{
-elementPortfolioGainDHER.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroDHER);
+
 
 
 // Sorting
@@ -913,7 +928,7 @@ console.log(realTimeProzDHER);
 // var numericRealTimeProzDHER = realTimeProzDHER.replace(',', '');
 var numericRealTimeProzDHER = realTimeProzDHER.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdDHER"]');
-var numericOverallProzDHER;
+var numericOverallProzDHER = '';
 if(stocksPerformanceDHER >= 0){
 numericOverallProzDHER = '+' + stocksPerformanceDHER.toFixed(2);
 }
@@ -924,6 +939,15 @@ firstElement[0].id = 'symbolLineIdDHER'+numericRealTimeProzDHER;
 //document.getElementById('symbolLineIdDHER').id = 'symbolLineIdDHER'+numericRealTimeProzDHER;      
 
 
+
+
+if(stocksPerformanceDHER < 0){
+elementPortfolioGainDHER.style.color = 'red';
+}
+else{
+elementPortfolioGainDHER.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroDHER);
 
 // For Spinner
 counterFetchLoaded++;
@@ -1042,6 +1066,9 @@ else{
 elementPercentageEUZ.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeEUZ = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursEUZ = timeEUZ.slice(0, 2);
@@ -1071,13 +1098,7 @@ elementPortfolioValuesEUZ.innerHTML = piecesEUZ + ' pc ' + portfolioValueEUZ.toF
 // elementPortfolioValuesEUZ.innerHTML = piecesEUZ + ' pc ' + buyingValueEUZ + '/' + portfolioValueEUZ.toFixed(0) + '€ ';
 var elementPortfolioGainEUZ = document.getElementById("intervalSectionPortfolioGainEUZ");
 elementPortfolioGainEUZ.innerHTML = stocksPerformanceEUZ.toFixed(1) + '% ' + (portfolioValueEUZ - buyingValueEUZ).toFixed(0) + '€';
-if(stocksPerformanceEUZ < 0){
-elementPortfolioGainEUZ.style.color = 'red';
-}
-else{
-elementPortfolioGainEUZ.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroEUZ);
+
 
 
 // Sorting
@@ -1096,7 +1117,7 @@ console.log(realTimeProzEUZ);
 // var numericRealTimeProzEUZ = realTimeProzEUZ.replace(',', '');
 var numericRealTimeProzEUZ = realTimeProzEUZ.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdEUZ"]');
-var numericOverallProzEUZ;
+var numericOverallProzEUZ = '';
 if(stocksPerformanceEUZ >= 0){
 numericOverallProzEUZ = '+' + stocksPerformanceEUZ.toFixed(2);
 }
@@ -1107,6 +1128,15 @@ firstElement[0].id = 'symbolLineIdEUZ'+numericRealTimeProzEUZ;
 //document.getElementById('symbolLineIdEUZ').id = 'symbolLineIdEUZ'+numericRealTimeProzEUZ;      
 
 
+
+
+if(stocksPerformanceEUZ < 0){
+elementPortfolioGainEUZ.style.color = 'red';
+}
+else{
+elementPortfolioGainEUZ.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroEUZ);
 
 // For Spinner
 counterFetchLoaded++;
@@ -1227,6 +1257,9 @@ else{
 elementPercentageWDP.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeWDP = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursWDP = timeWDP.slice(0, 2);
@@ -1256,13 +1289,7 @@ elementPortfolioValuesWDP.innerHTML = piecesWDP + ' pc ' + portfolioValueWDP.toF
 // elementPortfolioValuesWDP.innerHTML = piecesWDP + ' pc ' + buyingValueWDP + '/' + portfolioValueWDP.toFixed(0) + '€ ';
 var elementPortfolioGainWDP = document.getElementById("intervalSectionPortfolioGainWDP");
 elementPortfolioGainWDP.innerHTML = stocksPerformanceWDP.toFixed(1) + '% ' + (portfolioValueWDP - buyingValueWDP).toFixed(0) + '€';
-if(stocksPerformanceWDP < 0){
-elementPortfolioGainWDP.style.color = 'red';
-}
-else{
-elementPortfolioGainWDP.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroWDP);
+
 
 
 // Sorting
@@ -1281,7 +1308,7 @@ console.log(realTimeProzWDP);
 // var numericRealTimeProzWDP = realTimeProzWDP.replace(',', '');
 var numericRealTimeProzWDP = realTimeProzWDP.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdWDP"]');
-var numericOverallProzWDP;
+var numericOverallProzWDP = '';
 if(stocksPerformanceWDP >= 0){
 numericOverallProzWDP = '+' + stocksPerformanceWDP.toFixed(2);
 }
@@ -1292,6 +1319,15 @@ firstElement[0].id = 'symbolLineIdWDP'+numericRealTimeProzWDP;
 //document.getElementById('symbolLineIdWDP').id = 'symbolLineIdWDP'+numericRealTimeProzWDP;      
 
 
+
+
+if(stocksPerformanceWDP < 0){
+elementPortfolioGainWDP.style.color = 'red';
+}
+else{
+elementPortfolioGainWDP.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroWDP);
 
 // For Spinner
 counterFetchLoaded++;
@@ -1409,6 +1445,9 @@ else{
 elementPercentageDWNI.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeDWNI = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursDWNI = timeDWNI.slice(0, 2);
@@ -1438,13 +1477,7 @@ elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + portfolioValueDWNI.
 // elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + buyingValueDWNI + '/' + portfolioValueDWNI.toFixed(0) + '€ ';
 var elementPortfolioGainDWNI = document.getElementById("intervalSectionPortfolioGainDWNI");
 elementPortfolioGainDWNI.innerHTML = stocksPerformanceDWNI.toFixed(1) + '% ' + (portfolioValueDWNI - buyingValueDWNI).toFixed(0) + '€';
-if(stocksPerformanceDWNI < 0){
-elementPortfolioGainDWNI.style.color = 'red';
-}
-else{
-elementPortfolioGainDWNI.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroDWNI);
+
 
 
 // Sorting
@@ -1463,7 +1496,7 @@ console.log(realTimeProzDWNI);
 // var numericRealTimeProzDWNI = realTimeProzDWNI.replace(',', '');
 var numericRealTimeProzDWNI = realTimeProzDWNI.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdDWNI"]');
-var numericOverallProzDWNI;
+var numericOverallProzDWNI = '';
 if(stocksPerformanceDWNI >= 0){
 numericOverallProzDWNI = '+' + stocksPerformanceDWNI.toFixed(2);
 }
@@ -1474,6 +1507,15 @@ firstElement[0].id = 'symbolLineIdDWNI'+numericRealTimeProzDWNI;
 //document.getElementById('symbolLineIdDWNI').id = 'symbolLineIdDWNI'+numericRealTimeProzDWNI;      
 
 
+
+
+if(stocksPerformanceDWNI < 0){
+elementPortfolioGainDWNI.style.color = 'red';
+}
+else{
+elementPortfolioGainDWNI.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroDWNI);
 
 // For Spinner
 counterFetchLoaded++;
@@ -1590,6 +1632,9 @@ else{
 elementPercentageVNA.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeVNA = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursVNA = timeVNA.slice(0, 2);
@@ -1619,13 +1664,7 @@ elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + portfolioValueVNA.toF
 // elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + buyingValueVNA + '/' + portfolioValueVNA.toFixed(0) + '€ ';
 var elementPortfolioGainVNA = document.getElementById("intervalSectionPortfolioGainVNA");
 elementPortfolioGainVNA.innerHTML = stocksPerformanceVNA.toFixed(1) + '% ' + (portfolioValueVNA - buyingValueVNA).toFixed(0) + '€';
-if(stocksPerformanceVNA < 0){
-elementPortfolioGainVNA.style.color = 'red';
-}
-else{
-elementPortfolioGainVNA.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroVNA);
+
 
 
 // Sorting
@@ -1644,7 +1683,7 @@ console.log(realTimeProzVNA);
 // var numericRealTimeProzVNA = realTimeProzVNA.replace(',', '');
 var numericRealTimeProzVNA = realTimeProzVNA.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdVNA"]');
-var numericOverallProzVNA;
+var numericOverallProzVNA = '';
 if(stocksPerformanceVNA >= 0){
 numericOverallProzVNA = '+' + stocksPerformanceVNA.toFixed(2);
 }
@@ -1655,6 +1694,15 @@ firstElement[0].id = 'symbolLineIdVNA'+numericRealTimeProzVNA;
 //document.getElementById('symbolLineIdVNA').id = 'symbolLineIdVNA'+numericRealTimeProzVNA;      
 
 
+
+
+if(stocksPerformanceVNA < 0){
+elementPortfolioGainVNA.style.color = 'red';
+}
+else{
+elementPortfolioGainVNA.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroVNA);
 
 // For Spinner
 counterFetchLoaded++;
@@ -1772,6 +1820,9 @@ else{
 elementPercentageFPE3.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeFPE3 = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursFPE3 = timeFPE3.slice(0, 2);
@@ -1801,13 +1852,7 @@ elementPortfolioValuesFPE3.innerHTML = piecesFPE3 + ' pc ' + portfolioValueFPE3.
 // elementPortfolioValuesFPE3.innerHTML = piecesFPE3 + ' pc ' + buyingValueFPE3 + '/' + portfolioValueFPE3.toFixed(0) + '€ ';
 var elementPortfolioGainFPE3 = document.getElementById("intervalSectionPortfolioGainFPE3");
 elementPortfolioGainFPE3.innerHTML = stocksPerformanceFPE3.toFixed(1) + '% ' + (portfolioValueFPE3 - buyingValueFPE3).toFixed(0) + '€';
-if(stocksPerformanceFPE3 < 0){
-elementPortfolioGainFPE3.style.color = 'red';
-}
-else{
-elementPortfolioGainFPE3.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroFPE3);
+
 
 
 // Sorting
@@ -1826,7 +1871,7 @@ console.log(realTimeProzFPE3);
 // var numericRealTimeProzFPE3 = realTimeProzFPE3.replace(',', '');
 var numericRealTimeProzFPE3 = realTimeProzFPE3.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdFPE3"]');
-var numericOverallProzFPE3;
+var numericOverallProzFPE3 = '';
 if(stocksPerformanceFPE3 >= 0){
 numericOverallProzFPE3 = '+' + stocksPerformanceFPE3.toFixed(2);
 }
@@ -1837,6 +1882,15 @@ firstElement[0].id = 'symbolLineIdFPE3'+numericRealTimeProzFPE3;
 //document.getElementById('symbolLineIdFPE3').id = 'symbolLineIdFPE3'+numericRealTimeProzFPE3;      
 
 
+
+
+if(stocksPerformanceFPE3 < 0){
+elementPortfolioGainFPE3.style.color = 'red';
+}
+else{
+elementPortfolioGainFPE3.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroFPE3);
 
 // For Spinner
 counterFetchLoaded++;
@@ -1953,6 +2007,9 @@ else{
 elementPercentageTEG.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeTEG = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursTEG = timeTEG.slice(0, 2);
@@ -1982,13 +2039,7 @@ elementPortfolioValuesTEG.innerHTML = piecesTEG + ' pc ' + portfolioValueTEG.toF
 // elementPortfolioValuesTEG.innerHTML = piecesTEG + ' pc ' + buyingValueTEG + '/' + portfolioValueTEG.toFixed(0) + '€ ';
 var elementPortfolioGainTEG = document.getElementById("intervalSectionPortfolioGainTEG");
 elementPortfolioGainTEG.innerHTML = stocksPerformanceTEG.toFixed(1) + '% ' + (portfolioValueTEG - buyingValueTEG).toFixed(0) + '€';
-if(stocksPerformanceTEG < 0){
-elementPortfolioGainTEG.style.color = 'red';
-}
-else{
-elementPortfolioGainTEG.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroTEG);
+
 
 
 // Sorting
@@ -2007,7 +2058,7 @@ console.log(realTimeProzTEG);
 // var numericRealTimeProzTEG = realTimeProzTEG.replace(',', '');
 var numericRealTimeProzTEG = realTimeProzTEG.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdTEG"]');
-var numericOverallProzTEG;
+var numericOverallProzTEG = '';
 if(stocksPerformanceTEG >= 0){
 numericOverallProzTEG = '+' + stocksPerformanceTEG.toFixed(2);
 }
@@ -2018,6 +2069,15 @@ firstElement[0].id = 'symbolLineIdTEG'+numericRealTimeProzTEG;
 //document.getElementById('symbolLineIdTEG').id = 'symbolLineIdTEG'+numericRealTimeProzTEG;      
 
 
+
+
+if(stocksPerformanceTEG < 0){
+elementPortfolioGainTEG.style.color = 'red';
+}
+else{
+elementPortfolioGainTEG.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroTEG);
 
 // For Spinner
 counterFetchLoaded++;
@@ -2135,6 +2195,9 @@ else{
 elementPercentageGYC.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeGYC = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursGYC = timeGYC.slice(0, 2);
@@ -2164,13 +2227,7 @@ elementPortfolioValuesGYC.innerHTML = piecesGYC + ' pc ' + portfolioValueGYC.toF
 // elementPortfolioValuesGYC.innerHTML = piecesGYC + ' pc ' + buyingValueGYC + '/' + portfolioValueGYC.toFixed(0) + '€ ';
 var elementPortfolioGainGYC = document.getElementById("intervalSectionPortfolioGainGYC");
 elementPortfolioGainGYC.innerHTML = stocksPerformanceGYC.toFixed(1) + '% ' + (portfolioValueGYC - buyingValueGYC).toFixed(0) + '€';
-if(stocksPerformanceGYC < 0){
-elementPortfolioGainGYC.style.color = 'red';
-}
-else{
-elementPortfolioGainGYC.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroGYC);
+
 
 
 // Sorting
@@ -2189,7 +2246,7 @@ console.log(realTimeProzGYC);
 // var numericRealTimeProzGYC = realTimeProzGYC.replace(',', '');
 var numericRealTimeProzGYC = realTimeProzGYC.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdGYC"]');
-var numericOverallProzGYC;
+var numericOverallProzGYC = '';
 if(stocksPerformanceGYC >= 0){
 numericOverallProzGYC = '+' + stocksPerformanceGYC.toFixed(2);
 }
@@ -2200,6 +2257,15 @@ firstElement[0].id = 'symbolLineIdGYC'+numericRealTimeProzGYC;
 //document.getElementById('symbolLineIdGYC').id = 'symbolLineIdGYC'+numericRealTimeProzGYC;      
 
 
+
+
+if(stocksPerformanceGYC < 0){
+elementPortfolioGainGYC.style.color = 'red';
+}
+else{
+elementPortfolioGainGYC.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroGYC);
 
 // For Spinner
 counterFetchLoaded++;
@@ -2316,6 +2382,9 @@ else{
 elementPercentageAG1.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeAG1 = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursAG1 = timeAG1.slice(0, 2);
@@ -2345,13 +2414,7 @@ elementPortfolioValuesAG1.innerHTML = piecesAG1 + ' pc ' + portfolioValueAG1.toF
 // elementPortfolioValuesAG1.innerHTML = piecesAG1 + ' pc ' + buyingValueAG1 + '/' + portfolioValueAG1.toFixed(0) + '€ ';
 var elementPortfolioGainAG1 = document.getElementById("intervalSectionPortfolioGainAG1");
 elementPortfolioGainAG1.innerHTML = stocksPerformanceAG1.toFixed(1) + '% ' + (portfolioValueAG1 - buyingValueAG1).toFixed(0) + '€';
-if(stocksPerformanceAG1 < 0){
-elementPortfolioGainAG1.style.color = 'red';
-}
-else{
-elementPortfolioGainAG1.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroAG1);
+
 
 
 // Sorting
@@ -2370,7 +2433,7 @@ console.log(realTimeProzAG1);
 // var numericRealTimeProzAG1 = realTimeProzAG1.replace(',', '');
 var numericRealTimeProzAG1 = realTimeProzAG1.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdAG1"]');
-var numericOverallProzAG1;
+var numericOverallProzAG1 = '';
 if(stocksPerformanceAG1 >= 0){
 numericOverallProzAG1 = '+' + stocksPerformanceAG1.toFixed(2);
 }
@@ -2381,6 +2444,15 @@ firstElement[0].id = 'symbolLineIdAG1'+numericRealTimeProzAG1;
 //document.getElementById('symbolLineIdAG1').id = 'symbolLineIdAG1'+numericRealTimeProzAG1;      
 
 
+
+
+if(stocksPerformanceAG1 < 0){
+elementPortfolioGainAG1.style.color = 'red';
+}
+else{
+elementPortfolioGainAG1.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroAG1);
 
 // For Spinner
 counterFetchLoaded++;
@@ -2498,6 +2570,9 @@ else{
 elementPercentageADN1.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeADN1 = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursADN1 = timeADN1.slice(0, 2);
@@ -2527,13 +2602,7 @@ elementPortfolioValuesADN1.innerHTML = piecesADN1 + ' pc ' + portfolioValueADN1.
 // elementPortfolioValuesADN1.innerHTML = piecesADN1 + ' pc ' + buyingValueADN1 + '/' + portfolioValueADN1.toFixed(0) + '€ ';
 var elementPortfolioGainADN1 = document.getElementById("intervalSectionPortfolioGainADN1");
 elementPortfolioGainADN1.innerHTML = stocksPerformanceADN1.toFixed(1) + '% ' + (portfolioValueADN1 - buyingValueADN1).toFixed(0) + '€';
-if(stocksPerformanceADN1 < 0){
-elementPortfolioGainADN1.style.color = 'red';
-}
-else{
-elementPortfolioGainADN1.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroADN1);
+
 
 
 // Sorting
@@ -2552,7 +2621,7 @@ console.log(realTimeProzADN1);
 // var numericRealTimeProzADN1 = realTimeProzADN1.replace(',', '');
 var numericRealTimeProzADN1 = realTimeProzADN1.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdADN1"]');
-var numericOverallProzADN1;
+var numericOverallProzADN1 = '';
 if(stocksPerformanceADN1 >= 0){
 numericOverallProzADN1 = '+' + stocksPerformanceADN1.toFixed(2);
 }
@@ -2563,6 +2632,15 @@ firstElement[0].id = 'symbolLineIdADN1'+numericRealTimeProzADN1;
 //document.getElementById('symbolLineIdADN1').id = 'symbolLineIdADN1'+numericRealTimeProzADN1;      
 
 
+
+
+if(stocksPerformanceADN1 < 0){
+elementPortfolioGainADN1.style.color = 'red';
+}
+else{
+elementPortfolioGainADN1.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroADN1);
 
 // For Spinner
 counterFetchLoaded++;
@@ -2679,6 +2757,9 @@ else{
 elementPercentageKGX.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeKGX = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursKGX = timeKGX.slice(0, 2);
@@ -2708,13 +2789,7 @@ elementPortfolioValuesKGX.innerHTML = piecesKGX + ' pc ' + portfolioValueKGX.toF
 // elementPortfolioValuesKGX.innerHTML = piecesKGX + ' pc ' + buyingValueKGX + '/' + portfolioValueKGX.toFixed(0) + '€ ';
 var elementPortfolioGainKGX = document.getElementById("intervalSectionPortfolioGainKGX");
 elementPortfolioGainKGX.innerHTML = stocksPerformanceKGX.toFixed(1) + '% ' + (portfolioValueKGX - buyingValueKGX).toFixed(0) + '€';
-if(stocksPerformanceKGX < 0){
-elementPortfolioGainKGX.style.color = 'red';
-}
-else{
-elementPortfolioGainKGX.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroKGX);
+
 
 
 // Sorting
@@ -2733,7 +2808,7 @@ console.log(realTimeProzKGX);
 // var numericRealTimeProzKGX = realTimeProzKGX.replace(',', '');
 var numericRealTimeProzKGX = realTimeProzKGX.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdKGX"]');
-var numericOverallProzKGX;
+var numericOverallProzKGX = '';
 if(stocksPerformanceKGX >= 0){
 numericOverallProzKGX = '+' + stocksPerformanceKGX.toFixed(2);
 }
@@ -2744,6 +2819,15 @@ firstElement[0].id = 'symbolLineIdKGX'+numericRealTimeProzKGX;
 //document.getElementById('symbolLineIdKGX').id = 'symbolLineIdKGX'+numericRealTimeProzKGX;      
 
 
+
+
+if(stocksPerformanceKGX < 0){
+elementPortfolioGainKGX.style.color = 'red';
+}
+else{
+elementPortfolioGainKGX.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroKGX);
 
 // For Spinner
 counterFetchLoaded++;
@@ -2861,6 +2945,9 @@ else{
 elementPercentageSTM.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeSTM = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursSTM = timeSTM.slice(0, 2);
@@ -2890,13 +2977,7 @@ elementPortfolioValuesSTM.innerHTML = piecesSTM + ' pc ' + portfolioValueSTM.toF
 // elementPortfolioValuesSTM.innerHTML = piecesSTM + ' pc ' + buyingValueSTM + '/' + portfolioValueSTM.toFixed(0) + '€ ';
 var elementPortfolioGainSTM = document.getElementById("intervalSectionPortfolioGainSTM");
 elementPortfolioGainSTM.innerHTML = stocksPerformanceSTM.toFixed(1) + '% ' + (portfolioValueSTM - buyingValueSTM).toFixed(0) + '€';
-if(stocksPerformanceSTM < 0){
-elementPortfolioGainSTM.style.color = 'red';
-}
-else{
-elementPortfolioGainSTM.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroSTM);
+
 
 
 // Sorting
@@ -2915,7 +2996,7 @@ console.log(realTimeProzSTM);
 // var numericRealTimeProzSTM = realTimeProzSTM.replace(',', '');
 var numericRealTimeProzSTM = realTimeProzSTM.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdSTM"]');
-var numericOverallProzSTM;
+var numericOverallProzSTM = '';
 if(stocksPerformanceSTM >= 0){
 numericOverallProzSTM = '+' + stocksPerformanceSTM.toFixed(2);
 }
@@ -2926,6 +3007,15 @@ firstElement[0].id = 'symbolLineIdSTM'+numericRealTimeProzSTM;
 //document.getElementById('symbolLineIdSTM').id = 'symbolLineIdSTM'+numericRealTimeProzSTM;      
 
 
+
+
+if(stocksPerformanceSTM < 0){
+elementPortfolioGainSTM.style.color = 'red';
+}
+else{
+elementPortfolioGainSTM.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroSTM);
 
 // For Spinner
 counterFetchLoaded++;
@@ -3043,6 +3133,9 @@ else{
 elementPercentageLEG.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeLEG = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursLEG = timeLEG.slice(0, 2);
@@ -3072,13 +3165,7 @@ elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + portfolioValueLEG.toF
 // elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + buyingValueLEG + '/' + portfolioValueLEG.toFixed(0) + '€ ';
 var elementPortfolioGainLEG = document.getElementById("intervalSectionPortfolioGainLEG");
 elementPortfolioGainLEG.innerHTML = stocksPerformanceLEG.toFixed(1) + '% ' + (portfolioValueLEG - buyingValueLEG).toFixed(0) + '€';
-if(stocksPerformanceLEG < 0){
-elementPortfolioGainLEG.style.color = 'red';
-}
-else{
-elementPortfolioGainLEG.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroLEG);
+
 
 
 // Sorting
@@ -3097,7 +3184,7 @@ console.log(realTimeProzLEG);
 // var numericRealTimeProzLEG = realTimeProzLEG.replace(',', '');
 var numericRealTimeProzLEG = realTimeProzLEG.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdLEG"]');
-var numericOverallProzLEG;
+var numericOverallProzLEG = '';
 if(stocksPerformanceLEG >= 0){
 numericOverallProzLEG = '+' + stocksPerformanceLEG.toFixed(2);
 }
@@ -3108,6 +3195,15 @@ firstElement[0].id = 'symbolLineIdLEG'+numericRealTimeProzLEG;
 //document.getElementById('symbolLineIdLEG').id = 'symbolLineIdLEG'+numericRealTimeProzLEG;      
 
 
+
+
+if(stocksPerformanceLEG < 0){
+elementPortfolioGainLEG.style.color = 'red';
+}
+else{
+elementPortfolioGainLEG.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroLEG);
 
 // For Spinner
 counterFetchLoaded++;
@@ -3224,6 +3320,9 @@ else{
 elementPercentageHEN3.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeHEN3 = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursHEN3 = timeHEN3.slice(0, 2);
@@ -3253,13 +3352,7 @@ elementPortfolioValuesHEN3.innerHTML = piecesHEN3 + ' pc ' + portfolioValueHEN3.
 // elementPortfolioValuesHEN3.innerHTML = piecesHEN3 + ' pc ' + buyingValueHEN3 + '/' + portfolioValueHEN3.toFixed(0) + '€ ';
 var elementPortfolioGainHEN3 = document.getElementById("intervalSectionPortfolioGainHEN3");
 elementPortfolioGainHEN3.innerHTML = stocksPerformanceHEN3.toFixed(1) + '% ' + (portfolioValueHEN3 - buyingValueHEN3).toFixed(0) + '€';
-if(stocksPerformanceHEN3 < 0){
-elementPortfolioGainHEN3.style.color = 'red';
-}
-else{
-elementPortfolioGainHEN3.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroHEN3);
+
 
 
 // Sorting
@@ -3278,7 +3371,7 @@ console.log(realTimeProzHEN3);
 // var numericRealTimeProzHEN3 = realTimeProzHEN3.replace(',', '');
 var numericRealTimeProzHEN3 = realTimeProzHEN3.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdHEN3"]');
-var numericOverallProzHEN3;
+var numericOverallProzHEN3 = '';
 if(stocksPerformanceHEN3 >= 0){
 numericOverallProzHEN3 = '+' + stocksPerformanceHEN3.toFixed(2);
 }
@@ -3289,6 +3382,15 @@ firstElement[0].id = 'symbolLineIdHEN3'+numericRealTimeProzHEN3;
 //document.getElementById('symbolLineIdHEN3').id = 'symbolLineIdHEN3'+numericRealTimeProzHEN3;      
 
 
+
+
+if(stocksPerformanceHEN3 < 0){
+elementPortfolioGainHEN3.style.color = 'red';
+}
+else{
+elementPortfolioGainHEN3.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroHEN3);
 
 // For Spinner
 counterFetchLoaded++;
@@ -3406,6 +3508,9 @@ else{
 elementPercentageFFH.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeFFH = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursFFH = timeFFH.slice(0, 2);
@@ -3435,13 +3540,7 @@ elementPortfolioValuesFFH.innerHTML = piecesFFH + ' pc ' + portfolioValueFFH.toF
 // elementPortfolioValuesFFH.innerHTML = piecesFFH + ' pc ' + buyingValueFFH + '/' + portfolioValueFFH.toFixed(0) + '€ ';
 var elementPortfolioGainFFH = document.getElementById("intervalSectionPortfolioGainFFH");
 elementPortfolioGainFFH.innerHTML = stocksPerformanceFFH.toFixed(1) + '% ' + (portfolioValueFFH - buyingValueFFH).toFixed(0) + '€';
-if(stocksPerformanceFFH < 0){
-elementPortfolioGainFFH.style.color = 'red';
-}
-else{
-elementPortfolioGainFFH.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroFFH);
+
 
 
 // Sorting
@@ -3460,7 +3559,7 @@ console.log(realTimeProzFFH);
 // var numericRealTimeProzFFH = realTimeProzFFH.replace(',', '');
 var numericRealTimeProzFFH = realTimeProzFFH.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdFFH"]');
-var numericOverallProzFFH;
+var numericOverallProzFFH = '';
 if(stocksPerformanceFFH >= 0){
 numericOverallProzFFH = '+' + stocksPerformanceFFH.toFixed(2);
 }
@@ -3471,6 +3570,15 @@ firstElement[0].id = 'symbolLineIdFFH'+numericRealTimeProzFFH;
 //document.getElementById('symbolLineIdFFH').id = 'symbolLineIdFFH'+numericRealTimeProzFFH;      
 
 
+
+
+if(stocksPerformanceFFH < 0){
+elementPortfolioGainFFH.style.color = 'red';
+}
+else{
+elementPortfolioGainFFH.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroFFH);
 
 // For Spinner
 counterFetchLoaded++;
@@ -3587,6 +3695,9 @@ else{
 elementPercentageTRVC.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeTRVC = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursTRVC = timeTRVC.slice(0, 2);
@@ -3616,13 +3727,7 @@ elementPortfolioValuesTRVC.innerHTML = piecesTRVC + ' pc ' + portfolioValueTRVC.
 // elementPortfolioValuesTRVC.innerHTML = piecesTRVC + ' pc ' + buyingValueTRVC + '/' + portfolioValueTRVC.toFixed(0) + '€ ';
 var elementPortfolioGainTRVC = document.getElementById("intervalSectionPortfolioGainTRVC");
 elementPortfolioGainTRVC.innerHTML = stocksPerformanceTRVC.toFixed(1) + '% ' + (portfolioValueTRVC - buyingValueTRVC).toFixed(0) + '€';
-if(stocksPerformanceTRVC < 0){
-elementPortfolioGainTRVC.style.color = 'red';
-}
-else{
-elementPortfolioGainTRVC.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroTRVC);
+
 
 
 // Sorting
@@ -3641,7 +3746,7 @@ console.log(realTimeProzTRVC);
 // var numericRealTimeProzTRVC = realTimeProzTRVC.replace(',', '');
 var numericRealTimeProzTRVC = realTimeProzTRVC.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdTRVC"]');
-var numericOverallProzTRVC;
+var numericOverallProzTRVC = '';
 if(stocksPerformanceTRVC >= 0){
 numericOverallProzTRVC = '+' + stocksPerformanceTRVC.toFixed(2);
 }
@@ -3652,6 +3757,15 @@ firstElement[0].id = 'symbolLineIdTRVC'+numericRealTimeProzTRVC;
 //document.getElementById('symbolLineIdTRVC').id = 'symbolLineIdTRVC'+numericRealTimeProzTRVC;      
 
 
+
+
+if(stocksPerformanceTRVC < 0){
+elementPortfolioGainTRVC.style.color = 'red';
+}
+else{
+elementPortfolioGainTRVC.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroTRVC);
 
 // For Spinner
 counterFetchLoaded++;
@@ -3768,6 +3882,9 @@ else{
 elementPercentagePHI1.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timePHI1 = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursPHI1 = timePHI1.slice(0, 2);
@@ -3797,13 +3914,7 @@ elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + portfolioValuePHI1.
 // elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + buyingValuePHI1 + '/' + portfolioValuePHI1.toFixed(0) + '€ ';
 var elementPortfolioGainPHI1 = document.getElementById("intervalSectionPortfolioGainPHI1");
 elementPortfolioGainPHI1.innerHTML = stocksPerformancePHI1.toFixed(1) + '% ' + (portfolioValuePHI1 - buyingValuePHI1).toFixed(0) + '€';
-if(stocksPerformancePHI1 < 0){
-elementPortfolioGainPHI1.style.color = 'red';
-}
-else{
-elementPortfolioGainPHI1.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroPHI1);
+
 
 
 // Sorting
@@ -3822,7 +3933,7 @@ console.log(realTimeProzPHI1);
 // var numericRealTimeProzPHI1 = realTimeProzPHI1.replace(',', '');
 var numericRealTimeProzPHI1 = realTimeProzPHI1.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdPHI1"]');
-var numericOverallProzPHI1;
+var numericOverallProzPHI1 = '';
 if(stocksPerformancePHI1 >= 0){
 numericOverallProzPHI1 = '+' + stocksPerformancePHI1.toFixed(2);
 }
@@ -3833,6 +3944,15 @@ firstElement[0].id = 'symbolLineIdPHI1'+numericRealTimeProzPHI1;
 //document.getElementById('symbolLineIdPHI1').id = 'symbolLineIdPHI1'+numericRealTimeProzPHI1;      
 
 
+
+
+if(stocksPerformancePHI1 < 0){
+elementPortfolioGainPHI1.style.color = 'red';
+}
+else{
+elementPortfolioGainPHI1.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroPHI1);
 
 // For Spinner
 counterFetchLoaded++;
@@ -3950,6 +4070,9 @@ else{
 elementPercentageSAX.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeSAX = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursSAX = timeSAX.slice(0, 2);
@@ -3979,13 +4102,7 @@ elementPortfolioValuesSAX.innerHTML = piecesSAX + ' pc ' + portfolioValueSAX.toF
 // elementPortfolioValuesSAX.innerHTML = piecesSAX + ' pc ' + buyingValueSAX + '/' + portfolioValueSAX.toFixed(0) + '€ ';
 var elementPortfolioGainSAX = document.getElementById("intervalSectionPortfolioGainSAX");
 elementPortfolioGainSAX.innerHTML = stocksPerformanceSAX.toFixed(1) + '% ' + (portfolioValueSAX - buyingValueSAX).toFixed(0) + '€';
-if(stocksPerformanceSAX < 0){
-elementPortfolioGainSAX.style.color = 'red';
-}
-else{
-elementPortfolioGainSAX.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroSAX);
+
 
 
 // Sorting
@@ -4004,7 +4121,7 @@ console.log(realTimeProzSAX);
 // var numericRealTimeProzSAX = realTimeProzSAX.replace(',', '');
 var numericRealTimeProzSAX = realTimeProzSAX.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdSAX"]');
-var numericOverallProzSAX;
+var numericOverallProzSAX = '';
 if(stocksPerformanceSAX >= 0){
 numericOverallProzSAX = '+' + stocksPerformanceSAX.toFixed(2);
 }
@@ -4015,6 +4132,15 @@ firstElement[0].id = 'symbolLineIdSAX'+numericRealTimeProzSAX;
 //document.getElementById('symbolLineIdSAX').id = 'symbolLineIdSAX'+numericRealTimeProzSAX;      
 
 
+
+
+if(stocksPerformanceSAX < 0){
+elementPortfolioGainSAX.style.color = 'red';
+}
+else{
+elementPortfolioGainSAX.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroSAX);
 
 // For Spinner
 counterFetchLoaded++;
@@ -4132,6 +4258,9 @@ else{
 elementPercentageBCY.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeBCY = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursBCY = timeBCY.slice(0, 2);
@@ -4161,13 +4290,7 @@ elementPortfolioValuesBCY.innerHTML = piecesBCY + ' pc ' + portfolioValueBCY.toF
 // elementPortfolioValuesBCY.innerHTML = piecesBCY + ' pc ' + buyingValueBCY + '/' + portfolioValueBCY.toFixed(0) + '€ ';
 var elementPortfolioGainBCY = document.getElementById("intervalSectionPortfolioGainBCY");
 elementPortfolioGainBCY.innerHTML = stocksPerformanceBCY.toFixed(1) + '% ' + (portfolioValueBCY - buyingValueBCY).toFixed(0) + '€';
-if(stocksPerformanceBCY < 0){
-elementPortfolioGainBCY.style.color = 'red';
-}
-else{
-elementPortfolioGainBCY.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroBCY);
+
 
 
 // Sorting
@@ -4186,7 +4309,7 @@ console.log(realTimeProzBCY);
 // var numericRealTimeProzBCY = realTimeProzBCY.replace(',', '');
 var numericRealTimeProzBCY = realTimeProzBCY.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdBCY"]');
-var numericOverallProzBCY;
+var numericOverallProzBCY = '';
 if(stocksPerformanceBCY >= 0){
 numericOverallProzBCY = '+' + stocksPerformanceBCY.toFixed(2);
 }
@@ -4197,6 +4320,15 @@ firstElement[0].id = 'symbolLineIdBCY'+numericRealTimeProzBCY;
 //document.getElementById('symbolLineIdBCY').id = 'symbolLineIdBCY'+numericRealTimeProzBCY;      
 
 
+
+
+if(stocksPerformanceBCY < 0){
+elementPortfolioGainBCY.style.color = 'red';
+}
+else{
+elementPortfolioGainBCY.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroBCY);
 
 // For Spinner
 counterFetchLoaded++;
@@ -4314,6 +4446,9 @@ else{
 elementPercentageIWLE.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeIWLE = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursIWLE = timeIWLE.slice(0, 2);
@@ -4343,13 +4478,7 @@ elementPortfolioValuesIWLE.innerHTML = piecesIWLE + ' pc ' + portfolioValueIWLE.
 // elementPortfolioValuesIWLE.innerHTML = piecesIWLE + ' pc ' + buyingValueIWLE + '/' + portfolioValueIWLE.toFixed(0) + '€ ';
 var elementPortfolioGainIWLE = document.getElementById("intervalSectionPortfolioGainIWLE");
 elementPortfolioGainIWLE.innerHTML = stocksPerformanceIWLE.toFixed(1) + '% ' + (portfolioValueIWLE - buyingValueIWLE).toFixed(0) + '€';
-if(stocksPerformanceIWLE < 0){
-elementPortfolioGainIWLE.style.color = 'red';
-}
-else{
-elementPortfolioGainIWLE.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroIWLE);
+
 
 
 // Sorting
@@ -4368,7 +4497,7 @@ console.log(realTimeProzIWLE);
 // var numericRealTimeProzIWLE = realTimeProzIWLE.replace(',', '');
 var numericRealTimeProzIWLE = realTimeProzIWLE.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdIWLE"]');
-var numericOverallProzIWLE;
+var numericOverallProzIWLE = '';
 if(stocksPerformanceIWLE >= 0){
 numericOverallProzIWLE = '+' + stocksPerformanceIWLE.toFixed(2);
 }
@@ -4379,6 +4508,15 @@ firstElement[0].id = 'symbolLineIdIWLE'+numericRealTimeProzIWLE;
 //document.getElementById('symbolLineIdIWLE').id = 'symbolLineIdIWLE'+numericRealTimeProzIWLE;      
 
 
+
+
+if(stocksPerformanceIWLE < 0){
+elementPortfolioGainIWLE.style.color = 'red';
+}
+else{
+elementPortfolioGainIWLE.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroIWLE);
 
 // For Spinner
 counterFetchLoaded++;
@@ -4495,6 +4633,9 @@ else{
 elementPercentageCRIN.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeCRIN = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursCRIN = timeCRIN.slice(0, 2);
@@ -4524,13 +4665,7 @@ elementPortfolioValuesCRIN.innerHTML = piecesCRIN + ' pc ' + portfolioValueCRIN.
 // elementPortfolioValuesCRIN.innerHTML = piecesCRIN + ' pc ' + buyingValueCRIN + '/' + portfolioValueCRIN.toFixed(0) + '€ ';
 var elementPortfolioGainCRIN = document.getElementById("intervalSectionPortfolioGainCRIN");
 elementPortfolioGainCRIN.innerHTML = stocksPerformanceCRIN.toFixed(1) + '% ' + (portfolioValueCRIN - buyingValueCRIN).toFixed(0) + '€';
-if(stocksPerformanceCRIN < 0){
-elementPortfolioGainCRIN.style.color = 'red';
-}
-else{
-elementPortfolioGainCRIN.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroCRIN);
+
 
 
 // Sorting
@@ -4549,7 +4684,7 @@ console.log(realTimeProzCRIN);
 // var numericRealTimeProzCRIN = realTimeProzCRIN.replace(',', '');
 var numericRealTimeProzCRIN = realTimeProzCRIN.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdCRIN"]');
-var numericOverallProzCRIN;
+var numericOverallProzCRIN = '';
 if(stocksPerformanceCRIN >= 0){
 numericOverallProzCRIN = '+' + stocksPerformanceCRIN.toFixed(2);
 }
@@ -4560,6 +4695,15 @@ firstElement[0].id = 'symbolLineIdCRIN'+numericRealTimeProzCRIN;
 //document.getElementById('symbolLineIdCRIN').id = 'symbolLineIdCRIN'+numericRealTimeProzCRIN;      
 
 
+
+
+if(stocksPerformanceCRIN < 0){
+elementPortfolioGainCRIN.style.color = 'red';
+}
+else{
+elementPortfolioGainCRIN.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroCRIN);
 
 // For Spinner
 counterFetchLoaded++;
@@ -4677,6 +4821,9 @@ else{
 elementPercentageAOMD.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeAOMD = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursAOMD = timeAOMD.slice(0, 2);
@@ -4706,13 +4853,7 @@ elementPortfolioValuesAOMD.innerHTML = piecesAOMD + ' pc ' + portfolioValueAOMD.
 // elementPortfolioValuesAOMD.innerHTML = piecesAOMD + ' pc ' + buyingValueAOMD + '/' + portfolioValueAOMD.toFixed(0) + '€ ';
 var elementPortfolioGainAOMD = document.getElementById("intervalSectionPortfolioGainAOMD");
 elementPortfolioGainAOMD.innerHTML = stocksPerformanceAOMD.toFixed(1) + '% ' + (portfolioValueAOMD - buyingValueAOMD).toFixed(0) + '€';
-if(stocksPerformanceAOMD < 0){
-elementPortfolioGainAOMD.style.color = 'red';
-}
-else{
-elementPortfolioGainAOMD.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroAOMD);
+
 
 
 // Sorting
@@ -4731,7 +4872,7 @@ console.log(realTimeProzAOMD);
 // var numericRealTimeProzAOMD = realTimeProzAOMD.replace(',', '');
 var numericRealTimeProzAOMD = realTimeProzAOMD.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdAOMD"]');
-var numericOverallProzAOMD;
+var numericOverallProzAOMD = '';
 if(stocksPerformanceAOMD >= 0){
 numericOverallProzAOMD = '+' + stocksPerformanceAOMD.toFixed(2);
 }
@@ -4742,6 +4883,15 @@ firstElement[0].id = 'symbolLineIdAOMD'+numericRealTimeProzAOMD;
 //document.getElementById('symbolLineIdAOMD').id = 'symbolLineIdAOMD'+numericRealTimeProzAOMD;      
 
 
+
+
+if(stocksPerformanceAOMD < 0){
+elementPortfolioGainAOMD.style.color = 'red';
+}
+else{
+elementPortfolioGainAOMD.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroAOMD);
 
 // For Spinner
 counterFetchLoaded++;
@@ -4859,6 +5009,9 @@ else{
 elementPercentageTNE5.style.color = 'green';
 }
 
+
+
+
 let positionTime1 = data.contents.indexOf(' -  ');
 var timeTNE5 = data.contents.slice(positionTime1+4, positionTime1+12);
 var hoursTNE5 = timeTNE5.slice(0, 2);
@@ -4888,13 +5041,7 @@ elementPortfolioValuesTNE5.innerHTML = piecesTNE5 + ' pc ' + portfolioValueTNE5.
 // elementPortfolioValuesTNE5.innerHTML = piecesTNE5 + ' pc ' + buyingValueTNE5 + '/' + portfolioValueTNE5.toFixed(0) + '€ ';
 var elementPortfolioGainTNE5 = document.getElementById("intervalSectionPortfolioGainTNE5");
 elementPortfolioGainTNE5.innerHTML = stocksPerformanceTNE5.toFixed(1) + '% ' + (portfolioValueTNE5 - buyingValueTNE5).toFixed(0) + '€';
-if(stocksPerformanceTNE5 < 0){
-elementPortfolioGainTNE5.style.color = 'red';
-}
-else{
-elementPortfolioGainTNE5.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroTNE5);
+
 
 
 // Sorting
@@ -4913,7 +5060,7 @@ console.log(realTimeProzTNE5);
 // var numericRealTimeProzTNE5 = realTimeProzTNE5.replace(',', '');
 var numericRealTimeProzTNE5 = realTimeProzTNE5.replace('.', '');
 var firstElement = document.querySelectorAll('[id ^= "symbolLineIdTNE5"]');
-var numericOverallProzTNE5;
+var numericOverallProzTNE5 = '';
 if(stocksPerformanceTNE5 >= 0){
 numericOverallProzTNE5 = '+' + stocksPerformanceTNE5.toFixed(2);
 }
@@ -4924,6 +5071,15 @@ firstElement[0].id = 'symbolLineIdTNE5'+numericRealTimeProzTNE5;
 //document.getElementById('symbolLineIdTNE5').id = 'symbolLineIdTNE5'+numericRealTimeProzTNE5;      
 
 
+
+
+if(stocksPerformanceTNE5 < 0){
+elementPortfolioGainTNE5.style.color = 'red';
+}
+else{
+elementPortfolioGainTNE5.style.color = 'green';
+}
+decryptElement(obfuscatedValuePcEuroTNE5);
 
 // For Spinner
 counterFetchLoaded++;
@@ -5002,194 +5158,9 @@ imageTNE5.src = urlWithTimeSpan;
 }
 </script>
 </div>
-<div id='symbolLineIdGEC'>
-<div style="margin-top: 6px">
-<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337135" target="_blank">*GEC "General Electric"</a>
-<a style="color:red" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=5Y&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=10337135" target="_blank">&nbsp;5Y&nbsp;</a>
-<a style="color:red" href="http://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GEC.html" target="_blank">&nbsp;SA&nbsp;</a>
-<a style="color:red; display: none" href="D:/code/stock-analyse/out/GEC.html" id='linkPCGEC' target='_blank'>&nbsp;PC&nbsp;</a>
-</div>
-Sell: Stochastic Own (O)<br>
-Sell: High Percentage & Stochastic (P)<br>
-Sell: High 4 last Stochastic (S)<br>
-<br><b style='color:orange; font-size:xx-large'>->OLD DATA:*GEC</b><br>
-<br>
-<script>
-// For Spinner
-counterOwnStocks=27;
-fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=10337135')}`)
-.then(response => {
-if (response.ok) {
-return response.json();
-}
-throw new Error('Network response error!');
-})
-.then(data => {
-let positionQuote1 = data.contents.indexOf('-size-24 icon--cd-positive"><svg class="icon__svg" focusable="false"><use xlink:href="/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24"/></svg></span><span class="realtime-indicator--value ');
-let positionQuote2 = data.contents.indexOf('&nbsp;EUR</span></div></td>');
-var realTimeQuote = data.contents.slice(positionQuote1+195, positionQuote2);
-var elementRealTimeQuoteGEC = document.getElementById("intervalSectionRealTimeQuoteGEC");  
-realTimeQuoteGEC = parseFloat(realTimeQuote.replace(',', '.')).toFixed(2)                                                   
-elementRealTimeQuoteGEC.innerHTML = realTimeQuoteGEC + '€';
-let positionProz1 = data.contents.indexOf('&#160;%');
-var realTimeProzGEC = data.contents.slice(positionProz1-6, positionProz1);
-realTimeProzGEC = realTimeProzGEC.replace(' ', '')
-realTimeProzGEC = realTimeProzGEC.replace(',', '.')
-var elementPercentageGEC = document.getElementById("intervalSectionPercentageGEC");
-elementPercentageGEC.innerHTML = realTimeProzGEC + '%';
-if(parseFloat(realTimeProzGEC) < 0){
-elementPercentageGEC.style.color = 'red';
-}
-else{
-elementPercentageGEC.style.color = 'green';
-}
-
-let positionTime1 = data.contents.indexOf(' -  ');
-var timeGEC = data.contents.slice(positionTime1+4, positionTime1+12);
-var hoursGEC = timeGEC.slice(0, 2);
-var minutesGEC = timeGEC.slice(3, 5);
-var secondsGEC = timeGEC.slice(6, 8);
-var dateGEC = data.contents.slice(positionTime1-9, positionTime1-1);
-var daysGEC = dateGEC.slice(0, 2);
-var monthGEC = dateGEC.slice(3, 5)-1;
-var yearGEC = 20+dateGEC.slice(6, 8);
-const dateEclpsedGEC = new Date(yearGEC, monthGEC, daysGEC);
-dateEclpsedGEC.setHours(hoursGEC);
-dateEclpsedGEC.setMinutes(minutesGEC);
-dateEclpsedGEC.setSeconds(secondsGEC);
-var deltaMinutesGEC =((new Date().getTime() - dateEclpsedGEC.getTime()) / 1000) / 60;
-var elementRegularMarketTimeOffsetGEC = document.getElementById("intervalSectionRegularMarketTimeOffsetGEC");
-elementRegularMarketTimeOffsetGEC.innerHTML = deltaMinutesGEC.toFixed(0) + 'min';
-
-var elementPortfolioValuesGEC = document.getElementById("intervalSectionPortfolioValuesGEC");
-var obfuscatedValuePcEuroGEC = document.getElementById("obfuscatedValuePcEuroGEC");
-decryptElement(obfuscatedValuePcEuroGEC);
-var piecesGEC = obfuscatedValuePcEuroGEC.innerHTML.split(' pc')[0];
-var buyingValueGEC = obfuscatedValuePcEuroGEC.innerHTML.split('/')[0];
-buyingValueGEC = buyingValueGEC.split(' ')[2];
-var portfolioValueGEC = piecesGEC * realTimeQuoteGEC;
-var stocksPerformanceGEC = ((portfolioValueGEC / buyingValueGEC)-1)*100;
-elementPortfolioValuesGEC.innerHTML = piecesGEC + ' pc ' + portfolioValueGEC.toFixed(0) + '€ ';
-// elementPortfolioValuesGEC.innerHTML = piecesGEC + ' pc ' + buyingValueGEC + '/' + portfolioValueGEC.toFixed(0) + '€ ';
-var elementPortfolioGainGEC = document.getElementById("intervalSectionPortfolioGainGEC");
-elementPortfolioGainGEC.innerHTML = stocksPerformanceGEC.toFixed(1) + '% ' + (portfolioValueGEC - buyingValueGEC).toFixed(0) + '€';
-if(stocksPerformanceGEC < 0){
-elementPortfolioGainGEC.style.color = 'red';
-}
-else{
-elementPortfolioGainGEC.style.color = 'green';
-}
-decryptElement(obfuscatedValuePcEuroGEC);
-
-
-// Sorting
-
-// if 0,00% then add '+' -> +0,00%
-
-if(realTimeProzGEC[0] === ' '){
-console.log(realTimeProzGEC);
-realTimeProzGEC = '+' + realTimeProzGEC.substring(1);
-console.log("if 0,00% then add '+' -> +0,00%");
-console.log(realTimeProzGEC);
-}
-
-
-// sample: id='symbolLineIdEUZ-1.15+1.11'
-// var numericRealTimeProzGEC = realTimeProzGEC.replace(',', '');
-var numericRealTimeProzGEC = realTimeProzGEC.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdGEC"]');
-var numericOverallProzGEC;
-if(stocksPerformanceGEC >= 0){
-numericOverallProzGEC = '+' + stocksPerformanceGEC.toFixed(2);
-}
-numericOverallProzGEC += stocksPerformanceGEC.toFixed(2);
-numericOverallProzGEC = numericOverallProzGEC.replace('.', '');
-firstElement[0].id = 'symbolLineIdGEC'+numericRealTimeProzGEC;
-//firstElement[0].id = 'symbolLineIdGEC'+numericRealTimeProzGEC+numericOverallProzGEC;
-//document.getElementById('symbolLineIdGEC').id = 'symbolLineIdGEC'+numericRealTimeProzGEC;      
-
-
-
-// For Spinner
-counterFetchLoaded++;
-})
-.catch(error => {
-console.error('Error retrieving current quote for: GEC !!!' + error);
-
-// For Spinner
-counterFetchLoaded++;
-});
-</script>
-<span id="intervalSectionRealTimeQuoteGEC" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageGEC" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeGEC" style='display: none'></span>
-
-<span id="intervalSectionRegularMarketTimeOffsetGEC" style='font-size:large; display: none'></span>&nbsp;
-<span id="intervalSectionPortfolioValuesGEC" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainGEC" style='font-size:large; display: none'></span>
-<br>
-<div id="neverShowDivGEC" style='display:none'>
-<span id="obfuscatedValuePcEuroGEC" style='display:none'>YY829671/497232XX5212</span>&nbsp;
-<span id="obfuscatedValueGainGEC" style='display:none;color:red'>YY66855-ZZ0.42-</span>
-<span id="obfuscatedValueCloseBracesGEC" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id="intervalSectionGEC" style='display: none'><input name="intervalFieldGEC" id="intervalFieldGEC" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonGEC" style="height: 35px;">Minutes</button><span id="intervalTextGEC"></span></span>
-<script>
-var intervalVarGEC;
-function beepGEC() {
-var elementAlert = document.getElementById("intervalTextGEC");
-elementAlert.innerHTML = " ALERT!!!";
-elementAlert.style.color = 'red';
-sound.play();
-clearInterval(intervalVarGEC);
-intervalVarGEC=undefined;
-}
-function setBeepIntervalGEC() {
-var intervalValue = document.getElementById("intervalFieldGEC").value;
-intervalVarGEC = setInterval(beepGEC, intervalValue*60*1000); //60*1000
-var elementIntervalText = document.getElementById("intervalTextGEC");
-elementIntervalText.innerHTML = ' ...'+intervalValue;
-elementIntervalText.style.color = 'green';
-}
-document.getElementById("intervalButtonGEC").addEventListener("click", setBeepIntervalGEC);
-</script>
-<br><img width="68%" id="intervalSectionImageGEC" style='display: none'></img><br>
-<button id="intervalSectionButton1DGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('1D')">1D</button>
-<button id="intervalSectionButton5DGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('5D')">5D</button>
-<button id="intervalSectionButton10DGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('10D')">10D</button>
-<button id="intervalSectionButton3MGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('3M')">3M</button>
-<button id="intervalSectionButton6MGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('6M')">6M</button>
-<button id="intervalSectionButton1YGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('1Y')">1Y</button>
-<button id="intervalSectionButton5YGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:updateImageGEC('5Y')">5Y</button>
-<p id='intervalSectionButtonP' style='display: none'>
-<button id="intervalSectionButtonSellGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlSell('GEC')">Sell</button>
-<button id="intervalSectionButtonBuyGEC" style='height: 35px; width: 60px; display: none' type="button" onClick="javascript:curlBuy(
-'GEC', document.getElementById('intervalSectionInputPriceBuyGEC').value, document.getElementById('intervalSectionInputPiecesBuyGEC').value)">ReBuy</button>
-Overall Pieces <input name='intervalSectionInputPiecesBuyGEC' id='intervalSectionInputPiecesBuyGEC' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
-Avg. Price <input name='intervalSectionInputPriceBuyGEC' id='intervalSectionInputPriceBuyGEC' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
-<p>
-<hr id="intervalSectionHRGEC" style='display: none'>
-<script>
-var imageGEC = new Image();
-var TIME_SPANGEC;
-function updateImageGEC(timespan)
-{
-if(timespan !== undefined) {
-TIME_SPANGEC=timespan;
-}
-if(imageGEC.complete) {
-var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337135&TIME_SPAN='+TIME_SPANGEC;
-document.getElementById("intervalSectionImageGEC").src = urlWithTimeSpan;
-imageGEC = new Image();
-imageGEC.src = urlWithTimeSpan;
-}
-// setTimeout(updateImageGEC, 5*60*1000); // 5 Minutes // 5*60*1000
-}
-</script>
-</div>
 <br><br><span id='intervalSectionHeadlineOverall' style='display:none'># Overall Yesterday (Not Realtime!)<br>
-<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY2971611/2971831</span>
-<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY000022-ZZ9.51-</span></span>
+<span id="obfuscatedValueBuyingOverall" style='font-size:large; display:none'>YY468489/8998411</span>
+<span id="obfuscatedValueGainOverall" style='font-size:xx-large; display:none; color:red'>YY431461-ZZ3.41-</span></span>
 <hr id="intervalSectionHROverall" style='display: none'>
 <span id="intervalSectionHeadlineDAX" style='display:none'><br>DAX<br></span>
 <img width="68%" id="intervalSectionImageDAX" style='display: none'></img><br>
@@ -5245,7 +5216,6 @@ javascript:updateImageIWLE('1D');
 javascript:updateImageCRIN('1D');
 javascript:updateImageAOMD('1D');
 javascript:updateImageTNE5('1D');
-javascript:updateImageGEC('1D');
 javascript:updateImageDAX('1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -5275,7 +5245,6 @@ javascript:updateImageIWLE('5D');
 javascript:updateImageCRIN('5D');
 javascript:updateImageAOMD('5D');
 javascript:updateImageTNE5('5D');
-javascript:updateImageGEC('5D');
 javascript:updateImageDAX('5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -5305,7 +5274,6 @@ javascript:updateImageIWLE('10D');
 javascript:updateImageCRIN('10D');
 javascript:updateImageAOMD('10D');
 javascript:updateImageTNE5('10D');
-javascript:updateImageGEC('10D');
 javascript:updateImageDAX('10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -5335,7 +5303,6 @@ javascript:updateImageIWLE('3M');
 javascript:updateImageCRIN('3M');
 javascript:updateImageAOMD('3M');
 javascript:updateImageTNE5('3M');
-javascript:updateImageGEC('3M');
 javascript:updateImageDAX('3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -5365,7 +5332,6 @@ javascript:updateImageIWLE('6M');
 javascript:updateImageCRIN('6M');
 javascript:updateImageAOMD('6M');
 javascript:updateImageTNE5('6M');
-javascript:updateImageGEC('6M');
 javascript:updateImageDAX('6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -5395,7 +5361,6 @@ javascript:updateImageIWLE('1Y');
 javascript:updateImageCRIN('1Y');
 javascript:updateImageAOMD('1Y');
 javascript:updateImageTNE5('1Y');
-javascript:updateImageGEC('1Y');
 javascript:updateImageDAX('1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="height: 35px; width: 60px;display: none" type="button" onClick="
@@ -5425,7 +5390,6 @@ javascript:updateImageIWLE('5Y');
 javascript:updateImageCRIN('5Y');
 javascript:updateImageAOMD('5Y');
 javascript:updateImageTNE5('5Y');
-javascript:updateImageGEC('5Y');
 javascript:updateImageDAX('5Y');
 ">5Y</button>
 <br>
@@ -5442,7 +5406,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' id='intervalSectio
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 22-Apr-2022 13:01</p><br></div>
+<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 22-Apr-2022 18:55</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
