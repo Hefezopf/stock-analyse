@@ -959,6 +959,9 @@ do
                         elementPercentage$symbol.style.color = 'green';
                     }
 
+
+
+
                     let positionTime1 = data.contents.indexOf(' -  ');
                     var time$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
                     var hours$symbol = time$symbol.slice(0, 2);
@@ -988,13 +991,7 @@ do
                     // elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + portfolioValue$symbol.toFixed(0) + '€ ';
                     var elementPortfolioGain$symbol = document.getElementById(\"intervalSectionPortfolioGain$symbol\");
                     elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
-                    if(stocksPerformance$symbol < 0){
-                        elementPortfolioGain$symbol.style.color = 'red';
-                    }
-                    else{
-                        elementPortfolioGain$symbol.style.color = 'green';
-                    }
-                    decryptElement(obfuscatedValuePcEuro$symbol);
+
 
 
                     // Sorting
@@ -1013,7 +1010,7 @@ if(realTimeProz$symbol[0] === ' '){
                    // var numericRealTimeProz$symbol = realTimeProz$symbol.replace(',', '');
                     var numericRealTimeProz$symbol = realTimeProz$symbol.replace('.', '');
                     var firstElement = document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]');
-                    var numericOverallProz$symbol;
+                    var numericOverallProz$symbol = '';
                     if(stocksPerformance$symbol >= 0){
                         numericOverallProz$symbol = '+' + stocksPerformance$symbol.toFixed(2);
                     }
@@ -1024,6 +1021,15 @@ if(realTimeProz$symbol[0] === ' '){
                     //document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+numericRealTimeProz$symbol;      
 
 
+
+
+                    if(stocksPerformance$symbol < 0){
+                        elementPortfolioGain$symbol.style.color = 'red';
+                    }
+                    else{
+                        elementPortfolioGain$symbol.style.color = 'green';
+                    }
+                    decryptElement(obfuscatedValuePcEuro$symbol);
 
                     // For Spinner
                     counterFetchLoaded++;
