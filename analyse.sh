@@ -169,23 +169,24 @@ body > div {
                 continue;
             }
 
-            var sortPart = elements[i].id.split(\"+\");
+            var sortPart = elements[i].id.split(\"_\");
             // only add the element for sorting if it has a plus in it
             if (sortPart.length > 1) {
-                /*
-                * prepare the ID for faster comparison
-                * array will contain:
-                *   [0] => number which will be used for sorting 
-                *   [1] => element
-                * 1 * something is the fastest way I know to convert a string to a
-                * number. It should be a number to make it sort in a natural way,
-                * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
-                */
-                sortPositivDailyValues.push([ 1 * sortPart[1] , elements[i] ]);
-            }
-            sortPart = elements[i].id.split(\"-\");
-            if (sortPart.length > 1) {
-                sortNegativDailyValues.push([ 1 * sortPart[1] , elements[i] ]);
+                if (sortPart[1][0] === '+') {
+                    /*
+                    * prepare the ID for faster comparison
+                    * array will contain:
+                    *   [0] => number which will be used for sorting 
+                    *   [1] => element
+                    * 1 * something is the fastest way I know to convert a string to a
+                    * number. It should be a number to make it sort in a natural way,
+                    * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
+                    */
+                    sortPositivDailyValues.push([ 1 * sortPart[1], elements[i] ]);
+                }
+                if (sortPart[1][0] === '-') {
+                    sortNegativDailyValues.push([ 1 * sortPart[1], elements[i] ]);
+                }                
             }        
         }
 
@@ -1006,7 +1007,7 @@ if(realTimeProz$symbol[0] === ' '){
 }
 
 
-// sample: id='symbolLineIdEUZ-1.15+1.11'
+// sample: id='symbolLineIdEUZ_-1.15_+1.11'
                    // var numericRealTimeProz$symbol = realTimeProz$symbol.replace(',', '');
                     var numericRealTimeProz$symbol = realTimeProz$symbol.replace('.', '');
                     var firstElement = document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]');
@@ -1016,8 +1017,8 @@ if(realTimeProz$symbol[0] === ' '){
                     }
                     numericOverallProz$symbol += stocksPerformance$symbol.toFixed(2);
                     numericOverallProz$symbol = numericOverallProz$symbol.replace('.', '');
-                    firstElement[0].id = 'symbolLineId$symbol'+numericRealTimeProz$symbol;
-                    //firstElement[0].id = 'symbolLineId$symbol'+numericRealTimeProz$symbol+numericOverallProz$symbol;
+                    //firstElement[0].id = 'symbolLineId$symbol' + '_' +numericRealTimeProz$symbol;
+                    firstElement[0].id = 'symbolLineId$symbol' + '_' +numericRealTimeProz$symbol + '_' +numericOverallProz$symbol;
                     //document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+numericRealTimeProz$symbol;      
 
 
