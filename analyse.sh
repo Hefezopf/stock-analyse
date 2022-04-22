@@ -960,9 +960,20 @@ do
                     }
 
                     // Sorting
+
+                    // if 0,00% then add '+' -> +0,00%
+
+if(realTimeProz$symbol[0] === ' '){
+    console.log(realTimeProz$symbol);
+    realTimeProz$symbol = '+' + realTimeProz$symbol.substring(1);
+    console.log(\"if 0,00% then add '+' -> +0,00%\");
+    console.log(realTimeProz$symbol);
+}
+
                     var numeric = realTimeProz$symbol.replace(',', '')
-                    document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+numeric;
-                    //document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]').id = 'symbolLineId$symbol'+numeric;         
+                    var firstElement = document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]');
+                    firstElement[0].id = 'symbolLineId$symbol'+numeric;
+                    //document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+numeric;      
 
                     let positionTime1 = data.contents.indexOf(' -  ');
                     var time$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
