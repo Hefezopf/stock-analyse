@@ -1121,7 +1121,8 @@ do
                     var stocksPerformance$symbol = ((portfolioValue$symbol / buyingValue$symbol)-1)*100;
                     elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + portfolioValue$symbol.toFixed(0) + '€ ';
                     var elementPortfolioGain$symbol = document.getElementById(\"intervalSectionPortfolioGain$symbol\");
-                    elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
+                    //elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
+                    elementPortfolioGain$symbol.innerHTML = (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€ ' + stocksPerformance$symbol.toFixed(1) + '%';
 
                     // Sorting, if 0,00% then add '+' -> +0,00%
                     if(realTimeProz$symbol[0] === ' '){
