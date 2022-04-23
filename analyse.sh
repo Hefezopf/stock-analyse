@@ -157,7 +157,7 @@ body > div {
 <body>
 <div id='symbolsListId'>
 <script>
-    function doSortDaily() {
+    function doSortDailyGain() {
         var container = document.getElementById('symbolsListId');
         var elements = container.childNodes;
         var sortPositivDailyValues = [];
@@ -206,10 +206,27 @@ body > div {
         }
         for (var i=0; i<sortNegativDailyValues.length; i++) {
             container.appendChild(sortNegativDailyValues[i][1]);
-        }    
+        }
+
+        var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
+        for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+            intervalSectionRealTimeQuotes[i].style.fontSize = 'xx-large';
+        }
+        var intervalSectionPercentages = document.querySelectorAll('[id ^= \"intervalSectionPercentage\"]');
+        for (var i=0; i<intervalSectionPercentages.length; i++) {
+            intervalSectionPercentages[i].style.fontSize = 'xx-large';
+        }
+        var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= \"intervalSectionPortfolioValues\"]');
+        for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+            intervalSectionPortfolioValues[i].style.fontSize = 'large';
+        }
+        var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= \"intervalSectionPortfolioGain\"]');
+        for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+            intervalSectionPortfolioGains[i].style.fontSize = 'large';
+        }        
     }
 
-    function doSortOverall() {
+    function doSortOverallGain() {
         var container = document.getElementById('symbolsListId');
         var elements = container.childNodes;
         var sortPositivOverallValues = [];
@@ -241,7 +258,64 @@ body > div {
         }
         for (var i=0; i<sortNegativOverallValues.length; i++) {
             container.appendChild(sortNegativOverallValues[i][1]);
-        }    
+        }
+
+        var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
+        for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+            intervalSectionRealTimeQuotes[i].style.fontSize = 'large';
+        }
+        var intervalSectionPercentages = document.querySelectorAll('[id ^= \"intervalSectionPercentage\"]');
+        for (var i=0; i<intervalSectionPercentages.length; i++) {
+            intervalSectionPercentages[i].style.fontSize = 'large';
+        }
+        var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= \"intervalSectionPortfolioValues\"]');
+        for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+            intervalSectionPortfolioValues[i].style.fontSize = 'large';
+        }
+        var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= \"intervalSectionPortfolioGain\"]');
+        for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+            intervalSectionPortfolioGains[i].style.fontSize = 'xx-large';
+        }        
+    }
+
+    function doSortInvestedValue() {
+        var container = document.getElementById('symbolsListId');
+        var elements = container.childNodes;
+        var sortOverallValues = [];
+        for (var i=0; i<elements.length; i++) {
+            if (!elements[i].id) {
+                continue;
+            }
+            var sortPart = elements[i].id.split('_');
+            if (sortPart.length > 1) {
+                sortOverallValues.push([ 1 * sortPart[3], elements[i] ]);
+            }        
+        }
+        sortOverallValues.sort(function(x, y) {
+            return y[0] - x[0];
+        });    
+        document.getElementById('symbolsListId').innerHTML = '';
+
+        for (var i=0; i<sortOverallValues.length; i++) {
+            container.appendChild(sortOverallValues[i][1]);
+        }
+
+        var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
+        for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+            intervalSectionRealTimeQuotes[i].style.fontSize = 'large';
+        }
+        var intervalSectionPercentages = document.querySelectorAll('[id ^= \"intervalSectionPercentage\"]');
+        for (var i=0; i<intervalSectionPercentages.length; i++) {
+            intervalSectionPercentages[i].style.fontSize = 'large';
+        }
+        var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= \"intervalSectionPortfolioValues\"]');
+        for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+            intervalSectionPortfolioValues[i].style.fontSize = 'xx-large';
+        }
+        var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= \"intervalSectionPortfolioGain\"]');
+        for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+            intervalSectionPortfolioGains[i].style.fontSize = 'large';
+        }        
     }
 
     // Global Varables
@@ -395,6 +469,7 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
             // Enable Sort Buttons
             document.querySelector('#intervalSectionButtonSortDaily').disabled = false;
             document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
+            document.querySelector('#intervalSectionButtonSortValue').disabled = false;
         }
     }, 1000);
 
@@ -464,7 +539,7 @@ echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 
-echo "<br><br># Analyse <button id='intervalSectionButtonSortDaily' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortDaily()'>Sort Daily</button>&nbsp;<button id='intervalSectionButtonSortOverall' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortOverall()'>Sort Overall</button>" >> $OUT_RESULT_FILE
+echo "<br><br># Analyse <button id='intervalSectionButtonSortDaily' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortDailyGain()'>&uarr; Daily %</button>&nbsp;<button id='intervalSectionButtonSortValue' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortInvestedValue()'>&uarr; Value €</button>&nbsp;<button id='intervalSectionButtonSortOverall' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortOverallGain()'>&uarr; Overall %</button>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
@@ -1027,7 +1102,7 @@ do
 
                     // Example ID: id='symbolLineIdEUZ_-115_+111'
                     var numericRealTimeProz$symbol = realTimeProz$symbol.replace('.', '');
-                    var firstElement = document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]');
+                    var symbolLineIdElements = document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]');
                     var numericOverallProz$symbol;
                     if(stocksPerformance$symbol >= 0){
                         numericOverallProz$symbol = '+' + stocksPerformance$symbol.toFixed(2);
@@ -1036,7 +1111,8 @@ do
                         numericOverallProz$symbol = stocksPerformance$symbol.toFixed(2);
                     }
                     numericOverallProz$symbol = numericOverallProz$symbol.replace('.', '');
-                    firstElement[0].id = 'symbolLineId$symbol' + '_' +numericRealTimeProz$symbol + '_' +numericOverallProz$symbol; 
+
+                    symbolLineIdElements[0].id = 'symbolLineId$symbol' + '_' + numericRealTimeProz$symbol + '_' + numericOverallProz$symbol + '_' + portfolioValue$symbol.toFixed(0);
 
                     if(stocksPerformance$symbol < 0){
                         elementPortfolioGain$symbol.style.color = 'red';
@@ -1059,7 +1135,7 @@ do
                   <span id=\"neverShowRegularMarketTime$symbol\" style='display: none'></span>&nbsp;
                   
                   <span id=\"intervalSectionPortfolioValues$symbol\" style='font-size:large; display: none'></span>
-                  <span id=\"intervalSectionPortfolioGain$symbol\" style='font-size:xx-large; display: none'></span>
+                  <span id=\"intervalSectionPortfolioGain$symbol\" style='font-size:large; display: none'></span>
                   <br>"                  
 
             # ObfuscatedValue neverShowDiv (Yesterday)
