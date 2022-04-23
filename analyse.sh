@@ -155,10 +155,10 @@ body > div {
 </style>
 </head>
 <body>
-<div id=\"symbolsListId\">
+<div id='symbolsListId'>
 <script>
     function doSortDaily() {
-        var container = document.getElementById(\"symbolsListId\");
+        var container = document.getElementById('symbolsListId');
         var elements = container.childNodes;
         var sortPositivDailyValues = [];
         var sortNegativDailyValues = [];
@@ -168,7 +168,7 @@ body > div {
                 continue;
             }
 
-            var sortPart = elements[i].id.split(\"_\");
+            var sortPart = elements[i].id.split('_');
             // only add the element for sorting if it has a plus in it
             if (sortPart.length > 1) {
                 if (sortPart[1][0] === '+') {
@@ -210,29 +210,17 @@ body > div {
     }
 
     function doSortOverall() {
-        var container = document.getElementById(\"symbolsListId\");
+        var container = document.getElementById('symbolsListId');
         var elements = container.childNodes;
         var sortPositivOverallValues = [];
         var sortNegativOverallValues = [];
         for (var i=0; i<elements.length; i++) {
-            // skip nodes without an ID
             if (!elements[i].id) {
                 continue;
             }
-
-            var sortPart = elements[i].id.split(\"_\");
-            // only add the element for sorting if it has a plus in it
+            var sortPart = elements[i].id.split('_');
             if (sortPart.length > 1) {
                 if (sortPart[2][0] === '+') {
-                    /*
-                    * prepare the ID for faster comparison
-                    * array will contain:
-                    *   [0] => number which will be used for sorting 
-                    *   [1] => element
-                    * 1 * something is the fastest way I know to convert a string to a
-                    * number. It should be a number to make it sort in a natural way,
-                    * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
-                    */
                     sortPositivOverallValues.push([ 1 * sortPart[2], elements[i] ]);
                 }
                 if (sortPart[2][0] === '-') {
@@ -240,19 +228,14 @@ body > div {
                 }                
             }        
         }
-
-        // Sort the array sortPositivOverallValues, elements with the highest ID will be first
         sortPositivOverallValues.sort(function(x, y) {
             return y[0] - x[0];
         });
         sortNegativOverallValues.sort(function(x, y) {
             return x[0] - y[0];
         });    
-
-        // Clear page
         document.getElementById('symbolsListId').innerHTML = '';
 
-        // Append the sorted elements again, the old element will be moved to the new position
         for (var i=0; i<sortPositivOverallValues.length; i++) {
             container.appendChild(sortPositivOverallValues[i][1]);
         }
@@ -481,7 +464,7 @@ echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 
-echo "<br><br># Analyse <button id=\"intervalSectionButtonSortDaily\" style='height: 35px; width: 90px; display: none' disabled=\"true\" type=\"button\" onClick=\"javascript:doSortDaily()\">Sort Daily</button>&nbsp;<button id=\"intervalSectionButtonSortOverall\" style='height: 35px; width: 90px; display: none' disabled=\"true\" type=\"button\" onClick=\"javascript:doSortOverall()\">Sort Overall</button>" >> $OUT_RESULT_FILE
+echo "<br><br># Analyse <button id='intervalSectionButtonSortDaily' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortDaily()'>Sort Daily</button>&nbsp;<button id='intervalSectionButtonSortOverall' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortOverall()'>Sort Overall</button>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
@@ -493,8 +476,7 @@ do
         symbol=$(echo "$symbol" | cut -b 2-6)
     fi
 
-    # Sorting
-    echo "<div id='symbolLineId$symbol'>"  >> $OUT_RESULT_FILE
+    echo "<div id='symbolLineId$symbol'>"  >> $OUT_RESULT_FILE # Sorting
 
     # Curl and write Line to TICKER_NAME_ID_FILE. Delay of 14sec because of REST API restrictions (apprx. 5 Rq/min)
     CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14
@@ -527,7 +509,7 @@ do
 
     CreateCmdHyperlink "Analyse" "out"
 
-    # Check if 100 last quotes are availible, otherwise fill up to 100 
+    # Check, if 100 last quotes are availible, otherwise fill up to 100 
     numOfQuotes=$(grep "" -c "$DATA_DATE_FILE")
     if [ "$numOfQuotes" -lt 100 ]; then
         echo "<br>" >> $OUT_RESULT_FILE
@@ -615,7 +597,6 @@ do
     # Calculate Stochastic 14 values
     stochasticInDays14=14
     lastStochasticQuoteRounded=0
-    ##beforeLastStochasticQuoteRounded=0
     stochasticQuoteList=""
     if [ "$CalculateStochastic" = true ]; then
         StochasticOfDays $stochasticInDays14 "$DATA_FILE"
@@ -1076,11 +1057,10 @@ do
                         
             echo "<span id=\"intervalSectionRealTimeQuote$symbol\" style='font-size:xx-large; display: none'>---</span>&nbsp;
                   <span id=\"intervalSectionPercentage$symbol\" style='font-size:xx-large; display: none'></span>&nbsp;
-                  <span id=\"neverShowRegularMarketTime$symbol\" style='display: none'></span>
+                  <span id=\"neverShowRegularMarketTime$symbol\" style='display: none'></span>&nbsp;
                   
-                  <span id=\"intervalSectionRegularMarketTimeOffset$symbol\" style='font-size:large; display: none'></span>&nbsp;
                   <span id=\"intervalSectionPortfolioValues$symbol\" style='font-size:large; display: none'></span>
-                  <span id=\"intervalSectionPortfolioGain$symbol\" style='font-size:large; display: none'></span>
+                  <span id=\"intervalSectionPortfolioGain$symbol\" style='font-size:xx-large; display: none'></span>
                   <br>"                  
 
             # ObfuscatedValue neverShowDiv (Yesterday)
@@ -1091,19 +1071,22 @@ do
                  </div>"
 
             # Interval Beep
-            echo "<span id=\"intervalSection$symbol\" style='display: none'><input name=\"intervalField$symbol\" id=\"intervalField$symbol\" type=\"text\" style=\"height: 29px;\" maxlength=\"3\" size=\"3\" value=\"10\"/>&nbsp;<button type=\"button\" id=\"intervalButton$symbol\" style=\"height: 35px;\">Minutes</button><span id=\"intervalText$symbol\"></span></span>"
+            echo "<span id='intervalSection$symbol' style='display: none'>"
+            echo "Delay: <span id='intervalSectionRegularMarketTimeOffset$symbol' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalField$symbol' id='intervalField$symbol' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButton$symbol' style='height: 35px;'>Minutes</button><span id='intervalText$symbol'></span>"
+            echo "</span>"
+                  
             echo "<script>
                 var intervalVar$symbol;
                 function beep$symbol() {
-                    var elementAlert = document.getElementById(\"intervalText$symbol\");
-                    elementAlert.innerHTML = \" ALERT!!!\";
+                    var elementAlert = document.getElementById('intervalText$symbol');
+                    elementAlert.innerHTML = ' ALERT!!!';
                     elementAlert.style.color = 'red';
                     sound.play();
                     clearInterval(intervalVar$symbol);
                     intervalVar$symbol=undefined;
                 }
                 function setBeepInterval$symbol() {
-                    var intervalValue = document.getElementById(\"intervalField$symbol\").value;
+                    var intervalValue = document.getElementById('intervalField$symbol').value;
                     intervalVar$symbol = setInterval(beep$symbol, intervalValue*60*1000); //60*1000
                     var elementIntervalText = document.getElementById(\"intervalText$symbol\");
                     elementIntervalText.innerHTML = ' ...'+intervalValue;
