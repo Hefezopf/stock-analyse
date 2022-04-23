@@ -130,10 +130,18 @@ return y[0] - x[0];
 });
 sortNegativDailyValues.sort(function(x, y) {
 return x[0] - y[0];
-});    
+});
+
+// Add sort buttons
+var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
+var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
+var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
 
 // Clear page
-document.getElementById('symbolsListId').innerHTML = '';
+container.innerHTML = '';
+container.appendChild(intervalSectionButtonSortDailyButton);
+container.appendChild(intervalSectionButtonSortValueButton);
+container.appendChild(intervalSectionButtonSortOverallButton);
 
 // Append the sorted elements again, the old element will be moved to the new position
 for (var i=0; i<sortPositivDailyValues.length; i++) {
@@ -185,8 +193,18 @@ return y[0] - x[0];
 });
 sortNegativOverallValues.sort(function(x, y) {
 return x[0] - y[0];
-});    
-document.getElementById('symbolsListId').innerHTML = '';
+});
+
+// Add sort buttons
+var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
+var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
+var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+
+// Clear page
+container.innerHTML = '';
+container.appendChild(intervalSectionButtonSortDailyButton);
+container.appendChild(intervalSectionButtonSortValueButton);
+container.appendChild(intervalSectionButtonSortOverallButton);
 
 for (var i=0; i<sortPositivOverallValues.length; i++) {
 container.appendChild(sortPositivOverallValues[i][1]);
@@ -228,8 +246,18 @@ sortOverallValues.push([ 1 * sortPart[3], elements[i] ]);
 }
 sortOverallValues.sort(function(x, y) {
 return y[0] - x[0];
-});    
-document.getElementById('symbolsListId').innerHTML = '';
+});
+
+// Add sort buttons
+var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
+var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
+var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+
+// Clear page
+container.innerHTML = '';
+container.appendChild(intervalSectionButtonSortDailyButton);
+container.appendChild(intervalSectionButtonSortValueButton);
+container.appendChild(intervalSectionButtonSortOverallButton);
 
 for (var i=0; i<sortOverallValues.length; i++) {
 container.appendChild(sortOverallValues[i][1]);
@@ -436,7 +464,8 @@ var portfolioValueNVV1 = piecesNVV1 * realTimeQuoteNVV1;
 var stocksPerformanceNVV1 = ((portfolioValueNVV1 / buyingValueNVV1)-1)*100;
 elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + portfolioValueNVV1.toFixed(0) + '€ ';
 var elementPortfolioGainNVV1 = document.getElementById("intervalSectionPortfolioGainNVV1");
-elementPortfolioGainNVV1.innerHTML = stocksPerformanceNVV1.toFixed(1) + '% ' + (portfolioValueNVV1 - buyingValueNVV1).toFixed(0) + '€';
+//elementPortfolioGainNVV1.innerHTML = stocksPerformanceNVV1.toFixed(1) + '% ' + (portfolioValueNVV1 - buyingValueNVV1).toFixed(0) + '€';
+elementPortfolioGainNVV1.innerHTML = (portfolioValueNVV1 - buyingValueNVV1).toFixed(0) + '€ ' + stocksPerformanceNVV1.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzNVV1[0] === ' '){
@@ -611,7 +640,8 @@ var portfolioValueAMD = piecesAMD * realTimeQuoteAMD;
 var stocksPerformanceAMD = ((portfolioValueAMD / buyingValueAMD)-1)*100;
 elementPortfolioValuesAMD.innerHTML = piecesAMD + ' pc ' + portfolioValueAMD.toFixed(0) + '€ ';
 var elementPortfolioGainAMD = document.getElementById("intervalSectionPortfolioGainAMD");
-elementPortfolioGainAMD.innerHTML = stocksPerformanceAMD.toFixed(1) + '% ' + (portfolioValueAMD - buyingValueAMD).toFixed(0) + '€';
+//elementPortfolioGainAMD.innerHTML = stocksPerformanceAMD.toFixed(1) + '% ' + (portfolioValueAMD - buyingValueAMD).toFixed(0) + '€';
+elementPortfolioGainAMD.innerHTML = (portfolioValueAMD - buyingValueAMD).toFixed(0) + '€ ' + stocksPerformanceAMD.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzAMD[0] === ' '){
@@ -787,7 +817,8 @@ var portfolioValue1QZ = pieces1QZ * realTimeQuote1QZ;
 var stocksPerformance1QZ = ((portfolioValue1QZ / buyingValue1QZ)-1)*100;
 elementPortfolioValues1QZ.innerHTML = pieces1QZ + ' pc ' + portfolioValue1QZ.toFixed(0) + '€ ';
 var elementPortfolioGain1QZ = document.getElementById("intervalSectionPortfolioGain1QZ");
-elementPortfolioGain1QZ.innerHTML = stocksPerformance1QZ.toFixed(1) + '% ' + (portfolioValue1QZ - buyingValue1QZ).toFixed(0) + '€';
+//elementPortfolioGain1QZ.innerHTML = stocksPerformance1QZ.toFixed(1) + '% ' + (portfolioValue1QZ - buyingValue1QZ).toFixed(0) + '€';
+elementPortfolioGain1QZ.innerHTML = (portfolioValue1QZ - buyingValue1QZ).toFixed(0) + '€ ' + stocksPerformance1QZ.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProz1QZ[0] === ' '){
@@ -960,7 +991,8 @@ var portfolioValueDHER = piecesDHER * realTimeQuoteDHER;
 var stocksPerformanceDHER = ((portfolioValueDHER / buyingValueDHER)-1)*100;
 elementPortfolioValuesDHER.innerHTML = piecesDHER + ' pc ' + portfolioValueDHER.toFixed(0) + '€ ';
 var elementPortfolioGainDHER = document.getElementById("intervalSectionPortfolioGainDHER");
-elementPortfolioGainDHER.innerHTML = stocksPerformanceDHER.toFixed(1) + '% ' + (portfolioValueDHER - buyingValueDHER).toFixed(0) + '€';
+//elementPortfolioGainDHER.innerHTML = stocksPerformanceDHER.toFixed(1) + '% ' + (portfolioValueDHER - buyingValueDHER).toFixed(0) + '€';
+elementPortfolioGainDHER.innerHTML = (portfolioValueDHER - buyingValueDHER).toFixed(0) + '€ ' + stocksPerformanceDHER.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzDHER[0] === ' '){
@@ -1131,7 +1163,8 @@ var portfolioValueEUZ = piecesEUZ * realTimeQuoteEUZ;
 var stocksPerformanceEUZ = ((portfolioValueEUZ / buyingValueEUZ)-1)*100;
 elementPortfolioValuesEUZ.innerHTML = piecesEUZ + ' pc ' + portfolioValueEUZ.toFixed(0) + '€ ';
 var elementPortfolioGainEUZ = document.getElementById("intervalSectionPortfolioGainEUZ");
-elementPortfolioGainEUZ.innerHTML = stocksPerformanceEUZ.toFixed(1) + '% ' + (portfolioValueEUZ - buyingValueEUZ).toFixed(0) + '€';
+//elementPortfolioGainEUZ.innerHTML = stocksPerformanceEUZ.toFixed(1) + '% ' + (portfolioValueEUZ - buyingValueEUZ).toFixed(0) + '€';
+elementPortfolioGainEUZ.innerHTML = (portfolioValueEUZ - buyingValueEUZ).toFixed(0) + '€ ' + stocksPerformanceEUZ.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzEUZ[0] === ' '){
@@ -1305,7 +1338,8 @@ var portfolioValueWDP = piecesWDP * realTimeQuoteWDP;
 var stocksPerformanceWDP = ((portfolioValueWDP / buyingValueWDP)-1)*100;
 elementPortfolioValuesWDP.innerHTML = piecesWDP + ' pc ' + portfolioValueWDP.toFixed(0) + '€ ';
 var elementPortfolioGainWDP = document.getElementById("intervalSectionPortfolioGainWDP");
-elementPortfolioGainWDP.innerHTML = stocksPerformanceWDP.toFixed(1) + '% ' + (portfolioValueWDP - buyingValueWDP).toFixed(0) + '€';
+//elementPortfolioGainWDP.innerHTML = stocksPerformanceWDP.toFixed(1) + '% ' + (portfolioValueWDP - buyingValueWDP).toFixed(0) + '€';
+elementPortfolioGainWDP.innerHTML = (portfolioValueWDP - buyingValueWDP).toFixed(0) + '€ ' + stocksPerformanceWDP.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzWDP[0] === ' '){
@@ -1475,7 +1509,8 @@ var portfolioValueDWNI = piecesDWNI * realTimeQuoteDWNI;
 var stocksPerformanceDWNI = ((portfolioValueDWNI / buyingValueDWNI)-1)*100;
 elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + portfolioValueDWNI.toFixed(0) + '€ ';
 var elementPortfolioGainDWNI = document.getElementById("intervalSectionPortfolioGainDWNI");
-elementPortfolioGainDWNI.innerHTML = stocksPerformanceDWNI.toFixed(1) + '% ' + (portfolioValueDWNI - buyingValueDWNI).toFixed(0) + '€';
+//elementPortfolioGainDWNI.innerHTML = stocksPerformanceDWNI.toFixed(1) + '% ' + (portfolioValueDWNI - buyingValueDWNI).toFixed(0) + '€';
+elementPortfolioGainDWNI.innerHTML = (portfolioValueDWNI - buyingValueDWNI).toFixed(0) + '€ ' + stocksPerformanceDWNI.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzDWNI[0] === ' '){
@@ -1646,7 +1681,8 @@ var portfolioValueVNA = piecesVNA * realTimeQuoteVNA;
 var stocksPerformanceVNA = ((portfolioValueVNA / buyingValueVNA)-1)*100;
 elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + portfolioValueVNA.toFixed(0) + '€ ';
 var elementPortfolioGainVNA = document.getElementById("intervalSectionPortfolioGainVNA");
-elementPortfolioGainVNA.innerHTML = stocksPerformanceVNA.toFixed(1) + '% ' + (portfolioValueVNA - buyingValueVNA).toFixed(0) + '€';
+//elementPortfolioGainVNA.innerHTML = stocksPerformanceVNA.toFixed(1) + '% ' + (portfolioValueVNA - buyingValueVNA).toFixed(0) + '€';
+elementPortfolioGainVNA.innerHTML = (portfolioValueVNA - buyingValueVNA).toFixed(0) + '€ ' + stocksPerformanceVNA.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzVNA[0] === ' '){
@@ -1815,7 +1851,8 @@ var portfolioValueFPE3 = piecesFPE3 * realTimeQuoteFPE3;
 var stocksPerformanceFPE3 = ((portfolioValueFPE3 / buyingValueFPE3)-1)*100;
 elementPortfolioValuesFPE3.innerHTML = piecesFPE3 + ' pc ' + portfolioValueFPE3.toFixed(0) + '€ ';
 var elementPortfolioGainFPE3 = document.getElementById("intervalSectionPortfolioGainFPE3");
-elementPortfolioGainFPE3.innerHTML = stocksPerformanceFPE3.toFixed(1) + '% ' + (portfolioValueFPE3 - buyingValueFPE3).toFixed(0) + '€';
+//elementPortfolioGainFPE3.innerHTML = stocksPerformanceFPE3.toFixed(1) + '% ' + (portfolioValueFPE3 - buyingValueFPE3).toFixed(0) + '€';
+elementPortfolioGainFPE3.innerHTML = (portfolioValueFPE3 - buyingValueFPE3).toFixed(0) + '€ ' + stocksPerformanceFPE3.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzFPE3[0] === ' '){
@@ -1988,7 +2025,8 @@ var portfolioValueTEG = piecesTEG * realTimeQuoteTEG;
 var stocksPerformanceTEG = ((portfolioValueTEG / buyingValueTEG)-1)*100;
 elementPortfolioValuesTEG.innerHTML = piecesTEG + ' pc ' + portfolioValueTEG.toFixed(0) + '€ ';
 var elementPortfolioGainTEG = document.getElementById("intervalSectionPortfolioGainTEG");
-elementPortfolioGainTEG.innerHTML = stocksPerformanceTEG.toFixed(1) + '% ' + (portfolioValueTEG - buyingValueTEG).toFixed(0) + '€';
+//elementPortfolioGainTEG.innerHTML = stocksPerformanceTEG.toFixed(1) + '% ' + (portfolioValueTEG - buyingValueTEG).toFixed(0) + '€';
+elementPortfolioGainTEG.innerHTML = (portfolioValueTEG - buyingValueTEG).toFixed(0) + '€ ' + stocksPerformanceTEG.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzTEG[0] === ' '){
@@ -2162,7 +2200,8 @@ var portfolioValueGYC = piecesGYC * realTimeQuoteGYC;
 var stocksPerformanceGYC = ((portfolioValueGYC / buyingValueGYC)-1)*100;
 elementPortfolioValuesGYC.innerHTML = piecesGYC + ' pc ' + portfolioValueGYC.toFixed(0) + '€ ';
 var elementPortfolioGainGYC = document.getElementById("intervalSectionPortfolioGainGYC");
-elementPortfolioGainGYC.innerHTML = stocksPerformanceGYC.toFixed(1) + '% ' + (portfolioValueGYC - buyingValueGYC).toFixed(0) + '€';
+//elementPortfolioGainGYC.innerHTML = stocksPerformanceGYC.toFixed(1) + '% ' + (portfolioValueGYC - buyingValueGYC).toFixed(0) + '€';
+elementPortfolioGainGYC.innerHTML = (portfolioValueGYC - buyingValueGYC).toFixed(0) + '€ ' + stocksPerformanceGYC.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzGYC[0] === ' '){
@@ -2331,7 +2370,8 @@ var portfolioValueAG1 = piecesAG1 * realTimeQuoteAG1;
 var stocksPerformanceAG1 = ((portfolioValueAG1 / buyingValueAG1)-1)*100;
 elementPortfolioValuesAG1.innerHTML = piecesAG1 + ' pc ' + portfolioValueAG1.toFixed(0) + '€ ';
 var elementPortfolioGainAG1 = document.getElementById("intervalSectionPortfolioGainAG1");
-elementPortfolioGainAG1.innerHTML = stocksPerformanceAG1.toFixed(1) + '% ' + (portfolioValueAG1 - buyingValueAG1).toFixed(0) + '€';
+//elementPortfolioGainAG1.innerHTML = stocksPerformanceAG1.toFixed(1) + '% ' + (portfolioValueAG1 - buyingValueAG1).toFixed(0) + '€';
+elementPortfolioGainAG1.innerHTML = (portfolioValueAG1 - buyingValueAG1).toFixed(0) + '€ ' + stocksPerformanceAG1.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzAG1[0] === ' '){
@@ -2500,7 +2540,8 @@ var portfolioValueADN1 = piecesADN1 * realTimeQuoteADN1;
 var stocksPerformanceADN1 = ((portfolioValueADN1 / buyingValueADN1)-1)*100;
 elementPortfolioValuesADN1.innerHTML = piecesADN1 + ' pc ' + portfolioValueADN1.toFixed(0) + '€ ';
 var elementPortfolioGainADN1 = document.getElementById("intervalSectionPortfolioGainADN1");
-elementPortfolioGainADN1.innerHTML = stocksPerformanceADN1.toFixed(1) + '% ' + (portfolioValueADN1 - buyingValueADN1).toFixed(0) + '€';
+//elementPortfolioGainADN1.innerHTML = stocksPerformanceADN1.toFixed(1) + '% ' + (portfolioValueADN1 - buyingValueADN1).toFixed(0) + '€';
+elementPortfolioGainADN1.innerHTML = (portfolioValueADN1 - buyingValueADN1).toFixed(0) + '€ ' + stocksPerformanceADN1.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzADN1[0] === ' '){
@@ -2669,7 +2710,8 @@ var portfolioValueKGX = piecesKGX * realTimeQuoteKGX;
 var stocksPerformanceKGX = ((portfolioValueKGX / buyingValueKGX)-1)*100;
 elementPortfolioValuesKGX.innerHTML = piecesKGX + ' pc ' + portfolioValueKGX.toFixed(0) + '€ ';
 var elementPortfolioGainKGX = document.getElementById("intervalSectionPortfolioGainKGX");
-elementPortfolioGainKGX.innerHTML = stocksPerformanceKGX.toFixed(1) + '% ' + (portfolioValueKGX - buyingValueKGX).toFixed(0) + '€';
+//elementPortfolioGainKGX.innerHTML = stocksPerformanceKGX.toFixed(1) + '% ' + (portfolioValueKGX - buyingValueKGX).toFixed(0) + '€';
+elementPortfolioGainKGX.innerHTML = (portfolioValueKGX - buyingValueKGX).toFixed(0) + '€ ' + stocksPerformanceKGX.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzKGX[0] === ' '){
@@ -2838,7 +2880,8 @@ var portfolioValueSTM = piecesSTM * realTimeQuoteSTM;
 var stocksPerformanceSTM = ((portfolioValueSTM / buyingValueSTM)-1)*100;
 elementPortfolioValuesSTM.innerHTML = piecesSTM + ' pc ' + portfolioValueSTM.toFixed(0) + '€ ';
 var elementPortfolioGainSTM = document.getElementById("intervalSectionPortfolioGainSTM");
-elementPortfolioGainSTM.innerHTML = stocksPerformanceSTM.toFixed(1) + '% ' + (portfolioValueSTM - buyingValueSTM).toFixed(0) + '€';
+//elementPortfolioGainSTM.innerHTML = stocksPerformanceSTM.toFixed(1) + '% ' + (portfolioValueSTM - buyingValueSTM).toFixed(0) + '€';
+elementPortfolioGainSTM.innerHTML = (portfolioValueSTM - buyingValueSTM).toFixed(0) + '€ ' + stocksPerformanceSTM.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzSTM[0] === ' '){
@@ -3012,7 +3055,8 @@ var portfolioValueLEG = piecesLEG * realTimeQuoteLEG;
 var stocksPerformanceLEG = ((portfolioValueLEG / buyingValueLEG)-1)*100;
 elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + portfolioValueLEG.toFixed(0) + '€ ';
 var elementPortfolioGainLEG = document.getElementById("intervalSectionPortfolioGainLEG");
-elementPortfolioGainLEG.innerHTML = stocksPerformanceLEG.toFixed(1) + '% ' + (portfolioValueLEG - buyingValueLEG).toFixed(0) + '€';
+//elementPortfolioGainLEG.innerHTML = stocksPerformanceLEG.toFixed(1) + '% ' + (portfolioValueLEG - buyingValueLEG).toFixed(0) + '€';
+elementPortfolioGainLEG.innerHTML = (portfolioValueLEG - buyingValueLEG).toFixed(0) + '€ ' + stocksPerformanceLEG.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzLEG[0] === ' '){
@@ -3181,7 +3225,8 @@ var portfolioValueHEN3 = piecesHEN3 * realTimeQuoteHEN3;
 var stocksPerformanceHEN3 = ((portfolioValueHEN3 / buyingValueHEN3)-1)*100;
 elementPortfolioValuesHEN3.innerHTML = piecesHEN3 + ' pc ' + portfolioValueHEN3.toFixed(0) + '€ ';
 var elementPortfolioGainHEN3 = document.getElementById("intervalSectionPortfolioGainHEN3");
-elementPortfolioGainHEN3.innerHTML = stocksPerformanceHEN3.toFixed(1) + '% ' + (portfolioValueHEN3 - buyingValueHEN3).toFixed(0) + '€';
+//elementPortfolioGainHEN3.innerHTML = stocksPerformanceHEN3.toFixed(1) + '% ' + (portfolioValueHEN3 - buyingValueHEN3).toFixed(0) + '€';
+elementPortfolioGainHEN3.innerHTML = (portfolioValueHEN3 - buyingValueHEN3).toFixed(0) + '€ ' + stocksPerformanceHEN3.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzHEN3[0] === ' '){
@@ -3354,7 +3399,8 @@ var portfolioValueFFH = piecesFFH * realTimeQuoteFFH;
 var stocksPerformanceFFH = ((portfolioValueFFH / buyingValueFFH)-1)*100;
 elementPortfolioValuesFFH.innerHTML = piecesFFH + ' pc ' + portfolioValueFFH.toFixed(0) + '€ ';
 var elementPortfolioGainFFH = document.getElementById("intervalSectionPortfolioGainFFH");
-elementPortfolioGainFFH.innerHTML = stocksPerformanceFFH.toFixed(1) + '% ' + (portfolioValueFFH - buyingValueFFH).toFixed(0) + '€';
+//elementPortfolioGainFFH.innerHTML = stocksPerformanceFFH.toFixed(1) + '% ' + (portfolioValueFFH - buyingValueFFH).toFixed(0) + '€';
+elementPortfolioGainFFH.innerHTML = (portfolioValueFFH - buyingValueFFH).toFixed(0) + '€ ' + stocksPerformanceFFH.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzFFH[0] === ' '){
@@ -3523,7 +3569,8 @@ var portfolioValueTRVC = piecesTRVC * realTimeQuoteTRVC;
 var stocksPerformanceTRVC = ((portfolioValueTRVC / buyingValueTRVC)-1)*100;
 elementPortfolioValuesTRVC.innerHTML = piecesTRVC + ' pc ' + portfolioValueTRVC.toFixed(0) + '€ ';
 var elementPortfolioGainTRVC = document.getElementById("intervalSectionPortfolioGainTRVC");
-elementPortfolioGainTRVC.innerHTML = stocksPerformanceTRVC.toFixed(1) + '% ' + (portfolioValueTRVC - buyingValueTRVC).toFixed(0) + '€';
+//elementPortfolioGainTRVC.innerHTML = stocksPerformanceTRVC.toFixed(1) + '% ' + (portfolioValueTRVC - buyingValueTRVC).toFixed(0) + '€';
+elementPortfolioGainTRVC.innerHTML = (portfolioValueTRVC - buyingValueTRVC).toFixed(0) + '€ ' + stocksPerformanceTRVC.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzTRVC[0] === ' '){
@@ -3692,7 +3739,8 @@ var portfolioValuePHI1 = piecesPHI1 * realTimeQuotePHI1;
 var stocksPerformancePHI1 = ((portfolioValuePHI1 / buyingValuePHI1)-1)*100;
 elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + portfolioValuePHI1.toFixed(0) + '€ ';
 var elementPortfolioGainPHI1 = document.getElementById("intervalSectionPortfolioGainPHI1");
-elementPortfolioGainPHI1.innerHTML = stocksPerformancePHI1.toFixed(1) + '% ' + (portfolioValuePHI1 - buyingValuePHI1).toFixed(0) + '€';
+//elementPortfolioGainPHI1.innerHTML = stocksPerformancePHI1.toFixed(1) + '% ' + (portfolioValuePHI1 - buyingValuePHI1).toFixed(0) + '€';
+elementPortfolioGainPHI1.innerHTML = (portfolioValuePHI1 - buyingValuePHI1).toFixed(0) + '€ ' + stocksPerformancePHI1.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzPHI1[0] === ' '){
@@ -3861,7 +3909,8 @@ var portfolioValueSAX = piecesSAX * realTimeQuoteSAX;
 var stocksPerformanceSAX = ((portfolioValueSAX / buyingValueSAX)-1)*100;
 elementPortfolioValuesSAX.innerHTML = piecesSAX + ' pc ' + portfolioValueSAX.toFixed(0) + '€ ';
 var elementPortfolioGainSAX = document.getElementById("intervalSectionPortfolioGainSAX");
-elementPortfolioGainSAX.innerHTML = stocksPerformanceSAX.toFixed(1) + '% ' + (portfolioValueSAX - buyingValueSAX).toFixed(0) + '€';
+//elementPortfolioGainSAX.innerHTML = stocksPerformanceSAX.toFixed(1) + '% ' + (portfolioValueSAX - buyingValueSAX).toFixed(0) + '€';
+elementPortfolioGainSAX.innerHTML = (portfolioValueSAX - buyingValueSAX).toFixed(0) + '€ ' + stocksPerformanceSAX.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzSAX[0] === ' '){
@@ -4030,7 +4079,8 @@ var portfolioValueBCY = piecesBCY * realTimeQuoteBCY;
 var stocksPerformanceBCY = ((portfolioValueBCY / buyingValueBCY)-1)*100;
 elementPortfolioValuesBCY.innerHTML = piecesBCY + ' pc ' + portfolioValueBCY.toFixed(0) + '€ ';
 var elementPortfolioGainBCY = document.getElementById("intervalSectionPortfolioGainBCY");
-elementPortfolioGainBCY.innerHTML = stocksPerformanceBCY.toFixed(1) + '% ' + (portfolioValueBCY - buyingValueBCY).toFixed(0) + '€';
+//elementPortfolioGainBCY.innerHTML = stocksPerformanceBCY.toFixed(1) + '% ' + (portfolioValueBCY - buyingValueBCY).toFixed(0) + '€';
+elementPortfolioGainBCY.innerHTML = (portfolioValueBCY - buyingValueBCY).toFixed(0) + '€ ' + stocksPerformanceBCY.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzBCY[0] === ' '){
@@ -4200,7 +4250,8 @@ var portfolioValueIWLE = piecesIWLE * realTimeQuoteIWLE;
 var stocksPerformanceIWLE = ((portfolioValueIWLE / buyingValueIWLE)-1)*100;
 elementPortfolioValuesIWLE.innerHTML = piecesIWLE + ' pc ' + portfolioValueIWLE.toFixed(0) + '€ ';
 var elementPortfolioGainIWLE = document.getElementById("intervalSectionPortfolioGainIWLE");
-elementPortfolioGainIWLE.innerHTML = stocksPerformanceIWLE.toFixed(1) + '% ' + (portfolioValueIWLE - buyingValueIWLE).toFixed(0) + '€';
+//elementPortfolioGainIWLE.innerHTML = stocksPerformanceIWLE.toFixed(1) + '% ' + (portfolioValueIWLE - buyingValueIWLE).toFixed(0) + '€';
+elementPortfolioGainIWLE.innerHTML = (portfolioValueIWLE - buyingValueIWLE).toFixed(0) + '€ ' + stocksPerformanceIWLE.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzIWLE[0] === ' '){
@@ -4369,7 +4420,8 @@ var portfolioValueCRIN = piecesCRIN * realTimeQuoteCRIN;
 var stocksPerformanceCRIN = ((portfolioValueCRIN / buyingValueCRIN)-1)*100;
 elementPortfolioValuesCRIN.innerHTML = piecesCRIN + ' pc ' + portfolioValueCRIN.toFixed(0) + '€ ';
 var elementPortfolioGainCRIN = document.getElementById("intervalSectionPortfolioGainCRIN");
-elementPortfolioGainCRIN.innerHTML = stocksPerformanceCRIN.toFixed(1) + '% ' + (portfolioValueCRIN - buyingValueCRIN).toFixed(0) + '€';
+//elementPortfolioGainCRIN.innerHTML = stocksPerformanceCRIN.toFixed(1) + '% ' + (portfolioValueCRIN - buyingValueCRIN).toFixed(0) + '€';
+elementPortfolioGainCRIN.innerHTML = (portfolioValueCRIN - buyingValueCRIN).toFixed(0) + '€ ' + stocksPerformanceCRIN.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzCRIN[0] === ' '){
@@ -4539,7 +4591,8 @@ var portfolioValueAOMD = piecesAOMD * realTimeQuoteAOMD;
 var stocksPerformanceAOMD = ((portfolioValueAOMD / buyingValueAOMD)-1)*100;
 elementPortfolioValuesAOMD.innerHTML = piecesAOMD + ' pc ' + portfolioValueAOMD.toFixed(0) + '€ ';
 var elementPortfolioGainAOMD = document.getElementById("intervalSectionPortfolioGainAOMD");
-elementPortfolioGainAOMD.innerHTML = stocksPerformanceAOMD.toFixed(1) + '% ' + (portfolioValueAOMD - buyingValueAOMD).toFixed(0) + '€';
+//elementPortfolioGainAOMD.innerHTML = stocksPerformanceAOMD.toFixed(1) + '% ' + (portfolioValueAOMD - buyingValueAOMD).toFixed(0) + '€';
+elementPortfolioGainAOMD.innerHTML = (portfolioValueAOMD - buyingValueAOMD).toFixed(0) + '€ ' + stocksPerformanceAOMD.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzAOMD[0] === ' '){
@@ -4709,7 +4762,8 @@ var portfolioValueTNE5 = piecesTNE5 * realTimeQuoteTNE5;
 var stocksPerformanceTNE5 = ((portfolioValueTNE5 / buyingValueTNE5)-1)*100;
 elementPortfolioValuesTNE5.innerHTML = piecesTNE5 + ' pc ' + portfolioValueTNE5.toFixed(0) + '€ ';
 var elementPortfolioGainTNE5 = document.getElementById("intervalSectionPortfolioGainTNE5");
-elementPortfolioGainTNE5.innerHTML = stocksPerformanceTNE5.toFixed(1) + '% ' + (portfolioValueTNE5 - buyingValueTNE5).toFixed(0) + '€';
+//elementPortfolioGainTNE5.innerHTML = stocksPerformanceTNE5.toFixed(1) + '% ' + (portfolioValueTNE5 - buyingValueTNE5).toFixed(0) + '€';
+elementPortfolioGainTNE5.innerHTML = (portfolioValueTNE5 - buyingValueTNE5).toFixed(0) + '€ ' + stocksPerformanceTNE5.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzTNE5[0] === ' '){
@@ -4882,7 +4936,8 @@ var portfolioValueGEC = piecesGEC * realTimeQuoteGEC;
 var stocksPerformanceGEC = ((portfolioValueGEC / buyingValueGEC)-1)*100;
 elementPortfolioValuesGEC.innerHTML = piecesGEC + ' pc ' + portfolioValueGEC.toFixed(0) + '€ ';
 var elementPortfolioGainGEC = document.getElementById("intervalSectionPortfolioGainGEC");
-elementPortfolioGainGEC.innerHTML = stocksPerformanceGEC.toFixed(1) + '% ' + (portfolioValueGEC - buyingValueGEC).toFixed(0) + '€';
+//elementPortfolioGainGEC.innerHTML = stocksPerformanceGEC.toFixed(1) + '% ' + (portfolioValueGEC - buyingValueGEC).toFixed(0) + '€';
+elementPortfolioGainGEC.innerHTML = (portfolioValueGEC - buyingValueGEC).toFixed(0) + '€ ' + stocksPerformanceGEC.toFixed(1) + '%';
 
 // Sorting, if 0,00% then add '+' -> +0,00%
 if(realTimeProzGEC[0] === ' '){
@@ -5241,7 +5296,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' id='intervalSectio
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 23-Apr-2022 16:47</p><br></div>
+<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 23-Apr-2022 20:04</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
@@ -5286,8 +5341,8 @@ hideSpinner();
 clearInterval(intervalLoadingSpinnerId);
 // Enable Sort Buttons
 document.querySelector('#intervalSectionButtonSortDaily').disabled = false;
-document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
 document.querySelector('#intervalSectionButtonSortValue').disabled = false;
+document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
 }
 }, 1000);
 
