@@ -64,6 +64,7 @@ echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > sell/"$sy
 
 today=$(date --date="-0 day" +"%Y-%m-%d")
 
+echo "Win: $SELL_TOTAL_AMOUNT€"
 # BEI	2022-04-23	352	SELL	"BEIERSDORF"
 echo "$symbolParam	$today	$SELL_TOTAL_AMOUNT	SELL	$SYMBOL_NAME" | tee -a $TRANSACTION_HISTORIE_FILE
 echo ""

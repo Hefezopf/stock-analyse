@@ -404,15 +404,19 @@ body > div {
         var data = {
             event_type: 'buy', 
             client_payload: {
-                symbol: symbolParamTrimmed, 
+                symbol: symbolParamTrimmed,
                 pieces: pieces,
-                price: price,            
+                price: price,
             }
         };
         xhr.send(JSON.stringify(data));
     }    
-    function curlSell(symbolParam) {          
-        if (confirm('Sell ' + symbolParam + '?') == false) {
+    function curlSell(symbolParam, sellPriceParam) { 
+        if(sellPriceParam == '') {
+            alert('Error: Price not set!');
+            return;
+        }         
+        if (confirm('Sell ' + symbolParam + ' for ' + sellPriceParam + '€?') == false) {
             return;
         }
         var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
@@ -428,7 +432,8 @@ body > div {
         var data = {
             event_type: 'sell', 
             client_payload: {
-                symbol: symbolParam
+                symbol: symbolParam,
+                sellPrice: sellPriceParam
             }
         };
         xhr.send(JSON.stringify(data));
@@ -1209,7 +1214,7 @@ do
                   <button id=\"intervalSectionButton1Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('1Y')\">1Y</button>
                   <button id=\"intervalSectionButton5Y$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:updateImage$symbol('5Y')\">5Y</button>
                   <p id='intervalSectionButtonP' style='display: none'>
-                    <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol')\">Sell</button>
+                    <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value)\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
                     Overall Pieces <input name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
