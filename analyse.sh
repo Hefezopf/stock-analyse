@@ -1017,7 +1017,6 @@ do
                     var portfolioValue$symbol = pieces$symbol * realTimeQuote$symbol;
                     var stocksPerformance$symbol = ((portfolioValue$symbol / buyingValue$symbol)-1)*100;
                     elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + portfolioValue$symbol.toFixed(0) + '€ ';
-                    // elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + buyingValue$symbol + '/' + portfolioValue$symbol.toFixed(0) + '€ ';
                     var elementPortfolioGain$symbol = document.getElementById(\"intervalSectionPortfolioGain$symbol\");
                     elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
 
@@ -1056,7 +1055,7 @@ do
             </script>"
                         
             echo "<span id=\"intervalSectionRealTimeQuote$symbol\" style='font-size:xx-large; display: none'>---</span>&nbsp;
-                  <span id=\"intervalSectionPercentage$symbol\" style='font-size:xx-large; display: none'></span>&nbsp;
+                  <span id=\"intervalSectionPercentage$symbol\" style='font-size:xx-large; display: none'></span>
                   <span id=\"neverShowRegularMarketTime$symbol\" style='display: none'></span>&nbsp;
                   
                   <span id=\"intervalSectionPortfolioValues$symbol\" style='font-size:large; display: none'></span>
