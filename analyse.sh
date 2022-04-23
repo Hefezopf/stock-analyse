@@ -195,10 +195,18 @@ body > div {
         });
         sortNegativDailyValues.sort(function(x, y) {
             return x[0] - y[0];
-        });    
+        });
+
+        // Add sort buttons
+        var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
+        var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
+        var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
 
         // Clear page
-        document.getElementById('symbolsListId').innerHTML = '';
+        container.innerHTML = '';
+        container.appendChild(intervalSectionButtonSortDailyButton);
+        container.appendChild(intervalSectionButtonSortValueButton);
+        container.appendChild(intervalSectionButtonSortOverallButton);
 
         // Append the sorted elements again, the old element will be moved to the new position
         for (var i=0; i<sortPositivDailyValues.length; i++) {
@@ -250,8 +258,18 @@ body > div {
         });
         sortNegativOverallValues.sort(function(x, y) {
             return x[0] - y[0];
-        });    
-        document.getElementById('symbolsListId').innerHTML = '';
+        });
+
+        // Add sort buttons
+        var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
+        var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
+        var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+
+        // Clear page
+        container.innerHTML = '';
+        container.appendChild(intervalSectionButtonSortDailyButton);
+        container.appendChild(intervalSectionButtonSortValueButton);
+        container.appendChild(intervalSectionButtonSortOverallButton);
 
         for (var i=0; i<sortPositivOverallValues.length; i++) {
             container.appendChild(sortPositivOverallValues[i][1]);
@@ -293,8 +311,18 @@ body > div {
         }
         sortOverallValues.sort(function(x, y) {
             return y[0] - x[0];
-        });    
-        document.getElementById('symbolsListId').innerHTML = '';
+        });
+
+        // Add sort buttons
+        var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
+        var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
+        var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+
+        // Clear page
+        container.innerHTML = '';
+        container.appendChild(intervalSectionButtonSortDailyButton);
+        container.appendChild(intervalSectionButtonSortValueButton);
+        container.appendChild(intervalSectionButtonSortOverallButton);
 
         for (var i=0; i<sortOverallValues.length; i++) {
             container.appendChild(sortOverallValues[i][1]);
@@ -468,8 +496,8 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
             clearInterval(intervalLoadingSpinnerId);
             // Enable Sort Buttons
             document.querySelector('#intervalSectionButtonSortDaily').disabled = false;
-            document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
             document.querySelector('#intervalSectionButtonSortValue').disabled = false;
+            document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
         }
     }, 1000);
 
@@ -1093,7 +1121,8 @@ do
                     var stocksPerformance$symbol = ((portfolioValue$symbol / buyingValue$symbol)-1)*100;
                     elementPortfolioValues$symbol.innerHTML = pieces$symbol + ' pc ' + portfolioValue$symbol.toFixed(0) + '€ ';
                     var elementPortfolioGain$symbol = document.getElementById(\"intervalSectionPortfolioGain$symbol\");
-                    elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
+                    //elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
+                    elementPortfolioGain$symbol.innerHTML = (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€ ' + stocksPerformance$symbol.toFixed(1) + '%';
 
                     // Sorting, if 0,00% then add '+' -> +0,00%
                     if(realTimeProz$symbol[0] === ' '){
