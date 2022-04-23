@@ -92,7 +92,7 @@ animation: spin 2s linear infinite;
 <body>
 <div id='symbolsListId'>
 <script>
-function doSortDaily() {
+function doSortDailyGain() {
 var container = document.getElementById('symbolsListId');
 var elements = container.childNodes;
 var sortPositivDailyValues = [];
@@ -141,10 +141,27 @@ container.appendChild(sortPositivDailyValues[i][1]);
 }
 for (var i=0; i<sortNegativDailyValues.length; i++) {
 container.appendChild(sortNegativDailyValues[i][1]);
-}    
 }
 
-function doSortOverall() {
+var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= "intervalSectionRealTimeQuote"]');
+for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+intervalSectionRealTimeQuotes[i].style.fontSize = 'xx-large';
+}
+var intervalSectionPercentages = document.querySelectorAll('[id ^= "intervalSectionPercentage"]');
+for (var i=0; i<intervalSectionPercentages.length; i++) {
+intervalSectionPercentages[i].style.fontSize = 'xx-large';
+}
+var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= "intervalSectionPortfolioValues"]');
+for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+intervalSectionPortfolioValues[i].style.fontSize = 'large';
+}
+var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= "intervalSectionPortfolioGain"]');
+for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+intervalSectionPortfolioGains[i].style.fontSize = 'large';
+}        
+}
+
+function doSortOverallGain() {
 var container = document.getElementById('symbolsListId');
 var elements = container.childNodes;
 var sortPositivOverallValues = [];
@@ -176,7 +193,64 @@ container.appendChild(sortPositivOverallValues[i][1]);
 }
 for (var i=0; i<sortNegativOverallValues.length; i++) {
 container.appendChild(sortNegativOverallValues[i][1]);
-}    
+}
+
+var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= "intervalSectionRealTimeQuote"]');
+for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+intervalSectionRealTimeQuotes[i].style.fontSize = 'large';
+}
+var intervalSectionPercentages = document.querySelectorAll('[id ^= "intervalSectionPercentage"]');
+for (var i=0; i<intervalSectionPercentages.length; i++) {
+intervalSectionPercentages[i].style.fontSize = 'large';
+}
+var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= "intervalSectionPortfolioValues"]');
+for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+intervalSectionPortfolioValues[i].style.fontSize = 'large';
+}
+var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= "intervalSectionPortfolioGain"]');
+for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+intervalSectionPortfolioGains[i].style.fontSize = 'xx-large';
+}        
+}
+
+function doSortInvestedValue() {
+var container = document.getElementById('symbolsListId');
+var elements = container.childNodes;
+var sortOverallValues = [];
+for (var i=0; i<elements.length; i++) {
+if (!elements[i].id) {
+continue;
+}
+var sortPart = elements[i].id.split('_');
+if (sortPart.length > 1) {
+sortOverallValues.push([ 1 * sortPart[3], elements[i] ]);
+}        
+}
+sortOverallValues.sort(function(x, y) {
+return y[0] - x[0];
+});    
+document.getElementById('symbolsListId').innerHTML = '';
+
+for (var i=0; i<sortOverallValues.length; i++) {
+container.appendChild(sortOverallValues[i][1]);
+}
+
+var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= "intervalSectionRealTimeQuote"]');
+for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+intervalSectionRealTimeQuotes[i].style.fontSize = 'large';
+}
+var intervalSectionPercentages = document.querySelectorAll('[id ^= "intervalSectionPercentage"]');
+for (var i=0; i<intervalSectionPercentages.length; i++) {
+intervalSectionPercentages[i].style.fontSize = 'large';
+}
+var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= "intervalSectionPortfolioValues"]');
+for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+intervalSectionPortfolioValues[i].style.fontSize = 'xx-large';
+}
+var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= "intervalSectionPortfolioGain"]');
+for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+intervalSectionPortfolioGains[i].style.fontSize = 'large';
+}        
 }
 
 // Global Varables
@@ -290,7 +364,7 @@ Query:offline
 Stochastic:9 
 <br>
 RSI:25
-<br><br># Analyse <button id='intervalSectionButtonSortDaily' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortDaily()'>Sort Daily</button>&nbsp;<button id='intervalSectionButtonSortOverall' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortOverall()'>Sort Overall</button>
+<br><br># Analyse <button id='intervalSectionButtonSortDaily' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortDailyGain()'>&uarr; Daily %</button>&nbsp;<button id='intervalSectionButtonSortValue' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortInvestedValue()'>&uarr; Value €</button>&nbsp;<button id='intervalSectionButtonSortOverall' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortOverallGain()'>&uarr; Overall %</button>
 <div id='symbolLineIdNVV1'>
 <div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=310683061" target="_blank">*NVV1 "NOVAVAX"</a>
@@ -361,7 +435,6 @@ buyingValueNVV1 = buyingValueNVV1.split(' ')[2];
 var portfolioValueNVV1 = piecesNVV1 * realTimeQuoteNVV1;
 var stocksPerformanceNVV1 = ((portfolioValueNVV1 / buyingValueNVV1)-1)*100;
 elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + portfolioValueNVV1.toFixed(0) + '€ ';
-// elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + buyingValueNVV1 + '/' + portfolioValueNVV1.toFixed(0) + '€ ';
 var elementPortfolioGainNVV1 = document.getElementById("intervalSectionPortfolioGainNVV1");
 elementPortfolioGainNVV1.innerHTML = stocksPerformanceNVV1.toFixed(1) + '% ' + (portfolioValueNVV1 - buyingValueNVV1).toFixed(0) + '€';
 
@@ -372,7 +445,7 @@ realTimeProzNVV1 = '+' + realTimeProzNVV1.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzNVV1 = realTimeProzNVV1.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdNVV1"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdNVV1"]');
 var numericOverallProzNVV1;
 if(stocksPerformanceNVV1 >= 0){
 numericOverallProzNVV1 = '+' + stocksPerformanceNVV1.toFixed(2);
@@ -381,7 +454,8 @@ else{
 numericOverallProzNVV1 = stocksPerformanceNVV1.toFixed(2);
 }
 numericOverallProzNVV1 = numericOverallProzNVV1.replace('.', '');
-firstElement[0].id = 'symbolLineIdNVV1' + '_' +numericRealTimeProzNVV1 + '_' +numericOverallProzNVV1; 
+
+symbolLineIdElements[0].id = 'symbolLineIdNVV1' + '_' + numericRealTimeProzNVV1 + '_' + numericOverallProzNVV1 + '_' + portfolioValueNVV1.toFixed(0);
 
 if(stocksPerformanceNVV1 < 0){
 elementPortfolioGainNVV1.style.color = 'red';
@@ -399,11 +473,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteNVV1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageNVV1" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageNVV1" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeNVV1" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesNVV1" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainNVV1" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainNVV1" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivNVV1" style='display:none'>
 <span id="obfuscatedValuePcEuroNVV1" style='display:none'>YY48143/25334XX008</span>&nbsp;
@@ -536,7 +610,6 @@ buyingValueAMD = buyingValueAMD.split(' ')[2];
 var portfolioValueAMD = piecesAMD * realTimeQuoteAMD;
 var stocksPerformanceAMD = ((portfolioValueAMD / buyingValueAMD)-1)*100;
 elementPortfolioValuesAMD.innerHTML = piecesAMD + ' pc ' + portfolioValueAMD.toFixed(0) + '€ ';
-// elementPortfolioValuesAMD.innerHTML = piecesAMD + ' pc ' + buyingValueAMD + '/' + portfolioValueAMD.toFixed(0) + '€ ';
 var elementPortfolioGainAMD = document.getElementById("intervalSectionPortfolioGainAMD");
 elementPortfolioGainAMD.innerHTML = stocksPerformanceAMD.toFixed(1) + '% ' + (portfolioValueAMD - buyingValueAMD).toFixed(0) + '€';
 
@@ -547,7 +620,7 @@ realTimeProzAMD = '+' + realTimeProzAMD.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzAMD = realTimeProzAMD.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdAMD"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdAMD"]');
 var numericOverallProzAMD;
 if(stocksPerformanceAMD >= 0){
 numericOverallProzAMD = '+' + stocksPerformanceAMD.toFixed(2);
@@ -556,7 +629,8 @@ else{
 numericOverallProzAMD = stocksPerformanceAMD.toFixed(2);
 }
 numericOverallProzAMD = numericOverallProzAMD.replace('.', '');
-firstElement[0].id = 'symbolLineIdAMD' + '_' +numericRealTimeProzAMD + '_' +numericOverallProzAMD; 
+
+symbolLineIdElements[0].id = 'symbolLineIdAMD' + '_' + numericRealTimeProzAMD + '_' + numericOverallProzAMD + '_' + portfolioValueAMD.toFixed(0);
 
 if(stocksPerformanceAMD < 0){
 elementPortfolioGainAMD.style.color = 'red';
@@ -574,11 +648,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteAMD" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageAMD" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageAMD" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeAMD" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesAMD" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainAMD" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainAMD" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivAMD" style='display:none'>
 <span id="obfuscatedValuePcEuroAMD" style='display:none'>YY6714/1414XX05</span>&nbsp;
@@ -712,7 +786,6 @@ buyingValue1QZ = buyingValue1QZ.split(' ')[2];
 var portfolioValue1QZ = pieces1QZ * realTimeQuote1QZ;
 var stocksPerformance1QZ = ((portfolioValue1QZ / buyingValue1QZ)-1)*100;
 elementPortfolioValues1QZ.innerHTML = pieces1QZ + ' pc ' + portfolioValue1QZ.toFixed(0) + '€ ';
-// elementPortfolioValues1QZ.innerHTML = pieces1QZ + ' pc ' + buyingValue1QZ + '/' + portfolioValue1QZ.toFixed(0) + '€ ';
 var elementPortfolioGain1QZ = document.getElementById("intervalSectionPortfolioGain1QZ");
 elementPortfolioGain1QZ.innerHTML = stocksPerformance1QZ.toFixed(1) + '% ' + (portfolioValue1QZ - buyingValue1QZ).toFixed(0) + '€';
 
@@ -723,7 +796,7 @@ realTimeProz1QZ = '+' + realTimeProz1QZ.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProz1QZ = realTimeProz1QZ.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineId1QZ"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineId1QZ"]');
 var numericOverallProz1QZ;
 if(stocksPerformance1QZ >= 0){
 numericOverallProz1QZ = '+' + stocksPerformance1QZ.toFixed(2);
@@ -732,7 +805,8 @@ else{
 numericOverallProz1QZ = stocksPerformance1QZ.toFixed(2);
 }
 numericOverallProz1QZ = numericOverallProz1QZ.replace('.', '');
-firstElement[0].id = 'symbolLineId1QZ' + '_' +numericRealTimeProz1QZ + '_' +numericOverallProz1QZ; 
+
+symbolLineIdElements[0].id = 'symbolLineId1QZ' + '_' + numericRealTimeProz1QZ + '_' + numericOverallProz1QZ + '_' + portfolioValue1QZ.toFixed(0);
 
 if(stocksPerformance1QZ < 0){
 elementPortfolioGain1QZ.style.color = 'red';
@@ -750,11 +824,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuote1QZ" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentage1QZ" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentage1QZ" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTime1QZ" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValues1QZ" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGain1QZ" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGain1QZ" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDiv1QZ" style='display:none'>
 <span id="obfuscatedValuePcEuro1QZ" style='display:none'>YY6788/7749XX07</span>&nbsp;
@@ -885,7 +959,6 @@ buyingValueDHER = buyingValueDHER.split(' ')[2];
 var portfolioValueDHER = piecesDHER * realTimeQuoteDHER;
 var stocksPerformanceDHER = ((portfolioValueDHER / buyingValueDHER)-1)*100;
 elementPortfolioValuesDHER.innerHTML = piecesDHER + ' pc ' + portfolioValueDHER.toFixed(0) + '€ ';
-// elementPortfolioValuesDHER.innerHTML = piecesDHER + ' pc ' + buyingValueDHER + '/' + portfolioValueDHER.toFixed(0) + '€ ';
 var elementPortfolioGainDHER = document.getElementById("intervalSectionPortfolioGainDHER");
 elementPortfolioGainDHER.innerHTML = stocksPerformanceDHER.toFixed(1) + '% ' + (portfolioValueDHER - buyingValueDHER).toFixed(0) + '€';
 
@@ -896,7 +969,7 @@ realTimeProzDHER = '+' + realTimeProzDHER.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzDHER = realTimeProzDHER.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdDHER"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdDHER"]');
 var numericOverallProzDHER;
 if(stocksPerformanceDHER >= 0){
 numericOverallProzDHER = '+' + stocksPerformanceDHER.toFixed(2);
@@ -905,7 +978,8 @@ else{
 numericOverallProzDHER = stocksPerformanceDHER.toFixed(2);
 }
 numericOverallProzDHER = numericOverallProzDHER.replace('.', '');
-firstElement[0].id = 'symbolLineIdDHER' + '_' +numericRealTimeProzDHER + '_' +numericOverallProzDHER; 
+
+symbolLineIdElements[0].id = 'symbolLineIdDHER' + '_' + numericRealTimeProzDHER + '_' + numericOverallProzDHER + '_' + portfolioValueDHER.toFixed(0);
 
 if(stocksPerformanceDHER < 0){
 elementPortfolioGainDHER.style.color = 'red';
@@ -923,11 +997,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteDHER" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageDHER" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageDHER" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeDHER" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesDHER" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainDHER" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainDHER" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivDHER" style='display:none'>
 <span id="obfuscatedValuePcEuroDHER" style='display:none'>YY72822/53542XX007</span>&nbsp;
@@ -1056,7 +1130,6 @@ buyingValueEUZ = buyingValueEUZ.split(' ')[2];
 var portfolioValueEUZ = piecesEUZ * realTimeQuoteEUZ;
 var stocksPerformanceEUZ = ((portfolioValueEUZ / buyingValueEUZ)-1)*100;
 elementPortfolioValuesEUZ.innerHTML = piecesEUZ + ' pc ' + portfolioValueEUZ.toFixed(0) + '€ ';
-// elementPortfolioValuesEUZ.innerHTML = piecesEUZ + ' pc ' + buyingValueEUZ + '/' + portfolioValueEUZ.toFixed(0) + '€ ';
 var elementPortfolioGainEUZ = document.getElementById("intervalSectionPortfolioGainEUZ");
 elementPortfolioGainEUZ.innerHTML = stocksPerformanceEUZ.toFixed(1) + '% ' + (portfolioValueEUZ - buyingValueEUZ).toFixed(0) + '€';
 
@@ -1067,7 +1140,7 @@ realTimeProzEUZ = '+' + realTimeProzEUZ.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzEUZ = realTimeProzEUZ.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdEUZ"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdEUZ"]');
 var numericOverallProzEUZ;
 if(stocksPerformanceEUZ >= 0){
 numericOverallProzEUZ = '+' + stocksPerformanceEUZ.toFixed(2);
@@ -1076,7 +1149,8 @@ else{
 numericOverallProzEUZ = stocksPerformanceEUZ.toFixed(2);
 }
 numericOverallProzEUZ = numericOverallProzEUZ.replace('.', '');
-firstElement[0].id = 'symbolLineIdEUZ' + '_' +numericRealTimeProzEUZ + '_' +numericOverallProzEUZ; 
+
+symbolLineIdElements[0].id = 'symbolLineIdEUZ' + '_' + numericRealTimeProzEUZ + '_' + numericOverallProzEUZ + '_' + portfolioValueEUZ.toFixed(0);
 
 if(stocksPerformanceEUZ < 0){
 elementPortfolioGainEUZ.style.color = 'red';
@@ -1094,11 +1168,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteEUZ" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageEUZ" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageEUZ" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeEUZ" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesEUZ" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainEUZ" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainEUZ" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivEUZ" style='display:none'>
 <span id="obfuscatedValuePcEuroEUZ" style='display:none'>YY01769/052821XX0091</span>&nbsp;
@@ -1230,7 +1304,6 @@ buyingValueWDP = buyingValueWDP.split(' ')[2];
 var portfolioValueWDP = piecesWDP * realTimeQuoteWDP;
 var stocksPerformanceWDP = ((portfolioValueWDP / buyingValueWDP)-1)*100;
 elementPortfolioValuesWDP.innerHTML = piecesWDP + ' pc ' + portfolioValueWDP.toFixed(0) + '€ ';
-// elementPortfolioValuesWDP.innerHTML = piecesWDP + ' pc ' + buyingValueWDP + '/' + portfolioValueWDP.toFixed(0) + '€ ';
 var elementPortfolioGainWDP = document.getElementById("intervalSectionPortfolioGainWDP");
 elementPortfolioGainWDP.innerHTML = stocksPerformanceWDP.toFixed(1) + '% ' + (portfolioValueWDP - buyingValueWDP).toFixed(0) + '€';
 
@@ -1241,7 +1314,7 @@ realTimeProzWDP = '+' + realTimeProzWDP.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzWDP = realTimeProzWDP.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdWDP"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdWDP"]');
 var numericOverallProzWDP;
 if(stocksPerformanceWDP >= 0){
 numericOverallProzWDP = '+' + stocksPerformanceWDP.toFixed(2);
@@ -1250,7 +1323,8 @@ else{
 numericOverallProzWDP = stocksPerformanceWDP.toFixed(2);
 }
 numericOverallProzWDP = numericOverallProzWDP.replace('.', '');
-firstElement[0].id = 'symbolLineIdWDP' + '_' +numericRealTimeProzWDP + '_' +numericOverallProzWDP; 
+
+symbolLineIdElements[0].id = 'symbolLineIdWDP' + '_' + numericRealTimeProzWDP + '_' + numericOverallProzWDP + '_' + portfolioValueWDP.toFixed(0);
 
 if(stocksPerformanceWDP < 0){
 elementPortfolioGainWDP.style.color = 'red';
@@ -1268,11 +1342,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteWDP" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageWDP" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageWDP" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeWDP" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesWDP" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainWDP" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainWDP" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivWDP" style='display:none'>
 <span id="obfuscatedValuePcEuroWDP" style='display:none'>YY2333/3933XX03</span>&nbsp;
@@ -1400,7 +1474,6 @@ buyingValueDWNI = buyingValueDWNI.split(' ')[2];
 var portfolioValueDWNI = piecesDWNI * realTimeQuoteDWNI;
 var stocksPerformanceDWNI = ((portfolioValueDWNI / buyingValueDWNI)-1)*100;
 elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + portfolioValueDWNI.toFixed(0) + '€ ';
-// elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + buyingValueDWNI + '/' + portfolioValueDWNI.toFixed(0) + '€ ';
 var elementPortfolioGainDWNI = document.getElementById("intervalSectionPortfolioGainDWNI");
 elementPortfolioGainDWNI.innerHTML = stocksPerformanceDWNI.toFixed(1) + '% ' + (portfolioValueDWNI - buyingValueDWNI).toFixed(0) + '€';
 
@@ -1411,7 +1484,7 @@ realTimeProzDWNI = '+' + realTimeProzDWNI.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzDWNI = realTimeProzDWNI.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdDWNI"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdDWNI"]');
 var numericOverallProzDWNI;
 if(stocksPerformanceDWNI >= 0){
 numericOverallProzDWNI = '+' + stocksPerformanceDWNI.toFixed(2);
@@ -1420,7 +1493,8 @@ else{
 numericOverallProzDWNI = stocksPerformanceDWNI.toFixed(2);
 }
 numericOverallProzDWNI = numericOverallProzDWNI.replace('.', '');
-firstElement[0].id = 'symbolLineIdDWNI' + '_' +numericRealTimeProzDWNI + '_' +numericOverallProzDWNI; 
+
+symbolLineIdElements[0].id = 'symbolLineIdDWNI' + '_' + numericRealTimeProzDWNI + '_' + numericOverallProzDWNI + '_' + portfolioValueDWNI.toFixed(0);
 
 if(stocksPerformanceDWNI < 0){
 elementPortfolioGainDWNI.style.color = 'red';
@@ -1438,11 +1512,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteDWNI" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageDWNI" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageDWNI" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeDWNI" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesDWNI" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainDWNI" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainDWNI" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivDWNI" style='display:none'>
 <span id="obfuscatedValuePcEuroDWNI" style='display:none'>YY48906/63536XX0022</span>&nbsp;
@@ -1571,7 +1645,6 @@ buyingValueVNA = buyingValueVNA.split(' ')[2];
 var portfolioValueVNA = piecesVNA * realTimeQuoteVNA;
 var stocksPerformanceVNA = ((portfolioValueVNA / buyingValueVNA)-1)*100;
 elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + portfolioValueVNA.toFixed(0) + '€ ';
-// elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + buyingValueVNA + '/' + portfolioValueVNA.toFixed(0) + '€ ';
 var elementPortfolioGainVNA = document.getElementById("intervalSectionPortfolioGainVNA");
 elementPortfolioGainVNA.innerHTML = stocksPerformanceVNA.toFixed(1) + '% ' + (portfolioValueVNA - buyingValueVNA).toFixed(0) + '€';
 
@@ -1582,7 +1655,7 @@ realTimeProzVNA = '+' + realTimeProzVNA.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzVNA = realTimeProzVNA.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdVNA"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdVNA"]');
 var numericOverallProzVNA;
 if(stocksPerformanceVNA >= 0){
 numericOverallProzVNA = '+' + stocksPerformanceVNA.toFixed(2);
@@ -1591,7 +1664,8 @@ else{
 numericOverallProzVNA = stocksPerformanceVNA.toFixed(2);
 }
 numericOverallProzVNA = numericOverallProzVNA.replace('.', '');
-firstElement[0].id = 'symbolLineIdVNA' + '_' +numericRealTimeProzVNA + '_' +numericOverallProzVNA; 
+
+symbolLineIdElements[0].id = 'symbolLineIdVNA' + '_' + numericRealTimeProzVNA + '_' + numericOverallProzVNA + '_' + portfolioValueVNA.toFixed(0);
 
 if(stocksPerformanceVNA < 0){
 elementPortfolioGainVNA.style.color = 'red';
@@ -1609,11 +1683,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteVNA" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageVNA" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageVNA" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeVNA" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesVNA" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainVNA" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainVNA" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivVNA" style='display:none'>
 <span id="obfuscatedValuePcEuroVNA" style='display:none'>YY63823/45143XX048</span>&nbsp;
@@ -1740,7 +1814,6 @@ buyingValueFPE3 = buyingValueFPE3.split(' ')[2];
 var portfolioValueFPE3 = piecesFPE3 * realTimeQuoteFPE3;
 var stocksPerformanceFPE3 = ((portfolioValueFPE3 / buyingValueFPE3)-1)*100;
 elementPortfolioValuesFPE3.innerHTML = piecesFPE3 + ' pc ' + portfolioValueFPE3.toFixed(0) + '€ ';
-// elementPortfolioValuesFPE3.innerHTML = piecesFPE3 + ' pc ' + buyingValueFPE3 + '/' + portfolioValueFPE3.toFixed(0) + '€ ';
 var elementPortfolioGainFPE3 = document.getElementById("intervalSectionPortfolioGainFPE3");
 elementPortfolioGainFPE3.innerHTML = stocksPerformanceFPE3.toFixed(1) + '% ' + (portfolioValueFPE3 - buyingValueFPE3).toFixed(0) + '€';
 
@@ -1751,7 +1824,7 @@ realTimeProzFPE3 = '+' + realTimeProzFPE3.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzFPE3 = realTimeProzFPE3.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdFPE3"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdFPE3"]');
 var numericOverallProzFPE3;
 if(stocksPerformanceFPE3 >= 0){
 numericOverallProzFPE3 = '+' + stocksPerformanceFPE3.toFixed(2);
@@ -1760,7 +1833,8 @@ else{
 numericOverallProzFPE3 = stocksPerformanceFPE3.toFixed(2);
 }
 numericOverallProzFPE3 = numericOverallProzFPE3.replace('.', '');
-firstElement[0].id = 'symbolLineIdFPE3' + '_' +numericRealTimeProzFPE3 + '_' +numericOverallProzFPE3; 
+
+symbolLineIdElements[0].id = 'symbolLineIdFPE3' + '_' + numericRealTimeProzFPE3 + '_' + numericOverallProzFPE3 + '_' + portfolioValueFPE3.toFixed(0);
 
 if(stocksPerformanceFPE3 < 0){
 elementPortfolioGainFPE3.style.color = 'red';
@@ -1778,11 +1852,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteFPE3" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageFPE3" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageFPE3" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeFPE3" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesFPE3" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainFPE3" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainFPE3" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivFPE3" style='display:none'>
 <span id="obfuscatedValuePcEuroFPE3" style='display:none'>YY06831/11431XX044</span>&nbsp;
@@ -1913,7 +1987,6 @@ buyingValueTEG = buyingValueTEG.split(' ')[2];
 var portfolioValueTEG = piecesTEG * realTimeQuoteTEG;
 var stocksPerformanceTEG = ((portfolioValueTEG / buyingValueTEG)-1)*100;
 elementPortfolioValuesTEG.innerHTML = piecesTEG + ' pc ' + portfolioValueTEG.toFixed(0) + '€ ';
-// elementPortfolioValuesTEG.innerHTML = piecesTEG + ' pc ' + buyingValueTEG + '/' + portfolioValueTEG.toFixed(0) + '€ ';
 var elementPortfolioGainTEG = document.getElementById("intervalSectionPortfolioGainTEG");
 elementPortfolioGainTEG.innerHTML = stocksPerformanceTEG.toFixed(1) + '% ' + (portfolioValueTEG - buyingValueTEG).toFixed(0) + '€';
 
@@ -1924,7 +1997,7 @@ realTimeProzTEG = '+' + realTimeProzTEG.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzTEG = realTimeProzTEG.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdTEG"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdTEG"]');
 var numericOverallProzTEG;
 if(stocksPerformanceTEG >= 0){
 numericOverallProzTEG = '+' + stocksPerformanceTEG.toFixed(2);
@@ -1933,7 +2006,8 @@ else{
 numericOverallProzTEG = stocksPerformanceTEG.toFixed(2);
 }
 numericOverallProzTEG = numericOverallProzTEG.replace('.', '');
-firstElement[0].id = 'symbolLineIdTEG' + '_' +numericRealTimeProzTEG + '_' +numericOverallProzTEG; 
+
+symbolLineIdElements[0].id = 'symbolLineIdTEG' + '_' + numericRealTimeProzTEG + '_' + numericOverallProzTEG + '_' + portfolioValueTEG.toFixed(0);
 
 if(stocksPerformanceTEG < 0){
 elementPortfolioGainTEG.style.color = 'red';
@@ -1951,11 +2025,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteTEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageTEG" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageTEG" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeTEG" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesTEG" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainTEG" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainTEG" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivTEG" style='display:none'>
 <span id="obfuscatedValuePcEuroTEG" style='display:none'>YY89832/48642XX0121</span>&nbsp;
@@ -2087,7 +2161,6 @@ buyingValueGYC = buyingValueGYC.split(' ')[2];
 var portfolioValueGYC = piecesGYC * realTimeQuoteGYC;
 var stocksPerformanceGYC = ((portfolioValueGYC / buyingValueGYC)-1)*100;
 elementPortfolioValuesGYC.innerHTML = piecesGYC + ' pc ' + portfolioValueGYC.toFixed(0) + '€ ';
-// elementPortfolioValuesGYC.innerHTML = piecesGYC + ' pc ' + buyingValueGYC + '/' + portfolioValueGYC.toFixed(0) + '€ ';
 var elementPortfolioGainGYC = document.getElementById("intervalSectionPortfolioGainGYC");
 elementPortfolioGainGYC.innerHTML = stocksPerformanceGYC.toFixed(1) + '% ' + (portfolioValueGYC - buyingValueGYC).toFixed(0) + '€';
 
@@ -2098,7 +2171,7 @@ realTimeProzGYC = '+' + realTimeProzGYC.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzGYC = realTimeProzGYC.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdGYC"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdGYC"]');
 var numericOverallProzGYC;
 if(stocksPerformanceGYC >= 0){
 numericOverallProzGYC = '+' + stocksPerformanceGYC.toFixed(2);
@@ -2107,7 +2180,8 @@ else{
 numericOverallProzGYC = stocksPerformanceGYC.toFixed(2);
 }
 numericOverallProzGYC = numericOverallProzGYC.replace('.', '');
-firstElement[0].id = 'symbolLineIdGYC' + '_' +numericRealTimeProzGYC + '_' +numericOverallProzGYC; 
+
+symbolLineIdElements[0].id = 'symbolLineIdGYC' + '_' + numericRealTimeProzGYC + '_' + numericOverallProzGYC + '_' + portfolioValueGYC.toFixed(0);
 
 if(stocksPerformanceGYC < 0){
 elementPortfolioGainGYC.style.color = 'red';
@@ -2125,11 +2199,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteGYC" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageGYC" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageGYC" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeGYC" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesGYC" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainGYC" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainGYC" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivGYC" style='display:none'>
 <span id="obfuscatedValuePcEuroGYC" style='display:none'>YY67772/46482XX0061</span>&nbsp;
@@ -2256,7 +2330,6 @@ buyingValueAG1 = buyingValueAG1.split(' ')[2];
 var portfolioValueAG1 = piecesAG1 * realTimeQuoteAG1;
 var stocksPerformanceAG1 = ((portfolioValueAG1 / buyingValueAG1)-1)*100;
 elementPortfolioValuesAG1.innerHTML = piecesAG1 + ' pc ' + portfolioValueAG1.toFixed(0) + '€ ';
-// elementPortfolioValuesAG1.innerHTML = piecesAG1 + ' pc ' + buyingValueAG1 + '/' + portfolioValueAG1.toFixed(0) + '€ ';
 var elementPortfolioGainAG1 = document.getElementById("intervalSectionPortfolioGainAG1");
 elementPortfolioGainAG1.innerHTML = stocksPerformanceAG1.toFixed(1) + '% ' + (portfolioValueAG1 - buyingValueAG1).toFixed(0) + '€';
 
@@ -2267,7 +2340,7 @@ realTimeProzAG1 = '+' + realTimeProzAG1.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzAG1 = realTimeProzAG1.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdAG1"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdAG1"]');
 var numericOverallProzAG1;
 if(stocksPerformanceAG1 >= 0){
 numericOverallProzAG1 = '+' + stocksPerformanceAG1.toFixed(2);
@@ -2276,7 +2349,8 @@ else{
 numericOverallProzAG1 = stocksPerformanceAG1.toFixed(2);
 }
 numericOverallProzAG1 = numericOverallProzAG1.replace('.', '');
-firstElement[0].id = 'symbolLineIdAG1' + '_' +numericRealTimeProzAG1 + '_' +numericOverallProzAG1; 
+
+symbolLineIdElements[0].id = 'symbolLineIdAG1' + '_' + numericRealTimeProzAG1 + '_' + numericOverallProzAG1 + '_' + portfolioValueAG1.toFixed(0);
 
 if(stocksPerformanceAG1 < 0){
 elementPortfolioGainAG1.style.color = 'red';
@@ -2294,11 +2368,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteAG1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageAG1" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageAG1" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeAG1" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesAG1" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainAG1" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainAG1" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivAG1" style='display:none'>
 <span id="obfuscatedValuePcEuroAG1" style='display:none'>YY027261/460881XX00441</span>&nbsp;
@@ -2425,7 +2499,6 @@ buyingValueADN1 = buyingValueADN1.split(' ')[2];
 var portfolioValueADN1 = piecesADN1 * realTimeQuoteADN1;
 var stocksPerformanceADN1 = ((portfolioValueADN1 / buyingValueADN1)-1)*100;
 elementPortfolioValuesADN1.innerHTML = piecesADN1 + ' pc ' + portfolioValueADN1.toFixed(0) + '€ ';
-// elementPortfolioValuesADN1.innerHTML = piecesADN1 + ' pc ' + buyingValueADN1 + '/' + portfolioValueADN1.toFixed(0) + '€ ';
 var elementPortfolioGainADN1 = document.getElementById("intervalSectionPortfolioGainADN1");
 elementPortfolioGainADN1.innerHTML = stocksPerformanceADN1.toFixed(1) + '% ' + (portfolioValueADN1 - buyingValueADN1).toFixed(0) + '€';
 
@@ -2436,7 +2509,7 @@ realTimeProzADN1 = '+' + realTimeProzADN1.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzADN1 = realTimeProzADN1.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdADN1"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdADN1"]');
 var numericOverallProzADN1;
 if(stocksPerformanceADN1 >= 0){
 numericOverallProzADN1 = '+' + stocksPerformanceADN1.toFixed(2);
@@ -2445,7 +2518,8 @@ else{
 numericOverallProzADN1 = stocksPerformanceADN1.toFixed(2);
 }
 numericOverallProzADN1 = numericOverallProzADN1.replace('.', '');
-firstElement[0].id = 'symbolLineIdADN1' + '_' +numericRealTimeProzADN1 + '_' +numericOverallProzADN1; 
+
+symbolLineIdElements[0].id = 'symbolLineIdADN1' + '_' + numericRealTimeProzADN1 + '_' + numericOverallProzADN1 + '_' + portfolioValueADN1.toFixed(0);
 
 if(stocksPerformanceADN1 < 0){
 elementPortfolioGainADN1.style.color = 'red';
@@ -2463,11 +2537,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteADN1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageADN1" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageADN1" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeADN1" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesADN1" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainADN1" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainADN1" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivADN1" style='display:none'>
 <span id="obfuscatedValuePcEuroADN1" style='display:none'>YY48341/22831XX08</span>&nbsp;
@@ -2594,7 +2668,6 @@ buyingValueKGX = buyingValueKGX.split(' ')[2];
 var portfolioValueKGX = piecesKGX * realTimeQuoteKGX;
 var stocksPerformanceKGX = ((portfolioValueKGX / buyingValueKGX)-1)*100;
 elementPortfolioValuesKGX.innerHTML = piecesKGX + ' pc ' + portfolioValueKGX.toFixed(0) + '€ ';
-// elementPortfolioValuesKGX.innerHTML = piecesKGX + ' pc ' + buyingValueKGX + '/' + portfolioValueKGX.toFixed(0) + '€ ';
 var elementPortfolioGainKGX = document.getElementById("intervalSectionPortfolioGainKGX");
 elementPortfolioGainKGX.innerHTML = stocksPerformanceKGX.toFixed(1) + '% ' + (portfolioValueKGX - buyingValueKGX).toFixed(0) + '€';
 
@@ -2605,7 +2678,7 @@ realTimeProzKGX = '+' + realTimeProzKGX.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzKGX = realTimeProzKGX.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdKGX"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdKGX"]');
 var numericOverallProzKGX;
 if(stocksPerformanceKGX >= 0){
 numericOverallProzKGX = '+' + stocksPerformanceKGX.toFixed(2);
@@ -2614,7 +2687,8 @@ else{
 numericOverallProzKGX = stocksPerformanceKGX.toFixed(2);
 }
 numericOverallProzKGX = numericOverallProzKGX.replace('.', '');
-firstElement[0].id = 'symbolLineIdKGX' + '_' +numericRealTimeProzKGX + '_' +numericOverallProzKGX; 
+
+symbolLineIdElements[0].id = 'symbolLineIdKGX' + '_' + numericRealTimeProzKGX + '_' + numericOverallProzKGX + '_' + portfolioValueKGX.toFixed(0);
 
 if(stocksPerformanceKGX < 0){
 elementPortfolioGainKGX.style.color = 'red';
@@ -2632,11 +2706,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteKGX" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageKGX" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageKGX" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeKGX" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesKGX" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainKGX" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainKGX" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivKGX" style='display:none'>
 <span id="obfuscatedValuePcEuroKGX" style='display:none'>YY02545/95735XX049</span>&nbsp;
@@ -2763,7 +2837,6 @@ buyingValueSTM = buyingValueSTM.split(' ')[2];
 var portfolioValueSTM = piecesSTM * realTimeQuoteSTM;
 var stocksPerformanceSTM = ((portfolioValueSTM / buyingValueSTM)-1)*100;
 elementPortfolioValuesSTM.innerHTML = piecesSTM + ' pc ' + portfolioValueSTM.toFixed(0) + '€ ';
-// elementPortfolioValuesSTM.innerHTML = piecesSTM + ' pc ' + buyingValueSTM + '/' + portfolioValueSTM.toFixed(0) + '€ ';
 var elementPortfolioGainSTM = document.getElementById("intervalSectionPortfolioGainSTM");
 elementPortfolioGainSTM.innerHTML = stocksPerformanceSTM.toFixed(1) + '% ' + (portfolioValueSTM - buyingValueSTM).toFixed(0) + '€';
 
@@ -2774,7 +2847,7 @@ realTimeProzSTM = '+' + realTimeProzSTM.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzSTM = realTimeProzSTM.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdSTM"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdSTM"]');
 var numericOverallProzSTM;
 if(stocksPerformanceSTM >= 0){
 numericOverallProzSTM = '+' + stocksPerformanceSTM.toFixed(2);
@@ -2783,7 +2856,8 @@ else{
 numericOverallProzSTM = stocksPerformanceSTM.toFixed(2);
 }
 numericOverallProzSTM = numericOverallProzSTM.replace('.', '');
-firstElement[0].id = 'symbolLineIdSTM' + '_' +numericRealTimeProzSTM + '_' +numericOverallProzSTM; 
+
+symbolLineIdElements[0].id = 'symbolLineIdSTM' + '_' + numericRealTimeProzSTM + '_' + numericOverallProzSTM + '_' + portfolioValueSTM.toFixed(0);
 
 if(stocksPerformanceSTM < 0){
 elementPortfolioGainSTM.style.color = 'red';
@@ -2801,11 +2875,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteSTM" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageSTM" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageSTM" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeSTM" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesSTM" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainSTM" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainSTM" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivSTM" style='display:none'>
 <span id="obfuscatedValuePcEuroSTM" style='display:none'>YY06864/90574XX0011</span>&nbsp;
@@ -2937,7 +3011,6 @@ buyingValueLEG = buyingValueLEG.split(' ')[2];
 var portfolioValueLEG = piecesLEG * realTimeQuoteLEG;
 var stocksPerformanceLEG = ((portfolioValueLEG / buyingValueLEG)-1)*100;
 elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + portfolioValueLEG.toFixed(0) + '€ ';
-// elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + buyingValueLEG + '/' + portfolioValueLEG.toFixed(0) + '€ ';
 var elementPortfolioGainLEG = document.getElementById("intervalSectionPortfolioGainLEG");
 elementPortfolioGainLEG.innerHTML = stocksPerformanceLEG.toFixed(1) + '% ' + (portfolioValueLEG - buyingValueLEG).toFixed(0) + '€';
 
@@ -2948,7 +3021,7 @@ realTimeProzLEG = '+' + realTimeProzLEG.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzLEG = realTimeProzLEG.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdLEG"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdLEG"]');
 var numericOverallProzLEG;
 if(stocksPerformanceLEG >= 0){
 numericOverallProzLEG = '+' + stocksPerformanceLEG.toFixed(2);
@@ -2957,7 +3030,8 @@ else{
 numericOverallProzLEG = stocksPerformanceLEG.toFixed(2);
 }
 numericOverallProzLEG = numericOverallProzLEG.replace('.', '');
-firstElement[0].id = 'symbolLineIdLEG' + '_' +numericRealTimeProzLEG + '_' +numericOverallProzLEG; 
+
+symbolLineIdElements[0].id = 'symbolLineIdLEG' + '_' + numericRealTimeProzLEG + '_' + numericOverallProzLEG + '_' + portfolioValueLEG.toFixed(0);
 
 if(stocksPerformanceLEG < 0){
 elementPortfolioGainLEG.style.color = 'red';
@@ -2975,11 +3049,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteLEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageLEG" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageLEG" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeLEG" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesLEG" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainLEG" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainLEG" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivLEG" style='display:none'>
 <span id="obfuscatedValuePcEuroLEG" style='display:none'>YY44861/48371XX071</span>&nbsp;
@@ -3106,7 +3180,6 @@ buyingValueHEN3 = buyingValueHEN3.split(' ')[2];
 var portfolioValueHEN3 = piecesHEN3 * realTimeQuoteHEN3;
 var stocksPerformanceHEN3 = ((portfolioValueHEN3 / buyingValueHEN3)-1)*100;
 elementPortfolioValuesHEN3.innerHTML = piecesHEN3 + ' pc ' + portfolioValueHEN3.toFixed(0) + '€ ';
-// elementPortfolioValuesHEN3.innerHTML = piecesHEN3 + ' pc ' + buyingValueHEN3 + '/' + portfolioValueHEN3.toFixed(0) + '€ ';
 var elementPortfolioGainHEN3 = document.getElementById("intervalSectionPortfolioGainHEN3");
 elementPortfolioGainHEN3.innerHTML = stocksPerformanceHEN3.toFixed(1) + '% ' + (portfolioValueHEN3 - buyingValueHEN3).toFixed(0) + '€';
 
@@ -3117,7 +3190,7 @@ realTimeProzHEN3 = '+' + realTimeProzHEN3.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzHEN3 = realTimeProzHEN3.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdHEN3"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdHEN3"]');
 var numericOverallProzHEN3;
 if(stocksPerformanceHEN3 >= 0){
 numericOverallProzHEN3 = '+' + stocksPerformanceHEN3.toFixed(2);
@@ -3126,7 +3199,8 @@ else{
 numericOverallProzHEN3 = stocksPerformanceHEN3.toFixed(2);
 }
 numericOverallProzHEN3 = numericOverallProzHEN3.replace('.', '');
-firstElement[0].id = 'symbolLineIdHEN3' + '_' +numericRealTimeProzHEN3 + '_' +numericOverallProzHEN3; 
+
+symbolLineIdElements[0].id = 'symbolLineIdHEN3' + '_' + numericRealTimeProzHEN3 + '_' + numericOverallProzHEN3 + '_' + portfolioValueHEN3.toFixed(0);
 
 if(stocksPerformanceHEN3 < 0){
 elementPortfolioGainHEN3.style.color = 'red';
@@ -3144,11 +3218,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteHEN3" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageHEN3" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageHEN3" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeHEN3" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesHEN3" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainHEN3" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainHEN3" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivHEN3" style='display:none'>
 <span id="obfuscatedValuePcEuroHEN3" style='display:none'>YY68023/42513XX035</span>&nbsp;
@@ -3279,7 +3353,6 @@ buyingValueFFH = buyingValueFFH.split(' ')[2];
 var portfolioValueFFH = piecesFFH * realTimeQuoteFFH;
 var stocksPerformanceFFH = ((portfolioValueFFH / buyingValueFFH)-1)*100;
 elementPortfolioValuesFFH.innerHTML = piecesFFH + ' pc ' + portfolioValueFFH.toFixed(0) + '€ ';
-// elementPortfolioValuesFFH.innerHTML = piecesFFH + ' pc ' + buyingValueFFH + '/' + portfolioValueFFH.toFixed(0) + '€ ';
 var elementPortfolioGainFFH = document.getElementById("intervalSectionPortfolioGainFFH");
 elementPortfolioGainFFH.innerHTML = stocksPerformanceFFH.toFixed(1) + '% ' + (portfolioValueFFH - buyingValueFFH).toFixed(0) + '€';
 
@@ -3290,7 +3363,7 @@ realTimeProzFFH = '+' + realTimeProzFFH.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzFFH = realTimeProzFFH.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdFFH"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdFFH"]');
 var numericOverallProzFFH;
 if(stocksPerformanceFFH >= 0){
 numericOverallProzFFH = '+' + stocksPerformanceFFH.toFixed(2);
@@ -3299,7 +3372,8 @@ else{
 numericOverallProzFFH = stocksPerformanceFFH.toFixed(2);
 }
 numericOverallProzFFH = numericOverallProzFFH.replace('.', '');
-firstElement[0].id = 'symbolLineIdFFH' + '_' +numericRealTimeProzFFH + '_' +numericOverallProzFFH; 
+
+symbolLineIdElements[0].id = 'symbolLineIdFFH' + '_' + numericRealTimeProzFFH + '_' + numericOverallProzFFH + '_' + portfolioValueFFH.toFixed(0);
 
 if(stocksPerformanceFFH < 0){
 elementPortfolioGainFFH.style.color = 'red';
@@ -3317,11 +3391,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteFFH" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageFFH" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageFFH" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeFFH" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesFFH" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainFFH" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainFFH" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivFFH" style='display:none'>
 <span id="obfuscatedValuePcEuroFFH" style='display:none'>YY86431/35531XX073</span>&nbsp;
@@ -3448,7 +3522,6 @@ buyingValueTRVC = buyingValueTRVC.split(' ')[2];
 var portfolioValueTRVC = piecesTRVC * realTimeQuoteTRVC;
 var stocksPerformanceTRVC = ((portfolioValueTRVC / buyingValueTRVC)-1)*100;
 elementPortfolioValuesTRVC.innerHTML = piecesTRVC + ' pc ' + portfolioValueTRVC.toFixed(0) + '€ ';
-// elementPortfolioValuesTRVC.innerHTML = piecesTRVC + ' pc ' + buyingValueTRVC + '/' + portfolioValueTRVC.toFixed(0) + '€ ';
 var elementPortfolioGainTRVC = document.getElementById("intervalSectionPortfolioGainTRVC");
 elementPortfolioGainTRVC.innerHTML = stocksPerformanceTRVC.toFixed(1) + '% ' + (portfolioValueTRVC - buyingValueTRVC).toFixed(0) + '€';
 
@@ -3459,7 +3532,7 @@ realTimeProzTRVC = '+' + realTimeProzTRVC.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzTRVC = realTimeProzTRVC.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdTRVC"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdTRVC"]');
 var numericOverallProzTRVC;
 if(stocksPerformanceTRVC >= 0){
 numericOverallProzTRVC = '+' + stocksPerformanceTRVC.toFixed(2);
@@ -3468,7 +3541,8 @@ else{
 numericOverallProzTRVC = stocksPerformanceTRVC.toFixed(2);
 }
 numericOverallProzTRVC = numericOverallProzTRVC.replace('.', '');
-firstElement[0].id = 'symbolLineIdTRVC' + '_' +numericRealTimeProzTRVC + '_' +numericOverallProzTRVC; 
+
+symbolLineIdElements[0].id = 'symbolLineIdTRVC' + '_' + numericRealTimeProzTRVC + '_' + numericOverallProzTRVC + '_' + portfolioValueTRVC.toFixed(0);
 
 if(stocksPerformanceTRVC < 0){
 elementPortfolioGainTRVC.style.color = 'red';
@@ -3486,11 +3560,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteTRVC" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageTRVC" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentageTRVC" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimeTRVC" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesTRVC" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainTRVC" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainTRVC" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivTRVC" style='display:none'>
 <span id="obfuscatedValuePcEuroTRVC" style='display:none'>YY58042/07732XX005</span>&nbsp;
@@ -3617,7 +3691,6 @@ buyingValuePHI1 = buyingValuePHI1.split(' ')[2];
 var portfolioValuePHI1 = piecesPHI1 * realTimeQuotePHI1;
 var stocksPerformancePHI1 = ((portfolioValuePHI1 / buyingValuePHI1)-1)*100;
 elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + portfolioValuePHI1.toFixed(0) + '€ ';
-// elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + buyingValuePHI1 + '/' + portfolioValuePHI1.toFixed(0) + '€ ';
 var elementPortfolioGainPHI1 = document.getElementById("intervalSectionPortfolioGainPHI1");
 elementPortfolioGainPHI1.innerHTML = stocksPerformancePHI1.toFixed(1) + '% ' + (portfolioValuePHI1 - buyingValuePHI1).toFixed(0) + '€';
 
@@ -3628,7 +3701,7 @@ realTimeProzPHI1 = '+' + realTimeProzPHI1.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzPHI1 = realTimeProzPHI1.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdPHI1"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdPHI1"]');
 var numericOverallProzPHI1;
 if(stocksPerformancePHI1 >= 0){
 numericOverallProzPHI1 = '+' + stocksPerformancePHI1.toFixed(2);
@@ -3637,7 +3710,8 @@ else{
 numericOverallProzPHI1 = stocksPerformancePHI1.toFixed(2);
 }
 numericOverallProzPHI1 = numericOverallProzPHI1.replace('.', '');
-firstElement[0].id = 'symbolLineIdPHI1' + '_' +numericRealTimeProzPHI1 + '_' +numericOverallProzPHI1; 
+
+symbolLineIdElements[0].id = 'symbolLineIdPHI1' + '_' + numericRealTimeProzPHI1 + '_' + numericOverallProzPHI1 + '_' + portfolioValuePHI1.toFixed(0);
 
 if(stocksPerformancePHI1 < 0){
 elementPortfolioGainPHI1.style.color = 'red';
@@ -3655,11 +3729,11 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuotePHI1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentagePHI1" style='font-size:xx-large; display: none'></span>&nbsp;
+<span id="intervalSectionPercentagePHI1" style='font-size:xx-large; display: none'></span>
 <span id="neverShowRegularMarketTimePHI1" style='display: none'></span>&nbsp;
 
 <span id="intervalSectionPortfolioValuesPHI1" style='font-size:large; display: none'></span>
-<span id="intervalSectionPortfolioGainPHI1" style='font-size:xx-large; display: none'></span>
+<span id="intervalSectionPortfolioGainPHI1" style='font-size:large; display: none'></span>
 <br>
 <div id="neverShowDivPHI1" style='display:none'>
 <span id="obfuscatedValuePcEuroPHI1" style='display:none'>YY0107/8986XX052</span>&nbsp;
@@ -3928,7 +4002,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' id='intervalSectio
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 23-Apr-2022 14:19</p><br></div>
+<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 23-Apr-2022 16:31</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
@@ -3974,6 +4048,7 @@ clearInterval(intervalLoadingSpinnerId);
 // Enable Sort Buttons
 document.querySelector('#intervalSectionButtonSortDaily').disabled = false;
 document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
+document.querySelector('#intervalSectionButtonSortValue').disabled = false;
 }
 }, 1000);
 
