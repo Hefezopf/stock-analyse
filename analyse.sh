@@ -1030,7 +1030,7 @@ if(realTimeProz$symbol[0] === ' '){
                     else{
                         elementPortfolioGain$symbol.style.color = 'green';
                     }
-                    decryptElement(obfuscatedValuePcEuro$symbol);
+                //    decryptElement(obfuscatedValuePcEuro$symbol);
 
                     // For Spinner
                     counterFetchLoaded++;
