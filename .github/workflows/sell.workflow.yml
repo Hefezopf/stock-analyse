@@ -16,6 +16,10 @@ on:
         description: 'SYMBOL - stock symbol to delete from own stocks list: "BEI"'
         required: true
         default: 'BEI'
+      sellPriceParam:
+        description: 'SELL_PRICE - Selling Price: "9.99"'
+        required: true
+        default: '9.99'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -42,9 +46,17 @@ jobs:
 
           symbolVar=${symbolInput:-$symbolDefault}  
 
+
+          sellPriceDefault='${{github.event.client_payload.sellPrice}}'
+
+          sellPriceInput="${{github.event.inputs.sellPriceParam}}"
+
+          sellPriceVar=${sellPriceInput:-$sellPriceDefault}  
+
+
           chmod +x ./script/sell.sh
 
-          sh ./script/sell.sh "$symbolVar"
+          sh ./script/sell.sh "$symbolVar" "$sellPriceVar"
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
