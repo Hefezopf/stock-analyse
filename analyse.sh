@@ -185,7 +185,7 @@ body > div {
                     sortPositivDailyValues.push([ 1 * sortPart[1], elements[i] ]);
                 }
                 if (sortPart[1][0] === '-') {
-                    sortNegativDailyValues.push([ 1 * sortPart[1], elements[i] ]);
+                    sortNegativDailyValues.push([ -1 * sortPart[1], elements[i] ]);
                 }                
             }        
         }
@@ -207,6 +207,58 @@ body > div {
         }
         for (var i=0; i<sortNegativDailyValues.length; i++) {
             container.appendChild(sortNegativDailyValues[i][1]);
+        }    
+    }
+
+    function doSortOverall() {
+        var container = document.getElementById(\"symbolsListId\");
+        var elements = container.childNodes;
+        var sortPositivOverallValues = [];
+        var sortNegativOverallValues = [];
+        for (var i=0; i<elements.length; i++) {
+            // skip nodes without an ID
+            if (!elements[i].id) {
+                continue;
+            }
+
+            var sortPart = elements[i].id.split(\"_\");
+            // only add the element for sorting if it has a plus in it
+            if (sortPart.length > 1) {
+                if (sortPart[2][0] === '+') {
+                    /*
+                    * prepare the ID for faster comparison
+                    * array will contain:
+                    *   [0] => number which will be used for sorting 
+                    *   [1] => element
+                    * 1 * something is the fastest way I know to convert a string to a
+                    * number. It should be a number to make it sort in a natural way,
+                    * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
+                    */
+                    sortPositivOverallValues.push([ 1 * sortPart[2], elements[i] ]);
+                }
+                if (sortPart[2][0] === '-') {
+                    sortNegativOverallValues.push([ -1 * sortPart[2], elements[i] ]);
+                }                
+            }        
+        }
+
+        // Sort the array sortPositivOverallValues, elements with the highest ID will be first
+        sortPositivOverallValues.sort(function(x, y) {
+            return y[0] - x[0];
+        });
+        sortNegativOverallValues.sort(function(x, y) {
+            return x[0] - y[0];
+        });    
+
+        // Clear page
+        document.getElementById('symbolsListId').innerHTML = '';
+
+        // Append the sorted elements again, the old element will be moved to the new position
+        for (var i=0; i<sortPositivOverallValues.length; i++) {
+            container.appendChild(sortPositivOverallValues[i][1]);
+        }
+        for (var i=0; i<sortNegativOverallValues.length; i++) {
+            container.appendChild(sortNegativOverallValues[i][1]);
         }    
     }
 
@@ -358,8 +410,9 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
         if(counterFetchLoaded >= counterOwnStocks){
             hideSpinner();
             clearInterval(intervalLoadingSpinnerId);
-            // Enable Sort Button
-            document.querySelector('#intervalSectionButton').disabled = false;
+            // Enable Sort Buttons
+            document.querySelector('#intervalSectionButtonSortDaily').disabled = false;
+            document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
         }
     }, 1000);
 
@@ -429,7 +482,7 @@ echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 
-echo "<br><br># Analyse <button id=\"intervalSectionButton\" style='height: 35px; width: 90px; display: none' disabled=\"true\" type=\"button\" onClick=\"javascript:doSortDaily()\">Sort Daily</button>" >> $OUT_RESULT_FILE
+echo "<br><br># Analyse <button id=\"intervalSectionButtonSortDaily\" style='height: 35px; width: 90px; display: none' disabled=\"true\" type=\"button\" onClick=\"javascript:doSortDaily()\">Sort Daily</button>&nbsp;<button id=\"intervalSectionButtonSortOverall\" style='height: 35px; width: 90px; display: none' disabled=\"true\" type=\"button\" onClick=\"javascript:doSortOverall()\">Sort Overall</button>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
@@ -998,24 +1051,23 @@ do
                     // Sorting
 
                     // if 0,00% then add '+' -> +0,00%
+                    if(realTimeProz$symbol[0] === ' '){
+                        console.log(realTimeProz$symbol);
+                        realTimeProz$symbol = '+' + realTimeProz$symbol.substring(1);
+                        console.log(\"if 0,00% then add '+' -> +0,00%\");
+                        console.log(realTimeProz$symbol);
+                    }
 
-if(realTimeProz$symbol[0] === ' '){
-    console.log(realTimeProz$symbol);
-    realTimeProz$symbol = '+' + realTimeProz$symbol.substring(1);
-    console.log(\"if 0,00% then add '+' -> +0,00%\");
-    console.log(realTimeProz$symbol);
-}
-
-
-// sample: id='symbolLineIdEUZ_-1.15_+1.11'
-                   // var numericRealTimeProz$symbol = realTimeProz$symbol.replace(',', '');
+                    // sample: id='symbolLineIdEUZ_-115_+111'
                     var numericRealTimeProz$symbol = realTimeProz$symbol.replace('.', '');
                     var firstElement = document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]');
-                    var numericOverallProz$symbol = '';
+                    var numericOverallProz$symbol;
                     if(stocksPerformance$symbol >= 0){
                         numericOverallProz$symbol = '+' + stocksPerformance$symbol.toFixed(2);
                     }
-                    numericOverallProz$symbol += stocksPerformance$symbol.toFixed(2);
+                    else{
+                        numericOverallProz$symbol = stocksPerformance$symbol.toFixed(2);
+                    }
                     numericOverallProz$symbol = numericOverallProz$symbol.replace('.', '');
                     //firstElement[0].id = 'symbolLineId$symbol' + '_' +numericRealTimeProz$symbol;
                     firstElement[0].id = 'symbolLineId$symbol' + '_' +numericRealTimeProz$symbol + '_' +numericOverallProz$symbol;
