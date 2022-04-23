@@ -90,10 +90,10 @@ animation: spin 2s linear infinite;
 </style>
 </head>
 <body>
-<div id="symbolsListId">
+<div id='symbolsListId'>
 <script>
-function doSortDaily() {
-var container = document.getElementById("symbolsListId");
+function doSortDailyGain() {
+var container = document.getElementById('symbolsListId');
 var elements = container.childNodes;
 var sortPositivDailyValues = [];
 var sortNegativDailyValues = [];
@@ -103,7 +103,7 @@ if (!elements[i].id) {
 continue;
 }
 
-var sortPart = elements[i].id.split("_");
+var sortPart = elements[i].id.split('_');
 // only add the element for sorting if it has a plus in it
 if (sortPart.length > 1) {
 if (sortPart[1][0] === '+') {
@@ -141,33 +141,38 @@ container.appendChild(sortPositivDailyValues[i][1]);
 }
 for (var i=0; i<sortNegativDailyValues.length; i++) {
 container.appendChild(sortNegativDailyValues[i][1]);
-}    
 }
 
-function doSortOverall() {
-var container = document.getElementById("symbolsListId");
+var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= "intervalSectionRealTimeQuote"]');
+for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+intervalSectionRealTimeQuotes[i].style.fontSize = 'xx-large';
+}
+var intervalSectionPercentages = document.querySelectorAll('[id ^= "intervalSectionPercentage"]');
+for (var i=0; i<intervalSectionPercentages.length; i++) {
+intervalSectionPercentages[i].style.fontSize = 'xx-large';
+}
+var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= "intervalSectionPortfolioValues"]');
+for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+intervalSectionPortfolioValues[i].style.fontSize = 'large';
+}
+var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= "intervalSectionPortfolioGain"]');
+for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+intervalSectionPortfolioGains[i].style.fontSize = 'large';
+}        
+}
+
+function doSortOverallGain() {
+var container = document.getElementById('symbolsListId');
 var elements = container.childNodes;
 var sortPositivOverallValues = [];
 var sortNegativOverallValues = [];
 for (var i=0; i<elements.length; i++) {
-// skip nodes without an ID
 if (!elements[i].id) {
 continue;
 }
-
-var sortPart = elements[i].id.split("_");
-// only add the element for sorting if it has a plus in it
+var sortPart = elements[i].id.split('_');
 if (sortPart.length > 1) {
 if (sortPart[2][0] === '+') {
-/*
-* prepare the ID for faster comparison
-* array will contain:
-*   [0] => number which will be used for sorting 
-*   [1] => element
-* 1 * something is the fastest way I know to convert a string to a
-* number. It should be a number to make it sort in a natural way,
-* so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
-*/
 sortPositivOverallValues.push([ 1 * sortPart[2], elements[i] ]);
 }
 if (sortPart[2][0] === '-') {
@@ -175,25 +180,77 @@ sortNegativOverallValues.push([ -1 * sortPart[2], elements[i] ]);
 }                
 }        
 }
-
-// Sort the array sortPositivOverallValues, elements with the highest ID will be first
 sortPositivOverallValues.sort(function(x, y) {
 return y[0] - x[0];
 });
 sortNegativOverallValues.sort(function(x, y) {
 return x[0] - y[0];
 });    
-
-// Clear page
 document.getElementById('symbolsListId').innerHTML = '';
 
-// Append the sorted elements again, the old element will be moved to the new position
 for (var i=0; i<sortPositivOverallValues.length; i++) {
 container.appendChild(sortPositivOverallValues[i][1]);
 }
 for (var i=0; i<sortNegativOverallValues.length; i++) {
 container.appendChild(sortNegativOverallValues[i][1]);
-}    
+}
+
+var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= "intervalSectionRealTimeQuote"]');
+for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+intervalSectionRealTimeQuotes[i].style.fontSize = 'large';
+}
+var intervalSectionPercentages = document.querySelectorAll('[id ^= "intervalSectionPercentage"]');
+for (var i=0; i<intervalSectionPercentages.length; i++) {
+intervalSectionPercentages[i].style.fontSize = 'large';
+}
+var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= "intervalSectionPortfolioValues"]');
+for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+intervalSectionPortfolioValues[i].style.fontSize = 'large';
+}
+var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= "intervalSectionPortfolioGain"]');
+for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+intervalSectionPortfolioGains[i].style.fontSize = 'xx-large';
+}        
+}
+
+function doSortInvestedValue() {
+var container = document.getElementById('symbolsListId');
+var elements = container.childNodes;
+var sortOverallValues = [];
+for (var i=0; i<elements.length; i++) {
+if (!elements[i].id) {
+continue;
+}
+var sortPart = elements[i].id.split('_');
+if (sortPart.length > 1) {
+sortOverallValues.push([ 1 * sortPart[3], elements[i] ]);
+}        
+}
+sortOverallValues.sort(function(x, y) {
+return y[0] - x[0];
+});    
+document.getElementById('symbolsListId').innerHTML = '';
+
+for (var i=0; i<sortOverallValues.length; i++) {
+container.appendChild(sortOverallValues[i][1]);
+}
+
+var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= "intervalSectionRealTimeQuote"]');
+for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+intervalSectionRealTimeQuotes[i].style.fontSize = 'large';
+}
+var intervalSectionPercentages = document.querySelectorAll('[id ^= "intervalSectionPercentage"]');
+for (var i=0; i<intervalSectionPercentages.length; i++) {
+intervalSectionPercentages[i].style.fontSize = 'large';
+}
+var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= "intervalSectionPortfolioValues"]');
+for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+intervalSectionPortfolioValues[i].style.fontSize = 'xx-large';
+}
+var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= "intervalSectionPortfolioGain"]');
+for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+intervalSectionPortfolioGains[i].style.fontSize = 'large';
+}        
 }
 
 // Global Varables
@@ -307,7 +364,7 @@ Query:offline
 Stochastic:9 
 <br>
 RSI:25
-<br><br># Analyse <button id="intervalSectionButtonSortDaily" style='height: 35px; width: 90px; display: none' disabled="true" type="button" onClick="javascript:doSortDaily()">Sort Daily</button>&nbsp;<button id="intervalSectionButtonSortOverall" style='height: 35px; width: 90px; display: none' disabled="true" type="button" onClick="javascript:doSortOverall()">Sort Overall</button>
+<br><br># Analyse <button id='intervalSectionButtonSortDaily' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortDailyGain()'>&uarr; Daily %</button>&nbsp;<button id='intervalSectionButtonSortValue' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortInvestedValue()'>&uarr; Value €</button>&nbsp;<button id='intervalSectionButtonSortOverall' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortOverallGain()'>&uarr; Overall %</button>
 <div id='symbolLineIdNVV1'>
 <div style="margin-top: 6px">
 <a style="color:green" href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?timeSpan=6M&chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&ID_NOTATION=310683061" target="_blank">*NVV1 "NOVAVAX"</a>
@@ -378,7 +435,6 @@ buyingValueNVV1 = buyingValueNVV1.split(' ')[2];
 var portfolioValueNVV1 = piecesNVV1 * realTimeQuoteNVV1;
 var stocksPerformanceNVV1 = ((portfolioValueNVV1 / buyingValueNVV1)-1)*100;
 elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + portfolioValueNVV1.toFixed(0) + '€ ';
-// elementPortfolioValuesNVV1.innerHTML = piecesNVV1 + ' pc ' + buyingValueNVV1 + '/' + portfolioValueNVV1.toFixed(0) + '€ ';
 var elementPortfolioGainNVV1 = document.getElementById("intervalSectionPortfolioGainNVV1");
 elementPortfolioGainNVV1.innerHTML = stocksPerformanceNVV1.toFixed(1) + '% ' + (portfolioValueNVV1 - buyingValueNVV1).toFixed(0) + '€';
 
@@ -389,7 +445,7 @@ realTimeProzNVV1 = '+' + realTimeProzNVV1.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzNVV1 = realTimeProzNVV1.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdNVV1"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdNVV1"]');
 var numericOverallProzNVV1;
 if(stocksPerformanceNVV1 >= 0){
 numericOverallProzNVV1 = '+' + stocksPerformanceNVV1.toFixed(2);
@@ -398,7 +454,8 @@ else{
 numericOverallProzNVV1 = stocksPerformanceNVV1.toFixed(2);
 }
 numericOverallProzNVV1 = numericOverallProzNVV1.replace('.', '');
-firstElement[0].id = 'symbolLineIdNVV1' + '_' +numericRealTimeProzNVV1 + '_' +numericOverallProzNVV1; 
+
+symbolLineIdElements[0].id = 'symbolLineIdNVV1' + '_' + numericRealTimeProzNVV1 + '_' + numericOverallProzNVV1 + '_' + portfolioValueNVV1.toFixed(0);
 
 if(stocksPerformanceNVV1 < 0){
 elementPortfolioGainNVV1.style.color = 'red';
@@ -416,10 +473,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteNVV1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageNVV1" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeNVV1" style='display: none'></span>
+<span id="intervalSectionPercentageNVV1" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeNVV1" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetNVV1" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesNVV1" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainNVV1" style='font-size:large; display: none'></span>
 <br>
@@ -428,19 +484,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainNVV1" style='display:none;color:red'>YY8619-ZZ1.12-</span>
 <span id="obfuscatedValueCloseBracesNVV1" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionNVV1" style='display: none'><input name="intervalFieldNVV1" id="intervalFieldNVV1" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonNVV1" style="height: 35px;">Minutes</button><span id="intervalTextNVV1"></span></span>
+<span id='intervalSectionNVV1' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetNVV1' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldNVV1' id='intervalFieldNVV1' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonNVV1' style='height: 35px;'>Minutes</button><span id='intervalTextNVV1'></span>
+</span>
 <script>
 var intervalVarNVV1;
 function beepNVV1() {
-var elementAlert = document.getElementById("intervalTextNVV1");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextNVV1');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarNVV1);
 intervalVarNVV1=undefined;
 }
 function setBeepIntervalNVV1() {
-var intervalValue = document.getElementById("intervalFieldNVV1").value;
+var intervalValue = document.getElementById('intervalFieldNVV1').value;
 intervalVarNVV1 = setInterval(beepNVV1, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextNVV1");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -552,7 +610,6 @@ buyingValueAMD = buyingValueAMD.split(' ')[2];
 var portfolioValueAMD = piecesAMD * realTimeQuoteAMD;
 var stocksPerformanceAMD = ((portfolioValueAMD / buyingValueAMD)-1)*100;
 elementPortfolioValuesAMD.innerHTML = piecesAMD + ' pc ' + portfolioValueAMD.toFixed(0) + '€ ';
-// elementPortfolioValuesAMD.innerHTML = piecesAMD + ' pc ' + buyingValueAMD + '/' + portfolioValueAMD.toFixed(0) + '€ ';
 var elementPortfolioGainAMD = document.getElementById("intervalSectionPortfolioGainAMD");
 elementPortfolioGainAMD.innerHTML = stocksPerformanceAMD.toFixed(1) + '% ' + (portfolioValueAMD - buyingValueAMD).toFixed(0) + '€';
 
@@ -563,7 +620,7 @@ realTimeProzAMD = '+' + realTimeProzAMD.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzAMD = realTimeProzAMD.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdAMD"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdAMD"]');
 var numericOverallProzAMD;
 if(stocksPerformanceAMD >= 0){
 numericOverallProzAMD = '+' + stocksPerformanceAMD.toFixed(2);
@@ -572,7 +629,8 @@ else{
 numericOverallProzAMD = stocksPerformanceAMD.toFixed(2);
 }
 numericOverallProzAMD = numericOverallProzAMD.replace('.', '');
-firstElement[0].id = 'symbolLineIdAMD' + '_' +numericRealTimeProzAMD + '_' +numericOverallProzAMD; 
+
+symbolLineIdElements[0].id = 'symbolLineIdAMD' + '_' + numericRealTimeProzAMD + '_' + numericOverallProzAMD + '_' + portfolioValueAMD.toFixed(0);
 
 if(stocksPerformanceAMD < 0){
 elementPortfolioGainAMD.style.color = 'red';
@@ -590,10 +648,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteAMD" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageAMD" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeAMD" style='display: none'></span>
+<span id="intervalSectionPercentageAMD" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeAMD" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetAMD" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesAMD" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainAMD" style='font-size:large; display: none'></span>
 <br>
@@ -602,19 +659,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainAMD" style='display:none;color:green'>YY53ZZ8.0</span>
 <span id="obfuscatedValueCloseBracesAMD" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionAMD" style='display: none'><input name="intervalFieldAMD" id="intervalFieldAMD" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonAMD" style="height: 35px;">Minutes</button><span id="intervalTextAMD"></span></span>
+<span id='intervalSectionAMD' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetAMD' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldAMD' id='intervalFieldAMD' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonAMD' style='height: 35px;'>Minutes</button><span id='intervalTextAMD'></span>
+</span>
 <script>
 var intervalVarAMD;
 function beepAMD() {
-var elementAlert = document.getElementById("intervalTextAMD");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextAMD');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarAMD);
 intervalVarAMD=undefined;
 }
 function setBeepIntervalAMD() {
-var intervalValue = document.getElementById("intervalFieldAMD").value;
+var intervalValue = document.getElementById('intervalFieldAMD').value;
 intervalVarAMD = setInterval(beepAMD, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextAMD");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -727,7 +786,6 @@ buyingValue1QZ = buyingValue1QZ.split(' ')[2];
 var portfolioValue1QZ = pieces1QZ * realTimeQuote1QZ;
 var stocksPerformance1QZ = ((portfolioValue1QZ / buyingValue1QZ)-1)*100;
 elementPortfolioValues1QZ.innerHTML = pieces1QZ + ' pc ' + portfolioValue1QZ.toFixed(0) + '€ ';
-// elementPortfolioValues1QZ.innerHTML = pieces1QZ + ' pc ' + buyingValue1QZ + '/' + portfolioValue1QZ.toFixed(0) + '€ ';
 var elementPortfolioGain1QZ = document.getElementById("intervalSectionPortfolioGain1QZ");
 elementPortfolioGain1QZ.innerHTML = stocksPerformance1QZ.toFixed(1) + '% ' + (portfolioValue1QZ - buyingValue1QZ).toFixed(0) + '€';
 
@@ -738,7 +796,7 @@ realTimeProz1QZ = '+' + realTimeProz1QZ.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProz1QZ = realTimeProz1QZ.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineId1QZ"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineId1QZ"]');
 var numericOverallProz1QZ;
 if(stocksPerformance1QZ >= 0){
 numericOverallProz1QZ = '+' + stocksPerformance1QZ.toFixed(2);
@@ -747,7 +805,8 @@ else{
 numericOverallProz1QZ = stocksPerformance1QZ.toFixed(2);
 }
 numericOverallProz1QZ = numericOverallProz1QZ.replace('.', '');
-firstElement[0].id = 'symbolLineId1QZ' + '_' +numericRealTimeProz1QZ + '_' +numericOverallProz1QZ; 
+
+symbolLineIdElements[0].id = 'symbolLineId1QZ' + '_' + numericRealTimeProz1QZ + '_' + numericOverallProz1QZ + '_' + portfolioValue1QZ.toFixed(0);
 
 if(stocksPerformance1QZ < 0){
 elementPortfolioGain1QZ.style.color = 'red';
@@ -765,10 +824,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuote1QZ" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentage1QZ" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTime1QZ" style='display: none'></span>
+<span id="intervalSectionPercentage1QZ" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTime1QZ" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffset1QZ" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValues1QZ" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGain1QZ" style='font-size:large; display: none'></span>
 <br>
@@ -777,19 +835,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGain1QZ" style='display:none;color:red'>YY106-ZZ3.6-</span>
 <span id="obfuscatedValueCloseBraces1QZ" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSection1QZ" style='display: none'><input name="intervalField1QZ" id="intervalField1QZ" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButton1QZ" style="height: 35px;">Minutes</button><span id="intervalText1QZ"></span></span>
+<span id='intervalSection1QZ' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffset1QZ' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalField1QZ' id='intervalField1QZ' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButton1QZ' style='height: 35px;'>Minutes</button><span id='intervalText1QZ'></span>
+</span>
 <script>
 var intervalVar1QZ;
 function beep1QZ() {
-var elementAlert = document.getElementById("intervalText1QZ");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalText1QZ');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVar1QZ);
 intervalVar1QZ=undefined;
 }
 function setBeepInterval1QZ() {
-var intervalValue = document.getElementById("intervalField1QZ").value;
+var intervalValue = document.getElementById('intervalField1QZ').value;
 intervalVar1QZ = setInterval(beep1QZ, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalText1QZ");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -899,7 +959,6 @@ buyingValueDHER = buyingValueDHER.split(' ')[2];
 var portfolioValueDHER = piecesDHER * realTimeQuoteDHER;
 var stocksPerformanceDHER = ((portfolioValueDHER / buyingValueDHER)-1)*100;
 elementPortfolioValuesDHER.innerHTML = piecesDHER + ' pc ' + portfolioValueDHER.toFixed(0) + '€ ';
-// elementPortfolioValuesDHER.innerHTML = piecesDHER + ' pc ' + buyingValueDHER + '/' + portfolioValueDHER.toFixed(0) + '€ ';
 var elementPortfolioGainDHER = document.getElementById("intervalSectionPortfolioGainDHER");
 elementPortfolioGainDHER.innerHTML = stocksPerformanceDHER.toFixed(1) + '% ' + (portfolioValueDHER - buyingValueDHER).toFixed(0) + '€';
 
@@ -910,7 +969,7 @@ realTimeProzDHER = '+' + realTimeProzDHER.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzDHER = realTimeProzDHER.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdDHER"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdDHER"]');
 var numericOverallProzDHER;
 if(stocksPerformanceDHER >= 0){
 numericOverallProzDHER = '+' + stocksPerformanceDHER.toFixed(2);
@@ -919,7 +978,8 @@ else{
 numericOverallProzDHER = stocksPerformanceDHER.toFixed(2);
 }
 numericOverallProzDHER = numericOverallProzDHER.replace('.', '');
-firstElement[0].id = 'symbolLineIdDHER' + '_' +numericRealTimeProzDHER + '_' +numericOverallProzDHER; 
+
+symbolLineIdElements[0].id = 'symbolLineIdDHER' + '_' + numericRealTimeProzDHER + '_' + numericOverallProzDHER + '_' + portfolioValueDHER.toFixed(0);
 
 if(stocksPerformanceDHER < 0){
 elementPortfolioGainDHER.style.color = 'red';
@@ -937,10 +997,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteDHER" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageDHER" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeDHER" style='display: none'></span>
+<span id="intervalSectionPercentageDHER" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeDHER" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetDHER" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesDHER" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainDHER" style='font-size:large; display: none'></span>
 <br>
@@ -949,19 +1008,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainDHER" style='display:none;color:red'>YY8071-ZZ0.7-</span>
 <span id="obfuscatedValueCloseBracesDHER" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionDHER" style='display: none'><input name="intervalFieldDHER" id="intervalFieldDHER" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonDHER" style="height: 35px;">Minutes</button><span id="intervalTextDHER"></span></span>
+<span id='intervalSectionDHER' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetDHER' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldDHER' id='intervalFieldDHER' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonDHER' style='height: 35px;'>Minutes</button><span id='intervalTextDHER'></span>
+</span>
 <script>
 var intervalVarDHER;
 function beepDHER() {
-var elementAlert = document.getElementById("intervalTextDHER");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextDHER');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarDHER);
 intervalVarDHER=undefined;
 }
 function setBeepIntervalDHER() {
-var intervalValue = document.getElementById("intervalFieldDHER").value;
+var intervalValue = document.getElementById('intervalFieldDHER').value;
 intervalVarDHER = setInterval(beepDHER, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextDHER");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -1069,7 +1130,6 @@ buyingValueEUZ = buyingValueEUZ.split(' ')[2];
 var portfolioValueEUZ = piecesEUZ * realTimeQuoteEUZ;
 var stocksPerformanceEUZ = ((portfolioValueEUZ / buyingValueEUZ)-1)*100;
 elementPortfolioValuesEUZ.innerHTML = piecesEUZ + ' pc ' + portfolioValueEUZ.toFixed(0) + '€ ';
-// elementPortfolioValuesEUZ.innerHTML = piecesEUZ + ' pc ' + buyingValueEUZ + '/' + portfolioValueEUZ.toFixed(0) + '€ ';
 var elementPortfolioGainEUZ = document.getElementById("intervalSectionPortfolioGainEUZ");
 elementPortfolioGainEUZ.innerHTML = stocksPerformanceEUZ.toFixed(1) + '% ' + (portfolioValueEUZ - buyingValueEUZ).toFixed(0) + '€';
 
@@ -1080,7 +1140,7 @@ realTimeProzEUZ = '+' + realTimeProzEUZ.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzEUZ = realTimeProzEUZ.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdEUZ"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdEUZ"]');
 var numericOverallProzEUZ;
 if(stocksPerformanceEUZ >= 0){
 numericOverallProzEUZ = '+' + stocksPerformanceEUZ.toFixed(2);
@@ -1089,7 +1149,8 @@ else{
 numericOverallProzEUZ = stocksPerformanceEUZ.toFixed(2);
 }
 numericOverallProzEUZ = numericOverallProzEUZ.replace('.', '');
-firstElement[0].id = 'symbolLineIdEUZ' + '_' +numericRealTimeProzEUZ + '_' +numericOverallProzEUZ; 
+
+symbolLineIdElements[0].id = 'symbolLineIdEUZ' + '_' + numericRealTimeProzEUZ + '_' + numericOverallProzEUZ + '_' + portfolioValueEUZ.toFixed(0);
 
 if(stocksPerformanceEUZ < 0){
 elementPortfolioGainEUZ.style.color = 'red';
@@ -1107,10 +1168,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteEUZ" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageEUZ" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeEUZ" style='display: none'></span>
+<span id="intervalSectionPercentageEUZ" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeEUZ" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetEUZ" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesEUZ" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainEUZ" style='font-size:large; display: none'></span>
 <br>
@@ -1119,19 +1179,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainEUZ" style='display:none;color:red'>YY04513-ZZ6.42-</span>
 <span id="obfuscatedValueCloseBracesEUZ" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionEUZ" style='display: none'><input name="intervalFieldEUZ" id="intervalFieldEUZ" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonEUZ" style="height: 35px;">Minutes</button><span id="intervalTextEUZ"></span></span>
+<span id='intervalSectionEUZ' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetEUZ' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldEUZ' id='intervalFieldEUZ' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonEUZ' style='height: 35px;'>Minutes</button><span id='intervalTextEUZ'></span>
+</span>
 <script>
 var intervalVarEUZ;
 function beepEUZ() {
-var elementAlert = document.getElementById("intervalTextEUZ");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextEUZ');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarEUZ);
 intervalVarEUZ=undefined;
 }
 function setBeepIntervalEUZ() {
-var intervalValue = document.getElementById("intervalFieldEUZ").value;
+var intervalValue = document.getElementById('intervalFieldEUZ').value;
 intervalVarEUZ = setInterval(beepEUZ, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextEUZ");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -1242,7 +1304,6 @@ buyingValueWDP = buyingValueWDP.split(' ')[2];
 var portfolioValueWDP = piecesWDP * realTimeQuoteWDP;
 var stocksPerformanceWDP = ((portfolioValueWDP / buyingValueWDP)-1)*100;
 elementPortfolioValuesWDP.innerHTML = piecesWDP + ' pc ' + portfolioValueWDP.toFixed(0) + '€ ';
-// elementPortfolioValuesWDP.innerHTML = piecesWDP + ' pc ' + buyingValueWDP + '/' + portfolioValueWDP.toFixed(0) + '€ ';
 var elementPortfolioGainWDP = document.getElementById("intervalSectionPortfolioGainWDP");
 elementPortfolioGainWDP.innerHTML = stocksPerformanceWDP.toFixed(1) + '% ' + (portfolioValueWDP - buyingValueWDP).toFixed(0) + '€';
 
@@ -1253,7 +1314,7 @@ realTimeProzWDP = '+' + realTimeProzWDP.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzWDP = realTimeProzWDP.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdWDP"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdWDP"]');
 var numericOverallProzWDP;
 if(stocksPerformanceWDP >= 0){
 numericOverallProzWDP = '+' + stocksPerformanceWDP.toFixed(2);
@@ -1262,7 +1323,8 @@ else{
 numericOverallProzWDP = stocksPerformanceWDP.toFixed(2);
 }
 numericOverallProzWDP = numericOverallProzWDP.replace('.', '');
-firstElement[0].id = 'symbolLineIdWDP' + '_' +numericRealTimeProzWDP + '_' +numericOverallProzWDP; 
+
+symbolLineIdElements[0].id = 'symbolLineIdWDP' + '_' + numericRealTimeProzWDP + '_' + numericOverallProzWDP + '_' + portfolioValueWDP.toFixed(0);
 
 if(stocksPerformanceWDP < 0){
 elementPortfolioGainWDP.style.color = 'red';
@@ -1280,10 +1342,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteWDP" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageWDP" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeWDP" style='display: none'></span>
+<span id="intervalSectionPercentageWDP" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeWDP" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetWDP" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesWDP" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainWDP" style='font-size:large; display: none'></span>
 <br>
@@ -1292,19 +1353,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainWDP" style='display:none;color:red'>YY16-ZZ8.1-</span>
 <span id="obfuscatedValueCloseBracesWDP" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionWDP" style='display: none'><input name="intervalFieldWDP" id="intervalFieldWDP" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonWDP" style="height: 35px;">Minutes</button><span id="intervalTextWDP"></span></span>
+<span id='intervalSectionWDP' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetWDP' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldWDP' id='intervalFieldWDP' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonWDP' style='height: 35px;'>Minutes</button><span id='intervalTextWDP'></span>
+</span>
 <script>
 var intervalVarWDP;
 function beepWDP() {
-var elementAlert = document.getElementById("intervalTextWDP");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextWDP');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarWDP);
 intervalVarWDP=undefined;
 }
 function setBeepIntervalWDP() {
-var intervalValue = document.getElementById("intervalFieldWDP").value;
+var intervalValue = document.getElementById('intervalFieldWDP').value;
 intervalVarWDP = setInterval(beepWDP, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextWDP");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -1411,7 +1474,6 @@ buyingValueDWNI = buyingValueDWNI.split(' ')[2];
 var portfolioValueDWNI = piecesDWNI * realTimeQuoteDWNI;
 var stocksPerformanceDWNI = ((portfolioValueDWNI / buyingValueDWNI)-1)*100;
 elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + portfolioValueDWNI.toFixed(0) + '€ ';
-// elementPortfolioValuesDWNI.innerHTML = piecesDWNI + ' pc ' + buyingValueDWNI + '/' + portfolioValueDWNI.toFixed(0) + '€ ';
 var elementPortfolioGainDWNI = document.getElementById("intervalSectionPortfolioGainDWNI");
 elementPortfolioGainDWNI.innerHTML = stocksPerformanceDWNI.toFixed(1) + '% ' + (portfolioValueDWNI - buyingValueDWNI).toFixed(0) + '€';
 
@@ -1422,7 +1484,7 @@ realTimeProzDWNI = '+' + realTimeProzDWNI.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzDWNI = realTimeProzDWNI.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdDWNI"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdDWNI"]');
 var numericOverallProzDWNI;
 if(stocksPerformanceDWNI >= 0){
 numericOverallProzDWNI = '+' + stocksPerformanceDWNI.toFixed(2);
@@ -1431,7 +1493,8 @@ else{
 numericOverallProzDWNI = stocksPerformanceDWNI.toFixed(2);
 }
 numericOverallProzDWNI = numericOverallProzDWNI.replace('.', '');
-firstElement[0].id = 'symbolLineIdDWNI' + '_' +numericRealTimeProzDWNI + '_' +numericOverallProzDWNI; 
+
+symbolLineIdElements[0].id = 'symbolLineIdDWNI' + '_' + numericRealTimeProzDWNI + '_' + numericOverallProzDWNI + '_' + portfolioValueDWNI.toFixed(0);
 
 if(stocksPerformanceDWNI < 0){
 elementPortfolioGainDWNI.style.color = 'red';
@@ -1449,10 +1512,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteDWNI" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageDWNI" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeDWNI" style='display: none'></span>
+<span id="intervalSectionPercentageDWNI" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeDWNI" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetDWNI" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesDWNI" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainDWNI" style='font-size:large; display: none'></span>
 <br>
@@ -1461,19 +1523,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainDWNI" style='display:none;color:red'>YY2552-ZZ0.4-</span>
 <span id="obfuscatedValueCloseBracesDWNI" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionDWNI" style='display: none'><input name="intervalFieldDWNI" id="intervalFieldDWNI" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonDWNI" style="height: 35px;">Minutes</button><span id="intervalTextDWNI"></span></span>
+<span id='intervalSectionDWNI' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetDWNI' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldDWNI' id='intervalFieldDWNI' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonDWNI' style='height: 35px;'>Minutes</button><span id='intervalTextDWNI'></span>
+</span>
 <script>
 var intervalVarDWNI;
 function beepDWNI() {
-var elementAlert = document.getElementById("intervalTextDWNI");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextDWNI');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarDWNI);
 intervalVarDWNI=undefined;
 }
 function setBeepIntervalDWNI() {
-var intervalValue = document.getElementById("intervalFieldDWNI").value;
+var intervalValue = document.getElementById('intervalFieldDWNI').value;
 intervalVarDWNI = setInterval(beepDWNI, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextDWNI");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -1581,7 +1645,6 @@ buyingValueVNA = buyingValueVNA.split(' ')[2];
 var portfolioValueVNA = piecesVNA * realTimeQuoteVNA;
 var stocksPerformanceVNA = ((portfolioValueVNA / buyingValueVNA)-1)*100;
 elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + portfolioValueVNA.toFixed(0) + '€ ';
-// elementPortfolioValuesVNA.innerHTML = piecesVNA + ' pc ' + buyingValueVNA + '/' + portfolioValueVNA.toFixed(0) + '€ ';
 var elementPortfolioGainVNA = document.getElementById("intervalSectionPortfolioGainVNA");
 elementPortfolioGainVNA.innerHTML = stocksPerformanceVNA.toFixed(1) + '% ' + (portfolioValueVNA - buyingValueVNA).toFixed(0) + '€';
 
@@ -1592,7 +1655,7 @@ realTimeProzVNA = '+' + realTimeProzVNA.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzVNA = realTimeProzVNA.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdVNA"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdVNA"]');
 var numericOverallProzVNA;
 if(stocksPerformanceVNA >= 0){
 numericOverallProzVNA = '+' + stocksPerformanceVNA.toFixed(2);
@@ -1601,7 +1664,8 @@ else{
 numericOverallProzVNA = stocksPerformanceVNA.toFixed(2);
 }
 numericOverallProzVNA = numericOverallProzVNA.replace('.', '');
-firstElement[0].id = 'symbolLineIdVNA' + '_' +numericRealTimeProzVNA + '_' +numericOverallProzVNA; 
+
+symbolLineIdElements[0].id = 'symbolLineIdVNA' + '_' + numericRealTimeProzVNA + '_' + numericOverallProzVNA + '_' + portfolioValueVNA.toFixed(0);
 
 if(stocksPerformanceVNA < 0){
 elementPortfolioGainVNA.style.color = 'red';
@@ -1619,10 +1683,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteVNA" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageVNA" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeVNA" style='display: none'></span>
+<span id="intervalSectionPercentageVNA" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeVNA" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetVNA" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesVNA" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainVNA" style='font-size:large; display: none'></span>
 <br>
@@ -1631,19 +1694,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainVNA" style='display:none;color:red'>YY8131-ZZ9.3-</span>
 <span id="obfuscatedValueCloseBracesVNA" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionVNA" style='display: none'><input name="intervalFieldVNA" id="intervalFieldVNA" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonVNA" style="height: 35px;">Minutes</button><span id="intervalTextVNA"></span></span>
+<span id='intervalSectionVNA' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetVNA' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldVNA' id='intervalFieldVNA' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonVNA' style='height: 35px;'>Minutes</button><span id='intervalTextVNA'></span>
+</span>
 <script>
 var intervalVarVNA;
 function beepVNA() {
-var elementAlert = document.getElementById("intervalTextVNA");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextVNA');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarVNA);
 intervalVarVNA=undefined;
 }
 function setBeepIntervalVNA() {
-var intervalValue = document.getElementById("intervalFieldVNA").value;
+var intervalValue = document.getElementById('intervalFieldVNA').value;
 intervalVarVNA = setInterval(beepVNA, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextVNA");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -1749,7 +1814,6 @@ buyingValueFPE3 = buyingValueFPE3.split(' ')[2];
 var portfolioValueFPE3 = piecesFPE3 * realTimeQuoteFPE3;
 var stocksPerformanceFPE3 = ((portfolioValueFPE3 / buyingValueFPE3)-1)*100;
 elementPortfolioValuesFPE3.innerHTML = piecesFPE3 + ' pc ' + portfolioValueFPE3.toFixed(0) + '€ ';
-// elementPortfolioValuesFPE3.innerHTML = piecesFPE3 + ' pc ' + buyingValueFPE3 + '/' + portfolioValueFPE3.toFixed(0) + '€ ';
 var elementPortfolioGainFPE3 = document.getElementById("intervalSectionPortfolioGainFPE3");
 elementPortfolioGainFPE3.innerHTML = stocksPerformanceFPE3.toFixed(1) + '% ' + (portfolioValueFPE3 - buyingValueFPE3).toFixed(0) + '€';
 
@@ -1760,7 +1824,7 @@ realTimeProzFPE3 = '+' + realTimeProzFPE3.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzFPE3 = realTimeProzFPE3.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdFPE3"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdFPE3"]');
 var numericOverallProzFPE3;
 if(stocksPerformanceFPE3 >= 0){
 numericOverallProzFPE3 = '+' + stocksPerformanceFPE3.toFixed(2);
@@ -1769,7 +1833,8 @@ else{
 numericOverallProzFPE3 = stocksPerformanceFPE3.toFixed(2);
 }
 numericOverallProzFPE3 = numericOverallProzFPE3.replace('.', '');
-firstElement[0].id = 'symbolLineIdFPE3' + '_' +numericRealTimeProzFPE3 + '_' +numericOverallProzFPE3; 
+
+symbolLineIdElements[0].id = 'symbolLineIdFPE3' + '_' + numericRealTimeProzFPE3 + '_' + numericOverallProzFPE3 + '_' + portfolioValueFPE3.toFixed(0);
 
 if(stocksPerformanceFPE3 < 0){
 elementPortfolioGainFPE3.style.color = 'red';
@@ -1787,10 +1852,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteFPE3" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageFPE3" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeFPE3" style='display: none'></span>
+<span id="intervalSectionPercentageFPE3" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeFPE3" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetFPE3" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesFPE3" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainFPE3" style='font-size:large; display: none'></span>
 <br>
@@ -1799,19 +1863,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainFPE3" style='display:none;color:green'>YY944ZZ3.3</span>
 <span id="obfuscatedValueCloseBracesFPE3" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionFPE3" style='display: none'><input name="intervalFieldFPE3" id="intervalFieldFPE3" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonFPE3" style="height: 35px;">Minutes</button><span id="intervalTextFPE3"></span></span>
+<span id='intervalSectionFPE3' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetFPE3' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldFPE3' id='intervalFieldFPE3' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonFPE3' style='height: 35px;'>Minutes</button><span id='intervalTextFPE3'></span>
+</span>
 <script>
 var intervalVarFPE3;
 function beepFPE3() {
-var elementAlert = document.getElementById("intervalTextFPE3");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextFPE3');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarFPE3);
 intervalVarFPE3=undefined;
 }
 function setBeepIntervalFPE3() {
-var intervalValue = document.getElementById("intervalFieldFPE3").value;
+var intervalValue = document.getElementById('intervalFieldFPE3').value;
 intervalVarFPE3 = setInterval(beepFPE3, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextFPE3");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -1921,7 +1987,6 @@ buyingValueTEG = buyingValueTEG.split(' ')[2];
 var portfolioValueTEG = piecesTEG * realTimeQuoteTEG;
 var stocksPerformanceTEG = ((portfolioValueTEG / buyingValueTEG)-1)*100;
 elementPortfolioValuesTEG.innerHTML = piecesTEG + ' pc ' + portfolioValueTEG.toFixed(0) + '€ ';
-// elementPortfolioValuesTEG.innerHTML = piecesTEG + ' pc ' + buyingValueTEG + '/' + portfolioValueTEG.toFixed(0) + '€ ';
 var elementPortfolioGainTEG = document.getElementById("intervalSectionPortfolioGainTEG");
 elementPortfolioGainTEG.innerHTML = stocksPerformanceTEG.toFixed(1) + '% ' + (portfolioValueTEG - buyingValueTEG).toFixed(0) + '€';
 
@@ -1932,7 +1997,7 @@ realTimeProzTEG = '+' + realTimeProzTEG.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzTEG = realTimeProzTEG.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdTEG"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdTEG"]');
 var numericOverallProzTEG;
 if(stocksPerformanceTEG >= 0){
 numericOverallProzTEG = '+' + stocksPerformanceTEG.toFixed(2);
@@ -1941,7 +2006,8 @@ else{
 numericOverallProzTEG = stocksPerformanceTEG.toFixed(2);
 }
 numericOverallProzTEG = numericOverallProzTEG.replace('.', '');
-firstElement[0].id = 'symbolLineIdTEG' + '_' +numericRealTimeProzTEG + '_' +numericOverallProzTEG; 
+
+symbolLineIdElements[0].id = 'symbolLineIdTEG' + '_' + numericRealTimeProzTEG + '_' + numericOverallProzTEG + '_' + portfolioValueTEG.toFixed(0);
 
 if(stocksPerformanceTEG < 0){
 elementPortfolioGainTEG.style.color = 'red';
@@ -1959,10 +2025,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteTEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageTEG" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeTEG" style='display: none'></span>
+<span id="intervalSectionPercentageTEG" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeTEG" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetTEG" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesTEG" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainTEG" style='font-size:large; display: none'></span>
 <br>
@@ -1971,19 +2036,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainTEG" style='display:none;color:red'>YY687-ZZ2.3-</span>
 <span id="obfuscatedValueCloseBracesTEG" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionTEG" style='display: none'><input name="intervalFieldTEG" id="intervalFieldTEG" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonTEG" style="height: 35px;">Minutes</button><span id="intervalTextTEG"></span></span>
+<span id='intervalSectionTEG' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetTEG' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldTEG' id='intervalFieldTEG' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonTEG' style='height: 35px;'>Minutes</button><span id='intervalTextTEG'></span>
+</span>
 <script>
 var intervalVarTEG;
 function beepTEG() {
-var elementAlert = document.getElementById("intervalTextTEG");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextTEG');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarTEG);
 intervalVarTEG=undefined;
 }
 function setBeepIntervalTEG() {
-var intervalValue = document.getElementById("intervalFieldTEG").value;
+var intervalValue = document.getElementById('intervalFieldTEG').value;
 intervalVarTEG = setInterval(beepTEG, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextTEG");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -2094,7 +2161,6 @@ buyingValueGYC = buyingValueGYC.split(' ')[2];
 var portfolioValueGYC = piecesGYC * realTimeQuoteGYC;
 var stocksPerformanceGYC = ((portfolioValueGYC / buyingValueGYC)-1)*100;
 elementPortfolioValuesGYC.innerHTML = piecesGYC + ' pc ' + portfolioValueGYC.toFixed(0) + '€ ';
-// elementPortfolioValuesGYC.innerHTML = piecesGYC + ' pc ' + buyingValueGYC + '/' + portfolioValueGYC.toFixed(0) + '€ ';
 var elementPortfolioGainGYC = document.getElementById("intervalSectionPortfolioGainGYC");
 elementPortfolioGainGYC.innerHTML = stocksPerformanceGYC.toFixed(1) + '% ' + (portfolioValueGYC - buyingValueGYC).toFixed(0) + '€';
 
@@ -2105,7 +2171,7 @@ realTimeProzGYC = '+' + realTimeProzGYC.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzGYC = realTimeProzGYC.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdGYC"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdGYC"]');
 var numericOverallProzGYC;
 if(stocksPerformanceGYC >= 0){
 numericOverallProzGYC = '+' + stocksPerformanceGYC.toFixed(2);
@@ -2114,7 +2180,8 @@ else{
 numericOverallProzGYC = stocksPerformanceGYC.toFixed(2);
 }
 numericOverallProzGYC = numericOverallProzGYC.replace('.', '');
-firstElement[0].id = 'symbolLineIdGYC' + '_' +numericRealTimeProzGYC + '_' +numericOverallProzGYC; 
+
+symbolLineIdElements[0].id = 'symbolLineIdGYC' + '_' + numericRealTimeProzGYC + '_' + numericOverallProzGYC + '_' + portfolioValueGYC.toFixed(0);
 
 if(stocksPerformanceGYC < 0){
 elementPortfolioGainGYC.style.color = 'red';
@@ -2132,10 +2199,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteGYC" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageGYC" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeGYC" style='display: none'></span>
+<span id="intervalSectionPercentageGYC" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeGYC" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetGYC" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesGYC" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainGYC" style='font-size:large; display: none'></span>
 <br>
@@ -2144,19 +2210,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainGYC" style='display:none;color:red'>YY886-ZZ4.2-</span>
 <span id="obfuscatedValueCloseBracesGYC" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionGYC" style='display: none'><input name="intervalFieldGYC" id="intervalFieldGYC" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonGYC" style="height: 35px;">Minutes</button><span id="intervalTextGYC"></span></span>
+<span id='intervalSectionGYC' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetGYC' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldGYC' id='intervalFieldGYC' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonGYC' style='height: 35px;'>Minutes</button><span id='intervalTextGYC'></span>
+</span>
 <script>
 var intervalVarGYC;
 function beepGYC() {
-var elementAlert = document.getElementById("intervalTextGYC");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextGYC');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarGYC);
 intervalVarGYC=undefined;
 }
 function setBeepIntervalGYC() {
-var intervalValue = document.getElementById("intervalFieldGYC").value;
+var intervalValue = document.getElementById('intervalFieldGYC').value;
 intervalVarGYC = setInterval(beepGYC, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextGYC");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -2262,7 +2330,6 @@ buyingValueAG1 = buyingValueAG1.split(' ')[2];
 var portfolioValueAG1 = piecesAG1 * realTimeQuoteAG1;
 var stocksPerformanceAG1 = ((portfolioValueAG1 / buyingValueAG1)-1)*100;
 elementPortfolioValuesAG1.innerHTML = piecesAG1 + ' pc ' + portfolioValueAG1.toFixed(0) + '€ ';
-// elementPortfolioValuesAG1.innerHTML = piecesAG1 + ' pc ' + buyingValueAG1 + '/' + portfolioValueAG1.toFixed(0) + '€ ';
 var elementPortfolioGainAG1 = document.getElementById("intervalSectionPortfolioGainAG1");
 elementPortfolioGainAG1.innerHTML = stocksPerformanceAG1.toFixed(1) + '% ' + (portfolioValueAG1 - buyingValueAG1).toFixed(0) + '€';
 
@@ -2273,7 +2340,7 @@ realTimeProzAG1 = '+' + realTimeProzAG1.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzAG1 = realTimeProzAG1.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdAG1"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdAG1"]');
 var numericOverallProzAG1;
 if(stocksPerformanceAG1 >= 0){
 numericOverallProzAG1 = '+' + stocksPerformanceAG1.toFixed(2);
@@ -2282,7 +2349,8 @@ else{
 numericOverallProzAG1 = stocksPerformanceAG1.toFixed(2);
 }
 numericOverallProzAG1 = numericOverallProzAG1.replace('.', '');
-firstElement[0].id = 'symbolLineIdAG1' + '_' +numericRealTimeProzAG1 + '_' +numericOverallProzAG1; 
+
+symbolLineIdElements[0].id = 'symbolLineIdAG1' + '_' + numericRealTimeProzAG1 + '_' + numericOverallProzAG1 + '_' + portfolioValueAG1.toFixed(0);
 
 if(stocksPerformanceAG1 < 0){
 elementPortfolioGainAG1.style.color = 'red';
@@ -2300,10 +2368,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteAG1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageAG1" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeAG1" style='display: none'></span>
+<span id="intervalSectionPercentageAG1" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeAG1" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetAG1" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesAG1" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainAG1" style='font-size:large; display: none'></span>
 <br>
@@ -2312,19 +2379,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainAG1" style='display:none;color:red'>YY44352-ZZ5.31-</span>
 <span id="obfuscatedValueCloseBracesAG1" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionAG1" style='display: none'><input name="intervalFieldAG1" id="intervalFieldAG1" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonAG1" style="height: 35px;">Minutes</button><span id="intervalTextAG1"></span></span>
+<span id='intervalSectionAG1' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetAG1' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldAG1' id='intervalFieldAG1' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonAG1' style='height: 35px;'>Minutes</button><span id='intervalTextAG1'></span>
+</span>
 <script>
 var intervalVarAG1;
 function beepAG1() {
-var elementAlert = document.getElementById("intervalTextAG1");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextAG1');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarAG1);
 intervalVarAG1=undefined;
 }
 function setBeepIntervalAG1() {
-var intervalValue = document.getElementById("intervalFieldAG1").value;
+var intervalValue = document.getElementById('intervalFieldAG1').value;
 intervalVarAG1 = setInterval(beepAG1, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextAG1");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -2430,7 +2499,6 @@ buyingValueADN1 = buyingValueADN1.split(' ')[2];
 var portfolioValueADN1 = piecesADN1 * realTimeQuoteADN1;
 var stocksPerformanceADN1 = ((portfolioValueADN1 / buyingValueADN1)-1)*100;
 elementPortfolioValuesADN1.innerHTML = piecesADN1 + ' pc ' + portfolioValueADN1.toFixed(0) + '€ ';
-// elementPortfolioValuesADN1.innerHTML = piecesADN1 + ' pc ' + buyingValueADN1 + '/' + portfolioValueADN1.toFixed(0) + '€ ';
 var elementPortfolioGainADN1 = document.getElementById("intervalSectionPortfolioGainADN1");
 elementPortfolioGainADN1.innerHTML = stocksPerformanceADN1.toFixed(1) + '% ' + (portfolioValueADN1 - buyingValueADN1).toFixed(0) + '€';
 
@@ -2441,7 +2509,7 @@ realTimeProzADN1 = '+' + realTimeProzADN1.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzADN1 = realTimeProzADN1.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdADN1"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdADN1"]');
 var numericOverallProzADN1;
 if(stocksPerformanceADN1 >= 0){
 numericOverallProzADN1 = '+' + stocksPerformanceADN1.toFixed(2);
@@ -2450,7 +2518,8 @@ else{
 numericOverallProzADN1 = stocksPerformanceADN1.toFixed(2);
 }
 numericOverallProzADN1 = numericOverallProzADN1.replace('.', '');
-firstElement[0].id = 'symbolLineIdADN1' + '_' +numericRealTimeProzADN1 + '_' +numericOverallProzADN1; 
+
+symbolLineIdElements[0].id = 'symbolLineIdADN1' + '_' + numericRealTimeProzADN1 + '_' + numericOverallProzADN1 + '_' + portfolioValueADN1.toFixed(0);
 
 if(stocksPerformanceADN1 < 0){
 elementPortfolioGainADN1.style.color = 'red';
@@ -2468,10 +2537,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteADN1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageADN1" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeADN1" style='display: none'></span>
+<span id="intervalSectionPercentageADN1" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeADN1" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetADN1" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesADN1" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainADN1" style='font-size:large; display: none'></span>
 <br>
@@ -2480,19 +2548,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainADN1" style='display:none;color:green'>YY265ZZ1.4</span>
 <span id="obfuscatedValueCloseBracesADN1" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionADN1" style='display: none'><input name="intervalFieldADN1" id="intervalFieldADN1" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonADN1" style="height: 35px;">Minutes</button><span id="intervalTextADN1"></span></span>
+<span id='intervalSectionADN1' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetADN1' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldADN1' id='intervalFieldADN1' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonADN1' style='height: 35px;'>Minutes</button><span id='intervalTextADN1'></span>
+</span>
 <script>
 var intervalVarADN1;
 function beepADN1() {
-var elementAlert = document.getElementById("intervalTextADN1");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextADN1');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarADN1);
 intervalVarADN1=undefined;
 }
 function setBeepIntervalADN1() {
-var intervalValue = document.getElementById("intervalFieldADN1").value;
+var intervalValue = document.getElementById('intervalFieldADN1').value;
 intervalVarADN1 = setInterval(beepADN1, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextADN1");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -2598,7 +2668,6 @@ buyingValueKGX = buyingValueKGX.split(' ')[2];
 var portfolioValueKGX = piecesKGX * realTimeQuoteKGX;
 var stocksPerformanceKGX = ((portfolioValueKGX / buyingValueKGX)-1)*100;
 elementPortfolioValuesKGX.innerHTML = piecesKGX + ' pc ' + portfolioValueKGX.toFixed(0) + '€ ';
-// elementPortfolioValuesKGX.innerHTML = piecesKGX + ' pc ' + buyingValueKGX + '/' + portfolioValueKGX.toFixed(0) + '€ ';
 var elementPortfolioGainKGX = document.getElementById("intervalSectionPortfolioGainKGX");
 elementPortfolioGainKGX.innerHTML = stocksPerformanceKGX.toFixed(1) + '% ' + (portfolioValueKGX - buyingValueKGX).toFixed(0) + '€';
 
@@ -2609,7 +2678,7 @@ realTimeProzKGX = '+' + realTimeProzKGX.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzKGX = realTimeProzKGX.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdKGX"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdKGX"]');
 var numericOverallProzKGX;
 if(stocksPerformanceKGX >= 0){
 numericOverallProzKGX = '+' + stocksPerformanceKGX.toFixed(2);
@@ -2618,7 +2687,8 @@ else{
 numericOverallProzKGX = stocksPerformanceKGX.toFixed(2);
 }
 numericOverallProzKGX = numericOverallProzKGX.replace('.', '');
-firstElement[0].id = 'symbolLineIdKGX' + '_' +numericRealTimeProzKGX + '_' +numericOverallProzKGX; 
+
+symbolLineIdElements[0].id = 'symbolLineIdKGX' + '_' + numericRealTimeProzKGX + '_' + numericOverallProzKGX + '_' + portfolioValueKGX.toFixed(0);
 
 if(stocksPerformanceKGX < 0){
 elementPortfolioGainKGX.style.color = 'red';
@@ -2636,10 +2706,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteKGX" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageKGX" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeKGX" style='display: none'></span>
+<span id="intervalSectionPercentageKGX" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeKGX" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetKGX" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesKGX" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainKGX" style='font-size:large; display: none'></span>
 <br>
@@ -2648,19 +2717,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainKGX" style='display:none;color:green'>YY167ZZ4.1</span>
 <span id="obfuscatedValueCloseBracesKGX" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionKGX" style='display: none'><input name="intervalFieldKGX" id="intervalFieldKGX" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonKGX" style="height: 35px;">Minutes</button><span id="intervalTextKGX"></span></span>
+<span id='intervalSectionKGX' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetKGX' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldKGX' id='intervalFieldKGX' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonKGX' style='height: 35px;'>Minutes</button><span id='intervalTextKGX'></span>
+</span>
 <script>
 var intervalVarKGX;
 function beepKGX() {
-var elementAlert = document.getElementById("intervalTextKGX");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextKGX');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarKGX);
 intervalVarKGX=undefined;
 }
 function setBeepIntervalKGX() {
-var intervalValue = document.getElementById("intervalFieldKGX").value;
+var intervalValue = document.getElementById('intervalFieldKGX').value;
 intervalVarKGX = setInterval(beepKGX, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextKGX");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -2766,7 +2837,6 @@ buyingValueSTM = buyingValueSTM.split(' ')[2];
 var portfolioValueSTM = piecesSTM * realTimeQuoteSTM;
 var stocksPerformanceSTM = ((portfolioValueSTM / buyingValueSTM)-1)*100;
 elementPortfolioValuesSTM.innerHTML = piecesSTM + ' pc ' + portfolioValueSTM.toFixed(0) + '€ ';
-// elementPortfolioValuesSTM.innerHTML = piecesSTM + ' pc ' + buyingValueSTM + '/' + portfolioValueSTM.toFixed(0) + '€ ';
 var elementPortfolioGainSTM = document.getElementById("intervalSectionPortfolioGainSTM");
 elementPortfolioGainSTM.innerHTML = stocksPerformanceSTM.toFixed(1) + '% ' + (portfolioValueSTM - buyingValueSTM).toFixed(0) + '€';
 
@@ -2777,7 +2847,7 @@ realTimeProzSTM = '+' + realTimeProzSTM.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzSTM = realTimeProzSTM.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdSTM"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdSTM"]');
 var numericOverallProzSTM;
 if(stocksPerformanceSTM >= 0){
 numericOverallProzSTM = '+' + stocksPerformanceSTM.toFixed(2);
@@ -2786,7 +2856,8 @@ else{
 numericOverallProzSTM = stocksPerformanceSTM.toFixed(2);
 }
 numericOverallProzSTM = numericOverallProzSTM.replace('.', '');
-firstElement[0].id = 'symbolLineIdSTM' + '_' +numericRealTimeProzSTM + '_' +numericOverallProzSTM; 
+
+symbolLineIdElements[0].id = 'symbolLineIdSTM' + '_' + numericRealTimeProzSTM + '_' + numericOverallProzSTM + '_' + portfolioValueSTM.toFixed(0);
 
 if(stocksPerformanceSTM < 0){
 elementPortfolioGainSTM.style.color = 'red';
@@ -2804,10 +2875,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteSTM" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageSTM" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeSTM" style='display: none'></span>
+<span id="intervalSectionPercentageSTM" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeSTM" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetSTM" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesSTM" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainSTM" style='font-size:large; display: none'></span>
 <br>
@@ -2816,19 +2886,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainSTM" style='display:none;color:red'>YY946-ZZ4.1-</span>
 <span id="obfuscatedValueCloseBracesSTM" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionSTM" style='display: none'><input name="intervalFieldSTM" id="intervalFieldSTM" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonSTM" style="height: 35px;">Minutes</button><span id="intervalTextSTM"></span></span>
+<span id='intervalSectionSTM' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetSTM' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldSTM' id='intervalFieldSTM' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonSTM' style='height: 35px;'>Minutes</button><span id='intervalTextSTM'></span>
+</span>
 <script>
 var intervalVarSTM;
 function beepSTM() {
-var elementAlert = document.getElementById("intervalTextSTM");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextSTM');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarSTM);
 intervalVarSTM=undefined;
 }
 function setBeepIntervalSTM() {
-var intervalValue = document.getElementById("intervalFieldSTM").value;
+var intervalValue = document.getElementById('intervalFieldSTM').value;
 intervalVarSTM = setInterval(beepSTM, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextSTM");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -2939,7 +3011,6 @@ buyingValueLEG = buyingValueLEG.split(' ')[2];
 var portfolioValueLEG = piecesLEG * realTimeQuoteLEG;
 var stocksPerformanceLEG = ((portfolioValueLEG / buyingValueLEG)-1)*100;
 elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + portfolioValueLEG.toFixed(0) + '€ ';
-// elementPortfolioValuesLEG.innerHTML = piecesLEG + ' pc ' + buyingValueLEG + '/' + portfolioValueLEG.toFixed(0) + '€ ';
 var elementPortfolioGainLEG = document.getElementById("intervalSectionPortfolioGainLEG");
 elementPortfolioGainLEG.innerHTML = stocksPerformanceLEG.toFixed(1) + '% ' + (portfolioValueLEG - buyingValueLEG).toFixed(0) + '€';
 
@@ -2950,7 +3021,7 @@ realTimeProzLEG = '+' + realTimeProzLEG.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzLEG = realTimeProzLEG.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdLEG"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdLEG"]');
 var numericOverallProzLEG;
 if(stocksPerformanceLEG >= 0){
 numericOverallProzLEG = '+' + stocksPerformanceLEG.toFixed(2);
@@ -2959,7 +3030,8 @@ else{
 numericOverallProzLEG = stocksPerformanceLEG.toFixed(2);
 }
 numericOverallProzLEG = numericOverallProzLEG.replace('.', '');
-firstElement[0].id = 'symbolLineIdLEG' + '_' +numericRealTimeProzLEG + '_' +numericOverallProzLEG; 
+
+symbolLineIdElements[0].id = 'symbolLineIdLEG' + '_' + numericRealTimeProzLEG + '_' + numericOverallProzLEG + '_' + portfolioValueLEG.toFixed(0);
 
 if(stocksPerformanceLEG < 0){
 elementPortfolioGainLEG.style.color = 'red';
@@ -2977,10 +3049,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteLEG" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageLEG" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeLEG" style='display: none'></span>
+<span id="intervalSectionPercentageLEG" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeLEG" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetLEG" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesLEG" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainLEG" style='font-size:large; display: none'></span>
 <br>
@@ -2989,19 +3060,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainLEG" style='display:none;color:red'>YY045-ZZ1.3-</span>
 <span id="obfuscatedValueCloseBracesLEG" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionLEG" style='display: none'><input name="intervalFieldLEG" id="intervalFieldLEG" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonLEG" style="height: 35px;">Minutes</button><span id="intervalTextLEG"></span></span>
+<span id='intervalSectionLEG' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetLEG' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldLEG' id='intervalFieldLEG' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonLEG' style='height: 35px;'>Minutes</button><span id='intervalTextLEG'></span>
+</span>
 <script>
 var intervalVarLEG;
 function beepLEG() {
-var elementAlert = document.getElementById("intervalTextLEG");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextLEG');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarLEG);
 intervalVarLEG=undefined;
 }
 function setBeepIntervalLEG() {
-var intervalValue = document.getElementById("intervalFieldLEG").value;
+var intervalValue = document.getElementById('intervalFieldLEG').value;
 intervalVarLEG = setInterval(beepLEG, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextLEG");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -3107,7 +3180,6 @@ buyingValueHEN3 = buyingValueHEN3.split(' ')[2];
 var portfolioValueHEN3 = piecesHEN3 * realTimeQuoteHEN3;
 var stocksPerformanceHEN3 = ((portfolioValueHEN3 / buyingValueHEN3)-1)*100;
 elementPortfolioValuesHEN3.innerHTML = piecesHEN3 + ' pc ' + portfolioValueHEN3.toFixed(0) + '€ ';
-// elementPortfolioValuesHEN3.innerHTML = piecesHEN3 + ' pc ' + buyingValueHEN3 + '/' + portfolioValueHEN3.toFixed(0) + '€ ';
 var elementPortfolioGainHEN3 = document.getElementById("intervalSectionPortfolioGainHEN3");
 elementPortfolioGainHEN3.innerHTML = stocksPerformanceHEN3.toFixed(1) + '% ' + (portfolioValueHEN3 - buyingValueHEN3).toFixed(0) + '€';
 
@@ -3118,7 +3190,7 @@ realTimeProzHEN3 = '+' + realTimeProzHEN3.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzHEN3 = realTimeProzHEN3.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdHEN3"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdHEN3"]');
 var numericOverallProzHEN3;
 if(stocksPerformanceHEN3 >= 0){
 numericOverallProzHEN3 = '+' + stocksPerformanceHEN3.toFixed(2);
@@ -3127,7 +3199,8 @@ else{
 numericOverallProzHEN3 = stocksPerformanceHEN3.toFixed(2);
 }
 numericOverallProzHEN3 = numericOverallProzHEN3.replace('.', '');
-firstElement[0].id = 'symbolLineIdHEN3' + '_' +numericRealTimeProzHEN3 + '_' +numericOverallProzHEN3; 
+
+symbolLineIdElements[0].id = 'symbolLineIdHEN3' + '_' + numericRealTimeProzHEN3 + '_' + numericOverallProzHEN3 + '_' + portfolioValueHEN3.toFixed(0);
 
 if(stocksPerformanceHEN3 < 0){
 elementPortfolioGainHEN3.style.color = 'red';
@@ -3145,10 +3218,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteHEN3" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageHEN3" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeHEN3" style='display: none'></span>
+<span id="intervalSectionPercentageHEN3" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeHEN3" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetHEN3" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesHEN3" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainHEN3" style='font-size:large; display: none'></span>
 <br>
@@ -3157,19 +3229,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainHEN3" style='display:none;color:green'>YY265ZZ8.1</span>
 <span id="obfuscatedValueCloseBracesHEN3" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionHEN3" style='display: none'><input name="intervalFieldHEN3" id="intervalFieldHEN3" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonHEN3" style="height: 35px;">Minutes</button><span id="intervalTextHEN3"></span></span>
+<span id='intervalSectionHEN3' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetHEN3' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldHEN3' id='intervalFieldHEN3' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonHEN3' style='height: 35px;'>Minutes</button><span id='intervalTextHEN3'></span>
+</span>
 <script>
 var intervalVarHEN3;
 function beepHEN3() {
-var elementAlert = document.getElementById("intervalTextHEN3");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextHEN3');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarHEN3);
 intervalVarHEN3=undefined;
 }
 function setBeepIntervalHEN3() {
-var intervalValue = document.getElementById("intervalFieldHEN3").value;
+var intervalValue = document.getElementById('intervalFieldHEN3').value;
 intervalVarHEN3 = setInterval(beepHEN3, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextHEN3");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -3279,7 +3353,6 @@ buyingValueFFH = buyingValueFFH.split(' ')[2];
 var portfolioValueFFH = piecesFFH * realTimeQuoteFFH;
 var stocksPerformanceFFH = ((portfolioValueFFH / buyingValueFFH)-1)*100;
 elementPortfolioValuesFFH.innerHTML = piecesFFH + ' pc ' + portfolioValueFFH.toFixed(0) + '€ ';
-// elementPortfolioValuesFFH.innerHTML = piecesFFH + ' pc ' + buyingValueFFH + '/' + portfolioValueFFH.toFixed(0) + '€ ';
 var elementPortfolioGainFFH = document.getElementById("intervalSectionPortfolioGainFFH");
 elementPortfolioGainFFH.innerHTML = stocksPerformanceFFH.toFixed(1) + '% ' + (portfolioValueFFH - buyingValueFFH).toFixed(0) + '€';
 
@@ -3290,7 +3363,7 @@ realTimeProzFFH = '+' + realTimeProzFFH.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzFFH = realTimeProzFFH.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdFFH"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdFFH"]');
 var numericOverallProzFFH;
 if(stocksPerformanceFFH >= 0){
 numericOverallProzFFH = '+' + stocksPerformanceFFH.toFixed(2);
@@ -3299,7 +3372,8 @@ else{
 numericOverallProzFFH = stocksPerformanceFFH.toFixed(2);
 }
 numericOverallProzFFH = numericOverallProzFFH.replace('.', '');
-firstElement[0].id = 'symbolLineIdFFH' + '_' +numericRealTimeProzFFH + '_' +numericOverallProzFFH; 
+
+symbolLineIdElements[0].id = 'symbolLineIdFFH' + '_' + numericRealTimeProzFFH + '_' + numericOverallProzFFH + '_' + portfolioValueFFH.toFixed(0);
 
 if(stocksPerformanceFFH < 0){
 elementPortfolioGainFFH.style.color = 'red';
@@ -3317,10 +3391,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteFFH" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageFFH" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeFFH" style='display: none'></span>
+<span id="intervalSectionPercentageFFH" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeFFH" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetFFH" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesFFH" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainFFH" style='font-size:large; display: none'></span>
 <br>
@@ -3329,19 +3402,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainFFH" style='display:none;color:red'>YY58-ZZ6.0-</span>
 <span id="obfuscatedValueCloseBracesFFH" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionFFH" style='display: none'><input name="intervalFieldFFH" id="intervalFieldFFH" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonFFH" style="height: 35px;">Minutes</button><span id="intervalTextFFH"></span></span>
+<span id='intervalSectionFFH' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetFFH' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldFFH' id='intervalFieldFFH' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonFFH' style='height: 35px;'>Minutes</button><span id='intervalTextFFH'></span>
+</span>
 <script>
 var intervalVarFFH;
 function beepFFH() {
-var elementAlert = document.getElementById("intervalTextFFH");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextFFH');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarFFH);
 intervalVarFFH=undefined;
 }
 function setBeepIntervalFFH() {
-var intervalValue = document.getElementById("intervalFieldFFH").value;
+var intervalValue = document.getElementById('intervalFieldFFH').value;
 intervalVarFFH = setInterval(beepFFH, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextFFH");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -3447,7 +3522,6 @@ buyingValueTRVC = buyingValueTRVC.split(' ')[2];
 var portfolioValueTRVC = piecesTRVC * realTimeQuoteTRVC;
 var stocksPerformanceTRVC = ((portfolioValueTRVC / buyingValueTRVC)-1)*100;
 elementPortfolioValuesTRVC.innerHTML = piecesTRVC + ' pc ' + portfolioValueTRVC.toFixed(0) + '€ ';
-// elementPortfolioValuesTRVC.innerHTML = piecesTRVC + ' pc ' + buyingValueTRVC + '/' + portfolioValueTRVC.toFixed(0) + '€ ';
 var elementPortfolioGainTRVC = document.getElementById("intervalSectionPortfolioGainTRVC");
 elementPortfolioGainTRVC.innerHTML = stocksPerformanceTRVC.toFixed(1) + '% ' + (portfolioValueTRVC - buyingValueTRVC).toFixed(0) + '€';
 
@@ -3458,7 +3532,7 @@ realTimeProzTRVC = '+' + realTimeProzTRVC.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzTRVC = realTimeProzTRVC.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdTRVC"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdTRVC"]');
 var numericOverallProzTRVC;
 if(stocksPerformanceTRVC >= 0){
 numericOverallProzTRVC = '+' + stocksPerformanceTRVC.toFixed(2);
@@ -3467,7 +3541,8 @@ else{
 numericOverallProzTRVC = stocksPerformanceTRVC.toFixed(2);
 }
 numericOverallProzTRVC = numericOverallProzTRVC.replace('.', '');
-firstElement[0].id = 'symbolLineIdTRVC' + '_' +numericRealTimeProzTRVC + '_' +numericOverallProzTRVC; 
+
+symbolLineIdElements[0].id = 'symbolLineIdTRVC' + '_' + numericRealTimeProzTRVC + '_' + numericOverallProzTRVC + '_' + portfolioValueTRVC.toFixed(0);
 
 if(stocksPerformanceTRVC < 0){
 elementPortfolioGainTRVC.style.color = 'red';
@@ -3485,10 +3560,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteTRVC" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageTRVC" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeTRVC" style='display: none'></span>
+<span id="intervalSectionPercentageTRVC" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeTRVC" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetTRVC" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesTRVC" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainTRVC" style='font-size:large; display: none'></span>
 <br>
@@ -3497,19 +3571,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainTRVC" style='display:none;color:green'>YY513ZZ3.1</span>
 <span id="obfuscatedValueCloseBracesTRVC" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionTRVC" style='display: none'><input name="intervalFieldTRVC" id="intervalFieldTRVC" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonTRVC" style="height: 35px;">Minutes</button><span id="intervalTextTRVC"></span></span>
+<span id='intervalSectionTRVC' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetTRVC' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldTRVC' id='intervalFieldTRVC' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonTRVC' style='height: 35px;'>Minutes</button><span id='intervalTextTRVC'></span>
+</span>
 <script>
 var intervalVarTRVC;
 function beepTRVC() {
-var elementAlert = document.getElementById("intervalTextTRVC");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextTRVC');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarTRVC);
 intervalVarTRVC=undefined;
 }
 function setBeepIntervalTRVC() {
-var intervalValue = document.getElementById("intervalFieldTRVC").value;
+var intervalValue = document.getElementById('intervalFieldTRVC').value;
 intervalVarTRVC = setInterval(beepTRVC, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextTRVC");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -3615,7 +3691,6 @@ buyingValuePHI1 = buyingValuePHI1.split(' ')[2];
 var portfolioValuePHI1 = piecesPHI1 * realTimeQuotePHI1;
 var stocksPerformancePHI1 = ((portfolioValuePHI1 / buyingValuePHI1)-1)*100;
 elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + portfolioValuePHI1.toFixed(0) + '€ ';
-// elementPortfolioValuesPHI1.innerHTML = piecesPHI1 + ' pc ' + buyingValuePHI1 + '/' + portfolioValuePHI1.toFixed(0) + '€ ';
 var elementPortfolioGainPHI1 = document.getElementById("intervalSectionPortfolioGainPHI1");
 elementPortfolioGainPHI1.innerHTML = stocksPerformancePHI1.toFixed(1) + '% ' + (portfolioValuePHI1 - buyingValuePHI1).toFixed(0) + '€';
 
@@ -3626,7 +3701,7 @@ realTimeProzPHI1 = '+' + realTimeProzPHI1.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzPHI1 = realTimeProzPHI1.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdPHI1"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdPHI1"]');
 var numericOverallProzPHI1;
 if(stocksPerformancePHI1 >= 0){
 numericOverallProzPHI1 = '+' + stocksPerformancePHI1.toFixed(2);
@@ -3635,7 +3710,8 @@ else{
 numericOverallProzPHI1 = stocksPerformancePHI1.toFixed(2);
 }
 numericOverallProzPHI1 = numericOverallProzPHI1.replace('.', '');
-firstElement[0].id = 'symbolLineIdPHI1' + '_' +numericRealTimeProzPHI1 + '_' +numericOverallProzPHI1; 
+
+symbolLineIdElements[0].id = 'symbolLineIdPHI1' + '_' + numericRealTimeProzPHI1 + '_' + numericOverallProzPHI1 + '_' + portfolioValuePHI1.toFixed(0);
 
 if(stocksPerformancePHI1 < 0){
 elementPortfolioGainPHI1.style.color = 'red';
@@ -3653,10 +3729,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuotePHI1" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentagePHI1" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimePHI1" style='display: none'></span>
+<span id="intervalSectionPercentagePHI1" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimePHI1" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetPHI1" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesPHI1" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainPHI1" style='font-size:large; display: none'></span>
 <br>
@@ -3665,19 +3740,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainPHI1" style='display:none;color:green'>YY211ZZ6.1</span>
 <span id="obfuscatedValueCloseBracesPHI1" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionPHI1" style='display: none'><input name="intervalFieldPHI1" id="intervalFieldPHI1" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonPHI1" style="height: 35px;">Minutes</button><span id="intervalTextPHI1"></span></span>
+<span id='intervalSectionPHI1' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetPHI1' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldPHI1' id='intervalFieldPHI1' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonPHI1' style='height: 35px;'>Minutes</button><span id='intervalTextPHI1'></span>
+</span>
 <script>
 var intervalVarPHI1;
 function beepPHI1() {
-var elementAlert = document.getElementById("intervalTextPHI1");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextPHI1');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarPHI1);
 intervalVarPHI1=undefined;
 }
 function setBeepIntervalPHI1() {
-var intervalValue = document.getElementById("intervalFieldPHI1").value;
+var intervalValue = document.getElementById('intervalFieldPHI1').value;
 intervalVarPHI1 = setInterval(beepPHI1, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextPHI1");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -3783,7 +3860,6 @@ buyingValueSAX = buyingValueSAX.split(' ')[2];
 var portfolioValueSAX = piecesSAX * realTimeQuoteSAX;
 var stocksPerformanceSAX = ((portfolioValueSAX / buyingValueSAX)-1)*100;
 elementPortfolioValuesSAX.innerHTML = piecesSAX + ' pc ' + portfolioValueSAX.toFixed(0) + '€ ';
-// elementPortfolioValuesSAX.innerHTML = piecesSAX + ' pc ' + buyingValueSAX + '/' + portfolioValueSAX.toFixed(0) + '€ ';
 var elementPortfolioGainSAX = document.getElementById("intervalSectionPortfolioGainSAX");
 elementPortfolioGainSAX.innerHTML = stocksPerformanceSAX.toFixed(1) + '% ' + (portfolioValueSAX - buyingValueSAX).toFixed(0) + '€';
 
@@ -3794,7 +3870,7 @@ realTimeProzSAX = '+' + realTimeProzSAX.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzSAX = realTimeProzSAX.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdSAX"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdSAX"]');
 var numericOverallProzSAX;
 if(stocksPerformanceSAX >= 0){
 numericOverallProzSAX = '+' + stocksPerformanceSAX.toFixed(2);
@@ -3803,7 +3879,8 @@ else{
 numericOverallProzSAX = stocksPerformanceSAX.toFixed(2);
 }
 numericOverallProzSAX = numericOverallProzSAX.replace('.', '');
-firstElement[0].id = 'symbolLineIdSAX' + '_' +numericRealTimeProzSAX + '_' +numericOverallProzSAX; 
+
+symbolLineIdElements[0].id = 'symbolLineIdSAX' + '_' + numericRealTimeProzSAX + '_' + numericOverallProzSAX + '_' + portfolioValueSAX.toFixed(0);
 
 if(stocksPerformanceSAX < 0){
 elementPortfolioGainSAX.style.color = 'red';
@@ -3821,10 +3898,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteSAX" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageSAX" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeSAX" style='display: none'></span>
+<span id="intervalSectionPercentageSAX" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeSAX" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetSAX" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesSAX" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainSAX" style='font-size:large; display: none'></span>
 <br>
@@ -3833,19 +3909,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainSAX" style='display:none;color:red'>YY73-ZZ2.0-</span>
 <span id="obfuscatedValueCloseBracesSAX" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionSAX" style='display: none'><input name="intervalFieldSAX" id="intervalFieldSAX" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonSAX" style="height: 35px;">Minutes</button><span id="intervalTextSAX"></span></span>
+<span id='intervalSectionSAX' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetSAX' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldSAX' id='intervalFieldSAX' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonSAX' style='height: 35px;'>Minutes</button><span id='intervalTextSAX'></span>
+</span>
 <script>
 var intervalVarSAX;
 function beepSAX() {
-var elementAlert = document.getElementById("intervalTextSAX");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextSAX');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarSAX);
 intervalVarSAX=undefined;
 }
 function setBeepIntervalSAX() {
-var intervalValue = document.getElementById("intervalFieldSAX").value;
+var intervalValue = document.getElementById('intervalFieldSAX').value;
 intervalVarSAX = setInterval(beepSAX, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextSAX");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -3951,7 +4029,6 @@ buyingValueBCY = buyingValueBCY.split(' ')[2];
 var portfolioValueBCY = piecesBCY * realTimeQuoteBCY;
 var stocksPerformanceBCY = ((portfolioValueBCY / buyingValueBCY)-1)*100;
 elementPortfolioValuesBCY.innerHTML = piecesBCY + ' pc ' + portfolioValueBCY.toFixed(0) + '€ ';
-// elementPortfolioValuesBCY.innerHTML = piecesBCY + ' pc ' + buyingValueBCY + '/' + portfolioValueBCY.toFixed(0) + '€ ';
 var elementPortfolioGainBCY = document.getElementById("intervalSectionPortfolioGainBCY");
 elementPortfolioGainBCY.innerHTML = stocksPerformanceBCY.toFixed(1) + '% ' + (portfolioValueBCY - buyingValueBCY).toFixed(0) + '€';
 
@@ -3962,7 +4039,7 @@ realTimeProzBCY = '+' + realTimeProzBCY.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzBCY = realTimeProzBCY.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdBCY"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdBCY"]');
 var numericOverallProzBCY;
 if(stocksPerformanceBCY >= 0){
 numericOverallProzBCY = '+' + stocksPerformanceBCY.toFixed(2);
@@ -3971,7 +4048,8 @@ else{
 numericOverallProzBCY = stocksPerformanceBCY.toFixed(2);
 }
 numericOverallProzBCY = numericOverallProzBCY.replace('.', '');
-firstElement[0].id = 'symbolLineIdBCY' + '_' +numericRealTimeProzBCY + '_' +numericOverallProzBCY; 
+
+symbolLineIdElements[0].id = 'symbolLineIdBCY' + '_' + numericRealTimeProzBCY + '_' + numericOverallProzBCY + '_' + portfolioValueBCY.toFixed(0);
 
 if(stocksPerformanceBCY < 0){
 elementPortfolioGainBCY.style.color = 'red';
@@ -3989,10 +4067,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteBCY" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageBCY" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeBCY" style='display: none'></span>
+<span id="intervalSectionPercentageBCY" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeBCY" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetBCY" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesBCY" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainBCY" style='font-size:large; display: none'></span>
 <br>
@@ -4001,19 +4078,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainBCY" style='display:none;color:green'>YY001ZZ9.2</span>
 <span id="obfuscatedValueCloseBracesBCY" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionBCY" style='display: none'><input name="intervalFieldBCY" id="intervalFieldBCY" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonBCY" style="height: 35px;">Minutes</button><span id="intervalTextBCY"></span></span>
+<span id='intervalSectionBCY' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetBCY' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldBCY' id='intervalFieldBCY' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonBCY' style='height: 35px;'>Minutes</button><span id='intervalTextBCY'></span>
+</span>
 <script>
 var intervalVarBCY;
 function beepBCY() {
-var elementAlert = document.getElementById("intervalTextBCY");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextBCY');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarBCY);
 intervalVarBCY=undefined;
 }
 function setBeepIntervalBCY() {
-var intervalValue = document.getElementById("intervalFieldBCY").value;
+var intervalValue = document.getElementById('intervalFieldBCY').value;
 intervalVarBCY = setInterval(beepBCY, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextBCY");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -4120,7 +4199,6 @@ buyingValueIWLE = buyingValueIWLE.split(' ')[2];
 var portfolioValueIWLE = piecesIWLE * realTimeQuoteIWLE;
 var stocksPerformanceIWLE = ((portfolioValueIWLE / buyingValueIWLE)-1)*100;
 elementPortfolioValuesIWLE.innerHTML = piecesIWLE + ' pc ' + portfolioValueIWLE.toFixed(0) + '€ ';
-// elementPortfolioValuesIWLE.innerHTML = piecesIWLE + ' pc ' + buyingValueIWLE + '/' + portfolioValueIWLE.toFixed(0) + '€ ';
 var elementPortfolioGainIWLE = document.getElementById("intervalSectionPortfolioGainIWLE");
 elementPortfolioGainIWLE.innerHTML = stocksPerformanceIWLE.toFixed(1) + '% ' + (portfolioValueIWLE - buyingValueIWLE).toFixed(0) + '€';
 
@@ -4131,7 +4209,7 @@ realTimeProzIWLE = '+' + realTimeProzIWLE.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzIWLE = realTimeProzIWLE.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdIWLE"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdIWLE"]');
 var numericOverallProzIWLE;
 if(stocksPerformanceIWLE >= 0){
 numericOverallProzIWLE = '+' + stocksPerformanceIWLE.toFixed(2);
@@ -4140,7 +4218,8 @@ else{
 numericOverallProzIWLE = stocksPerformanceIWLE.toFixed(2);
 }
 numericOverallProzIWLE = numericOverallProzIWLE.replace('.', '');
-firstElement[0].id = 'symbolLineIdIWLE' + '_' +numericRealTimeProzIWLE + '_' +numericOverallProzIWLE; 
+
+symbolLineIdElements[0].id = 'symbolLineIdIWLE' + '_' + numericRealTimeProzIWLE + '_' + numericOverallProzIWLE + '_' + portfolioValueIWLE.toFixed(0);
 
 if(stocksPerformanceIWLE < 0){
 elementPortfolioGainIWLE.style.color = 'red';
@@ -4158,10 +4237,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteIWLE" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageIWLE" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeIWLE" style='display: none'></span>
+<span id="intervalSectionPercentageIWLE" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeIWLE" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetIWLE" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesIWLE" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainIWLE" style='font-size:large; display: none'></span>
 <br>
@@ -4170,19 +4248,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainIWLE" style='display:none;color:green'>YY65ZZ1.2</span>
 <span id="obfuscatedValueCloseBracesIWLE" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionIWLE" style='display: none'><input name="intervalFieldIWLE" id="intervalFieldIWLE" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonIWLE" style="height: 35px;">Minutes</button><span id="intervalTextIWLE"></span></span>
+<span id='intervalSectionIWLE' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetIWLE' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldIWLE' id='intervalFieldIWLE' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonIWLE' style='height: 35px;'>Minutes</button><span id='intervalTextIWLE'></span>
+</span>
 <script>
 var intervalVarIWLE;
 function beepIWLE() {
-var elementAlert = document.getElementById("intervalTextIWLE");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextIWLE');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarIWLE);
 intervalVarIWLE=undefined;
 }
 function setBeepIntervalIWLE() {
-var intervalValue = document.getElementById("intervalFieldIWLE").value;
+var intervalValue = document.getElementById('intervalFieldIWLE').value;
 intervalVarIWLE = setInterval(beepIWLE, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextIWLE");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -4288,7 +4368,6 @@ buyingValueCRIN = buyingValueCRIN.split(' ')[2];
 var portfolioValueCRIN = piecesCRIN * realTimeQuoteCRIN;
 var stocksPerformanceCRIN = ((portfolioValueCRIN / buyingValueCRIN)-1)*100;
 elementPortfolioValuesCRIN.innerHTML = piecesCRIN + ' pc ' + portfolioValueCRIN.toFixed(0) + '€ ';
-// elementPortfolioValuesCRIN.innerHTML = piecesCRIN + ' pc ' + buyingValueCRIN + '/' + portfolioValueCRIN.toFixed(0) + '€ ';
 var elementPortfolioGainCRIN = document.getElementById("intervalSectionPortfolioGainCRIN");
 elementPortfolioGainCRIN.innerHTML = stocksPerformanceCRIN.toFixed(1) + '% ' + (portfolioValueCRIN - buyingValueCRIN).toFixed(0) + '€';
 
@@ -4299,7 +4378,7 @@ realTimeProzCRIN = '+' + realTimeProzCRIN.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzCRIN = realTimeProzCRIN.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdCRIN"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdCRIN"]');
 var numericOverallProzCRIN;
 if(stocksPerformanceCRIN >= 0){
 numericOverallProzCRIN = '+' + stocksPerformanceCRIN.toFixed(2);
@@ -4308,7 +4387,8 @@ else{
 numericOverallProzCRIN = stocksPerformanceCRIN.toFixed(2);
 }
 numericOverallProzCRIN = numericOverallProzCRIN.replace('.', '');
-firstElement[0].id = 'symbolLineIdCRIN' + '_' +numericRealTimeProzCRIN + '_' +numericOverallProzCRIN; 
+
+symbolLineIdElements[0].id = 'symbolLineIdCRIN' + '_' + numericRealTimeProzCRIN + '_' + numericOverallProzCRIN + '_' + portfolioValueCRIN.toFixed(0);
 
 if(stocksPerformanceCRIN < 0){
 elementPortfolioGainCRIN.style.color = 'red';
@@ -4326,10 +4406,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteCRIN" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageCRIN" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeCRIN" style='display: none'></span>
+<span id="intervalSectionPercentageCRIN" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeCRIN" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetCRIN" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesCRIN" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainCRIN" style='font-size:large; display: none'></span>
 <br>
@@ -4338,19 +4417,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainCRIN" style='display:none;color:red'>YY02028-ZZ9.95-</span>
 <span id="obfuscatedValueCloseBracesCRIN" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionCRIN" style='display: none'><input name="intervalFieldCRIN" id="intervalFieldCRIN" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonCRIN" style="height: 35px;">Minutes</button><span id="intervalTextCRIN"></span></span>
+<span id='intervalSectionCRIN' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetCRIN' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldCRIN' id='intervalFieldCRIN' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonCRIN' style='height: 35px;'>Minutes</button><span id='intervalTextCRIN'></span>
+</span>
 <script>
 var intervalVarCRIN;
 function beepCRIN() {
-var elementAlert = document.getElementById("intervalTextCRIN");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextCRIN');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarCRIN);
 intervalVarCRIN=undefined;
 }
 function setBeepIntervalCRIN() {
-var intervalValue = document.getElementById("intervalFieldCRIN").value;
+var intervalValue = document.getElementById('intervalFieldCRIN').value;
 intervalVarCRIN = setInterval(beepCRIN, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextCRIN");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -4457,7 +4538,6 @@ buyingValueAOMD = buyingValueAOMD.split(' ')[2];
 var portfolioValueAOMD = piecesAOMD * realTimeQuoteAOMD;
 var stocksPerformanceAOMD = ((portfolioValueAOMD / buyingValueAOMD)-1)*100;
 elementPortfolioValuesAOMD.innerHTML = piecesAOMD + ' pc ' + portfolioValueAOMD.toFixed(0) + '€ ';
-// elementPortfolioValuesAOMD.innerHTML = piecesAOMD + ' pc ' + buyingValueAOMD + '/' + portfolioValueAOMD.toFixed(0) + '€ ';
 var elementPortfolioGainAOMD = document.getElementById("intervalSectionPortfolioGainAOMD");
 elementPortfolioGainAOMD.innerHTML = stocksPerformanceAOMD.toFixed(1) + '% ' + (portfolioValueAOMD - buyingValueAOMD).toFixed(0) + '€';
 
@@ -4468,7 +4548,7 @@ realTimeProzAOMD = '+' + realTimeProzAOMD.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzAOMD = realTimeProzAOMD.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdAOMD"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdAOMD"]');
 var numericOverallProzAOMD;
 if(stocksPerformanceAOMD >= 0){
 numericOverallProzAOMD = '+' + stocksPerformanceAOMD.toFixed(2);
@@ -4477,7 +4557,8 @@ else{
 numericOverallProzAOMD = stocksPerformanceAOMD.toFixed(2);
 }
 numericOverallProzAOMD = numericOverallProzAOMD.replace('.', '');
-firstElement[0].id = 'symbolLineIdAOMD' + '_' +numericRealTimeProzAOMD + '_' +numericOverallProzAOMD; 
+
+symbolLineIdElements[0].id = 'symbolLineIdAOMD' + '_' + numericRealTimeProzAOMD + '_' + numericOverallProzAOMD + '_' + portfolioValueAOMD.toFixed(0);
 
 if(stocksPerformanceAOMD < 0){
 elementPortfolioGainAOMD.style.color = 'red';
@@ -4495,10 +4576,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteAOMD" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageAOMD" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeAOMD" style='display: none'></span>
+<span id="intervalSectionPercentageAOMD" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeAOMD" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetAOMD" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesAOMD" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainAOMD" style='font-size:large; display: none'></span>
 <br>
@@ -4507,19 +4587,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainAOMD" style='display:none;color:red'>YY5142-ZZ0.3-</span>
 <span id="obfuscatedValueCloseBracesAOMD" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionAOMD" style='display: none'><input name="intervalFieldAOMD" id="intervalFieldAOMD" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonAOMD" style="height: 35px;">Minutes</button><span id="intervalTextAOMD"></span></span>
+<span id='intervalSectionAOMD' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetAOMD' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldAOMD' id='intervalFieldAOMD' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonAOMD' style='height: 35px;'>Minutes</button><span id='intervalTextAOMD'></span>
+</span>
 <script>
 var intervalVarAOMD;
 function beepAOMD() {
-var elementAlert = document.getElementById("intervalTextAOMD");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextAOMD');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarAOMD);
 intervalVarAOMD=undefined;
 }
 function setBeepIntervalAOMD() {
-var intervalValue = document.getElementById("intervalFieldAOMD").value;
+var intervalValue = document.getElementById('intervalFieldAOMD').value;
 intervalVarAOMD = setInterval(beepAOMD, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextAOMD");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -4626,7 +4708,6 @@ buyingValueTNE5 = buyingValueTNE5.split(' ')[2];
 var portfolioValueTNE5 = piecesTNE5 * realTimeQuoteTNE5;
 var stocksPerformanceTNE5 = ((portfolioValueTNE5 / buyingValueTNE5)-1)*100;
 elementPortfolioValuesTNE5.innerHTML = piecesTNE5 + ' pc ' + portfolioValueTNE5.toFixed(0) + '€ ';
-// elementPortfolioValuesTNE5.innerHTML = piecesTNE5 + ' pc ' + buyingValueTNE5 + '/' + portfolioValueTNE5.toFixed(0) + '€ ';
 var elementPortfolioGainTNE5 = document.getElementById("intervalSectionPortfolioGainTNE5");
 elementPortfolioGainTNE5.innerHTML = stocksPerformanceTNE5.toFixed(1) + '% ' + (portfolioValueTNE5 - buyingValueTNE5).toFixed(0) + '€';
 
@@ -4637,7 +4718,7 @@ realTimeProzTNE5 = '+' + realTimeProzTNE5.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzTNE5 = realTimeProzTNE5.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdTNE5"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdTNE5"]');
 var numericOverallProzTNE5;
 if(stocksPerformanceTNE5 >= 0){
 numericOverallProzTNE5 = '+' + stocksPerformanceTNE5.toFixed(2);
@@ -4646,7 +4727,8 @@ else{
 numericOverallProzTNE5 = stocksPerformanceTNE5.toFixed(2);
 }
 numericOverallProzTNE5 = numericOverallProzTNE5.replace('.', '');
-firstElement[0].id = 'symbolLineIdTNE5' + '_' +numericRealTimeProzTNE5 + '_' +numericOverallProzTNE5; 
+
+symbolLineIdElements[0].id = 'symbolLineIdTNE5' + '_' + numericRealTimeProzTNE5 + '_' + numericOverallProzTNE5 + '_' + portfolioValueTNE5.toFixed(0);
 
 if(stocksPerformanceTNE5 < 0){
 elementPortfolioGainTNE5.style.color = 'red';
@@ -4664,10 +4746,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteTNE5" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageTNE5" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeTNE5" style='display: none'></span>
+<span id="intervalSectionPercentageTNE5" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeTNE5" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetTNE5" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesTNE5" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainTNE5" style='font-size:large; display: none'></span>
 <br>
@@ -4676,19 +4757,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainTNE5" style='display:none;color:red'>YY26442-ZZ2.91-</span>
 <span id="obfuscatedValueCloseBracesTNE5" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionTNE5" style='display: none'><input name="intervalFieldTNE5" id="intervalFieldTNE5" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonTNE5" style="height: 35px;">Minutes</button><span id="intervalTextTNE5"></span></span>
+<span id='intervalSectionTNE5' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetTNE5' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldTNE5' id='intervalFieldTNE5' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonTNE5' style='height: 35px;'>Minutes</button><span id='intervalTextTNE5'></span>
+</span>
 <script>
 var intervalVarTNE5;
 function beepTNE5() {
-var elementAlert = document.getElementById("intervalTextTNE5");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextTNE5');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarTNE5);
 intervalVarTNE5=undefined;
 }
 function setBeepIntervalTNE5() {
-var intervalValue = document.getElementById("intervalFieldTNE5").value;
+var intervalValue = document.getElementById('intervalFieldTNE5').value;
 intervalVarTNE5 = setInterval(beepTNE5, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextTNE5");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -4798,7 +4881,6 @@ buyingValueGEC = buyingValueGEC.split(' ')[2];
 var portfolioValueGEC = piecesGEC * realTimeQuoteGEC;
 var stocksPerformanceGEC = ((portfolioValueGEC / buyingValueGEC)-1)*100;
 elementPortfolioValuesGEC.innerHTML = piecesGEC + ' pc ' + portfolioValueGEC.toFixed(0) + '€ ';
-// elementPortfolioValuesGEC.innerHTML = piecesGEC + ' pc ' + buyingValueGEC + '/' + portfolioValueGEC.toFixed(0) + '€ ';
 var elementPortfolioGainGEC = document.getElementById("intervalSectionPortfolioGainGEC");
 elementPortfolioGainGEC.innerHTML = stocksPerformanceGEC.toFixed(1) + '% ' + (portfolioValueGEC - buyingValueGEC).toFixed(0) + '€';
 
@@ -4809,7 +4891,7 @@ realTimeProzGEC = '+' + realTimeProzGEC.substring(1);
 
 // Example ID: id='symbolLineIdEUZ_-115_+111'
 var numericRealTimeProzGEC = realTimeProzGEC.replace('.', '');
-var firstElement = document.querySelectorAll('[id ^= "symbolLineIdGEC"]');
+var symbolLineIdElements = document.querySelectorAll('[id ^= "symbolLineIdGEC"]');
 var numericOverallProzGEC;
 if(stocksPerformanceGEC >= 0){
 numericOverallProzGEC = '+' + stocksPerformanceGEC.toFixed(2);
@@ -4818,7 +4900,8 @@ else{
 numericOverallProzGEC = stocksPerformanceGEC.toFixed(2);
 }
 numericOverallProzGEC = numericOverallProzGEC.replace('.', '');
-firstElement[0].id = 'symbolLineIdGEC' + '_' +numericRealTimeProzGEC + '_' +numericOverallProzGEC; 
+
+symbolLineIdElements[0].id = 'symbolLineIdGEC' + '_' + numericRealTimeProzGEC + '_' + numericOverallProzGEC + '_' + portfolioValueGEC.toFixed(0);
 
 if(stocksPerformanceGEC < 0){
 elementPortfolioGainGEC.style.color = 'red';
@@ -4836,10 +4919,9 @@ counterFetchLoaded++; // For Spinner
 });
 </script>
 <span id="intervalSectionRealTimeQuoteGEC" style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id="intervalSectionPercentageGEC" style='font-size:xx-large; display: none'></span>&nbsp;
-<span id="neverShowRegularMarketTimeGEC" style='display: none'></span>
+<span id="intervalSectionPercentageGEC" style='font-size:xx-large; display: none'></span>
+<span id="neverShowRegularMarketTimeGEC" style='display: none'></span>&nbsp;
 
-<span id="intervalSectionRegularMarketTimeOffsetGEC" style='font-size:large; display: none'></span>&nbsp;
 <span id="intervalSectionPortfolioValuesGEC" style='font-size:large; display: none'></span>
 <span id="intervalSectionPortfolioGainGEC" style='font-size:large; display: none'></span>
 <br>
@@ -4848,19 +4930,21 @@ counterFetchLoaded++; // For Spinner
 <span id="obfuscatedValueGainGEC" style='display:none;color:red'>YY66855-ZZ0.42-</span>
 <span id="obfuscatedValueCloseBracesGEC" style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
 </div>
-<span id="intervalSectionGEC" style='display: none'><input name="intervalFieldGEC" id="intervalFieldGEC" type="text" style="height: 29px;" maxlength="3" size="3" value="10"/>&nbsp;<button type="button" id="intervalButtonGEC" style="height: 35px;">Minutes</button><span id="intervalTextGEC"></span></span>
+<span id='intervalSectionGEC' style='display: none'>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetGEC' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldGEC' id='intervalFieldGEC' type='text' style='height: 29px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonGEC' style='height: 35px;'>Minutes</button><span id='intervalTextGEC'></span>
+</span>
 <script>
 var intervalVarGEC;
 function beepGEC() {
-var elementAlert = document.getElementById("intervalTextGEC");
-elementAlert.innerHTML = " ALERT!!!";
+var elementAlert = document.getElementById('intervalTextGEC');
+elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarGEC);
 intervalVarGEC=undefined;
 }
 function setBeepIntervalGEC() {
-var intervalValue = document.getElementById("intervalFieldGEC").value;
+var intervalValue = document.getElementById('intervalFieldGEC').value;
 intervalVarGEC = setInterval(beepGEC, intervalValue*60*1000); //60*1000
 var elementIntervalText = document.getElementById("intervalTextGEC");
 elementIntervalText.innerHTML = ' ...'+intervalValue;
@@ -5157,7 +5241,7 @@ Avg. Price <input name='intervalSectionInputPriceBuyGenerell' id='intervalSectio
 <br># Result<br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html" target="_blank">Result Schedule SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
-<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 23-Apr-2022 10:21</p><br></div>
+<p style="text-align: left; padding-right: 50px">Good Luck! <a href="https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8" target="_blank">Donate?</a> 23-Apr-2022 16:47</p><br></div>
 <script>
 var sound=new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8avaIf5SvL7pndPvPpndJR9Kuu8fePvuiuhorgWjp7Mf/PRjxcFCPDkW31srioCExivv9lcwKEaHsf/7ow2Fl1T/9RkXgEhYElAoCLFtMArxwivDJJ+bR1HTKJdlEoTELCIqgEwVGSQ+hIm0NbK8WXcTEI0UPoa2NbG4y2K00JEWbZavJXkYaqo9CRHS55FcZTjKEk3NKoCYUnSQ0rWxrZbFKbKIhOKPZe1cJKzZSaQrIyULHDZmV5K4xySsDRKWOruanGtjLJXFEmwaIbDLX0hIPBUQPVFVkQkDoUNfSoDgQGKPekoxeGzA4DUvnn4bxzcZrtJyipKfPNy5w+9lnXwgqsiyHNeSVpemw4bWb9psYeq//uQZBoABQt4yMVxYAIAAAkQoAAAHvYpL5m6AAgAACXDAAAAD59jblTirQe9upFsmZbpMudy7Lz1X1DYsxOOSWpfPqNX2WqktK0DMvuGwlbNj44TleLPQ+Gsfb+GOWOKJoIrWb3cIMeeON6lz2umTqMXV8Mj30yWPpjoSa9ujK8SyeJP5y5mOW1D6hvLepeveEAEDo0mgCRClOEgANv3B9a6fikgUSu/DmAMATrGx7nng5p5iimPNZsfQLYB2sDLIkzRKZOHGAaUyDcpFBSLG9MCQALgAIgQs2YunOszLSAyQYPVC2YdGGeHD2dTdJk1pAHGAWDjnkcLKFymS3RQZTInzySoBwMG0QueC3gMsCEYxUqlrcxK6k1LQQcsmyYeQPdC2YfuGPASCBkcVMQQqpVJshui1tkXQJQV0OXGAZMXSOEEBRirXbVRQW7ugq7IM7rPWSZyDlM3IuNEkxzCOJ0ny2ThNkyRai1b6ev//3dzNGzNb//4uAvHT5sURcZCFcuKLhOFs8mLAAEAt4UWAAIABAAAAAB4qbHo0tIjVkUU//uQZAwABfSFz3ZqQAAAAAngwAAAE1HjMp2qAAAAACZDgAAAD5UkTE1UgZEUExqYynN1qZvqIOREEFmBcJQkwdxiFtw0qEOkGYfRDifBui9MQg4QAHAqWtAWHoCxu1Yf4VfWLPIM2mHDFsbQEVGwyqQoQcwnfHeIkNt9YnkiaS1oizycqJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');; // Only once assigned, for all beeps
 
@@ -5203,6 +5287,7 @@ clearInterval(intervalLoadingSpinnerId);
 // Enable Sort Buttons
 document.querySelector('#intervalSectionButtonSortDaily').disabled = false;
 document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
+document.querySelector('#intervalSectionButtonSortValue').disabled = false;
 }
 }, 1000);
 
