@@ -51,8 +51,7 @@ RSIQuoteParam=$5
 
 # Prepare
 lowestRSI=100
-# For Spinner
-counterOwnStocks=0
+counterOwnStocks=0 # For Spinner
 TEMP_DIR=/tmp
 rm -rf $TEMP_DIR/tmp.*
 mkdir -p out
@@ -958,9 +957,7 @@ do
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
-
-        # For Spinner
-        counterOwnStocks=$((counterOwnStocks+1))
+        counterOwnStocks=$((counterOwnStocks+1)) # For Spinner
 
         stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE | cut -f4 -d ' ')
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
@@ -984,8 +981,7 @@ do
         {   
             # RealTimeQuote
             echo "<script>
-            // For Spinner
-            counterOwnStocks=$counterOwnStocks;
+            counterOwnStocks=$counterOwnStocks; // For Spinner
             fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION="$ID_NOTATION"')}\`)
             .then(response => {
                     if (response.ok) {
@@ -1013,9 +1009,7 @@ do
                         elementPercentage$symbol.style.color = 'green';
                     }
 
-
-
-
+                    // Extract Time
                     let positionTime1 = data.contents.indexOf(' -  ');
                     var time$symbol = data.contents.slice(positionTime1+4, positionTime1+12);
                     var hours$symbol = time$symbol.slice(0, 2);
@@ -1046,19 +1040,12 @@ do
                     var elementPortfolioGain$symbol = document.getElementById(\"intervalSectionPortfolioGain$symbol\");
                     elementPortfolioGain$symbol.innerHTML = stocksPerformance$symbol.toFixed(1) + '% ' + (portfolioValue$symbol - buyingValue$symbol).toFixed(0) + '€';
 
-
-
-                    // Sorting
-
-                    // if 0,00% then add '+' -> +0,00%
+                    // Sorting, if 0,00% then add '+' -> +0,00%
                     if(realTimeProz$symbol[0] === ' '){
-                        console.log(realTimeProz$symbol);
                         realTimeProz$symbol = '+' + realTimeProz$symbol.substring(1);
-                        console.log(\"if 0,00% then add '+' -> +0,00%\");
-                        console.log(realTimeProz$symbol);
                     }
 
-                    // sample: id='symbolLineIdEUZ_-115_+111'
+                    // Example ID: id='symbolLineIdEUZ_-115_+111'
                     var numericRealTimeProz$symbol = realTimeProz$symbol.replace('.', '');
                     var firstElement = document.querySelectorAll('[id ^= \"symbolLineId$symbol\"]');
                     var numericOverallProz$symbol;
@@ -1069,12 +1056,7 @@ do
                         numericOverallProz$symbol = stocksPerformance$symbol.toFixed(2);
                     }
                     numericOverallProz$symbol = numericOverallProz$symbol.replace('.', '');
-                    //firstElement[0].id = 'symbolLineId$symbol' + '_' +numericRealTimeProz$symbol;
-                    firstElement[0].id = 'symbolLineId$symbol' + '_' +numericRealTimeProz$symbol + '_' +numericOverallProz$symbol;
-                    //document.getElementById('symbolLineId$symbol').id = 'symbolLineId$symbol'+numericRealTimeProz$symbol;      
-
-
-
+                    firstElement[0].id = 'symbolLineId$symbol' + '_' +numericRealTimeProz$symbol + '_' +numericOverallProz$symbol; 
 
                     if(stocksPerformance$symbol < 0){
                         elementPortfolioGain$symbol.style.color = 'red';
@@ -1083,15 +1065,12 @@ do
                         elementPortfolioGain$symbol.style.color = 'green';
                     }
                 //    decryptElement(obfuscatedValuePcEuro$symbol);
-
-                    // For Spinner
-                    counterFetchLoaded++;
+                
+                    counterFetchLoaded++; // For Spinner
                 })
                 .catch(error => {
                     console.error('Error retrieving current quote for: $symbol !!!' + error);
-
-                    // For Spinner
-                    counterFetchLoaded++;
+                    counterFetchLoaded++; // For Spinner
                 });
             </script>"
                         
