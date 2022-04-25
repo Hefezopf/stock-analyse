@@ -4,7 +4,7 @@
 # and
 # Adding symbol to config/stock_symbols.txt
 # and
-# Adding Tx to config/transaction_historie.txt
+# Adding Tx to config/transaction_history.txt
 
 # Call: sh ./script/sell.sh SYMBOL
 # Example: sh ./script/sell.sh BEI 9.99
@@ -14,7 +14,7 @@
 TRANSACTION_COUNT_FILE="config/transaction_count.txt"
 OWN_SYMBOLS_FILE="config/own_symbols.txt"
 STOCK_SYMBOLS_FILE="config/stock_symbols.txt"
-TRANSACTION_HISTORIE_FILE="config/transaction_historie.txt"
+TRANSACTION_HISTORY_FILE="config/transaction_history.txt"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 
 # To uppercase
@@ -37,7 +37,7 @@ sed -i "0,/^/s//$symbolParam /" $STOCK_SYMBOLS_FILE
 # Encrypt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" $OWN_SYMBOLS_FILE.gpg 2>/dev/null
 
-# Read Symbol and amount
+# Read symbol and amount
 SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" $TICKER_NAME_ID_FILE | cut -f 2)
 BUY_TOTAL_AMOUNT=$(grep -m1 -P "$symbolParam " $OWN_SYMBOLS_FILE |  cut -f5 -d ' ')
 BUY_TOTAL_AMOUNT=$(echo "$BUY_TOTAL_AMOUNT" | sed 's/€//g')
@@ -56,24 +56,26 @@ echo ""
 
 # Write sell/SYMBOL_DATE file
 lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
-lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
+#lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
 transactionSymbolLastDateFile="sell/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm sell/"$symbolParam"_"$lastDateInDataFile".txt
-echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > sell/"$symbolParam"_"$lastDateInDataFile".txt
+#echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > sell/"$symbolParam"_"$lastDateInDataFile".txt
+echo "$commaListTransaction" "{x:1,y:"$sellPriceParam",r:10}, " > sell/"$symbolParam"_"$lastDateInDataFile".txt
 
 today=$(date --date="-0 day" +"%Y-%m-%d")
 
+# Write Tx History
 echo "Win: $SELL_TOTAL_AMOUNT€"
 # BEI	2022-04-23	352	SELL	"BEIERSDORF"
-echo "$symbolParam	$today	$SELL_TOTAL_AMOUNT	SELL	$SYMBOL_NAME" | tee -a $TRANSACTION_HISTORIE_FILE
+echo "$symbolParam	$today	$SELL_TOTAL_AMOUNT	SELL	$SYMBOL_NAME" | tee -a $TRANSACTION_HISTORY_FILE
 echo ""
 
-# Increment TX
+# Increment Tx
 count=$(cat $TRANSACTION_COUNT_FILE)
 count=$((count + 1))
 rm -rf $TRANSACTION_COUNT_FILE
+echo "$count" >> $TRANSACTION_COUNT_FILE
 echo "Transactions: "$count" (150/250)"
 echo "Quali Phase: 01.04. bis 30.09. and"
 echo "Quali Phase: 01.10. bis 31.03."
-echo "$count" >> $TRANSACTION_COUNT_FILE

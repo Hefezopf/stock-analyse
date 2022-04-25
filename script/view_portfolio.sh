@@ -24,7 +24,7 @@ rm -rf config/own_symbols_temp_format.txt
 
 echo ""
 
-# Read TX
+# Read and output Tx
 count=$(cat config/transaction_count.txt)
 echo "Transactions: "$count" (150/250)"
 echo "Quali Phase: 01.04. bis 30.09. and"

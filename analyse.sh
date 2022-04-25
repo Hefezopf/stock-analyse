@@ -1069,9 +1069,10 @@ do
 
         {   
             # RealTimeQuote
+            # shellcheck disable=SC1078,SC1087
             echo "<script>
             counterOwnStocks=$counterOwnStocks; // For Spinner
-            fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION="$ID_NOTATION"')}\`)
+            fetch(\`https://api.allorigins.win/get?url=\${encodeURIComponent('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION')}\`)
             .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -1107,7 +1108,7 @@ do
                     var date$symbol = data.contents.slice(positionTime1-9, positionTime1-1);
                     var days$symbol = date$symbol.slice(0, 2);
                     var month$symbol = date$symbol.slice(3, 5)-1;
-                    var year$symbol = "20"+date$symbol.slice(6, 8);
+                    var year$symbol = '20'+date$symbol.slice(6, 8);
                     const dateEclpsed$symbol = new Date(year$symbol, month$symbol, days$symbol);
                     dateEclpsed$symbol.setHours(hours$symbol);
                     dateEclpsed$symbol.setMinutes(minutes$symbol);
@@ -1217,8 +1218,8 @@ do
                     <button id=\"intervalSectionButtonSell$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value)\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='height: 35px; width: 60px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
-                    Overall Pieces <input name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
-                    Avg. Price <input name='intervalSectionInputPriceBuy$symbol' id='intervalSectionInputPriceBuy$symbol' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
+                    Pieces&nbsp;<input name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
+                    Price&nbsp;<input name='intervalSectionInputPriceBuy$symbol' id='intervalSectionInputPriceBuy$symbol' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
                   <p>
                   <hr id=\"intervalSectionHR$symbol\" style='display: none'>"
             echo "<script>
@@ -1342,9 +1343,9 @@ fi
             <br>
             <button id='intervalSectionButtonBuyGenerell' style='height: 35px; width: 60px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
-            Symbol <input name='intervalSectionInputSymbolBuyGenerell' id='intervalSectionInputSymbolBuyGenerell' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
-            Overall Pieces <input name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
-            Avg. Price <input name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
+            Symbol&nbsp;<input name='intervalSectionInputSymbolBuyGenerell' id='intervalSectionInputSymbolBuyGenerell' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
+            Pieces&nbsp;<input name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
+            Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 29px;' type='text' maxlength='7' value='' size='5'/>
           <p>"
 
     # Workflow        

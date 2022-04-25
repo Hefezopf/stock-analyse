@@ -73,14 +73,14 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c "$OWN_SYMBOLS_FILE" 2>/dev/n
 
 echo ""
 
-# Increment TX
+# Increment Tx
 count=$(cat config/transaction_count.txt)
 count=$((count + 1))
 rm -rf config/transaction_count.txt
+echo "$count" >> config/transaction_count.txt
 echo "Transactions: "$count" (150/250)"
 echo "Quali Phase: 01.04. bis 30.09. and"
 echo "Quali Phase: 01.10. bis 31.03."
-echo "$count" >> config/transaction_count.txt
 
 # Write buy/SYMBOL_DATE file
 lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)

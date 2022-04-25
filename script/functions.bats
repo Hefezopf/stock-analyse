@@ -15,6 +15,26 @@ TICKER_NAMES_FILE="test/ticker_name_id.txt"
 SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF AG"
 
+@test "CalculateTxFee" {
+  CalculateTxFee 100 25
+  [ "$txFee" == "7.12" ]
+
+  CalculateTxFee 100 35
+  [ "$txFee" == "7.12" ]
+  
+  CalculateTxFee 100 51
+  [ "$txFee" == "10.0" ]
+   
+  CalculateTxFee 100 104
+  [ "$txFee" == "20.0" ]
+     
+  CalculateTxFee 100 155
+  [ "$txFee" == "30.0" ]
+     
+  CalculateTxFee 100 400
+  [ "$txFee" == "47.12" ]
+}
+
 @test "WriteTransactionFile" {
   mkdir -p test/buy
   run WriteTransactionFile "2021-02-09" "2021-02-08" "$SYMBOL" "test/buy"

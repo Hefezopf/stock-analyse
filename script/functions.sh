@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Debug mode
+#set -x
+
 export alarmAbbrevTemplate="'14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
 
 # WriteOverallChartsButtons function: 
@@ -282,7 +285,6 @@ WriteComdirectUrlAndStoreFileList() {
 CreateCmdHyperlink() {
     _hyperlinkParam=$1
     _outDirParam=$2
-    #export _outputText=""
 
     _outputText="# $_hyperlinkParam $symbol $symbolName"
     if [ "$(uname)" = 'Linux' ]; then
@@ -306,4 +308,41 @@ Out() {
 
     echo -e "$_textParam" | tee -a "$_outFileParam"
     echo "<br>" >> "$_outFileParam"
+}
+
+# CalculateTxFee function:
+# Input: Order rate
+# Input: Pieces
+# Output: trading fee
+# 3.000 EUR Minimumprovision 7,12 EUR
+# 5.000 EUR 0,25 % vom Kurswert EUR 10,00 EUR
+# 10.000 EUR 0,25 % vom Kurswert 20,00 EUR
+# 15.000 EUR 0,25 % vom Kurswert 30,00 EUR
+# 25.000 EUR Maximalprovision 47,12 EUR
+# Example 2500 -> return 7,12
+# Example 3500 -> return 7,12
+# Example 5100 -> return 10,00
+# Example 10400 -> return 20,00
+# Example 15500 -> return 30,00
+# Example 40000 -> return 47,12
+CalculateTxFee() {
+    _orderrateParam=$1
+    _piecesParam=$2
+
+    export txFee="7.12"
+
+    orderValue=$(echo "$_orderrateParam $_piecesParam" | awk '{print ($1 * $2)}')
+    # Float to integer
+    orderValue=${orderValue%.*}
+
+    txFee="7.12"
+    if [ "$orderValue" -gt 25000 ]; then 
+        txFee="47.12"
+    elif [ "$orderValue" -gt 15000 ]; then 
+        txFee="30.0"
+    elif [ "$orderValue" -gt 10000 ]; then 
+        txFee="20.0"
+    elif [ "$orderValue" -gt 5000 ]; then
+        txFee="10.0"
+    fi
 }
