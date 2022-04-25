@@ -335,7 +335,7 @@ CalculateTxFee() {
     # Float to integer
     orderValue=${orderValue%.*}
 
-    txFee="77"
+    txFee="7"
     if [ "$orderValue" -gt 25000 ]; then 
         txFee="47"
     elif [ "$orderValue" -gt 15000 ]; then 
