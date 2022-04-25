@@ -8,10 +8,20 @@
 
 #set -x
 
+# Import
+# shellcheck disable=SC1091
+. ./script/constants.sh
+
 echo "Sorting..."
 
 # Sort symbols in stock_symbols.txt
-cat config/stock_symbols.txt | tr " " "\n" | sort | tr "\n" " " > config/stock_symbols_temp.txt
+symbolListe=$(cat "$STOCK_SYMBOLS_FILE")
+symbolListe=$(echo "$symbolListe" | tr " " "\n" | sort | tr "\n" " ")
 
-rm config/stock_symbols.txt
-mv config/stock_symbols_temp.txt config/stock_symbols.txt
+# TODO delete first blank in done, if exists
+symbolListe="${symbolListe:1}"
+
+TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
+echo "$symbolListe" >> "$TEMP_FILE"
+rm "$STOCK_SYMBOLS_FILE"
+mv "$TEMP_FILE" "$STOCK_SYMBOLS_FILE"

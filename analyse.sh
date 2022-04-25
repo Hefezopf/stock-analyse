@@ -52,7 +52,7 @@ RSIQuoteParam=$5
 # Prepare
 lowestRSI=100
 counterOwnStocks=0 # For Spinner
-rm -rf $TEMP_DIR/tmp.*
+rm -rf "$TEMP_DIR"/tmp.*
 mkdir -p out
 mkdir -p temp
 cp template/favicon.ico out
@@ -586,7 +586,7 @@ do
     echo "<div id='symbolLineId$symbol'>"  >> $OUT_RESULT_FILE # Sorting
 
     # Curl and write Line to TICKER_NAME_ID_FILE. Delay of 14sec because of REST API restrictions (apprx. 5 Rq/min)
-    CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14
+    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14
 
     lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
@@ -598,10 +598,10 @@ do
     # Get stock data
     echo ""
     echo "# Get $symbol $symbolName"
-    DATA_FILE="$(mktemp -p $TEMP_DIR)"
+    DATA_FILE="$(mktemp -p "$TEMP_DIR")"
     DATA_DATE_FILE=data/$symbol.txt
     if [ "$queryParam" = 'online' ]; then
-        DATA_DATE_FILE_TEMP="$(mktemp -p $TEMP_DIR)"
+        DATA_DATE_FILE_TEMP="$(mktemp -p "$TEMP_DIR")"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
         curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
@@ -765,7 +765,7 @@ do
         fi
 
         # Buy Strategie: New Low
-        DATA_FILE_87="$(mktemp -p $TEMP_DIR)"
+        DATA_FILE_87="$(mktemp -p "$TEMP_DIR")"
         head -n87 "$DATA_FILE" > "$DATA_FILE_87"
         commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
         beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
@@ -918,7 +918,7 @@ do
         # Draw 5% lines
         if [ "$markerOwnStock" = '*' ]; then
             # Get buying rate
-            buyingRate=$(grep "$symbol" $OWN_SYMBOLS_FILE  | cut -f2 -d ' ')
+            buyingRate=$(grep "$symbol" "$OWN_SYMBOLS_FILE"  | cut -f2 -d ' ')
         else
             buyingRate=$last
         fi
@@ -1047,7 +1047,7 @@ do
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
         counterOwnStocks=$((counterOwnStocks+1)) # For Spinner
 
-        stocksPieces=$(grep "$symbol" $OWN_SYMBOLS_FILE | cut -f4 -d ' ')
+        stocksPieces=$(grep "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
         stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
         stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
@@ -1360,7 +1360,7 @@ sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!
 
 # Delete decrypted, readable portfolio file
-rm -rf $OWN_SYMBOLS_FILE
+rm -rf "$OWN_SYMBOLS_FILE"
 
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);

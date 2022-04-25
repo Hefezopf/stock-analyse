@@ -6,7 +6,10 @@
 
 #set -x
 
-TICKER_NAME_ID_FILE=config/ticker_name_id.txt
+# Import
+# shellcheck disable=SC1091
+. ./script/constants.sh
+
 symbolsParam=$1
 
 if  [ -z "$symbolsParam" ]; then
@@ -23,7 +26,7 @@ do
     symbol=$(echo "$symbol" | cut -b 2-6)
   fi
   lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
-  SYMBOL_NAME=$(echo "$lineFromTickerFile" | cut -f 2)
+  #SYMBOL_NAME=$(echo "$lineFromTickerFile" | cut -f 2)
   ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
   EXCHANGE=$(echo "$lineFromTickerFile" | cut -f 8)
   if [ ! "$EXCHANGE" ]; then # Default = XETRA
@@ -32,7 +35,7 @@ do
   fi
 
   echo ""
-  echo $symbol ...
+  echo "$symbol" ...
 
   # Mrd.
   curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
@@ -43,10 +46,12 @@ do
     # Bil.
     marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
     if [ "$marktkap" ]; then
+        # shellcheck disable=SC2116,SC2140
         marktkap=$(echo "$marktkap"000"")
         echo "$symbol Market Cap:$marktkap Mrd.€"
     else
         marktkap="?"
+        # shellcheck disable=SC2116
         marktkapErrorSymbols=$(echo "$symbol $marktkapErrorSymbols")
         echo "--> ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, ETF or Market Cap too small! $marktkap"
     fi
@@ -58,18 +63,20 @@ do
   branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-)
   if [ "$branche" ]; then
       # Replace ' /' with ',', because error with linux
-      branche=$(echo $branche | sed "s/ \//,/g")  
+      branche=$(echo "$branche" | sed "s/ \//,/g")  
       echo "$symbol Branche: $branche"
   else
     # Branche ><
     branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-)
     if [ "$branche" ]; then
       # Replace ' /' with ',', because error with linux
-      branche=$(echo $branche | sed "s/ \//,/g")    
+      branche=$(echo "$branche" | sed "s/ \//,/g")   
+      # shellcheck disable=SC2116 
       branche=$(echo \""$branche\"")
       echo "$symbol Branche: $branche"
     else
       branche="?"
+      # shellcheck disable=SC2116
       brancheErrorSymbols=$(echo "$symbol $brancheErrorSymbols")
       echo "--> ERROR Branche: $symbol $ID_NOTATION! $branche"
     fi
@@ -83,6 +90,7 @@ do
       echo "$symbol KGVe: $kgve"
   else
     kgve="?"
+    # shellcheck disable=SC2116
     kgveErrorSymbols=$(echo "$symbol $kgveErrorSymbols")
     echo "--> ERROR KGVe: $symbol $ID_NOTATION! $kgve"
   fi
@@ -93,10 +101,12 @@ do
   dive=$(echo "$curlResponse" | grep -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d","  | cut -c 4-)
   if [ "$dive" ]; then
       # Replace ',' with '.'
-      dive=$(echo $dive | sed "s/,/./g")  
+      # shellcheck disable=SC2001
+      dive=$(echo "$dive" | sed "s/,/./g")  
       echo "$symbol DIVe: $dive%"
   else
     dive="?"
+    # shellcheck disable=SC2116
     diveErrorSymbols=$(echo "$symbol $diveErrorSymbols")
     echo "--> ERROR DIVe: $symbol $ID_NOTATION! $dive"
   fi
@@ -110,15 +120,15 @@ do
       #spread=$(echo $spread | sed "s/,/./g")  
       echo "$symbol Spread: $spread.xx%"
       if [ "$spread" -gt 1 ]; then
+        # shellcheck disable=SC2116
         highSpreadSymbols=$(echo "$symbol $highSpreadSymbols")
       fi
   else
     spread="?"
+    # shellcheck disable=SC2116
     spreadErrorSymbols=$(echo "$symbol $spreadErrorSymbols")
     echo "--> ERROR Spread: $symbol $ID_NOTATION! $spread"
   fi
-
-
 done
 
 if [ "$marktkapErrorSymbols" ]; then
@@ -145,5 +155,3 @@ if [ "$highSpreadSymbols" ]; then
     echo ""
     echo "Symbols with HIGH Spread: highSpreadSymbols=$highSpreadSymbols"
 fi
-
-

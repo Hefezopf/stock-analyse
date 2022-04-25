@@ -17,13 +17,18 @@
 . ./script/constants.sh
 . ./script/functions.sh
 
+# Fix for warning: referenced but not assigned
+export txFee
+
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 # Pieces has to be without dot
+# shellcheck disable=SC2001
 piecesParam=$(echo "$2" | sed 's/\.//g')
 
 # Price has to be without comma
+# shellcheck disable=SC2001
 priceParam=$(echo "$3" | sed 's/,/./g')
 
 echo "Buy $symbolParam $piecesParam $priceParam"
@@ -53,18 +58,19 @@ sleep 1
 lineFromOwnSymbolsFile=$(grep -m1 -P "$symbolParam" "$OWN_SYMBOLS_FILE")
 priceFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 2 -d' ')
 piecesFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 4 -d' ')
-summeFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 5 -d' ')
-summeFromOwnSymbolsFile=$(echo "$summeFromOwnSymbolsFile" | sed 's/€//g')
+summeFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 5 -d' ' | sed 's/€//g')
 totalAmountOfPieces=$((piecesParam + piecesFromOwnSymbolsFile))
 
 # Rebuy: Remove from own list, if symbol not found -> do nothing
 sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
 
 # Add symbol in front of own list
-SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" $TICKER_NAME_ID_FILE | cut -f 2)
+SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
 # SYMBOL_NAME has to be without Hochkomma '"'
+# shellcheck disable=SC2001
 SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
 # SYMBOL_NAME has to be without blank ' ' -> replace with dash '-'
+# shellcheck disable=SC2001
 SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
 
 # Fees
@@ -85,6 +91,7 @@ else
 fi
 
 today=$(date --date="-0 day" +"%Y-%m-%d")
+# shellcheck disable=SC2027,SC1003,SC2086
 sed -i '1 i\'$symbolParam' '$avgPrice' '$today' '$totalAmountOfPieces' '$summe'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
 
 # Encript
@@ -97,7 +104,7 @@ lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
 transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm buy/"$symbolParam"_"$lastDateInDataFile".txt
-echo "$commaListTransaction" "{x:1,y:"$pricePlusFees",r:10}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
+echo "$commaListTransaction" "{x:1,y:$pricePlusFees,r:10}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
 
 # Delete readable file
 rm -rf "$OWN_SYMBOLS_FILE"
@@ -107,6 +114,6 @@ count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
 rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
-echo "Transactions: "$count" (150/250)"
+echo "Transactions: $count (150/250)"
 echo "Quali Phase: 01.04. bis 30.09. and"
 echo "Quali Phase: 01.10. bis 31.03."
