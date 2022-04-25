@@ -101,7 +101,6 @@ do
   dive=$(echo "$curlResponse" | grep -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d","  | cut -c 4-)
   if [ "$dive" ]; then
       # Replace ',' with '.'
-      # shellcheck disable=SC2001
       #dive=$(echo "$dive" | sed "s/,/./g")
       dive="${dive//,/.}"
       echo "$symbol DIVe: $dive%"
