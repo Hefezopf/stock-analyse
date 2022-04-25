@@ -3,47 +3,56 @@
 # Removing *symbol from config/own_symbols.txt
 # and
 # Adding symbol to config/stock_symbols.txt
+# and
+# Adding Tx to config/transaction_historie.txt
 
 # Call: sh ./script/sell.sh SYMBOL
-# Example: sh ./script/sell.sh BEI
-# alias sell='/d/code/stock-analyse/script/sell.sh $1'
-# {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
+# Example: sh ./script/sell.sh BEI 9.99
+# alias sell='/d/code/stock-analyse/script/sell.sh $1 $2'
+# {"event_type": "sell", "client_payload": {"symbol": "BEI", "sellPrice": "9.99"}}
+
+TRANSACTION_COUNT_FILE="config/transaction_count.txt"
+OWN_SYMBOLS_FILE="config/own_symbols.txt"
+STOCK_SYMBOLS_FILE="config/stock_symbols.txt"
+TRANSACTION_HISTORIE_FILE="config/transaction_historie.txt"
+TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
-echo "Sell $symbolParam"
+# Sell Price has to be without comma
+sellPriceParam=$(echo "$2" | sed 's/,/./g')
 
-if { [ -z "$symbolParam" ]; } then
+echo "Sell $symbolParam $sellPriceParam"
+
+if { [ -z "$symbolParam" ] || [ -z "$sellPriceParam" ]; } then
     echo "Not all parameters specified!"
-    echo "Example: curl_github_dispatch_sell.sh BEI"
+    echo "Example: curl_github_dispatch_sell.sh BEI 9.99"
     exit 1
 fi
 
 # Add symbol in front of overall list
-sed -i "0,/^/s//$symbolParam /" config/stock_symbols.txt
+sed -i "0,/^/s//$symbolParam /" $STOCK_SYMBOLS_FILE
 
 # Encrypt
-gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
+gpg --batch --yes --passphrase "$GPG_PASSPHRASE" $OWN_SYMBOLS_FILE.gpg 2>/dev/null
+
+# Read Symbol and amount
+SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" $TICKER_NAME_ID_FILE | cut -f 2)
+BUY_TOTAL_AMOUNT=$(grep -m1 -P "$symbolParam " $OWN_SYMBOLS_FILE |  cut -f5 -d ' ')
+BUY_TOTAL_AMOUNT=$(echo "$BUY_TOTAL_AMOUNT" | sed 's/€//g')
+TOTAL_PIECES=$(grep -m1 -P "$symbolParam " $OWN_SYMBOLS_FILE |  cut -f4 -d ' ')
+SELL_TOTAL_AMOUNT=$(echo "$sellPriceParam $TOTAL_PIECES $BUY_TOTAL_AMOUNT" | awk '{print ($1 * $2) - $3}')
 
 # Remove symbol from own list
-sed -i "/^$symbolParam /d" config/own_symbols.txt
+sed -i "/^$symbolParam /d" $OWN_SYMBOLS_FILE
 
 # Decrypt
-gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c config/own_symbols.txt 2>/dev/null
+gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c $OWN_SYMBOLS_FILE 2>/dev/null
 
 # Delete readable file
-rm -rf config/own_symbols.txt
+rm -rf $OWN_SYMBOLS_FILE
 echo ""
-
-# Increment TX
-count=$(cat config/transaction_count.txt)
-count=$((count + 1))
-rm -rf config/transaction_count.txt
-echo "Transactions: "$count" (150/250)"
-echo "Quali Phase: 01.04. bis 30.09. and"
-echo "Quali Phase: 01.10. bis 31.03."
-echo "$count" >> config/transaction_count.txt
 
 # Write sell/SYMBOL_DATE file
 lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
@@ -53,7 +62,18 @@ commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm sell/"$symbolParam"_"$lastDateInDataFile".txt
 echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > sell/"$symbolParam"_"$lastDateInDataFile".txt
 
-#echo ""
+today=$(date --date="-0 day" +"%Y-%m-%d")
 
-#chmod +x ./script/view_portfolio.sh
-#./script/view_portfolio.sh
+echo "Win: $SELL_TOTAL_AMOUNT€"
+# BEI	2022-04-23	352	SELL	"BEIERSDORF"
+echo "$symbolParam	$today	$SELL_TOTAL_AMOUNT	SELL	$SYMBOL_NAME" | tee -a $TRANSACTION_HISTORIE_FILE
+echo ""
+
+# Increment TX
+count=$(cat $TRANSACTION_COUNT_FILE)
+count=$((count + 1))
+rm -rf $TRANSACTION_COUNT_FILE
+echo "Transactions: "$count" (150/250)"
+echo "Quali Phase: 01.04. bis 30.09. and"
+echo "Quali Phase: 01.10. bis 31.03."
+echo "$count" >> $TRANSACTION_COUNT_FILE

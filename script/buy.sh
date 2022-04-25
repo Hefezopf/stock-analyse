@@ -13,7 +13,7 @@
 #set -x
 
 OWN_SYMBOLS_FILE="config/own_symbols.txt"
-TICKER_NAME_ID_FILE="./config/ticker_name_id.txt"
+TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
@@ -98,8 +98,3 @@ echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > buy/"$sym
 
 # Delete readable file
 rm -rf "$OWN_SYMBOLS_FILE"
-
-#echo ""
-
-#chmod +x ./script/view_portfolio.sh
-#./script/view_portfolio.sh
