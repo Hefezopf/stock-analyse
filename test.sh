@@ -33,6 +33,7 @@ mv analyse1.sh analyse.sh
 shellcheck --shell=bash simulate.sh
 #shellcheck --shell=bash simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 
+shellcheck --shell=bash script/averages.sh
 shellcheck --shell=bash script/constants.sh
 shellcheck --shell=bash script/functions.sh
 shellcheck --shell=bash script/strategies.sh

@@ -32,7 +32,7 @@ MACD_12_26() {
         done 
         jj_index=$((jj_index + 1))
         difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
-        difference=$(printf "%.2f" $difference)  
+        difference=$(printf "%.2f" "$difference")  
  
         # Ignore first incorrect number?!
         if [ "$kk_index" -eq 15 ]; then 
@@ -42,7 +42,7 @@ MACD_12_26() {
             MACDList="$MACDList $difference,"
         fi           
     done
-    difference=$(printf "%.2f" $difference)
+    difference=$(printf "%.2f" "$difference")
     lastMACDValue=$difference
     MACDList=" , , , , , , , , , , ,$MACDList"
 }
@@ -69,6 +69,7 @@ EMAverageOfDays() {
             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
             headLinesLastPrice=$((101-i-_amountOfDaysParam))
             lastPrice=$(head -n"$headLinesLastPrice" "$_dataFileParam" | tail -1)
+            # shellcheck disable=SC2086
             ema=$(echo "$lastPrice $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')          
         fi
         averagePriceList="$averagePriceList $ema,"
@@ -107,9 +108,10 @@ RSIOfDays() {
     _amountOfDaysParam=$1
     _dataFileParam=$2
     export RSIQuoteList
+    export beforeLastRSIQuoteRounded
 
-    RSIwinningDaysFile="$(mktemp -p $TEMP_DIR)"
-    RSIloosingDaysFile="$(mktemp -p $TEMP_DIR)"
+    RSIwinningDaysFile="$(mktemp -p "$TEMP_DIR")"
+    RSIloosingDaysFile="$(mktemp -p "$TEMP_DIR")"
     i=1
     while [ "$i" -le 100 ]; do
         i=$((i + 1))
@@ -141,11 +143,9 @@ RSIOfDays() {
             beforeLastRSIQuoteRounded="$lastRSIQuoteRounded"
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
 
-#DDDDD
-if [ $lastRSIQuoteRounded -lt "$lowestRSI" ]; then 
-    lowestRSI="$lastRSIQuoteRounded"
-fi
-#DDDDD
+            if [ "$lastRSIQuoteRounded" -lt "$lowestRSI" ]; then 
+                lowestRSI="$lastRSIQuoteRounded"
+            fi
 
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
@@ -161,7 +161,7 @@ StochasticOfDays() {
     _dataFileParam=$2
     export stochasticQuoteList
 
-    stochasticFile="$(mktemp -p $TEMP_DIR)"
+    stochasticFile="$(mktemp -p "$TEMP_DIR")"
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
     i=1
     # Fill with blank comma seperated data

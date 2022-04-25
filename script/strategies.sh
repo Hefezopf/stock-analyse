@@ -118,24 +118,14 @@ StrategieUnderratedDivergenceRSI() {
     export resultStrategieUnderratedDivergenceRSI=""
 
     isMACDNegativ=$(echo "$_lastMACDParam" | awk '{print substr ($0, 0, 1)}')
-#DDDDD
     if [ "$isMACDNegativ" = '-' ]; then
-#    if [ "$_lastRSIParam" -lt "$_lowRSIValueParam" ] && [ "$isMACDNegativ" = '-' ]; then
-#DDDDD
-#echo conditionNewLow "$conditionNewLow" _lastQuoteParam "$_lastQuoteParam" _beforeLastQuoteParam "$_beforeLastQuoteParam" _lastRSIParam "$_lastRSIParam" _lowestRSIParam "$_lowestRSIParam"
-#echo _lowestRSIParam "$_lowestRSIParam" _lastRSIParam "$_lastRSIParam" _conditionNewLowParam "$_conditionNewLowParam" 
-#if [ "$conditionNewLow" = true ]; then
-     #   newLower=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 < $2) print "true"; else print "false"}')
-#DDDDD        
-        if [ "$_conditionNewLowParam" = true ] && [ "$_lastRSIParam" -ge "$_lowestRSIParam" ]; then # && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then 
-#        if [ "$newLower" = true ] && [ "$_lastRSIParam" -ge "$_beforeLastRSIParam" ]; then # && [ "$lastLowestValueRSI" -gt $RSI_LOW_VALUE ]; then 
-#DDDDD
+        if [ "$_conditionNewLowParam" = true ] && [ "$_lastRSIParam" -ge "$_lowestRSIParam" ]; then
             alarmAbbrevValue="D+"$alarmAbbrevValue
             reasonPrefix="Buy: RSI Divergence (D)"
             resultStrategieUnderratedDivergenceRSI="$reasonPrefix"
             echo "$resultStrategieUnderratedDivergenceRSI"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"
-        fi                 
+        fi
     fi
 }
 

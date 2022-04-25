@@ -24,12 +24,10 @@ export txFee
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 # Pieces has to be without dot
-# shellcheck disable=SC2001
-piecesParam=$(echo "$2" | sed 's/\.//g')
+piecesParam="${2//\.}"
 
 # Price has to be without comma
-# shellcheck disable=SC2001
-priceParam=$(echo "$3" | sed 's/,/./g')
+priceParam="${3//,/.}"
 
 echo "Buy $symbolParam $piecesParam $priceParam"
 
