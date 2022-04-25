@@ -58,18 +58,14 @@ mkdir -p temp
 cp template/favicon.ico out
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
-#OWN_SYMBOLS_FILE=config/own_symbols.txt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 alarmAbbrevValue=""
-#TICKER_NAME_ID_FILE=config/ticker_name_id.txt
-HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head>
-<meta charset=\"utf-8\" />
-<meta http-equiv=\"cache-control\" content=\"max-age=0\" />
-<meta http-equiv=\"cache-control\" content=\"no-cache\" />
-<meta http-equiv=\"expires\" content=\"0\" />
-<!-- <meta http-equiv=\"expires\" content=\"Tue, 01 Jan 1980 1:00:00 GMT\" /> -->
-<meta http-equiv=\"pragma\" content=\"no-cache\" />
-<link rel=\"shortcut icon\" type=\"image/ico\" href=\"favicon.ico\" />
+HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'><head>
+<meta charset='utf-8' />
+<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate' />
+<meta http-equiv='Pragma' content='no-cache' />
+<meta http-equiv='Expires' content='0' />
+<link rel='shortcut icon' type='image/ico' href='favicon.ico' />
 <title>Result SA</title>
 <style>.green{color:green;} .red{color:red;} .black{color:black;}
  /* iphone 3 */
