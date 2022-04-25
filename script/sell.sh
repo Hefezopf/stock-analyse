@@ -6,10 +6,12 @@
 # and
 # Adding Tx to config/transaction_history.txt
 
-# Call: sh ./script/sell.sh SYMBOL
+# Call: sh ./script/sell.sh SYMBOL SELLPRICE
 # Example: sh ./script/sell.sh BEI 9.99
 # alias sell='/d/code/stock-analyse/script/sell.sh $1 $2'
 # {"event_type": "sell", "client_payload": {"symbol": "BEI", "sellPrice": "9.99"}}
+
+. ./script/functions.sh
 
 TRANSACTION_COUNT_FILE="config/transaction_count.txt"
 OWN_SYMBOLS_FILE="config/own_symbols.txt"
@@ -27,7 +29,8 @@ echo "Sell $symbolParam $sellPriceParam"
 
 if { [ -z "$symbolParam" ] || [ -z "$sellPriceParam" ]; } then
     echo "Not all parameters specified!"
-    echo "Example: curl_github_dispatch_sell.sh BEI 9.99"
+    echo "Call: sh ./buy.sh SYMBOL SELLPRICE"
+    echo "Example: sh ./sell.sh BEI 9.99"
     exit 1
 fi
 
@@ -43,6 +46,10 @@ BUY_TOTAL_AMOUNT=$(grep -m1 -P "$symbolParam " $OWN_SYMBOLS_FILE |  cut -f5 -d '
 BUY_TOTAL_AMOUNT=$(echo "$BUY_TOTAL_AMOUNT" | sed 's/€//g')
 TOTAL_PIECES=$(grep -m1 -P "$symbolParam " $OWN_SYMBOLS_FILE |  cut -f4 -d ' ')
 SELL_TOTAL_AMOUNT=$(echo "$sellPriceParam $TOTAL_PIECES $BUY_TOTAL_AMOUNT" | awk '{print ($1 * $2) - $3}')
+
+# Fees
+CalculateTxFee "$TOTAL_PIECES" "$BUY_TOTAL_AMOUNT"
+SELL_TOTAL_AMOUNT=$((SELL_TOTAL_AMOUNT - txFee))
 
 # Remove symbol from own list
 sed -i "/^$symbolParam /d" $OWN_SYMBOLS_FILE

@@ -329,20 +329,20 @@ CalculateTxFee() {
     _orderrateParam=$1
     _piecesParam=$2
 
-    export txFee="7.12"
+    export txFee="7"
 
     orderValue=$(echo "$_orderrateParam $_piecesParam" | awk '{print ($1 * $2)}')
     # Float to integer
     orderValue=${orderValue%.*}
 
-    txFee="7.12"
+    txFee="7"
     if [ "$orderValue" -gt 25000 ]; then 
-        txFee="47.12"
+        txFee="47"
     elif [ "$orderValue" -gt 15000 ]; then 
-        txFee="30.0"
+        txFee="30"
     elif [ "$orderValue" -gt 10000 ]; then 
-        txFee="20.0"
+        txFee="20"
     elif [ "$orderValue" -gt 5000 ]; then
-        txFee="10.0"
+        txFee="10"
     fi
 }

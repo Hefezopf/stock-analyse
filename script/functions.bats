@@ -17,22 +17,22 @@ SYMBOL_NAME="BEIERSDORF AG"
 
 @test "CalculateTxFee" {
   CalculateTxFee 100 25
-  [ "$txFee" == "7.12" ]
+  [ "$txFee" == "7" ]
 
   CalculateTxFee 100 35
-  [ "$txFee" == "7.12" ]
+  [ "$txFee" == "7" ]
   
   CalculateTxFee 100 51
-  [ "$txFee" == "10.0" ]
+  [ "$txFee" == "10" ]
    
   CalculateTxFee 100 104
-  [ "$txFee" == "20.0" ]
+  [ "$txFee" == "20" ]
      
   CalculateTxFee 100 155
-  [ "$txFee" == "30.0" ]
+  [ "$txFee" == "30" ]
      
   CalculateTxFee 100 400
-  [ "$txFee" == "47.12" ]
+  [ "$txFee" == "47" ]
 }
 
 @test "WriteTransactionFile" {
