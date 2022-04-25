@@ -11,13 +11,10 @@
 # alias sell='/d/code/stock-analyse/script/sell.sh $1 $2'
 # {"event_type": "sell", "client_payload": {"symbol": "BEI", "sellPrice": "9.99"}}
 
+# Import
+# shellcheck disable=SC1091
+. ./script/constants.sh
 . ./script/functions.sh
-
-TRANSACTION_COUNT_FILE="config/transaction_count.txt"
-OWN_SYMBOLS_FILE="config/own_symbols.txt"
-STOCK_SYMBOLS_FILE="config/stock_symbols.txt"
-TRANSACTION_HISTORY_FILE="config/transaction_history.txt"
-TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
@@ -63,11 +60,9 @@ echo ""
 
 # Write sell/SYMBOL_DATE file
 lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
-#lastPriceInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 2)
 transactionSymbolLastDateFile="sell/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm sell/"$symbolParam"_"$lastDateInDataFile".txt
-#echo "$commaListTransaction" "{x:1,y:"$lastPriceInDataFile",r:10}, " > sell/"$symbolParam"_"$lastDateInDataFile".txt
 echo "$commaListTransaction" "{x:1,y:"$sellPriceParam",r:10}, " > sell/"$symbolParam"_"$lastDateInDataFile".txt
 
 today=$(date --date="-0 day" +"%Y-%m-%d")

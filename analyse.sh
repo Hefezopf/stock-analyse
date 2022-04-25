@@ -52,17 +52,16 @@ RSIQuoteParam=$5
 # Prepare
 lowestRSI=100
 counterOwnStocks=0 # For Spinner
-TEMP_DIR=/tmp
 rm -rf $TEMP_DIR/tmp.*
 mkdir -p out
 mkdir -p temp
 cp template/favicon.ico out
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
-OWN_SYMBOLS_FILE=config/own_symbols.txt
+#OWN_SYMBOLS_FILE=config/own_symbols.txt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 alarmAbbrevValue=""
-TICKER_NAME_ID_FILE=config/ticker_name_id.txt
+#TICKER_NAME_ID_FILE=config/ticker_name_id.txt
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang=\"en\"><head>
 <meta charset=\"utf-8\" />
 <meta http-equiv=\"cache-control\" content=\"max-age=0\" />
@@ -1339,7 +1338,7 @@ fi
     # Generell Buy Elements
     echo "<br>
           <p id='intervalSectionButtonBuyGenerellP' style='display: none'>
-            Buy new Symbols (Enter Values from Depot):
+            Buy new Symbols (Enter Values from single order):
             <br>
             <button id='intervalSectionButtonBuyGenerell' style='height: 35px; width: 60px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
