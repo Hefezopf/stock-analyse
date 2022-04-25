@@ -1255,20 +1255,20 @@ do
     echo "$PRE_FIX$commaPriceList" >> "$HISTORY_FILE"
     
     # shellcheck disable=SC2001
-    #stochasticQuoteList=$(echo "$stochasticQuoteList" | sed 's/ //g')
-    stochasticQuoteList="${stochasticQuoteList/ //}"
+    stochasticQuoteList=$(echo "$stochasticQuoteList" | sed 's/ //g')
+    #stochasticQuoteList="${stochasticQuoteList// /}"
     echo "# Stoch oldest,..,newest" >> "$HISTORY_FILE"
     echo "$PRE_FIX$stochasticQuoteList" >> "$HISTORY_FILE"
 
     # shellcheck disable=SC2001
-    #RSIQuoteList=$(echo "$RSIQuoteList" | sed 's/ //g')
-    RSIQuoteList="${RSIQuoteList/ //}"
+    RSIQuoteList=$(echo "$RSIQuoteList" | sed 's/ //g')
+    #RSIQuoteList="${RSIQuoteList// /}"
     echo "# RSI oldest,..,newest" >> "$HISTORY_FILE"
     echo "$PRE_FIX$RSIQuoteList" >> "$HISTORY_FILE"
 
     # shellcheck disable=SC2001
-    #MACDList=$(echo "$MACDList" | sed 's/ //g')
-    MACDList="${MACDList/ //}"
+    MACDList=$(echo "$MACDList" | sed 's/ //g')
+    #MACDList="${MACDList// /}"
     echo "# MACD oldest,..,newest" >> "$HISTORY_FILE"
     echo "$PRE_FIX$MACDList" >> "$HISTORY_FILE"
 done
