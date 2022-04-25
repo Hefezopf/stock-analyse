@@ -152,6 +152,9 @@ body > div {
 <body>
 <div id='symbolsListId'>
 <script>
+
+var sortToggleOverall = false;
+
     function doSortDailyGain() {
         var container = document.getElementById('symbolsListId');
         var elements = container.childNodes;
@@ -196,12 +199,14 @@ body > div {
         var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
         var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
         var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+      //  var intervalSectionButtonSortOverallButtonDown = document.getElementById('intervalSectionButtonSortOverallDown');
 
         // Clear page
         container.innerHTML = '';
         container.appendChild(intervalSectionButtonSortDailyButton);
         container.appendChild(intervalSectionButtonSortValueButton);
         container.appendChild(intervalSectionButtonSortOverallButton);
+       // container.appendChild(intervalSectionButtonSortOverallButtonDown);
 
         // Append the sorted elements again, the old element will be moved to the new position
         for (var i=0; i<sortPositivDailyValues.length; i++) {
@@ -230,6 +235,17 @@ body > div {
     }
 
     function doSortOverallGain() {
+
+        sortToggleOverall = !sortToggleOverall;
+        var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+        if(sortToggleOverall){
+            intervalSectionButtonSortOverallButton.innerHTML = '&uarr; Overall %';
+        }
+        else{
+            intervalSectionButtonSortOverallButton.innerHTML = '&darr; Overall %';
+        }
+        console.log('sortToggleOverall:' + sortToggleOverall);
+
         var container = document.getElementById('symbolsListId');
         var elements = container.childNodes;
         var sortPositivOverallValues = [];
@@ -249,28 +265,50 @@ body > div {
             }        
         }
         sortPositivOverallValues.sort(function(x, y) {
-            return y[0] - x[0];
+            if (sortToggleOverall){
+                return y[0] - x[0];
+            }
+            else{
+                return x[0] - y[0];
+            }
         });
         sortNegativOverallValues.sort(function(x, y) {
-            return x[0] - y[0];
+            if (sortToggleOverall){
+                return x[0] - y[0];
+            }
+            else{
+                return y[0] - x[0];
+            }            
         });
 
         // Add sort buttons
         var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
         var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
         var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+       // var intervalSectionButtonSortOverallButtonDown = document.getElementById('intervalSectionButtonSortOverallDown');
 
         // Clear page
         container.innerHTML = '';
         container.appendChild(intervalSectionButtonSortDailyButton);
         container.appendChild(intervalSectionButtonSortValueButton);
         container.appendChild(intervalSectionButtonSortOverallButton);
+      // container.appendChild(intervalSectionButtonSortOverallButtonDown);
 
-        for (var i=0; i<sortPositivOverallValues.length; i++) {
-            container.appendChild(sortPositivOverallValues[i][1]);
+        if (sortToggleOverall){
+            for (var i=0; i<sortPositivOverallValues.length; i++) {
+                container.appendChild(sortPositivOverallValues[i][1]);
+            }
+            for (var i=0; i<sortNegativOverallValues.length; i++) {
+                container.appendChild(sortNegativOverallValues[i][1]);
+            }
         }
-        for (var i=0; i<sortNegativOverallValues.length; i++) {
-            container.appendChild(sortNegativOverallValues[i][1]);
+        else{
+            for (var i=0; i<sortNegativOverallValues.length; i++) {
+                container.appendChild(sortNegativOverallValues[i][1]);
+            }            
+            for (var i=0; i<sortPositivOverallValues.length; i++) {
+                container.appendChild(sortPositivOverallValues[i][1]);
+            }
         }
 
         var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
@@ -312,12 +350,14 @@ body > div {
         var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
         var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
         var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+       // var intervalSectionButtonSortOverallButtonDown = document.getElementById('intervalSectionButtonSortOverallDown');
 
         // Clear page
         container.innerHTML = '';
         container.appendChild(intervalSectionButtonSortDailyButton);
         container.appendChild(intervalSectionButtonSortValueButton);
         container.appendChild(intervalSectionButtonSortOverallButton);
+       // container.appendChild(intervalSectionButtonSortOverallButtonDown);
 
         for (var i=0; i<sortOverallValues.length; i++) {
             container.appendChild(sortOverallValues[i][1]);
@@ -341,6 +381,71 @@ body > div {
         }        
     }
 
+/*
+    function doSortOverallGainDown() {
+        var container = document.getElementById('symbolsListId');
+        var elements = container.childNodes;
+        var sortPositivOverallValues = [];
+        var sortNegativOverallValues = [];
+        for (var i=0; i<elements.length; i++) {
+            if (!elements[i].id) {
+                continue;
+            }
+            var sortPart = elements[i].id.split('_');
+            if (sortPart.length > 1) {
+                if (sortPart[2][0] === '+') {
+                    sortPositivOverallValues.push([ 1 * sortPart[2], elements[i] ]);
+                }
+                if (sortPart[2][0] === '-') {
+                    sortNegativOverallValues.push([ -1 * sortPart[2], elements[i] ]);
+                }                
+            }        
+        }
+        sortPositivOverallValues.sort(function(x, y) {
+            return x[0] - y[0];
+        });
+        sortNegativOverallValues.sort(function(x, y) {
+            return y[0] - x[0];
+        });
+
+        // Add sort buttons
+        var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
+        var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
+        var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+        var intervalSectionButtonSortOverallButtonDown = document.getElementById('intervalSectionButtonSortOverallDown');
+
+        // Clear page
+        container.innerHTML = '';
+        container.appendChild(intervalSectionButtonSortDailyButton);
+        container.appendChild(intervalSectionButtonSortValueButton);
+        container.appendChild(intervalSectionButtonSortOverallButton);
+        container.appendChild(intervalSectionButtonSortOverallButtonDown);
+
+        for (var i=0; i<sortNegativOverallValues.length; i++) {
+            container.appendChild(sortNegativOverallValues[i][1]);
+        }
+        for (var i=0; i<sortPositivOverallValues.length; i++) {
+            container.appendChild(sortPositivOverallValues[i][1]);
+        }
+
+        var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
+        for (var i=0; i<intervalSectionRealTimeQuotes.length; i++) {
+            intervalSectionRealTimeQuotes[i].style.fontSize = 'large';
+        }
+        var intervalSectionPercentages = document.querySelectorAll('[id ^= \"intervalSectionPercentage\"]');
+        for (var i=0; i<intervalSectionPercentages.length; i++) {
+            intervalSectionPercentages[i].style.fontSize = 'large';
+        }
+        var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= \"intervalSectionPortfolioValues\"]');
+        for (var i=0; i<intervalSectionPortfolioValues.length; i++) {
+            intervalSectionPortfolioValues[i].style.fontSize = 'large';
+        }
+        var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= \"intervalSectionPortfolioGain\"]');
+        for (var i=0; i<intervalSectionPortfolioGains.length; i++) {
+            intervalSectionPortfolioGains[i].style.fontSize = 'xx-large';
+        }        
+    }
+*/
     // Global Varables
     var token1 = 'ghp_';
     var token2 = 'Y56Fa4kw5ccmrG4dolafJwPYhOopcSiQ3pao';
@@ -498,6 +603,7 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
             document.querySelector('#intervalSectionButtonSortDaily').disabled = false;
             document.querySelector('#intervalSectionButtonSortValue').disabled = false;
             document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
+           // document.querySelector('#intervalSectionButtonSortOverallDown').disabled = false;
         }
     }, 1000);
 
@@ -567,6 +673,7 @@ echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
 
+#echo "<br><br># Analyse <button id='intervalSectionButtonSortDaily' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortDailyGain()'>&uarr; Daily %</button>&nbsp;<button id='intervalSectionButtonSortValue' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortInvestedValue()'>&uarr; Value €</button>&nbsp;<button id='intervalSectionButtonSortOverall' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortOverallGain()'>&uarr; Overall %</button>&nbsp;<button id='intervalSectionButtonSortOverallDown' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortOverallGainDown()'>&darr; Overall %</button>" >> $OUT_RESULT_FILE
 echo "<br><br># Analyse <button id='intervalSectionButtonSortDaily' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortDailyGain()'>&uarr; Daily %</button>&nbsp;<button id='intervalSectionButtonSortValue' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortInvestedValue()'>&uarr; Value €</button>&nbsp;<button id='intervalSectionButtonSortOverall' style='height: 35px; width: 90px; display: none' disabled='true' type='button' onClick='javascript:doSortOverallGain()'>&uarr; Overall %</button>" >> $OUT_RESULT_FILE
 
 # Analyse stock data for each symbol
