@@ -18,8 +18,11 @@ echo "Sorting..."
 symbolListe=$(cat "$STOCK_SYMBOLS_FILE")
 symbolListe=$(echo "$symbolListe" | tr " " "\n" | sort | tr "\n" " ")
 
-# TODO delete first blank in done, if exists
-symbolListe="${symbolListe:1}"
+# Delete first blank char, if exists
+firstChar="$(printf '%s' "$symbolListe" | cut -c1)"
+if [ "$firstChar" = ' ' ]; then
+  symbolListe="$(printf '%s' "$symbolListe" | cut -c 2-)"
+fi
 
 TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 echo "$symbolListe" >> "$TEMP_FILE"
