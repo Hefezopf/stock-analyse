@@ -509,7 +509,7 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
 </body></html>"
 START_TIME_MEASUREMENT=$(date +%s);
 
-# Check for multiple identical symbols in cmd. Do not ignore '*'' 
+# Check for multiple identical symbols in cmd. Do not ignore '*' 
 if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -v '^ *1 '; then
     echo "WARNING: Multiple symbols in parameter list!" | tee -a $OUT_RESULT_FILE
     echo "<br><br>" >> $OUT_RESULT_FILE
@@ -587,7 +587,7 @@ do
     lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     exchange=$(echo "$lineFromTickerFile" | cut -f 8)
-    if [ ! "$exchange" ]; then # Default = XETRA
+    if [ ! "$exchange" ]; then # Default: exchange="XETRA"
         exchange="XETRA"
     fi
 

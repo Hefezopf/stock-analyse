@@ -41,6 +41,7 @@ shellcheck --shell=bash script/sell.sh
 shellcheck --shell=bash script/view_portfolio.sh
 shellcheck --shell=bash script/marketcap-update.sh
 shellcheck --shell=bash script/sort_sa.sh
+shellcheck --shell=bash simulate.sh
 shellcheck --shell=bash analyse.sh
 
 rm -rf test/_result.html
