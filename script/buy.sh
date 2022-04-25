@@ -64,12 +64,16 @@ sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
 
 # Add symbol in front of own list
 SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
+
 # SYMBOL_NAME has to be without Hochkomma '"'
 # shellcheck disable=SC2001
 SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
+#SYMBOL_NAME_OHNE="${SYMBOL_NAME//\"//g}"
+
 # SYMBOL_NAME has to be without blank ' ' -> replace with dash '-'
 # shellcheck disable=SC2001
-SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
+#SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
+SYMBOL_NAME="${SYMBOL_NAME// /-}"
 
 # Fees
 CalculateTxFee "$priceParam" "$piecesParam"

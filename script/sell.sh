@@ -24,13 +24,14 @@ symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 # Sell Price has to be without comma
 # shellcheck disable=SC2001
-sellPriceParam=$(echo "$2" | sed 's/,/./g')
+#sellPriceParam=$(echo "$2" | sed 's/,/./g')
+sellPriceParam="${2//,/.}"
 
 echo "Sell $symbolParam $sellPriceParam"
 
 if { [ -z "$symbolParam" ] || [ -z "$sellPriceParam" ]; } then
     echo "Not all parameters specified!"
-    echo "Call: sh ./buy.sh SYMBOL SELLPRICE"
+    echo "Call: sh ./sell.sh SYMBOL SELLPRICE"
     echo "Example: sh ./sell.sh BEI 9.99"
     exit 1
 fi

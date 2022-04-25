@@ -102,7 +102,8 @@ do
   if [ "$dive" ]; then
       # Replace ',' with '.'
       # shellcheck disable=SC2001
-      dive=$(echo "$dive" | sed "s/,/./g")  
+      #dive=$(echo "$dive" | sed "s/,/./g")
+      dive="${dive//,/.}"
       echo "$symbol DIVe: $dive%"
   else
     dive="?"
