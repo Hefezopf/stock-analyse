@@ -1,0 +1,491 @@
+TODO:
+-----
+
+TEST
+
+-Sim: oben im Chart Orginal alarme, unten die sim nachkäufe
+
+
+-Local on PC: beim refresh wird immer geladen: 400 mal
+https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=170159540&TIME_SPAN=10D
+
+
+-Timeout in Loading: Wenn alle mit OK geladen wurden timeout canceln
+
+
+-RSI oben rot einfärben. chartjs?
+
+
+-Zusätzlich 100 Tage low alarm?
+
+
+-in DAO umwandeln?
+SmartContract
+abstimmen automatisierte Entscheidungen
+Voting und EMmail für Order
+Automatische Order Platzierung?
+Regeln festlegen
+Jeden Tag voten
+Nur Votes wenn Sim vorschläge unterbreitet
+
+
+-Github Actions - trigger another action after one action is completed
+Erst schedule dann sofort simulate
+https://stackoverflow.com/questions/62750603/github-actions-trigger-another-action-after-one-action-is-completed
+
+
+-Sortierung nach Value zeigt grösste verluste an aber nicht grösste Position
+
+
+-Umbau Dateien ohne Datum im Namen; Git performance/space/auch wg history
+D:\code\stock-analyse\buy\0OK_2022-12-16.txt
+\buy
+\sell
+\alarm
+Date in File?! First line?
+
+
+-Sell own (O) auch wenn RSI über Linie?
+
+
+-In Sim auch Vorschau 
+
+
+-Sim result ganz oben?
+
+
+-Beim Click auf <a> Anker hide aufrufen. Denn beim zurück im Handy ist hover chart zu sehen 
+
+
+-RESULT: Button open all to the side
+only works for Chrome and FF! -> safari?
+
+
+-HTML Seite mit anstehenden Dividenden? oder markant markieren, wenn eine DIV ansteht?!
+
+
+-FaceId JavaScript
+
+
+-Safari Polyfill?
+
+
+-Mandantenfähigkeit
+-Subscription Plans https://marketstack.com/product
+
+
+-So umschreiben, das L am anfang
+-> Buy: Low new 40 days quote (L)
+Buy: New 40 days Low (L)
+
+ -> Buy: Divergence RSI (D)
+Buy: RSI Divergence (D)
+
+-> Buy: Percentage & Stochastic Low (P): 
+Buy: Low Percentage & Stochastic (P): 
+
+-> Buy: MACD Low (M):
+Buy: Low MACD (M): 
+
+Sell: High 5 last RSI (R): 
+
+Sell: High 5 last Stochastic (S):
+
+Buy: Low Quote by Tendency (T)
+
+Sell: High Stochastic & RSI & MACD+ (C)
+
+
+
+-Sell over 2 times?
+
+
+-CURL: Fondsvolumen im Detail ausgeben? Bisher nur bei Aktien?
+
+
+-Marktphase berücksichtigen
+Bären Markt
+Bullen Markt
+Neutraler Markt 
+
+
+-Warum ist hier das Portfolio zu sehen?
+https://nutzer.comdirect.de/inf/etfs/detail/uebersicht.html?POSITION=382%2C%2C162382376&NAME_PORTFOLIO=Watch&ID_NOTATION=162382376
+
+
+-??Mittelwert bei SIM einzeichnen
+,               ]},
+
+-Welt Aktien anschauen. Spread?
+Nikkei leider 1,5 bis 2.5% Spread!
+Hier leider kein XETRA! Evtl Abfrage mit Frankfurt machen -> viel Umbau, da 2 Börsen unterschieden werden müssen!
+SON1 TOM MAT1 HIA1 NTO RAK MBI TKD MMO NSE 1RH MZA LCJ KEE NKN MFZ NT5 ABW MARA NTT OLY1 IOC TDK FUC CNN1 KHE SFT 1JP S3X G9Y SMM SRP KPI1 FUH EJR CL2 KOM1 TMI YOJ SEH TKK1 MIE1 0C2 XMF MUR1 DSE SUK
+
+
+-2 mal async / await einbauen und schaunen ob es schneller geht
+
+
+-Wie kann ich mit Stopp Loss arbeiten?
+
+-MACD von vorne anfangen lassen XETRA&limit=112
+
+-Indizes auch analysieren https://marketstack.com/documentation
+
+-Daten veraltet: General Electric GEC -> GCP
+
+-Wie kann Token abgesichert werden - unleserlich im HTML
+
+-Sortierung nach Tagesgewinn
+
+-Buy Price parametrisieren oder last price nehmen?
+-Sell mit Price parametrisieren oder last price nehmen?
+Call: sh ./script/sell.sh SYMBOL
+
+-MACD Strategie: Max low Betrag? Wenn in den letzten 100 Tagen der MACD am tiefsten ist |BETRAG|?
+
+-Detail: Live quote
+
+-Warum ist der letzte Kurs in Mobil nicht zu sehen wenn 100% im safari?
+
+-Strategie mit Trend avg 18 und 38?! Überlegen
+
+-Aktueller Kurs/+min auch in Detail Seite
+
+-sim LOGIK: wenn RSI steigt gegenüber dem letzten RSI und kurs singt gegenüber dem letzten kurs
+
+-simulation nicht mit 100, prefixen sondern erst bei 14 oder so mit index loslaufen
+
+-Simulation, erst kaufen wenn MACD 2 mal im minus, oder halt deutlicher im Minus 
+
+-Bei steigenden Märkten stoch als Einstieg?
+
+-Was sind steigende Märkte? Über lila oder über roter Linie?
+
+-Kauf wenn Kurs seitwärts und macd nach oben 
+
+-Wenn Divergenz beim rsi dann kaufen! Bei L&S ist die Div anders als bei SG oder bei XETRA!?
+
+-Summe über alles von aktuell kummulieren = Schwierig da im Javascript
+
+-View portfolio über curl?
+
+-All in und stop loss Strategie?
+
+-calc Berechung falsch wenn spread = 0
+
+-Email aufpeppen, siehe Daniels EMail
+
+-Github: kann jeder den Konsolen output sehen?
+-Bei anderen GitHub Konsole anschauen ob das geht? -> Wenn angemeldet, JA!!!
+
+-check 2 Sell worklflows
+    https://github.com/Hefezopf/stock-analyse/actions
+
+-Was muss gemacht werden um das Musterdepo los zu bekommen?
+
+-Alles in SA nachbilden: Depotwert mit Kaufdatum
+
+-Architektur Zeichnung?
+
+-MACD alarmiert nicht früh genug, wenn dann muss der z.b. 4 letzte höher gewesen sein
+
+-Validierung Symbol mit zahlen wie muv2 in buy.sh
+-Validierung: ist Symbol in stock liste aufgeführt? buy.sh
+
+-Kombi Strategien entkoppeln
+-Punkte je Stategie vergeben
+-Warum kommt Alarm low by Percentage so selten?
+
+-Strategie/Alarm für horizontal MACD verbessern (AT1 "Aroundtown") am 11.2.
+-Horizontal MACD verbesssern, so das nicht die ganz geraden Wendepunkte alarmiert werden. Also nur wenn von steil kommend!
+-MACD horizontal überarbeiten/neue Strategie: wenn MACD von steil in die Horizontale geht - Prozente berechnen
+    z.b.: PPX.html pos 35 am 5.2.2021. Hier kann man die Abflachung gut sehen.
+    MACD von -8,77 auf -11,44 sind 30% minus und auf -13,49 sind 17% minus und dann auf -14,25 sind 5 % minus.
+-Wie kann ich die Umschichtungen im Depot besser pflegen ohne commit? ENV?
+-Simulation einer Strategie Mit Geld
+-Beschleunigen durch weniger als 100 Tage?
+-Eine Strategie für Stoch, RSI und MACD zusammen?
+-Die Strategie Stoch, RSI überdenken?
+-MACD signal line?
+-MACD Histogramm line?
+-12 Durchschnitt einzeichnen?
+-26 Durchschnitt einzeichnen?
+-Cache Dateien für jedes Symbol anlegen!! Performance!
+-SSD Platte einbauen?
+-Besseres EMail Template
+-Html nach FTP hochladen 
+    https://stackoverflow.com/questions/1894347/how-to-upload-ftp-files-to-server-in-a-bash-script/1894479
+-Bei Stoch Y-Achse max. 99 setzen statt 100, da der Chart leicht eingerückt ist. Also nicht linksbündig!
+    Aber wenn obere Kurve auch 3 stellig oder sogar 4 stellig?
+-Alle Strategien nur jeweils einmal, siehe Tendency
+-Tendency: stark fallend, stark steigend einbauen, also 5 Zustände!
+-Dynamic Analyse: Alarme je nach 95 Tage-Linie anpassen 
+-Wenn dyn., dann braucht man kein festes oberes und unteres RSI und Stoch Limit 
+-Nein: low/high RSI alarm nur bei aktuellem Tief/Höchststwert ausgeben?
+-Dynam. Line für Stoch und RSI mit CLI Parameters berücksichtigen. 
+
+
+Vorhandene Strategieren:
+    Tendency
+    RSI StrategieOverratedXHighRSI
+    Percentage/Stochastic StrategieOverratedByPercentAndStochastic
+    Stochastic StrategieOverratedXHighStochastic
+    Stochastic/RSI StrategieOverratedHighStochasticHighRSIHighMACD
+    MACD StrategieOverratedHighHorizontalMACD
+
+
+GitHub Repository size:
+https://github.com/settings/repositories
+
+
+Speed up:
+bash: Run as Admin bash 
+PC
+C:\Windows\System32\cmd.exe /C powershell "Start-Process D:\Programme\Git\git-bash.exe -Verb RunAs"
+Laptop
+C:\WINDOWS\system32\cmd.exe /C powershell "Start-Process C:\Programme\Git\git-bash.exe -Verb RunAs"
+
+Script for sorting:
+cd /d/code/stock-analyse/script
+./sort_sa.sh
+
+sort -k 1 data/_ticker_idnotation.txt > data/_ticker_idnotation_sorted.txt
+sort -k 1 data/_ticker_names.txt > data/_ticker_names_sorted.txt 
+
+Sort example
+echo "FIE ADS BAC TOTB GZF HLE" | tr " " "\n" | sort | tr "\n" " "
+!!!Sorting (do every other month, to sort all available symbols again)!!!
+cat config/stock_symbols.txt | tr " " "\n" | sort | tr "\n" " " > config/stock_symbols.txt
+
+
+https://www.shellcheck.net
+chocolatey
+install with choco
+Powershell as admin 
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+shellcheck functions.sh
+cat functions.sh | tr -d '\r' > functions1.sh
+shellcheck --exclude=SC2039 script/functions.sh
+shellcheck --shell=bash script/functions.sh
+./test.sh
+
+
+REST Api
+https://apilayer.com
+https://marketstack.com/dashboard
+marketstack@hopf-it.de
+m*2-1
+(
+info@hopf-it.de
+m*2-1
+markus@hopf-it.de
+m*2-1
+trainer@hopf-it.de
+m*2-1
+github@hopf-it.de
+m*2-1
+)
+
+
+https://bsym.bloomberg.com:
+---------------------------------
+OpenFIGI API | OpenFIGI
+https://bsym.bloomberg.com/api
+Hefezopf
+oM*2-1!
+info@hopf-it.de
+
+https://marketstack.com/usage
+https://github.com/Hefezopf/stock-analyse/actions
+
+
+https://www.chartjs.org/docs/latest/charts/line.html
+https://www.chartjs.org/docs/latest/
+
+
+export GPG_PASSPHRASE="gmarkus2-1"
+
+export X_OPENFIGI_APIKEY="X-OPENFIGI-APIKEY:55c6c3ff-77a0-40a2-b1c4-23c636bc7ce3-1"
+
+export MARKET_STACK_ACCESS_KEY="65a28efc2d348e261c27b17013b60352-1"
+
+15.3.2021
+blog@hopf-it.de
+63fadea78bfc48058c2f0b20f3cf8074-1
+export MARKET_STACK_ACCESS_KEY="63fadea78bfc48058c2f0b20f3cf8074-1"
+http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL
+
+
+https://www.openfigi.com/api#rate-limit
+
+
+export X_OPENFIGI_APIKEY="X-OPENFIGI-APIKEY:55c6c3ff-77a0-40a2-b1c4-23c636bc7ce3-1"
+echo $X_OPENFIGI_APIKEY
+export TICKER=IBM
+curl 'https://api.openfigi.com/v2/mapping' --request POST --header 'Content-Type: application/json' --header 'echo ${X_OPENFIGI_APIKEY}' --data '[{"idType":"TICKER", "idValue":"'${TICKER}'"}]' | jq '.[0].data[0].name'
+
+
+git config advice.addIgnoredFile false
+
+sort -k 2 data/_ticker_names.txt > data/_ticker_names_sorted.txt
+
+cat data/_ticker_idnotation.txt | sort | uniq -c | grep "2 "
+
+
+!!
+Github Token for cURL:
+cURL works only from unrestricted devices!
+
+Note 'Curl': personal access token:
+https://github.com/settings/tokens -> Personal access tokens
+expiredToke — repo, workflow 
+GITHUB_TOKEN=ghp_XXXX
+Expiration
+This token expires on 31 12 2022
+Check Ckeckbox: workflow (Update GitHub Action workflows)
+
+Neuer Personal access tokens generieren: https://github.com/settings/tokens
+Kopieren
+String umdrehen mit bash:
+node
+'xxXXXX'.split("").reverse().join("");
+Oder String umdrehen mit online node:
+https://replit.com/languages/nodejs
+console.log('xxXXXX'.split("").reverse().join(""));
+
+Kopieren und in _result.js rein kopieren.
+Zeile 2: var token2 = 'xxx';
+In den 3 Systemen PC, HP Atr, Thinkpad Laptop in .bash_profile RICHTIG HERUM (ORIGINAL) einsetzen
+
+
+!! 3 times: Update GITHUB_TOKEN in analyse.sh AND in .bash_profile AND git remote
+
+git remote -v
+git remote remove origin
+git remote add origin https://ghp_XXXX@github.com/Hefezopf/stock-analyse.git
+
+
+Too many request per Hour?
+curl -I https://api.github.com/users/octocat
+
+API rate limit exceeded for user ID 3043622.",
+3043622
+
+Get Limit Rate:
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit
+
+https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting
+
+Checking your rate limit status
+curl -I https://api.github.com/users/octocat
+
+curl -I https://api.github.com/user
+
+sh ./script/curl/curl_get_rate_limit.sh
+
+
+localStorage.setItem('TOKEN', 'ghp_ XXXX yRKbcL7EMqRpmqGekUOYUgxJXryuLN3xkISP-0')
+document.cookie="TOKEN=ghp_ XXXX yRKbcL7EMqRpmqGekUOYUgxJXryuLN3xkISP-0 expires=Sat, 18 Dec 2055 12:00:00 UTC; path=/";
+console.log(document.cookie);
+
+curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "curl", "client_payload": {"symbols": "MSF", "percentage": "1", "query": "offline", "rated": "underrated", "stochastic": "40"}}'
+
+
+start chrome "http://www.google.com/search?tbm=fin&q=ADS" "http://www.google.com/search?tbm=fin&q=ALV" 
+
+BAYN
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=BAYN.XETRA" | jq '.data[0].volume'
+
+DRW8
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=DRW8.XETRA" | jq '.data[].close'
+
+AI3A
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=AI3A.XETRA" | jq '.data[].close'
+
+https://www.google.com/search?q=MSF
+
+
+https://github.com/Hefezopf/stock-analyse/actions
+
+https://github.com/Hefezopf/stock-analyse
+
+https://github.com/Hefezopf/stock-analyse.git
+
+
+curl --location --request GET "http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA" |  jq '.'
+
+http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL
+
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL'
+
+ 
+export MARKET_STACK_ACCESS_KEY="a3da919620ffcc6cbc52dc0d1b5c5175-1"    
+curl GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL'
+
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&symbols=AAPL' | jq '.'
+
+jq:
+---
+https://stedolan.github.io/jq/
+cat Xetra.json | jq '.data[].symbol'
+
+
+MSF AMZ ABEC ABEA AHLA FB2A BRYN BRH VODJ CMC JNJ WMT M4I SOBA UNH NCB HDI INL CCC3 BAC XONA MOH 6MK CTP2 PFE PEP CHV ADB CIS NWT R6C R6C3 NVD NFC ORC BCO FOO LOR MDO SAP NOVC NKE ABL UNVB TRVC CTO 2M6 BRM TL0 4I1 4AB 2PP LLY HBC1 AMG ASMF ZEG SNW ASME 1TY IBM NOVA TOTB 1YD LOM UNP 1NBA TII BPE CQD LIN BPE5 DAP GS71 IXD1 BIL AIR GIS GEC BMT SRB QCI AEC1 ENL ALV MMM CVS GUI SIE KTF UPAB
+
+Allow actions:
+https://github.com/Hefezopf/stock-analyse/settings/actions
+
+https://github.com/dawidd6/action-send-mail
+
+https://jqplay.org/jq?q=.%5B0%5D&j=%5B%7B%22name%22%3A%22JSON%22%2C%20%22good%22%3Atrue%7D%2C%20%7B%22name%22%3A%22XML%22%2C%20%22good%22%3Afalse%7D%5D
+
+    
+curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA'
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=ALV.XETRA' | jq '.'
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].name'
+curl --location --request GET 'http://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=VOW.XETRA' |  jq '.data[].close'
+curl --location --request GET 'https://marketstack.com/stock_api.php?offset=0&exchange=XETRA&search=' |  jq '.data[].close'
+
+http://api.marketstack.com/v1/tickers/AAPL/eod/2021-03-12?access_key=${MARKET_STACK_ACCESS_KEY}
+
+
+CORS Plugin für lokalen Browser
+https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc?hl=en-US
+
+
+. ~/.bash_profile
+. /C/Users/xcg4444/.bash_profile
+git config --global http.sslVerify false
+
+
+JQ_HOME
+Add JQ_HOME to PATH
+C:\tools\jq
+alias jq=/c/tools/jq/jq
+
+
+# In case of shell errors with end of line: end of file unexpected (expecting "then")
+sed -i 's/\r$//' ./script/sell.sh
+sed -i 's/\r$//' ./script/*.sh
+
+
+.bash_profile settings:
+# Stock-Analyse
+cd /d/code/stock-analyse
+export MARKET_STACK_ACCESS_KEY="65a28efc2d3xxxxx"
+export X_OPENFIGI_APIKEY="X-OPENFIGI-APIKEY: 55c6xxxxxx"
+#https://github.com/settings/tokens -> Personal access tokens
+export GITHUB_TOKEN=ghp_fWxxxxx
+export GPG_PASSPHRASE="g*1"
+
+# Alias Stock Analyse
+alias sa='cd /d/code/stock-analyse'
+alias cdsa='cd /d/code/stock-analyse'
+alias buy='/d/code/stock-analyse/script/buy.sh $1 $2'
+alias sell='/d/code/stock-analyse/script/sell.sh $1'
+alias calc='/d/code/stock-analyse/script/calc.sh $1 $2 $3 $4'
+alias vp='/d/code/stock-analyse/script/view_portfolio.sh'
+alias dfsa='/d/code/stock-analyse/script/delete_from_sa.sh $1'
+alias sortsa='/d/code/stock-analyse/script/sort_sa.sh'
+alias jq='/d/tools/jq/jq-win64.exe'
+

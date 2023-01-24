@@ -1,0 +1,142 @@
+# Is triggered:
+#   1. on each push
+#   2. curl 
+#   3. manuell 
+name: Dev
+
+env:
+  symbolsEnv: '*DBK' # If more then 1 symbol -> Error!
+  percentageEnv: '1'
+  queryEnv: 'offline'
+  stochasticEnv: '9'
+  RSIEnv: '25'
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  #pull_request:
+    #branches: [ main ]
+       
+  # Can be triggered manually
+  workflow_dispatch:
+    inputs:
+      symbolsParam:
+        description: 'SYMBOLS - List of stock symbols like: "*DBK BEI". Own stocks marked *'
+        required: true
+        default: '*DBK *CRIN MOR FPE3 BC8 BEI'
+      percentageParam:
+        description: 'PERCENTAGE - "1" means 1 percent'     
+        required: true
+        default: '1'
+      queryParam:
+        description: 'QUERY - [online|offline]'     
+        required: true
+        default: 'offline'
+      stochasticParam:
+        description: 'STOCHASTIC14 - "9" means 9/91 percent (only single digit allowed!)'     
+        required: true
+        default: '9'
+      RSIParam:
+        description: 'RSI14 - "25" means 25/75 quote. (only 30 and less allowed!)'
+        required: true
+        default: '25'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - shell: bash
+        run: |    
+          echo "Bats Test"
+          sh ./script/install-bats.sh
+          /home/runner/.local/bin/bats -version
+          mkdir temp
+          rm -rf test/_result.html
+          /home/runner/.local/bin/bats --tap test/*.bats
+
+      # Runs a set of commands using the runners shell
+      - name: Run Stock Analyse
+        run: |
+          echo "Start Stock Analyse ..."
+          export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
+
+          symbolsEnv=${{env.symbolsEnv}}
+          percentageEnv=${{env.percentageEnv}}
+          queryEnv=${{env.queryEnv}}
+          stochasticEnv=${{env.stochasticEnv}}
+          RSIEnv=${{env.RSIEnv}}
+
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
+          percentageInput=${{github.event.inputs.percentageParam}}
+          queryInput=${{github.event.inputs.queryParam}}
+          stochasticInput=${{github.event.inputs.stochasticParam}}
+          RSIInput=${{github.event.inputs.RSIParam}}
+          
+          symbolsVar=${symbolsInput:-$symbolsDefault}
+          percentageVar=${percentageInput:-$percentageDefault}
+          queryVar=${queryInput:-$queryDefault}         
+          stochasticVar=${stochasticInput:-$stochasticDefault}          
+          RSIVar=${RSIInput:-$RSIDefault}   
+
+          symbolsVar=${symbolsVar:-$symbolsEnv}
+          percentageVar=${percentageVar:-$percentageEnv}
+          queryVar=${queryVar:-$queryEnv}         
+          stochasticVar=${stochasticVar:-$stochasticEnv}          
+          RSIVar=${RSIVar:-$RSIEnv}
+
+          chmod +x ./analyse.sh
+
+          # In case of shell errors with end of line: end of file unexpected (expecting "then")
+          sed -i 's/\r$//' ./script/*.sh
+          sed -i 's/\r$//' ./script/curl/*.sh
+          sed -i 's/\r$//' ./simulate/*.sh
+
+          # Temp Solution: Always run with ownSymbolsVar -> ignore Param
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
+          ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          rm -rf config/own_symbols.txt
+          symbolsVar=$ownSymbolsVar
+          # Temp Solution: Always run with ownSymbolsVar -> ignore Param
+
+          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
+
+          #git fetch --unshallow origin
+          git config user.email ${{secrets.MAIL_ADRESS}}
+          git config user.name "Markus Hopf"
+          git add data/*.txt
+          git add history/*.txt
+          git add alarm/*.txt
+          git add buy/*.txt
+          git add sell/*.txt
+          git add out/*.html
+          git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
+          git push
+    
+      - name: Send result via email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.ionos.de
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Dev Result ${{github.event_name}} ${{github.event.action}}
+          # Read file contents as body:
+          html_body: file://template/email.html
+          #body: file://out/_result.html
+          to: ${{secrets.MAIL_ADRESS}}
+          from: Github stock-analyse # <githubÄhopf-...de>
+          # Optional content type (defaults to text/plain):
+          #content_type: text/html
+          # Optional attachments:
+          #attachments: out/_out.tar.gz

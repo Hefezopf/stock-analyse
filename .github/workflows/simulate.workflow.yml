@@ -1,0 +1,131 @@
+name: Simulate
+
+on:
+  schedule:
+  # Every 20 minutes
+  #- cron: "*/20 * * * *"
+  # At 06:00am, every Sunday 
+  #- cron: "0 6 * * 0"
+  # At 07:00am on Tue, Wed, Thr, Fri, Sat (MEWT: run is 1 hour delayed: --> 8:00)
+  #- cron: "0 7 * * 2,3,4,5,6"
+  # At 06:30am on Tue, Wed, Thr, Fri, Sat (MEST: run is 2 hour delayed: --> 8:30)
+  - cron: "30 6 * * 2,3,4,5,6"
+
+  # Can be triggered with cURL
+  #repository_dispatch:
+    #types: [simulate] 
+
+  # Can be triggered manually
+  workflow_dispatch:
+    inputs:
+      symbolsParam:
+        description: 'SYMBOLS - List of stock symbols like: "DBK BEI".'
+        required: false
+        default: ''
+      amountPerTradeParam:
+        description: 'AMOUNT_PER_TRADE - "2500" means inititial Buy with 2500€'
+        required: true
+        default: '2500'
+      RSIBuyLevelParam:
+        description: 'RSI_BUY_LEVEL - "20" means Buy at 20'
+        required: true
+        default: '14'
+      StockSellLevelParam:
+        description: 'STOCH_SELL_LEVEL - "70" means sell over 70'
+        required: true
+        default: '70'
+      incrementPerTradeParam:
+        description: 'INCREMENT_PER_TRADE - "1.1" means 10% more per trade'
+        required: true
+        default: '1.05'
+      sellIfOverPercentageParam:
+        description: 'SELL_IF_OVER_PERCENTAGE - "5" means sell all, if gain is 5% or more'
+        required: true
+        default: '5'
+      keepIfUnderPercentageParam:
+        description: 'KEEP_IF_UNDER_PERCENTAGE - "2" means do NOT sell, if only 2% gain'
+        required: true
+        default: '2'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+            
+      # Runs a set of commands using the runners shell
+      - name: Run Simulate
+        run: |
+          echo "Start Simulate ..."
+
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
+
+          #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW (432).
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
+          ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          ownSymbolsVar=$(echo "$ownSymbolsVar" | sed 's/*//g')
+          rm -rf config/own_symbols.txt
+          stockSymbolsVar=$(cat config/stock_symbols.txt)
+          symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
+
+          amountPerTradeVar=2500
+          RSIBuyLevelVar=14
+          StockSellLevelVar=70
+          incrementPerTradeVar=1.05
+          sellIfOverPercentageVar=5
+          keepIfUnderPercentageVar=2
+
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
+          amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
+          RSIBuyLevelInput="${{github.event.inputs.RSIBuyLevelParam}}"
+          StockSellLevelInput="${{github.event.inputs.StockSellLevelParam}}"
+          incrementPerTradeInput="${{github.event.inputs.incrementPerTradeParam}}"
+          sellIfOverPercentageInput="${{github.event.inputs.sellIfOverPercentageParam}}"
+          keepIfUnderPercentageInput="${{github.event.inputs.keepIfUnderPercentageParam}}"
+          
+          symbolsVar=${symbolsInput:-$symbolsVar}
+          amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeVar}
+          RSIBuyLevelVar=${RSIBuyLevelInput:-$RSIBuyLevelVar}
+          StockSellLevelVar=${StockSellLevelInput:-$StockSellLevelVar}
+          incrementPerTradeVar=${incrementPerTradeInput:-$incrementPerTradeVar}
+          sellIfOverPercentageVar=${sellIfOverPercentageInput:-$sellIfOverPercentageVar}
+          keepIfUnderPercentageVar=${keepIfUnderPercentageInput:-$keepIfUnderPercentageVar}
+
+          chmod +x ./simulate.sh
+          chmod +x ./simulate/*.sh
+          
+          # In case of shell errors with end of line: end of file unexpected (expecting "then")
+          sed -i 's/\r$//' ./simulate/*.sh
+
+          sh ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar"
+
+          #git fetch --unshallow origin
+          git config user.email ${{secrets.MAIL_ADRESS}}
+          git config user.name "Markus Hopf"
+          #git add simulate/out/_simulate.html
+          git add simulate/out/*.html
+          git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty 
+          git push 
+
+      - name: Send result via email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.ionos.de
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}          
+          subject: Simulate Result ${{github.event_name}} ${{github.event.action}}
+          # Read file contents as body:
+          html_body: file://simulate/out/_simulate.html
+          to: ${{secrets.MAIL_ADRESS}}
+          from: Github stock-analyse # <githubÄhopf-...de>
+          # Optional content type (defaults to text/plain):
+          #content_type: text/html          
+          # Optional attachments:
+          #attachments: out/_out.tar.gz
