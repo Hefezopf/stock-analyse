@@ -1,0 +1,80 @@
+name: Schedule
+
+# Controls when the action will run. 
+on:       
+  schedule:
+  # Every 20 minutes
+  #- cron: "*/20 * * * *"
+  # At 13:00, every Monday
+  #- cron: "0 13 * * 1"
+  # At 05:00 on Tue, Wed, Thr, Fri, Sat (MEWT: run is 2 hour delayed: --> 7:00)
+  #- cron: "0 5 * * 2,3,4,5,6"
+  # At 05:15 on Tue, Wed, Thr, Fri, Sat (MEST: run is 2 hour delayed: --> 7:15)
+  - cron: "15 5 * * 2,3,4,5,6"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+            
+      # Runs a set of commands using the runners shell
+      - name: Run Stock Analyse
+        run: |
+          echo "Start Stock Analyse ..."
+          export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
+
+          #Depot+DAX+MDAX+TDAX+SDAX+Eurostoxx+DOW (432)
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
+          ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          rm -rf config/own_symbols.txt
+          stockSymbolsVar=$(cat config/stock_symbols.txt)
+          symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
+          percentageVar=1
+          queryVar=online
+          stochasticVar=9
+          RSIVar=25
+
+          chmod +x ./analyse.sh
+
+          sh ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
+
+          cp out/_result.html out/_result_schedule.html
+          sed -i 's/Result SA/Result Schedule SA/g' out/_result_schedule.html
+
+          #git fetch --unshallow origin
+          git config user.email ${{secrets.MAIL_ADRESS}}
+          git config user.name "Markus Hopf"
+          git add data/*.txt
+          git add history/*.txt
+          git add alarm/*.txt
+          git add buy/*.txt
+          git add sell/*.txt
+          git add out/*.html
+          git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty 
+          git push 
+
+      - name: Send result via email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.ionos.de
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}          
+          subject: Schedule Result ${{github.event_name}} ${{github.event.action}}
+          # Read file contents as body:
+          html_body: file://template/email.html
+          #body: file://out/_result.html
+          to: ${{secrets.MAIL_ADRESS}}
+          from: Github stock-analyse # <githubÄhopf-...de>
+          # Optional content type (defaults to text/plain):
+          #content_type: text/html          
+          # Optional attachments:
+          #attachments: out/_out.tar.gz
