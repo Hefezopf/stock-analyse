@@ -55,11 +55,14 @@ EMAverageOfDays() {
     _dataFileParam=${2}
     export averagePriceList
 
-    i=1
-    while [ "$i" -lt "$_amountOfDaysParam" ]; do # Fill with blank comma seperated data
-        averagePriceList="$averagePriceList ,"        
-        i=$((i + 1))
-    done 
+    # i=1
+    # while [ "$i" -lt "$_amountOfDaysParam" ]; do # Fill with blank comma seperated data
+    #     averagePriceList="$averagePriceList ,"
+    #     i=$((i + 1))
+    # done 
+    averagePriceList=$(seq -s " ," ${_amountOfDaysParam} | tr -d '[[:digit:]]')
+echo "averagePriceList END:----------------- $averagePriceList"
+
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         if [ "$i" = 0 ]; then # Frist Loop
@@ -86,11 +89,12 @@ AverageOfDays() {
     export averagePriceList
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
-    i=1
-    while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
-        averagePriceList="$averagePriceList ,"
-        i=$((i + 1))
-    done
+    # i=1
+    # while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
+    #     averagePriceList="$averagePriceList ,"
+    #     i=$((i + 1))
+    # done
+    averagePriceList=$(seq -s " ," ${minusCommas} | tr -d '[[:digit:]]')    
 
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
@@ -163,12 +167,14 @@ StochasticOfDays() {
 
     stochasticFile="$(mktemp -p "$TEMP_DIR")"
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
-    i=1
+
     # Fill with blank comma seperated data
-    while [ "$i" -lt "$minusCommas" ]; do 
-        stochasticQuoteList="$stochasticQuoteList ,"
-        i=$((i + 1))
-    done 
+    # i=1
+    # while [ "$i" -lt "$minusCommas" ]; do 
+    #     stochasticQuoteList="$stochasticQuoteList ,"
+    #     i=$((i + 1))
+    # done 
+    stochasticQuoteList=$(seq -s " ," ${minusCommas} | tr -d '[[:digit:]]') 
 
     i=0
     # TODO optimize not 100 loop?!
