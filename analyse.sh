@@ -532,19 +532,24 @@ do
         fi
         # Draw buying/last rate
         cat template/indexPart8a.html
-        i=1
-        while [ "$i" -le 87 ]; do
-            echo -n "$buyingRate,"
-            i=$((i + 1))
-        done
+        # i=1
+        # while [ "$i" -le 87 ]; do
+        #     echo -n "$buyingRate,"
+        #     i=$((i + 1))
+        # done
+        agregateBuyingrate=$(seq -s "XX," 88 | tr -d '[[:digit:]]')
+        echo -n "$agregateBuyingrate" | sed "s/XX/${buyingRate}/g"
+
         # Draw 5% over buying/last quote
         cat template/indexPart8b.html
         percentOverBuyingLastRate=$(echo "$buyingRate 1.05" | awk '{print $1 * $2}')
-        i=1
-        while [ "$i" -le 87 ]; do
-            echo -n "$percentOverBuyingLastRate,"
-            i=$((i + 1))
-        done
+        # i=1
+        # while [ "$i" -le 87 ]; do
+        #     echo -n "$percentOverBuyingLastRate,"
+        #     i=$((i + 1))
+        # done
+        agregatePercentOverBuyingLastRate=$(seq -s "XX," 88 | tr -d '[[:digit:]]')
+        echo -n "$agregatePercentOverBuyingLastRate" | sed "s/XX/${percentOverBuyingLastRate}/g"
 
         cat template/indexPart9.html
         cat alarm/"$symbol".txt
