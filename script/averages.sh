@@ -55,13 +55,7 @@ EMAverageOfDays() {
     _dataFileParam=${2}
     export averagePriceList
 
-    # i=1
-    # while [ "$i" -lt "$_amountOfDaysParam" ]; do # Fill with blank comma seperated data
-    #     averagePriceList="$averagePriceList ,"
-    #     i=$((i + 1))
-    # done 
     averagePriceList=$(seq -s " ," ${_amountOfDaysParam} | tr -d '[[:digit:]]')
-echo "averagePriceList END:----------------- $averagePriceList"
 
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
@@ -89,11 +83,6 @@ AverageOfDays() {
     export averagePriceList
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
-    # i=1
-    # while [ "$i" -lt "$minusCommas" ]; do # Fill with blank comma seperated data
-    #     averagePriceList="$averagePriceList ,"
-    #     i=$((i + 1))
-    # done
     averagePriceList=$(seq -s " ," ${minusCommas} | tr -d '[[:digit:]]')    
 
     i=0
@@ -167,13 +156,6 @@ StochasticOfDays() {
 
     stochasticFile="$(mktemp -p "$TEMP_DIR")"
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
-
-    # Fill with blank comma seperated data
-    # i=1
-    # while [ "$i" -lt "$minusCommas" ]; do 
-    #     stochasticQuoteList="$stochasticQuoteList ,"
-    #     i=$((i + 1))
-    # done 
     stochasticQuoteList=$(seq -s " ," ${minusCommas} | tr -d '[[:digit:]]') 
 
     i=0
@@ -190,7 +172,6 @@ StochasticOfDays() {
         else 
             lastStochasticQuote=100
         fi
-        #beforeLastStochasticQuoteRounded="$lastStochasticQuoteRounded"
         lastStochasticQuoteRounded=$(echo "$lastStochasticQuote" | cut -f 1 -d '.')
         stochasticQuoteList="$stochasticQuoteList $lastStochasticQuoteRounded,"
         i=$((i + 1))
