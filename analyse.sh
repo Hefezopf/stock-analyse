@@ -537,7 +537,7 @@ do
         #     echo -n "$buyingRate,"
         #     i=$((i + 1))
         # done
-        agregateBuyingrate=$(seq -s "XX," 88 | tr -d '[[:digit:]]')
+        agregateBuyingrate=$(seq -s "XX," 88 | tr -d '[:digit:]')
         echo -n "$agregateBuyingrate" | sed "s/XX/${buyingRate}/g"
 
         # Draw 5% over buying/last quote
@@ -548,7 +548,7 @@ do
         #     echo -n "$percentOverBuyingLastRate,"
         #     i=$((i + 1))
         # done
-        agregatePercentOverBuyingLastRate=$(seq -s "XX," 88 | tr -d '[[:digit:]]')
+        agregatePercentOverBuyingLastRate=$(seq -s "XX," 88 | tr -d '[:digit:]')
         echo -n "$agregatePercentOverBuyingLastRate" | sed "s/XX/${percentOverBuyingLastRate}/g"
 
         cat template/indexPart9.html

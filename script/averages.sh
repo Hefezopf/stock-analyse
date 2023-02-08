@@ -55,7 +55,7 @@ EMAverageOfDays() {
     _dataFileParam=${2}
     export averagePriceList
 
-    averagePriceList=$(seq -s " ," ${_amountOfDaysParam} | tr -d '[[:digit:]]')
+    averagePriceList=$(seq -s " ," "${_amountOfDaysParam}" | tr -d '[:digit:]')
 
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
@@ -83,7 +83,7 @@ AverageOfDays() {
     export averagePriceList
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
-    averagePriceList=$(seq -s " ," ${minusCommas} | tr -d '[[:digit:]]')    
+    averagePriceList=$(seq -s " ," "${minusCommas}" | tr -d '[:digit:]')    
 
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
@@ -156,7 +156,7 @@ StochasticOfDays() {
 
     stochasticFile="$(mktemp -p "$TEMP_DIR")"
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
-    stochasticQuoteList=$(seq -s " ," ${minusCommas} | tr -d '[[:digit:]]') 
+    stochasticQuoteList=$(seq -s " ," "${minusCommas}" | tr -d '[:digit:]') 
 
     i=0
     # TODO optimize not 100 loop?!
