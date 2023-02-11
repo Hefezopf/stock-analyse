@@ -355,8 +355,10 @@ do
         # shellcheck disable=SC2001
         xAxis=$(echo "$xAxis" | sed "s/$i/${ARRAY_TX_INDEX[i]}/g")
     done
-    sed -i "/labels: /c\labels: [$xAxis" simulate/out/"$symbol".html
-    
+    # sed -i "/labels: /c\labels: [$xAxis" simulate/out/"$symbol".html
+    labelsTemplate="labels:[$xAxis"
+    sed -i "79s/.*/$labelsTemplate/" simulate/out/"$symbol".html    
+
     # Write/Replace "buy"
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
