@@ -379,6 +379,26 @@ do
     # ATTENTION Line number may change, if there will be development!
     sed -i "187s/.*/$sellSequenceReplaced/" simulate/out/"$symbol".html
 
+
+    if [ "$piecesHold" -gt 0 ]; then
+        currentAvg=$(echo "$wallet $piecesHold" | awk '{print ($1 / $2)}')
+    else 
+        currentAvg="$quoteAt"
+    fi
+    # Write/Replace simulation "Buying/Last" values. Replace line!
+    # ATTENTION Line number may change, if there will be development!
+    dataTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,]},"
+    buyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${currentAvg}/g")
+    sed -i "215s/.*/$buyingAvgSequenceReplaced/" simulate/out/"$symbol".html
+
+    # Draw 5% over buying/last quote
+    percentOverBuyingAvg=$(echo "$currentAvg 1.05" | awk '{print $1 * $2}')
+    # Write/Replace simulation "Draw 5% over BuyingAvg" values. Replace line!
+    # ATTENTION Line number may change, if there will be development!
+    percentOverBuyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${percentOverBuyingAvg}/g")
+    sed -i "221s/.*/$percentOverBuyingAvgSequenceReplaced/" simulate/out/"$symbol".html
+
+
     # Write/Replace timestamp. Replace line!
     creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
     if [ "$(uname)" = 'Linux' ]; then
