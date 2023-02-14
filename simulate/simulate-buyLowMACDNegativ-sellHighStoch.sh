@@ -353,7 +353,7 @@ do
     for i in "${!ARRAY_TX_INDEX[@]}"; do
         # Buy may replace some Sell-XXX values -> looks strange: 'SELL-9BUY
         # shellcheck disable=SC2001
-        xAxis=$(echo "$xAxis" | sed "s/$i/${ARRAY_TX_INDEX[i]}/g")
+        xAxis=$(echo "$xAxis" | sed "s/'$i'/'${ARRAY_TX_INDEX[i]}'/g")
     done
     # sed -i "/labels: /c\labels: [$xAxis" simulate/out/"$symbol".html
     labelsTemplate="labels:[$xAxis"
