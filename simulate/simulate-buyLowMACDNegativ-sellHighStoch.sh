@@ -358,7 +358,7 @@ do
     # sed -i "/labels: /c\labels: [$xAxis" simulate/out/"$symbol".html
     labelsTemplate="labels:[$xAxis"
     sed -i "79s/.*/$labelsTemplate/" simulate/out/"$symbol".html    
-
+ 
     # Write/Replace "buy"
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
