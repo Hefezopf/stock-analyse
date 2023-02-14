@@ -280,7 +280,7 @@ do
                         anualPercentWin=$(echo "360 $averageHoldingDays" | awk '{print ($1 / $2)}')
                         anualPercentWin=$(echo "$anualPercentWin $intermediateProzWin" | awk '{print ($1 * $2)}')
                         anualPercentWin=$(printf "%.0f" "$anualPercentWin")
-                        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% AnualPerc=$anualPercentWin% Avg Holding Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
+                        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg Holding Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
                         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
                         piecesHold=0
                         wallet=0
@@ -484,7 +484,7 @@ else
 fi
 Out "Win Percentage (100 Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
 prozWinOverAll1Year=$(echo "$prozWinOverAll 2.5" | awk '{print ($1 * $2)}') # 100 Kurse -> 250 Arbeitstage
-Out "Win Percentage 1 Year (250 Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
+Out "Estimated Win Percentage 1 Year (250 Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 # Workflow  
