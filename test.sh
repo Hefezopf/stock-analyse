@@ -11,7 +11,9 @@
 # libexec, bin share and lib
 # bats -version
 
-# To get rid of carage returns, may run: sed -i 's/\r//g' script/constants.sh
+# To get rid of carage returns, may run:
+# sed -i 's/\r//g' script/constants.sh
+# sed -i 's/\r//g' simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 
 echo shellcheck ...
 cat script/constants.sh | tr -d '\r' > script/constants1.sh
