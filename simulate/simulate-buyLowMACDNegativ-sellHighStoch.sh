@@ -90,7 +90,6 @@ do
 
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
     asset_type=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
-#echo "asset_type $asset_type"
 
     Out "" $OUT_SIMULATE_FILE
 
@@ -169,8 +168,7 @@ do
 # echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower
 
         if [ "$RSIindex" = 100 ]; then
-            _buy=$(grep -i -c "Buy:" out/"$symbol".html)           
-#        echo _buy "$_buy" asset_type "$asset_type"
+            _buy=$(grep -i -c "Buy:" out/"$symbol".html)
 
             # Buy, if more buy signals in Result file: STOCK >= 6 or INDEX >=4
             if { [ "$_buy" -ge 6 ] && [ "$asset_type" = 'STOCK' ]; } || 
@@ -190,15 +188,11 @@ do
             fi
             
             amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
-#            amount=$(echo "$quoteAt $piecesPerTrade 10" | awk '{print ($1 * $2) + $3}')
             amount=$(printf "%.0f" "$amount")
 
             # Fees each Buy trade
             CalculateTxFee "$quoteAt" "$piecesPerTrade"
-        # echo txFee "$txFee"
             amount=$((amount - txFee))
-        # echo amount "$amount"
-
             piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
             wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
             wallet=$(printf "%.0f" "$wallet")
@@ -206,8 +200,6 @@ do
             Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tMACD:$valueMACD\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
             buyingDay=$((buyingDay + RSIindex))
             amountOfTrades=$((amountOfTrades + 1)) 
-
-        #    lastLowestQuoteAt="$quoteAt" 
 
             # Calculate ARRAY_BUY
             for i in "${!ARRAY_BUY[@]}"; do
@@ -381,7 +373,6 @@ do
     # ATTENTION Line number may change, if there will be development!
     sed -i "187s/.*/$sellSequenceReplaced/" simulate/out/"$symbol".html
 
-
     if [ "$piecesHold" -gt 0 ]; then
         currentAvg=$(echo "$wallet $piecesHold" | awk '{print ($1 / $2)}')
     else 
@@ -399,7 +390,6 @@ do
     # ATTENTION Line number may change, if there will be development!
     percentOverBuyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${percentOverBuyingAvg}/g")
     sed -i "221s/.*/$percentOverBuyingAvgSequenceReplaced/" simulate/out/"$symbol".html
-
 
     # Write/Replace timestamp. Replace line!
     creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
