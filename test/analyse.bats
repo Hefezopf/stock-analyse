@@ -8,7 +8,7 @@ SYMBOL=BEI
 
 @test "Analyse" {
   #result=$(./analyse.sh $SYMBOL 2 offline 9 25 ccccccc)
-  run ./analyse.sh $SYMBOL
+  run ./analyse.sh "$SYMBOL"
   [ "$status" -eq 5 ]
 
   #run ./analyse.sh $SYMBOL 2 offline 9 25
