@@ -4,7 +4,7 @@
 # load '/d/code/bats-assert/load.bash'
 
 # Debug mode
-set -x
+#set -x
 
 # Constants
 SYMBOL=BEI
