@@ -53,6 +53,7 @@ MACD_12_26() {
 EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+    
     _quotesAsArrayParam=("$@") # all params are in this array!!!
    # _quotesAsArrayParam=("$@") # all params are in this array!!!
   #  _quotesAsArrayParam=("$(cat "$DATA_FILE")")
