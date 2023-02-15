@@ -251,13 +251,13 @@ do
         # EMAverage 12
         averageInDays12=12
         averagePriceList=""
-        QUOTES_AS_ARRAY=($(cat "$DATA_FILE" | tr "\r" " "))
-        EMAverageOfDays $averageInDays12 "$DATA_FILE" "$QUOTES_AS_ARRAY"
+        QUOTES_AS_ARRAY=("$(cat "$DATA_FILE")")
+        EMAverageOfDays "$averageInDays12" "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
         averagePriceList12=$averagePriceList
         # EMAverage 26
         averageInDays26=26
         averagePriceList=""
-        EMAverageOfDays $averageInDays26 "$DATA_FILE" "$QUOTES_AS_ARRAY"
+        EMAverageOfDays "$averageInDays26" "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
         averagePriceList26=$averagePriceList
         # MACD
         lastMACDValue=0
