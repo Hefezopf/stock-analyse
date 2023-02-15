@@ -1,4 +1,4 @@
-#!/usr/bin/env bats
+#!/bin/bash
 
 # https://github.com/bats-core/bats-core
 # load '/d/code/bats-assert/load.bash'
