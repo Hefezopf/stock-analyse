@@ -251,9 +251,9 @@ do
         # EMAverage 12
         averageInDays12=12
         averagePriceList=""
-        #QUOTES_AS_ARRAY=("$(cat "$DATA_FILE")")
-        #EMAverageOfDays "$averageInDays12" "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
-        EMAverageOfDays "$averageInDays12" "$DATA_FILE"
+        QUOTES_AS_ARRAY=("$(cat "$DATA_FILE")")
+        EMAverageOfDays_Array "$averageInDays12" "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
+        #EMAverageOfDays "$averageInDays12" "$DATA_FILE"
         averagePriceList12=$averagePriceList
         # EMAverage 26
         averageInDays26=26
