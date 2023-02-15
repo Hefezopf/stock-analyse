@@ -45,6 +45,7 @@ MACD_12_26() {
     difference=$(printf "%.2f" "$difference")
     lastMACDValue=$difference
     MACDList=" , , , , , , , , , , ,$MACDList"
+#echo "----MACDList $MACDList"    
 }
 
 # EMAverageOfDays function:
@@ -161,6 +162,8 @@ RSIOfDays() {
     export RSIQuoteList
     export beforeLastRSIQuoteRounded
 
+lowestRSI=100
+
     RSIwinningDaysFile="$(mktemp -p "$TEMP_DIR")"
     RSIloosingDaysFile="$(mktemp -p "$TEMP_DIR")"
     i=1
@@ -194,7 +197,9 @@ RSIOfDays() {
             beforeLastRSIQuoteRounded="$lastRSIQuoteRounded"
             lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
 
+#echo "lastRSIQuoteRounded $lastRSIQuoteRounded" "lowestRSI $lowestRSI"
             if [ "$lastRSIQuoteRounded" -lt "$lowestRSI" ]; then 
+#echo "REIN"            
                 lowestRSI="$lastRSIQuoteRounded"
             fi
 
