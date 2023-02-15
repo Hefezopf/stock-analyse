@@ -16,6 +16,8 @@
 # sed -i 's/\r//g' simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 
 # Call: . test.sh
+# npm install -g gnomon
+# Call: . test.sh | gnomon --medium=1.0 --high=4.0 --ignore-blank --real-time=100
 
 echo shellcheck ...
 cat script/constants.sh | tr -d '\r' > script/constants1.sh

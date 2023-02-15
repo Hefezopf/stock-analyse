@@ -5,6 +5,12 @@ TODO:
 
 
 -SA überall Array wie bei EMAverageOfDays
+./test.sh | gnomon --medium=1.0 --high=4.0 --ignore-blank --real-time=100
+  14.6925s   ok 1 RSIOfDays
+  13.2087s   ok 2 MACD_12_26
++   7.3960s   ok 3 EMAverageOfDays
+  35.7777s   ok 4 AverageOfDays
+ 108.1737s   ok 1 StrategieOverratedStochasticWhenOwn
 
 
 -"$DATA_AHLA_FILE" als 2.ter parameter weg
@@ -287,6 +293,8 @@ cat functions.sh | tr -d '\r' > functions1.sh
 shellcheck --exclude=SC2039 script/functions.sh
 shellcheck --shell=bash script/functions.sh
 ./test.sh
+
+./test.sh | gnomon --medium=1.0 --high=4.0 --ignore-blank --real-time=100
 
 
 REST Api
