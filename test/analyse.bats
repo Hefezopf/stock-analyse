@@ -3,6 +3,9 @@
 # https://github.com/bats-core/bats-core
 # load '/d/code/bats-assert/load.bash'
 
+# Debug mode
+set -x
+
 # Constants
 SYMBOL=BEI
 
