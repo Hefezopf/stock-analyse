@@ -121,7 +121,7 @@ EMAverageOfDays_Array() {
                 ind=$((ind - 1))
             done
             ema=$(echo "$ema $_amountOfDaysParam" | awk '{print ($1 / $2)}')
-    echo "-----------ema $ema"
+    #echo "-----------ema $ema"
         else
             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
             ind=$((100-i-_amountOfDaysParam)) 
