@@ -53,6 +53,7 @@ MACD_12_26() {
 EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
+    _quotesAsArrayParam=("$@") # all params are in this array!!!
     export averagePriceList
 
     averagePriceList=$(seq -s " ," "${_amountOfDaysParam}" | tr -d '[:digit:]')
@@ -60,14 +61,21 @@ EMAverageOfDays() {
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         if [ "$i" = 0 ]; then # Frist Loop
-            headLines=$((100-i))
-            ema=$(head -n"$headLines" "$_dataFileParam" | tail -"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')
+            ind=102
+            ema=0
+            while [ "$ind" -ge $((102-_amountOfDaysParam)) ]; do
+                ema=$(echo "${_quotesAsArrayParam[ind]} $ema" | awk '{print ($1 + $2)}')
+                ind=$((ind - 1))
+            done
+            ema=$(echo "$ema $_amountOfDaysParam" | awk '{print ($1 / $2)}')
         else
             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
-            headLinesLastPrice=$((101-i-_amountOfDaysParam))
-            lastPrice=$(head -n"$headLinesLastPrice" "$_dataFileParam" | tail -1)
-            # shellcheck disable=SC2086
-            ema=$(echo "$lastPrice $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')          
+            ind=$((102-i-_amountOfDaysParam)) 
+            while [ "$ind" -ge $((102-i-_amountOfDaysParam)) ]; do
+                # shellcheck disable=SC2086
+                ema=$(echo "${_quotesAsArrayParam[ind]} $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')
+                ind=$((ind - 1))
+            done        
         fi
         averagePriceList="$averagePriceList $ema,"
         i=$((i + 1))
