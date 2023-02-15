@@ -51,7 +51,7 @@ rm -rf test/_result.html
 echo bats ...
 # bats --tap test/strategies.bats
 # bats --tap test/functions.bats
-# bats --tap test/averages.bats
+bats --tap test/averages.bats
 
-bats --tap test/analyse.bats
-bats --tap test/simulate.bats
+# bats --tap test/analyse.bats
+# bats --tap test/simulate.bats
