@@ -74,62 +74,64 @@ EMAverageOfDays() {
     done   
 }
 
-# # EMAverageOfDays function:
-# # Input: ${x}
-# # Output: averagePriceList is comma separted list
-# EMAverageOfDays() {
-#     _amountOfDaysParam=${1}
-#     _dataFileParam=${2}
+# EMAverageOfDays function:
+# Input: ${x}
+# Output: averagePriceList is comma separted list
+EMAverageOfDays_Array() {
+    _amountOfDaysParam=${1}
+    _dataFileParam=${2}
+
+    _quotesAsArrayParam=("$@") # all params are in this array!!!
     
-#    #echo "$3"
-#    #mapfile -t _quotesAsArrayParam <<< "$@"
+   #echo "$3"
+   #mapfile -t _quotesAsArrayParam <<< "$@"
 
-# #echo "-------------ARRAY " ${@}
+#echo "-------------ARRAY " ${@}
 
-# #echo "-------------ARRAY " "${3}"
+#echo "-------------ARRAY " "${3}"
 
-#     # shellcheck disable=SC2068,SC2206
-#     _quotesAsArrayParam=${3}
+    # shellcheck disable=SC2068,SC2206
+   # _quotesAsArrayParam=${3}
 
-#    #_quotesAsArrayParam=($(echo "$3"))
-#    # _quotesAsArrayParam=("$@") # all params are in this array!!!
-#     #_quotesAsArrayParam="$@" # all params are in this array!!!
-#    # _quotesAsArrayParam=("$@") # all params are in this array!!!
-#   #  _quotesAsArrayParam=("$(cat "$DATA_FILE")")
-#     export averagePriceList
+   #_quotesAsArrayParam=($(echo "$3"))
+   # _quotesAsArrayParam=("$@") # all params are in this array!!!
+    #_quotesAsArrayParam="$@" # all params are in this array!!!
+   # _quotesAsArrayParam=("$@") # all params are in this array!!!
+  #  _quotesAsArrayParam=("$(cat "$DATA_FILE")")
+    export averagePriceList
 
-#     averagePriceList=$(seq -s " ," "${_amountOfDaysParam}" | tr -d '[:digit:]')
+    averagePriceList=$(seq -s " ," "${_amountOfDaysParam}" | tr -d '[:digit:]')
     
-#     # shellcheck disable=SC2206
-#     _quotesAsArray=(${_quotesAsArrayParam[2]})
-#     #mapfile -t _quotesAsArray <<< "${_quotesAsArrayParam[2]}"
+    # shellcheck disable=SC2206
+    _quotesAsArray=(${_quotesAsArrayParam[2]})
+    #mapfile -t _quotesAsArray <<< "${_quotesAsArrayParam[2]}"
 
-# #echo "-------------ARRAY " "${@}"
+#echo "-------------ARRAY " "${@}"
 
-#     i=0
-#     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
-#         if [ "$i" = 0 ]; then # Frist Loop
-#             ema=0
-#             ind=99
-#             while [ "$ind" -ge $((100-_amountOfDaysParam)) ]; do
-#                 ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1 + $2)}')
-#                 ind=$((ind - 1))
-#             done
-#             ema=$(echo "$ema $_amountOfDaysParam" | awk '{print ($1 / $2)}')
-#     echo "-----------ema $ema"
-#         else
-#             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
-#             ind=$((100-i-_amountOfDaysParam)) 
-#             while [ "$ind" -ge $((100-i-_amountOfDaysParam)) ]; do
-#                 # shellcheck disable=SC2086
-#                 ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')
-#                 ind=$((ind - 1))
-#             done        
-#         fi
-#         averagePriceList="$averagePriceList $ema,"
-#         i=$((i + 1))
-#     done   
-# }
+    i=0
+    while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
+        if [ "$i" = 0 ]; then # Frist Loop
+            ema=0
+            ind=99
+            while [ "$ind" -ge $((100-_amountOfDaysParam)) ]; do
+                ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1 + $2)}')
+                ind=$((ind - 1))
+            done
+            ema=$(echo "$ema $_amountOfDaysParam" | awk '{print ($1 / $2)}')
+    echo "-----------ema $ema"
+        else
+            #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
+            ind=$((100-i-_amountOfDaysParam)) 
+            while [ "$ind" -ge $((100-i-_amountOfDaysParam)) ]; do
+                # shellcheck disable=SC2086
+                ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')
+                ind=$((ind - 1))
+            done        
+        fi
+        averagePriceList="$averagePriceList $ema,"
+        i=$((i + 1))
+    done   
+}
 
 # AverageOfDays function:
 # Input: ${x}
