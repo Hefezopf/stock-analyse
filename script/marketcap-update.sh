@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Call: sh ./script/marketcap-update.sh SYMBOLS
-# Example: sh ./script/marketcap-update.sh 'BEI VH2' 
+# Call: script/marketcap-update.sh SYMBOLS
+# Example: script/marketcap-update.sh 'BEI VH2' 
 # alias ???='/d/code/stock-analyse/script/marketcap-update.sh $1'
 
 #set -x

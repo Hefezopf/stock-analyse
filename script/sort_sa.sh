@@ -1,16 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 # Alphabetic sorting of all Symbols in config/stock_symbols.txt
 # Do manually every other month, to sort all available symbols again.
 # Or scheduled with ../workflows/sort.workflow.yml
 
-# Call: sh ./script/sort_sa.sh
+# Call: script/sort_sa.sh
 
 #set -x
 
 # Import
 # shellcheck disable=SC1091
-. ./script/constants.sh
+. script/constants.sh
 
 echo "Sorting..."
 
