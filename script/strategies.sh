@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # StrategieUnderratedNewLow function:
 # Strategie: New Low (L)

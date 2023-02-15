@@ -4,8 +4,8 @@
 # load '/d/code/bats-assert/load.bash'
 
 # Import
-. ./script/constants.sh
-. ./script/functions.sh
+. script/constants.sh
+. script/functions.sh
 
 # Constants
 TEMP_DIR=/tmp

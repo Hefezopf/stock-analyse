@@ -2,15 +2,15 @@
 
 # This script checks given stock quotes and their averages of the last 95, 38, 18 days.
 # Stochastic, RSI and MACD are calculated as well
-# Call: ./analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
+# Call: . analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query via REST API.
 # 4. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
 # 5. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
-# Call example: ./analyse.sh 'BEI *ALV' 1 online 9 25
-# Call example: ./analyse.sh 'BEI' 2 offline 9 25
-# Call example: ./analyse.sh '*BEI' 1 offline 9 25
+# Call example: . analyse.sh 'BEI *ALV' 1 online 9 25
+# Call example: . analyse.sh 'BEI' 2 offline 9 25
+# Call example: . analyse.sh '*BEI' 1 offline 9 25
 # Precondition:
 # Set MARKET_STACK_ACCESS_KEY as ENV Variable (Online)
 # Set GPG_PASSPHRASE as ENV Variable
@@ -20,10 +20,10 @@
 
 # Import
 # shellcheck disable=SC1091
-. ./script/constants.sh
-. ./script/functions.sh
-. ./script/averages.sh
-. ./script/strategies.sh
+. script/constants.sh
+. script/functions.sh
+. script/averages.sh
+. script/strategies.sh
 
 # Switches for calculating charts and underlying strategies. Default is 'true'
 # 6th parameter is undocumented! Speeds up development!
