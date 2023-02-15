@@ -78,9 +78,6 @@ EMAverageOfDays() {
 # Input: ${x}
 # Output: averagePriceList is comma separted list
 EMAverageOfDays_Array() {
-
-    echo "$SHELL"
-
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
 
