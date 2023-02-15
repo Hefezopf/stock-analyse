@@ -58,7 +58,8 @@ jobs:
       - shell: bash
         run: |    
           echo "Bats Test"
-          sh ./script/install-bats.sh
+          . ./script/install-bats.sh
+          # sh ./script/install-bats.sh
           /home/runner/.local/bin/bats -version
           mkdir -p temp
           rm -rf test/_result.html

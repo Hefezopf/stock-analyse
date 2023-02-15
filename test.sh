@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # https://github.com/bats-core/bats-core
 # https://github.com/ztombol/bats-assert
