@@ -54,7 +54,11 @@ EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
     
-    _quotesAsArrayParam=("$@") # all params are in this array!!!
+   #echo "$3"
+   mapfile -t _quotesAsArrayParam <<< "$@"
+   #_quotesAsArrayParam=($(echo "$3"))
+   # _quotesAsArrayParam=("$@") # all params are in this array!!!
+    #_quotesAsArrayParam="$@" # all params are in this array!!!
    # _quotesAsArrayParam=("$@") # all params are in this array!!!
   #  _quotesAsArrayParam=("$(cat "$DATA_FILE")")
     export averagePriceList
