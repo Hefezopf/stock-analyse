@@ -14,8 +14,8 @@
 
 # Import
 # shellcheck disable=SC1091
-. ./script/constants.sh
-. ./script/functions.sh
+. script/constants.sh
+. script/functions.sh
 
 # Fix for warning: referenced but not assigned
 export txFee
