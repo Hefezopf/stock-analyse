@@ -206,7 +206,8 @@ lowestRSI=100
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
         i=$((i + 1))
-    done 
+    done
+#echo "RSIQuoteList $RSIQuoteList"     
 }
 
 # StochasticOfDays function:
