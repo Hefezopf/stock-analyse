@@ -15,7 +15,7 @@
 # sed -i 's/\r//g' script/constants.sh
 # sed -i 's/\r//g' simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 
-# Call: ./test.sh
+# Call: . test.sh
 
 echo shellcheck ...
 cat script/constants.sh | tr -d '\r' > script/constants1.sh
