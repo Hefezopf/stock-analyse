@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 # Encrypt and view portfolio in config/own_symbols.txt
 #
-# Call: sh ./view_portfolio.sh
-# Example: sh ./view_portfolio.sh
+# Call: . view_portfolio.sh
+# Example: . view_portfolio.sh
 # alias vp='/d/code/stock-analyse/script/view_portfolio.sh'
 
 # Import
 # shellcheck disable=SC1091
-. ./script/constants.sh
+. script/constants.sh
 
 TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 

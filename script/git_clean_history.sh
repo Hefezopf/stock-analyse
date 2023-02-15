@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Local script call to make the histroy of the repo smaller
 # Clear history of these 3 directores: buy, sell and alarm
@@ -13,7 +13,7 @@
 # du -sh .
 # -> 558 M
 #
-# Call: sh ./script/git_clean_history.sh
+# Call: . script/git_clean_history.sh
 
 #set -x
 

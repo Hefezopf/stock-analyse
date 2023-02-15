@@ -1,16 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 # This script retrieves data from marketstack.
-# Call: ./get-data.sh SYMBOLS
+# Call: . get-data.sh SYMBOLS
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
-# Call example: ./get-data.sh 'BEI DAI'
+# Call example: . get-data.sh 'BEI DAI'
 # Precondition:
 # Set MARKET_STACK_ACCESS_KEY as ENV Variable (Online)
 
 # Debug mode
 #set -x
 
-. ./script/functions.sh
+. script/functions.sh
 
 export MARKET_STACK_ACCESS_KEY
 

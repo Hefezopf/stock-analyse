@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # POST Request to run action in GitHub and trigger workflow
-# Call: sh ./curl_github_dispatch_analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
-# Example: sh ./script/curl/curl_github_dispatch_analyse.sh "CEC" 1 offline 9 25
-# Example: sh ./script/curl/curl_github_dispatch_analyse.sh "*GIS" 1 online 9 25
+# Call: . curl_github_dispatch_analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
+# Example: . script/curl/curl_github_dispatch_analyse.sh "CEC" 1 offline 9 25
+# Example: . script/curl/curl_github_dispatch_analyse.sh "*GIS" 1 online 9 25
 # !!Only one symbol can be passed as parameter!! For example: This list is NOT possible: "CEC *GIS" 
 
 # Debug mode

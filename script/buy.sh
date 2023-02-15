@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 # Adding *symbol to config/own_symbols.txt
 # and
 # Removing symbol from config/stock_symbols.txt
 # Covers Rebuy scenario as well!
 #
-# Call: sh ./script/buy.sh SYMBOL PIECES PRICE
+# Call: . script/buy.sh SYMBOL PIECES PRICE
 # Example: source ./script/buy.sh BEI 100 9.99 
 # alias buy='/d/code/stock-analyse/script/buy.sh $1 $2 $3'
 # {"event_type": "buy", "client_payload": {"symbol": "BEI", "price": "9.99", "pieces": "100"}}

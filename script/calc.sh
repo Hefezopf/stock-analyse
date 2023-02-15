@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 # Calculating difference or gain/lost
 #
-# Call: sh ./calc.sh ORDERRATE PIECES SPREAD_IN_PERCENT SELLRATE
-# Example: sh ./calc.sh 9.99 100 0.1 10.1
+# Call: . calc.sh ORDERRATE PIECES SPREAD_IN_PERCENT SELLRATE
+# Example: . calc.sh 9.99 100 0.1 10.1
 # alias calc='/d/code/stock-analyse/script/calc.sh $1 $2 $3 $4'
 
 echo "calc $1 $2 $3 $4 ..."

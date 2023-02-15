@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Debug mode
 #set -x

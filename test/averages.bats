@@ -4,7 +4,7 @@
 # load '/d/code/bats-assert/load.bash'
 
 # Import
-. ./script/averages.sh
+. script/averages.sh
 
 # Constants
 TEMP_DIR=/tmp

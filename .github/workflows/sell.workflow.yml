@@ -56,7 +56,8 @@ jobs:
 
           chmod +x ./script/sell.sh
 
-          sh ./script/sell.sh "$symbolVar" "$sellPriceVar"
+          #sh ./script/sell.sh "$symbolVar" "$sellPriceVar"
+          ./script/sell.sh "$symbolVar" "$sellPriceVar"
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
@@ -64,7 +65,8 @@ jobs:
 
           chmod +x ./analyse.sh
 
-          sh ./analyse.sh "$symbolsVar $symbolVar" 1 offline 9 25
+          #sh ./analyse.sh "$symbolsVar $symbolVar" 1 offline 9 25
+          ./analyse.sh "$symbolsVar $symbolVar" 1 offline 9 25
 
           #git fetch --unshallow origin
           git config user.email ${{secrets.MAIL_ADRESS}}

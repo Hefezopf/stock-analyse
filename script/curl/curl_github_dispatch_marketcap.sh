@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # POST Request to run action in GitHub and trigger workflow
-# Call: sh ./curl_github_dispatch_marketcap.sh
-# Example: sh ./script/curl/curl_github_dispatch_marketcap.sh
+# Call: . curl_github_dispatch_marketcap.sh
+# Example: . script/curl/curl_github_dispatch_marketcap.sh
 
 # Debug mode
 #set -x
