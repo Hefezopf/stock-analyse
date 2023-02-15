@@ -8,7 +8,7 @@
 
 # Import
 # shellcheck disable=SC1091
-. ./script/constants.sh
+. script/constants.sh
 
 symbolsParam=$1
 
