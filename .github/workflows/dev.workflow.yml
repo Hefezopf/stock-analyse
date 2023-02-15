@@ -60,7 +60,7 @@ jobs:
           echo "Bats Test"
           sh ./script/install-bats.sh
           /home/runner/.local/bin/bats -version
-          mkdir temp
+          mkdir -p temp
           rm -rf test/_result.html
           /home/runner/.local/bin/bats --tap test/*.bats
 
