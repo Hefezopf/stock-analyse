@@ -1,18 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
 # View transaction history from file config/transaction_history.txt
 #
-# Call: sh ./script/view_transaction_history.sh SYMBOL | DATE
-# Example: sh ./script/view_transaction_history.sh BEI
-# Example: sh ./script/view_transaction_history.sh 2022-03-
-# Example: sh ./script/view_transaction_history.sh 2022
+# Call: . script/view_transaction_history.sh SYMBOL | DATE
+# Example: . script/view_transaction_history.sh BEI
+# Example: . script/view_transaction_history.sh 2022-03-
+# Example: . script/view_transaction_history.sh 2022
 # alias vt='/d/code/stock-analyse/script/view_transaction_history.sh $1'
 
 #set -x
 
 # Import
 # shellcheck disable=SC1091
-. ./script/constants.sh
+. script/constants.sh
 
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')

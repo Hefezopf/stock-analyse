@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Removing *symbol from config/own_symbols.txt
 # and
@@ -6,15 +6,15 @@
 # and
 # Adding Tx to config/transaction_history.txt
 #
-# Call: sh ./script/sell.sh SYMBOL SELLPRICE
-# Example: sh ./script/sell.sh BEI 9.99
+# Call: . script/sell.sh SYMBOL SELLPRICE
+# Example: . script/sell.sh BEI 9.99
 # alias sell='/d/code/stock-analyse/script/sell.sh $1 $2'
 # {"event_type": "sell", "client_payload": {"symbol": "BEI", "sellPrice": "9.99"}}
 
 # Import
 # shellcheck disable=SC1091
-. ./script/constants.sh
-. ./script/functions.sh
+. script/constants.sh
+. script/functions.sh
 
 # Fix for warning: referenced but not assigned
 export txFee

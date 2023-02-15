@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Query quotes on daily base
-# Call: sh ./curl_marketstack.sh SYMBOL
-# Example: sh ./script/curl/curl_marketstack.sh IBM
+# Call: . curl_marketstack.sh SYMBOL
+# Example: . script/curl/curl_marketstack.sh IBM
 
 # Debug mode
 #set -x

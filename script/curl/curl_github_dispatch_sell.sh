@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # POST Request to run action in GitHub and trigger workflow
-# Call: sh ./curl_github_dispatch_sell.sh SYMBOL SELL_PRICE
-# Example: sh ./script/curl/curl_github_dispatch_sell.sh "BEI 9.99"
+# Call: . curl_github_dispatch_sell.sh SYMBOL SELL_PRICE
+# Example: . script/curl/curl_github_dispatch_sell.sh "BEI 9.99"
 # !!Only ONE symbol can be passed as parameter!! For example: This list is NOT possible: "BEI BMW" 
 
 # Debug mode

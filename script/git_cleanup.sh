@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 # Local script call to make the repo smaller
 #
 # To see the size in Github: https://github.com/settings/repositories
 #
-# Call: sh ./script/git_cleanup.sh
+# Call: . script/git_cleanup.sh
 
 #set -x
 

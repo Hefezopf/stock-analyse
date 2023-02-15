@@ -1,12 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
 # Delete all files for a $Symbol from Stock Analyse
 # Delete $SYMBOL in stock_symbols.txt
 # Delete File $SYMBOL.html in /out
 # Delete Files $SYMBOL*.txt in /alarm, /buy, /data, /history, /sell
 #
-# Call: sh ./script/delete_from_sa.sh SYMBOL
-# Example: sh ./script/delete_from_sa.sh BEI
+# Call: . script/delete_from_sa.sh SYMBOL
+# Example: . script/delete_from_sa.sh BEI
 # alias dfsa='/d/code/stock-analyse/script/delete_from_sa.sh $1'
 
 # To uppercase

@@ -4,8 +4,8 @@
 # load '/d/code/bats-assert/load.bash'
 
 # Import
-. ./script/constants.sh
-. ./script/strategies.sh
+. script/constants.sh
+. script/strategies.sh
 
 # Constants
 OUT_RESULT_FILE=temp/_result.html

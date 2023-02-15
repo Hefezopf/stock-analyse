@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Request a real Stock name for a given SYMBOL name
-# Call: sh ./curl_figi.sh SYMBOL
-# Example: sh ./script/curl/curl_figi.sh IBM
+# Call: . curl_figi.sh SYMBOL
+# Example: . script/curl/curl_figi.sh IBM
 
 # Debug mode
 #set -x
