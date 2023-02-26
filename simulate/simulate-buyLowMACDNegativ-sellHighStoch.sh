@@ -275,7 +275,6 @@ do
                         Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg Holding Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
                         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
                         piecesHold=0
-                        wallet=0
                         amountPerTrade="$amountPerTradeParam"
                         amountOfTrades=0
                         buyingDay=0
@@ -295,8 +294,10 @@ do
                             fi
                         done           
                         ARRAY_SELL[RSIindex]=$amount
-                        ARRAY_TX_INDEX[RSIindex]="+$simulationWin€+$intermediateProzWin%"
+                        ARRAY_TX_INDEX[RSIindex]="+$wallet€+$intermediateProzWin%"
                         ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
+
+                        wallet=0
                     fi
                 fi
             fi
@@ -327,11 +328,11 @@ do
     fi
 
     isSimulationWinNull=$(echo "$simulationWin" | awk '{print substr ($0, 0, 1)}')
+    simulationWin=$(printf "%.0f" "$simulationWin")
+    Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
     if [ ! "$isSimulationWinNull" = '0' ]; then
         Out "--------------------------" $OUT_SIMULATE_FILE
         Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
-        simulationWin=$(printf "%.0f" "$simulationWin")
-        Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
         winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
         prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
