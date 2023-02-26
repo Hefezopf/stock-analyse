@@ -135,6 +135,7 @@ do
         # isNewLow
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         isNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
+#echo isNewLow $isNewLow quoteAt $quoteAt beforeLastQuote $beforeLastQuote        
         if [ "$isNewLow" = true ]; then
             beforeLastQuote="$quoteAt"
         fi
@@ -165,7 +166,7 @@ do
             isMACDhorizontalAndLastStochNeg=false
         fi
 
-# echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower
+#echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower
 
         if [ "$RSIindex" = 100 ]; then
             _buy=$(grep -i -c "Buy:" out/"$symbol".html)
@@ -303,9 +304,10 @@ do
             fi
         fi
 
-        # Reset MACD
+        # Reset MACD and beforeLastQuote
         if [ "$lastRSI" -gt 40 ] && [ "$piecesHold" -eq 0 ]; then
             valueNewMACDLow=100
+            beforeLastQuote="$QUOTE_MAX_VALUE"
         fi
 
         RSIindex=$((RSIindex + 1))    
