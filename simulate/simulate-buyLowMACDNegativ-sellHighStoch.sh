@@ -169,11 +169,12 @@ do
 #echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower
 
         if [ "$RSIindex" = 100 ]; then
-            _buy=$(grep -i -c "Buy:" out/"$symbol".html)
+            _amountOfBuySignals=$(grep -i -c "Buy:" out/"$symbol".html)
 
             # Buy, if more buy signals in Result file: STOCK >= 6 or INDEX >=4
-            if { [ "$_buy" -ge 6 ] && [ "$asset_type" = 'STOCK' ]; } || 
-               { [ "$_buy" -ge 4 ] && [ "$asset_type" = 'INDEX' ]; } then
+            if { [ "$_amountOfBuySignals" -ge 6 ] && [ "$asset_type" = 'STOCK' ]; } || 
+               { [ "$_amountOfBuySignals" -ge 4 ] && [ "$asset_type" = 'INDEX' ]; } then
+#echo "Buy, if more buy signals in Result file: STOCK >= 6 or INDEX >=4"
                 isHoldPiecesAndNewLow=true
                 isMACDhorizontalAndLastStochNeg=true
             fi
