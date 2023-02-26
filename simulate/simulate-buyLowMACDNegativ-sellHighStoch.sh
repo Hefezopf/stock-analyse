@@ -304,7 +304,7 @@ do
             fi
         fi
 
-        # Reset MACD and beforeLastQuote
+        # Reset MACD (and beforeLastQuote) at RSI Schwellwert 40
         if [ "$lastRSI" -gt 40 ] && [ "$piecesHold" -eq 0 ]; then
             valueNewMACDLow=100
             beforeLastQuote="$QUOTE_MAX_VALUE"
