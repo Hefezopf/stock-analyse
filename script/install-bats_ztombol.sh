@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# !!!!!!!!!!! OLD NOT USED ANYMORE !!!!!!!!!!!!!
+
 export TERM=xterm # Solved warning in github action
 
 clear && rm -rf $HOME/test/test_helper/batscore  && rm -rf $HOME/test/test_helper/batsassert
