@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Alphabetic sorting of all Symbols in config/stock_symbols.txt
 # Do manually every other month, to sort all available symbols again.

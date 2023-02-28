@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://github.com/bats-core/bats-core
 # https://github.com/ztombol/bats-assert
@@ -8,7 +8,7 @@
 # cd bats-core
 # ./install.sh ~
 # 4 dirs are created in ~ 
-# libexec, bin share and lib
+# /libexec, /bin, /share and /lib
 # bats -version
 
 # To get rid of carage returns, may run:
@@ -16,6 +16,7 @@
 # sed -i 's/\r//g' simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 
 # Call: . test.sh
+# For time messurement use 'gnomon'
 # npm install -g gnomon
 # Call: . test.sh | gnomon --medium=1.0 --high=4.0 --ignore-blank --real-time=100
 

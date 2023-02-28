@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script retrieves data from marketstack.
 # Call: . get-data.sh SYMBOLS

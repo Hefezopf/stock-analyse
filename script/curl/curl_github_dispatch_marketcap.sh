@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # POST Request to run action in GitHub and trigger workflow
 # Call: . curl_github_dispatch_marketcap.sh

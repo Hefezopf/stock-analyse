@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Request a real Stock name for a given SYMBOL name
 # Call: . curl_figi.sh SYMBOL
