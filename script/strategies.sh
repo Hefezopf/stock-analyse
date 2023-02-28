@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # StrategieUnderratedNewLow function:
-# Strategie: New Low (L)
+# Strategie: New Low (N)
 # Input: ${x}
 # Output: resultStrategieUnderratedNewLow
 StrategieUnderratedNewLow() { 
@@ -30,7 +30,7 @@ StrategieUnderratedNewLow() {
         done
 
         if [ "$conditionNewLow" = true ]; then
-            alarmAbbrevValue="L+"$alarmAbbrevValue
+            alarmAbbrevValue="N+"$alarmAbbrevValue
             reasonPrefix="Buy: New $_count days Low (N)"
             resultStrategieUnderratedNewLow="$reasonPrefix"
             echo "$resultStrategieUnderratedNewLow"
