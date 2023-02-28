@@ -200,7 +200,7 @@ lowestRSI=100
             fi
             beforeLastRSIQuoteRounded="$lastRSIQuoteRounded"
           #  lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
-            lastRSIQuoteRounded=${RSIQuote%%.*}
+            lastRSIQuoteRounded=${RSIQuote%.*}
 #echo "lastRSIQuoteRounded $lastRSIQuoteRounded"
 
 #echo "lastRSIQuoteRounded $lastRSIQuoteRounded" "lowestRSI $lowestRSI"
@@ -242,7 +242,8 @@ StochasticOfDays() {
         else 
             lastStochasticQuote=100
         fi
-        lastStochasticQuoteRounded=$(echo "$lastStochasticQuote" | cut -f 1 -d '.')
+        #lastStochasticQuoteRounded=$(echo "$lastStochasticQuote" | cut -f 1 -d '.')
+        lastStochasticQuoteRounded=${lastStochasticQuote%.*}
         stochasticQuoteList="$stochasticQuoteList $lastStochasticQuoteRounded,"
         i=$((i + 1))
     done
