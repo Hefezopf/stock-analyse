@@ -1,18 +1,57 @@
 TODO:
 -----
 
--Alarm M?
-https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/5ZM.html
-https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/2B70.html
-
 
 -SA überall Array wie bei EMAverageOfDays
 ./test.sh | gnomon --medium=1.0 --high=4.0 --ignore-blank --real-time=100
+Anfang FEBRUAR:
   14.6925s   ok 1 RSIOfDays
   13.2087s   ok 2 MACD_12_26
 +   7.3960s   ok 3 EMAverageOfDays
   35.7777s   ok 4 AverageOfDays
  108.1737s   ok 1 StrategieOverratedStochasticWhenOwn
+
+28.2.2023:
+./test.sh | gnomon --medium=1.0 --high=4.0 --ignore-blank --real-time=100
+   0.8761s   shellcheck ...
+   0.5821s   bats ...
+  46.4139s   1..5
+  15.5911s   ok 1 RSIOfDays
+  15.2704s   ok 2 MACD_12_26
+   7.5168s   ok 3 EMAverageOfDays
+  36.9515s   ok 4 AverageOfDays
+   1.2320s   ok 5 StochasticOfDays
+   2.7845s   1..15
+   0.2441s   ok 1 StrategieUnderratedNewLow
+ 111.6381s   ok 2 StrategieOverratedStochasticWhenOwn
+   3.8143s   ok 3 StrategieUnderratedLowHorizontalMACD
+   0.9503s   ok 4 StrategieOverratedHighHorizontalMACD
+   0.7196s   ok 5 StrategieOverratedDivergenceRSI
+   4.6460s   ok 6 StrategieUnderratedDivergenceRSI
+   5.7574s   ok 7 StrategieOverratedXHighRSI
+   9.8825s   ok 8 StrategieUnderratedXLowRSI
+   5.7256s   ok 9 StrategieOverratedXHighStochastic
+   3.4432s   ok 10 StrategieUnderratedXLowStochastic
+   0.7530s   ok 11 StrategieByTendency
+   0.7694s   ok 12 StrategieOverratedHighStochasticHighRSIHighMACD
+   0.2084s   ok 13 StrategieUnderratedLowStochasticLowRSILowMACD
+   0.1986s   ok 14 StrategieUnderratedByPercentAndStoch
+   0.7724s   ok 15 StrategieOverratedByPercentAndStoch
+   0.9211s   1..8
+   0.2812s   ok 1 CalculateTxFee
+   0.5408s   ok 2 WriteTransactionFile
+   4.4070s   ok 3 WriteAlarmAbbrevXAxisFile
+   2.7035s   ok 4 DetermineTendency
+   1.6359s   ok 5 UsageCheckParameter
+   1.3207s   ok 6 CurlSymbolName
+   1.4384s   ok 7 LessThenWithFactor
+   0.6527s   ok 8 GreaterThenWithFactor
+   1.8370s   1..1
+   0.6354s   ok 1 Analyse
+  61.5366s   1..1
+   0.1592s   ok 1 Simulation
+
+     Total   354.8135s
 
 
 -"$DATA_AHLA_FILE" als 2.ter parameter weg
