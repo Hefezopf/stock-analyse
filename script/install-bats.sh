@@ -9,4 +9,4 @@ git clone https://github.com/bats-core/bats-assert.git $HOME/test/test_helper/ba
 #chmod +x $HOME/test/test_helper/batscore/install.sh
 
 #. $HOME/test/test_helper/batscore/install.sh ~
-. $HOME/test/test_helper/batscore/bin/bats -v
+./$HOME/test/test_helper/batscore/bin/bats -v
