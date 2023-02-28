@@ -3,11 +3,12 @@
 # https://github.com/bats-core/bats-core
 # https://github.com/ztombol/bats-assert
 
+# cd /D/code
 # git clone https://github.com/bats-core/bats-core.git
 # git clone https://github.com/bats-core/bats-assert.git
 # cd bats-core
 # ./install.sh ~
-# 4 dirs are created in ~ 
+# 4 dirs are created in ~ (/c/Users/info/bin/bats)
 # /libexec, /bin, /share and /lib
 # bats -version
 
