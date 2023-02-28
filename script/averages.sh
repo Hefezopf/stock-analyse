@@ -199,7 +199,9 @@ lowestRSI=100
                 #RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
             fi
             beforeLastRSIQuoteRounded="$lastRSIQuoteRounded"
-            lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
+          #  lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
+            lastRSIQuoteRounded=${RSIQuote%%.*}
+#echo "lastRSIQuoteRounded $lastRSIQuoteRounded"
 
 #echo "lastRSIQuoteRounded $lastRSIQuoteRounded" "lowestRSI $lowestRSI"
             if [ "$lastRSIQuoteRounded" -lt "$lowestRSI" ]; then 
