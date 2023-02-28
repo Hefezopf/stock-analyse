@@ -12,8 +12,12 @@ MACD_12_26() {
     export lastMACDValue
 
     # Remove leading commas  
-    averagePriceMACD12List=$(echo "$_averagePriceList12Param" | cut -b 24-10000)
-    averagePriceMACD26List=$(echo "$_averagePriceList26Param" | cut -b 52-10000)
+    #averagePriceMACD12List=$(echo "$_averagePriceList12Param" | cut -b 24-10000)
+    averagePriceMACD12List=${_averagePriceList12Param:24:10000}
+#    averagePriceMACD12List=$(echo "$_averagePriceList12Param" | cut -b 24-10000)
+
+#    averagePriceMACD26List=$(echo "$_averagePriceList26Param" | cut -b 52-10000)
+    averagePriceMACD26List=${_averagePriceList26Param:52:10000}
 
     jj_index=0
     # shellcheck disable=SC2001
