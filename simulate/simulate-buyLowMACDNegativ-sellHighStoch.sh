@@ -89,7 +89,6 @@ do
     fi
 
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
-    asset_type=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
 
     Out "" $OUT_SIMULATE_FILE
 
@@ -166,19 +165,19 @@ do
             isMACDhorizontalAndLastStochNeg=false
         fi
 
-#echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower
+#echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower   
+        asset_type=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
+        if [ "$RSIindex" = 100 ]; then
+            _amountOfBuySignals=$(grep -i -c "Buy:" out/"$symbol".html)
 
-#         if [ "$RSIindex" = 100 ]; then
-#             _amountOfBuySignals=$(grep -i -c "Buy:" out/"$symbol".html)
-
-#             # Buy, if more buy signals in Result file: STOCK >= 6 or INDEX >=4
-#             if { [ "$_amountOfBuySignals" -ge 6 ] && [ "$asset_type" = 'STOCK' ]; } || 
-#                { [ "$_amountOfBuySignals" -ge 4 ] && [ "$asset_type" = 'INDEX' ]; } then
-# #echo "Buy, if more buy signals in Result file: STOCK >= 6 or INDEX >=4"
-#                 isHoldPiecesAndNewLow=true
-#                 isMACDhorizontalAndLastStochNeg=true
-#             fi
-#         fi        
+            # Buy, if more buy signals in Result file: STOCK >= 6 or INDEX >=4
+            if { [ "$_amountOfBuySignals" -ge 6 ] && [ "$asset_type" = 'STOCK' ]; } || 
+               { [ "$_amountOfBuySignals" -ge 4 ] && [ "$asset_type" = 'INDEX' ]; } then
+#echo "Buy, if more buy signals in Result file: STOCK >= 6 or INDEX >=4"
+                isHoldPiecesAndNewLow=true
+                isMACDhorizontalAndLastStochNeg=true
+            fi
+        fi        
 
         # Buy
         if [ "$isHoldPiecesAndNewLow" = true ] || [ "$isMACDhorizontalAndLastStochNeg" = true ]; then
