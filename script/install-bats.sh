@@ -5,5 +5,6 @@ git clone https://github.com/bats-core/bats-core.git $HOME/test/test_helper/bats
 git clone https://github.com/bats-core/bats-assert.git $HOME/test/test_helper/batsassert
 
 ls $HOME/test/test_helper/batscore
+chmod +x $HOME/test/test_helper/batscore/install.sh
 
 . $HOME/test/test_helper/batscore/install.sh ~
