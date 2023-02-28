@@ -62,13 +62,13 @@ jobs:
           # sh ./script/install-bats.sh
           
           #/home/runner/.local/bin/bats -version
-          ./$HOME/test/test_helper/batscore/bin/bats -v
+          . $HOME/test/test_helper/batscore/bin/bats -v
 
           mkdir -p temp
           rm -rf test/_result.html
 
           #/home/runner/.local/bin/bats --tap test/*.bats
-          ./$HOME/test/test_helper/batscore/bin/bats --tap test/*.bats
+          . $HOME/test/test_helper/batscore/bin/bats --tap test/*.bats
 
 
       # Runs a set of commands using the runners shell
