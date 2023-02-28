@@ -11,10 +11,10 @@ git clone https://github.com/bats-core/bats-assert.git $HOME/test/test_helper/ba
 #. $HOME/test/test_helper/batscore/install.sh ~
 . $HOME/test/test_helper/batscore/bin/bats -v
 
-echo $HOME
+#echo $HOME
 
-ls /home/runner/test/test_helper
+#ls /home/runner/test/test_helper
 
-echo xxxxxxxxxxx
+#echo xxxxxxxxxxx
 
-pwd
+#pwd
