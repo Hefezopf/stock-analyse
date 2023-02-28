@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export LC_NUMERIC=en_US.UTF-8
 

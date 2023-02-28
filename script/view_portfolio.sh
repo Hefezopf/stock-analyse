@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Encrypt and view portfolio in config/own_symbols.txt
 #

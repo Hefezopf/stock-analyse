@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Delete all files for a $Symbol from Stock Analyse
 # Delete $SYMBOL in stock_symbols.txt

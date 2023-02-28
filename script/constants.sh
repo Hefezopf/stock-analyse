@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # For printf "%.2f"
 export LC_NUMERIC=en_US.UTF-8

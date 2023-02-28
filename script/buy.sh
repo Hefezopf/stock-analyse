@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Adding *symbol to config/own_symbols.txt
 # and

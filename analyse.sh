@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script checks given stock quotes and their averages of the last 95, 38, 18 days.
 # Stochastic, RSI and MACD are calculated as well

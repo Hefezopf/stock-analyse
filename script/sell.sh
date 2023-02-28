@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Removing *symbol from config/own_symbols.txt
 # and
