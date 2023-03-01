@@ -43,7 +43,7 @@ SYMBOL_NAME="BEIERSDORF AG"
 
 @test "WriteAlarmAbbrevXAxisFile" {
   mkdir -p test/alarm
-  run WriteAlarmAbbrevXAxisFile XAxis1 "$SYMBOL" "test/BEI_2021-02-09.txt" "test/alarm" "*"
+  run WriteAlarmAbbrevXAxisFile "3R+4S+" "$SYMBOL" "test/BEI_2021-02-09.txt" "test/alarm" "*"
   [ "$status" -eq 0 ]
 }
 

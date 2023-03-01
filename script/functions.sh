@@ -66,8 +66,7 @@ WriteAlarmAbbrevXAxisFile() {
     _symbolParam=$2
     _dataDateFile=$3
     _dataDateOutputDir=$4
-    _markerOwnStockParam=$5
-    
+    _markerOwnStockParam=$5 
     mkdir -p "$_dataDateOutputDir"
     lastDateInDataFile=$(head -n1 "$_dataDateFile" | cut -f 1)
     beforeLastDateInDataFile=$(head -n2 "$_dataDateFile" | tail -1 | cut -f 1)
@@ -76,7 +75,6 @@ WriteAlarmAbbrevXAxisFile() {
     alarmSymbolBeforeLastDateFile=$_dataDateOutputDir/$_symbolParam"_"$beforeLastDateInDataFile.txt 
     
     lastDay=$(echo "$lastDateInDataFile" | cut -f 3 -d '-') # 2021-02-16 -> 16
-    #lastMonth=$(echo "$lastDateInDataFile" | cut -f 2 -d '-') # 2021-02-16 -> 02
     if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
         _newAlarmAbbrevTextParam="$_markerOwnStockParam""$lastDay"
     else
@@ -96,7 +94,15 @@ WriteAlarmAbbrevXAxisFile() {
             echo "$commaListAlarm" > "$alarmSymbolLastDateFile"
         fi
     fi
+
     cp -f "$alarmSymbolLastDateFile" "$alarmSymbolFile" # Copy e.g: alarm/BEI_2021-02-09.txt to alarm/BEI.txt
+
+    # Remove the first occurance of the alarms for a better Chart visiulization
+    # '','*C+3R+4S+P+D+N+M+','*C+4R+4S+P+M+',.....
+    alarmStringWithoutFristAlarm=$(cat "$alarmSymbolFile")
+    alarmStringWithoutFristAlarm=${alarmStringWithoutFristAlarm#*,}
+    alarmStringWithoutFristAlarm="'',$alarmStringWithoutFristAlarm"
+    echo "$alarmStringWithoutFristAlarm" > "$alarmSymbolFile"    
 }
 
 # DetermineTendency function: 
