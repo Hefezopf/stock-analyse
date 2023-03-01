@@ -462,7 +462,7 @@ StrategieUnderratedLowHorizontalMACD() {
 }
 
 # StrategieOverratedByPercentAndStochastic function:
-# Strategie: High Percentage & Stochastic
+# Strategie: High Percent & Stochastic
 # Input: ${x}
 # Output: resultStrategieOverratedByPercentAndStochastic
 StrategieOverratedByPercentAndStochastic() {
@@ -486,7 +486,7 @@ StrategieOverratedByPercentAndStochastic() {
         if [ "$_lastStochasticQuoteRoundedParam" -gt "$_stochasticPercentageUpperParam" ] && [ "$_lastOverAgv18Param" = 1 ] && [ "$_lastOverAgv38Param" = 1 ] && [ "$_lastOverAgv95Param" = 1 ] && 
             [ "$_agv18OverAgv38Param" = 1 ] && [ "$_agv38OverAgv95Param" = 1 ] && [ "$_agv18OverAgv95Param" = 1 ]; then
             alarmAbbrevValue=P-$alarmAbbrevValue
-            reasonPrefix="Sell: High Percentage & Stochastic (P)"
+            reasonPrefix="Sell: High Percent & Stochastic (P)"
             resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 > Avg38 > Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam over level"
             echo "$resultStrategieOverratedByPercentAndStochastic"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix"
@@ -495,7 +495,7 @@ StrategieOverratedByPercentAndStochastic() {
 }
 
 # StrategieUnderratedByPercentAndStochastic function:
-# Strategie: Low Percentage & Stochastic
+# Strategie: Low Percent & Stochastic
 # Input: ${x}
 # Output: resultStrategieUnderratedByPercentAndStochastic
 StrategieUnderratedByPercentAndStochastic() {
@@ -519,7 +519,7 @@ StrategieUnderratedByPercentAndStochastic() {
         if [ "$_lastStochasticQuoteRoundedParam" -lt "$_stochasticPercentageLowerParam" ] && [ "$_lastUnderAgv18Param" = 1 ] && [ "$_lastUnderAgv38Param" = 1 ] && [ "$_lastUnderAgv95Param" = 1 ] && 
             [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv95Param" = 1 ] && [ "$_agv18UnderAgv95Param" = 1 ]; then
             alarmAbbrevValue=P+$alarmAbbrevValue
-            reasonPrefix="Buy: Low Percentage & Stochastic (P)"
+            reasonPrefix="Buy: Low Percent & Stochastic (P)"
             resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 < Avg38 < Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam under level"
             echo "$resultStrategieUnderratedByPercentAndStochastic"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix"              

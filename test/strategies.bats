@@ -594,7 +594,7 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   resultStrategieUnderratedByPercentAndStochastic=""
   StrategieUnderratedByPercentAndStochastic 0 9 1 1 1 1 1 1 "46.95" "0.99" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'Buy: Low Percentage & Stochastic (P): 46.95€ is 0.99 under Avg18 < Avg38 < Avg95 and Stoch14 0 under level' ]  
+  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'Buy: Low Percent & Stochastic (P): 46.95€ is 0.99 under Avg18 < Avg38 < Avg95 and Stoch14 0 under level' ]  
 }
 
 @test "StrategieOverratedByPercentAndStoch" {
@@ -614,5 +614,5 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 
   resultStrategieOverratedByPercentAndStochastic=""
   StrategieOverratedByPercentAndStochastic 100 91 1 1 1 1 1 1 "5.61" "1.01" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" *
-  [ "$resultStrategieOverratedByPercentAndStochastic" == 'Sell: High Percentage & Stochastic (P): 5.61€ is 1.01 over Avg18 > Avg38 > Avg95 and Stoch14 100 over level' ]
+  [ "$resultStrategieOverratedByPercentAndStochastic" == 'Sell: High Percent & Stochastic (P): 5.61€ is 1.01 over Avg18 > Avg38 > Avg95 and Stoch14 100 over level' ]
 }
