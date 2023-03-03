@@ -331,9 +331,9 @@ do
 
     isSimulationWinNull=$(echo "$simulationWin" | awk '{print substr ($0, 0, 1)}')
     simulationWin=$(printf "%.0f" "$simulationWin")
-    Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
     if [ ! "$isSimulationWinNull" = '0' ]; then
         Out "--------------------------" $OUT_SIMULATE_FILE
+        Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
         Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
         winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
         prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
