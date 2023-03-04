@@ -55,9 +55,9 @@ rm -rf test/_result.html
 
 # /C/Users/xcg4444/bin/bats --tap test/*.bats
 echo bats ...
-bats -v
-bats --tap test/averages.bats
+bats -version
 bats --tap test/strategies.bats
+bats --tap test/averages.bats
 bats --tap test/functions.bats
 
 bats --tap test/analyse.bats
