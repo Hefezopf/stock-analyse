@@ -396,6 +396,8 @@ StrategieUnderratedLowHorizontalMACD() {
     _markerOwnStockParam=$5
     export resultStrategieUnderratedLowHorizontalMACD=""
 
+#echo "_MACDQuoteListParam $_MACDQuoteListParam"
+
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
         _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
@@ -428,7 +430,7 @@ StrategieUnderratedLowHorizontalMACD() {
 
             isMACDHorizontalAlarm1=false
             isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
-#echo "isNewMACDLower $isNewMACDLower jj_index $jj_index valueMACD $valueMACD "
+#echo "isNewMACDLower $isNewMACDLower jj_index $jj_index valueMACD $valueMACD"
             if [ "$isNewMACDLower" = true ]; then    
                 valueNewMACDLow="$valueMACD"    
                 isNegativMACDLast_0=$(echo "$valueMACDLast_0" | awk '{print substr ($0, 0, 1)}')
@@ -441,7 +443,7 @@ StrategieUnderratedLowHorizontalMACD() {
 
 
             else
-                valueNewMACDLow=0
+                valueNewMACDLow="$valueMACD"
 
 
             fi
