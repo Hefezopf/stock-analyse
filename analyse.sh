@@ -249,17 +249,17 @@ do
     # Calculate MACD 12, 26 values
     if [ "$CalculateMACD" = true ]; then
         # EMAverage 12
-        averageInDays12=12
+        #averageInDays12=12
         averagePriceList=""
         QUOTES_AS_ARRAY=("$(cat "$DATA_FILE")")
-        EMAverageOfDays "$averageInDays12" "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
-        #EMAverageOfDays "$averageInDays12" "$DATA_FILE"
+        EMAverageOfDays 12 "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
+        #EMAverageOfDays 12 "$DATA_FILE"
         averagePriceList12=$averagePriceList
         # EMAverage 26
-        averageInDays26=26
+        #averageInDays26=26
         averagePriceList=""
-        EMAverageOfDays "$averageInDays26" "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
-        #EMAverageOfDays "$averageInDays26" "$DATA_FILE"
+        EMAverageOfDays 26 "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
+        #EMAverageOfDays 26 "$DATA_FILE"
         averagePriceList26=$averagePriceList
         # MACD
         lastMACDValue=0
@@ -277,7 +277,7 @@ do
     average38Raw=$(head -n38 "$DATA_FILE" | awk '{sum += $1;} END {print sum/38;}')
     average38=$(printf "%.2f" "$average38Raw")
     GreaterThenWithFactor "$percentageGreaterFactor" "$last" "$average38"; lastOverAgv38=$?
-    LessThenWithFactor "$percentageLesserFactor" "$last" "$average38";lastUnderAgv38=$?
+    LessThenWithFactor "$percentageLesserFactor" "$last" "$average38"; lastUnderAgv38=$?
 
     average95Raw=$(head -n95 "$DATA_FILE" | awk '{sum += $1;} END {print sum/95;}')
     average95=$(printf "%.2f" "$average95Raw")
@@ -291,27 +291,29 @@ do
     LessThenWithFactor "$percentageLesserFactor" "$average38" "$average95"; agv38UnderAgv95=$?
     GreaterThenWithFactor "$percentageGreaterFactor" "$average18" "$average95"; agv18OverAgv95=$?
     LessThenWithFactor "$percentageLesserFactor" "$average18" "$average95"; agv18UnderAgv95=$?
- 
+
     ProgressBar 3 8
 
     # Calculate RSI 14 values
-    RSIInDays14=14
+    #RSIInDays14=14
     lastRSIQuoteRounded=0
     beforeLastRSIQuoteRounded=0
     RSIQuoteList=""
     if [ "$CalculateRSI" = true ]; then
-        RSIOfDays $RSIInDays14 "$DATA_FILE"
+        RSIOfDays 14 "$DATA_FILE"
     fi
 
     ProgressBar 4 8
 
     # Calculate Stochastic 14 values
-    stochasticInDays14=14
+    #stochasticInDays14=14
     lastStochasticQuoteRounded=0
     stochasticQuoteList=""
     if [ "$CalculateStochastic" = true ]; then
-        StochasticOfDays $stochasticInDays14 "$DATA_FILE"
+        StochasticOfDays 14 "$DATA_FILE"
     fi
+   
+#wait
 
     ProgressBar 5 8
 
