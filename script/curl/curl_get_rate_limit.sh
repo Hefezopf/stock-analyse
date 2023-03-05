@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Query rate limit
 # Call: . curl_get_rate_limit.sh

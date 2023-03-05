@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Query quotes on daily base
 # Call: . curl_marketstack.sh SYMBOL

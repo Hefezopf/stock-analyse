@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # StrategieUnderratedNewLow function:
 # Strategie: New Low (N)

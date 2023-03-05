@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # View transaction history from file config/transaction_history.txt
 #
