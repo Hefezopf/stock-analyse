@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 #alias usa='sh /c/code/stock-analyse/script/pull-and-open-from-laptop-lenovo.sh'
 

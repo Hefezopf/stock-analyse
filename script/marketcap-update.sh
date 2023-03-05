@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Call: script/marketcap-update.sh SYMBOLS
 # Example: script/marketcap-update.sh 'BEI VH2' 

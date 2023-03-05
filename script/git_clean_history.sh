@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Local script call to make the histroy of the repo smaller
 # Clear history of these 3 directores: buy, sell and alarm
