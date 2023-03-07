@@ -10,7 +10,7 @@
 
 echo "git cleanup..."
 
-
+echo ""
 echo "Directory size before:"
 du -sh .
 
@@ -22,5 +22,6 @@ git gc --prune=now --aggressive
 
 rm .git/refs/tags -Rf
 
+echo ""
 echo "Directory size after:"
 du -sh .

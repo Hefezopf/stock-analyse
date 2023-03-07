@@ -20,6 +20,7 @@
 echo "git clean history..."
 
 echo "Directory size before:"
+echo ""
 du -sh .
 echo "Objects count before:"
 git count-objects -vH
@@ -54,6 +55,7 @@ git gc --prune=all --aggressive
 git push origin --all --force
 git push origin --tags --force
 
+echo ""
 echo "Directory size after:"
 du -sh .
 echo "Objects count after:"
