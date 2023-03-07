@@ -18,10 +18,10 @@
 #set -x
 
 echo "git clean history..."
-
-echo "Directory size before:"
 echo ""
+echo "Directory size before:"
 du -sh .
+echo ""
 echo "Objects count before:"
 git count-objects -vH
 
