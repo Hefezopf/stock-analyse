@@ -100,10 +100,10 @@ pricePlusFees=$(printf "%.2f" "$pricePlusFees")
 summe=$((summe + txFee + summeFromOwnSymbolsFile))
 
 if [ "$(uname)" = 'Linux' ]; then
-    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, total==>: $summe€"
+    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total"
 else
     echo "$summe" | clip
-    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, total==>: $summe€ (in clipboard)"
+    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total (in clipboard)"
 fi
 
 if { [ -z "$priceFromOwnSymbolsFile" ]; } then
