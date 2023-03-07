@@ -2,35 +2,6 @@ name: Simulate
 
 on:
   workflow_call:
-    inputs:
-      symbolsParam:
-        description: 'SYMBOLS - List of stock symbols like: "DBK BEI".'
-        required: false
-        default: ''
-      amountPerTradeParam:
-        description: 'AMOUNT_PER_TRADE - "2500" means inititial Buy with 2500€'
-        required: true
-        default: '2500'
-      RSIBuyLevelParam:
-        description: 'RSI_BUY_LEVEL - "20" means Buy at 20'
-        required: true
-        default: '14'
-      StockSellLevelParam:
-        description: 'STOCH_SELL_LEVEL - "70" means sell over 70'
-        required: true
-        default: '70'
-      incrementPerTradeParam:
-        description: 'INCREMENT_PER_TRADE - "1.1" means 10% more per trade'
-        required: true
-        default: '1.05'
-      sellIfOverPercentageParam:
-        description: 'SELL_IF_OVER_PERCENTAGE - "5" means sell all, if gain is 5% or more'
-        required: true
-        default: '5'
-      keepIfUnderPercentageParam:
-        description: 'KEEP_IF_UNDER_PERCENTAGE - "2" means do NOT sell, if only 2% gain'
-        required: true
-        default: '2'
 
   schedule:
   # Every 20 minutes
