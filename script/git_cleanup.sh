@@ -9,10 +9,10 @@
 #set -x
 
 echo "git cleanup..."
-
 echo ""
 echo "Directory size before:"
 du -sh .
+echo ""
 
 git remote prune origin
 git repack
