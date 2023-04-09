@@ -176,5 +176,5 @@ if [ "$highSpreadSymbols" ]; then
     echo "Symbols with HIGH Spread (Greater 2): highSpreadSymbols=$highSpreadSymbols"
 fi
 
-# Replace CR in Linus 
-sed -i ':a;N;$!ba;s/\n\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE"
+# Replace CR in Linux
+sed -i ':a;N;$!ba;s/\r\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE"
