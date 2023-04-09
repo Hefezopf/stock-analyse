@@ -117,23 +117,34 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # Hauptversammlung
   #hauptversammlung="?"
   hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
-  if [ "$hauptversammlung" ]; then
 
-      if [[ $hauptversammlung == $'\n'# ]]; then
-        echo "RETURN"
-        hauptversammlung="?";
-      fi  
-     
-      echo "-$hauptversammlung""-"
-      echo "$symbol Hauptversammlung: $hauptversammlung"
+if [[ $hauptversammlung == *[^$'\n']* ]]; then
+  echo contains non-newline characters 
       if [ "$hauptversammlung" ]; then
         hauptversammlungSymbols="$symbol $hauptversammlungSymbols"
-      fi
-  else
-    hauptversammlung="?"
-  #   hauptversammlungErrorSymbols="$symbol $hauptversammlungErrorSymbols"
-  #   echo "--> ERROR Hauptversammlung: $symbol $ID_NOTATION! $hauptversammlung"
-  fi
+      fi  
+else
+  echo empty or only contains newlines
+  hauptversammlung="?"
+fi
+  
+#   if [ "$hauptversammlung" ]; then
+
+#     #   if [[ $hauptversammlung == $'\n'# ]]; then
+#     #     echo "RETURN"
+#     #     hauptversammlung="?";
+#     #   fi  
+     
+#       echo "-$hauptversammlung""-"
+#       echo "$symbol Hauptversammlung: $hauptversammlung"
+#       if [ "$hauptversammlung" ]; then
+#         hauptversammlungSymbols="$symbol $hauptversammlungSymbols"
+#       fi
+#   else
+#     hauptversammlung="?"
+#   #   hauptversammlungErrorSymbols="$symbol $hauptversammlungErrorSymbols"
+#   #   echo "--> ERROR Hauptversammlung: $symbol $ID_NOTATION! $hauptversammlung"
+#   fi
 
   # Replace till end of line: idempotent!
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$EXCHANGE\t$hauptversammlung\t$ASSET_TYPE/g" "$TICKER_NAME_ID_FILE"
