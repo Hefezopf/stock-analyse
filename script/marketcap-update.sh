@@ -115,6 +115,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive/g" "$TICKER_NAME_ID_FILE"
 
   # Hauptversammlung
+  hauptversammlung="?"
   hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
   if [ "$hauptversammlung" ]; then
       echo "$symbol Hauptversammlung: $hauptversammlung"
