@@ -118,6 +118,12 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   #hauptversammlung="?"
   hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
   if [ "$hauptversammlung" ]; then
+
+      if [[ $hauptversammlung == $'\n'# ]]; then
+        echo "RETURN"
+        hauptversammlung="?";
+      fi  
+     
       echo "-$hauptversammlung""-"
       echo "$symbol Hauptversammlung: $hauptversammlung"
       if [ "$hauptversammlung" ]; then
@@ -127,10 +133,6 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
     hauptversammlung="?"
   #   hauptversammlungErrorSymbols="$symbol $hauptversammlungErrorSymbols"
   #   echo "--> ERROR Hauptversammlung: $symbol $ID_NOTATION! $hauptversammlung"
-  fi
-  if [ -z $hauptversammlung ]; then
-    echo "EMPTY"
-    hauptversammlung="?";
   fi
 
   # Replace till end of line: idempotent!
