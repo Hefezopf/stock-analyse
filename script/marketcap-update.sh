@@ -118,14 +118,17 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   #hauptversammlung="?"
   hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
 
-if [[ $hauptversammlung == *[^$'\n']* ]]; then
-  echo contains non-newline characters 
+echo "-$hauptversammlung-"
+if [ "$hauptversammlung" == '\n' ] || [ ! "$hauptversammlung" ]; then
+#if [ $hauptversammlung == *[^$'\n']* ]; then
+  hauptversammlung="?"
+  echo newline or empty characters 
+
+else
+  echo hhhhhhh"$hauptversammlung"
       if [ "$hauptversammlung" ]; then
         hauptversammlungSymbols="$symbol $hauptversammlungSymbols"
-      fi  
-else
-  echo empty or only contains newlines
-  hauptversammlung="?"
+      fi   
 fi
   
 #   if [ "$hauptversammlung" ]; then
