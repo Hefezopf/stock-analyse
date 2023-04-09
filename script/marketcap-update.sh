@@ -115,39 +115,17 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive/g" "$TICKER_NAME_ID_FILE"
 
   # Hauptversammlung
-  #hauptversammlung="?"
   hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
-
-if [ "$hauptversammlung" == '' ] || [ "$hauptversammlung" == '
-' ] || [ "$hauptversammlung" == '\r' ] || [ "$hauptversammlung" == '\n' ] || [ ! "$hauptversammlung" ]; then
-#if [ $hauptversammlung == *[^$'\n']* ]; then
-  hauptversammlung="?"
-  echo newline or empty characters 
-
-else
-  echo hhhhhhh"$hauptversammlung"
+  if [ "$hauptversammlung" ]; then
+      echo "$symbol Hauptversammlung: $hauptversammlung"
       if [ "$hauptversammlung" ]; then
         hauptversammlungSymbols="$symbol $hauptversammlungSymbols"
-      fi   
-fi
-  
-#   if [ "$hauptversammlung" ]; then
-
-#     #   if [[ $hauptversammlung == $'\n'# ]]; then
-#     #     echo "RETURN"
-#     #     hauptversammlung="?";
-#     #   fi  
-     
-#       echo "-$hauptversammlung""-"
-#       echo "$symbol Hauptversammlung: $hauptversammlung"
-#       if [ "$hauptversammlung" ]; then
-#         hauptversammlungSymbols="$symbol $hauptversammlungSymbols"
-#       fi
-#   else
-#     hauptversammlung="?"
-#   #   hauptversammlungErrorSymbols="$symbol $hauptversammlungErrorSymbols"
-#   #   echo "--> ERROR Hauptversammlung: $symbol $ID_NOTATION! $hauptversammlung"
-#   fi
+      fi
+  else
+    hauptversammlung="?"
+  #   hauptversammlungErrorSymbols="$symbol $hauptversammlungErrorSymbols"
+  #   echo "--> ERROR Hauptversammlung: $symbol $ID_NOTATION! $hauptversammlung"
+  fi
 
   # Replace till end of line: idempotent!
   sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$EXCHANGE\t$hauptversammlung\t$ASSET_TYPE/g" "$TICKER_NAME_ID_FILE"
@@ -197,3 +175,6 @@ if [ "$highSpreadSymbols" ]; then
     echo ""
     echo "Symbols with HIGH Spread (Greater 2): highSpreadSymbols=$highSpreadSymbols"
 fi
+
+# Replace CR in Linus 
+sed -i ':a;N;$!ba;s/\n\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE"
