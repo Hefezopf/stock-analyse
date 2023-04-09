@@ -118,6 +118,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   #hauptversammlung="?"
   hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
   if [ "$hauptversammlung" ]; then
+      echo "-$hauptversammlung""-"
       echo "$symbol Hauptversammlung: $hauptversammlung"
       if [ "$hauptversammlung" ]; then
         hauptversammlungSymbols="$symbol $hauptversammlungSymbols"
