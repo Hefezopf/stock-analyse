@@ -118,8 +118,12 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   #hauptversammlung="?"
   hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
 
+hauptversammlung='
+'
 echo "-$hauptversammlung-"
-if [ "$hauptversammlung" == '\n' ] || [ ! "$hauptversammlung" ]; then
+
+if [ "$hauptversammlung" == '
+' ] || [ "$hauptversammlung" == '\r' ] || [ "$hauptversammlung" == '\n' ] || [ ! "$hauptversammlung" ]; then
 #if [ $hauptversammlung == *[^$'\n']* ]; then
   hauptversammlung="?"
   echo newline or empty characters 
