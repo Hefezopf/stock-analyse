@@ -27,9 +27,9 @@ on:
         required: true
         default: '14'
       StockSellLevelParam:
-        description: 'STOCH_SELL_LEVEL - "70" means sell over 70'
+        description: 'STOCH_SELL_LEVEL - "65" means sell over 65'
         required: true
-        default: '70'
+        default: '65'
       incrementPerTradeParam:
         description: 'INCREMENT_PER_TRADE - "1.1" means 10% more per trade'
         required: true
@@ -42,6 +42,14 @@ on:
         description: 'KEEP_IF_UNDER_PERCENTAGE - "2" means do NOT sell, if only 2% gain'
         required: true
         default: '2'
+      alarmCountForStockParam:
+        description: 'ALARM_COUNT_FOR_STOCK - "7" means buy, if count is true for alarm. Like: 'C+4R+7S+P+D+N+M+' = 7 times '+'
+        required: true
+        default: '7'
+      alarmCountForIndexParam:
+        description: 'ALARM_COUNT_FOR_INDEX - "5" means buy, if count is true for alarm. Like: '7S+P+D+N+M+' = 5 times '+'
+        required: true
+        default: '5'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -72,10 +80,12 @@ jobs:
 
           amountPerTradeVar=2500
           RSIBuyLevelVar=14
-          StockSellLevelVar=70
+          StockSellLevelVar=65
           incrementPerTradeVar=1.05
           sellIfOverPercentageVar=5
           keepIfUnderPercentageVar=2
+          alarmCountForStockVar=7
+          alarmCountForIndexVar=5
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
@@ -84,6 +94,8 @@ jobs:
           incrementPerTradeInput="${{github.event.inputs.incrementPerTradeParam}}"
           sellIfOverPercentageInput="${{github.event.inputs.sellIfOverPercentageParam}}"
           keepIfUnderPercentageInput="${{github.event.inputs.keepIfUnderPercentageParam}}"
+          alarmCountForStockInput="${{github.event.inputs.alarmCountForStockParam}}"
+          alarmCountForIndexInput="${{github.event.inputs.alarmCountForIndexParam}}"
           
           symbolsVar=${symbolsInput:-$symbolsVar}
           amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeVar}
@@ -92,6 +104,8 @@ jobs:
           incrementPerTradeVar=${incrementPerTradeInput:-$incrementPerTradeVar}
           sellIfOverPercentageVar=${sellIfOverPercentageInput:-$sellIfOverPercentageVar}
           keepIfUnderPercentageVar=${keepIfUnderPercentageInput:-$keepIfUnderPercentageVar}
+          alarmCountForStockVar=${alarmCountForStockInput:-$alarmCountForStockVar}
+          alarmCountForIndexVar=${alarmCountForIndexInput:-$alarmCountForIndexVar}
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh
@@ -99,8 +113,8 @@ jobs:
           # In case of shell errors with end of line: end of file unexpected (expecting "then")
           sed -i 's/\r$//' ./simulate/*.sh
 
-          #sh ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar"
-          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar"
+          #sh ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
+          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
 
           #git fetch --unshallow origin
           git config user.email ${{secrets.MAIL_ADRESS}}
