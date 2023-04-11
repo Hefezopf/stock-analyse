@@ -23,6 +23,18 @@
 . script/constants.sh
 . script/functions.sh
 
+function ParameterOut()
+{
+    Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
+    Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
+    Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
+    Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
+    Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
+    Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
+    Out "Buy, if alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
+    Out "Buy, if alarm count for Indexes:$alarmCountForIndexParam" $OUT_SIMULATE_FILE
+}
+
 # Parameter
 symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 amountPerTradeParam=$2
@@ -63,14 +75,7 @@ countSymbols=$((countSymbols + 1))
 
 Out "Symbols($countSymbols):$symbolsParam" $OUT_SIMULATE_FILE
 
-Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
-Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
-Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
-Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
-Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE # NOT USED!!!
-Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
-Out "Buy, if alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
-Out "Buy, if alarm count for Indexes:$alarmCountForIndexParam" $OUT_SIMULATE_FILE
+ParameterOut
 
 echo "<br><button id='buttonGoToEnd' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doGoToEnd(){var scrollingElement = (document.scrollingElement || document.body);scrollingElement.scrollTop = scrollingElement.scrollHeight;};doGoToEnd()'>GoTo End</button>" >> $OUT_SIMULATE_FILE
 echo "&nbsp;<a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html\" target=\"_blank\">Simulation</a><br>" >> $OUT_SIMULATE_FILE
@@ -470,14 +475,7 @@ done
 
 Out "" $OUT_SIMULATE_FILE
 Out "# Parameter" $OUT_SIMULATE_FILE
-Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
-Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
-Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
-Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
-Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
-Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
-Out "Buy, if alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
-Out "Buy, if alarm count for Indexes:$alarmCountForIndexParam" $OUT_SIMULATE_FILE
+ParameterOut
 Out "==========================" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
 Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
