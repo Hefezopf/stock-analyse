@@ -476,6 +476,8 @@ Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
 Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
 Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
 Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
+Out "Buy, if alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
+Out "Buy, if alarm count for Indexes:$alarmCountForIndexParam" $OUT_SIMULATE_FILE
 Out "==========================" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
 Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
