@@ -487,7 +487,7 @@ winOverAll=$(printf "%.0f" "$winOverAll")
 Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
 
 if [ "$sellAmountOverAll" = 0 ]; then
-    prozWinOverAll=0               
+    prozWinOverAll=0
 else
     prozWinOverAll=$(echo "$winOverAll $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
     prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
