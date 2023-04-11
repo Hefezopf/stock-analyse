@@ -69,6 +69,8 @@ Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
 Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
 Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE # NOT USED!!!
 Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
+Out "Buy, if alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
+Out "Buy, if alarm count for Indexes:$alarmCountForIndexParam" $OUT_SIMULATE_FILE
 
 echo "<br><button id='buttonGoToEnd' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doGoToEnd(){var scrollingElement = (document.scrollingElement || document.body);scrollingElement.scrollTop = scrollingElement.scrollHeight;};doGoToEnd()'>GoTo End</button>" >> $OUT_SIMULATE_FILE
 echo "&nbsp;<a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html\" target=\"_blank\">Simulation</a><br>" >> $OUT_SIMULATE_FILE
