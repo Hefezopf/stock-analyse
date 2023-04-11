@@ -23,18 +23,6 @@
 . script/constants.sh
 . script/functions.sh
 
-function ParameterOut()
-{
-    Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
-    Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
-    Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
-    Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
-    Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
-    Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
-    Out "Buy, if alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
-    Out "Buy, if alarm count for Indexes:$alarmCountForIndexParam" $OUT_SIMULATE_FILE
-}
-
 # Parameter
 symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 amountPerTradeParam=$2
@@ -53,6 +41,18 @@ OUT_SIMULATE_FILE="simulate/out/_simulate.html"
 TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 QUOTE_MAX_VALUE=999999
 ARRAY_BUY_POS_SIM=()
+
+function ParameterOut()
+{
+    Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
+    Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
+    Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
+    Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
+    Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
+    Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
+    Out "Buy, if alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
+    Out "Buy, if alarm count for Indexes:$alarmCountForIndexParam" $OUT_SIMULATE_FILE
+}
 
 mkdir -p simulate/out
 sellAmountOverAll=0
