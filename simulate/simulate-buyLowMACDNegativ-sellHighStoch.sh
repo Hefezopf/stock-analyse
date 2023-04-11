@@ -9,9 +9,11 @@
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # NOT USED!!! -----# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
-# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI' 2500 13 70 1.1 5 2
-# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 5 1
-# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 14 70 1.01 5 1
+# 8. Parameter: ALARM_COUNT_FOR_STOCK: Buy, if count is true for alarm. Like: 'C+4R+7S+P+D+N+M+' = 7 times '+'
+# 9. Parameter: ALARM_COUNT_FOR_INDEX: Buy, if count is true for alarm. Like: '7S+P+D+N+M+' = 5 times '+'
+# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI' 2500 13 70 1.1 5 2 7 5
+# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 5 1 7 5
+# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 14 65 1.05 5 2 7 5
 
 # Debug mode
 #set -x
@@ -29,6 +31,8 @@ StochSellLevelParam=$4
 incrementPerTradeParam=$5
 sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
+alarmCountForStockParam=$8
+alarmCountForIndexParam=$9
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -94,6 +98,12 @@ do
 
     CreateCmdHyperlink "Simulation" "simulate/out" "$symbol"
     echo "<a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE
+    DATA_FILE=data/"$symbol".txt
+    dateOfFile=$(head -n1 "$DATA_FILE" | tail -1 | cut -f 1)
+#echo dateOfFile $dateOfFile
+    ALARM_FILE=alarm/"$symbol"_"$dateOfFile".txt
+    alarms=$(head "$ALARM_FILE")
+#echo alarms $alarms
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
@@ -134,7 +144,9 @@ do
         # isNewLow
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         isNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
-#echo isNewLow $isNewLow quoteAt $quoteAt beforeLastQuote $beforeLastQuote        
+
+#echo isNewLow $isNewLow quoteAt $quoteAt beforeLastQuote $beforeLastQuote
+
         if [ "$isNewLow" = true ]; then
             beforeLastQuote="$quoteAt"
         fi
@@ -165,19 +177,19 @@ do
             isMACDhorizontalAndLastStochNeg=false
         fi
 
-#echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower   
-        asset_type=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
-        if [ "$RSIindex" = 100 ]; then
-            _amountOfBuySignals=$(grep -i -c "Buy:" out/"$symbol".html)
+        posInAlarm=$((RSIindex-13))
+        alarmAtIndex="$(echo "$alarms" | cut -f "$posInAlarm" -d ',')"
+        _amountOfBuySignals="${alarmAtIndex//[^+]}"
 
-            # Buy, if more buy signals in Result file: STOCK >= 6 or INDEX >=4
-            if { [ "$_amountOfBuySignals" -ge 6 ] && [ "$asset_type" = 'STOCK' ]; } || 
-               { [ "$_amountOfBuySignals" -ge 4 ] && [ "$asset_type" = 'INDEX' ]; } then
-#echo "Buy, if more buy signals in Result file: STOCK >= 6 or INDEX >=4"
-                isHoldPiecesAndNewLow=true
-                isMACDhorizontalAndLastStochNeg=true
-            fi
-        fi        
+#echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower alarmAtIndex $alarmAtIndex
+
+        # Buy, if more buy signals in Result file: STOCK >= 7 or INDEX >=5
+        asset_type=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
+        if { [ "${#_amountOfBuySignals}" -ge "$alarmCountForStockParam" ] && [ "$asset_type" = 'STOCK' ]; } || 
+            { [ "${#_amountOfBuySignals}" -ge "$alarmCountForIndexParam" ] && [ "$asset_type" = 'INDEX' ]; } then
+            isHoldPiecesAndNewLow=true
+            isMACDhorizontalAndLastStochNeg=true
+        fi
 
         # Buy
         if [ "$isHoldPiecesAndNewLow" = true ] || [ "$isMACDhorizontalAndLastStochNeg" = true ]; then
@@ -238,6 +250,7 @@ do
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
             intermediateProzWinFirstDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 1, 1)}')
             intermediateProzWinSecondDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 2, 1)}')
+#echo intermediateProzWin $intermediateProzWin            
             if [ "$intermediateProzWinFirstDigit" = '-' ]; then 
                 intermediateProzWinFirstDigit=0
             else 
@@ -261,11 +274,11 @@ do
             # Sell if over Percentage Param (5%) or, if over Stoch Level Param (70)
             if [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             #if [ "$intermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
-                isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')             
+                isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
                 # NOT Sell, if tx would be a negative trade
-                if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then               
+                if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
                     # ONLY Sell, if gain percent is over KEEP_IF_UNDER_PERCENTAGE (1%)
-                    if [ "$intermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then                   
+                    if [ "$intermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then
                         wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
                         wallet=$(printf "%.0f" "$wallet")
                         sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
