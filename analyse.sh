@@ -649,7 +649,7 @@ do
 
     # Minify <Symbol>.html file
     sed -i "s/^[ \t]*//g" "$indexSymbolFile"
-    sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" & # Remove \n. Attention: will remove \n in Javascript!
+    sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript!
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 
