@@ -137,11 +137,7 @@ echo "<br>" >> $OUT_RESULT_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 
-#echo "<div id='symbolsId' style='font-size:large; inline-size: 550px'>" >> $OUT_RESULT_FILE
-
 echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_RESULT_FILE
-
-#echo "</div" >> $OUT_RESULT_FILE
 
 echo "<br>" >> $OUT_RESULT_FILE
 echo "Percentage:$percentageParam " | tee -a $OUT_RESULT_FILE
@@ -249,17 +245,13 @@ do
     # Calculate MACD 12, 26 values
     if [ "$CalculateMACD" = true ]; then
         # EMAverage 12
-        #averageInDays12=12
         averagePriceList=""
         QUOTES_AS_ARRAY=("$(cat "$DATA_FILE")")
         EMAverageOfDays 12 "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
-        #EMAverageOfDays 12 "$DATA_FILE"
         averagePriceList12=$averagePriceList
         # EMAverage 26
-        #averageInDays26=26
         averagePriceList=""
         EMAverageOfDays 26 "$DATA_FILE" "${QUOTES_AS_ARRAY[@]}"
-        #EMAverageOfDays 26 "$DATA_FILE"
         averagePriceList26=$averagePriceList
         # MACD
         lastMACDValue=0
@@ -295,7 +287,6 @@ do
     ProgressBar 3 8
 
     # Calculate RSI 14 values
-    #RSIInDays14=14
     lastRSIQuoteRounded=0
     beforeLastRSIQuoteRounded=0
     RSIQuoteList=""
@@ -306,14 +297,11 @@ do
     ProgressBar 4 8
 
     # Calculate Stochastic 14 values
-    #stochasticInDays14=14
     lastStochasticQuoteRounded=0
     stochasticQuoteList=""
     if [ "$CalculateStochastic" = true ]; then
         StochasticOfDays 14 "$DATA_FILE"
     fi
-   
-#wait
 
     ProgressBar 5 8
 
@@ -472,7 +460,6 @@ do
 
         # Hover Chart
         echo "<img border='1' id='imgToReplace' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
-#        echo "<img border='1' id='imgToReplace' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
         echo "<p style='text-align:right'><a $styleComdirectLink onmouseover=\"javascript:showChartImage('10D')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChartImage('6M')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChartImage('5Y')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
@@ -537,22 +524,13 @@ do
         fi
         # Draw buying/last rate
         cat template/indexPart8a.html
-        # i=1
-        # while [ "$i" -le 87 ]; do
-        #     echo -n "$buyingRate,"
-        #     i=$((i + 1))
-        # done
+
         agregateBuyingrate=$(seq -s "XX," 88 | tr -d '[:digit:]')
         echo -n "$agregateBuyingrate" | sed "s/XX/${buyingRate}/g"
 
         # Draw 5% over buying/last quote
         cat template/indexPart8b.html
         percentOverBuyingLastRate=$(echo "$buyingRate 1.05" | awk '{print $1 * $2}')
-        # i=1
-        # while [ "$i" -le 87 ]; do
-        #     echo -n "$percentOverBuyingLastRate,"
-        #     i=$((i + 1))
-        # done
         agregatePercentOverBuyingLastRate=$(seq -s "XX," 88 | tr -d '[:digit:]')
         echo -n "$agregatePercentOverBuyingLastRate" | sed "s/XX/${percentOverBuyingLastRate}/g"
 
