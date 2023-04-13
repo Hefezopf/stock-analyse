@@ -841,7 +841,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
     var url = 'https://www.comdirect.de/inf/' + part_url + '/detail/uebersicht.html?ID_NOTATION=' + notationId;
     //var url = 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=' + notationId;
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);   
+    xhr.open("GET", url, true);
 
     xhr.timeout = 7000; // time in milliseconds
     xhr.ontimeout = (e) => {
