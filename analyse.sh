@@ -31,6 +31,10 @@ if { [ -z "$6" ]; } then
     CalculateStochastic=true
     CalculateRSI=true
     CalculateMACD=true
+else
+    CalculateStochastic=false
+    CalculateRSI=false
+    CalculateMACD=false
 fi
 
 # Switches to turn on/off Strategies. Default is 'true'
