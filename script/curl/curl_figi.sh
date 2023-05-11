@@ -9,7 +9,7 @@
 
 if { [ -z "$1" ]; } then
   echo "Not all parameters specified!"
-  echo "Example: curl_figi.sh IBM"
+  echo "Example: . curl_figi.sh IBM"
   exit 1
 fi
 
