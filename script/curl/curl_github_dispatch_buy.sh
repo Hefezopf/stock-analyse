@@ -15,7 +15,7 @@ echo "(re)buy $symbolParam $2 $3 ..."
 
 if { [ -z "$symbolParam" ] || [ -z "$2" ] || [ -z "$3" ]; } then
   echo "Not all parameters specified!"
-  echo "Example: curl_github_dispatch_buy.sh BEI 100 9.99"
+  echo "Example: . curl_github_dispatch_buy.sh BEI 100 9.99"
   exit 1
 fi
 
