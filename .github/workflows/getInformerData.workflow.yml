@@ -48,7 +48,7 @@ jobs:
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
 
-          chmod +x ./curl_getInformerData.sh
+          chmod +x ./script/curl/curl_getInformerData.sh
 
           ./script/curl/curl_getInformerData.sh "$symbolVar"
 
