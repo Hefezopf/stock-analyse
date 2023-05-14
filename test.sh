@@ -38,6 +38,7 @@ cat analyse.sh | tr -d '\r' > analyse1.sh
 rm analyse.sh
 mv analyse1.sh analyse.sh
 
+shellcheck --shell=bash script/curl/curl_getInformerData.sh
 shellcheck --shell=bash script/averages.sh
 shellcheck --shell=bash script/constants.sh
 shellcheck --shell=bash script/functions.sh

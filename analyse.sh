@@ -46,11 +46,6 @@ export LC_ALL=en_US.UTF-8
 
 export MARKET_STACK_ACCESS_KEY
 
-
-#DATA_DIR="data"
-DATA_DIR="data/informer"
-
-
 # Parameter
 symbolsParam=$1
 percentageParam=$2

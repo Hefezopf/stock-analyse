@@ -64,7 +64,8 @@ rm -rf "$OWN_SYMBOLS_FILE"
 echo ""
 
 # Write sell/SYMBOL_DATE file
-lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
+#lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
+lastDateInDataFile=$(head -n1 "$DATA_DIR/$symbolParam".txt | cut -f 1)
 transactionSymbolLastDateFile="sell/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm sell/"$symbolParam"_"$lastDateInDataFile".txt
