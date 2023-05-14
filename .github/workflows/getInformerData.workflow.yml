@@ -39,15 +39,9 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #symbolsEnv=${{env.symbolsEnv}}
-
           symbolsDefault='${{github.event.client_payload.symbols}}'
-
           symbolsInput="${{github.event.inputs.symbolsParam}}"
-          
           symbolsVar=${symbolsInput:-$symbolsDefault}
-
-          #symbolsVar=${symbolsVar:-$symbolsEnv}
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           #symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
@@ -58,13 +52,13 @@ jobs:
           ./script/curl/curl_getInformerData.sh "$symbolsVar"
           #./script/curl/curl_getInformerData.sh "TUI1 ALV BEI"
 
-          #low origin
+
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt
 
 
-          git -f add temp/*.txt
+          git add temp/*.txt
 
 
           git add data/*.txt
