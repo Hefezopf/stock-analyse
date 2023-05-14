@@ -14,19 +14,18 @@ if { [ -z "$1" ]; } then
 fi
 
 export TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
-mkdir -p temp
-
+mkdir -p data/informer
+today=$(date --date="-0 day" +"%Y-%m-%d")
 for symbol in $1
 do
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
-    #echo "---curlResponse------------$curlResponse"
     value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
     echo "---------------"
     if [ "$value" ]; then
-        echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION Date:$date Value:$value €"
-        echo "Date:$date Value:$value €" > "./temp/data$symbol.txt"
+        echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION Date:$today	Value:$value"
+        echo "$today	$value" > "./data/informer/$symbol.txt"
 
     else
         echo "Error retrieving Value"
