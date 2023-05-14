@@ -10,21 +10,25 @@
 # Import
 # shellcheck disable=SC1091
 . script/constants.sh
-#export DATA_DIR="data"
-#export DATA_DIR="data/informer" # Where to read the data; Run migration first! (curl_getInformerData.sh)
+
 export DATA_INFORMER_DIR="data/informer" # where to write informer intermediate files; For migration (curl_getInformerData.sh)
 
+# Parameter
+symbolsParam=$1
 
-if { [ -z "$1" ]; } then
+if { [ -z "$symbolsParam" ]; } then
   echo "Not all parameters specified!"
   echo "Example: . curl_getInformerData.sh '*IBM TUI1'"
  # exit 1
 fi
 
+countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
+countSymbols=$((countSymbols + 1))
+echo "Symbols($countSymbols):$symbolsParam"
 mkdir -p "$DATA_INFORMER_DIR"
 yesterday=$(date --date="-1 day" +"%Y-%m-%d") # Daten immer nach Mitternacht holen! -1
 errorSymbols=""
-for symbol in $1
+for symbol in $symbolsParam
 do
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
         symbol=$(echo "$symbol" | cut -b 2-6)
