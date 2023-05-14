@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Query quotes on daily base
-# Call: . curl_informer.sh SYMBOL
-# Example: . script/curl/curl_informer.sh 'IBM TUI1'
+# Call: . curl_getInformerData.sh SYMBOLS
+# Example: . script/curl/curl_getInformerData.sh 'IBM TUI1'
 
 # Debug mode
 #set -x
 
 if { [ -z "$1" ]; } then
   echo "Not all parameters specified!"
-  echo "Example: . curl_informer.sh 'IBM TUI1'"
+  echo "Example: . curl_getInformerData.sh 'IBM TUI1'"
  # exit 1
 fi
 
@@ -21,12 +21,12 @@ do
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
     value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
-    #echo "Value:$value"
+    echo "---------------"
     if [ "$value" ]; then
-        echo "Yymbol:$symbol ID_NOTATION:$ID_NOTATION"
+        echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION"
         echo "Value:$value €"
     else
         echo "Error retrieving Value"
     fi  
-    echo "---------------"
+
 done  
