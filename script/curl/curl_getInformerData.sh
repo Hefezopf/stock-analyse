@@ -21,6 +21,7 @@ do
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    echo "---curlResponse------------$curlResponse"
     value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
     echo "---------------"
     if [ "$value" ]; then
