@@ -14,6 +14,7 @@ if { [ -z "$1" ]; } then
 fi
 
 export TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
+mkdir -p temp
 
 for symbol in $1
 do
@@ -22,11 +23,8 @@ do
     curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
     value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
     echo "---------------"
-    #ls -lisa
-    mkdir -p temp
-   # pwd
     if [ "$value" ]; then
-        echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION" > "./temp/data$symbol.txt"
+        echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION"
         echo "Date: $date Value:$value €" > "./temp/data$symbol.txt"
 
     else
