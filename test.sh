@@ -38,15 +38,16 @@ cat analyse.sh | tr -d '\r' > analyse1.sh
 rm analyse.sh
 mv analyse1.sh analyse.sh
 
-shellcheck --shell=bash script/curl/curl_getInformerData.sh
 shellcheck --shell=bash script/averages.sh
 shellcheck --shell=bash script/constants.sh
 shellcheck --shell=bash script/functions.sh
 shellcheck --shell=bash script/strategies.sh
 shellcheck --shell=bash script/buy.sh
 shellcheck --shell=bash script/sell.sh
+shellcheck --shell=bash script/curl/curl_getInformerData.sh
 shellcheck --shell=bash script/view_portfolio.sh
 shellcheck --shell=bash script/marketcap-update.sh
+shellcheck --shell=bash script/git_cleanup.sh
 shellcheck --shell=bash script/sort_sa.sh
 shellcheck --shell=bash simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 shellcheck --shell=bash simulate.sh
