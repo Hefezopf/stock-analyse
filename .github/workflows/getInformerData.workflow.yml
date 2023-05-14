@@ -55,13 +55,18 @@ jobs:
 
           chmod +x ./script/curl/curl_getInformerData.sh
 
-          #./script/curl/curl_getInformerData.sh "$symbolsVar"
-          ./script/curl/curl_getInformerData.sh "TUI1 ALV"
+          ./script/curl/curl_getInformerData.sh "$symbolsVar"
+          #./script/curl/curl_getInformerData.sh "TUI1 ALV"
 
           #low origin
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt
+
+
+          git add temp/*.txt
+
+
           git add data/*.txt
           git add history/*.txt
           git add alarm/*.txt
