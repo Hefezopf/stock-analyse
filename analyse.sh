@@ -46,6 +46,11 @@ export LC_ALL=en_US.UTF-8
 
 export MARKET_STACK_ACCESS_KEY
 
+
+#DATA_DIR="data"
+DATA_DIR="data/informer"
+
+
 # Parameter
 symbolsParam=$1
 percentageParam=$2
@@ -140,9 +145,7 @@ echo "# Parameter" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
-
 echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_RESULT_FILE
-
 echo "<br>" >> $OUT_RESULT_FILE
 echo "Percentage:$percentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
@@ -200,7 +203,7 @@ do
     echo ""
     echo "# Get $symbol $symbolName"
     DATA_FILE="$(mktemp -p "$TEMP_DIR")"
-    DATA_DATE_FILE=data/$symbol.txt
+    DATA_DATE_FILE="$DATA_DIR/$symbol.txt"
     if [ "$queryParam" = 'online' ]; then
         DATA_DATE_FILE_TEMP="$(mktemp -p "$TEMP_DIR")"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
@@ -238,7 +241,7 @@ do
     # Check for unknown symbols or not fetched symbols in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
         echo "<br>" >> $OUT_RESULT_FILE
-        echo "!!! $symbol NOT found in data/$symbol.txt" | tee -a $OUT_RESULT_FILE
+        echo "!!! $symbol NOT found in $DATA_DIR/$symbol.txt" | tee -a $OUT_RESULT_FILE
         echo "<br>" >> $OUT_RESULT_FILE
         # Continue with next symbol in the list
         continue
