@@ -10,6 +10,9 @@
 # Debug mode
 #set -x
 
+# Import
+# shellcheck disable=SC1091
+. script/constants.sh
 . script/functions.sh
 
 export MARKET_STACK_ACCESS_KEY
@@ -41,7 +44,8 @@ do
         echo ""
         echo "# Get $symbol"
         DATA_FILE="$(mktemp -p $TEMP_DIR)"
-        DATA_DATE_FILE="data/$symbol.txt"
+        #DATA_DATE_FILE="data/$symbol.txt"
+        DATA_DATE_FILE="$DATA_DIR/$symbol.txt"
 
         DATA_DATE_FILE_TEMP="$(mktemp -p $TEMP_DIR)"
         # https://marketstack.com/documentation

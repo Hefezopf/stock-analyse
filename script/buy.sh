@@ -124,7 +124,8 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c "$OWN_SYMBOLS_FILE" 2>/dev/n
 echo ""
 
 # Write buy/SYMBOL_DATE file
-lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
+#lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
+lastDateInDataFile=$(head -n1 "$DATA_DIR/$symbolParam".txt | cut -f 1)
 transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
 rm buy/"$symbolParam"_"$lastDateInDataFile".txt

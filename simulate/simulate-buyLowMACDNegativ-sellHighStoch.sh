@@ -105,7 +105,8 @@ do
 
     CreateCmdHyperlink "Simulation" "simulate/out" "$symbol"
     echo "<a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE
-    DATA_FILE=data/"$symbol".txt
+    #DATA_FILE=data/"$symbol".txt
+    DATA_FILE="$DATA_DIR/$symbol".txt
     dateOfFile=$(head -n1 "$DATA_FILE" | tail -1 | cut -f 1)
 #echo dateOfFile $dateOfFile
     ALARM_FILE=alarm/"$symbol"_"$dateOfFile".txt

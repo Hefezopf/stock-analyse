@@ -9,9 +9,9 @@
 
 # Import
 # shellcheck disable=SC1091
-#. script/constants.sh
+. script/constants.sh
 #export DATA_DIR="data"
-export DATA_DIR="data/informer" # Where to read the data; Run migration first! (curl_getInformerData.sh)
+#export DATA_DIR="data/informer" # Where to read the data; Run migration first! (curl_getInformerData.sh)
 export DATA_INFORMER_DIR="data/informer" # where to write informer intermediate files; For migration (curl_getInformerData.sh)
 
 
@@ -21,8 +21,7 @@ if { [ -z "$1" ]; } then
  # exit 1
 fi
 
-#export TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
-mkdir -p data/informer
+mkdir -p "$DATA_INFORMER_DIR"
 yesterday=$(date --date="-1 day" +"%Y-%m-%d") # Daten immer nach Mitternacht holen! -1
 errorSymbols=""
 for symbol in $1
@@ -54,9 +53,12 @@ do
     # Migration Ende
 
 
+ echo "-1--------------"
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+ echo "-2--------------"
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     dataAlreadyThere=$(grep -m1 -P "^$yesterday\t" "$informerDataFile")
+echo "--3-------------"    
     echo "---------------"
     if { [ -z "$dataAlreadyThere" ]; } then
         asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
@@ -65,18 +67,18 @@ do
         else
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         fi
+ echo "-4--------------"        
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
+ echo "--5-------------"        
         if [ "$asset_type" = 'COIN' ]; then
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
             value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d"<" | cut -c 29-)
         fi
-        
-#echo "ID_NOTATION $ID_NOTATION value $value asset_type $asset_type"
-
 
         if [ "$value" ]; then
+            # shellcheck disable=SC2001
             value=$(echo "$value" | sed "s/,/./g") 
-            echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION Date:$yesterday Value:$value"
+            echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION Date:$yesterday Value:$value"     
             cat "$informerDataFile" | tac > "$informerDataReverseFile"
             numOfLines=$(awk 'END { print NR }' "$informerDataReverseFile")
             numOfLinesToFill=$((100 - numOfLines))
