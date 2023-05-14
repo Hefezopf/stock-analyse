@@ -50,13 +50,13 @@ jobs:
           #symbolsVar=${symbolsVar:-$symbolsEnv}
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
-          symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          #symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
 
           chmod +x ./script/curl/curl_getInformerData.sh
 
           ./script/curl/curl_getInformerData.sh "$symbolsVar"
-          #./script/curl/curl_getInformerData.sh "TUI1 ALV"
+          #./script/curl/curl_getInformerData.sh "TUI1 ALV BEI"
 
           #low origin
           git config user.email ${{secrets.MAIL_ADRESS}}
