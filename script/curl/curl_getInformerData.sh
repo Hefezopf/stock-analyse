@@ -53,12 +53,12 @@ do
     # Migration Ende
 
 
- echo "-1--------------"
+ #echo "-1--------------"
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
- echo "-2--------------"
+ #echo "-2--------------"
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     dataAlreadyThere=$(grep -m1 -P "^$yesterday\t" "$informerDataFile")
-echo "--3-------------"    
+#echo "--3-------------"    
     echo "---------------"
     if { [ -z "$dataAlreadyThere" ]; } then
         asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
@@ -67,9 +67,9 @@ echo "--3-------------"
         else
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         fi
- echo "-4--------------"        
+ #echo "-4--------------"        
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
- echo "--5-------------"        
+ #echo "--5-------------"        
         if [ "$asset_type" = 'COIN' ]; then
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
             value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d"<" | cut -c 29-)
