@@ -36,13 +36,15 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          symbolDefault='${{github.event.client_payload.symbol}}'
+          symbolsEnv=${{env.symbolsEnv}}
 
-          symbolInput="${{github.event.inputs.symbolParam}}"
+          symbolsDefault='${{github.event.client_payload.symbols}}'
 
-          symbolVar=${symbolInput:-$symbolDefault}
+          symbolsInput="${{github.event.inputs.symbolsParam}}
+          
+          symbolsVar=${symbolsInput:-$symbolsDefault}  
 
-          chmod +x ./script/curl/curl_getInformerData.sh
+          symbolsVar=${symbolsVar:-$symbolsEnv}
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
@@ -50,7 +52,7 @@ jobs:
 
           chmod +x ./script/curl/curl_getInformerData.sh
 
-          ./script/curl/curl_getInformerData.sh "$symbolVar"
+          ./script/curl/curl_getInformerData.sh "$symbolsVar"
 
           #low origin
           git config user.email ${{secrets.MAIL_ADRESS}}
