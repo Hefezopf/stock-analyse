@@ -22,8 +22,9 @@ do
     curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
     value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
     echo "---------------"
-    ls -lisa
-    pwd
+    #ls -lisa
+    mkdir -p temp
+   # pwd
     if [ "$value" ]; then
         echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION" > "./temp/data$symbol.txt"
         echo "Date: $date Value:$value €" > "./temp/data$symbol.txt"
