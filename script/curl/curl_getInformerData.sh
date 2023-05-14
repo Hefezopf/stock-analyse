@@ -23,8 +23,8 @@ do
     value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
     echo "---------------"
     if [ "$value" ]; then
-        echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION" > "../../temp/data$symbol.txt"
-        echo "Date: $date Value:$value €" > "../../temp/data$symbol.txt"
+        echo "Symbol:$symbol ID_NOTATION:$ID_NOTATION" > "./temp/data$symbol.txt"
+        echo "Date: $date Value:$value €" > "./temp/data$symbol.txt"
 
     else
         echo "Error retrieving Value"
