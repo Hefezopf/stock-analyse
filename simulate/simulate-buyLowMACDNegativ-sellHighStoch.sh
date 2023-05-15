@@ -44,6 +44,7 @@ ARRAY_BUY_POS_SIM=()
 
 function ParameterOut()
 {
+    Out "!!! DATA_DIR:$DATA_DIR" $OUT_SIMULATE_FILE
     Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
     Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
     Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
