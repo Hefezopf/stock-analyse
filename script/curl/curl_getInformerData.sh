@@ -2,7 +2,7 @@
 
 # Query quotes on daily base
 # Call: . curl_getInformerData.sh SYMBOLS
-# Example: . script/curl/curl_getInformerData.sh 'IBM TUI1'
+# Example: . script/curl/curl_getInformerData.sh '*BEI IBM TUI1'
 
 # Debug mode
 #set -x
@@ -30,6 +30,7 @@ echo "Symbols($countSymbols):$symbolsParam"
 mkdir -p "$DATA_INFORMER_DIR"
 yesterday=$(date --date="-1 day" +"%Y-%m-%d") # Daten immer nach Mitternacht holen! -1
 errorSymbols=""
+echo "---------------"
 for symbol in $symbolsParam
 do
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
@@ -62,28 +63,27 @@ do
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     dataAlreadyThere=$(grep -m1 -P "^$yesterday\t" "$informerDataFile")
-    echo "---------------"
     if { [ -z "$dataAlreadyThere" ]; } then
-        asset_type=$(echo "$lineFromTickerFile" | cut -f 10)      
+        asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
         if [ "$asset_type" = 'INDEX' ]; then
-            curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")  
+            curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         else
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         fi     
-        value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)  
+        value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
         if [ "$asset_type" = 'COIN' ]; then
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
             value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d"<" | cut -c 29-)
         fi
-        if [ "$value" ]; then          
+        if [ "$value" ]; then
             # shellcheck disable=SC2001
-            value=$(echo "$value" | sed "s/,/./g") 
-            echo "$symbol: $ID_NOTATION;$yesterday;$value€"     
+            value=$(echo "$value" | sed "s/,/./g")
+            echo "$symbol: $ID_NOTATION;$yesterday;$value€"
             cat "$informerDataFile" | tac > "$informerDataReverseFile"
             numOfLines=$(awk 'END { print NR }' "$informerDataReverseFile")
-            numOfLinesToFill=$((101 - numOfLines))               
-            while [ "$numOfLinesToFill" -gt 0 ]; do          
-                dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")              
+            numOfLinesToFill=$((101 - numOfLines))
+            while [ "$numOfLinesToFill" -gt 0 ]; do
+                dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")
                 echo "$dayBefore	$value" >> "$informerDataReverseFile"
                 numOfLinesToFill=$((numOfLinesToFill - 1))
             done
@@ -95,10 +95,10 @@ do
             errorSymbols="$errorSymbols $symbol"
         fi
     else
-        echo "$symbol: Actuall Data already there. NO CURL!"
+        echo "$symbol:	Actuall Data already there. NO CURL!"
     fi  
 done
-
+echo "---------------"
 if { [ "$errorSymbols" ]; } then
     echo "Summary Errors for:$errorSymbols"
 fi

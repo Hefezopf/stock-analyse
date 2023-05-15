@@ -138,7 +138,7 @@ echo "<div id='spinner' style='display: X' class='loader'></div>" >> $OUT_RESULT
 echo "<span id='parameterId'>" >> $OUT_RESULT_FILE
 echo "# Parameter" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "!!DATA_DIR $DATA_DIR " | tee -a $OUT_RESULT_FILE
+echo "!!! DATA_DIR:$DATA_DIR " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
@@ -598,13 +598,13 @@ do
 
         echo "<br><p class='p-result'>"
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
-        if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
+       # if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
             echo "<b>$quoteDate</b>"
-        else # NOK! -> orange
-            echo "<span id='detailsIdOldData'><br><b style='color:red; font-size:xx-large'>->OLD DATA:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
-            echo "<span id='oldDataId'><b style='color:black; font-size:xx-large'>$quoteDate</b></span>"
-            echo "<div id='oldDataTextId'><b style='color:black; font-size:x-large; background:red;'>->OLD DATA</b></div>"            
-        fi
+       # else # NOK! -> orange
+       #     echo "<span id='detailsIdOldData'><br><b style='color:red; font-size:xx-large'>->OLD DATA:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
+        #    echo "<span id='oldDataId'><b style='color:black; font-size:xx-large'>$quoteDate</b></span>"
+       #     echo "<div id='oldDataTextId'><b style='color:black; font-size:x-large; background:red;'>->OLD DATA</b></div>"            
+        #fi
         echo "<b>&nbsp;&nbsp;$exchange&nbsp;&nbsp;$asset_type</b>"
         if [ "$asset_type" = 'STOCK' ]; then     
             echo "<b>&nbsp;&nbsp;HV:$hauptversammlung</b>"
