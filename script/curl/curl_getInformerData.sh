@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Query quotes on daily base
+# Query quotes on daily base from Comdirect Informer
 # Call: . curl_getInformerData.sh SYMBOLS
 # Example: . script/curl/curl_getInformerData.sh '*BEI IBM TUI1'
 
@@ -18,7 +18,7 @@ symbolsParam=$1
 
 if { [ -z "$symbolsParam" ]; } then
   echo "Not all parameters specified!"
-  echo "Example: . curl_getInformerData.sh '*IBM TUI1'"
+  echo "Example: . curl_getInformerData.sh '*BEI IBM TUI1'"
  # exit 1
 fi
 
@@ -31,6 +31,7 @@ mkdir -p "$DATA_INFORMER_DIR"
 yesterday=$(date --date="-1 day" +"%Y-%m-%d") # Daten immer nach Mitternacht holen! -1
 errorSymbols=""
 echo "---------------"
+START_TIME_MEASUREMENT=$(date +%s);
 for symbol in $symbolsParam
 do
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
@@ -39,10 +40,10 @@ do
     symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
 
     informerDataFile="$DATA_INFORMER_DIR/$symbol.txt"
-    informerDataReverseFile="$DATA_INFORMER_DIR/$symbol.revers.txt"
 
 
     # Migration Start
+# informerDataReverseFile="$DATA_INFORMER_DIR/$symbol.revers.txt"    
     # dataFile="./data/$symbol.txt"
     # cp "$dataFile" "$DATA_INFORMER_DIR"
     # lastLine=$(head -n1 "$dataFile") 
@@ -79,17 +80,35 @@ do
             # shellcheck disable=SC2001
             value=$(echo "$value" | sed "s/,/./g")
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
-            cat "$informerDataFile" | tac > "$informerDataReverseFile"
-            numOfLines=$(awk 'END { print NR }' "$informerDataReverseFile")
+            
+            # cat "$informerDataFile" | tac > "$informerDataReverseFile"
+            # numOfLines=$(awk 'END { print NR }' "$informerDataReverseFile")
+            # numOfLinesToFill=$((101 - numOfLines))
+            # while [ "$numOfLinesToFill" -gt 0 ]; do
+            #     dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")
+            #     echo "$dayBefore	$value" >> "$informerDataReverseFile"
+            #     numOfLinesToFill=$((numOfLinesToFill - 1))
+            # done
+            # cat "$informerDataReverseFile" | tac > "$informerDataFile"
+            # head -n100 "$informerDataFile" > "$informerDataReverseFile"
+            # mv "$informerDataReverseFile" "$informerDataFile"
+
+
+
+            numOfLines=$(awk 'END { print NR }' "$informerDataFile")
             numOfLinesToFill=$((101 - numOfLines))
             while [ "$numOfLinesToFill" -gt 0 ]; do
                 dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")
-                echo "$dayBefore	$value" >> "$informerDataReverseFile"
+                sed -i "1s/^/$dayBefore	$value\n/" "$informerDataFile"
                 numOfLinesToFill=$((numOfLinesToFill - 1))
             done
-            cat "$informerDataReverseFile" | tac > "$informerDataFile"
-            head -n100 "$informerDataFile" > "$informerDataReverseFile"
-            mv "$informerDataReverseFile" "$informerDataFile"
+            sed -i "1,100!d" "$informerDataFile"
+
+
+
+
+
+
         else
             echo "Error retrieving Value for Symbol:$symbol"
             errorSymbols="$errorSymbols $symbol"
@@ -102,3 +121,9 @@ echo "---------------"
 if { [ "$errorSymbols" ]; } then
     echo "Summary Errors for:$errorSymbols"
 fi
+
+# Time measurement
+END_TIME_MEASUREMENT=$(date +%s);
+echo ""
+echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
+echo "time elapsed."

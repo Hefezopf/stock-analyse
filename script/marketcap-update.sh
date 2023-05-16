@@ -149,7 +149,7 @@ done
 
 if [ "$marktkapErrorSymbols" ]; then
     echo ""
-    echo "Symbols with Market Kap Error: marktkapErrorSymbols=$marktkapErrorSymbols"
+    echo "Symbols with Market Cap Error: marktkapErrorSymbols=$marktkapErrorSymbols"
 fi
 if [ "$brancheErrorSymbols" ]; then
     echo ""
