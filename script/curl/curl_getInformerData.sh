@@ -41,6 +41,12 @@ do
 
     informerDataFile="$DATA_INFORMER_DIR/$symbol.txt"
 
+    touch "$informerDataFile"
+    fileSize=$(stat -c %s "$informerDataFile")
+    if [ "$fileSize" -eq "0" ]; then
+        echo "$symbol: Create new file" | tee -a "$informerDataFile"
+    fi
+  
 
     # Migration Start
 # informerDataReverseFile="$DATA_INFORMER_DIR/$symbol.revers.txt"    
