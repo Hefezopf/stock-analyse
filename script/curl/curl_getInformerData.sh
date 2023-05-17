@@ -32,6 +32,7 @@ yesterday=$(date --date="-1 day" +"%Y-%m-%d") # Daten immer nach Mitternacht hol
 errorSymbols=""
 echo "---------------"
 START_TIME_MEASUREMENT=$(date +%s);
+
 for symbol in $symbolsParam
 do
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
@@ -82,11 +83,18 @@ do
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
             value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d"<" | cut -c 29-)
         fi
-        if [ "$value" ]; then
+        if [ "$value" ]; then       
             # shellcheck disable=SC2001
             value=$(echo "$value" | sed "s/,/./g")
+            countDots="${value//[^.]}"
+            if [[ "${#countDots}" = 2 ]];
+            then
+                #echo "value contains . ."
+                value="${value%.*}"
+            fi             
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
             
+
             # cat "$informerDataFile" | tac > "$informerDataReverseFile"
             # numOfLines=$(awk 'END { print NR }' "$informerDataReverseFile")
             # numOfLinesToFill=$((101 - numOfLines))
@@ -98,7 +106,6 @@ do
             # cat "$informerDataReverseFile" | tac > "$informerDataFile"
             # head -n100 "$informerDataFile" > "$informerDataReverseFile"
             # mv "$informerDataReverseFile" "$informerDataFile"
-
 
 
             numOfLines=$(awk 'END { print NR }' "$informerDataFile")
