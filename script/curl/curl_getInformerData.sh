@@ -28,7 +28,7 @@ countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo "Symbols($countSymbols):$symbolsParam"
 mkdir -p "$DATA_INFORMER_DIR"
-yesterday=$(date --date="-1 day" +"%Y-%m-%d") # Daten immer nach Mitternacht holen! -1
+yesterday=$(date --date="-1 day" +"%Y-%m-%d") # Daten immer nach Mitternacht holen! -1 Tag
 errorSymbols=""
 echo "---------------"
 START_TIME_MEASUREMENT=$(date +%s);
@@ -83,31 +83,12 @@ do
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
             value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d"<" | cut -c 29-)
         fi
-        if [ "$value" ]; then       
+        if [ "$value" ]; then    
             # shellcheck disable=SC2001
-            value=$(echo "$value" | sed "s/,/./g")
-            countDots="${value//[^.]}"
-            if [[ "${#countDots}" = 2 ]];
-            then
-                #echo "value contains . ."
-                value="${value%.*}"
-            fi             
+            value=$(echo "$value" | sed "s/\.//") # Wenn Punkt dann löschen 1.000,00 -> 1000,00
+            # shellcheck disable=SC2001
+            value=$(echo "$value" | sed "s/,/./g") # Replace , -> . 1000,00 -> 1000.00
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
-            
-
-            # cat "$informerDataFile" | tac > "$informerDataReverseFile"
-            # numOfLines=$(awk 'END { print NR }' "$informerDataReverseFile")
-            # numOfLinesToFill=$((101 - numOfLines))
-            # while [ "$numOfLinesToFill" -gt 0 ]; do
-            #     dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")
-            #     echo "$dayBefore	$value" >> "$informerDataReverseFile"
-            #     numOfLinesToFill=$((numOfLinesToFill - 1))
-            # done
-            # cat "$informerDataReverseFile" | tac > "$informerDataFile"
-            # head -n100 "$informerDataFile" > "$informerDataReverseFile"
-            # mv "$informerDataReverseFile" "$informerDataFile"
-
-
             numOfLines=$(awk 'END { print NR }' "$informerDataFile")
             numOfLinesToFill=$((101 - numOfLines))
             while [ "$numOfLinesToFill" -gt 0 ]; do
@@ -115,19 +96,13 @@ do
                 sed -i "1s/^/$dayBefore	$value\n/" "$informerDataFile"
                 numOfLinesToFill=$((numOfLinesToFill - 1))
             done
-            sed -i "1,100!d" "$informerDataFile"
-
-
-
-
-
-
+            sed -i "1,100!d" "$informerDataFile" # Alles was länger als 100 Zeilen ist löschen
         else
             echo "Error retrieving Value for Symbol:$symbol"
             errorSymbols="$errorSymbols $symbol"
         fi
     else
-        echo "$symbol:	Actuall Data already there. NO CURL!"
+        echo "$symbol:	Actual data already there. NO CURL!"
     fi  
 done
 echo "---------------"
