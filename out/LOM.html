@@ -50,11 +50,11 @@ grey: 'rgb(201, 203, 207)'
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
 <img border='1' id='imgToReplace' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=21098873&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>
-<p style='text-align:right'><a style="font-size:50px; color:black" onmouseover="javascript:showChartImage('10D')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=21098873"  target="_blank">LOM "Lockheed Martin"</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChartImage('6M')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=21098873"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChartImage('5Y')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=21098873"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>420.80€</b></span>
-&nbsp;<span style='font-size:50px; color:green'><b>0.26%</b></span></p>
+<p style='text-align:right'><a style="font-size:50px; color:green" onmouseover="javascript:showChartImage('10D')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=21098873"  target="_blank">LOM "Lockheed Martin"</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChartImage('6M')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=21098873"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChartImage('5Y')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=21098873"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>413.60€</b></span>
+&nbsp;<span style='font-size:50px; color:red'><b>-1.71%</b></span></p>
 
 <div style="width:98%">
 <canvas id="canvasQuote"></canvas>
@@ -76,7 +76,7 @@ grey: 'rgb(201, 203, 207)'
 var config = {
 type: 'line',
 data: {
-labels: ['','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','4R-4S-','4R-4S-','23','24'
+labels: ['','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','4R-4S-','4R-4S-','23','24','M+'
 ],
 datasets: [{
 label: ' "Lockheed Martin" ',
@@ -84,8 +84,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [425.85,
-425.15,
+data: [425.15,
 423.85,
 422.85,
 420.05,
@@ -171,6 +170,7 @@ data: [425.85,
 420.50,
 419.70,
 420.80,
+413.60,
 ]},
 {
 label: 'buy',
@@ -191,34 +191,34 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 418.967, 418.497, 418.728, 419.044, 420.342, 421.533, 423.286, 425.492, 427.631, 430.028, 431.956, 433.753, 435.586, 436.756, 438.2, 439.639, 441.258, 442.883, 444.319, 445.547, 446.406, 447.308, 447.847, 448.636, 449.156, 449.358, 449.4, 448.911, 448.961, 448.861, 448.897, 448.456, 447.986, 447.425, 446.628, 445.406, 445.114, 444.842, 444.203, 443.464, 442.717, 441.731, 441.058, 440.5, 440.603, 441.381, 441.708, 441.85, 441.506, 441.825, 442.181, 443.033, 443.886, 444.881, 444.822, 444.581, 444.461, 443.533, 442.728, 441.894, 440.417, 438.722, 436.606, 434.272, 432.161, 430.378, 428.817, 427.094, 425.061, 422.667, 420.4, 418.467, 417.028, 415.894, 414.594, 414.628, 414.75, 414.711, 415.139, 415.806, 416.244, 416.606, 417.028,
+data: [ , , , , 418.497, 418.728, 419.044, 420.342, 421.533, 423.286, 425.492, 427.631, 430.028, 431.956, 433.753, 435.586, 436.756, 438.2, 439.639, 441.258, 442.883, 444.319, 445.547, 446.406, 447.308, 447.847, 448.636, 449.156, 449.358, 449.4, 448.911, 448.961, 448.861, 448.897, 448.456, 447.986, 447.425, 446.628, 445.406, 445.114, 444.842, 444.203, 443.464, 442.717, 441.731, 441.058, 440.5, 440.603, 441.381, 441.708, 441.85, 441.506, 441.825, 442.181, 443.033, 443.886, 444.881, 444.822, 444.581, 444.461, 443.533, 442.728, 441.894, 440.417, 438.722, 436.606, 434.272, 432.161, 430.378, 428.817, 427.094, 425.061, 422.667, 420.4, 418.467, 417.028, 415.894, 414.594, 414.628, 414.75, 414.711, 415.139, 415.806, 416.244, 416.606, 417.028, 417.05,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 432.441, 432.951, 433.438, 434.107, 435.175, 436.1, 436.999, 437.825, 438.764, 439.709, 440.704, 441.395, 442.172, 442.583, 442.92, 443.05, 443.492, 443.932, 444.395, 444.778, 444.801, 444.853, 444.988, 445.084, 445.201, 445.351, 445.433, 445.309, 445.228, 445.218, 445.296, 445.557, 445.613, 445.533, 445.18, 444.736, 444.462, 443.824, 443.059, 442.288, 441.468, 440.388, 439.257, 438.205, 437.267, 436.53, 435.686, 434.908, 434.005, 433.341, 432.546, 431.816, 431.159, 430.757, 430.005, 429.512, 429.108, 428.668, 428.405, 428.108, 427.503, 426.887, 426.1,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 432.951, 433.438, 434.107, 435.175, 436.1, 436.999, 437.825, 438.764, 439.709, 440.704, 441.395, 442.172, 442.583, 442.92, 443.05, 443.492, 443.932, 444.395, 444.778, 444.801, 444.853, 444.988, 445.084, 445.201, 445.351, 445.433, 445.309, 445.228, 445.218, 445.296, 445.557, 445.613, 445.533, 445.18, 444.736, 444.462, 443.824, 443.059, 442.288, 441.468, 440.388, 439.257, 438.205, 437.267, 436.53, 435.686, 434.908, 434.005, 433.341, 432.546, 431.816, 431.159, 430.757, 430.005, 429.512, 429.108, 428.668, 428.405, 428.108, 427.503, 426.887, 426.1, 425.005,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 433.207, 433.142, 433.09, 433.008, 433.058, 433.087,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 433.142, 433.09, 433.008, 433.058, 433.087, 433.076,
 ]},
 {
 label:' Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
-data: [420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,420.80,               ]},
+data: [413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,413.60,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
-data: [441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,441.84,			]}	
+data: [434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,434.28,			]}	
 ]},
 options: {
 responsive: true,
@@ -264,7 +264,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','4R-4S-','4R-4S-','23','24'
+labels: ['','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','4R-4S-','4R-4S-','23','24','M+'
 ],
 datasets: [
 {
@@ -273,7 +273,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 79, 80, 79, 84, 69, 81, 100, 100, 100, 100, 100, 100, 95, 100, 81, 81, 89, 87, 100, 95, 100, 93, 47, 0, 55, 67, 42, 100, 100, 78, 39, 0, 28, 10, 43, 0, 28, 14, 1, 0, 41, 37, 32, 36, 25, 33, 77, 74, 100, 100, 84, 60, 44, 46, 73, 100, 89, 61, 18, 0, 1, 0, 0, 2, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 7, 7, 13, 51, 0, 100, 100, 79, 100, 100, 67, 60, 69,
+data: [		 80, 79, 84, 69, 81, 100, 100, 100, 100, 100, 100, 95, 100, 81, 81, 89, 87, 100, 95, 100, 93, 47, 0, 55, 67, 42, 100, 100, 78, 39, 0, 28, 10, 43, 0, 28, 14, 1, 0, 41, 37, 32, 36, 25, 33, 77, 74, 100, 100, 84, 60, 44, 46, 73, 100, 89, 61, 18, 0, 1, 0, 0, 2, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 7, 7, 13, 51, 0, 100, 100, 79, 100, 100, 67, 60, 69, 12,
 ]},
 {
 label: '91',
@@ -336,7 +336,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','4R-4S-','4R-4S-','23','24'
+labels: ['','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','4R-4S-','4R-4S-','23','24','M+'
 ],
 datasets: [
 {
@@ -345,7 +345,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 43, 44, 44, 44, 56, 55, 70, 78, 81, 86, 87, 88, 85, 81, 71, 72, 75, 76, 84, 81, 76, 74, 59, 56, 53, 51, 49, 54, 65, 61, 52, 44, 42, 41, 44, 38, 47, 46, 40, 33, 44, 39, 36, 37, 38, 45, 48, 50, 52, 64, 57, 53, 52, 62, 59, 65, 64, 59, 53, 49, 43, 35, 28, 24, 24, 24, 26, 23, 15, 3, 3, 4, 5, 6, 5, 14, 18, 20, 23, 80, 82, 71, 77, 77, 64, 62, 64,
+data: [ 44, 44, 44, 56, 55, 70, 78, 81, 86, 87, 88, 85, 81, 71, 72, 75, 76, 84, 81, 76, 74, 59, 56, 53, 51, 49, 54, 65, 61, 52, 44, 42, 41, 44, 38, 47, 46, 40, 33, 44, 39, 36, 37, 38, 45, 48, 50, 52, 64, 57, 53, 52, 62, 59, 65, 64, 59, 53, 49, 43, 35, 28, 24, 24, 24, 26, 23, 15, 3, 3, 4, 5, 6, 5, 14, 18, 20, 23, 80, 82, 71, 77, 77, 64, 62, 64, 50,
 ]},
 {
 label: '75',
@@ -411,7 +411,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','4R-4S-','4R-4S-','23','24'
+labels: ['','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','4R-4S-','4R-4S-','23','24','M+'
 ],
 datasets: [
 {
@@ -420,7 +420,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 11.49, 11.49, 11.11, 10.70, 10.44, 10.09, 10.12, 9.98, 9.90, 9.66, 8.86, 8.02, 7.65, 7.35, 6.86, 6.85, 6.92, 6.70, 6.10, 4.96, 4.33, 3.59, 3.34, 2.39, 2.01, 1.50, 0.90, -0.27, -0.34, -0.47, -0.73, -0.98, -1.35, -1.52, -1.02, -0.66, 0.24, 1.30, 1.80, 1.69, 1.28, 1.17, 1.51, 2.29, 2.68, 2.48, 1.63, 0.59, -0.21, -2.05, -3.48, -4.49, -5.56, -6.67, -7.47, -7.96, -8.25, -8.39, -8.40, -8.31, -8.15, -7.93, -7.66, -7.37, -7.02, -6.57, -6.36, -5.43, -4.53, -3.93, -3.07, -2.35, -2.10, -1.94, -1.70,
+data: [ , , , , , , , , , , , , 11.99, 11.99, 11.53, 11.22, 10.81, 10.80, 10.61, 10.49, 10.21, 9.38, 8.50, 8.10, 7.77, 7.25, 7.21, 7.25, 7.01, 6.39, 5.23, 4.58, 3.82, 3.56, 2.59, 2.20, 1.67, 1.05, -0.12, -0.20, -0.35, -0.61, -0.87, -1.25, -1.42, -0.94, -0.58, 0.31, 1.37, 1.86, 1.75, 1.33, 1.22, 1.56, 2.33, 2.72, 2.52, 1.66, 0.62, -0.18, -2.02, -3.45, -4.47, -5.53, -6.65, -7.45, -7.94, -8.23, -8.37, -8.38, -8.30, -8.14, -7.92, -7.65, -7.36, -7.01, -6.56, -6.36, -5.43, -4.52, -3.92, -3.06, -2.35, -2.09, -1.93, -1.69, -2.06,
 ]},
 {
 label: '0',
@@ -508,28 +508,28 @@ function hideChartImage() { // function is ALLMOST!!! redundant in result html a
 var elementSpanToReplace = document.getElementById('imgToReplace');
 elementSpanToReplace.style.display = 'none';
 }
-</script><a style="font-size:50px; color:black" onmouseover="javascript:showChartImage('10D')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=21098873"  target="_blank">LOM "Lockheed Martin"</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChartImage('6M')" onmouseout='javascript:hideChartImage() 'href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=21098873"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChartImage('5Y')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=21098873"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>420.80€</b></span>
-&nbsp;<span style='font-size:50px; color:green'><b>0.26%</b></span><br>
+</script><a style="font-size:50px; color:green" onmouseover="javascript:showChartImage('10D')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=21098873"  target="_blank">LOM "Lockheed Martin"</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChartImage('6M')" onmouseout='javascript:hideChartImage() 'href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=21098873"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChartImage('5Y')" onmouseout='javascript:hideChartImage()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=21098873"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>413.60€</b></span>
+&nbsp;<span style='font-size:50px; color:red'><b>-1.71%</b></span><br>
 <span style='font-size:50px'>KGV&nbsp;14&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <span style='font-size:50px'>DIV&nbsp;3%&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <span style='font-size:50px'>"Luft- und Raumfahrtindustrie"</span></p>
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 530px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;106 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2023-05-24</b>
+<b>2023-05-25</b>
 <b>&nbsp;&nbsp;XETRA&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>417.03€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>426.10€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>433.09€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>69 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>64 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-1.70 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>417.05€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>425.01€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>433.08€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>12 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>50 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-2.06 </b></span>
 </p>
 <p class='p-result'>
 <span style='color:rgb(153, 102, 255)'>Tendency18:<b>RISING</b></span>
@@ -538,7 +538,7 @@ elementSpanToReplace.style.display = 'none';
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
-<p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
+<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -2.06 </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
@@ -550,7 +550,7 @@ elementSpanToReplace.style.display = 'none';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 25-May-2023 06:26</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 26-May-2023 06:25</p>
 </div>
 </body>
 </html>
