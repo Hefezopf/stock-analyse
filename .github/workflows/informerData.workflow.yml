@@ -19,7 +19,9 @@ on:
       
   schedule:
   # At 02:15 every day (MEST: run is 2 hour delayed: --> 4:15)
-  - cron: "15 2 * * *"
+  #- cron: "15 2 * * *"
+  # At 02:15 on Mon, Tue, Wed, Thr, Fri, Sat (MEST: run is 2 hour delayed: --> 4:15)
+  - cron: "15 2 * * 1,2,3,4,5,6"  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -66,20 +68,15 @@ jobs:
           git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
           git push
           
-      - name: Send result via email
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.ionos.de
-          server_port: 465
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
-          subject: InformerData ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}
-          # Read file contents as body:
-          html_body: file://template/email.html
-          #body: file://out/_result.html
-          to: ${{secrets.MAIL_ADRESS}}
-          from: Github stock-analyse # <githubÄhopf-...de>
-          # Optional content type (defaults to text/plain):
-          #content_type: text/html
-          # Optional attachments:
-          #attachments: out/_out.tar.gz
+    #   - name: Send result via email
+    #     uses: dawidd6/action-send-mail@v3
+    #     with:
+    #       server_address: smtp.ionos.de
+    #       server_port: 465
+    #       username: ${{secrets.MAIL_USERNAME}}
+    #       password: ${{secrets.MAIL_PASSWORD}}
+    #       subject: InformerData ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}
+    #       # Read file contents as body:
+    #       html_body: file://template/email.html
+    #       to: ${{secrets.MAIL_ADRESS}}
+    #       from: Github stock-analyse # <githubÄhopf-...de>
