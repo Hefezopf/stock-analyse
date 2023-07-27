@@ -3,6 +3,14 @@
 # Query quotes on daily base from Comdirect Informer
 # Call: . curl_getInformerData.sh SYMBOLS
 # Example: . script/curl/curl_getInformerData.sh '*BEI IBM TUI1'
+#
+# Reihenfolge neue Werte aufnehmen:
+# ---------------------------------
+# . analyse.sh 'SYM' 2 offline 9 25 cc
+# edit ticker_name_id.txt
+# . script/curl/curl_getInformerData.sh 'SYM'
+# mc 'SYM'
+# add SYM to config stock_symbols.txt
 
 # Debug mode
 #set -x
