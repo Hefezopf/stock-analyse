@@ -26,6 +26,7 @@ do
     symbol=$(echo "$symbol" | cut -b 2-6)
   fi
   lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
+  NAME=$(echo "$lineFromTickerFile" | cut -f 2)
   ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
   EXCHANGE=$(echo "$lineFromTickerFile" | cut -f 8)
   if [ ! "$EXCHANGE" ]; then # Default = XETRA
@@ -40,7 +41,7 @@ do
 
 
   echo ""
-  echo "$symbol" ...
+  echo "$symbol" "$NAME" ...
 
 if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # Mrd. Market Cap
