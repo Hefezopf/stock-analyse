@@ -83,9 +83,9 @@ rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <head>
 <meta charset='utf-8' />
-<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate' />
-<meta http-equiv='Pragma' content='no-cache' />
-<meta http-equiv='Expires' content='0' />
+<meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate' />
+<meta http-equiv='pragma' content='no-cache' />
+<meta http-equiv='expires' content='0' />
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
 <link rel='stylesheet' href='_result.css'>
 <script type='text/javascript' src='_result.js'></script>

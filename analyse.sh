@@ -69,9 +69,9 @@ alarmAbbrevValue=""
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <head>
 <meta charset='utf-8' />
-<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate' />
-<meta http-equiv='Pragma' content='no-cache' />
-<meta http-equiv='Expires' content='0' />
+<meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate' />
+<meta http-equiv='pragma' content='no-cache' />
+<meta http-equiv='expires' content='0' />
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
 <link rel='stylesheet' href='_result.css'>
 <script type='text/javascript' src='_result.js'></script>
@@ -156,12 +156,12 @@ echo "</span>" >> $OUT_RESULT_FILE
     echo "<span id='analyseId'><br><br># Analyse<br></span>"
     echo "<br><span id='intervalSectionHeadlineDaily' style='display: none'># Realtime difference to previous day</span><br>"
     echo "<span id='obfuscatedValueBuyingDailyRealtime' style='font-size:xx-large; display: none'>---</span><br><br>"
-    echo "<button id='intervalSectionButtonSortDaily' style='font-size:large; height: 60px; width: 118px; display: none' disabled='true' type='button' onClick='javascript:doSortDailyGain()'>&nbsp;&nbsp;Daily&nbsp;%</button>&nbsp;"
-    echo "<button id='intervalSectionButtonSortValue' style='font-size:large; height: 60px; width: 118px; display: none' disabled='true' type='button' onClick='javascript:doSortInvestedValue()'>&nbsp;&nbsp;Value&nbsp;€</button>&nbsp;"
-    echo "<button id='intervalSectionButtonSortOverall' style='font-size:large; height: 60px; width: 118px; display: none' disabled='true' type='button' onClick='javascript:doSortOverallGain()'>&nbsp;&nbsp;&sum;&nbsp;%</button>&nbsp;"
-    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 60px; width: 118px; display: none' disabled='true' type='button' onClick='javascript:doHideDetails()'>&nbsp;&nbsp;Details</button>"
-    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 60px; width: 118px; display: none' disabled='true' type='button' onClick='javascript:doGoToEnd()'>GoTo End</button>&nbsp;"
-    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 60px; width: 118px; display: none' disabled='true' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>"
+    echo "<button id='intervalSectionButtonSortDaily' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doSortDailyGain()'>&nbsp;&nbsp;Daily&nbsp;%</button>&nbsp;"
+    echo "<button id='intervalSectionButtonSortValue' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doSortInvestedValue()'>&nbsp;&nbsp;Value&nbsp;€</button>&nbsp;"
+    echo "<button id='intervalSectionButtonSortOverall' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doSortOverallGain()'>&nbsp;&nbsp;&sum;&nbsp;%</button>&nbsp;"
+    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doHideDetails()'>&nbsp;&nbsp;Details</button>"
+    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>GoTo End</button>&nbsp;"
+    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>"
     echo "<hr id='intervalSectionHROverallButtons' style='display: none'>"
 } >> "$OUT_RESULT_FILE"
 
@@ -463,7 +463,7 @@ do
         ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
 
         # Hover Chart
-        echo "<img border='1' id='imgToReplace' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
+        echo "<img border='1' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
         echo "<p style='text-align:right'><a $styleComdirectLink onmouseover=\"javascript:showChartImage('10D')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChartImage('6M')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChartImage('5Y')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
@@ -695,7 +695,7 @@ do
                   
                   <span id='intervalSectionPortfolioValues$symbol' style='font-size:large; display: none'></span>
                   <span id='intervalSectionPortfolioGain$symbol' style='font-size:large; display: none'></span>
-                  <span id='intervalSectionButtonDetailsBR'<br></span>"                  
+                  <span id='intervalSectionButtonDetailsBR'><br></span>"                  
 
             # ObfuscatedValue neverShowDiv (Yesterday)
             echo "<div id='neverShowDiv$symbol' style='display:none'>
@@ -710,7 +710,7 @@ do
             echo "</span>"
 
             # Image Chart
-            echo "<br><img id='intervalSectionImage$symbol' style='display: none; width:68%'></img><br>
+            echo "<br><img id='intervalSectionImage$symbol' alt='' src='#' style='display: none; width:68%'><br>
                   <button id=\"intervalSectionButtonDetails1D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '1D')\">1D</button>
                   <button id=\"intervalSectionButtonDetails5D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '5D')\">5D</button>
                   <button id=\"intervalSectionButtonDetails10D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '10D')\">10D</button>
@@ -793,7 +793,7 @@ fi
 
     # DAX
     echo "<span id='intervalSectionHeadlineDAX' style='display:none'>DAX<br></span>"
-    echo "<img id='intervalSectionImageDAX' style='display: none; width:68%'></img><br>
+    echo "<img id='intervalSectionImageDAX' alt='' src='#' style='display: none; width:68%'><br>
         <button id='intervalSectionButton1DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '1D')\">1D</button>
         <button id='intervalSectionButton5DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '5D')\">5D</button>
         <button id='intervalSectionButton10DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '10D')\">10D</button>
@@ -825,7 +825,7 @@ fi
             Symbol&nbsp;<input name='intervalSectionInputSymbolBuyGenerell' id='intervalSectionInputSymbolBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
             Pieces&nbsp;<input name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
             Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-          <p>"
+          </p>"
 
     # Workflow        
     echo "<br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br>"
