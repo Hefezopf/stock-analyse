@@ -463,7 +463,7 @@ do
         ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
 
         # Hover Chart
-        echo "<img id='imgToReplace' alt='' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
+        echo "<img border='1' id='imgToReplace' alt='' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
         #echo "<img border='1' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
         echo "<p style='text-align:right'><a $styleComdirectLink onmouseover=\"javascript:showChartImage('10D')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChartImage('6M')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
