@@ -422,7 +422,7 @@ do
       creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
   #    creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime        
     fi    
-    GOOD_LUCK="<p style=\"text-align: left; padding-right: 50px\">Good Luck! $creationDate<p>"
+    GOOD_LUCK="<p style=\"text-align: left; padding-right: 50px\">Good Luck! $creationDate</p>"
     # ATTENTION Line number may change, if there will be development!
     sed -i "553s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
 done

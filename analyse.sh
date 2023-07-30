@@ -463,7 +463,7 @@ do
         ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
 
         # Hover Chart
-        echo "<img border='1' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
+        echo "<img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
         #echo "<img border='1' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
         echo "<p style='text-align:right'><a $styleComdirectLink onmouseover=\"javascript:showChartImage('10D')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChartImage('6M')\" onmouseout='javascript:hideChartImage()' href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
@@ -582,7 +582,7 @@ do
                 echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
                 echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;$marketCapFromFile Mrd.€</div><br>"
             else
-                echo "<span id='detailsIdLowMarketCap'><br><b style='color:orange; font-size:xx-large'>->LOW CAP:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
+                echo "<span id='detailsIdLowMarketCap"$symbol"'><br><b style='color:orange; font-size:xx-large'>->LOW CAP:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
                 echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"            
             fi
         fi        
@@ -696,7 +696,7 @@ do
                   
                   <span id='intervalSectionPortfolioValues$symbol' style='font-size:large; display: none'></span>
                   <span id='intervalSectionPortfolioGain$symbol' style='font-size:large; display: none'></span>
-                  <span id='intervalSectionButtonDetailsBR'><br></span>"                  
+                  <span id='intervalSectionButtonDetailsBR$symbol'><br></span>"                  
 
             # ObfuscatedValue neverShowDiv (Yesterday)
             echo "<div id='neverShowDiv$symbol' style='display:none'>
@@ -720,13 +720,13 @@ do
                   <button id=\"intervalSectionButtonDetails1Y$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '1Y')\">1Y</button>
                   <button id=\"intervalSectionButtonDetails5Y$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '5Y')\">5Y</button>
                   <button id=\"intervalSectionButtonDetailsSE$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', 'SE')\">Max</button>
-                  <p id='intervalSectionButtonDetailsP' style='display: none'>
+                  <p id='intervalSectionButtonDetailsP$symbol' style='display: none'>
                     <button id=\"intervalSectionButtonSell$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol', '$stocksPieces', document.getElementById('intervalSectionInputPriceBuy$symbol').value)\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
                     Pieces&nbsp;<input name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
                     Price&nbsp;<input name='intervalSectionInputPriceBuy$symbol' id='intervalSectionInputPriceBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-                  <p>
+                  </p>
                   <hr id='intervalSectionButtonDetailsHR$symbol' style='display: none'>"
 
             # Sorting End symbolsListId
