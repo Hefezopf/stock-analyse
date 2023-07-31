@@ -784,7 +784,7 @@ fi
 
 {
     # Overall
-    echo "<span id='portfolioValueDaxFooterId'>" # START portfolioValueDaxFooterId
+    echo "<div id='portfolioValueDaxFooterId'>" # START portfolioValueDaxFooterId
     echo "<hr id='intervalSectionHROverallRealtimeBegin' style='display: none'>"    
     echo "<span id='intervalSectionHeadlineOverallPortfolio' style='display:none'># Portfolio value purchase</span><br>"
     echo "<span id='obfuscatedValueBuyingOverall' style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
@@ -834,7 +834,7 @@ fi
     echo "<br># Result<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a>"
     echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a>"
     echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html\" target=\"_blank\">Simulation</a><br>"
-    echo "</span>" # END portfolioValueDaxFooterId
+    echo "</div>" # END portfolioValueDaxFooterId
     echo "$HTML_RESULT_FILE_END" 
 } >> "$OUT_RESULT_FILE"
 
