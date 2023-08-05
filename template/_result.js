@@ -985,7 +985,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
 }
 
 // Hover Chart
-function showChartImage(timeSpan, symbol) { // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
+function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.style.left = '500px'; 
@@ -993,7 +993,7 @@ function showChartImage(timeSpan, symbol) { // function is ALLMOST!!! (symbol pa
 
 }
 
-function hideChartImage(symbol) {  // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
+function hideChart(symbol) {  // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'none';
 }
