@@ -176,7 +176,7 @@ do
     fi
 
     symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
-    echo "<div id='symbolLineId$symbol'>"  >> $OUT_RESULT_FILE # Sorting
+    echo "<div id='symbolLineId$symbol'>" >> $OUT_RESULT_FILE # Sorting
 
     # Curl and write Line to TICKER_NAME_ID_FILE. Delay of 14sec because of REST API restrictions (approx. 5 Rq/min)
     CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14
@@ -680,7 +680,7 @@ do
             _linkColor="$RED"
         fi
 
-        {   
+        {
             # RealTimeQuote
             # shellcheck disable=SC1078,SC1087,SC1079
             echo "<script>
@@ -736,7 +736,15 @@ do
         # Collect Values for Overall Yesterday
         obfuscatedValueBuyingOverall=$(echo "$obfuscatedValueBuyingOverall $stocksBuyingValue" | awk '{print $1 + $2}')
         obfuscatedValueSellingOverall=$(echo "$obfuscatedValueSellingOverall $stocksCurrentValue" | awk '{print $1 + $2}')        
+   
+
+    # fi
+    # Div Fix
+    else
+        echo "</div>" >> $OUT_RESULT_FILE
     fi
+    # Div Fix
+
 
     # Write history file
     HISTORY_FILE=history/"$symbol".txt
