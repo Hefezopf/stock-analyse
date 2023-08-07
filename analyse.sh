@@ -584,20 +584,20 @@ do
                 echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
                 echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;$marketCapFromFile Mrd.€</div><br>"
             else
-                echo "<span id='detailsIdLowMarketCap"$symbol"'><br><b style='color:orange; font-size:xx-large'>->LOW CAP:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
+                echo "<span id='detailsIdLowMarketCap$symbol'><br><b style='color:orange; font-size:xx-large'>->LOW CAP:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
                 echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"            
             fi
         fi        
 
         # Check, if quote day is from last trading day, including weekend
-        yesterday=$(date --date="-1 day" +"%Y-%m-%d")
-        dayOfWeek=$(date +%u)
-        if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
-            yesterday=$(date --date="-2 day" +"%Y-%m-%d")
-        fi
-        if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
-            yesterday=$(date --date="-3 day" +"%Y-%m-%d")
-        fi
+        # yesterday=$(date --date="-1 day" +"%Y-%m-%d")
+        # dayOfWeek=$(date +%u)
+        # if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
+        #     yesterday=$(date --date="-2 day" +"%Y-%m-%d")
+        # fi
+        # if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
+        #     yesterday=$(date --date="-3 day" +"%Y-%m-%d")
+        # fi
 
         echo "<br><p class='p-result'>"
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
