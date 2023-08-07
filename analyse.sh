@@ -134,8 +134,10 @@ stochasticPercentageUpper=$((100-stochasticPercentageParam))
 
 # Spinner
 echo "<div id='spinner' style='display: X' class='loader'></div>" >> $OUT_RESULT_FILE
-
 echo "<span id='parameterId'>" >> $OUT_RESULT_FILE
+Out "# SA Analyse" $OUT_RESULT_FILE
+Out "###########" $OUT_RESULT_FILE
+Out "" $OUT_RESULT_FILE
 echo "# Parameter" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "!!! DATA_DIR:$DATA_DIR " | tee -a $OUT_RESULT_FILE
