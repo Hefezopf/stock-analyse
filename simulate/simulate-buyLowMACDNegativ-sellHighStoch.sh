@@ -67,7 +67,7 @@ export txFee
 echo "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8' /><link rel='shortcut icon' type='image/ico' href='favicon.ico' /><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
 
 Out "" $OUT_SIMULATE_FILE
-Out "# Simulate BuyLowMACDNegativ SellHighStoch" $OUT_SIMULATE_FILE
+Out "# SA Simulate BuyLowMACDNegativ SellHighStoch" $OUT_SIMULATE_FILE
 Out "##########################################" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 Out "# Parameter" $OUT_SIMULATE_FILE
