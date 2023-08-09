@@ -11,8 +11,6 @@
 </head>
 <body>
 <div id='symbolsListId'>
-WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!
-<br><br>
 <div id='spinner' style='display: X' class='loader'></div>
 <span id='parameterId'>
 # SA Analyse
@@ -23,9 +21,9 @@ WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!
 <br>
 # Parameter
 <br>
-Symbols(1):669
+Symbols(74):EAI RSH KPR EDP FAU INX B3K WO6 RER1 A44 SDRC MTA 1AE FO4N ENUR A16 2VO I10 EUQ W7L 669 TNU3 SOL JEM HSC2 EG4 TTEB 9TG QSV ANI ENXB AACA 5BP 1VRA AJ3 I7G HE9 M6Q SES 4BV 1WE KEK 0B2 V1S NVJP DAU0 RMC OCI1 SNM UEI TU0 EF3 7PI NKT NEF GZ5 E7V PU4 LU3B AXNA SJ7 AEU 6AA0 SOH1 I1M BDSB B6E EAM KDB HL9C LRC FOT TQ71 GLJ
 <br>
-Percentage:2 
+Percentage:1 
 <br>
 Query:offline 
 <br>
@@ -43,14 +41,739 @@ RSI:25
 <button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>GoTo End</button>&nbsp;
 <button id='intervalSectionButtonOpenAll' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>
 <hr id='intervalSectionHROverallButtons' style='display: none'>
-<div id='symbolLineId669'>
-<img class='imgborder' id='imgToReplace669' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=45014669&TIME_SPAN=10D'/>
+<div id='symbolLineIdEAI'>
+<img class='imgborder' id='imgToReplaceEAI' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672246&TIME_SPAN=10D'/>
 <div style='margin-top: 6px'>
-<a id='headlineLink669' style='color:black' onmouseover="javascript:showChart('10D', '669')" onmouseout="javascript:hideChart('669')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=45014669' target='_blank'>669 "InPost"</a>
-<a style='color:black' onmouseover="javascript:showChart('6M', '669')" onmouseout="javascript:hideChart('669')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=45014669' target='_blank'>&nbsp;6M&nbsp;</a>
-<a style='color:black' onmouseover="javascript:showChart('5Y', '669')" onmouseout="javascript:hideChart('669')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=45014669' target='_blank'>&nbsp;5Y&nbsp;</a>
-<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/669.html' target='_blank'>&nbsp;SA&nbsp;</a>
-<a id='linkPC669' style='color:black; display: none' href='D:/code/stock-analyse/out/669.html' target='_blank'>&nbsp;PC&nbsp;</a>
+<a id='headlineLinkEAI' style='color:black' onmouseover="javascript:showChart('10D', 'EAI')" onmouseout="javascript:hideChart('EAI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46672246' target='_blank'>EAI "GBL"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'EAI')" onmouseout="javascript:hideChart('EAI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46672246' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'EAI')" onmouseout="javascript:hideChart('EAI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46672246' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/EAI.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCEAI' style='color:black; display: none' href='D:/code/stock-analyse/out/EAI.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdRSH'>
+<img class='imgborder' id='imgToReplaceRSH' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=62207053&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkRSH' style='color:black' onmouseover="javascript:showChart('10D', 'RSH')" onmouseout="javascript:hideChart('RSH')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=62207053' target='_blank'>RSH "RANDSTAD"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'RSH')" onmouseout="javascript:hideChart('RSH')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=62207053' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'RSH')" onmouseout="javascript:hideChart('RSH')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=62207053' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/RSH.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCRSH' style='color:black; display: none' href='D:/code/stock-analyse/out/RSH.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdKPR'>
+<img class='imgborder' id='imgToReplaceKPR' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723310&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkKPR' style='color:black' onmouseover="javascript:showChart('10D', 'KPR')" onmouseout="javascript:hideChart('KPR')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723310' target='_blank'>KPR "Klepierre"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'KPR')" onmouseout="javascript:hideChart('KPR')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723310' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'KPR')" onmouseout="javascript:hideChart('KPR')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723310' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/KPR.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCKPR' style='color:black; display: none' href='D:/code/stock-analyse/out/KPR.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdEDP'>
+<img class='imgborder' id='imgToReplaceEDP' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723225&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkEDP' style='color:black' onmouseover="javascript:showChart('10D', 'EDP')" onmouseout="javascript:hideChart('EDP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723225' target='_blank'>EDP "EDP-ENERGIAS"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'EDP')" onmouseout="javascript:hideChart('EDP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723225' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'EDP')" onmouseout="javascript:hideChart('EDP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723225' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/EDP.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCEDP' style='color:black; display: none' href='D:/code/stock-analyse/out/EDP.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdFAU'>
+<img class='imgborder' id='imgToReplaceFAU' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723253&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkFAU' style='color:black' onmouseover="javascript:showChart('10D', 'FAU')" onmouseout="javascript:hideChart('FAU')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723253' target='_blank'>FAU "Forvia"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'FAU')" onmouseout="javascript:hideChart('FAU')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723253' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'FAU')" onmouseout="javascript:hideChart('FAU')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723253' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FAU.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCFAU' style='color:black; display: none' href='D:/code/stock-analyse/out/FAU.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdINX'>
+<img class='imgborder' id='imgToReplaceINX' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=168082217&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkINX' style='color:black' onmouseover="javascript:showChart('10D', 'INX')" onmouseout="javascript:hideChart('INX')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=168082217' target='_blank'>INX "IMCD"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'INX')" onmouseout="javascript:hideChart('INX')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=168082217' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'INX')" onmouseout="javascript:hideChart('INX')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=168082217' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/INX.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCINX' style='color:black; display: none' href='D:/code/stock-analyse/out/INX.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdB3K'>
+<img class='imgborder' id='imgToReplaceB3K' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167727589&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkB3K' style='color:black' onmouseover="javascript:showChart('10D', 'B3K')" onmouseout="javascript:hideChart('B3K')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167727589' target='_blank'>B3K "Ackermans&VanHaaren"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'B3K')" onmouseout="javascript:hideChart('B3K')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167727589' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'B3K')" onmouseout="javascript:hideChart('B3K')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167727589' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/B3K.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCB3K' style='color:black; display: none' href='D:/code/stock-analyse/out/B3K.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdWO6'>
+<img class='imgborder' id='imgToReplaceWO6' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=194654559&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkWO6' style='color:black' onmouseover="javascript:showChart('10D', 'WO6')" onmouseout="javascript:hideChart('WO6')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=194654559' target='_blank'>WO6 "Worldline"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'WO6')" onmouseout="javascript:hideChart('WO6')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=194654559' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'WO6')" onmouseout="javascript:hideChart('WO6')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=194654559' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/WO6.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCWO6' style='color:black; display: none' href='D:/code/stock-analyse/out/WO6.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdRER1'>
+<img class='imgborder' id='imgToReplaceRER1' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=77673297&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkRER1' style='color:black' onmouseover="javascript:showChart('10D', 'RER1')" onmouseout="javascript:hideChart('RER1')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=77673297' target='_blank'>RER1 "Recordati Ind. Chimica"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'RER1')" onmouseout="javascript:hideChart('RER1')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=77673297' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'RER1')" onmouseout="javascript:hideChart('RER1')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=77673297' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/RER1.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCRER1' style='color:black; display: none' href='D:/code/stock-analyse/out/RER1.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdA44'>
+<img class='imgborder' id='imgToReplaceA44' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167728505&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkA44' style='color:black' onmouseover="javascript:showChart('10D', 'A44')" onmouseout="javascript:hideChart('A44')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167728505' target='_blank'>A44 "Aena"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'A44')" onmouseout="javascript:hideChart('A44')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167728505' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'A44')" onmouseout="javascript:hideChart('A44')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167728505' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/A44.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCA44' style='color:black; display: none' href='D:/code/stock-analyse/out/A44.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdSDRC'>
+<img class='imgborder' id='imgToReplaceSDRC' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723533&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkSDRC' style='color:black' onmouseover="javascript:showChart('10D', 'SDRC')" onmouseout="javascript:hideChart('SDRC')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723533' target='_blank'>SDRC "SCOR"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'SDRC')" onmouseout="javascript:hideChart('SDRC')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723533' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'SDRC')" onmouseout="javascript:hideChart('SDRC')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723533' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SDRC.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCSDRC' style='color:black; display: none' href='D:/code/stock-analyse/out/SDRC.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdMTA'>
+<img class='imgborder' id='imgToReplaceMTA' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46671378&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkMTA' style='color:black' onmouseover="javascript:showChart('10D', 'MTA')" onmouseout="javascript:hideChart('MTA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46671378' target='_blank'>MTA "Waertsilae"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'MTA')" onmouseout="javascript:hideChart('MTA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46671378' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'MTA')" onmouseout="javascript:hideChart('MTA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46671378' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MTA.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCMTA' style='color:black; display: none' href='D:/code/stock-analyse/out/MTA.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId1AE'>
+<img class='imgborder' id='imgToReplace1AE' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=318294224&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink1AE' style='color:black' onmouseover="javascript:showChart('10D', '1AE')" onmouseout="javascript:hideChart('1AE')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=318294224' target='_blank'>1AE "argenx"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '1AE')" onmouseout="javascript:hideChart('1AE')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=318294224' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '1AE')" onmouseout="javascript:hideChart('1AE')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=318294224' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/1AE.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC1AE' style='color:black; display: none' href='D:/code/stock-analyse/out/1AE.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdFO4N'>
+<img class='imgborder' id='imgToReplaceFO4N' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72663867&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkFO4N' style='color:black' onmouseover="javascript:showChart('10D', 'FO4N')" onmouseout="javascript:hideChart('FO4N')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72663867' target='_blank'>FO4N "AGEAS"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'FO4N')" onmouseout="javascript:hideChart('FO4N')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72663867' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'FO4N')" onmouseout="javascript:hideChart('FO4N')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72663867' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FO4N.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCFO4N' style='color:black; display: none' href='D:/code/stock-analyse/out/FO4N.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdENUR'>
+<img class='imgborder' id='imgToReplaceENUR' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672130&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkENUR' style='color:black' onmouseover="javascript:showChart('10D', 'ENUR')" onmouseout="javascript:hideChart('ENUR')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46672130' target='_blank'>ENUR "STORA ENSO"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'ENUR')" onmouseout="javascript:hideChart('ENUR')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46672130' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'ENUR')" onmouseout="javascript:hideChart('ENUR')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46672130' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ENUR.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCENUR' style='color:black; display: none' href='D:/code/stock-analyse/out/ENUR.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdA16'>
+<img class='imgborder' id='imgToReplaceA16' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=168082044&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkA16' style='color:black' onmouseover="javascript:showChart('10D', 'A16')" onmouseout="javascript:hideChart('A16')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=168082044' target='_blank'>A16 "ASR NEDERLAND"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'A16')" onmouseout="javascript:hideChart('A16')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=168082044' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'A16')" onmouseout="javascript:hideChart('A16')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=168082044' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/A16.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCA16' style='color:black; display: none' href='D:/code/stock-analyse/out/A16.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId2VO'>
+<img class='imgborder' id='imgToReplace2VO' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=168084385&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink2VO' style='color:black' onmouseover="javascript:showChart('10D', '2VO')" onmouseout="javascript:hideChart('2VO')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=168084385' target='_blank'>2VO "VALMET"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '2VO')" onmouseout="javascript:hideChart('2VO')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=168084385' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '2VO')" onmouseout="javascript:hideChart('2VO')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=168084385' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/2VO.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC2VO' style='color:black; display: none' href='D:/code/stock-analyse/out/2VO.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdI10'>
+<img class='imgborder' id='imgToReplaceI10' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=175715655&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkI10' style='color:black' onmouseover="javascript:showChart('10D', 'I10')" onmouseout="javascript:hideChart('I10')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=175715655' target='_blank'>I10 "ITALGAS"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'I10')" onmouseout="javascript:hideChart('I10')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=175715655' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'I10')" onmouseout="javascript:hideChart('I10')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=175715655' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/I10.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCI10' style='color:black; display: none' href='D:/code/stock-analyse/out/I10.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdEUQ'>
+<img class='imgborder' id='imgToReplaceEUQ' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=123978459&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkEUQ' style='color:black' onmouseover="javascript:showChart('10D', 'EUQ')" onmouseout="javascript:hideChart('EUQ')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=123978459' target='_blank'>EUQ "Eurazeo"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'EUQ')" onmouseout="javascript:hideChart('EUQ')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=123978459' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'EUQ')" onmouseout="javascript:hideChart('EUQ')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=123978459' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/EUQ.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCEUQ' style='color:black; display: none' href='D:/code/stock-analyse/out/EUQ.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdW7L'>
+<img class='imgborder' id='imgToReplaceW7L' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723419&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkW7L' style='color:black' onmouseover="javascript:showChart('10D', 'W7L')" onmouseout="javascript:hideChart('W7L')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723419' target='_blank'>W7L "Aeroports de Paris"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'W7L')" onmouseout="javascript:hideChart('W7L')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723419' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'W7L')" onmouseout="javascript:hideChart('W7L')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723419' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/W7L.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCW7L' style='color:black; display: none' href='D:/code/stock-analyse/out/W7L.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId669'>
+<br>
+!!! 669 NOT found in data/669.txt
+<br>
+<div id='symbolLineIdTNU3'>
+<img class='imgborder' id='imgToReplaceTNU3' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723360&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkTNU3' style='color:black' onmouseover="javascript:showChart('10D', 'TNU3')" onmouseout="javascript:hideChart('TNU3')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723360' target='_blank'>TNU3 "GETLINK"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'TNU3')" onmouseout="javascript:hideChart('TNU3')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723360' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'TNU3')" onmouseout="javascript:hideChart('TNU3')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723360' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TNU3.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCTNU3' style='color:black; display: none' href='D:/code/stock-analyse/out/TNU3.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdSOL'>
+<img class='imgborder' id='imgToReplaceSOL' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672233&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkSOL' style='color:black' onmouseover="javascript:showChart('10D', 'SOL')" onmouseout="javascript:hideChart('SOL')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46672233' target='_blank'>SOL "Solvay"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'SOL')" onmouseout="javascript:hideChart('SOL')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46672233' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'SOL')" onmouseout="javascript:hideChart('SOL')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46672233' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SOL.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCSOL' style='color:black; display: none' href='D:/code/stock-analyse/out/SOL.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdJEM'>
+<img class='imgborder' id='imgToReplaceJEM' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46671547&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkJEM' style='color:black' onmouseover="javascript:showChart('10D', 'JEM')" onmouseout="javascript:hideChart('JEM')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46671547' target='_blank'>JEM "Jeronimo Martins"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'JEM')" onmouseout="javascript:hideChart('JEM')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46671547' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'JEM')" onmouseout="javascript:hideChart('JEM')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46671547' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/JEM.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCJEM' style='color:black; display: none' href='D:/code/stock-analyse/out/JEM.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdHSC2'>
+<img class='imgborder' id='imgToReplaceHSC2' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=168084078&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkHSC2' style='color:black' onmouseover="javascript:showChart('10D', 'HSC2')" onmouseout="javascript:hideChart('HSC2')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=168084078' target='_blank'>HSC2 "Inmob. Col. SOCIMI"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'HSC2')" onmouseout="javascript:hideChart('HSC2')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=168084078' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'HSC2')" onmouseout="javascript:hideChart('HSC2')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=168084078' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HSC2.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCHSC2' style='color:black; display: none' href='D:/code/stock-analyse/out/HSC2.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdEG4'>
+<img class='imgborder' id='imgToReplaceEG4' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723239&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkEG4' style='color:black' onmouseover="javascript:showChart('10D', 'EG4')" onmouseout="javascript:hideChart('EG4')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723239' target='_blank'>EG4 "ENAGAS"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'EG4')" onmouseout="javascript:hideChart('EG4')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723239' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'EG4')" onmouseout="javascript:hideChart('EG4')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723239' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/EG4.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCEG4' style='color:black; display: none' href='D:/code/stock-analyse/out/EG4.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdTTEB'>
+<img class='imgborder' id='imgToReplaceTTEB' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=321679336&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkTTEB' style='color:black' onmouseover="javascript:showChart('10D', 'TTEB')" onmouseout="javascript:hideChart('TTEB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=321679336' target='_blank'>TTEB "TietoEVRY"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'TTEB')" onmouseout="javascript:hideChart('TTEB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=321679336' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'TTEB')" onmouseout="javascript:hideChart('TTEB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=321679336' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TTEB.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCTTEB' style='color:black; display: none' href='D:/code/stock-analyse/out/TTEB.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId9TG'>
+<img class='imgborder' id='imgToReplace9TG' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167525834&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink9TG' style='color:black' onmouseover="javascript:showChart('10D', '9TG')" onmouseout="javascript:hideChart('9TG')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167525834' target='_blank'>9TG "Gaztransp. Technigaz"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '9TG')" onmouseout="javascript:hideChart('9TG')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167525834' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '9TG')" onmouseout="javascript:hideChart('9TG')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167525834' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/9TG.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC9TG' style='color:black; display: none' href='D:/code/stock-analyse/out/9TG.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdQSV'>
+<img class='imgborder' id='imgToReplaceQSV' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723231&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkQSV' style='color:black' onmouseover="javascript:showChart('10D', 'QSV')" onmouseout="javascript:hideChart('QSV')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723231' target='_blank'>QSV "Edenred"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'QSV')" onmouseout="javascript:hideChart('QSV')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723231' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'QSV')" onmouseout="javascript:hideChart('QSV')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723231' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/QSV.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCQSV' style='color:black; display: none' href='D:/code/stock-analyse/out/QSV.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdANI'>
+<img class='imgborder' id='imgToReplaceANI' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=194653415&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkANI' style='color:black' onmouseover="javascript:showChart('10D', 'ANI')" onmouseout="javascript:hideChart('ANI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=194653415' target='_blank'>ANI "Amundi"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'ANI')" onmouseout="javascript:hideChart('ANI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=194653415' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'ANI')" onmouseout="javascript:hideChart('ANI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=194653415' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ANI.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCANI' style='color:black; display: none' href='D:/code/stock-analyse/out/ANI.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdENXB'>
+<img class='imgborder' id='imgToReplaceENXB' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=106071112&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkENXB' style='color:black' onmouseover="javascript:showChart('10D', 'ENXB')" onmouseout="javascript:hideChart('ENXB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=106071112' target='_blank'>ENXB "EURONEXT"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'ENXB')" onmouseout="javascript:hideChart('ENXB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=106071112' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'ENXB')" onmouseout="javascript:hideChart('ENXB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=106071112' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/ENXB.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCENXB' style='color:black; display: none' href='D:/code/stock-analyse/out/ENXB.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdAACA'>
+<img class='imgborder' id='imgToReplaceAACA' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723179&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkAACA' style='color:black' onmouseover="javascript:showChart('10D', 'AACA')" onmouseout="javascript:hideChart('AACA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723179' target='_blank'>AACA "Aalberts"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'AACA')" onmouseout="javascript:hideChart('AACA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723179' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'AACA')" onmouseout="javascript:hideChart('AACA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723179' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AACA.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCAACA' style='color:black; display: none' href='D:/code/stock-analyse/out/AACA.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId5BP'>
+<img class='imgborder' id='imgToReplace5BP' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=381828170&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink5BP' style='color:black' onmouseover="javascript:showChart('10D', '5BP')" onmouseout="javascript:hideChart('5BP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=381828170' target='_blank'>5BP "C.A.Energias Reno."</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '5BP')" onmouseout="javascript:hideChart('5BP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=381828170' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '5BP')" onmouseout="javascript:hideChart('5BP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=381828170' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/5BP.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC5BP' style='color:black; display: none' href='D:/code/stock-analyse/out/5BP.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId1VRA'>
+<img class='imgborder' id='imgToReplace1VRA' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=318294211&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink1VRA' style='color:black' onmouseover="javascript:showChart('10D', '1VRA')" onmouseout="javascript:hideChart('1VRA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=318294211' target='_blank'>1VRA "VERALLIA"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '1VRA')" onmouseout="javascript:hideChart('1VRA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=318294211' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '1VRA')" onmouseout="javascript:hideChart('1VRA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=318294211' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/1VRA.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC1VRA' style='color:black; display: none' href='D:/code/stock-analyse/out/1VRA.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdAJ3'>
+<img class='imgborder' id='imgToReplaceAJ3' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=60419562&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkAJ3' style='color:black' onmouseover="javascript:showChart('10D', 'AJ3')" onmouseout="javascript:hideChart('AJ3')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=60419562' target='_blank'>AJ3 "ACCIONA"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'AJ3')" onmouseout="javascript:hideChart('AJ3')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=60419562' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'AJ3')" onmouseout="javascript:hideChart('AJ3')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=60419562' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AJ3.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCAJ3' style='color:black; display: none' href='D:/code/stock-analyse/out/AJ3.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdI7G'>
+<img class='imgborder' id='imgToReplaceI7G' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167729796&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkI7G' style='color:black' onmouseover="javascript:showChart('10D', 'I7G')" onmouseout="javascript:hideChart('I7G')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167729796' target='_blank'>I7G "IPSEN"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'I7G')" onmouseout="javascript:hideChart('I7G')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167729796' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'I7G')" onmouseout="javascript:hideChart('I7G')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167729796' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/I7G.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCI7G' style='color:black; display: none' href='D:/code/stock-analyse/out/I7G.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdHE9'>
+<img class='imgborder' id='imgToReplaceHE9' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=165655584&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkHE9' style='color:black' onmouseover="javascript:showChart('10D', 'HE9')" onmouseout="javascript:hideChart('HE9')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=165655584' target='_blank'>HE9 "HERA"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'HE9')" onmouseout="javascript:hideChart('HE9')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=165655584' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'HE9')" onmouseout="javascript:hideChart('HE9')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=165655584' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HE9.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCHE9' style='color:black; display: none' href='D:/code/stock-analyse/out/HE9.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdM6Q'>
+<img class='imgborder' id='imgToReplaceM6Q' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672295&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkM6Q' style='color:black' onmouseover="javascript:showChart('10D', 'M6Q')" onmouseout="javascript:hideChart('M6Q')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46672295' target='_blank'>M6Q "METSO"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'M6Q')" onmouseout="javascript:hideChart('M6Q')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46672295' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'M6Q')" onmouseout="javascript:hideChart('M6Q')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46672295' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/M6Q.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCM6Q' style='color:black; display: none' href='D:/code/stock-analyse/out/M6Q.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdSES'>
+<img class='imgborder' id='imgToReplaceSES' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723532&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkSES' style='color:black' onmouseover="javascript:showChart('10D', 'SES')" onmouseout="javascript:hideChart('SES')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723532' target='_blank'>SES "SES"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'SES')" onmouseout="javascript:hideChart('SES')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723532' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'SES')" onmouseout="javascript:hideChart('SES')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723532' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SES.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCSES' style='color:black; display: none' href='D:/code/stock-analyse/out/SES.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+<span id='detailsIdLowMarketCapSES'><br><b style='color:orange; font-size:xx-large'>->LOW CAP:SES</b><br></span>
+</div>
+<div id='symbolLineId4BV'>
+<img class='imgborder' id='imgToReplace4BV' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167729881&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink4BV' style='color:black' onmouseover="javascript:showChart('10D', '4BV')" onmouseout="javascript:hideChart('4BV')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167729881' target='_blank'>4BV "BUREAU VERITAS"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '4BV')" onmouseout="javascript:hideChart('4BV')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167729881' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '4BV')" onmouseout="javascript:hideChart('4BV')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167729881' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/4BV.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC4BV' style='color:black; display: none' href='D:/code/stock-analyse/out/4BV.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId1WE'>
+<img class='imgborder' id='imgToReplace1WE' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=310683247&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink1WE' style='color:black' onmouseover="javascript:showChart('10D', '1WE')" onmouseout="javascript:hideChart('1WE')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=310683247' target='_blank'>1WE "La Franc. de Jeux"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '1WE')" onmouseout="javascript:hideChart('1WE')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=310683247' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '1WE')" onmouseout="javascript:hideChart('1WE')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=310683247' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/1WE.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC1WE' style='color:black; display: none' href='D:/code/stock-analyse/out/1WE.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdKEK'>
+<img class='imgborder' id='imgToReplaceKEK' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46671406&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkKEK' style='color:black' onmouseover="javascript:showChart('10D', 'KEK')" onmouseout="javascript:hideChart('KEK')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46671406' target='_blank'>KEK "KESKO"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'KEK')" onmouseout="javascript:hideChart('KEK')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46671406' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'KEK')" onmouseout="javascript:hideChart('KEK')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46671406' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/KEK.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCKEK' style='color:black; display: none' href='D:/code/stock-analyse/out/KEK.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId0B2'>
+<img class='imgborder' id='imgToReplace0B2' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=318294238&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink0B2' style='color:black' onmouseover="javascript:showChart('10D', '0B2')" onmouseout="javascript:hideChart('0B2')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=318294238' target='_blank'>0B2 "BAWAG"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '0B2')" onmouseout="javascript:hideChart('0B2')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=318294238' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '0B2')" onmouseout="javascript:hideChart('0B2')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=318294238' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/0B2.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC0B2' style='color:black; display: none' href='D:/code/stock-analyse/out/0B2.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdV1S'>
+<img class='imgborder' id='imgToReplaceV1S' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723435&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkV1S' style='color:black' onmouseover="javascript:showChart('10D', 'V1S')" onmouseout="javascript:hideChart('V1S')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723435' target='_blank'>V1S "ARKEMA"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'V1S')" onmouseout="javascript:hideChart('V1S')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723435' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'V1S')" onmouseout="javascript:hideChart('V1S')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723435' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/V1S.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCV1S' style='color:black; display: none' href='D:/code/stock-analyse/out/V1S.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdNVJP'>
+<img class='imgborder' id='imgToReplaceNVJP' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=289571616&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkNVJP' style='color:black' onmouseover="javascript:showChart('10D', 'NVJP')" onmouseout="javascript:hideChart('NVJP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=289571616' target='_blank'>NVJP "UMICORE"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'NVJP')" onmouseout="javascript:hideChart('NVJP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=289571616' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'NVJP')" onmouseout="javascript:hideChart('NVJP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=289571616' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NVJP.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCNVJP' style='color:black; display: none' href='D:/code/stock-analyse/out/NVJP.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdDAU0'>
+<img class='imgborder' id='imgToReplaceDAU0' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167727293&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkDAU0' style='color:black' onmouseover="javascript:showChart('10D', 'DAU0')" onmouseout="javascript:hideChart('DAU0')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167727293' target='_blank'>DAU0 "Dassault Aviation"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'DAU0')" onmouseout="javascript:hideChart('DAU0')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167727293' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'DAU0')" onmouseout="javascript:hideChart('DAU0')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167727293' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DAU0.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCDAU0' style='color:black; display: none' href='D:/code/stock-analyse/out/DAU0.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdRMC'>
+<img class='imgborder' id='imgToReplaceRMC' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723526&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkRMC' style='color:black' onmouseover="javascript:showChart('10D', 'RMC')" onmouseout="javascript:hideChart('RMC')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723526' target='_blank'>RMC "REMY COINTREAU"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'RMC')" onmouseout="javascript:hideChart('RMC')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723526' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'RMC')" onmouseout="javascript:hideChart('RMC')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723526' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/RMC.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCRMC' style='color:black; display: none' href='D:/code/stock-analyse/out/RMC.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdOCI1'>
+<img class='imgborder' id='imgToReplaceOCI1' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723481&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkOCI1' style='color:black' onmouseover="javascript:showChart('10D', 'OCI1')" onmouseout="javascript:hideChart('OCI1')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723481' target='_blank'>OCI1 "ACS Activid. Cons"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'OCI1')" onmouseout="javascript:hideChart('OCI1')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723481' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'OCI1')" onmouseout="javascript:hideChart('OCI1')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723481' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/OCI1.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCOCI1' style='color:black; display: none' href='D:/code/stock-analyse/out/OCI1.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdSNM'>
+<img class='imgborder' id='imgToReplaceSNM' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723209&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkSNM' style='color:black' onmouseover="javascript:showChart('10D', 'SNM')" onmouseout="javascript:hideChart('SNM')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723209' target='_blank'>SNM "SNAM"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'SNM')" onmouseout="javascript:hideChart('SNM')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723209' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'SNM')" onmouseout="javascript:hideChart('SNM')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723209' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SNM.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCSNM' style='color:black; display: none' href='D:/code/stock-analyse/out/SNM.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdUEI'>
+<img class='imgborder' id='imgToReplaceUEI' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167727048&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkUEI' style='color:black' onmouseover="javascript:showChart('10D', 'UEI')" onmouseout="javascript:hideChart('UEI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167727048' target='_blank'>UEI "TERNA"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'UEI')" onmouseout="javascript:hideChart('UEI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167727048' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'UEI')" onmouseout="javascript:hideChart('UEI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167727048' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/UEI.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCUEI' style='color:black; display: none' href='D:/code/stock-analyse/out/UEI.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdTU0'>
+<img class='imgborder' id='imgToReplaceTU0' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=327305165&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkTU0' style='color:black' onmouseover="javascript:showChart('10D', 'TU0')" onmouseout="javascript:hideChart('TU0')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=327305165' target='_blank'>TU0 "THULE"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'TU0')" onmouseout="javascript:hideChart('TU0')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=327305165' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'TU0')" onmouseout="javascript:hideChart('TU0')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=327305165' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TU0.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCTU0' style='color:black; display: none' href='D:/code/stock-analyse/out/TU0.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdEF3'>
+<img class='imgborder' id='imgToReplaceEF3' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723232&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkEF3' style='color:black' onmouseover="javascript:showChart('10D', 'EF3')" onmouseout="javascript:hideChart('EF3')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723232' target='_blank'>EF3 "EIFFAGE"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'EF3')" onmouseout="javascript:hideChart('EF3')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723232' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'EF3')" onmouseout="javascript:hideChart('EF3')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723232' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/EF3.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCEF3' style='color:black; display: none' href='D:/code/stock-analyse/out/EF3.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId7PI'>
+<img class='imgborder' id='imgToReplace7PI' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167729739&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink7PI' style='color:black' onmouseover="javascript:showChart('10D', '7PI')" onmouseout="javascript:hideChart('7PI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167729739' target='_blank'>7PI "POSTE ITALIANE"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '7PI')" onmouseout="javascript:hideChart('7PI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167729739' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '7PI')" onmouseout="javascript:hideChart('7PI')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167729739' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/7PI.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC7PI' style='color:black; display: none' href='D:/code/stock-analyse/out/7PI.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdNKT'>
+<img class='imgborder' id='imgToReplaceNKT' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=398239766&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkNKT' style='color:black' onmouseover="javascript:showChart('10D', 'NKT')" onmouseout="javascript:hideChart('NKT')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=398239766' target='_blank'>NKT "NKT A/S"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'NKT')" onmouseout="javascript:hideChart('NKT')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=398239766' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'NKT')" onmouseout="javascript:hideChart('NKT')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=398239766' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NKT.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCNKT' style='color:black; display: none' href='D:/code/stock-analyse/out/NKT.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdNEF'>
+<img class='imgborder' id='imgToReplaceNEF' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46671864&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkNEF' style='color:black' onmouseover="javascript:showChart('10D', 'NEF')" onmouseout="javascript:hideChart('NEF')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46671864' target='_blank'>NEF "NESTE"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'NEF')" onmouseout="javascript:hideChart('NEF')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46671864' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'NEF')" onmouseout="javascript:hideChart('NEF')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46671864' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/NEF.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCNEF' style='color:black; display: none' href='D:/code/stock-analyse/out/NEF.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdGZ5'>
+<img class='imgborder' id='imgToReplaceGZ5' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46671544&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkGZ5' style='color:black' onmouseover="javascript:showChart('10D', 'GZ5')" onmouseout="javascript:hideChart('GZ5')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46671544' target='_blank'>GZ5 "GALP ENERGIA"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'GZ5')" onmouseout="javascript:hideChart('GZ5')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46671544' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'GZ5')" onmouseout="javascript:hideChart('GZ5')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46671544' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GZ5.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCGZ5' style='color:black; display: none' href='D:/code/stock-analyse/out/GZ5.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdE7V'>
+<img class='imgborder' id='imgToReplaceE7V' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167727333&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkE7V' style='color:black' onmouseover="javascript:showChart('10D', 'E7V')" onmouseout="javascript:hideChart('E7V')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167727333' target='_blank'>E7V "REXEL"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'E7V')" onmouseout="javascript:hideChart('E7V')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167727333' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'E7V')" onmouseout="javascript:hideChart('E7V')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167727333' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/E7V.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCE7V' style='color:black; display: none' href='D:/code/stock-analyse/out/E7V.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdPU4'>
+<img class='imgborder' id='imgToReplacePU4' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723188&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkPU4' style='color:black' onmouseover="javascript:showChart('10D', 'PU4')" onmouseout="javascript:hideChart('PU4')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723188' target='_blank'>PU4 "PUBLICIS GROUPE"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'PU4')" onmouseout="javascript:hideChart('PU4')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723188' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'PU4')" onmouseout="javascript:hideChart('PU4')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723188' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/PU4.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCPU4' style='color:black; display: none' href='D:/code/stock-analyse/out/PU4.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdLU3B'>
+<img class='imgborder' id='imgToReplaceLU3B' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=172504547&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkLU3B' style='color:black' onmouseover="javascript:showChart('10D', 'LU3B')" onmouseout="javascript:hideChart('LU3B')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=172504547' target='_blank'>LU3B "Lundbergfoeretagen"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'LU3B')" onmouseout="javascript:hideChart('LU3B')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=172504547' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'LU3B')" onmouseout="javascript:hideChart('LU3B')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=172504547' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/LU3B.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCLU3B' style='color:black; display: none' href='D:/code/stock-analyse/out/LU3B.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdAXNA'>
+<img class='imgborder' id='imgToReplaceAXNA' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=327305195&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkAXNA' style='color:black' onmouseover="javascript:showChart('10D', 'AXNA')" onmouseout="javascript:hideChart('AXNA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=327305195' target='_blank'>AXNA "AMPLIFON"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'AXNA')" onmouseout="javascript:hideChart('AXNA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=327305195' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'AXNA')" onmouseout="javascript:hideChart('AXNA')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=327305195' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AXNA.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCAXNA' style='color:black; display: none' href='D:/code/stock-analyse/out/AXNA.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdSJ7'>
+<img class='imgborder' id='imgToReplaceSJ7' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723548&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkSJ7' style='color:black' onmouseover="javascript:showChart('10D', 'SJ7')" onmouseout="javascript:hideChart('SJ7')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723548' target='_blank'>SJ7 "SODEXO"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'SJ7')" onmouseout="javascript:hideChart('SJ7')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723548' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'SJ7')" onmouseout="javascript:hideChart('SJ7')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723548' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SJ7.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCSJ7' style='color:black; display: none' href='D:/code/stock-analyse/out/SJ7.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdAEU'>
+<img class='imgborder' id='imgToReplaceAEU' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46671893&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkAEU' style='color:black' onmouseover="javascript:showChart('10D', 'AEU')" onmouseout="javascript:hideChart('AEU')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46671893' target='_blank'>AEU "PRYSMIAN"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'AEU')" onmouseout="javascript:hideChart('AEU')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46671893' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'AEU')" onmouseout="javascript:hideChart('AEU')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46671893' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/AEU.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCAEU' style='color:black; display: none' href='D:/code/stock-analyse/out/AEU.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineId6AA0'>
+<img class='imgborder' id='imgToReplace6AA0' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=220733562&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLink6AA0' style='color:black' onmouseover="javascript:showChart('10D', '6AA0')" onmouseout="javascript:hideChart('6AA0')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=220733562' target='_blank'>6AA0 "AAK AB"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', '6AA0')" onmouseout="javascript:hideChart('6AA0')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=220733562' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', '6AA0')" onmouseout="javascript:hideChart('6AA0')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=220733562' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/6AA0.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPC6AA0' style='color:black; display: none' href='D:/code/stock-analyse/out/6AA0.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdSOH1'>
+<img class='imgborder' id='imgToReplaceSOH1' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=194652636&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkSOH1' style='color:black' onmouseover="javascript:showChart('10D', 'SOH1')" onmouseout="javascript:hideChart('SOH1')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=194652636' target='_blank'>SOH1 "Soitec"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'SOH1')" onmouseout="javascript:hideChart('SOH1')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=194652636' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'SOH1')" onmouseout="javascript:hideChart('SOH1')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=194652636' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SOH1.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCSOH1' style='color:black; display: none' href='D:/code/stock-analyse/out/SOH1.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdI1M'>
+<img class='imgborder' id='imgToReplaceI1M' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=269926647&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkI1M' style='color:black' onmouseover="javascript:showChart('10D', 'I1M')" onmouseout="javascript:hideChart('I1M')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=269926647' target='_blank'>I1M "INDUTRADE"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'I1M')" onmouseout="javascript:hideChart('I1M')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=269926647' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'I1M')" onmouseout="javascript:hideChart('I1M')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=269926647' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/I1M.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCI1M' style='color:black; display: none' href='D:/code/stock-analyse/out/I1M.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdBDSB'>
+<img class='imgborder' id='imgToReplaceBDSB' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723449&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkBDSB' style='color:black' onmouseover="javascript:showChart('10D', 'BDSB')" onmouseout="javascript:hideChart('BDSB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723449' target='_blank'>BDSB "Banco SABADELL"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'BDSB')" onmouseout="javascript:hideChart('BDSB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723449' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'BDSB')" onmouseout="javascript:hideChart('BDSB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723449' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/BDSB.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCBDSB' style='color:black; display: none' href='D:/code/stock-analyse/out/BDSB.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdB6E'>
+<img class='imgborder' id='imgToReplaceB6E' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=167729323&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkB6E' style='color:black' onmouseover="javascript:showChart('10D', 'B6E')" onmouseout="javascript:hideChart('B6E')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=167729323' target='_blank'>B6E "Swedish Orphan Bio"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'B6E')" onmouseout="javascript:hideChart('B6E')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=167729323' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'B6E')" onmouseout="javascript:hideChart('B6E')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167729323' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/B6E.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCB6E' style='color:black; display: none' href='D:/code/stock-analyse/out/B6E.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdEAM'>
+<img class='imgborder' id='imgToReplaceEAM' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46671020&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkEAM' style='color:black' onmouseover="javascript:showChart('10D', 'EAM')" onmouseout="javascript:hideChart('EAM')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46671020' target='_blank'>EAM "A2A"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'EAM')" onmouseout="javascript:hideChart('EAM')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46671020' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'EAM')" onmouseout="javascript:hideChart('EAM')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46671020' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/EAM.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCEAM' style='color:black; display: none' href='D:/code/stock-analyse/out/EAM.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdKDB'>
+<img class='imgborder' id='imgToReplaceKDB' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672172&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkKDB' style='color:black' onmouseover="javascript:showChart('10D', 'KDB')" onmouseout="javascript:hideChart('KDB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46672172' target='_blank'>KDB "KBC Groep"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'KDB')" onmouseout="javascript:hideChart('KDB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46672172' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'KDB')" onmouseout="javascript:hideChart('KDB')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46672172' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/KDB.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCKDB' style='color:black; display: none' href='D:/code/stock-analyse/out/KDB.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdHL9C'>
+<img class='imgborder' id='imgToReplaceHL9C' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=398243600&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkHL9C' style='color:black' onmouseover="javascript:showChart('10D', 'HL9C')" onmouseout="javascript:hideChart('HL9C')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=398243600' target='_blank'>HL9C "HOLMEN"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'HL9C')" onmouseout="javascript:hideChart('HL9C')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=398243600' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'HL9C')" onmouseout="javascript:hideChart('HL9C')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=398243600' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/HL9C.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCHL9C' style='color:black; display: none' href='D:/code/stock-analyse/out/HL9C.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdLRC'>
+<img class='imgborder' id='imgToReplaceLRC' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723317&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkLRC' style='color:black' onmouseover="javascript:showChart('10D', 'LRC')" onmouseout="javascript:hideChart('LRC')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723317' target='_blank'>LRC "LEGRAND"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'LRC')" onmouseout="javascript:hideChart('LRC')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723317' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'LRC')" onmouseout="javascript:hideChart('LRC')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723317' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/LRC.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCLRC' style='color:black; display: none' href='D:/code/stock-analyse/out/LRC.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdFOT'>
+<img class='imgborder' id='imgToReplaceFOT' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=72723184&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkFOT' style='color:black' onmouseover="javascript:showChart('10D', 'FOT')" onmouseout="javascript:hideChart('FOT')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=72723184' target='_blank'>FOT "FORTUM"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'FOT')" onmouseout="javascript:hideChart('FOT')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=72723184' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'FOT')" onmouseout="javascript:hideChart('FOT')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72723184' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/FOT.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCFOT' style='color:black; display: none' href='D:/code/stock-analyse/out/FOT.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdTQ71'>
+<img class='imgborder' id='imgToReplaceTQ71' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=321679645&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkTQ71' style='color:black' onmouseover="javascript:showChart('10D', 'TQ71')" onmouseout="javascript:hideChart('TQ71')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=321679645' target='_blank'>TQ71 "TOPDANMARK"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'TQ71')" onmouseout="javascript:hideChart('TQ71')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=321679645' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'TQ71')" onmouseout="javascript:hideChart('TQ71')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=321679645' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/TQ71.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCTQ71' style='color:black; display: none' href='D:/code/stock-analyse/out/TQ71.html' target='_blank'>&nbsp;PC&nbsp;</a>
+</div>
+</div>
+<div id='symbolLineIdGLJ'>
+<img class='imgborder' id='imgToReplaceGLJ' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=46672580&TIME_SPAN=10D'/>
+<div style='margin-top: 6px'>
+<a id='headlineLinkGLJ' style='color:black' onmouseover="javascript:showChart('10D', 'GLJ')" onmouseout="javascript:hideChart('GLJ')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=46672580' target='_blank'>GLJ "GRENKE"</a>
+<a style='color:black' onmouseover="javascript:showChart('6M', 'GLJ')" onmouseout="javascript:hideChart('GLJ')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=46672580' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='color:black' onmouseover="javascript:showChart('5Y', 'GLJ')" onmouseout="javascript:hideChart('GLJ')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=46672580' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='color:black' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GLJ.html' target='_blank'>&nbsp;SA&nbsp;</a>
+<a id='linkPCGLJ' style='color:black; display: none' href='D:/code/stock-analyse/out/GLJ.html' target='_blank'>&nbsp;PC&nbsp;</a>
 </div>
 </div>
 <div id='portfolioValueDaxFooterId'>
@@ -110,6 +833,6 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectio
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
 </div>
-<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  9-Aug-2023 12:35</p><br></div>
+<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  9-Aug-2023 12:48</p><br></div>
 <!-- <script type='text/javascript' src='_result.js'></script> -->
 </body></html>
