@@ -59,7 +59,7 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/
 # Lookup in Deutscher Bank: Einstandskurs, Anzahl and Summe(Marktwert + Gewinn/Verlust)
 # Press ANY key (NOT enter!)
 # Revert Changes
-#read  -n 1 -p "Correct values now and then hit ANY key (NOT enter!)" correctValuesInput
+#read  -n 1 -p "Correct values in 'conf/own_symbols.txt' now and then hit ->ANY key!<- (NOT enter!)" correctValuesInput
 # shellcheck disable=SC2154
 if [ "$correctValuesInput" ]; then
   # Encript
