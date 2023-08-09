@@ -31,7 +31,7 @@ if { [ -z "$symbolsParam" ]; } then
  # exit 1
 fi
 
-echo "!!DATA_INFORMER_DIR $DATA_INFORMER_DIR "
+#echo "!!DATA_INFORMER_DIR $DATA_INFORMER_DIR "
 
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
