@@ -140,8 +140,8 @@ Out "###########" $OUT_RESULT_FILE
 Out "" $OUT_RESULT_FILE
 echo "# Parameter" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "!!! DATA_DIR:$DATA_DIR " | tee -a $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
+#echo "!!! DATA_DIR:$DATA_DIR " | tee -a $OUT_RESULT_FILE
+#echo "<br>" >> $OUT_RESULT_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_RESULT_FILE
