@@ -737,16 +737,10 @@ do
 
         # Collect Values for Overall Yesterday
         obfuscatedValueBuyingOverall=$(echo "$obfuscatedValueBuyingOverall $stocksBuyingValue" | awk '{print $1 + $2}')
-        obfuscatedValueSellingOverall=$(echo "$obfuscatedValueSellingOverall $stocksCurrentValue" | awk '{print $1 + $2}')        
-   
-
-    # fi
-    # Div Fix
+        obfuscatedValueSellingOverall=$(echo "$obfuscatedValueSellingOverall $stocksCurrentValue" | awk '{print $1 + $2}')
     else
         echo "</div>" >> $OUT_RESULT_FILE
     fi
-    # Div Fix
-
 
     # Write history file
     HISTORY_FILE=history/"$symbol".txt
