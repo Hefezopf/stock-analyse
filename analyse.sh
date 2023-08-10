@@ -180,7 +180,8 @@ do
     symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
     echo "<div id='symbolLineId$symbol'>" >> $OUT_RESULT_FILE # Sorting
 
-    # Curl and write Line to TICKER_NAME_ID_FILE. Delay of 14sec because of REST API restrictions (approx. 5 Rq/min)
+    # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
+    # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
     CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
