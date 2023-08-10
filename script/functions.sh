@@ -152,7 +152,7 @@ CurlSymbolName() {
             sort -k 1 "$_tickerNameIdFileParam" > "$tempTickerNameIdFile"
             mv "$tempTickerNameIdFile" "$_tickerNameIdFileParam"
             # Can requested in bulk request as an option!
-            sleep "$_sleepParam" # 14; Only some requests per minute to openfigi (About 6 per minute).
+            sleep "$_sleepParam" # 14; Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
         fi
     fi
 }
