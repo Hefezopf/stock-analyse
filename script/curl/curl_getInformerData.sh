@@ -91,6 +91,7 @@ do
 
 
         #echo "########################################$curlResponse"
+        sleep 3
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<")
         echo "-0----------------------------------------$value"
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*')
