@@ -89,16 +89,16 @@ do
         fi
 
 
-        
-        echo "########################################$curlResponse"
-        value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<")
-        echo "-----------------------------------------$value"
+
+        #echo "########################################$curlResponse"
+        #value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<")
+        #echo "-----------------------------------------$value"
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*')
-        echo "-----------------------------------------$value"
+        echo "-1----------------------------------------$value"
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<")
-        echo "-----------------------------------------$value"
+        echo "-2----------------------------------------$value"
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
-        echo "-----------------------------------------$value"
+        echo "-3----------------------------------------$value"
 
 
 
