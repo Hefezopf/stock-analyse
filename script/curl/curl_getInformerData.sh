@@ -91,14 +91,14 @@ do
 
 
         #echo "########################################$curlResponse"
-        #value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<")
-        #echo "-----------------------------------------$value"
+        value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<")
+        echo "-0----------------------------------------$value"
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*')
         echo "-1----------------------------------------$value"
-        value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<")
-        echo "-2----------------------------------------$value"
-        value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
-        echo "-3----------------------------------------$value"
+       # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<")
+       # echo "-2----------------------------------------$value"
+       # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
+       # echo "-3----------------------------------------$value"
 
 
 
