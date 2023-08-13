@@ -91,7 +91,9 @@ do
 
 
         #echo "########################################$curlResponse"
-        sleep 3
+        #sleep 3
+        trap 'echo "Broken pipe signal detected" >&2' PIPE
+
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<")
         echo "-0----------------------------------------$value"
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*')
