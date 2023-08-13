@@ -83,21 +83,25 @@ do
     if { [ -z "$dataAlreadyThere" ]; } then
         asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
         if [ "$asset_type" = 'INDEX' ]; then
-            curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+            curlResponse=$(curl -s -O -J -L GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+#            curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         else
-            curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+            curlResponse=$(curl -s -O -J -L GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+          #  curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         fi
+
+
 
 
 
         #echo "########################################$curlResponse"
         #sleep 3
-        trap 'echo "Broken pipe signal detected" >&2' PIPE
+       # trap 'echo "Broken pipe signal detected" >&2' PIPE
 
-        value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<")
-        echo "-0----------------------------------------$value"
-        value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*')
-        echo "-1----------------------------------------$value"
+       # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<")
+       # echo "-0----------------------------------------$value"
+       # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*')
+       # echo "-1----------------------------------------$value"
        # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<")
        # echo "-2----------------------------------------$value"
        # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
