@@ -19,7 +19,6 @@
 # shellcheck disable=SC1091
 . script/constants.sh
 
-#export DATA_INFORMER_DIR="data/informer" # where to write informer intermediate files; For migration (curl_getInformerData.sh)
 export DATA_INFORMER_DIR="data" # where to write informer intermediate files; For migration (curl_getInformerData.sh)
 
 # Parameter
