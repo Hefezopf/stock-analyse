@@ -988,8 +988,8 @@ function onContentLoaded(symbol, notationId, asset_type) {
 function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
-    elementSpanToReplace.style.left = '17%'; 
-    //elementSpanToReplace.style.left = '500px'; 
+    //elementSpanToReplace.style.left = '17%'; 
+    elementSpanToReplace.style.left = '500px'; 
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
 
 }
