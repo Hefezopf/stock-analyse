@@ -75,8 +75,8 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 
 # Write Tx History
 echo "Win: $SELL_TOTAL_AMOUNT€"
-# BEI	2022-04-23	352	SELL	"BEIERSDORF"
-echo "<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam</a>	$today	$SELL_TOTAL_AMOUNT	SELL	$SYMBOL_NAME" | tee -a "$TRANSACTION_HISTORY_FILE"
+# BEI	2022-04-23	999	"BEIERSDORF"
+echo "<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam</a>	$today	$SELL_TOTAL_AMOUNT	$SYMBOL_NAME" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
@@ -89,15 +89,15 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
 <link rel='stylesheet' href='_result.css'>
 <script type='text/javascript' src='_result.js'></script>
-<title>Transaction History SA</title>
+<title>Performance SA</title>
 </head>
 <body>
 <div>"
 echo "$TRANSACTION_HISTORY_HTML_FILE_HEADER" > "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 cat -ev "$TRANSACTION_HISTORY_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-lineFromFile=$(grep "SELL" "$TRANSACTION_HISTORY_FILE")
-# BEI	2022-04-23	352	SELL	"BEIERSDORF"
+lineFromFile=$(grep "_blank" "$TRANSACTION_HISTORY_FILE")
+# BEI	2022-04-23	999	"BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 3)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 echo "<br>Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
