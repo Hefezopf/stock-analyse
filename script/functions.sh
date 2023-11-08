@@ -122,6 +122,12 @@ DetermineTendency() {
     valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
     isLevelPos1=$(echo "$valueAfterComma" | awk '{print substr ($0, 0, 1)}')
 
+echo "oooo:$isLevelPos1" 
+
+tendency="$FALLING"
+if [ "$isLevelPos1" != "-" ]; then
+   # echo "XXX:"$isLevelPos1"" 
+
     if [ "$isLevelPos1" -lt 2 ] && # < 0.02 %
        { [ "$valueBeforeComma" = "0" ] || [ "$valueBeforeComma" = "-0" ]; } then
         tendency="$LEVEL"
@@ -132,6 +138,8 @@ DetermineTendency() {
             tendency="$RISING"
         fi
     fi
+
+fi    
 }
 
 # CurlSymbolName function: Curl and write Line to TICKER_NAME_ID_FILE
