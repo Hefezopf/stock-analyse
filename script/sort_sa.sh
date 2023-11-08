@@ -63,6 +63,8 @@ index_line_TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 awk '$1=$1' ORS=' ' "$index_TEMP_FILE" > "$index_line_TEMP_FILE"
 new_TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 cat "$stocks_line_TEMP_FILE" > "$new_TEMP_FILE"
+# TODO FIX
+# shellcheck disable=SC2129
 cat "$coin_line_TEMP_FILE" >> "$new_TEMP_FILE"
 cat "$index_line_TEMP_FILE" >> "$new_TEMP_FILE"
 echo >> "$new_TEMP_FILE"
