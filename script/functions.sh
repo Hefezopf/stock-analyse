@@ -122,8 +122,7 @@ DetermineTendency() {
     valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
     isLevelPos1=$(echo "$valueAfterComma" | awk '{print substr ($0, 0, 1)}')
 
-echo "oooo:$isLevelPos1" 
-
+#echo "oooo:$isLevelPos1" 
 tendency="$FALLING"
 if [ "$isLevelPos1" != "-" ]; then
    # echo "XXX:"$isLevelPos1"" 
