@@ -111,7 +111,7 @@ WriteAlarmAbbrevXAxisFile() {
 # Output: tendency [FALLING|RISING|LEVEL]
 DetermineTendency() {
     _listParam=$1
-    export tendency=""
+    export tendency="$FALLING"
 
     value_82=$(echo "$_listParam" | cut -f 82 -d ',')
     value_87=$(echo "$_listParam" | cut -f 87 -d ',')
@@ -122,23 +122,18 @@ DetermineTendency() {
     valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
     isLevelPos1=$(echo "$valueAfterComma" | awk '{print substr ($0, 0, 1)}')
 
-#echo "oooo:$isLevelPos1" 
-tendency="$FALLING"
-if [ "$isLevelPos1" != "-" ]; then
-   # echo "XXX:"$isLevelPos1"" 
-
-    if [ "$isLevelPos1" -lt 2 ] && # < 0.02 %
-       { [ "$valueBeforeComma" = "0" ] || [ "$valueBeforeComma" = "-0" ]; } then
-        tendency="$LEVEL"
-    else
-        if [ "$isNegativ" = '-' ]; then
-            tendency="$FALLING"
+    if [ "$isLevelPos1" != "-" ]; then
+        if [ "$isLevelPos1" -lt 2 ] && # < 0.02 %
+        { [ "$valueBeforeComma" = "0" ] || [ "$valueBeforeComma" = "-0" ]; } then
+            tendency="$LEVEL"
         else
-            tendency="$RISING"
+            if [ "$isNegativ" = '-' ]; then
+                tendency="$FALLING"
+            else
+                tendency="$RISING"
+            fi
         fi
-    fi
-
-fi    
+    fi    
 }
 
 # CurlSymbolName function: Curl and write Line to TICKER_NAME_ID_FILE
