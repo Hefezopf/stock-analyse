@@ -24,10 +24,12 @@ export DATA_INFORMER_DIR="data" # where to write informer intermediate files; Fo
 # Parameter
 symbolsParam=$1
 
+exit 1
+
 if { [ -z "$symbolsParam" ]; } then
   echo "Not all parameters specified!"
   echo "Example: . curl_getInformerData.sh '*BEI IBM TUI1'"
- # exit 1
+  exit 1
 fi
 
 #echo "!!DATA_INFORMER_DIR $DATA_INFORMER_DIR "
@@ -135,6 +137,7 @@ done
 echo "---------------"
 if { [ "$errorSymbols" ]; } then
     echo "Summary Errors for:$errorSymbols"
+    exit 2
 fi
 
 # Time measurement
