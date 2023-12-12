@@ -76,7 +76,7 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 # Write Tx History
 echo "Win: $SELL_TOTAL_AMOUNT€"
 # BEI	2022-04-23	999	"BEIERSDORF"
-echo "<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam</a>	$today	$SELL_TOTAL_AMOUNT	$SYMBOL_NAME" | tee -a "$TRANSACTION_HISTORY_FILE"
+echo "&nbsp;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam</a>	$today	$SELL_TOTAL_AMOUNT	$SYMBOL_NAME" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
@@ -94,18 +94,23 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <body>
 <div>"
 echo "$TRANSACTION_HISTORY_HTML_FILE_HEADER" > "$OUT_TRANSACTION_HISTORY_HTML_FILE"
-cat -ev "$TRANSACTION_HISTORY_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 lineFromFile=$(grep "_blank" "$TRANSACTION_HISTORY_FILE")
 # BEI	2022-04-23	999	"BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 3)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
-echo "<br>Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
-
-echo "<br></div></body></html>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "&nbsp;Performance SA<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 TEMP_DIR=/tmp
 rm -rf $TEMP_DIR/tmp.*
+TEMP_REVERS_FILE="$(mktemp -p $TEMP_DIR)"
+awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' $TRANSACTION_HISTORY_FILE* > "$TEMP_REVERS_FILE"
+cat -ev "$TEMP_REVERS_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+rm -rf "$TEMP_REVERS_FILE"
+
+echo "<br>&nbsp;Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<br></div></body></html>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+
 TEMP_FILE="$(mktemp -p $TEMP_DIR)"
 sed 's/\$/\<br>/g' "$OUT_TRANSACTION_HISTORY_HTML_FILE" >> "$TEMP_FILE"
 mv "$TEMP_FILE" "$OUT_TRANSACTION_HISTORY_HTML_FILE"
