@@ -135,7 +135,7 @@ done
 echo "---------------"
 if { [ "$errorSymbols" ]; } then
     echo "Summary Errors for:$errorSymbols"
-    exit 2
+    #exit 2
 fi
 
 # Time measurement
