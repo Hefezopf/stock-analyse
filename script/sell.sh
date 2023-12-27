@@ -76,7 +76,7 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 # Write Tx History
 echo "Win: $SELL_TOTAL_AMOUNT€"
 # BEI	2022-04-23	999	"BEIERSDORF"
-echo "&nbsp;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam</a>	$today	$SELL_TOTAL_AMOUNT	$SYMBOL_NAME" | tee -a "$TRANSACTION_HISTORY_FILE"
+echo "&nbsp;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam</a>	$today	$SELL_TOTAL_AMOUNT	$SYMBOL_NAME<br>" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
