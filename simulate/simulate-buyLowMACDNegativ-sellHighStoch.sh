@@ -97,7 +97,7 @@ do
     amountPerTrade=$amountPerTradeParam
 
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-        symbol=$(echo "$symbol" | cut -b 2-6)
+        symbol=$(echo "$symbol" | cut -b 2-7)
     fi
 
     symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)

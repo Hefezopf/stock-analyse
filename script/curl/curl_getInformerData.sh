@@ -44,7 +44,7 @@ START_TIME_MEASUREMENT=$(date +%s);
 for symbol in $symbolsParam
 do
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-        symbol=$(echo "$symbol" | cut -b 2-6)
+        symbol=$(echo "$symbol" | cut -b 2-7)
     fi
     symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
 
