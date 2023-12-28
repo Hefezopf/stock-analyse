@@ -104,6 +104,7 @@ echo "&nbsp;Performance SA<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$
 TEMP_DIR=/tmp
 rm -rf $TEMP_DIR/tmp.*
 TEMP_REVERS_FILE="$(mktemp -p $TEMP_DIR)"
+# shellcheck disable=SC2086
 awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' $TRANSACTION_HISTORY_FILE* > "$TEMP_REVERS_FILE"
 cat -ev "$TEMP_REVERS_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 rm -rf "$TEMP_REVERS_FILE"
