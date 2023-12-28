@@ -23,7 +23,7 @@ for symbol in $symbolsParam
 do
   # Remove prefix '*', if present
   if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-    symbol=$(echo "$symbol" | cut -b 2-6)
+    symbol=$(echo "$symbol" | cut -b 2-7)
   fi
   lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
   NAME=$(echo "$lineFromTickerFile" | cut -f 2)
