@@ -21,7 +21,7 @@
 <br>
 # Parameter
 <br>
-Symbols(19):*TNE5 *IQQC *SZU *DXSN *PFE *AG1 *CBGB *2ED *SGL *BSL *HYQ *PAH3 *EUZ *GYC *VNA *DWNI *LEG *KGX *IWLE 
+Symbols(20):*VTSC01 *TNE5 *IQQC *SZU *DXSN *PFE *AG1 *CBGB *2ED *SGL *BSL *HYQ *PAH3 *EUZ *GYC *VNA *DWNI *LEG *KGX *IWLE 
 <br>
 Percentage:1 
 <br>
@@ -41,6 +41,10 @@ RSI:25
 <button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>GoTo End</button>&nbsp;
 <button id='intervalSectionButtonOpenAll' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>
 <hr id='intervalSectionHROverallButtons' style='display: none'>
+<div id='symbolLineIdVTSC0'>
+<br>
+!!! VTSC0 NOT found in data/VTSC0.txt
+<br>
 <div id='symbolLineIdTNE5'>
 <img class='imgborder' id='imgToReplaceTNE5' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10337133&TIME_SPAN=10D'/>
 <div style='margin-top: 20px'>
@@ -1018,6 +1022,7 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyIWLE' id='intervalSectionInp
 <button id='intervalSectionButtonSEDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick="javascript:updateImage('DAX', '35803356', 'SE')">Max</button>
 <hr id='intervalSectionHRDAX' style='display: none'>
 <button id="intervalSectionButtonAll1D" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('VTSC0', '', '1D');
 javascript:updateImage('TNE5', '10337133', '1D');
 javascript:updateImage('IQQC', '162382376', '1D');
 javascript:updateImage('SZU', '10337011', '1D');
@@ -1040,6 +1045,7 @@ javascript:updateImage('IWLE', '256835748', '1D');
 javascript:updateImage('DAX', '35803356', '1D');
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('VTSC0', '', '5D');
 javascript:updateImage('TNE5', '10337133', '5D');
 javascript:updateImage('IQQC', '162382376', '5D');
 javascript:updateImage('SZU', '10337011', '5D');
@@ -1062,6 +1068,7 @@ javascript:updateImage('IWLE', '256835748', '5D');
 javascript:updateImage('DAX', '35803356', '5D');
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('VTSC0', '', '10D');
 javascript:updateImage('TNE5', '10337133', '10D');
 javascript:updateImage('IQQC', '162382376', '10D');
 javascript:updateImage('SZU', '10337011', '10D');
@@ -1084,6 +1091,7 @@ javascript:updateImage('IWLE', '256835748', '10D');
 javascript:updateImage('DAX', '35803356', '10D');
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('VTSC0', '', '3M');
 javascript:updateImage('TNE5', '10337133', '3M');
 javascript:updateImage('IQQC', '162382376', '3M');
 javascript:updateImage('SZU', '10337011', '3M');
@@ -1106,6 +1114,7 @@ javascript:updateImage('IWLE', '256835748', '3M');
 javascript:updateImage('DAX', '35803356', '3M');
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('VTSC0', '', '6M');
 javascript:updateImage('TNE5', '10337133', '6M');
 javascript:updateImage('IQQC', '162382376', '6M');
 javascript:updateImage('SZU', '10337011', '6M');
@@ -1128,6 +1137,7 @@ javascript:updateImage('IWLE', '256835748', '6M');
 javascript:updateImage('DAX', '35803356', '6M');
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('VTSC0', '', '1Y');
 javascript:updateImage('TNE5', '10337133', '1Y');
 javascript:updateImage('IQQC', '162382376', '1Y');
 javascript:updateImage('SZU', '10337011', '1Y');
@@ -1150,6 +1160,7 @@ javascript:updateImage('IWLE', '256835748', '1Y');
 javascript:updateImage('DAX', '35803356', '1Y');
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('VTSC0', '', '5Y');
 javascript:updateImage('TNE5', '10337133', '5Y');
 javascript:updateImage('IQQC', '162382376', '5Y');
 javascript:updateImage('SZU', '10337011', '5Y');
@@ -1172,6 +1183,7 @@ javascript:updateImage('IWLE', '256835748', '5Y');
 javascript:updateImage('DAX', '35803356', '5Y');
 ">5Y</button>
 <button id="intervalSectionButtonAllSE" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('VTSC0', '', 'SE');
 javascript:updateImage('TNE5', '10337133', 'SE');
 javascript:updateImage('IQQC', '162382376', 'SE');
 javascript:updateImage('SZU', '10337011', 'SE');
@@ -1208,6 +1220,6 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectio
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html" target="_blank">Result&nbsp;SA</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a><br>
 </div>
-<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 28-Dec-2023 09:25</p><br></div>
+<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 28-Dec-2023 09:28</p><br></div>
 <!-- <script type='text/javascript' src='_result.js'></script> -->
 </body></html>
