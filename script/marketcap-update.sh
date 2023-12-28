@@ -174,7 +174,7 @@ if [ "$spreadErrorSymbols" ]; then
 fi
 if [ "$highSpreadSymbols" ]; then
     echo ""
-    echo "Symbols with HIGH Spread (Greater 2): highSpreadSymbols=$highSpreadSymbols"
+    echo "Symbols with HIGH Spread (Greater 2%): highSpreadSymbols=$highSpreadSymbols"
 fi
 
 # Replace CR in Linux
