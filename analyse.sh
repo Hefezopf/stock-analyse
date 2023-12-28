@@ -174,7 +174,7 @@ do
     markerOwnStock=""
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
         markerOwnStock="*"
-        symbol=$(echo "$symbol" | cut -b 2-6)
+        symbol=$(echo "$symbol" | cut -b 2-7)
     fi
 
     symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
@@ -658,6 +658,8 @@ do
     # Minify <Symbol>.html file
     sed -i "s/^[ \t]*//g" "$indexSymbolFile"
     sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript!
+
+#echo "xxxxxxxxxxxxxxxxx $symbol $symbolName"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
 

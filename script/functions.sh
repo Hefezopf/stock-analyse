@@ -271,8 +271,11 @@ WriteComdirectUrlAndStoreFileList() {
         _id_notation=999999
     fi
 
+#echo "---------------$_symbolParam $_id_notation"
+
     # Only write URL once into result file
     if [ ! "$_id_notation" = "$ID_NOTATION_STORE_FOR_NEXT_TIME" ]; then
+#echo "++++++++++++++++$ID_NOTATION_STORE_FOR_NEXT_TIME"    
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
         {
             # Hover Chart (result overview page)
