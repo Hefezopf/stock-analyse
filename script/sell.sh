@@ -87,9 +87,9 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <meta http-equiv='pragma' content='no-cache' />
 <meta http-equiv='expires' content='0' />
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
-<link rel='stylesheet' href='_result.css'>
+<link rel='stylesheet' href='_result.css' />
 <script type='text/javascript' src='_result.js'></script>
-<title>Performance SA</title>
+<title>Performance SA 2024</title>
 </head>
 <body>
 <div>"
@@ -99,7 +99,7 @@ lineFromFile=$(grep "_blank" "$TRANSACTION_HISTORY_FILE")
 # BEI	2022-04-23	999	"BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 3)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
-echo "&nbsp;Performance SA<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "&nbsp;Performance SA 2024<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 TEMP_DIR=/tmp
 rm -rf $TEMP_DIR/tmp.*
