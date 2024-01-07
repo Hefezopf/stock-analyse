@@ -50,7 +50,7 @@ SELL_TOTAL_AMOUNT=$(echo "$sellPriceParam $TOTAL_PIECES $BUY_TOTAL_AMOUNT" | awk
 SELL_TOTAL_AMOUNT=$(echo "$SELL_TOTAL_AMOUNT" | cut -f 1 -d '.')
 
 # Fees
-CalculateTxFee "$TOTAL_PIECES" "$BUY_TOTAL_AMOUNT"
+CalculateTxFee "$sellPriceParam" "$TOTAL_PIECES"
 SELL_TOTAL_AMOUNT=$((SELL_TOTAL_AMOUNT - txFee))
 
 # Remove symbol from own list
