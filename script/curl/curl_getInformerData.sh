@@ -135,7 +135,11 @@ done
 echo "---------------"
 if { [ "$errorSymbols" ]; } then
     echo "Summary Errors for:$errorSymbols"
-    #exit 2
+    errorLength="${#errorSymbols}"
+    if [ "$errorLength" > 200 ]; then
+        echo "Error: Generell data retrieving problems! Rerun again later?"
+        exit 2
+    fi
 fi
 
 # Time measurement
