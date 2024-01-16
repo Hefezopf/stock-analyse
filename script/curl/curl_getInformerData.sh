@@ -129,15 +129,15 @@ do
             errorSymbols="$errorSymbols $symbol"
         fi
     else
-        echo "$symbol:	Actual data already there. NO CURL!"
+        echo "$symbol:	Actual data already there. NO CURL query needed!"
     fi  
 done
 echo "---------------"
 if { [ "$errorSymbols" ]; } then
     echo "Summary Errors for:$errorSymbols"
     errorLength="${#errorSymbols}"
-    if [ "$errorLength" > 200 ]; then
-        echo "Error: Generell data retrieving problems! Rerun again later?"
+    if [ "$errorLength" -gt 200 ]; then
+        echo "Error: Generell CURL data retrieving problems! Rerun again later?"
         exit 2
     fi
 fi
