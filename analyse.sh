@@ -579,13 +579,15 @@ do
             # Market Cap Progressbar, only if number
             marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
 
+            lowMarketCapLinkBackgroundColor="white"
             if [ ! "$marketCapFromFile" = '?' ]; then
                 marketCapScaled=$((marketCapFromFile * 5)) # Scale factor in progressbar
                 # shellcheck disable=SC2086,SC2027
                 echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
                 echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;$marketCapFromFile Mrd.€</div><br>"
             else
-                echo "<span id='detailsIdLowMarketCap$symbol'><br><b style='color:orange; font-size:xx-large'>->LOW CAP:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
+                lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)" # "rgba(244,164,80,255)"
+                #echo "<span id='detailsIdLowMarketCap$symbol'><br><b style='color:orange; font-size:xx-large'>->LOW CAP:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
                 echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"            
             fi
         fi        
@@ -661,7 +663,7 @@ do
 
 #echo "xxxxxxxxxxxxxxxxx $symbol $symbolName"
 
-    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" ""
+    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" "" "$lowMarketCapLinkBackgroundColor"
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
         counterOwnStocks=$((counterOwnStocks+1)) # For Spinner

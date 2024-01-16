@@ -260,6 +260,7 @@ WriteComdirectUrlAndStoreFileList() {
     _linkColorParam=$4
     _markerOwnStockParam=$5
     _reasonParam=$6
+    _lowMarketCapBackgroundColorParam=$7
 
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "$_markerOwnStockParam" = '' ]; then
@@ -282,11 +283,11 @@ WriteComdirectUrlAndStoreFileList() {
             #echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:40%;transform:scale(1.3);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
             echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
             echo "<div style='margin-top: 20px'>"
-            echo "<a id='headlineLink$_symbolParam' style='color:$_linkColorParam' onmouseover=\"javascript:showChart('10D', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_PREFIX_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
-            echo "<a style='color:$_linkColorParam' onmouseover=\"javascript:showChart('6M', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_PREFIX_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
-            echo "<a style='color:$_linkColorParam' onmouseover=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_PREFIX_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
-            echo "<a style='color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
-            echo "<a id='linkPC$_symbolParam' style='color:$_linkColorParam; display: none' href='D:/code/stock-analyse/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
+            echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('10D', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_PREFIX_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
+            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('6M', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_PREFIX_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
+            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_PREFIX_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
+            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
+            echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='D:/code/stock-analyse/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
             echo "</div>"
         } >> "$_outResultFileParam"
     fi
