@@ -357,7 +357,7 @@ do
         marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
 #echo "<div> -----TODO----------marketCapFromFile:$marketCapFromFile</div><br>"
         lowMarketCapLinkBackgroundColor="white"
-        if [ "$marketCapFromFile" = '?' ]; then
+        if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
             lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)" # "rgba(244,164,80,255)"
         fi
 
