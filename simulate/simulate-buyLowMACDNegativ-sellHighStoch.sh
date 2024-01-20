@@ -100,12 +100,26 @@ do
         symbol=$(echo "$symbol" | cut -b 2-7)
     fi
 
-    symbolName=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
+    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+    symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
 
     Out "" $OUT_SIMULATE_FILE
 
     CreateCmdHyperlink "Simulation" "simulate/out" "$symbol"
-    echo "<a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE
+
+    # Market Cap
+    #lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+    marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
+    asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
+   # asset_type=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
+    lowMarketCapLinkBackgroundColor="white"
+    if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
+        lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
+    fi
+#echo "<div> -----TODO----------marketCapFromFile:$marketCapFromFile lowMarketCapBackgroundColorParam:$lowMarketCapLinkBackgroundColor asset_type:$asset_type</div><br>"    
+    echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE
+    
+
     #DATA_FILE=data/"$symbol".txt
     DATA_FILE="$DATA_DIR/$symbol".txt
     dateOfFile=$(head -n1 "$DATA_FILE" | tail -1 | cut -f 1)
@@ -193,7 +207,7 @@ do
 #echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower alarmAtIndex $alarmAtIndex
 
         # Buy, if more buy signals in Result file: STOCK >= 7 or INDEX >=5
-        asset_type=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
+        #=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
         if { [ "${#_amountOfBuySignals}" -ge "$alarmCountForStockParam" ] && [ "$asset_type" = 'STOCK' ]; } || 
             { [ "${#_amountOfBuySignals}" -ge "$alarmCountForIndexParam" ] && [ "$asset_type" = 'INDEX' ]; } then
             isHoldPiecesAndNewLow=true
@@ -469,8 +483,17 @@ echo "<script>var linkMap = new Map();</script>" >> $OUT_SIMULATE_FILE
 echo "<br><button id='buttonOpenAllInTab' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doOpenAllInTab(){for (let [key, value] of linkMap) {window.open(value, \"_blank\").focus();}};doOpenAllInTab()'>Open All</button><br><br>" >> $OUT_SIMULATE_FILE
 for value in "${ARRAY_BUY_POS_SIM[@]}"
 do
-    symbolName=$(grep -m1 -P "$value\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
-    echo "<a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">$value $symbolName</a><br>" >> $OUT_SIMULATE_FILE
+    lineFromTickerFile=$(grep -m1 -P "^$value\t" "$TICKER_NAME_ID_FILE")
+    symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+    marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
+    asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
+    lowMarketCapLinkBackgroundColor="white"
+    if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
+        lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
+    fi
+#echo "<div> -----TODO----------symbolName:$symbolName marketCapFromFile:$marketCapFromFile lowMarketCapBackgroundColorParam:$lowMarketCapLinkBackgroundColor asset_type:$asset_type</div><br>"    
+   # echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
+    echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">$value $symbolName</a><br>" >> $OUT_SIMULATE_FILE
     echo "$value"
     # shellcheck disable=SC2027,SC2086
     echo "<script>linkMap.set(\""$value"\", \"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\");</script>" >> $OUT_SIMULATE_FILE    
