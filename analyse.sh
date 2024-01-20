@@ -803,7 +803,7 @@ fi
 
 {
     # Overall
-    echo "<div id='portfolioValueDaxFooterId'>" # START portfolioValueDaxFooterId
+    echo "<br><br><div id='portfolioValueDaxFooterId'>" # START portfolioValueDaxFooterId
     echo "<hr id='intervalSectionHROverallRealtimeBegin' style='display: none'>"    
     echo "<span id='intervalSectionHeadlineOverallPortfolio' style='display:none'># Portfolio value purchase</span><br>"
     echo "<span id='obfuscatedValueBuyingOverall' style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
