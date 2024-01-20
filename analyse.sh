@@ -353,6 +353,14 @@ do
     fileSize=$(stat -c %s "$DATA_FILE")
     if [ "$fileSize" -gt 200 ]; then
 
+        # Market Cap
+        marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
+#echo "<div> -----TODO----------marketCapFromFile:$marketCapFromFile</div><br>"
+        lowMarketCapLinkBackgroundColor="white"
+        if [ "$marketCapFromFile" = '?' ]; then
+            lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)" # "rgba(244,164,80,255)"
+        fi
+
         # Strategie: Quote by Tendency
         if [ "$ApplyStrategieByTendency" = true ]; then
             resultStrategieByTendency=""
@@ -576,14 +584,15 @@ do
             # Branche
             branche=$(echo "$lineFromTickerFile" | cut -f 5)
             echo "<span style='font-size:50px'>$branche</span></p>"
+
             # Market Cap Progressbar, only if number
-            marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
+         #   marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
 
-echo "<div> -----TODO----------marketCapFromFile:$marketCapFromFile</div><br>"
+#echo "<div> -----TODO----------marketCapFromFile:$marketCapFromFile</div><br>"
 
-            lowMarketCapLinkBackgroundColor="white"
+          #  lowMarketCapLinkBackgroundColor="white"
             if [ "$marketCapFromFile" = '?' ]; then
-                lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)" # "rgba(244,164,80,255)"
+           #     lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)" # "rgba(244,164,80,255)"
                 #echo "<span id='detailsIdLowMarketCap$symbol'><br><b style='color:orange; font-size:xx-large'>->LOW CAP:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
                 echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"            
             else
@@ -663,7 +672,7 @@ echo "<div> -----TODO----------marketCapFromFile:$marketCapFromFile</div><br>"
     sed -i "s/^[ \t]*//g" "$indexSymbolFile"
     sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript!
 
-echo "xxxxxxxxxTODOxxxxxxxx $symbol $symbolName marketCapFromFile:$marketCapFromFile bg:$lowMarketCapLinkBackgroundColor"
+#echo "xxxxxxxxxTODOxxxxxxxx $symbol $symbolName marketCapFromFile:$marketCapFromFile bg:$lowMarketCapLinkBackgroundColor"
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" "" "$lowMarketCapLinkBackgroundColor"
 
