@@ -54,12 +54,12 @@ esac
 # Decript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 
-# Comment only line 'read' to correct values
+# Comment only line 'read  -n....' to correct values
 # Comment in .gitignore #config/own_symbols.txt
 # Lookup in Deutscher Bank: Einstandskurs, Anzahl and Summe(Marktwert + Gewinn/Verlust)
 # Press ANY key (NOT enter!)
 # Revert Changes
-#read  -n 1 -p "Correct values in 'conf/own_symbols.txt' now and then hit ->ANY key!<- (NOT enter!)" correctValuesInput
+#read  -n 1 -p "Correct values in 'config/own_symbols.txt' now and then hit ->ANY key!<- (NOT enter AND NOT space!)" correctValuesInput
 # shellcheck disable=SC2154
 if [ "$correctValuesInput" ]; then
   # Encript
