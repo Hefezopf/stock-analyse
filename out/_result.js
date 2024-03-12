@@ -498,7 +498,7 @@ function curlBuy(symbolParam, price, pieces) {
     }
     totalAmount = Number(totalAmount) + Number(10); // Fees
 
-    if (confirm('Buy ' + pieces + ' pieces of ' + symbolParamTrimmed + '? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
+    if (confirm('Buy ' + pieces + ' pieces of ' + symbolParamTrimmed + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
