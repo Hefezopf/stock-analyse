@@ -84,7 +84,7 @@ creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
    # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
     #creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
-    creationDate=$(TZ=EST+1EDT date +"%e-%b-%Y %R") # +2h Sommerzeit / Summertime
+    creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") #  Sommerzeit / Summertime
 fi
 GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> $creationDate</p>"
 HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>

@@ -435,7 +435,7 @@ do
     if [ "$(uname)" = 'Linux' ]; then
      # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
      #creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
-     creationDate=$(TZ=EST+1EDT date +"%e-%b-%Y %R") # +2h Sommerzeit / Summertime
+     creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # Sommerzeit / Summertime
     fi    
     # GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! $creationDate</p>"
     GOOD_LUCK="<br>Good Luck! $creationDate"
