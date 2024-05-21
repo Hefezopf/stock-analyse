@@ -498,6 +498,7 @@ function curlBuy(symbolParam, price, pieces) {
     }
     totalAmount = Number(totalAmount) + Number(10); // Fees
 
+    //headlineLinkBTL
     var headlineLink = document.getElementById('headlineLink' + symbolParamTrimmed).innerHTML;
     if (confirm('Buy ' + pieces + ' pieces of ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
     //    if (confirm('Buy ' + pieces + ' pieces of ' + symbolParamTrimmed + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
@@ -543,8 +544,8 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     }
     var headlineLink = document.getElementById('headlineLink' + symbolParam).innerHTML;
     if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of ' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
-    //    if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of ' + symbolParam + ' for ' + sellPriceParam + '€?') == false) {
-            return;
+    //if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of ' + symbolParam + ' for ' + sellPriceParam + '€?') == false) {
+        return;
     }
     var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
     var xhr = new XMLHttpRequest();
