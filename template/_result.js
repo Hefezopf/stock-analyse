@@ -500,7 +500,7 @@ function curlBuy(symbolParam, price, pieces) {
 
     //headlineLinkBTL
     var headlineLink = document.getElementById('headlineLink' + symbolParamTrimmed).innerHTML;
-    if (confirm('Buy ' + pieces + ' pieces of ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
+    if (confirm('Buy ' + pieces + ' pieces of ' + headlineLink + ' for ' + price + '€?\nOverall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
     //    if (confirm('Buy ' + pieces + ' pieces of ' + symbolParamTrimmed + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
             return;
     }
