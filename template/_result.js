@@ -856,7 +856,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
 
-    xhr.timeout = 7000; // time in milliseconds
+    xhr.timeout = 8000; // time in milliseconds
     xhr.ontimeout = (e) => {
         console.error('TIMEOUT!!'+ symbol);
     };    
