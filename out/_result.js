@@ -507,9 +507,9 @@ function curlBuy(symbolParam, price, pieces) {
     else {
         headlineLink = symbolParamTrimmed;
     }
-   // var headlineLink = document.getElementById('headlineLink' + symbolParamTrimmed).innerHTML;
+    //var headlineLink = document.getElementById('headlineLink' + symbolParamTrimmed).innerHTML;
     if (confirm('Buy ' + pieces + ' pieces of \n' + headlineLink + ' for ' + price + '€?\nOverall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
-    //    if (confirm('Buy ' + pieces + ' pieces of ' + symbolParamTrimmed + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
+    //    if (confirm('Buy ' + pieces + ' pieces of \n' + symbolParamTrimmed + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
             return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -552,7 +552,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     }
     var headlineLink = document.getElementById('headlineLink' + symbolParam).innerHTML;
     if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of \n' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
-    //if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of ' + symbolParam + ' for ' + sellPriceParam + '€?') == false) {
+    //if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of \n' + symbolParam + ' for ' + sellPriceParam + '€?') == false) {
         return;
     }
     var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
