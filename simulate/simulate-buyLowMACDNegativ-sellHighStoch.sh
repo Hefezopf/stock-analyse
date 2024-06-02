@@ -198,10 +198,7 @@ do
         alarmAtIndex="$(echo "$alarms" | cut -f "$posInAlarm" -d ',')"
         _amountOfBuySignals="${alarmAtIndex//[^+]}"
 
-#echo RSIindex $RSIindex isMACDHorizontalAlarm $isMACDHorizontalAlarm lastStoch $lastStoch lastRSI $lastRSI isNewLow $isNewLow isNewMACDLower $isNewMACDLower alarmAtIndex $alarmAtIndex
-
         # Buy, if more buy signals in Result file: STOCK >= 7 or INDEX >=5
-        #=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
         if { [ "${#_amountOfBuySignals}" -ge "$alarmCountForStockParam" ] && [ "$asset_type" = 'STOCK' ]; } || 
             { [ "${#_amountOfBuySignals}" -ge "$alarmCountForIndexParam" ] && [ "$asset_type" = 'INDEX' ]; } then
             isHoldPiecesAndNewLow=true
@@ -210,46 +207,58 @@ do
 
         # Buy
         if [ "$isHoldPiecesAndNewLow" = true ] || [ "$isMACDhorizontalAndLastStochNeg" = true ]; then
-            piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
-            amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
-            piecesPerTrade=${piecesPerTrade%.*}
-            if [ "$piecesPerTrade" -eq 0 ]; then
-                piecesPerTrade=1
-            fi
-            
-            amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
-            amount=$(printf "%.0f" "$amount")
 
-            # Fees each Buy trade
-            CalculateTxFee "$quoteAt" "$piecesPerTrade"
-            amount=$((amount - txFee))
-            piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
-            wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-            wallet=$(printf "%.0f" "$wallet")
-            quoteAt=$(printf "%.2f" "$quoteAt")
-            Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tMACD:$valueMACD\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
-            buyingDay=$((buyingDay + RSIindex))
-            amountOfTrades=$((amountOfTrades + 1)) 
+            # sim CalculateMarketCapRSILevel
+            CalculateMarketCapRSILevel "$lastRSI" "$marketCapFromFile"
+            # shellcheck disable=SC2154
+            #echo marketCapFromFile "$marketCapFromFile" lastRSI "$lastRSI" isMarketCapRSILevel "$isMarketCapRSILevel"      
+            if [ "$isMarketCapRSILevel" = true ]; then
+                marketCapFromFile=100 # Make CalculateMarketCapRSILevel() allways true in the following caluculations
+            # sim CalculateMarketCapRSILevel
 
-            # Calculate ARRAY_BUY
-            for i in "${!ARRAY_BUY[@]}"; do
-                if [ "$i" -eq "$RSIindex" ]; then
-                    valueArray="${ARRAY_BUY[i]}"
-                    if [ "${ARRAY_BUY[i]}" = '' ]; then
-                        Out "SHOUD NOT HAPPEN" $OUT_SIMULATE_FILE
-                        valueArray=0
-                    fi
-                    amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
+                piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
+                amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
+                piecesPerTrade=${piecesPerTrade%.*}
+                if [ "$piecesPerTrade" -eq 0 ]; then
+                    piecesPerTrade=1
                 fi
-            done
 
-            if [ "$RSIindex" -eq 100 ]; then
-                ARRAY_BUY_POS_SIM+=("$symbol")
+                amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
+                amount=$(printf "%.0f" "$amount")
+
+                # Fees each Buy trade
+                CalculateTxFee "$quoteAt" "$piecesPerTrade"
+                amount=$((amount - txFee))
+                piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
+                wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
+                wallet=$(printf "%.0f" "$wallet")
+                quoteAt=$(printf "%.2f" "$quoteAt")
+                Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tMACD:$valueMACD\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
+                buyingDay=$((buyingDay + RSIindex))
+                amountOfTrades=$((amountOfTrades + 1)) 
+
+                # Calculate ARRAY_BUY
+                for i in "${!ARRAY_BUY[@]}"; do
+                    if [ "$i" -eq "$RSIindex" ]; then
+                        valueArray="${ARRAY_BUY[i]}"
+                        if [ "${ARRAY_BUY[i]}" = '' ]; then
+                            Out "SHOUD NOT HAPPEN" $OUT_SIMULATE_FILE
+                            valueArray=0
+                        fi
+                        amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
+                    fi
+                done
+
+                if [ "$RSIindex" -eq 100 ]; then
+                    ARRAY_BUY_POS_SIM+=("$symbol")
+                fi
+
+                ARRAY_BUY[RSIindex]=$amount
+                ARRAY_TX_INDEX[RSIindex]="$wallet€"
+                ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
+            # sim CalculateMarketCapRSILevel
             fi
-
-            ARRAY_BUY[RSIindex]=$amount
-            ARRAY_TX_INDEX[RSIindex]="$wallet€"
-            ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
+            # sim CalculateMarketCapRSILevel
         fi
 
         # Sell
@@ -266,8 +275,7 @@ do
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}') 
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
             intermediateProzWinFirstDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 1, 1)}')
-            intermediateProzWinSecondDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 2, 1)}')
-#echo intermediateProzWin $intermediateProzWin            
+            intermediateProzWinSecondDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 2, 1)}')           
             if [ "$intermediateProzWinFirstDigit" = '-' ]; then 
                 intermediateProzWinFirstDigit=0
             else 

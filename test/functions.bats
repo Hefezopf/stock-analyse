@@ -15,6 +15,26 @@ TICKER_NAMES_FILE="test/ticker_name_id.txt"
 SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF AG"
 
+@test "CalculateMarketCapRSILevel" {
+  CalculateMarketCapRSILevel 23 77
+  [ "$isMarketCapRSILevel" == "false" ]
+
+  CalculateMarketCapRSILevel 22 77
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 21 77
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 25 1
+  [ "$isMarketCapRSILevel" == "false" ]
+
+  CalculateMarketCapRSILevel 25 100
+  [ "$isMarketCapRSILevel" == "false" ]
+
+  CalculateMarketCapRSILevel 25 101
+  [ "$isMarketCapRSILevel" == "true" ]
+}
+
 @test "CalculateTxFee" {
   CalculateTxFee 100 25
   [ "$txFee" == "7" ]

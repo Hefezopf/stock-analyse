@@ -365,3 +365,43 @@ CalculateTxFee() {
         txFee="10"
     fi
 }
+
+# CalculateMarketCapRSILevel function:
+# Input: RSI rate
+# Input: Market Cap
+# Output: true/false
+# RSI=25 && MC < 100 -> true
+# Example RSI=25 && MC < 100 -> return true
+CalculateMarketCapRSILevel() {
+    _lastRSIParam=$1
+    _marketCapParam=$2
+
+    export isMarketCapRSILevel="false"
+
+    isMarketCapRSILevel="false"
+    if [ "$_lastRSIParam" -gt 24 ] && [ "$_marketCapParam" -gt 100 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 24 ] && [ "$_marketCapParam" -gt 90 ]; then 
+         isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 23 ] && [ "$_marketCapParam" -gt 80 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 22 ] && [ "$_marketCapParam" -gt 70 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 21 ] && [ "$_marketCapParam" -gt 60 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 20 ] && [ "$_marketCapParam" -gt 50 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 19 ] && [ "$_marketCapParam" -gt 40 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 18 ] && [ "$_marketCapParam" -gt 30 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 17 ] && [ "$_marketCapParam" -gt 20 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 16 ] && [ "$_marketCapParam" -gt 10 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -eq 15 ] && [ "$_marketCapParam" -gt 1 ]; then 
+        isMarketCapRSILevel="true"
+    elif [ "$_lastRSIParam" -lt 15 ]; then 
+        isMarketCapRSILevel="true"
+    fi
+}
