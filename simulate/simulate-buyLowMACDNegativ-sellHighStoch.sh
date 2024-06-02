@@ -321,6 +321,8 @@ do
                         RSIBuyLevelParam=$3
                         # Reset MACD
                         valueNewMACDLow=100
+                        # Reset MarketCap
+                        marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
 
                         # Calculate ARRAY_SELL
                         for i in "${!ARRAY_SELL[@]}"; do
