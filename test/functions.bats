@@ -16,15 +16,6 @@ SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF AG"
 
 @test "CalculateMarketCapRSILevel" {
-  CalculateMarketCapRSILevel 23 77
-  [ "$isMarketCapRSILevel" == "false" ]
-
-  CalculateMarketCapRSILevel 22 77
-  [ "$isMarketCapRSILevel" == "true" ]
-
-  CalculateMarketCapRSILevel 21 77
-  [ "$isMarketCapRSILevel" == "true" ]
-
   CalculateMarketCapRSILevel 25 1
   [ "$isMarketCapRSILevel" == "false" ]
 
@@ -32,6 +23,15 @@ SYMBOL_NAME="BEIERSDORF AG"
   [ "$isMarketCapRSILevel" == "false" ]
 
   CalculateMarketCapRSILevel 25 101
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 23 77
+  [ "$isMarketCapRSILevel" == "false" ]
+
+  CalculateMarketCapRSILevel 22 77
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 21 77
   [ "$isMarketCapRSILevel" == "true" ]
 }
 
