@@ -213,7 +213,7 @@ do
             # shellcheck disable=SC2154
             #echo marketCapFromFile "$marketCapFromFile" lastRSI "$lastRSI" isMarketCapRSILevel "$isMarketCapRSILevel"      
             if [ "$isMarketCapRSILevel" = true ]; then
-                marketCapFromFile=100 # Make CalculateMarketCapRSILevel() allways true in the following caluculations
+                marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the following caluculations
             # sim CalculateMarketCapRSILevel
 
                 piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
