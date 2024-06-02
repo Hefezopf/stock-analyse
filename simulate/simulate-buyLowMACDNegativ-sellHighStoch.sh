@@ -87,7 +87,6 @@ do
     ARRAY_TX_INDEX=()
     ARRAY_TX_BUY_PRICE=({} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {})
     ARRAY_TX_SELL_PRICE=({} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {} {})
-   # lastLowestQuoteAt=$QUOTE_MAX_VALUE
     amountOfTrades=0
     buyingDay=0
     wallet=0
@@ -108,25 +107,20 @@ do
     CreateCmdHyperlink "Simulation" "simulate/out" "$symbol"
 
     # Market Cap
-    #lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
     marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
     asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
-   # asset_type=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE" | cut -f 10)
     lowMarketCapLinkBackgroundColor="white"
     if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
         lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
     fi
-#echo "<div> -----TODO----------marketCapFromFile:$marketCapFromFile lowMarketCapBackgroundColorParam:$lowMarketCapLinkBackgroundColor asset_type:$asset_type</div><br>"    
     echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE
     
 
     #DATA_FILE=data/"$symbol".txt
     DATA_FILE="$DATA_DIR/$symbol".txt
     dateOfFile=$(head -n1 "$DATA_FILE" | tail -1 | cut -f 1)
-#echo dateOfFile $dateOfFile
     ALARM_FILE=alarm/"$symbol"_"$dateOfFile".txt
     alarms=$(head "$ALARM_FILE")
-#echo alarms $alarms
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
@@ -492,8 +486,6 @@ do
     if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
         lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
     fi
-#echo "<div> -----TODO----------symbolName:$symbolName marketCapFromFile:$marketCapFromFile lowMarketCapBackgroundColorParam:$lowMarketCapLinkBackgroundColor asset_type:$asset_type</div><br>"    
-   # echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
     echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">$value $symbolName</a><br>" >> $OUT_SIMULATE_FILE
     echo "$value"
     # shellcheck disable=SC2027,SC2086

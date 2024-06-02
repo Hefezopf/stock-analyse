@@ -34,6 +34,7 @@ StrategieUnderratedNewLow() {
             reasonPrefix="Buy: New $_count days Low (N)"
             resultStrategieUnderratedNewLow="$reasonPrefix"
             echo "$resultStrategieUnderratedNewLow"
+            # shellcheck disable=SC2154
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
         fi
     fi
