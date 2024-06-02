@@ -13,7 +13,7 @@
 # 9. Parameter: ALARM_COUNT_FOR_INDEX: Buy, if count is true for alarm. Like: '7S+P+D+N+M+' = 5 times '+'
 # Call example: . simulate.sh 'BEI ALV' 2000 25 91 1.1 5 1 7 5
 # Call example: . simulate.sh 'BEI' 2500 15 65 1.05 5 2 7 5
-# Grep output to find symbols: grep Position:100 simulate/out/_simulate.html
+# Hint: Grep output to find symbols -> grep Position:100 simulate/out/_simulate.html
 
 # Debug mode
 #set -x
@@ -35,7 +35,3 @@ rm -rf "$OUT_SIMULATE_FILE"
 #X_TIMES_AMOUNT_PER_TRADE=$(echo "$2" | awk '{print $1 * 2}')
 
 ./simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
-
-#./simulate/simulate-buyRSILowDivergent-sellHighStoch.sh "$1" "$X_TIMES_AMOUNT_PER_TRADE" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
-
-#./simulate/simulate-buyRSILowMACDNegativ-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
