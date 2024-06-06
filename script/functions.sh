@@ -376,7 +376,15 @@ CalculateMarketCapRSILevel() {
     _lastRSIParam=$1
     _marketCapParam=$2
 
+# sim CalculateMarketCapRSILevel
+    if [ "$_marketCapParam" = "?" ]; then 
+        _marketCapParam="10000"
+    fi
+# sim CalculateMarketCapRSILevel
+
     export isMarketCapRSILevel="false"
+
+#echo _lastRSIParam "$_lastRSIParam" _marketCapParam "$_marketCapParam"
 
     isMarketCapRSILevel="false"
     if [ "$_lastRSIParam" -gt 24 ] && [ "$_marketCapParam" -gt 100 ]; then # > 25 RSI

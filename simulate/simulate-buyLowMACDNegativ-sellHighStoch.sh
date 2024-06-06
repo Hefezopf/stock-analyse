@@ -214,6 +214,8 @@ do
             #echo marketCapFromFile "$marketCapFromFile" lastRSI "$lastRSI" isMarketCapRSILevel "$isMarketCapRSILevel"      
             if [ "$isMarketCapRSILevel" = true ]; then
                 marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the following caluculations
+                alarmCountForStockParam=7
+                alarmCountForIndexParam=7
             # sim CalculateMarketCapRSILevel
 
                 piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
