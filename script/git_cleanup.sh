@@ -8,7 +8,7 @@
 
 #set -x
 
-echo "git cleanup..."
+echo "git cleanup takes min. 30 min..."
 echo ""
 echo "Directory size before:"
 du -sh .
