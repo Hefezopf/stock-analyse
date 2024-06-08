@@ -99,6 +99,10 @@ pricePlusFees=$(echo "$summePlusFees $piecesParam" | awk '{print $1 / $2}')
 pricePlusFees=$(printf "%.2f" "$pricePlusFees")
 summe=$((summe + txFee + summeFromOwnSymbolsFile))
 
+
+echo "summe=${summe}" >> $GITHUB_ENV  
+
+
 if [ "$(uname)" = 'Linux' ]; then
     echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total"
 else
