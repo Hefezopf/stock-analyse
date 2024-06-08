@@ -58,26 +58,43 @@ jobs:
 
           chmod +x ./script/buy.sh
 
-          ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
+           
 
-          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
-          symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
-          rm -rf config/own_symbols.txt
+          CLIP_CONTENT_FILE="clip_content.txt"
+          rm -rf "$CLIP_CONTENT_FILE"
+          echo "41 71" >> "$CLIP_CONTENT_FILE"
+          cat "$CLIP_CONTENT_FILE"
 
-          chmod +x ./analyse.sh
 
-          ./analyse.sh "$symbolsVar" 1 offline 9 25
+          #./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
 
-          git config user.email ${{secrets.MAIL_ADRESS}}
-          git config user.name "Markus Hopf"
-          git add config/own_symbols.txt.gpg config/stock_symbols.txt
-          git add data/*.txt
-          git add history/*.txt
-          git add alarm/*.txt
-          git add buy/*.txt
-          git add out/*.html
-          git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
-          git push
+
+
+          variable=$(cat clip_content.txt)
+          echo "totalAmount=$variable" >> $GITHUB_ENV
+          rm -rf clip_content.txt
+
+
+
+
+        #   gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
+        #   symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+        #   rm -rf config/own_symbols.txt
+
+        #   chmod +x ./analyse.sh
+
+        #   ./analyse.sh "$symbolsVar" 1 offline 9 25
+
+        #   git config user.email ${{secrets.MAIL_ADRESS}}
+        #   git config user.name "Markus Hopf"
+        #   git add config/own_symbols.txt.gpg config/stock_symbols.txt
+        #   git add data/*.txt
+        #   git add history/*.txt
+        #   git add alarm/*.txt
+        #   git add buy/*.txt
+        #   git add out/*.html
+        #   git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
+        #   git push
           
       - name: Send result via email
         uses: dawidd6/action-send-mail@v3.11.0
@@ -86,7 +103,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}
+          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}. Total Amount=${{env.totalAmount}}
           # Read file contents as body:
           html_body: file://template/email.html
           #body: file://out/_result.html

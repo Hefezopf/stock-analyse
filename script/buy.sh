@@ -106,6 +106,13 @@ else
     echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total (in clipboard)"
 fi
 
+CLIP_CONTENT_FILE="clip_content.txt"
+rm -rf "$CLIP_CONTENT_FILE"
+echo "$totalAmountOfPieces $summe" >> "$CLIP_CONTENT_FILE"
+cat "$CLIP_CONTENT_FILE"
+
+
+
 if { [ -z "$priceFromOwnSymbolsFile" ]; } then
   # Newly added
   avgPrice=$(echo "$summe $piecesParam" | awk '{print $1 / $2}')
