@@ -109,8 +109,8 @@ fi
 
 BUY_RESULT_FILE="buy_result.txt"
 rm -rf "$BUY_RESULT_FILE"
-echo "Pieces=$totalAmountOfPieces Amount=$summe" >> "$BUY_RESULT_FILE"
-#cat "$CLIP_CONTENT_FILE"
+echo "Pieces=$totalAmountOfPieces Amount=$summe€" >> "$BUY_RESULT_FILE"
+
 
 
 
