@@ -58,21 +58,12 @@ jobs:
 
           chmod +x ./script/buy.sh
 
-           
-
-
-
-
           ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
 
-
-
+          # Files comes from buy.sh
           BUY_RESULT_FILE="buy_result.txt"
           echo "buyResult=$(cat $BUY_RESULT_FILE)" >> $GITHUB_ENV
           rm -rf $BUY_RESULT_FILE
-
-
-
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')

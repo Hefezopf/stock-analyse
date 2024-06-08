@@ -106,12 +106,10 @@ else
     echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total (in clipboard)"
 fi
 
-
+# Prepare for eMail Header sending 
 BUY_RESULT_FILE="buy_result.txt"
 rm -rf "$BUY_RESULT_FILE"
 echo "Pieces=$totalAmountOfPieces Amount=$summe€" >> "$BUY_RESULT_FILE"
-
-
 
 
 if { [ -z "$priceFromOwnSymbolsFile" ]; } then
@@ -132,7 +130,6 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c "$OWN_SYMBOLS_FILE" 2>/dev/n
 echo ""
 
 # Write buy/SYMBOL_DATE file
-#lastDateInDataFile=$(head -n1 data/"$symbolParam".txt | cut -f 1)
 lastDateInDataFile=$(head -n1 "$DATA_DIR/$symbolParam".txt | cut -f 1)
 transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
