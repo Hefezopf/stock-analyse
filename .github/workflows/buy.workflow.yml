@@ -58,7 +58,9 @@ jobs:
 
           chmod +x ./script/buy.sh
 
-          ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
+          echo "totalAmount=${piecesVar}*${priceVar}" >> $GITHUB_ENV
+
+          #./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
@@ -66,7 +68,7 @@ jobs:
 
           chmod +x ./analyse.sh
 
-          ./analyse.sh "$symbolsVar" 1 offline 9 25
+          #./analyse.sh "$symbolsVar" 1 offline 9 25
 
           #low origin
           git config user.email ${{secrets.MAIL_ADRESS}}
@@ -87,7 +89,8 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}
+          #subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}
+          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}. Total Amount=${{env.totalAmount}}
           # Read file contents as body:
           html_body: file://template/email.html
           #body: file://out/_result.html

@@ -115,9 +115,9 @@ jobs:
           rm -rf config/own_symbols.txt
           symbolsVar=$ownSymbolsVar
           
-          echo "testPercentageVar=${percentageVar}" >> $GITHUB_ENV
+          #echo "testPercentageVar=${percentageVar}" >> $GITHUB_ENV
 
-          #./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
+          ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
 
           #git fetch --unshallow origin
           git config user.email ${{secrets.MAIL_ADRESS}}
@@ -138,8 +138,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          #subject: Dev Result ${{github.event_name}} ${{github.event.action}}
-          subject: Dev Result ${{github.event_name}} ${{github.event.action}} ${{github.env.testPercentageVar}} ${{env.testPercentageVar}} xxx
+          subject: Dev Result ${{github.event_name}} ${{github.event.action}}
           # Read file contents as body:
           html_body: file://template/email.html
           #body: file://out/_result.html
