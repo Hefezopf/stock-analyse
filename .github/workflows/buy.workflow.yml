@@ -60,45 +60,24 @@ jobs:
 
           ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
 
-          
-          summex=1
-          echo "summex=${summex}"
-         
-          #summex=${summe}
-          #echo "summex=${summex}"
-         
-          #summex="${env.summe}"
-          #echo "summex=${summex}"
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
+          symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          rm -rf config/own_symbols.txt
 
-          summex="${{env.summe}}"
-          echo "summex=${summex}"
+          chmod +x ./analyse.sh
 
-          summex=${{env.summe}}
-          echo "summex=${summex}"
+          ./analyse.sh "$symbolsVar" 1 offline 9 25
 
-          echo "totalAmount=${{env.summe}}" >> $GITHUB_ENV
-          
-
-
-
-          #gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
-          #symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
-          #rm -rf config/own_symbols.txt
-
-          #chmod +x ./analyse.sh
-
-          #./analyse.sh "$symbolsVar" 1 offline 9 25
-
-          #git config user.email ${{secrets.MAIL_ADRESS}}
-          #git config user.name "Markus Hopf"
-          #git add config/own_symbols.txt.gpg config/stock_symbols.txt
-          #git add data/*.txt
-          #git add history/*.txt
-          #git add alarm/*.txt
-          #git add buy/*.txt
-          #git add out/*.html
-          #git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
-          #git push
+          git config user.email ${{secrets.MAIL_ADRESS}}
+          git config user.name "Markus Hopf"
+          git add config/own_symbols.txt.gpg config/stock_symbols.txt
+          git add data/*.txt
+          git add history/*.txt
+          git add alarm/*.txt
+          git add buy/*.txt
+          git add out/*.html
+          git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
+          git push
           
       - name: Send result via email
         uses: dawidd6/action-send-mail@v3.11.0
@@ -107,8 +86,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          #subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}
-          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}. Total Amount=${{env.totalAmount}}
+          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}
           # Read file contents as body:
           html_body: file://template/email.html
           #body: file://out/_result.html
