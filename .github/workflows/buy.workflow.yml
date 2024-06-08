@@ -60,10 +60,10 @@ jobs:
 
            
 
-          CLIP_CONTENT_FILE="clip_content.txt"
-          rm -rf "$CLIP_CONTENT_FILE"
-          echo "41 71" >> "$CLIP_CONTENT_FILE"
-          cat "$CLIP_CONTENT_FILE"
+          BUY_RESULT_FILE="buy_result.txt"
+          rm -rf "$BUY_RESULT_FILE"
+          echo "Pirces-41 Amount-71" >> "$BUY_RESULT_FILE"
+
 
 
           #./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
@@ -103,7 +103,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}. Total Amount=${{env.totalAmount}}
+          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}. Total:${{env.totalAmount}}
           # Read file contents as body:
           html_body: file://template/email.html
           #body: file://out/_result.html
