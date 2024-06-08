@@ -60,9 +60,6 @@ jobs:
 
            
 
-          BUY_RESULT_FILE="buy_result.txt"
-          rm -rf "$BUY_RESULT_FILE"
-          echo "Pirces-41 Amount-71" >> "$BUY_RESULT_FILE"
 
 
 
@@ -70,9 +67,14 @@ jobs:
 
 
 
-          variable=$(cat clip_content.txt)
-          echo "totalAmount=$variable" >> $GITHUB_ENV
-          rm -rf clip_content.txt
+          BUY_RESULT_FILE="buy_result.txt"
+          rm -rf "$BUY_RESULT_FILE"
+          echo "Pirces-41 Amount-71" >> "$BUY_RESULT_FILE"
+
+
+          #buyResult=$(cat $BUY_RESULT_FILE)
+          echo "buyResult=$(cat $BUY_RESULT_FILE)" >> $GITHUB_ENV
+          rm -rf $BUY_RESULT_FILE
 
 
 
@@ -103,7 +105,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}. Total:${{env.totalAmount}}
+          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}. Total:${{env.buyResult}}
           # Read file contents as body:
           html_body: file://template/email.html
           #body: file://out/_result.html
