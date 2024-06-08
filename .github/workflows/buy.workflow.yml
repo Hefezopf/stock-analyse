@@ -61,9 +61,18 @@ jobs:
           ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
 
           
-          echo "summe=${summe}"
-          #echo "totalAmount=${{env.totalAmount}}"
-          #echo "totalAmount=${{env.summe}}"
+          summex=1
+          echo "summex=${summex}"
+         
+          summex=${summe}
+          echo "summex=${summex}"
+         
+          summex="${env.summe}""
+          echo "summex=${summex}"
+
+          summex=${{env.summe}}
+          echo "summex=${summex}"
+
           echo "totalAmount=${{env.summe}}" >> $GITHUB_ENV
           
 
