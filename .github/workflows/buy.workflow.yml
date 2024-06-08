@@ -58,29 +58,34 @@ jobs:
 
           chmod +x ./script/buy.sh
 
-          echo "totalAmount=${piecesVar}*${priceVar}" >> $GITHUB_ENV
+          ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
 
-          #./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
+          
+          echo "summe=${summe}"
+          echo "totalAmount=${summe}" >> $GITHUB_ENV
+          echo "totalAmount=${{env.totalAmount}}"
 
-          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
-          symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
-          rm -rf config/own_symbols.txt
 
-          chmod +x ./analyse.sh
+
+
+          #gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
+          #symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          #rm -rf config/own_symbols.txt
+
+          #chmod +x ./analyse.sh
 
           #./analyse.sh "$symbolsVar" 1 offline 9 25
 
-          #low origin
-          git config user.email ${{secrets.MAIL_ADRESS}}
-          git config user.name "Markus Hopf"
-          git add config/own_symbols.txt.gpg config/stock_symbols.txt
-          git add data/*.txt
-          git add history/*.txt
-          git add alarm/*.txt
-          git add buy/*.txt
-          git add out/*.html
-          git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
-          git push
+          #git config user.email ${{secrets.MAIL_ADRESS}}
+          #git config user.name "Markus Hopf"
+          #git add config/own_symbols.txt.gpg config/stock_symbols.txt
+          #git add data/*.txt
+          #git add history/*.txt
+          #git add alarm/*.txt
+          #git add buy/*.txt
+          #git add out/*.html
+          #git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
+          #git push
           
       - name: Send result via email
         uses: dawidd6/action-send-mail@v3.11.0
