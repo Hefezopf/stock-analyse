@@ -585,33 +585,32 @@ do
             # hover Firmenportrait Text
             echo "<style>
             .tooltip {
-            //position: relative;
-            display: inline-block;
-            border-bottom: 1px dotted black; 
+                //position: relative;
+                display: inline-block;
+                border-bottom: 1px dotted black; 
+                font-size: 50px;
             }
-
             .tooltip .tooltiptext {
-            visibility: hidden;
-            //width: 120px;
-            background-color: black;
-            color: #fff;
-            text-align: center;
-            padding: 5px 0;
-            border-radius: 6px;
-            
-            position: absolute;
-            z-index: 1;
+                visibility: hidden;
+                //width: 120px;
+                background-color: black;
+                color: #fff;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 6px;
+                position: absolute;
+                z-index: 1;
+                font-size: 35px;
             }
-
             .tooltip:hover .tooltiptext {
-            visibility: visible;
+                visibility: visible;
             }
             </style>"
 
             # Branche und Firmenportrait Tooltip
             branche=$(echo "$lineFromTickerFile" | cut -f 5)
             firmenportrait=$(echo "$lineFromTickerFile" | cut -f 11)
-            echo "<span class="tooltip" style='font-size:50px'>$branche<br><span class="tooltiptext" style='font-size:30px'>$firmenportrait</span></span></p>"
+            echo "<div class="tooltip">$branche<br><div class="tooltiptext">$firmenportrait</div></div></p>"
 
             # Market Cap Progressbar, only if number
             if [ "$marketCapFromFile" = '?' ]; then
