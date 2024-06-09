@@ -588,8 +588,8 @@ do
                 //position: relative;
                 display: inline-block;
                 border-bottom: 1px dotted black; 
-                font-size: 48px;
-                line-height: 35px;
+                font-size: 50px;
+                line-height: 40px;
                 vertical-align: baseline;
             }
             .tooltip .tooltiptext {
@@ -603,6 +603,7 @@ do
                 position: absolute;
                 z-index: 1;
                 font-size: 35px;
+                margin: 0px 0px 0px -300px;
             }
             .tooltip:hover .tooltiptext {
                 visibility: visible;
