@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# CURL auf die www.comdirect.de Webseite und parsen der Daten.
+#
 # Call: script/marketcap-update.sh SYMBOLS
 # Example: script/marketcap-update.sh 'BEI VH2'
 # alias ???='/d/code/stock-analyse/script/marketcap-update.sh $1'
@@ -128,8 +130,21 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   #   echo "--> ERROR Hauptversammlung: $symbol $ID_NOTATION! $hauptversammlung"
   fi
 
+  # Firmenportrait
+  firmenportrait=$(echo "$curlResponse" | grep -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<")
+   if [ "$firmenportrait" ]; then
+      firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
+      firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g") 
+      echo "$symbol Firmenportrait: $firmenportrait"
+   else
+    firmenportrait="---"
+   fi
+   # shellcheck disable=SC2116
+   firmenportrait=$(echo \""$firmenportrait\"")
+
+  # Now write all results in file!
   # Replace till end of line: idempotent!
-  sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$EXCHANGE\t$hauptversammlung\t$ASSET_TYPE/g" "$TICKER_NAME_ID_FILE"
+  sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$EXCHANGE\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE"
 
   # Spread
   spread=$(echo "$curlResponse" | grep -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")
