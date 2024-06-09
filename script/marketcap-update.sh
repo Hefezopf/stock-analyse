@@ -138,6 +138,8 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
       echo "$symbol Firmenportrait: $firmenportrait"
    else
     firmenportrait="---"
+    firmenportraitErrorSymbols="$symbol $firmenportraitErrorSymbols"
+    echo "--> ERROR Firmenportrait: $symbol $ID_NOTATION! $firmenportrait"
    fi
    # shellcheck disable=SC2116
    firmenportrait=$(echo \""$firmenportrait\"")
@@ -183,6 +185,10 @@ fi
 #     echo ""
 #     echo "Symbols with Hauptversammlung Error: hauptversammlungErrorSymbols=$hauptversammlungErrorSymbols"
 # fi
+if [ "$firmenportraitErrorSymbols" ]; then
+    echo ""
+    echo "Symbols with firmenportrait Error: firmenportraitErrorSymbols=$firmenportraitErrorSymbols"
+fi
 if [ "$spreadErrorSymbols" ]; then
     echo ""
     echo "Symbols with Spread Error: spreadErrorSymbols=$spreadErrorSymbols"
