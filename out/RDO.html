@@ -273,7 +273,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 6, 0, 0, 27, 0, 3, 0, 0, 7, 0, 0, 2, 9, 0, 0, 0, 3, 0, 0, 2, 2, 0, 0, 4, 0, 5, 0, 0, 0, 0, 0, 10, 13, 20, 16, 20, 20, 23, 10, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 4, 15, 20, 16, 0, 0, 47, 0, 25, 42, 71, 92, 71, 48, 40, 20, 69, 82, 17, 18, 1, 0, 0, 0, 0, 12, 5, 4, 10, 10, 10, 14, 0, 0, 6,
+data: [		
 ]},
 {
 label: '91',
@@ -345,7 +345,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 27, 24, 22, 30, 24, 26, 27, 28, 36, 28, 22, 24, 24, 24, 25, 20, 24, 10, 12, 12, 12, 12, 9, 13, 12, 15, 11, 12, 11, 16, 10, 18, 24, 25, 24, 27, 28, 24, 26, 14, 12, 13, 12, 11, 23, 17, 15, 11, 11, 9, 8, 8, 11, 18, 24, 23, 23, 26, 33, 27, 34, 38, 44, 48, 50, 49, 46, 41, 47, 49, 46, 48, 37, 48, 36, 30, 21, 23, 23, 25, 28, 29, 18, 14, 14, 12, 17,
+data: [
 ]},
 {
 label: '75',
@@ -420,7 +420,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , -0.19, -0.19, -0.19, -0.20, -0.21, -0.23, -0.25, -0.26, -0.26, -0.27, -0.27, -0.26, -0.26, -0.25, -0.25, -0.25, -0.24, -0.24, -0.25, -0.24, -0.24, -0.23, -0.22, -0.21, -0.20, -0.19, -0.19, -0.19, -0.20, -0.21, -0.21, -0.23, -0.23, -0.23, -0.23, -0.24, -0.24, -0.24, -0.25, -0.25, -0.25, -0.24, -0.23, -0.22, -0.22, -0.21, -0.20, -0.20, -0.19, -0.18, -0.17, -0.15, -0.14, -0.14, -0.13, -0.13, -0.12, -0.11, -0.11, -0.10, -0.10, -0.10, -0.11, -0.12, -0.13, -0.14, -0.14, -0.15, -0.15, -0.14, -0.14, -0.13, -0.14, -0.15, -0.15,
+data: [
 ]},
 {
 label: '0',
@@ -513,11 +513,35 @@ elementSpanToReplace.style.display = 'none';
 <a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=72774286"  target="_blank">&nbsp;5Y&nbsp;</a>
 &nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>2.35€</b></span>
 &nbsp;<span style='font-size:50px; color:green'><b>1.29%</b></span><br>
-<span style='font-size:50px'>KGV&nbsp;9&nbsp;&nbsp;&nbsp;</span>&nbsp;
-<span style='font-size:50px'>DIV&nbsp;3%&nbsp;&nbsp;&nbsp;</span>&nbsp;
-<span style='font-size:50px'>"Broadcasting (TV und Radio)"</span></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 45px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;9 Mrd.€</div><br>
+<span style='font-size:50px'>KGV&nbsp;8&nbsp;&nbsp;&nbsp;</span>&nbsp;
+<span style='font-size:50px'>DIV&nbsp;4%&nbsp;&nbsp;&nbsp;</span>&nbsp;
+<style>
+.tooltip {
+//position: relative;
+display: inline-block;
+border-bottom: 1px dotted black; 
+}
+
+.tooltip .tooltiptext {
+visibility: hidden;
+//width: 120px;
+background-color: black;
+color: #fff;
+text-align: center;
+padding: 5px 0;
+border-radius: 6px;
+
+position: absolute;
+z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+visibility: visible;
+}
+</style>
+<span class=tooltip style='font-size:50px'>"Broadcasting (TV und Radio)"<br><span class=tooltiptext style='font-size:30px'>" Sirius XM Holdings Inc. (vorher Sirius XM Radio Inc.) ist ein Anbieter von Satellitenradio. Sirius XM sendet auf zahlreichen Kanälen werbefreie Musik, Sport, Live-Nachrichten, Talk, Comedy, Unterhaltung, Verkehr und Wetter. Hierbei zählt sich das Unternehmen mit mehr als 35 Millionen Abonnenten zu den größten Abo-Medien-Unternehmen in den USA. Mehr als 130 Millionen Fahrzeuge sind mit Sirius XM-Radios ausgestattet. Der Service kann auch zu Hause, im Büro, in Geschäften sowie auf dem Wasser genutzt werden. Die Radios werden zum Teil auch von Automobilherstellern als Erstausrüstung eingebaut, zum Teil aber auch über Händler nachgerüstet. Zu den Kunden zählen unter anderem Automobilhersteller wie BMW, Daimler AG, Ford Motor Co., General Motors Co., Porsche AG und Volkswagen AG. Darüber hinaus ist das Unternehmen in schnell wachsenden Inhaltskategorien wie dem Podcasting aktiv. "</span></span></p>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 40px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;8 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2024-06-06</b>
 <b>&nbsp;&nbsp;XETRA&nbsp;&nbsp;STOCK</b>
@@ -527,9 +551,9 @@ elementSpanToReplace.style.display = 'none';
 <span style='color:rgb(153, 102, 255)'>Avg18:<b>2.58€</b></span>
 &nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>2.74€</b></span>
 &nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>3.48€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>6 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>17 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.15 </b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>0 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>0 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b> </b></span>
 </p>
 <p class='p-result'>
 <span style='color:rgb(153, 102, 255)'>Tendency18:<b>FALLING</b></span>
@@ -538,11 +562,11 @@ elementSpanToReplace.style.display = 'none';
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
-<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -0.15 </b></p>
-<p class='p-result' style='color:rgb(205, 205, 0)'><b> Buy: Low Percent & Stochastic (P): 2.35€ is 0.99 under Avg18 < Avg38 < Avg95 and Stoch14 6 under level </b></p>
+<p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
+<p class='p-result' style='color:rgb(205, 205, 0)'><b> Buy: Low Percent & Stochastic (P): 2.35€ is 0.98 under Avg18 < Avg38 < Avg95 and Stoch14 0 under level </b></p>
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
-<p class='p-result' style='color:rgb(255, 205, 86)'><b> Buy: Low 5 last RSI (R): 5 last quotes under level </b></p>
-<p class='p-result' style='color:rgb(139, 126, 102)'><b> Buy: Low Stochastic & RSI & MACD- (C): Stochastic 6 under level and RSI 17 under level </b></p>
+<p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
+<p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 166)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
 <p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
@@ -550,7 +574,7 @@ elementSpanToReplace.style.display = 'none';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  8-Jun-2024 18:55</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  9-Jun-2024 12:37</p>
 </div>
 </body>
 </html>
