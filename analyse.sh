@@ -598,12 +598,12 @@ do
                 background-color: black;
                 color: #fff;
                 //text-align: center;
-                padding: 5px 0;
+                padding: 5px 5px;
                 border-radius: 6px;
                 position: absolute;
                 z-index: 1;
                 font-size: 35px;
-                margin: 0px 0px 0px -300px;
+                margin: 0px 0px 0px -400px;
             }
             .tooltip:hover .tooltiptext {
                 visibility: visible;
