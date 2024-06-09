@@ -589,6 +589,7 @@ do
                 display: inline-block;
                 border-bottom: 1px dotted black; 
                 font-size: 50px;
+                line-height: 40px;
             }
             .tooltip .tooltiptext {
                 visibility: hidden;
