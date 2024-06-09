@@ -589,7 +589,7 @@ do
                 display: inline-block;
                 border-bottom: 1px dotted black; 
                 font-size: 50px;
-                line-height: 40px;
+                line-height: 45px;
                 vertical-align: baseline;
             }
             .tooltip .tooltiptext {
@@ -598,11 +598,11 @@ do
                 background-color: black;
                 color: #fff;
                 //text-align: center;
-                padding: 5px 5px;
+                padding: 5px 8px;
                 border-radius: 6px;
                 position: absolute;
                 z-index: 1;
-                font-size: 35px;
+                font-size: 40px;
                 margin: 0px 0px 0px -400px;
             }
             .tooltip:hover .tooltiptext {
