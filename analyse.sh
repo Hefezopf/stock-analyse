@@ -588,15 +588,16 @@ do
                 //position: relative;
                 display: inline-block;
                 border-bottom: 1px dotted black; 
-                font-size: 50px;
-                line-height: 40px;
+                font-size: 48px;
+                line-height: 35px;
+                vertical-align: baseline;
             }
             .tooltip .tooltiptext {
                 visibility: hidden;
                 //width: 120px;
                 background-color: black;
                 color: #fff;
-                text-align: center;
+                //text-align: center;
                 padding: 5px 0;
                 border-radius: 6px;
                 position: absolute;
