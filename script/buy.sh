@@ -99,18 +99,18 @@ pricePlusFees=$(echo "$summePlusFees $piecesParam" | awk '{print $1 / $2}')
 pricePlusFees=$(printf "%.2f" "$pricePlusFees")
 summe=$((summe + txFee + summeFromOwnSymbolsFile))
 
-if [ "$(uname)" = 'Linux' ]; then
-    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total"
-else
-    echo "$summe" | clip
-    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total (in clipboard)"
-fi
-
 # Prepare for eMail Header sending 
 BUY_RESULT_FILE="buy_result.txt"
 rm -rf "$BUY_RESULT_FILE"
 echo "Pieces=$totalAmountOfPieces Amount=$summe€" >> "$BUY_RESULT_FILE"
 
+if [ "$(uname)" = 'Linux' ]; then
+    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total"
+else
+    echo "$summe" | clip
+    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total (in clipboard)"
+    rm -rf "$BUY_RESULT_FILE"
+fi
 
 if { [ -z "$priceFromOwnSymbolsFile" ]; } then
   # Newly added
