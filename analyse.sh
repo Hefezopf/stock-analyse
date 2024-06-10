@@ -585,7 +585,6 @@ do
             # hover Firmenportrait Text
             echo "<style>
             .tooltip {
-                //position: relative;
                 display: inline-block;
                 border-bottom: 1px dotted black; 
                 font-size: 50px;
@@ -594,11 +593,10 @@ do
             }
             .tooltip .tooltiptext {
                 visibility: hidden;
-                //width: 120px;
                 background-color: black;
                 color: #fff;
-                //text-align: center;
-                padding: 7px 10px;
+                //padding: 7px 10px;
+                padding: 7px 10px 20px 10px;
                 border-radius: 6px;
                 position: absolute;
                 z-index: 1;
