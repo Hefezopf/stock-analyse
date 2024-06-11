@@ -508,7 +508,7 @@ function curlBuy(symbolParam, price, pieces) {
         headlineLink = symbolParamTrimmed;
     }
     //var headlineLink = document.getElementById('headlineLink' + symbolParamTrimmed).innerHTML;
-    if (confirm('Buy ' + pieces + ' pieces of:\n' + headlineLink + ' for ' + price + '€?\nOverall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
+    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
     //    if (confirm('Buy ' + pieces + ' pieces of:\n' + symbolParamTrimmed + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
             return;
     }
@@ -551,7 +551,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         return;
     }
     var headlineLink = document.getElementById('headlineLink' + symbolParam).innerHTML;
-    if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of:\n' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
+    if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
     //if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of:\n' + symbolParam + ' for ' + sellPriceParam + '€?') == false) {
         return;
     }
