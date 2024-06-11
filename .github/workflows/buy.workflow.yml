@@ -60,7 +60,7 @@ jobs:
 
           ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
 
-          symbolName=$(grep -m1 -P "$symbolVar\t" "config\ticker_name_id.txt" | cut -f 2) >> $GITHUB_ENV
+          symbolName=$(grep -m1 -P "$symbolVar\t" "config/ticker_name_id.txt" | cut -f 2) >> $GITHUB_ENV
           # Files comes from buy.sh
           BUY_RESULT_FILE="buy_result.txt"
           echo "buyResult=$(cat $BUY_RESULT_FILE)" >> $GITHUB_ENV
