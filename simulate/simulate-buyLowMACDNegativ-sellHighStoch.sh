@@ -364,7 +364,8 @@ do
         amount=$(printf "%.0f" "$amount")
         quoteAt=$(printf "%.2f" "$quoteAt")
         percentageLost=$(echo "$wallet $amount" | awk '{print (100-(100 / $1 * $2 ))*(-1)}')
-        percentageLost=$(printf "%.2f" "$percentageLost")
+        percentageLost=$(printf "%.1f" "$percentageLost")
+        #percentageLost=$(printf "%.2f" "$percentageLost")
         Out "Keep\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tCurrent Value=$amount€\tPerc=$percentageLost%" $OUT_SIMULATE_FILE
         sellOnLastDayAmountOverAll=$(echo "$sellOnLastDayAmountOverAll $amount" | awk '{print ($1 + $2)}')
        # lastLowestQuoteAt=$QUOTE_MAX_VALUE 
