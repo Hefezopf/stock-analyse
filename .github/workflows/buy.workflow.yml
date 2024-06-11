@@ -91,7 +91,8 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}. Total:${{env.buyResult}}
+          subject: Buy ${{github.event.client_payload.symbol}} Result. Total:${{env.buyResult}}
+          #subject: Buy ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}. Total:${{env.buyResult}}
           # Read file contents as body:
           html_body: file://template/email.html
           #body: file://out/_result.html

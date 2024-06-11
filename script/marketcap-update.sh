@@ -138,7 +138,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
       firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g") 
       echo "$symbol Firmenportrait: $firmenportrait"
    else
-    firmenportrait="---"
+    firmenportrait="-------------"
     firmenportraitErrorSymbols="$symbol $firmenportraitErrorSymbols"
     echo "--> ERROR Firmenportrait: $symbol $ID_NOTATION! $firmenportrait"
    fi
