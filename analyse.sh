@@ -586,7 +586,7 @@ do
             echo "<style>
             .tooltip {
                 display: inline-block;
-                border-bottom: 1px dotted black; 
+                border-bottom: 2px dotted black; 
                 font-size: 50px;
                 line-height: 37px;
                 vertical-align: baseline;
