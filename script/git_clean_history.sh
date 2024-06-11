@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Local script call to make the histroy of the repo smaller
+# Local script call to make the history of the repo smaller
 # Clear history of these 3 directores: buy, sell and alarm
 # Because their filenames differ each day. E.g.: buy\0OK_2023-01-20.txt
 # Recommented run frequency: once a year

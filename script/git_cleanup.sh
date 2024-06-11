@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Local script call to make the repo smaller
+# Local script call to make the repo smaller. History still there!
+# Approx. duration: 30 minutes
 #
 # To see the size in Github: https://github.com/settings/repositories
 #
