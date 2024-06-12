@@ -48,8 +48,7 @@ do
 if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # Mrd. Market Cap
   curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
-  marktkap=$(echo "$curlResponse" | tail -n +1 | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
-  #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
+  marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
   if [ "$marktkap" ]; then
     echo "$symbol Market Cap:$marktkap Mrd.€"
   else
