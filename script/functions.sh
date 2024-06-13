@@ -149,7 +149,7 @@ CurlSymbolName() {
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
-            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999""$(printf '\t')""?""$(printf '\t')""\"--\"""$(printf '\t')""--""$(printf '\t')""--""$(printf '\t')""XETRA""$(printf '\t')""?""$(printf '\t')""STOCK" | tee -a "$_tickerNameIdFileParam"
+            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999""$(printf '\t')""?""$(printf '\t')""\"--\"""$(printf '\t')""--""$(printf '\t')""--""$(printf '\t')""XETRA""$(printf '\t')""?""$(printf '\t')""STOCK""$(printf '\t')""\"---\"" | tee -a "$_tickerNameIdFileParam"
             tempTickerNameIdFile="$(mktemp -p "$TEMP_DIR")"
             sort -k 1 "$_tickerNameIdFileParam" > "$tempTickerNameIdFile"
             mv "$tempTickerNameIdFile" "$_tickerNameIdFileParam"
