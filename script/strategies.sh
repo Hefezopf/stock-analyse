@@ -339,7 +339,9 @@ StrategieOverratedHighHorizontalMACD() {
         _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
         jj_index=0
         # shellcheck disable=SC2001
-        for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
+        #_MACDQuoteListParam=${_MACDQuoteListParam/,/ /$}
+        _MACDQuoteListParam=$(sed 's/,/ /g' <<< "$_MACDQuoteListParam")
+        for valueMACD in $_MACDQuoteListParam #$(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
             if [ "$jj_index" = 72 ]; then
                 valueMACDLast_2="$valueMACD" 
@@ -403,8 +405,14 @@ StrategieUnderratedLowHorizontalMACD() {
         _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
         jj_index=0
         valueNewMACDLow=100
+        
+        #_MACDQuoteListParam=${_MACDQuoteListParam/,/ /g}
+        #_MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         # shellcheck disable=SC2001
-        for valueMACD in $(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
+        _MACDQuoteListParam=$(sed 's/,/ /g' <<< "$_MACDQuoteListParam")
+        #_MACDQuoteListParam=${_MACDQuoteListParam/,/ /$}
+        #echo liste="$liste"
+        for valueMACD in $_MACDQuoteListParam #$(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
             # isValueMACDNegativ=$(echo "$valueMACD" | awk '{print substr ($0, 0, 1)}')
             # if [ "$isValueMACDNegativ" != '-' ] || [ "$valueMACD" = 0 ]; then
