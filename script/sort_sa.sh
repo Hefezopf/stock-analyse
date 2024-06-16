@@ -43,7 +43,7 @@ do
         echo -e "$symbol" >> "$stocks_TEMP_FILE"
     else
         if [ "$asset_type" = 'COIN' ]; then
-            echo -e "$symbol" >> "$coin_TEMP_FILE"        
+            echo -e "$symbol" >> "$coin_TEMP_FILE"
         else
             if [ "$asset_type" = 'INDEX' ]; then
                 echo -e "$symbol" >> "$index_TEMP_FILE"

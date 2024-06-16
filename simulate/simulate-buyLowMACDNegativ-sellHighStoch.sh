@@ -135,7 +135,7 @@ do
     valueMACDLast_3="-1" 
     valueMACDLast_2="-1" 
     valueMACDLast_1="-1" 
-    valueMACDLast_0="-1"     
+    valueMACDLast_0="-1"
     beforeLastQuote="$QUOTE_MAX_VALUE"
     # shellcheck disable=SC2001
     for valueMACD in $(echo "$historyMACDs" | sed "s/,/ /g")
@@ -149,7 +149,7 @@ do
 
         isMACDHorizontalAlarm=false
         isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
-        if [ "$isNewMACDLower" = true ]; then    
+        if [ "$isNewMACDLower" = true ]; then
             valueNewMACDLow="$valueMACD"
             isNegativMACDLast_0=${valueMACDLast_0:0:1}
             isNegativMACDLast_1=${valueMACDLast_1:0:1}
@@ -186,7 +186,7 @@ do
         if [ "$isBuyArrayFilled" = true ] && [ "$piecesHold" -gt 0 ] && [ "$isNewLow" = true ]; then
             isHoldPiecesAndNewLow=true
         else
-            isHoldPiecesAndNewLow=false            
+            isHoldPiecesAndNewLow=false
         fi 
 
         # is MACD horizontal and lastStoch?
@@ -213,7 +213,7 @@ do
             # sim CalculateMarketCapRSILevel
             CalculateMarketCapRSILevel "$lastRSI" "$marketCapFromFile"
             # shellcheck disable=SC2154
-            #echo marketCapFromFile "$marketCapFromFile" lastRSI "$lastRSI" isMarketCapRSILevel "$isMarketCapRSILevel"      
+            #echo marketCapFromFile "$marketCapFromFile" lastRSI "$lastRSI" isMarketCapRSILevel "$isMarketCapRSILevel"
             if [ "$isMarketCapRSILevel" = true ]; then
                 marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the following caluculations
                 alarmCountForStockParam=$8
@@ -273,7 +273,7 @@ do
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         if [ "$piecesHold" -gt 0 ]; then
-            # 20 Euro Fees each Sell trade                  
+            # 20 Euro Fees each Sell trade
             amount=$(echo "$quoteAt $piecesHold 20" | awk '{print ($1 * $2) - $3}')
             amount=$(printf "%.0f" "$amount")
             quoteAt=$(printf "%.2f" "$quoteAt")
@@ -302,7 +302,7 @@ do
                 fi
                 if [ "$intermediateProzWinFirstDigit" -eq 1 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
                     intermediateProzWinFirstDigit="${intermediateProzWinFirstDigit}${intermediateProzWinSecondDigit}"
-                fi               
+                fi
             fi
             # Sell if over Percentage Param (5%) or, if over Stoch Level Param (70)
             if [ "$stochAt" -gt "$StochSellLevelParam" ]; then
@@ -313,12 +313,12 @@ do
                     # ONLY Sell, if gain percent is over KEEP_IF_UNDER_PERCENTAGE (1%)
                     if [ "$intermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then
                         #wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
-                        wallet=$((amount-wallet))             
+                        wallet=$((amount-wallet))
                         #echo wallet=$wallet
 
                         wallet=$(printf "%.0f" "$wallet")
                         #sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
-                        sellAmountOverAll=$((amount+sellAmountOverAll))             
+                        sellAmountOverAll=$((amount+sellAmountOverAll))
                         #echo sellAmountOverAll=$sellAmountOverAll
 
                         Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount:$amount€\tStoch:$stochAt" $OUT_SIMULATE_FILE
@@ -333,7 +333,7 @@ do
                         #echo averageHoldingDaysOverallDays=$averageHoldingDaysOverallDays averageHoldingDaysOverallSymbols=$averageHoldingDaysOverallSymbols averageHoldingDaysOverall=$averageHoldingDaysOverall
 
                         #simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
-                        simulationWin=$((simulationWin+wallet))             
+                        simulationWin=$((simulationWin+wallet))
                         #echo simulationWin=$simulationWin
 
                         piecesHold=0
@@ -355,7 +355,7 @@ do
                                 fi
                                 amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
                             fi
-                        done           
+                        done
                         ARRAY_SELL[RSIindex]=$amount
                         ARRAY_TX_INDEX[RSIindex]="+$wallet€+$intermediateProzWin%"
                         ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
@@ -372,14 +372,14 @@ do
             beforeLastQuote="$QUOTE_MAX_VALUE"
         fi
 
-        RSIindex=$((RSIindex + 1))    
+        RSIindex=$((RSIindex + 1))
     done
 
     # Sell all on the last day, to get gid of all stocks for simulation
     if [ "$piecesHold" -gt 0 ]; then
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
         Out "Keep on the last day!!" $OUT_SIMULATE_FILE
-        # 30 Euro Fees each Last Day Sell trade  
+        # 30 Euro Fees each Last Day Sell trade
         amount=$(echo "$quoteAt $piecesHold 30" | awk '{print ($1 * $2) - $3}')
         amount=$(printf "%.0f" "$amount")
         quoteAt=$(printf "%.2f" "$quoteAt")
@@ -398,7 +398,7 @@ do
         Out "--------------------------" $OUT_SIMULATE_FILE
         Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
        # winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
-        winOverAll=$((winOverAll+simulationWin))             
+        winOverAll=$((winOverAll+simulationWin))
         #echo winOverAll===$winOverAll
         prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
@@ -465,7 +465,7 @@ do
      # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
      #creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
      creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # Sommerzeit / Summertime
-    fi    
+    fi
     # GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! $creationDate</p>"
     GOOD_LUCK="<br>Good Luck! $creationDate"
     # ATTENTION Line number may change, if there will be development!
@@ -489,14 +489,14 @@ for i in "${!ARRAY_BUY[@]}"; do
             ARRAY_DIFF[i]=$amount
         fi
     done
-done    
+done
 
 liquidity=0
 # Output Liquidity
 for i in "${!ARRAY_DIFF[@]}"; do
     valueDiffArray="${ARRAY_DIFF[i]}"
     #liquidity=$(echo "$liquidity $valueDiffArray" | awk '{print ($1 - $2)}')
-    liquidity=$((liquidity-valueDiffArray))             
+    liquidity=$((liquidity-valueDiffArray))
     #echo liquidity===$liquidity
 
 
@@ -505,7 +505,7 @@ done
 
 isLiquidityNegativ=${isLiquidityNegativ:0:1}
 if [ "$isLiquidityNegativ" = '-' ]; then
-    Out "Currently invested (in Stocks):$liquidity€" $OUT_SIMULATE_FILE                
+    Out "Currently invested (in Stocks):$liquidity€" $OUT_SIMULATE_FILE
 else
     Out "Currently Liquidity Cash to spend:$liquidity€" $OUT_SIMULATE_FILE
 fi
@@ -528,7 +528,7 @@ do
     echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">$value $symbolName</a><br>" >> $OUT_SIMULATE_FILE
     echo "$value"
     # shellcheck disable=SC2027,SC2086
-    echo "<script>linkMap.set(\""$value"\", \"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\");</script>" >> $OUT_SIMULATE_FILE    
+    echo "<script>linkMap.set(\""$value"\", \"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\");</script>" >> $OUT_SIMULATE_FILE
 done
 
 Out "" $OUT_SIMULATE_FILE

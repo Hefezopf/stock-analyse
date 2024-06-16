@@ -54,14 +54,14 @@ StrategieOverratedStochasticWhenOwn() {
     _markerOwnStockParam=$6
     export resultStrategieOverratedStochasticWhenOwn=""
 
-    if [ "$_lastStochParam" -gt "$_highStochValueParam" ]; then     
-       ## if [ "$_beforeLastStochParam" -le "$_highStochValueParam" ]; then     
+    if [ "$_lastStochParam" -gt "$_highStochValueParam" ]; then
+       ## if [ "$_beforeLastStochParam" -le "$_highStochValueParam" ]; then
             if [ "$_markerOwnStockParam" = '*' ]; then
                 alarmAbbrevValue="O-"$alarmAbbrevValue
                 reasonPrefix="Sell: Stochastic Own (O)"
                 resultStrategieOverratedStochasticWhenOwn="$reasonPrefix"
                 echo "$resultStrategieOverratedStochasticWhenOwn"
-                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"     
+                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
             fi
        ## fi
     fi
@@ -87,7 +87,7 @@ StrategieOverratedDivergenceRSI() {
 
     isMACDNegativ=${_lastMACDParam:0:1}
     if [ "$_lastRSIParam" -gt "$_highRSIValueParam" ] && [ "$isMACDNegativ" != '-' ]; then
-        newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')      
+        newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')
         if [ "$newHigh" = true ] && [ "$_lastRSIParam" -le "$_beforeLastRSIParam" ]; then
             alarmAbbrevValue="D-"$alarmAbbrevValue
             reasonPrefix="Sell: RSI Divergence (D)"
@@ -174,14 +174,14 @@ StrategieByTendency() {
             echo "$resultStrategieByTendency"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
         fi
-        _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')       
+        _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')
         if awk 'BEGIN {exit !('"$_valueWithFactor"' < '"$_lastAverage95Param"')}'; then
             alarmAbbrevValue=T+$alarmAbbrevValue
             reasonPrefix="Buy: Low Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"        
-        fi        
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+        fi
     elif [ "$_tendencyParam" = "$FALLING" ]; then 
         # 0 times _percentageFactorParam
         if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_lastAverage95Param"')}'; then
@@ -231,18 +231,18 @@ StrategieOverratedXHighRSI() {
         if [ "$value_87" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
             oneOfTheLastRSIHigh=1
-        fi           
+        fi
         if [ "$value_86" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
             oneOfTheLastRSIHigh=1
-        fi      
+        fi
              
         if [ "$value_85" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
-        fi           
+        fi
         if [ "$value_84" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
-        fi           
+        fi
         if [ "$value_83" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
         fi
@@ -254,7 +254,7 @@ StrategieOverratedXHighRSI() {
         fi
         # At least 3 high values out of 7 and one of the last 3 must be over
         if [ "$countHighRSI" -ge 3 ] && [ "$oneOfTheLastRSIHigh" = 1 ]; then 
-            alarmAbbrevValue=$countHighRSI"R-"$alarmAbbrevValue      
+            alarmAbbrevValue=$countHighRSI"R-"$alarmAbbrevValue
             reasonPrefix="Sell: High $countHighRSI last RSI (R)"
             resultStrategieOverratedXHighRSI="$reasonPrefix: $countHighRSI last quotes over level"
             echo "$resultStrategieOverratedXHighRSI"
@@ -290,7 +290,7 @@ StrategieUnderratedXLowRSI() {
         if [ "$value_87" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
             oneOfTheLastRSILow=1
-        fi           
+        fi
         if [ "$value_86" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
             oneOfTheLastRSILow=1
@@ -298,10 +298,10 @@ StrategieUnderratedXLowRSI() {
 
         if [ "$value_85" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
-        fi           
+        fi
         if [ "$value_84" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
-        fi           
+        fi
         if [ "$value_83" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
         fi
@@ -318,7 +318,7 @@ StrategieUnderratedXLowRSI() {
             resultStrategieUnderratedXLowRSI="$reasonPrefix: $countLowRSI last quotes under level"
             echo "$resultStrategieUnderratedXLowRSI"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
-        fi                  
+        fi
     fi
 }
 
@@ -432,12 +432,12 @@ StrategieUnderratedLowHorizontalMACD() {
             isMACDHorizontalAlarm1=false
             isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
 #echo "isNewMACDLower $isNewMACDLower jj_index $jj_index valueMACD $valueMACD"
-            if [ "$isNewMACDLower" = true ]; then    
-                valueNewMACDLow="$valueMACD"    
+            if [ "$isNewMACDLower" = true ]; then
+                valueNewMACDLow="$valueMACD"
                 isNegativMACDLast_0=${valueMACDLast_0:0:1}
                 isNegativMACDLast_1=${valueMACDLast_1:0:1}
                 isNegativMACDLast_2=${valueMACDLast_2:0:1}
-                isNegativMACDLast_3=${valueMACDLast_3:0:1}          
+                isNegativMACDLast_3=${valueMACDLast_3:0:1}
                 if [ "$isNegativMACDLast_0" = '-' ] && [ "$isNegativMACDLast_1" = '-' ] && [ "$isNegativMACDLast_2" = '-' ] && [ "$isNegativMACDLast_3" = '-' ]; then
                     isMACDHorizontalAlarm1=true
                 fi
@@ -449,7 +449,7 @@ StrategieUnderratedLowHorizontalMACD() {
         # Check if MACD is horizontal?
         # BeforeLast Value
         difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
-        isNegativ=${difference:0:1}    
+        isNegativ=${difference:0:1}
         # Negativ -> down
         # If first criterium negativ -> first step Alarm!
         if [ "$isNegativ" = '-' ] || [ "$difference" = 0 ]; then
@@ -460,7 +460,7 @@ StrategieUnderratedLowHorizontalMACD() {
             # If second criterium positiv -> Alarm!
             if [ "$isDifference0_1Negativ" = '-' ] || [ "$difference0_1" = 0 ]; then
                 isMACDHorizontalAlarm2=true
-            else           
+            else
                 isMACDHorizontalAlarm2=false
             fi
         fi
@@ -562,7 +562,7 @@ StrategieOverratedXHighStochastic() {
         # Warning do NOT quote this!! "$_stochasticQuoteListParam"
         # shellcheck disable=SC2086
         IFS="," set -- $_stochasticQuoteListParam
-        # Cut comma, like: ",22" -> "22"        
+        # Cut comma, like: ",22" -> "22"
         value1=$(echo "$1" | cut -b 2-3)
         value2=$(echo "$2" | cut -b 2-3)
         value3=$(echo "$3" | cut -b 2-3)
@@ -617,7 +617,7 @@ StrategieOverratedXHighStochastic() {
 
         if [ "${#value3}" -gt 1 ] && [ "$value3" -gt "$_highStochasticValueParam" ]; then
             howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
-        fi   
+        fi
         if [ "${#value4}" -gt 1 ] && [ "$value4" -gt "$_highStochasticValueParam" ]; then
             howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
         fi
@@ -701,7 +701,7 @@ StrategieUnderratedXLowStochastic() {
         fi
 
         # 4 last values under _lowStochasticValueParam and one of the last is under?
-        if [ "$howManyUnderLowStochasticValue" -ge 4 ] && [ "$oneOfTheLastStochasticLow" = 1 ]; then          
+        if [ "$howManyUnderLowStochasticValue" -ge 4 ] && [ "$oneOfTheLastStochasticLow" = 1 ]; then
             alarmAbbrevValue=$howManyUnderLowStochasticValue"S+"$alarmAbbrevValue
             reasonPrefix="Buy: Low $howManyUnderLowStochasticValue last Stochastic (S)"
             resultStrategieUnderratedXLowStochastic="$reasonPrefix: $howManyUnderLowStochasticValue last quotes under level"
@@ -734,7 +734,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
             alarmAbbrevValue=C-$alarmAbbrevValue
             reasonPrefix="Sell: High Stochastic & RSI & MACD+ (C)"
             resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam over level and RSI $_lastRSIQuoteRoundedParam over level"
-            echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"                       
+            echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
         fi
     fi
@@ -763,7 +763,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
             alarmAbbrevValue=C+$alarmAbbrevValue
             reasonPrefix="Buy: Low Stochastic & RSI & MACD- (C)"
             resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam under level and RSI $_lastRSIQuoteRoundedParam under level"
-            echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"                       
+            echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
         fi
     fi

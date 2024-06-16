@@ -58,7 +58,7 @@ do
   
 
     # Migration Start
-# informerDataReverseFile="$DATA_INFORMER_DIR/$symbol.revers.txt"    
+# informerDataReverseFile="$DATA_INFORMER_DIR/$symbol.revers.txt"
     # dataFile="./data/$symbol.txt"
     # cp "$dataFile" "$DATA_INFORMER_DIR"
     # lastLine=$(head -n1 "$dataFile") 
@@ -110,7 +110,7 @@ do
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
             value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d"<" | cut -c 29-)
         fi
-        if [ "$value" ]; then    
+        if [ "$value" ]; then
             # shellcheck disable=SC2001
             value=$(echo "$value" | sed "s/\.//") # Wenn Punkt dann löschen 1.000,00 -> 1000,00
             # shellcheck disable=SC2001
@@ -130,7 +130,7 @@ do
         fi
     else
         echo "$symbol:	Actual data already there. NO CURL query needed!"
-    fi  
+    fi
 done
 echo "---------------"
 if { [ "$errorSymbols" ]; } then

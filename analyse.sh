@@ -198,7 +198,7 @@ do
     asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
     if [ ! "$asset_type" ]; then # Default: asset_type="?"
         asset_type="?"
-    fi        
+    fi
     
     # Get stock data
     echo ""
@@ -539,7 +539,7 @@ do
         # Draw 5% lines
         if [ "$markerOwnStock" = '*' ]; then
             # Get buying rate
-            buyingRate=$(grep "$symbol" "$OWN_SYMBOLS_FILE"  | cut -f2 -d ' ')
+            buyingRate=$(grep "$symbol" "$OWN_SYMBOLS_FILE" | cut -f2 -d ' ')
         else
             buyingRate=$last
         fi
@@ -579,7 +579,7 @@ do
         echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
         echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
 
-        if [ "$asset_type" = 'STOCK' ]; then  
+        if [ "$asset_type" = 'STOCK' ]; then
             # KGVe
             kgve=$(echo "$lineFromTickerFile" | cut -f 6)
             echo "<span style='font-size:50px'>KGV&nbsp;$kgve&nbsp;&nbsp;&nbsp;</span>&nbsp;"
@@ -621,14 +621,14 @@ do
 
             # Market Cap Progressbar, only if number
             if [ "$marketCapFromFile" = '?' ]; then
-                echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"            
+                echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"
             else
                 marketCapScaled=$((marketCapFromFile * 5)) # Scale factor in progressbar
                 # shellcheck disable=SC2086,SC2027
                 echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>"
                 echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;$marketCapFromFile Mrd.€</div><br>"
             fi
-        fi        
+        fi
 
         # Check, if quote day is from last trading day, including weekend
         # yesterday=$(date --date="-1 day" +"%Y-%m-%d")
@@ -647,12 +647,12 @@ do
        # else # NOK! -> orange
        #     echo "<span id='detailsIdOldData'><br><b style='color:red; font-size:xx-large'>->OLD DATA:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
         #    echo "<span id='oldDataId'><b style='color:black; font-size:xx-large'>$quoteDate</b></span>"
-       #     echo "<div id='oldDataTextId'><b style='color:black; font-size:x-large; background:red;'>->OLD DATA</b></div>"            
+       #     echo "<div id='oldDataTextId'><b style='color:black; font-size:x-large; background:red;'>->OLD DATA</b></div>"
         #fi
         echo "<b>&nbsp;&nbsp;$exchange&nbsp;&nbsp;$asset_type</b>"
-        if [ "$asset_type" = 'STOCK' ]; then     
+        if [ "$asset_type" = 'STOCK' ]; then
             echo "<b>&nbsp;&nbsp;HV:$hauptversammlung</b>"
-        fi        
+        fi
         echo "</p>"
 
         echo "<p class='p-result'>"
@@ -738,7 +738,7 @@ do
                   <span id='neverShowRegularMarketTime$symbol' style='display: none'></span>
                   <span id='intervalSectionPortfolioValues$symbol' style='font-size:large; display: none'></span>
                   <span id='intervalSectionPortfolioGain$symbol' style='font-size:large; display: none'></span>
-                  <span id='intervalSectionButtonDetailsBR$symbol'><br></span>"                  
+                  <span id='intervalSectionButtonDetailsBR$symbol'><br></span>"
 
             # ObfuscatedValue neverShowDiv (Yesterday)
             echo "<div id='neverShowDiv$symbol' style='display:none'>
@@ -829,7 +829,7 @@ fi
 {
     # Overall
     echo "<br><br><div id='portfolioValueDaxFooterId'>" # START portfolioValueDaxFooterId
-    echo "<hr id='intervalSectionHROverallRealtimeBegin' style='display: none'>"    
+    echo "<hr id='intervalSectionHROverallRealtimeBegin' style='display: none'>"
     echo "<span id='intervalSectionHeadlineOverallPortfolio' style='display:none'># Portfolio value purchase</span><br>"
     echo "<span id='obfuscatedValueBuyingOverall' style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
     echo "<br><br><span id='intervalSectionHeadlineOverallRealtime' style='display:none'># Realtime difference to purchase</span><br>"
@@ -871,7 +871,7 @@ fi
             Pieces&nbsp;<input name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
             Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
           </span>"
-        #</p>"          
+        #</p>"
 
     # Workflow        
     echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br>"

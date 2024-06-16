@@ -38,22 +38,22 @@ MACD_12_26() {
                 break
             fi
         done 
-        jj_index=$((jj_index + 1))     
+        jj_index=$((jj_index + 1))
         difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
         difference=$(printf "%.2f" "$difference")  
  
         # Ignore first incorrect number?!
         if [ "$kk_index" -eq 15 ]; then 
             MACDList="$MACDList , $difference, $difference,"
-        fi           
+        fi
         if [ "$kk_index" -gt 15 ]; then 
             MACDList="$MACDList $difference,"
-        fi           
+        fi
     done
     difference=$(printf "%.2f" "$difference")
     lastMACDValue=$difference
     MACDList=" , , , , , , , , , , ,$MACDList"
-#echo "----MACDList $MACDList"    
+#echo "----MACDList $MACDList"
 }
 
 # EMAverageOfDays function:
@@ -86,11 +86,11 @@ EMAverageOfDays() {
                 # shellcheck disable=SC2086
                 ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')
                 ind=$((ind - 1))
-            done        
+            done
         fi
         averagePriceList="$averagePriceList $ema,"
         i=$((i + 1))
-    done   
+    done
 }
 
 # AverageOfDays function:
@@ -102,7 +102,7 @@ AverageOfDays() {
     export averagePriceList
 
     minusCommas=$((_amountOfDaysParam - 13)) # display from 14 on till 100
-    averagePriceList=$(seq -s " ," "${minusCommas}" | tr -d '[:digit:]')    
+    averagePriceList=$(seq -s " ," "${minusCommas}" | tr -d '[:digit:]')
 
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
@@ -139,7 +139,7 @@ RSIOfDays() {
             RSIloosingDaysVar="$RSIloosingDaysVar$withoutMinusSign\n"
             RSIwinningDaysVar=$RSIwinningDaysVar"0\n"
         else
-            #echo "0" >> "$RSIloosingDaysFile"             
+            #echo "0" >> "$RSIloosingDaysFile"
             #echo "$diffLast2Prices" >> "$RSIwinningDaysFile"
             RSIwinningDaysVar="$RSIwinningDaysVar$diffLast2Prices\n"
             RSIloosingDaysVar=$RSIloosingDaysVar"0\n"
@@ -152,11 +152,11 @@ RSIOfDays() {
     sed -i '$ d' "$RSIwinningDaysFile"
 
     i=1
-    while [ "$i" -le 100 ]; do        
-        # Fill with blank comma seperated data  
+    while [ "$i" -le 100 ]; do
+        # Fill with blank comma seperated data
         if [ $i -ge "$_amountOfDaysParam" ]; then # >= 14   
             RSIwinningDaysAvg=$(tail -"$i" "$RSIwinningDaysFile" | head -n"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')
-            RSIloosingDaysAvg=$(tail -"$i" "$RSIloosingDaysFile" | head -n"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')    
+            RSIloosingDaysAvg=$(tail -"$i" "$RSIloosingDaysFile" | head -n"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')
             if [ "$RSIloosingDaysAvg" = 0 ]; then
                 RSIQuote=100
             else
@@ -166,14 +166,14 @@ RSIOfDays() {
             fi
             beforeLastRSIQuoteRounded="$lastRSIQuoteRounded"
             lastRSIQuoteRounded=${RSIQuote%.*}
-            if [ "$lastRSIQuoteRounded" -lt "$lowestRSI" ]; then            
+            if [ "$lastRSIQuoteRounded" -lt "$lowestRSI" ]; then
                 lowestRSI="$lastRSIQuoteRounded"
             fi
 
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
         i=$((i + 1))
-    done    
+    done
 }
 
 # StochasticOfDays function:

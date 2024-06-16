@@ -102,7 +102,7 @@ WriteAlarmAbbrevXAxisFile() {
     alarmStringWithoutFristAlarm=$(cat "$alarmSymbolFile")
     alarmStringWithoutFristAlarm=${alarmStringWithoutFristAlarm#*,}
     alarmStringWithoutFristAlarm="'',$alarmStringWithoutFristAlarm"
-    echo "$alarmStringWithoutFristAlarm" > "$alarmSymbolFile"    
+    echo "$alarmStringWithoutFristAlarm" > "$alarmSymbolFile"
 }
 
 # DetermineTendency function: 
@@ -132,7 +132,7 @@ DetermineTendency() {
                 tendency="$RISING"
             fi
         fi
-    fi    
+    fi
 }
 
 # CurlSymbolName function: Curl and write Line to TICKER_NAME_ID_FILE
@@ -188,7 +188,7 @@ UsageCheckParameter() {
         echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo " RSI14: Quote for RSI indicator (only 30 and less allowed!)" | tee -a "$_outResultFileParam"
-        echo "<br>" >> "$_outResultFileParam"    
+        echo "<br>" >> "$_outResultFileParam"
         echo "Example: ./analyse.sh 'BEI ALV' 1 offline 9 25" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo "$HTML_RESULT_FILE_END" >> "$_outResultFileParam"
@@ -236,7 +236,7 @@ ProgressBar() {
     _left=$((40-_done))
     # Build progressbar string lengths
     _fill=$(printf "%${_done}s")
-    _empty=$(printf "%${_left}s")                         
+    _empty=$(printf "%${_left}s")
     # Progress: ######################################## 100%
     if [ ! "$(uname)" = 'Linux' ]; then
         # shellcheck disable=SC3037,SC3060
@@ -275,7 +275,7 @@ WriteComdirectUrlAndStoreFileList() {
 
     # Only write URL once into result file
     if [ ! "$_id_notation" = "$ID_NOTATION_STORE_FOR_NEXT_TIME" ]; then
-#echo "++++++++++++++++$ID_NOTATION_STORE_FOR_NEXT_TIME"    
+#echo "++++++++++++++++$ID_NOTATION_STORE_FOR_NEXT_TIME"
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
         {
             # Hover Chart (result overview page)

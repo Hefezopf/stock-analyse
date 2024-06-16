@@ -181,7 +181,7 @@ SYMBOL_NAME="BEIERSDORF AG"
   export -f jq   
 
   CurlSymbolName "$SYMBOL" "$TICKER_NAMES_FILE" 0
-  [ "$symbolName" == '"BEIERSDORF AG"' ]      
+  [ "$symbolName" == '"BEIERSDORF AG"' ]
 }
 
 @test "LessThenWithFactor" {
