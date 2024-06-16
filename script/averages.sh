@@ -171,39 +171,34 @@ RSIOfDays() {
     export beforeLastRSIQuoteRounded
 
     lowestRSI=100
-
     RSIwinningDaysFile="$(mktemp -p "$TEMP_DIR")"
     RSIloosingDaysFile="$(mktemp -p "$TEMP_DIR")"
-
-RSIwinningDaysVar=""
-RSIloosingDaysVar=""
+    RSIwinningDaysVar=""
+    RSIloosingDaysVar=""
     i=1
     while [ "$i" -le 100 ]; do
         i=$((i + 1))
         diffLast2Prices=$(head -n$i "$_dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
         isNegativ=${diffLast2Prices:0:1}
-        #isNegativ=$(echo "$diffLast2Prices" | awk '{print substr ($0, 0, 1)}')
         if [ "$isNegativ" = '-' ]; then
             withoutMinusSign=$(echo "$diffLast2Prices" | awk '{print substr ($1, 2, 9)}')
             #echo "$withoutMinusSign" >> "$RSIloosingDaysFile"            
             #echo "0" >> "$RSIwinningDaysFile"
-RSIloosingDaysVar="$RSIloosingDaysVar$withoutMinusSign\n"            
-RSIwinningDaysVar=$RSIwinningDaysVar"0\n"    
+            RSIloosingDaysVar="$RSIloosingDaysVar$withoutMinusSign\n"            
+            RSIwinningDaysVar=$RSIwinningDaysVar"0\n"    
 
         else
             #echo "0" >> "$RSIloosingDaysFile"             
             #echo "$diffLast2Prices" >> "$RSIwinningDaysFile"
-RSIwinningDaysVar="$RSIwinningDaysVar$diffLast2Prices\n" 
-RSIloosingDaysVar=$RSIloosingDaysVar"0\n"                
+            RSIwinningDaysVar="$RSIwinningDaysVar$diffLast2Prices\n" 
+            RSIloosingDaysVar=$RSIloosingDaysVar"0\n"                
         fi
     done
 
-
-echo -e "$RSIloosingDaysVar" > "$RSIloosingDaysFile"
-sed -i '$ d' "$RSIloosingDaysFile"
-echo -e "$RSIwinningDaysVar" > "$RSIwinningDaysFile"
-sed -i '$ d' "$RSIwinningDaysFile"
-
+    echo -e "$RSIloosingDaysVar" > "$RSIloosingDaysFile"
+    sed -i '$ d' "$RSIloosingDaysFile"
+    echo -e "$RSIwinningDaysVar" > "$RSIwinningDaysFile"
+    sed -i '$ d' "$RSIwinningDaysFile"
 
     i=1
     while [ "$i" -le 100 ]; do        
@@ -219,21 +214,15 @@ sed -i '$ d' "$RSIwinningDaysFile"
                 #RSIQuote=$(echo "$RSIwinningDaysAvg" "$RSIloosingDaysAvg" | awk '{print 100*$1/($1+$2)}')
             fi
             beforeLastRSIQuoteRounded="$lastRSIQuoteRounded"
-          #  lastRSIQuoteRounded=$(echo "$RSIQuote" | cut -f 1 -d '.')
             lastRSIQuoteRounded=${RSIQuote%.*}
-#echo "lastRSIQuoteRounded $lastRSIQuoteRounded"
-
-#echo "lastRSIQuoteRounded $lastRSIQuoteRounded" "lowestRSI $lowestRSI"
-            if [ "$lastRSIQuoteRounded" -lt "$lowestRSI" ]; then 
-#echo "REIN"            
+            if [ "$lastRSIQuoteRounded" -lt "$lowestRSI" ]; then            
                 lowestRSI="$lastRSIQuoteRounded"
             fi
 
             RSIQuoteList="$RSIQuoteList $lastRSIQuoteRounded,"
         fi
         i=$((i + 1))
-    done
-#echo "RSIQuoteList $RSIQuoteList"     
+    done    
 }
 
 # StochasticOfDays function:

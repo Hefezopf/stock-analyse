@@ -86,7 +86,6 @@ StrategieOverratedDivergenceRSI() {
     export resultStrategieOverratedDivergenceRSI=""
 
     isMACDNegativ=${_lastMACDParam:0:1}
-    #isMACDNegativ=$(echo "$_lastMACDParam" | awk '{print substr ($0, 0, 1)}')
     if [ "$_lastRSIParam" -gt "$_highRSIValueParam" ] && [ "$isMACDNegativ" != '-' ]; then
         newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')      
         if [ "$newHigh" = true ] && [ "$_lastRSIParam" -le "$_beforeLastRSIParam" ]; then
@@ -119,7 +118,6 @@ StrategieUnderratedDivergenceRSI() {
     export resultStrategieUnderratedDivergenceRSI=""
 
     isMACDNegativ=${_lastMACDParam:0:1}
-    #isMACDNegativ=$(echo "$_lastMACDParam" | awk '{print substr ($0, 0, 1)}')
     if [ "$isMACDNegativ" = '-' ]; then
         if [ "$_conditionNewLowParam" = true ] && [ "$_lastRSIParam" -ge "$_lowestRSIParam" ]; then
             alarmAbbrevValue="D+"$alarmAbbrevValue
@@ -362,7 +360,6 @@ StrategieOverratedHighHorizontalMACD() {
         # BeforeLast Value
         difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
         isNegativ=${difference:0:1}
-        #isNegativ=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')
         # Positiv -> up
         # If first criterium positiv -> first step Alarm!
         if [ ! "$isNegativ" = '-' ] || [ "$difference" = 0 ]; then
@@ -370,9 +367,7 @@ StrategieOverratedHighHorizontalMACD() {
             difference=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
             difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
             isMACDGenerellPositiv=${valueMACDLast_1:0:1}
-            #isMACDGenerellPositiv=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
             isDifference0_2Positiv=${difference0_2:0:1}
-            #isDifference0_2Positiv=$(echo "$difference0_2" | awk '{print substr ($0, 0, 1)}')
             # If second criterium negativ -> Alarm!
             if [ "$difference" = 0 ] && [ ! "$isMACDGenerellPositiv" = '-' ] && [ ! "$isDifference0_2Positiv" = '-' ]; then
                 isMACDHorizontalAlarm=true
@@ -411,15 +406,11 @@ StrategieUnderratedLowHorizontalMACD() {
         jj_index=0
         valueNewMACDLow=100
         
-        #_MACDQuoteListParam=${_MACDQuoteListParam/,/ /g}
-        #_MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         # shellcheck disable=SC2001
         _MACDQuoteListParam=$(sed 's/,/ /g' <<< "$_MACDQuoteListParam")
-        #_MACDQuoteListParam=${_MACDQuoteListParam/,/ /$}
-        #echo liste="$liste"
         for valueMACD in $_MACDQuoteListParam #$(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
         do
-            # isValueMACDNegativ=$(echo "$valueMACD" | awk '{print substr ($0, 0, 1)}')
+            #isValueMACDNegativ=${valueMACD:0:1}
             # if [ "$isValueMACDNegativ" != '-' ] || [ "$valueMACD" = 0 ]; then
             #     valueNewMACDLow=0
             # fi
@@ -446,11 +437,7 @@ StrategieUnderratedLowHorizontalMACD() {
                 isNegativMACDLast_0=${valueMACDLast_0:0:1}
                 isNegativMACDLast_1=${valueMACDLast_1:0:1}
                 isNegativMACDLast_2=${valueMACDLast_2:0:1}
-                isNegativMACDLast_3=${valueMACDLast_3:0:1}
-                #isNegativMACDLast_0=$(echo "$valueMACDLast_0" | awk '{print substr ($0, 0, 1)}')
-                #isNegativMACDLast_1=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
-                #isNegativMACDLast_2=$(echo "$valueMACDLast_2" | awk '{print substr ($0, 0, 1)}')
-                #isNegativMACDLast_3=$(echo "$valueMACDLast_3" | awk '{print substr ($0, 0, 1)}')              
+                isNegativMACDLast_3=${valueMACDLast_3:0:1}          
                 if [ "$isNegativMACDLast_0" = '-' ] && [ "$isNegativMACDLast_1" = '-' ] && [ "$isNegativMACDLast_2" = '-' ] && [ "$isNegativMACDLast_3" = '-' ]; then
                     isMACDHorizontalAlarm1=true
                 fi
@@ -462,22 +449,14 @@ StrategieUnderratedLowHorizontalMACD() {
         # Check if MACD is horizontal?
         # BeforeLast Value
         difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
-        isNegativ=${difference:0:1}
-        #isNegativ=$(echo "$difference" | awk '{print substr ($0, 0, 1)}')      
+        isNegativ=${difference:0:1}    
         # Negativ -> down
         # If first criterium negativ -> first step Alarm!
         if [ "$isNegativ" = '-' ] || [ "$difference" = 0 ]; then
             # Last Value
-            
-            #difference0_1=$(expr "$valueMACDLast_0" - "$valueMACDLast_1")
-            #difference0_1=$(("$valueMACDLast_0-$valueMACDLast_1"))
             difference0_1=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
-            
-            #difference0_2=$(("$valueMACDLast_0" - "$valueMACDLast_2"))
             difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
-            
             isDifference0_1Negativ=${difference0_1:0:1}
-            #isDifference0_1Negativ=$(echo "$difference0_1" | awk '{print substr ($0, 0, 1)}')
             # If second criterium positiv -> Alarm!
             if [ "$isDifference0_1Negativ" = '-' ] || [ "$difference0_1" = 0 ]; then
                 isMACDHorizontalAlarm2=true
@@ -750,7 +729,6 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
 
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRoundedParam}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
         _lastMACDValueParamSign=${_lastMACDValueParam:0:1}
-        #_lastMACDValueParamSign=$(echo "$_lastMACDValueParam" | awk '{print substr ($0, 0, 1)}')
         # Last Stochastic quote over _highStochasticValueParam and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
         if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -gt "$_highRSIQuoteParam" ] && [ ! "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C-$alarmAbbrevValue
@@ -780,7 +758,6 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
 
     if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && [ "${#_lastRSIQuoteRoundedParam}" -gt 0 ] && [ "${#_lastMACDValueParam}" -gt 0 ]; then # Check if value makes sense
         _lastMACDValueParamSign=${_lastMACDValueParam:0:1}
-       # _lastMACDValueParamSign=$(echo "$_lastMACDValueParam" | awk '{print substr ($0, 0, 1)}')
         # Last Stochastic quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
         if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C+$alarmAbbrevValue
