@@ -21,7 +21,10 @@ export  COMDIRECT_URL_PREFIX_5Y="$COMDIRECT_URL_PREFIX""&timeSpan=5Y&ID_NOTATION
 
 # Files
 export DATA_DIR="data"
-export TEMP_DIR=/tmp
+
+#export TEMP_DIR=/tmp
+export TEMP_DIR=/dev/shm/
+
 export OWN_SYMBOLS_FILE="config/own_symbols.txt"
 export TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 export TRANSACTION_COUNT_FILE="config/transaction_count.txt"

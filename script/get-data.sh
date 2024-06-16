@@ -21,7 +21,8 @@ export MARKET_STACK_ACCESS_KEY
 symbolsParam=$1
 
 # Prepare
-TEMP_DIR=/tmp
+#TEMP_DIR=/tmp
+TEMP_DIR=/dev/shm/
 rm -rf $TEMP_DIR/tmp.*
 mkdir -p temp
 TICKER_NAME_ID_FILE=config/ticker_name_id.txt

@@ -8,7 +8,8 @@
 . script/functions.sh
 
 # Constants
-TEMP_DIR=/tmp
+#TEMP_DIR=/tmp
+TEMP_DIR=/dev/shm/
 OUT_RESULT_FILE="test/_result.html"
 DATA_FILE="test/BEI.txt"
 TICKER_NAMES_FILE="test/ticker_name_id.txt"

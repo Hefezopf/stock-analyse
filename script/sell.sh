@@ -101,7 +101,8 @@ priceFromFile=$(echo "$lineFromFile" | cut -f 3)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 echo "&nbsp;Performance SA 2024<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-TEMP_DIR=/tmp
+#TEMP_DIR=/tmp
+TEMP_DIR=/dev/shm/
 rm -rf $TEMP_DIR/tmp.*
 TEMP_REVERS_FILE="$(mktemp -p $TEMP_DIR)"
 # shellcheck disable=SC2086

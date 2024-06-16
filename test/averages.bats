@@ -7,7 +7,8 @@
 . script/averages.sh
 
 # Constants
-TEMP_DIR=/tmp
+#TEMP_DIR=/tmp
+TEMP_DIR=/dev/shm/
 OUT_RESULT_FILE="test/_result.html"
 DATA_FILE="test/BEI.txt"
 DATA_AHLA_FILE="test/AHLA.txt"
