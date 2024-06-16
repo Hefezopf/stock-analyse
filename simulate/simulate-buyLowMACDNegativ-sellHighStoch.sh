@@ -58,6 +58,8 @@ function ParameterOut()
 mkdir -p simulate/out
 sellAmountOverAll=0
 sellOnLastDayAmountOverAll=0
+averageHoldingDaysOverallDays=0
+averageHoldingDaysOverallSymbols=0
 export alarmAbbrevTemplate # from functions.sh
 export winOverall=0
 export _outputText=""
@@ -314,12 +316,17 @@ do
                         anualPercentWin=$(echo "$anualPercentWin $intermediateProzWin" | awk '{print ($1 * $2)}')
                         anualPercentWin=$(printf "%.0f" "$anualPercentWin")
                         Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg Holding Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
+
+                        averageHoldingDaysOverallDays=$(echo "$averageHoldingDaysOverallDays $averageHoldingDays" | awk '{print ($1 + $2)}')
+                        averageHoldingDaysOverallSymbols=$((averageHoldingDaysOverallSymbols + 1))
+                        averageHoldingDaysOverall=$(echo "$averageHoldingDaysOverallDays $averageHoldingDaysOverallSymbols" | awk '{print ($1 / $2)}')
+                    #echo averageHoldingDaysOverallDays=$averageHoldingDaysOverallDays averageHoldingDaysOverallSymbols=$averageHoldingDaysOverallSymbols averageHoldingDaysOverall=$averageHoldingDaysOverall
+
                         simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
                         piecesHold=0
                         amountPerTrade="$amountPerTradeParam"
                         amountOfTrades=0
                         buyingDay=0
-                       # lastLowestQuoteAt=$QUOTE_MAX_VALUE
                         RSIBuyLevelParam=$3
                         # Reset MACD
                         valueNewMACDLow=100
@@ -514,6 +521,8 @@ sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
 Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 sellOnLastDayAmountOverAll=$(printf "%.0f" "$sellOnLastDayAmountOverAll")
 Out "Still in Portfolio After Last Day=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
+averageHoldingDaysOverall=$(printf "%.1f" "$averageHoldingDaysOverall")
+Out "Avg Holding Days Overall=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
 Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
 
