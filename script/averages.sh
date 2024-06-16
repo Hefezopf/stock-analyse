@@ -181,17 +181,16 @@ RSIOfDays() {
         diffLast2Prices=$(head -n$i "$_dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
         isNegativ=${diffLast2Prices:0:1}
         if [ "$isNegativ" = '-' ]; then
-            withoutMinusSign=$(echo "$diffLast2Prices" | awk '{print substr ($1, 2, 9)}')
-            #echo "$withoutMinusSign" >> "$RSIloosingDaysFile"            
+            withoutMinusSign=${diffLast2Prices:1:9}
+            #echo "$withoutMinusSign" >> "$RSIloosingDaysFile"
             #echo "0" >> "$RSIwinningDaysFile"
-            RSIloosingDaysVar="$RSIloosingDaysVar$withoutMinusSign\n"            
-            RSIwinningDaysVar=$RSIwinningDaysVar"0\n"    
-
+            RSIloosingDaysVar="$RSIloosingDaysVar$withoutMinusSign\n"
+            RSIwinningDaysVar=$RSIwinningDaysVar"0\n"
         else
             #echo "0" >> "$RSIloosingDaysFile"             
             #echo "$diffLast2Prices" >> "$RSIwinningDaysFile"
-            RSIwinningDaysVar="$RSIwinningDaysVar$diffLast2Prices\n" 
-            RSIloosingDaysVar=$RSIloosingDaysVar"0\n"                
+            RSIwinningDaysVar="$RSIwinningDaysVar$diffLast2Prices\n"
+            RSIloosingDaysVar=$RSIloosingDaysVar"0\n"
         fi
     done
 

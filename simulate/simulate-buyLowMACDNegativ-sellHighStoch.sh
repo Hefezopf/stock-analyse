@@ -278,8 +278,8 @@ do
             averageHoldingDays=$(printf "%.1f" "$averageHoldingDays")
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}') 
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
-            intermediateProzWinFirstDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 1, 1)}')
-            intermediateProzWinSecondDigit=$(echo "$intermediateProzWin" | awk '{print substr ($0, 2, 1)}')           
+            intermediateProzWinFirstDigit=${intermediateProzWin:0:1}
+            intermediateProzWinSecondDigit=${intermediateProzWin:1:1}
             if [ "$intermediateProzWinFirstDigit" = '-' ]; then 
                 intermediateProzWinFirstDigit=0
             else 

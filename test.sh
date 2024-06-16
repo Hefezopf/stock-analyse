@@ -38,8 +38,8 @@ cat analyse.sh | tr -d '\r' > analyse1.sh
 rm analyse.sh
 mv analyse1.sh analyse.sh
 
-shellcheck --shell=bash script/strategies.sh
 shellcheck --shell=bash script/averages.sh
+shellcheck --shell=bash script/strategies.sh
 shellcheck --shell=bash script/constants.sh
 shellcheck --shell=bash script/functions.sh
 shellcheck --shell=bash script/buy.sh
@@ -58,9 +58,9 @@ rm -rf test/_result.html
 # /C/Users/xcg4444/bin/bats --tap test/*.bats
 echo bats ...
 bats -version
+bats --tap --timing test/averages.bats
 bats --tap --timing test/strategies.bats
 bats --tap --timing test/functions.bats
-bats --tap --timing test/averages.bats
 
 bats --tap --timing test/analyse.bats
 bats --tap --timing test/simulate.bats
