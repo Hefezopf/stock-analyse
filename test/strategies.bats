@@ -8,40 +8,16 @@
 . script/strategies.sh
 
 # Constants
-OUT_RESULT_FILE=temp/_result.html
+OUT_RESULT_FILE=test/_result.html
 SYMBOL=BEI
 SYMBOL_NAME="BEI BEIERSDORF AG"
 
-@test "StrategieUnderratedNewLow" {
-  function WriteComdirectUrlAndStoreFileList() {
+function WriteComdirectUrlAndStoreFileList() {
     echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
-  StrategieUnderratedNewLow 
-  [ "$resultStrategieUnderratedNewLow" == '' ]
-
-  StrategieUnderratedNewLow 3 "25, 24, 26" "26" "24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
-  [ "$resultStrategieUnderratedNewLow" == '' ]
-
-  StrategieUnderratedNewLow 5 "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 54.10, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
-  [ "$resultStrategieUnderratedNewLow" == '' ]
-
-  resultStrategieUnderratedNewLow=""
-  StrategieUnderratedNewLow 3 "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 58.16, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
-  [ "$resultStrategieUnderratedNewLow" == 'Buy: New 3 days Low (N)' ]
-
-  resultStrategieUnderratedNewLow=""
-  StrategieUnderratedNewLow 5 "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 54.12, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
-  [ "$resultStrategieUnderratedNewLow" == 'Buy: New 5 days Low (N)' ]
 }
+export -f WriteComdirectUrlAndStoreFileList
 
 @test "StrategieOverratedStochasticWhenOwn" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieOverratedStochasticWhenOwn 
   [ "$resultStrategieOverratedStochasticWhenOwn" == '' ]
 
@@ -65,12 +41,26 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
     [ "$resultStrategieOverratedStochasticWhenOwn" == 'Sell: Stochastic Own (O)' ]
 }
 
-@test "StrategieUnderratedLowHorizontalMACD" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
+@test "StrategieUnderratedNewLow" {
+  StrategieUnderratedNewLow 
+  [ "$resultStrategieUnderratedNewLow" == '' ]
 
+  StrategieUnderratedNewLow 3 "25, 24, 26" "26" "24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  [ "$resultStrategieUnderratedNewLow" == '' ]
+
+  StrategieUnderratedNewLow 5 "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 54.10, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  [ "$resultStrategieUnderratedNewLow" == '' ]
+
+  resultStrategieUnderratedNewLow=""
+  StrategieUnderratedNewLow 3 "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 58.16, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  [ "$resultStrategieUnderratedNewLow" == 'Buy: New 3 days Low (N)' ]
+
+  resultStrategieUnderratedNewLow=""
+  StrategieUnderratedNewLow 5 "59.36, 58.4, 58.86, 58.92, 58.58, 59.12, 59.28, 58.96, 57.98, 58.66, 60.1, 60.12, 60.94, 61.82, 59.96, 61.42, 62.48, 62.28, 61.1, 61.26, 61.02, 59.88, 59.6, 60.2, 59.14, 57.28, 56.96, 57.68, 58.7, 55.42, 54.2, 53.7, 54.12, 54.14, 56.36, 56.44, 58.2, 57.34, 57.3, 58.26, 57.12, 55.76, 55.88, 56.42, 57.52, 57.9, 56.76, 58.5, 55.78, 54.82, 55.76, 54.56, 55.14, 56.3, 55.78, 55.72, 54.96, 54.42, 55.86, 54.98, 58, 58.8, 58.02, 58.66, 57.56, 57.54, 57.44, 56.36, 55.88, 56.34, 55.34, 56.58, 55.86, 55.98, 55.72, 56.9, 57.3, 57.3, 58.28, 57.48, 57.82, 54.12, 57.98, 56.54, 54.68, 54.24, 54.11," "54.11" "54.24" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" "*"
+  [ "$resultStrategieUnderratedNewLow" == 'Buy: New 5 days Low (N)' ]
+}
+
+@test "StrategieUnderratedLowHorizontalMACD" {
   StrategieUnderratedLowHorizontalMACD 
   [ "$resultStrategieUnderratedLowHorizontalMACD" == '' ]
 
@@ -186,11 +176,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieOverratedHighHorizontalMACD" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieOverratedHighHorizontalMACD 
   [ "$resultStrategieOverratedHighHorizontalMACD" == '' ]
 
@@ -222,11 +207,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieOverratedDivergenceRSI" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieOverratedDivergenceRSI 
   [ "$resultStrategieOverratedDivergenceRSI" == '' ]
 
@@ -251,11 +231,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieUnderratedDivergenceRSI" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieUnderratedDivergenceRSI 
   [ "$resultStrategieUnderratedDivergenceRSI" == '' ]
 
@@ -280,11 +255,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieOverratedXHighRSI" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieOverratedXHighRSI 
   [ "$resultStrategieOverratedXHighRSI" == '' ]
 
@@ -323,11 +293,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieUnderratedXLowRSI" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieUnderratedXLowRSI 
   [ "$resultStrategieUnderratedXLowRSI" == '' ]
 
@@ -374,11 +339,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieOverratedXHighStochastic" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieOverratedXHighStochastic 
   [ "$resultStrategieOverratedXHighStochastic" == '' ]
 
@@ -418,11 +378,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieUnderratedXLowStochastic" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieUnderratedXLowStochastic 
   [ "$resultStrategieUnderratedXLowStochastic" == '' ]
 
@@ -461,11 +416,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieByTendency" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieByTendency
   [ "$resultStrategieByTendency" == '' ]
 
@@ -522,11 +472,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieOverratedHighStochasticHighRSIHighMACD" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieOverratedHighStochasticHighRSIHighMACD 
   [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
@@ -554,11 +499,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieUnderratedLowStochasticLowRSILowMACD" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieUnderratedLowStochasticLowRSILowMACD 
   [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == '' ]
 
@@ -586,11 +526,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieUnderratedByPercentAndStoch" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieUnderratedByPercentAndStochastic
   [ "$resultStrategieUnderratedByPercentAndStochastic" == '' ]
 
@@ -606,11 +541,6 @@ SYMBOL_NAME="BEI BEIERSDORF AG"
 }
 
 @test "StrategieOverratedByPercentAndStoch" {
-  function WriteComdirectUrlAndStoreFileList() {
-    echo ""
-  }
-  export -f WriteComdirectUrlAndStoreFileList
-
   StrategieOverratedByPercentAndStochastic
   [ "$resultStrategieOverratedByPercentAndStochastic" == '' ]  
 
