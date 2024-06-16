@@ -618,7 +618,7 @@ do
             # Branche und Firmenportrait Tooltip
             branche=$(echo "$lineFromTickerFile" | cut -f 5)
             firmenportrait=$(echo "$lineFromTickerFile" | cut -f 11)
-            echo "<div class="tooltip">$branche<br><div class="tooltiptext">$firmenportrait</div></div></p>"
+            echo "<div class='tooltip'>$branche<br><div class='tooltiptext'>$firmenportrait</div></div></p>"
 
             # Market Cap Progressbar, only if number
             if [ "$marketCapFromFile" = '?' ]; then

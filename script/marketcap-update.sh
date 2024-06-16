@@ -134,8 +134,8 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   firmenportrait=$(echo "$curlResponse" | grep -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<")
    if [ "$firmenportrait" ]; then
       firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
+      # shellcheck disable=SC2001
       firmenportrait=$(echo "$firmenportrait" | sed "s/\&/ u. /g")
-      #firmenportrait=$(echo "$firmenportrait" | sed "s/\&/und/g")
       firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g") 
       echo "$symbol Firmenportrait: $firmenportrait"
    else
