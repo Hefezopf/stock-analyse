@@ -56,7 +56,8 @@ echo "Sell Value:  $sellValue"€
 echo "Difference:  $diffValue"€
 echo "Percent:     $percentValue"%
 
-isNegativ=$(echo "$afterTaxValue" | awk '{print substr ($0, 0, 1)}')
+isNegativ=${afterTaxValue:0:1}
+#isNegativ=$(echo "$afterTaxValue" | awk '{print substr ($0, 0, 1)}')
 if [ "$isNegativ" != '-' ]; then
   echo "After Tax:   $afterTaxValue"€
 fi

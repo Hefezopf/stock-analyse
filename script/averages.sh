@@ -181,7 +181,8 @@ RSIloosingDaysVar=""
     while [ "$i" -le 100 ]; do
         i=$((i + 1))
         diffLast2Prices=$(head -n$i "$_dataFileParam" | tail -2 | awk 'p{print p-$0}{p=$0}' )
-        isNegativ=$(echo "$diffLast2Prices" | awk '{print substr ($0, 0, 1)}')
+        isNegativ=${diffLast2Prices:0:1}
+        #isNegativ=$(echo "$diffLast2Prices" | awk '{print substr ($0, 0, 1)}')
         if [ "$isNegativ" = '-' ]; then
             withoutMinusSign=$(echo "$diffLast2Prices" | awk '{print substr ($1, 2, 9)}')
             #echo "$withoutMinusSign" >> "$RSIloosingDaysFile"            

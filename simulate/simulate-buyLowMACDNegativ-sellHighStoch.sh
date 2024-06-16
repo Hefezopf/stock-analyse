@@ -150,11 +150,15 @@ do
         isMACDHorizontalAlarm=false
         isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
         if [ "$isNewMACDLower" = true ]; then    
-            valueNewMACDLow="$valueMACD"    
-            isNegativMACDLast_0=$(echo "$valueMACDLast_0" | awk '{print substr ($0, 0, 1)}')
-            isNegativMACDLast_1=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
-            isNegativMACDLast_2=$(echo "$valueMACDLast_2" | awk '{print substr ($0, 0, 1)}')
-            isNegativMACDLast_3=$(echo "$valueMACDLast_3" | awk '{print substr ($0, 0, 1)}')
+            valueNewMACDLow="$valueMACD"
+            isNegativMACDLast_0=${valueMACDLast_0:0:1}
+            isNegativMACDLast_1=${valueMACDLast_1:0:1}
+            isNegativMACDLast_2=${valueMACDLast_2:0:1}
+            isNegativMACDLast_3=${valueMACDLast_3:0:1}
+            #isNegativMACDLast_0=$(echo "$valueMACDLast_0" | awk '{print substr ($0, 0, 1)}')
+            #isNegativMACDLast_1=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
+            #isNegativMACDLast_2=$(echo "$valueMACDLast_2" | awk '{print substr ($0, 0, 1)}')
+            #isNegativMACDLast_3=$(echo "$valueMACDLast_3" | awk '{print substr ($0, 0, 1)}')
             if [ "$isNegativMACDLast_0" = '-' ] && [ "$isNegativMACDLast_1" = '-' ] && [ "$isNegativMACDLast_2" = '-' ] && [ "$isNegativMACDLast_3" = '-' ]; then
                 isMACDHorizontalAlarm=true
             fi
@@ -303,7 +307,8 @@ do
             # Sell if over Percentage Param (5%) or, if over Stoch Level Param (70)
             if [ "$stochAt" -gt "$StochSellLevelParam" ]; then
             #if [ "$intermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
-                isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
+                isIntermediateProzWinNegativ=${intermediateProzWin:0:1}
+                #isIntermediateProzWinNegativ=$(echo "$intermediateProzWin" | awk '{print substr ($0, 0, 1)}')
                 # NOT Sell, if tx would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
                     # ONLY Sell, if gain percent is over KEEP_IF_UNDER_PERCENTAGE (1%)
@@ -379,7 +384,8 @@ do
         RSIBuyLevelParam=$3
     fi
 
-    isSimulationWinNull=$(echo "$simulationWin" | awk '{print substr ($0, 0, 1)}')
+    isSimulationWinNull=${simulationWin:0:1}
+    #isSimulationWinNull=$(echo "$simulationWin" | awk '{print substr ($0, 0, 1)}')
     simulationWin=$(printf "%.0f" "$simulationWin")
     if [ ! "$isSimulationWinNull" = '0' ]; then
         Out "--------------------------" $OUT_SIMULATE_FILE
@@ -485,7 +491,8 @@ for i in "${!ARRAY_DIFF[@]}"; do
     Out "$i Liquidity:$liquidity€" $OUT_SIMULATE_FILE
 done
 
-isLiquidityNegativ=$(echo "$liquidity" | awk '{print substr ($0, 0, 1)}')
+isLiquidityNegativ=${isLiquidityNegativ:0:1}
+#isLiquidityNegativ=$(echo "$liquidity" | awk '{print substr ($0, 0, 1)}')
 if [ "$isLiquidityNegativ" = '-' ]; then
     Out "Currently invested (in Stocks):$liquidity€" $OUT_SIMULATE_FILE                
 else

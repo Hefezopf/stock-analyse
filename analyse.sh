@@ -490,7 +490,8 @@ do
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.1f" "$percentLastDay")
         #percentLastDay=$(printf "%.2f" "$percentLastDay")
-        isNegativ=$(echo "$percentLastDay" | awk '{print substr ($0, 0, 1)}')
+        isNegativ=${percentLastDay:0:1}
+        #isNegativ=$(echo "$percentLastDay" | awk '{print substr ($0, 0, 1)}')
         _linkColor="$GREEN"
         if [ "$isNegativ" = '-' ]; then
             _linkColor="$RED"
@@ -718,7 +719,8 @@ do
         obfuscatedValueGain=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print $1 - $2}')
         obfuscatedValueGain="$stocksPerformance"ZZ"$obfuscatedValueGain"YY
         obfuscatedValueGain=$(echo "$obfuscatedValueGain" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-        isNegativ=$(echo "$stocksPerformance" | awk '{print substr ($0, 0, 1)}')
+        isNegativ=${stocksPerformance:0:1}
+        #isNegativ=$(echo "$stocksPerformance" | awk '{print substr ($0, 0, 1)}')
         _linkColor="$GREEN"
         if [ "$isNegativ" = '-' ]; then
             _linkColor="$RED"
@@ -820,7 +822,8 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
 #    obfuscatedValueGainOverall="$stocksPerformanceOverall"ZZ"$obfuscatedValueGainOverall"YY
     obfuscatedValueGainOverall="$stocksPerformanceOverall"ZZ # "$obfuscatedValueGainOverall"YY
     obfuscatedValueGainOverall=$(echo "$obfuscatedValueGainOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-    isNegativ=$(echo "$stocksPerformanceOverall" | awk '{print substr ($0, 0, 1)}')
+    isNegativ=${stocksPerformanceOverall:0:1}
+    #isNegativ=$(echo "$stocksPerformanceOverall" | awk '{print substr ($0, 0, 1)}')
     _linkColor="$GREEN"
     if [ "$isNegativ" = '-' ]; then
         _linkColor="$RED"
