@@ -714,7 +714,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
     xhr.timeout = 8000; // time in milliseconds
     xhr.ontimeout = (e) => {
         console.error('TIMEOUT!!'+ symbol);
-    };    
+    };
    // xhr.setRequestHeader("Origin", null);
 
     //xhr.setRequestHeader("Origin", "https://www.comdirect.de");
