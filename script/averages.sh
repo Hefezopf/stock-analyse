@@ -38,7 +38,7 @@ MACD_12_26() {
                 break
             fi
         done 
-        jj_index=$((jj_index + 1))
+        jj_index=$((jj_index + 1))     
         difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
         difference=$(printf "%.2f" "$difference")  
  
@@ -59,63 +59,16 @@ MACD_12_26() {
 # EMAverageOfDays function:
 # Input: ${x}
 # Output: averagePriceList is comma separted list
-# EMAverageOfDays() {
-#     _amountOfDaysParam=${1}
-#     _dataFileParam=${2}
-#     export averagePriceList
-
-#     averagePriceList=$(seq -s " ," "${_amountOfDaysParam}" | tr -d '[:digit:]')
-
-#     i=0
-#     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
-#         if [ "$i" = 0 ]; then # Frist Loop
-#             headLines=$((100-i))
-#             ema=$(head -n"$headLines" "$_dataFileParam" | tail -"$_amountOfDaysParam" | awk '{ sum += $1; } END { print sum/'"$_amountOfDaysParam"'; }')
-#         else
-#             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
-#             headLinesLastPrice=$((101-i-_amountOfDaysParam))
-#             lastPrice=$(head -n"$headLinesLastPrice" "$_dataFileParam" | tail -1)
-#             # shellcheck disable=SC2086
-#             ema=$(echo "$lastPrice $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')          
-#         fi
-#         averagePriceList="$averagePriceList $ema,"
-#         i=$((i + 1))
-#     done   
-# }
-
-# EMAverageOfDays function:
-# Input: ${x}
-# Output: averagePriceList is comma separted list
 EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
     _quotesAsArrayParam=("$@") # all params are in this array!!!
     
-   #echo "$3"
-   #mapfile -t _quotesAsArrayParam <<< "$@"
-
-#echo "-------------ARRAY " ${@}
-
-#echo "-------------ARRAY " "${3}"
-
-    # shellcheck disable=SC2068,SC2206
-   # _quotesAsArrayParam=${3}
-
-   #_quotesAsArrayParam=($(echo "$3"))
-   # _quotesAsArrayParam=("$@") # all params are in this array!!!
-    #_quotesAsArrayParam="$@" # all params are in this array!!!
-   # _quotesAsArrayParam=("$@") # all params are in this array!!!
-  #  _quotesAsArrayParam=("$(cat "$DATA_FILE")")
     export averagePriceList
 
     averagePriceList=$(seq -s " ," "${_amountOfDaysParam}" | tr -d '[:digit:]')
-    
     # shellcheck disable=SC2206
     _quotesAsArray=(${_quotesAsArrayParam[2]})
-    #mapfile -t _quotesAsArray <<< "${_quotesAsArrayParam[2]}"
-
-#echo "-------------ARRAY " "${@}"
-
     i=0
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         if [ "$i" = 0 ]; then # Frist Loop
@@ -126,7 +79,6 @@ EMAverageOfDays() {
                 ind=$((ind - 1))
             done
             ema=$(echo "$ema $_amountOfDaysParam" | awk '{print ($1 / $2)}')
-    #echo "-----------ema $ema"
         else
             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
             ind=$((100-i-_amountOfDaysParam)) 
