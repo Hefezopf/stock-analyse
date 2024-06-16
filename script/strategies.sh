@@ -438,10 +438,14 @@ StrategieUnderratedLowHorizontalMACD() {
 #echo "isNewMACDLower $isNewMACDLower jj_index $jj_index valueMACD $valueMACD"
             if [ "$isNewMACDLower" = true ]; then    
                 valueNewMACDLow="$valueMACD"    
-                isNegativMACDLast_0=$(echo "$valueMACDLast_0" | awk '{print substr ($0, 0, 1)}')
-                isNegativMACDLast_1=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
-                isNegativMACDLast_2=$(echo "$valueMACDLast_2" | awk '{print substr ($0, 0, 1)}')
-                isNegativMACDLast_3=$(echo "$valueMACDLast_3" | awk '{print substr ($0, 0, 1)}')              
+                isNegativMACDLast_0=${valueMACDLast_0:0:1}
+                isNegativMACDLast_1=${valueMACDLast_1:0:1}
+                isNegativMACDLast_2=${valueMACDLast_2:0:1}
+                isNegativMACDLast_3=${valueMACDLast_3:0:1}
+                #isNegativMACDLast_0=$(echo "$valueMACDLast_0" | awk '{print substr ($0, 0, 1)}')
+                #isNegativMACDLast_1=$(echo "$valueMACDLast_1" | awk '{print substr ($0, 0, 1)}')
+                #isNegativMACDLast_2=$(echo "$valueMACDLast_2" | awk '{print substr ($0, 0, 1)}')
+                #isNegativMACDLast_3=$(echo "$valueMACDLast_3" | awk '{print substr ($0, 0, 1)}')              
                 if [ "$isNegativMACDLast_0" = '-' ] && [ "$isNegativMACDLast_1" = '-' ] && [ "$isNegativMACDLast_2" = '-' ] && [ "$isNegativMACDLast_3" = '-' ]; then
                     isMACDHorizontalAlarm1=true
                 fi
@@ -458,8 +462,14 @@ StrategieUnderratedLowHorizontalMACD() {
         # If first criterium negativ -> first step Alarm!
         if [ "$isNegativ" = '-' ] || [ "$difference" = 0 ]; then
             # Last Value
+            
+            #difference0_1=$(expr "$valueMACDLast_0" - "$valueMACDLast_1")
+            #difference0_1=$(("$valueMACDLast_0-$valueMACDLast_1"))
             difference0_1=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
+            
+            #difference0_2=$(("$valueMACDLast_0" - "$valueMACDLast_2"))
             difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
+            
             isDifference0_1Negativ=$(echo "$difference0_1" | awk '{print substr ($0, 0, 1)}')
             # If second criterium positiv -> Alarm!
             if [ "$isDifference0_1Negativ" = '-' ] || [ "$difference0_1" = 0 ]; then
