@@ -199,27 +199,22 @@ do
         posInAlarm=$((RSIindex-13))
         alarmAtIndex="$(echo "$alarms" | cut -f "$posInAlarm" -d ',')"
         _amountOfBuySignals="${alarmAtIndex//[^+]}"
-
         # Buy, if more buy signals in Result file: STOCK >= 7 or INDEX >=5
         if { [ "${#_amountOfBuySignals}" -ge "$alarmCountForStockParam" ] && [ "$asset_type" = 'STOCK' ]; } || 
             { [ "${#_amountOfBuySignals}" -ge "$alarmCountForIndexParam" ] && [ "$asset_type" = 'INDEX' ]; } then
+            echo rein-------------------------
             isHoldPiecesAndNewLow=true
             isMACDhorizontalAndLastStochNeg=true
         fi
 
         # Buy
         if [ "$isHoldPiecesAndNewLow" = true ] || [ "$isMACDhorizontalAndLastStochNeg" = true ]; then
-
-            # sim CalculateMarketCapRSILevel
             CalculateMarketCapRSILevel "$lastRSI" "$marketCapFromFile"
             # shellcheck disable=SC2154
-            #echo marketCapFromFile "$marketCapFromFile" lastRSI "$lastRSI" isMarketCapRSILevel "$isMarketCapRSILevel"
             if [ "$isMarketCapRSILevel" = true ]; then
                 marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the following caluculations
                 alarmCountForStockParam=$8
-                alarmCountForIndexParam=$9
-            # sim CalculateMarketCapRSILevel
-
+                alarmCountForIndexParam=10
                 piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
                 amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
                 piecesPerTrade=${piecesPerTrade%.*}
@@ -233,11 +228,8 @@ do
                 # Fees each Buy trade
                 CalculateTxFee "$quoteAt" "$piecesPerTrade"
                 amount=$((amount - txFee))
-                
+              
                 piecesHold=$((piecesHold+piecesPerTrade))
-                #piecesHold=$(echo "$piecesHold $piecesPerTrade" | awk '{print ($1 + $2)}')
-                #echo piecesHold="$piecesHold"
-
                 wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
                 wallet=$(printf "%.0f" "$wallet")
                 quoteAt=$(printf "%.2f" "$quoteAt")
@@ -264,9 +256,7 @@ do
                 ARRAY_BUY[RSIindex]=$amount
                 ARRAY_TX_INDEX[RSIindex]="$wallet€"
                 ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
-            # sim CalculateMarketCapRSILevel
             fi
-            # sim CalculateMarketCapRSILevel
         fi
 
         # Sell
@@ -312,15 +302,10 @@ do
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
                     # ONLY Sell, if gain percent is over KEEP_IF_UNDER_PERCENTAGE (1%)
                     if [ "$intermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then
-                        #wallet=$(echo "$amount $wallet" | awk '{print ($1 - $2)}')
                         wallet=$((amount-wallet))
-                        #echo wallet=$wallet
-
                         wallet=$(printf "%.0f" "$wallet")
-                        #sellAmountOverAll=$(echo "$amount $sellAmountOverAll" | awk '{print ($1 + $2)}')
                         sellAmountOverAll=$((amount+sellAmountOverAll))
-                        #echo sellAmountOverAll=$sellAmountOverAll
-
+                        
                         Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount:$amount€\tStoch:$stochAt" $OUT_SIMULATE_FILE
                         anualPercentWin=$(echo "360 $averageHoldingDays" | awk '{print ($1 / $2)}')
                         anualPercentWin=$(echo "$anualPercentWin $intermediateProzWin" | awk '{print ($1 * $2)}')
@@ -332,10 +317,7 @@ do
                         averageHoldingDaysOverall=$(echo "$averageHoldingDaysOverallDays $averageHoldingDaysOverallSymbols" | awk '{print ($1 / $2)}')
                         #echo averageHoldingDaysOverallDays=$averageHoldingDaysOverallDays averageHoldingDaysOverallSymbols=$averageHoldingDaysOverallSymbols averageHoldingDaysOverall=$averageHoldingDaysOverall
 
-                        #simulationWin=$(echo "$simulationWin $wallet" | awk '{print ($1 + $2)}')
                         simulationWin=$((simulationWin+wallet))
-                        #echo simulationWin=$simulationWin
-
                         piecesHold=0
                         amountPerTrade="$amountPerTradeParam"
                         amountOfTrades=0
@@ -397,9 +379,7 @@ do
     if [ ! "$isSimulationWinNull" = '0' ]; then
         Out "--------------------------" $OUT_SIMULATE_FILE
         Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
-       # winOverAll=$(echo "$winOverAll $simulationWin" | awk '{print ($1 + $2)}')
         winOverAll=$((winOverAll+simulationWin))
-        #echo winOverAll===$winOverAll
         prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
     fi
@@ -495,11 +475,7 @@ liquidity=0
 # Output Liquidity
 for i in "${!ARRAY_DIFF[@]}"; do
     valueDiffArray="${ARRAY_DIFF[i]}"
-    #liquidity=$(echo "$liquidity $valueDiffArray" | awk '{print ($1 - $2)}')
     liquidity=$((liquidity-valueDiffArray))
-    #echo liquidity===$liquidity
-
-
     Out "$i Liquidity:$liquidity€" $OUT_SIMULATE_FILE
 done
 
