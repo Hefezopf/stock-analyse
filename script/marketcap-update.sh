@@ -41,7 +41,6 @@ do
     ASSET_TYPE="STOCK"
   fi
 
-
   echo ""
   echo "$symbol" "$NAME" ...
 
@@ -50,13 +49,13 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
   marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
   if [ "$marktkap" ]; then
-    echo "$symbol Market Cap:$marktkap Mrd.€"
+    echo "Market Cap:$marktkap Mrd.€"
   else
     # Bil. Market Cap
     marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
     if [ "$marktkap" ]; then
         marktkap="${marktkap}000"
-        echo "$symbol Market Cap:$marktkap Mrd.€"
+        echo "Market Cap:$marktkap Mrd.€"
     else
         marktkap="?"
         marktkapErrorSymbols="$symbol $marktkapErrorSymbols"
@@ -71,16 +70,16 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   if [ "$branche" ]; then
       # Replace ' /' with ',', because error with linux
       branche=$(echo "$branche" | sed "s/ \//,/g")  
-      echo "$symbol Branche: $branche"
+      echo "Branche: $branche"
   else
     # Branche ><
     branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-)
     if [ "$branche" ]; then
       # Replace ' /' with ',', because error with linux
-      branche=$(echo "$branche" | sed "s/ \//,/g")   
+      branche=$(echo "$branche" | sed "s/ \//,/g")
       # shellcheck disable=SC2116 
       branche=$(echo \""$branche\"")
-      echo "$symbol Branche: $branche"
+      echo "Branche: $branche"
     else
       branche="?"
       brancheErrorSymbols="$symbol $brancheErrorSymbols"
@@ -93,7 +92,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # KGVe
   kgve=$(echo "$curlResponse" | grep -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
   if [ "$kgve" ]; then
-      echo "$symbol KGVe: $kgve"
+      echo "KGVe: $kgve"
   else
     kgve="?"
     kgveErrorSymbols="$symbol $kgveErrorSymbols"
@@ -108,7 +107,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
       # Replace ',' with '.'
       # shellcheck disable=SC2001 
       dive=$(echo "$dive" | sed "s/,/./g")
-      echo "$symbol DIVe: $dive%"
+      echo "DIVe: $dive%"
   else
     dive="?"
     diveErrorSymbols="$symbol $diveErrorSymbols"
@@ -120,7 +119,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # Hauptversammlung
   hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
   if [ "$hauptversammlung" ]; then
-      echo "$symbol Hauptversammlung: $hauptversammlung"
+      echo "Hauptversammlung: $hauptversammlung"
       if [ "$hauptversammlung" ]; then
         hauptversammlungSymbols="$symbol $hauptversammlungSymbols"
       fi
@@ -137,7 +136,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
       # shellcheck disable=SC2001
       firmenportrait=$(echo "$firmenportrait" | sed "s/\&/ u. /g")
       firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g") 
-      echo "$symbol Firmenportrait: $firmenportrait"
+      echo "Firmenportrait: $firmenportrait"
    else
     firmenportrait="-------------"
     firmenportraitErrorSymbols="$symbol $firmenportraitErrorSymbols"
@@ -153,7 +152,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # Spread
   spread=$(echo "$curlResponse" | grep -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")
   if [ "$spread" ]; then
-      echo "$symbol Spread: $spread.xx%"
+      echo "Spread: $spread.xx%"
       if [ "$spread" -gt 1 ]; then
         highSpreadSymbols="$symbol $highSpreadSymbols"
       fi
