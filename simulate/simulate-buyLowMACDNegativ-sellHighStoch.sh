@@ -33,6 +33,7 @@ sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
 alarmCountForStockParam=$8
 alarmCountForIndexParam=$9
+alarmCountForIndexOrigParam=$9 # Copy as orig. value needed for summary at the end
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -52,7 +53,7 @@ function ParameterOut()
     Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
     Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
     Out "Buy Alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
-    Out "Buy Alarm count for Indexes:$alarmCountForIndexParam" $OUT_SIMULATE_FILE
+    Out "Buy Alarm count for Indexes:$alarmCountForIndexOrigParam" $OUT_SIMULATE_FILE
 }
 
 mkdir -p simulate/out
@@ -214,7 +215,7 @@ do
             if [ "$isMarketCapRSILevel" = true ]; then
                 marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the following caluculations
                 alarmCountForStockParam=$8
-                alarmCountForIndexParam=10
+                alarmCountForIndexParam=100
                 piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
                 amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
                 piecesPerTrade=${piecesPerTrade%.*}
