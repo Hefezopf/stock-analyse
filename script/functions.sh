@@ -115,7 +115,10 @@ DetermineTendency() {
 
     value_82=$(echo "$_listParam" | cut -f 82 -d ',')
     value_87=$(echo "$_listParam" | cut -f 87 -d ',')
+
     difference=$(echo "$value_87 $value_82" | awk '{print ($1 - $2)}')
+    #difference=$(echo "scale=2;$value_87-$value_82" | bc)
+
     isNegativ=${difference:0:1}
     relative=$(echo "$value_87 $value_82" | awk '{print (($1 / $2)-1)*100}')
     valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')

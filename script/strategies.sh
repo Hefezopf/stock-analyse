@@ -398,8 +398,6 @@ StrategieUnderratedLowHorizontalMACD() {
     _markerOwnStockParam=$5
     export resultStrategieUnderratedLowHorizontalMACD=""
 
-#echo "_MACDQuoteListParam $_MACDQuoteListParam"
-
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
         _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
@@ -408,13 +406,8 @@ StrategieUnderratedLowHorizontalMACD() {
         
         # shellcheck disable=SC2001
         _MACDQuoteListParam=$(sed 's/,/ /g' <<< "$_MACDQuoteListParam")
-        for valueMACD in $_MACDQuoteListParam #$(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
+        for valueMACD in $_MACDQuoteListParam
         do
-            #isValueMACDNegativ=${valueMACD:0:1}
-            # if [ "$isValueMACDNegativ" != '-' ] || [ "$valueMACD" = 0 ]; then
-            #     valueNewMACDLow=0
-            # fi
-
             if [ "$jj_index" = 71 ]; then
                 valueMACDLast_3="$valueMACD" 
             fi
@@ -430,9 +423,9 @@ StrategieUnderratedLowHorizontalMACD() {
             jj_index=$((jj_index + 1))
 
             isMACDHorizontalAlarm1=false
-            isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
-#echo "isNewMACDLower $isNewMACDLower jj_index $jj_index valueMACD $valueMACD"
-            if [ "$isNewMACDLower" = true ]; then
+           # isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
+           # if [ "$isNewMACDLower" = true ]; then
+            if [ $(echo "$valueMACD <= $valueNewMACDLow" | bc) ]; then
                 valueNewMACDLow="$valueMACD"
                 isNegativMACDLast_0=${valueMACDLast_0:0:1}
                 isNegativMACDLast_1=${valueMACDLast_1:0:1}
@@ -449,6 +442,8 @@ StrategieUnderratedLowHorizontalMACD() {
         # Check if MACD is horizontal?
         # BeforeLast Value
         difference=$(echo "$valueMACDLast_1 $valueMACDLast_2" | awk '{print ($1 - $2)}')
+        #difference=$(echo "scale=3;$valueMACDLast_1-$valueMACDLast_2" | bc)
+
         isNegativ=${difference:0:1}
         # Negativ -> down
         # If first criterium negativ -> first step Alarm!
