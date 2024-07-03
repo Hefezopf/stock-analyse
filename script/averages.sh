@@ -36,7 +36,6 @@ MACD_12_26() {
 
         #difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
         difference=$(echo "scale=2;$value12-$value26" | bc)
-
         difference=$(printf "%.2f" "$difference")
 
         # Ignore first incorrect number?!
