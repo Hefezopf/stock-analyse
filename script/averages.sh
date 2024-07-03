@@ -72,16 +72,18 @@ EMAverageOfDays() {
             ind=99
             while [ "$ind" -ge $((100-_amountOfDaysParam)) ]; do
                 ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1 + $2)}')
+                #ema=$(echo "scale=3;${_quotesAsArray[ind]} + $ema" | bc)
                 ind=$((ind - 1))
             done
             ema=$(echo "$ema $_amountOfDaysParam" | awk '{print ($1 / $2)}')
+            #ema=$(echo "scale=3;$ema / $_amountOfDaysParam" | bc)
         else
             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
             ind=$((100-i-_amountOfDaysParam))
             while [ "$ind" -ge $((100-i-_amountOfDaysParam)) ]; do
                 # shellcheck disable=SC2086
-                #ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')
-                ema=$(echo "scale=2;(${_quotesAsArray[ind]}*(2/('$_amountOfDaysParam'+1))+$ema*(1-(2/('$_amountOfDaysParam'+1))))" | bc)
+                ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')
+                #ema=$(echo "scale=2;${_quotesAsArray[ind]} * (2/($_amountOfDaysParam+1)) + $ema * (1-(2/($_amountOfDaysParam+1)))" | bc)
                 ind=$((ind - 1))
             done
         fi
