@@ -122,8 +122,21 @@ if { [ "$queryParam" = 'online' ]; } &&
     exit 8
 fi
 
-percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
-percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
+#echo "scale=2;102/100" | bc
+
+##percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
+
+#echo ------percentageLesserFactor=$percentageLesserFactor
+
+percentageLesserFactor=$(echo "scale=2;(100+$percentageParam)/100" | bc)
+
+
+
+#percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
+percentageGreaterFactor=$(echo "scale=2;(100-$percentageParam)/100" | bc)
+echo ------percentageLesserFactor="$percentageLesserFactor"
+echo ------percentageGreaterFactor="$percentageGreaterFactor"
+
 
 # RSI percentage
 RSIQuoteLower=$RSIQuoteParam

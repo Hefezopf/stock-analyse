@@ -39,8 +39,12 @@ MACD_12_26() {
             fi
         done 
         jj_index=$((jj_index + 1))
-        difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
-        difference=$(printf "%.2f" "$difference")  
+        #difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
+        difference=$(echo "scale=2;$value12-$value26" | bc)
+        difference=$(printf "%.2f" "$difference")
+
+echo -----difference="$difference"
+
  
         # Ignore first incorrect number?!
         if [ "$kk_index" -eq 15 ]; then 
@@ -81,7 +85,7 @@ EMAverageOfDays() {
             ema=$(echo "$ema $_amountOfDaysParam" | awk '{print ($1 / $2)}')
         else
             #(B17*(2/(12+1))+C16*(1-(2/(12+1))))
-            ind=$((100-i-_amountOfDaysParam)) 
+            ind=$((100-i-_amountOfDaysParam))
             while [ "$ind" -ge $((100-i-_amountOfDaysParam)) ]; do
                 # shellcheck disable=SC2086
                 ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')

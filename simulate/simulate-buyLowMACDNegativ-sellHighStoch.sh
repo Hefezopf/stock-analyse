@@ -236,7 +236,7 @@ do
                 quoteAt=$(printf "%.2f" "$quoteAt")
                 Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tMACD:$valueMACD\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
                 buyingDay=$((buyingDay + RSIindex))
-                amountOfTrades=$((amountOfTrades + 1)) 
+                amountOfTrades=$((amountOfTrades + 1))
 
                 # Calculate ARRAY_BUY
                 for i in "${!ARRAY_BUY[@]}"; do
@@ -271,7 +271,7 @@ do
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
             averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
             averageHoldingDays=$(printf "%.1f" "$averageHoldingDays")
-            intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}') 
+            intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
             intermediateProzWinFirstDigit=${intermediateProzWin:0:1}
             intermediateProzWinSecondDigit=${intermediateProzWin:1:1}

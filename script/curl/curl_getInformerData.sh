@@ -61,7 +61,7 @@ do
 # informerDataReverseFile="$DATA_INFORMER_DIR/$symbol.revers.txt"
     # dataFile="./data/$symbol.txt"
     # cp "$dataFile" "$DATA_INFORMER_DIR"
-    # lastLine=$(head -n1 "$dataFile") 
+    # lastLine=$(head -n1 "$dataFile")
     # cat "$informerDataFile" | tac > "$informerDataReverseFile"
     # allLines=""
     # i=10

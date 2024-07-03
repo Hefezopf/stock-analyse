@@ -6,6 +6,32 @@ TODO:
 bc lokal und in GitHub
 -> wegen awk ersetzen und schneller werden
 $(())
+percentageLesserFactor=$(echo "100 2" | awk '{print ($1 + $2)/100}')
+echo percentageLesserFactor=$percentageLesserFactor
+1.02
+
+percentageLesserFactor=$((102/100))
+
+percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
+
+echo "10.3 < 12.3" | bc
+
+echo "scale=2;102/100" | bc
+
+percentageLesserFactor=$(echo "scale=2;(100+$percentageParam)/100" | bc)
+percentageLesserFactor=$(echo "scale=2;(100+$percentageParam)/100" | bc)
+
+ok 1 RSIOfDays in 26600ms
+ok 2 MACD_12_26 in 17100ms
+ok 3 EMAverageOfDays in 14522ms
+ok 4 AverageOfDays in 6607ms
+
+        #difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
+        difference=$(echo "scale=2;$value12-$value26" | bc)
+        difference=$(printf "%.2f" "$difference")
+
+echo -----difference="$difference"
+
 
 
 
@@ -142,6 +168,10 @@ Anfang FEBRUAR:
 
 -"$DATA_AHLA_FILE" als 2.ter parameter weg
 EMAverageOfDays 26 "$DATA_AHLA_FILE" "${QUOTES_AS_ARRAY[@]}"
+
+
+where bc
+D:\Programme\Git\usr\bin
 
 
 Moesif Settings:

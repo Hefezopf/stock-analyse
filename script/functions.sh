@@ -114,7 +114,7 @@ DetermineTendency() {
     export tendency="$FALLING"
 
     value_82=$(echo "$_listParam" | cut -f 82 -d ',')
-    value_87=$(echo "$_listParam" | cut -f 87 -d ',')  
+    value_87=$(echo "$_listParam" | cut -f 87 -d ',')
     difference=$(echo "$value_87 $value_82" | awk '{print ($1 - $2)}')
     isNegativ=${difference:0:1}
     relative=$(echo "$value_87 $value_82" | awk '{print (($1 / $2)-1)*100}')

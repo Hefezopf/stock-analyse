@@ -225,7 +225,7 @@ StrategieOverratedXHighRSI() {
         value_84=$(echo "$_RSIQuoteListParam" | cut -f 84 -d ',')
         value_85=$(echo "$_RSIQuoteListParam" | cut -f 85 -d ',')
         value_86=$(echo "$_RSIQuoteListParam" | cut -f 86 -d ',')
-        value_87=$(echo "$_RSIQuoteListParam" | cut -f 87 -d ',')   
+        value_87=$(echo "$_RSIQuoteListParam" | cut -f 87 -d ',')
         countHighRSI=0
         oneOfTheLastRSIHigh=0
         if [ "$value_87" -gt "$_highRSIValueParam" ]; then

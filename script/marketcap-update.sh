@@ -69,7 +69,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-)
   if [ "$branche" ]; then
       # Replace ' /' with ',', because error with linux
-      branche=$(echo "$branche" | sed "s/ \//,/g")  
+      branche=$(echo "$branche" | sed "s/ \//,/g")
       echo "Branche: $branche"
   else
     # Branche ><
@@ -135,7 +135,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
       firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
       # shellcheck disable=SC2001
       firmenportrait=$(echo "$firmenportrait" | sed "s/\&/ u. /g")
-      firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g") 
+      firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g")
       echo "Firmenportrait: $firmenportrait"
    else
     firmenportrait="-------------"
