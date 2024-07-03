@@ -12,23 +12,17 @@ MACD_12_26() {
     export lastMACDValue
 
     # Remove leading commas  
-    #averagePriceMACD12List=$(echo "$_averagePriceList12Param" | cut -b 24-10000)
     averagePriceMACD12List=${_averagePriceList12Param:24:10000}
-#    averagePriceMACD12List=$(echo "$_averagePriceList12Param" | cut -b 24-10000)
-
-#    averagePriceMACD26List=$(echo "$_averagePriceList26Param" | cut -b 52-10000)
     averagePriceMACD26List=${_averagePriceList26Param:52:10000}
 
     jj_index=0
     # shellcheck disable=SC2001
-    #averagePriceMACD26List=${averagePriceMACD26List/,/ /$}
     averagePriceMACD26List=$(sed 's/,/ /g' <<< "$averagePriceMACD26List")
     for value26 in $averagePriceMACD26List #$(echo "$averagePriceMACD26List" | sed "s/,/ /g")
     do
         index=$((14 + jj_index))
         kk_index=-1
         # shellcheck disable=SC2001
-        #averagePriceMACD12List=${averagePriceMACD12List/,/ /$}
         averagePriceMACD12List=$(sed 's/,/ /g' <<< "$averagePriceMACD12List")
         for valueMACD12 in $averagePriceMACD12List #$(echo "$averagePriceMACD12List" | sed "s/,/ /g")
         do
@@ -39,13 +33,12 @@ MACD_12_26() {
             fi
         done 
         jj_index=$((jj_index + 1))
+
         #difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
         difference=$(echo "scale=2;$value12-$value26" | bc)
+
         difference=$(printf "%.2f" "$difference")
 
-echo -----difference="$difference"
-
- 
         # Ignore first incorrect number?!
         if [ "$kk_index" -eq 15 ]; then 
             MACDList="$MACDList , $difference, $difference,"
@@ -57,7 +50,6 @@ echo -----difference="$difference"
     difference=$(printf "%.2f" "$difference")
     lastMACDValue=$difference
     MACDList=" , , , , , , , , , , ,$MACDList"
-#echo "----MACDList $MACDList"
 }
 
 # EMAverageOfDays function:
@@ -138,13 +130,9 @@ RSIOfDays() {
         isNegativ=${diffLast2Prices:0:1}
         if [ "$isNegativ" = '-' ]; then
             withoutMinusSign=${diffLast2Prices:1:9}
-            #echo "$withoutMinusSign" >> "$RSIloosingDaysFile"
-            #echo "0" >> "$RSIwinningDaysFile"
             RSIloosingDaysVar="$RSIloosingDaysVar$withoutMinusSign\n"
             RSIwinningDaysVar=$RSIwinningDaysVar"0\n"
         else
-            #echo "0" >> "$RSIloosingDaysFile"
-            #echo "$diffLast2Prices" >> "$RSIwinningDaysFile"
             RSIwinningDaysVar="$RSIwinningDaysVar$diffLast2Prices\n"
             RSIloosingDaysVar=$RSIloosingDaysVar"0\n"
         fi
@@ -203,6 +191,9 @@ StochasticOfDays() {
         if awk 'BEGIN {exit !('"$highestStochasticRaw"' > '"$lowestStochasticRaw"')}'; then
             # Formula=((C – Ln )/( Hn – Ln )) * 100
             lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
+
+                    #difference=$(echo "scale=2;$value12-$value26" | bc)
+
         else 
             lastStochasticQuote=100
         fi
