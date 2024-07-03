@@ -80,7 +80,8 @@ EMAverageOfDays() {
             ind=$((100-i-_amountOfDaysParam))
             while [ "$ind" -ge $((100-i-_amountOfDaysParam)) ]; do
                 # shellcheck disable=SC2086
-                ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')
+                #ema=$(echo "${_quotesAsArray[ind]} $ema" | awk '{print ($1*(2/('$_amountOfDaysParam'+1))+$2*(1-(2/('$_amountOfDaysParam'+1))))}')
+                ema=$(echo "scale=2;(${_quotesAsArray[ind]}*(2/('$_amountOfDaysParam'+1))+$ema*(1-(2/('$_amountOfDaysParam'+1))))" | bc)
                 ind=$((ind - 1))
             done
         fi
@@ -190,10 +191,8 @@ StochasticOfDays() {
         highestStochasticRaw=$(sort -gr "$stochasticFile" | head -n 1)
         if awk 'BEGIN {exit !('"$highestStochasticRaw"' > '"$lowestStochasticRaw"')}'; then
             # Formula=((C – Ln )/( Hn – Ln )) * 100
-            lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
-
-                    #difference=$(echo "scale=2;$value12-$value26" | bc)
-
+            #lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
+            lastStochasticQuote=$(echo "scale=2;( ($lastStochasticRaw - $lowestStochasticRaw) / ($highestStochasticRaw - $lowestStochasticRaw) ) * 100" | bc)
         else 
             lastStochasticQuote=100
         fi
