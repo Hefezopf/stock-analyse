@@ -426,9 +426,9 @@ StrategieUnderratedLowHorizontalMACD() {
             jj_index=$((jj_index + 1))
 
             isMACDHorizontalAlarm1=false
-           # isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
-           # if [ "$isNewMACDLower" = true ]; then
-            if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
+            isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
+            if [ "$isNewMACDLower" = true ]; then
+           # if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
                 valueNewMACDLow="$valueMACD"
                 isNegativMACDLast_0=${valueMACDLast_0:0:1}
                 isNegativMACDLast_1=${valueMACDLast_1:0:1}

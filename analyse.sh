@@ -644,13 +644,7 @@ do
 
         echo "<br><p class='p-result'>"
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
-       # if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
-            echo "<b>$quoteDate</b>"
-       # else # NOK! -> orange
-       #     echo "<span id='detailsIdOldData'><br><b style='color:red; font-size:xx-large'>->OLD DATA:$markerOwnStock$symbol</b><br></span>" >> $OUT_RESULT_FILE
-        #    echo "<span id='oldDataId'><b style='color:black; font-size:xx-large'>$quoteDate</b></span>"
-       #     echo "<div id='oldDataTextId'><b style='color:black; font-size:x-large; background:red;'>->OLD DATA</b></div>"
-        #fi
+        echo "<b>$quoteDate</b>"
         echo "<b>&nbsp;&nbsp;$exchange&nbsp;&nbsp;$asset_type</b>"
         if [ "$asset_type" = 'STOCK' ]; then
             echo "<b>&nbsp;&nbsp;HV:$hauptversammlung</b>"
