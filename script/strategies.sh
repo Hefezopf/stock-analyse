@@ -405,7 +405,8 @@ StrategieUnderratedLowHorizontalMACD() {
         valueNewMACDLow=100
         
         # shellcheck disable=SC2001
-        _MACDQuoteListParam=$(sed 's/,/ /g' <<< "$_MACDQuoteListParam")
+        #_MACDQuoteListParam=$(sed 's/,/ /g' <<< "$_MACDQuoteListParam")
+        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | sed 's/,/ /g')
         for valueMACD in $_MACDQuoteListParam
         do
             if [ "$jj_index" = 71 ]; then
@@ -425,7 +426,7 @@ StrategieUnderratedLowHorizontalMACD() {
             isMACDHorizontalAlarm1=false
            # isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
            # if [ "$isNewMACDLower" = true ]; then
-            if [ $(echo "$valueMACD <= $valueNewMACDLow" | bc) ]; then
+            if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
                 valueNewMACDLow="$valueMACD"
                 isNegativMACDLast_0=${valueMACDLast_0:0:1}
                 isNegativMACDLast_1=${valueMACDLast_1:0:1}
