@@ -18,13 +18,15 @@ MACD_12_26() {
     jj_index=0
     # shellcheck disable=SC2001
     averagePriceMACD26List=$(sed 's/,/ /g' <<< "$averagePriceMACD26List")
-    for value26 in $averagePriceMACD26List #$(echo "$averagePriceMACD26List" | sed "s/,/ /g")
+    #averagePriceMACD26List=$(echo "$averagePriceMACD26List" | sed 's/,/ /g')
+    for value26 in $averagePriceMACD26List
     do
         index=$((14 + jj_index))
         kk_index=-1
         # shellcheck disable=SC2001
         averagePriceMACD12List=$(sed 's/,/ /g' <<< "$averagePriceMACD12List")
-        for valueMACD12 in $averagePriceMACD12List #$(echo "$averagePriceMACD12List" | sed "s/,/ /g")
+        #averagePriceMACD12List=$(echo "$averagePriceMACD12List" | sed 's/,/ /g')
+        for valueMACD12 in $averagePriceMACD12List
         do
             kk_index=$((kk_index + 1))
             if [ "$kk_index" = "$index" ]; then

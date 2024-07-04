@@ -341,7 +341,7 @@ StrategieOverratedHighHorizontalMACD() {
         # shellcheck disable=SC2001
         #_MACDQuoteListParam=${_MACDQuoteListParam/,/ /$}
         _MACDQuoteListParam=$(sed 's/,/ /g' <<< "$_MACDQuoteListParam")
-        for valueMACD in $_MACDQuoteListParam #$(echo "$_MACDQuoteListParam" | sed "s/,/ /g")
+        for valueMACD in $_MACDQuoteListParam
         do
             if [ "$jj_index" = 72 ]; then
                 valueMACDLast_2="$valueMACD" 
@@ -451,7 +451,6 @@ StrategieUnderratedLowHorizontalMACD() {
         if [ "$isNegativ" = '-' ] || [ "$difference" = 0 ]; then
             # Last Value
             difference0_1=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
-            #difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
             isDifference0_1Negativ=${difference0_1:0:1}
             # If second criterium positiv -> Alarm!
             if [ "$isDifference0_1Negativ" = '-' ] || [ "$difference0_1" = 0 ]; then
