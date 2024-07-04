@@ -451,7 +451,7 @@ StrategieUnderratedLowHorizontalMACD() {
         if [ "$isNegativ" = '-' ] || [ "$difference" = 0 ]; then
             # Last Value
             difference0_1=$(echo "$valueMACDLast_0 $valueMACDLast_1" | awk '{print ($1 - $2)}')
-            difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
+            #difference0_2=$(echo "$valueMACDLast_0 $valueMACDLast_2" | awk '{print ($1 - $2)}')
             isDifference0_1Negativ=${difference0_1:0:1}
             # If second criterium positiv -> Alarm!
             if [ "$isDifference0_1Negativ" = '-' ] || [ "$difference0_1" = 0 ]; then
