@@ -15,14 +15,16 @@ StrategieUnderratedNewLow() {
     _markerOwnStockParam=$8
     export resultStrategieUnderratedNewLow=""
 
-    newLow=$(echo "$_last" "$_beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
-    if [ "$newLow" = true ]; then
+    #newLow=$(echo "$_last" "$_beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
+    if [ "$(echo "$_last < $_beforeLastQuote" | bc)" ]; then
+    #if [ "$newLow" = true ]; then
         i=85 # not last and not beforeLast!
         howManyValues=$((86-_count))
         while [ "$i" -ge $howManyValues ]; do
             # shellcheck disable=SC2086,SC2027
             valueNewLow=$(echo ""$_commaPriceList"" | cut -f$i -d",")
             conditionNewLow=$(echo "$_last" "$valueNewLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
+            #if [ "$(echo "$_last < $valueNewLow" | bc)" ]; then
             if [ "$conditionNewLow" = false ]; then
                 break;
             fi
