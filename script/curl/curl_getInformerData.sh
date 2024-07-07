@@ -6,7 +6,7 @@
 #
 # Reihenfolge neue Werte aufnehmen:
 # ---------------------------------
-# . analyse.sh 'SYM' 2 offline 9 25 cc
+# . analyse.sh 'SYM' 2 9 25 cc
 # edit ticker_name_id.txt
 # . script/curl/curl_getInformerData.sh 'SYM'
 # mc 'SYM'

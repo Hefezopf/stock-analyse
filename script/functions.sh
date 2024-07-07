@@ -167,32 +167,32 @@ CurlSymbolName() {
 UsageCheckParameter() {
     _symbolsParam=$1
     _percentageParam=$2
-    _queryParam=$3
-    _stochasticPercentageParam=$4
-    _RSIQuoteParam=$5
-    _outResultFileParam=$6
+    #_queryParam=$3
+    _stochasticPercentageParam=$3
+    _RSIQuoteParam=$4
+    _outResultFileParam=$5
 
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9* ]*}" ] && # symbols, blank and '*' allowed
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
-        { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
+     #   { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
         [ -n "${_stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#_stochasticPercentageParam} -gt 1 ] &&
         [ -n "${_RSIQuoteParam##*[!0-9]*}" ] && [ ! "$_RSIQuoteParam" -gt 30 ]; then
         echo ""
     else
-        echo "Given Parameter: Symbols=$_symbolsParam Persentage=$_percentageParam Query=$_queryParam Stoch=$_stochasticPercentageParam RSI=$_RSIQuoteParam"
-        echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE QUERY STOCH RSI" | tee -a "$_outResultFileParam"
+        echo "Given Parameter: Symbols=$_symbolsParam Percentage=$_percentageParam Stoch=$_stochasticPercentageParam RSI=$_RSIQuoteParam"
+        echo "Usage: ./analyse.sh SYMBOLS PERCENTAGE STOCH RSI" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo " SYMBOLS: Stock ticker symbols blank separated" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo " PERCENTAGE: Percentage number between 0..100" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
-        echo " QUERY: Query data online|offline" | tee -a "$_outResultFileParam"
-        echo "<br>" >> "$_outResultFileParam"
+       # echo " QUERY: Query data online|offline" | tee -a "$_outResultFileParam"
+       # echo "<br>" >> "$_outResultFileParam"
         echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo " RSI14: Quote for RSI indicator (only 30 and less allowed!)" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
-        echo "Example: ./analyse.sh 'BEI ALV' 1 offline 9 25" | tee -a "$_outResultFileParam"
+        echo "Example: ./analyse.sh 'BEI ALV' 1 9 25" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo "$HTML_RESULT_FILE_END" >> "$_outResultFileParam"
         exit 5

@@ -8,7 +8,7 @@ name: Analyse
 env:
   symbolsEnv: '*MBG' # If here is more then 1 symbol -> Error!
   percentageEnv: '1'
-  queryEnv: 'offline'
+  #queryEnv: 'offline'
   stochasticEnv: '9'
   RSIEnv: '30'
 
@@ -29,10 +29,10 @@ on:
         description: 'PERCENTAGE - "1" means 1 percent'     
         required: true
         default: '1'
-      queryParam:
-        description: 'QUERY - [online|offline]'     
-        required: true
-        default: 'offline'
+    #   queryParam:
+    #     description: 'QUERY - [online|offline]'     
+    #     required: true
+    #     default: 'offline'
       stochasticParam:
         description: 'STOCHASTIC14 - "9" means 9/91 percent (only single digit allowed!)'     
         required: true
@@ -58,42 +58,42 @@ jobs:
       - name: Run Stock Analyse
         run: |
           echo "Start Stock Analyse ..."
-          export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+          #export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
           symbolsEnv=${{env.symbolsEnv}}
           percentageEnv=${{env.percentageEnv}}
-          queryEnv=${{env.queryEnv}}
+          #queryEnv=${{env.queryEnv}}
           stochasticEnv=${{env.stochasticEnv}}
           RSIEnv=${{env.RSIEnv}}
 
           symbolsDefault='${{github.event.client_payload.symbols}}'
           percentageDefault='${{github.event.client_payload.percentage}}'
-          queryDefault='${{github.event.client_payload.query}}'
+          #queryDefault='${{github.event.client_payload.query}}'
           stochasticDefault='${{github.event.client_payload.stochastic}}'
           RSIDefault='${{github.event.client_payload.RSI}}'
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           percentageInput=${{github.event.inputs.percentageParam}}
-          queryInput=${{github.event.inputs.queryParam}}
+          #queryInput=${{github.event.inputs.queryParam}}
           stochasticInput=${{github.event.inputs.stochasticParam}}
           RSIInput=${{github.event.inputs.RSIParam}}
           
           symbolsVar=${symbolsInput:-$symbolsDefault}
           percentageVar=${percentageInput:-$percentageDefault}
-          queryVar=${queryInput:-$queryDefault}         
+          #queryVar=${queryInput:-$queryDefault}         
           stochasticVar=${stochasticInput:-$stochasticDefault}          
           RSIVar=${RSIInput:-$RSIDefault}   
 
           symbolsVar=${symbolsVar:-$symbolsEnv}
           percentageVar=${percentageVar:-$percentageEnv}
-          queryVar=${queryVar:-$queryEnv}         
+          #queryVar=${queryVar:-$queryEnv}         
           stochasticVar=${stochasticVar:-$stochasticEnv}          
           RSIVar=${RSIVar:-$RSIEnv}
 
           chmod +x ./analyse.sh
 
-          ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
+          ./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
 
           #git fetch --unshallow origin
           git config user.email ${{secrets.MAIL_ADRESS}}

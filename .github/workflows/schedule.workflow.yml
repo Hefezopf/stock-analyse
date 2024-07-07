@@ -33,7 +33,7 @@ jobs:
       - name: Run Stock Analyse
         run: |
           echo "Start Stock Analyse ..."
-          export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
+          #export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
           #Depot+DAX+MDAX+TDAX+SDAX+Eurostoxx+DOW (432)
@@ -43,7 +43,7 @@ jobs:
           stockSymbolsVar=$(cat config/stock_symbols.txt)
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
           percentageVar=1
-          queryVar=offline
+          #queryVar=offline
           #queryVar=online
           stochasticVar=9
           RSIVar=25
@@ -54,7 +54,7 @@ jobs:
 
           chmod +x ./analyse.sh
 
-          ./analyse.sh "$symbolsVar" $percentageVar $queryVar $stochasticVar $RSIVar
+          ./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
 
           cp out/_result.html out/_result_schedule.html
           sed -i 's/Result SA/Result Schedule SA/g' out/_result_schedule.html

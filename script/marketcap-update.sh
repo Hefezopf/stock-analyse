@@ -123,6 +123,9 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   #   hauptversammlungErrorSymbols="$symbol $hauptversammlungErrorSymbols"
   #   echo "--> ERROR Hauptversammlung: $symbol $ID_NOTATION! $hauptversammlung"
   fi
+  # Replace till end of line: idempotent!
+  sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung/g" "$TICKER_NAME_ID_FILE"
+
 
   # Firmenportrait
   firmenportrait=$(echo "$curlResponse" | grep -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<")

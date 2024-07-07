@@ -10,11 +10,11 @@
 SYMBOL=BEI
 
 @test "Analyse" {
-  #result=$(./analyse.sh $SYMBOL 2 offline 9 25 ccccccc)
+  #result=$(./analyse.sh $SYMBOL 2 9 25 cc)
   run ./analyse.sh "$SYMBOL"
   [ "$status" -eq 5 ]
 
-  #run ./analyse.sh $SYMBOL 2 offline 9 25
+  #run ./analyse.sh $SYMBOL 2 9 25
   #[ "$status" -eq 0 ]
 
   #echo "result: "$result

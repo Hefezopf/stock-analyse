@@ -5,12 +5,11 @@
 # Call: . analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
-# 3. Parameter: QUERY - [online|offline] 'offline' do not query via REST API.
-# 4. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
-# 5. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
-# Call example: . analyse.sh 'BEI ALV' 1 online 9 25
-# Call example: . analyse.sh 'BEI' 2 offline 9 25
-# Call example: . analyse.sh 'BEI' 1 offline 9 25
+# 3. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
+# 4. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
+# Call example: . analyse.sh 'BEI ALV' 1 9 25
+# Call example: . analyse.sh 'BEI' 2 9 25
+# Call example: . analyse.sh 'BEI' 1 9 25
 # Precondition:
 # Set MARKET_STACK_ACCESS_KEY as ENV Variable (Online)
 # Set GPG_PASSPHRASE as ENV Variable
@@ -27,7 +26,7 @@
 
 # Switches for calculating charts and underlying strategies. Default is 'true'
 # 6th parameter is undocumented! Speeds up development!
-if { [ -z "$6" ]; } then
+if { [ -z "$5" ]; } then
     CalculateStochastic=true
     CalculateRSI=true
     CalculateMACD=true
@@ -44,14 +43,14 @@ ApplyStrategieHorizontalMACD=true
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
 
-export MARKET_STACK_ACCESS_KEY
+#export MARKET_STACK_ACCESS_KEY
 
 # Parameter
 symbolsParam=$1
 percentageParam=$2
-queryParam=$3
-stochasticPercentageParam=$4
-RSIQuoteParam=$5
+#queryParam=$3
+stochasticPercentageParam=$3
+RSIQuoteParam=$4
 
 # Prepare
 lowestRSI=100
@@ -99,7 +98,7 @@ if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" |
 fi
 
 # Usage: Check parameter
-UsageCheckParameter "$symbolsParam" "$percentageParam" "$queryParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
+UsageCheckParameter "$symbolsParam" "$percentageParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
 
 if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$CalculateMACD" = true ]; then
     echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!" | tee -a $OUT_RESULT_FILE
@@ -114,13 +113,13 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
     exit 6
 fi
 
-if { [ "$queryParam" = 'online' ]; } &&
-   { [ -z "$MARKET_STACK_ACCESS_KEY" ]; } then
-    echo "Error 'online' query: MARKET_STACK_ACCESS_KEY NOT set!" | tee -a $OUT_RESULT_FILE
-    echo "<br>" >> $OUT_RESULT_FILE
-    echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
-    exit 8
-fi
+# if { [ "$queryParam" = 'online' ]; } &&
+#    { [ -z "$MARKET_STACK_ACCESS_KEY" ]; } then
+#     echo "Error 'online' query: MARKET_STACK_ACCESS_KEY NOT set!" | tee -a $OUT_RESULT_FILE
+#     echo "<br>" >> $OUT_RESULT_FILE
+#     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
+#     exit 8
+# fi
 
 #percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
 percentageLesserFactor=$(echo "scale=2;(100+$percentageParam)/100" | bc)
@@ -151,8 +150,8 @@ echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "Percentage:$percentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-echo "Query:$queryParam " | tee -a $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
+#echo "Query:$queryParam " | tee -a $OUT_RESULT_FILE
+#echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
@@ -207,20 +206,20 @@ do
     echo "# Get $symbol $symbolName"
     DATA_FILE="$(mktemp -p "$TEMP_DIR")"
     DATA_DATE_FILE="$DATA_DIR/$symbol.txt"
-    if [ "$queryParam" = 'online' ]; then
-        DATA_DATE_FILE_TEMP="$(mktemp -p "$TEMP_DIR")"
-        cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
-        # https://marketstack.com/documentation
-        exchange="XETRA"
-        curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
-        fileSize=$(stat -c %s "$DATA_DATE_FILE")
-        if [ "$fileSize" -eq "0" ]; then
-            echo "<br>" >> $OUT_RESULT_FILE
-            echo "!!! $symbol NO data retrieved online or CURL blocked" | tee -a $OUT_RESULT_FILE
-            echo "<br>" >> $OUT_RESULT_FILE
-            mv "$DATA_DATE_FILE_TEMP" "$DATA_DATE_FILE"
-        fi
-    fi
+    # if [ "$queryParam" = 'online' ]; then
+    #     DATA_DATE_FILE_TEMP="$(mktemp -p "$TEMP_DIR")"
+    #     cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
+    #     # https://marketstack.com/documentation
+    #     exchange="XETRA"
+    #     curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
+    #     fileSize=$(stat -c %s "$DATA_DATE_FILE")
+    #     if [ "$fileSize" -eq "0" ]; then
+    #         echo "<br>" >> $OUT_RESULT_FILE
+    #         echo "!!! $symbol NO data retrieved online or CURL blocked" | tee -a $OUT_RESULT_FILE
+    #         echo "<br>" >> $OUT_RESULT_FILE
+    #         mv "$DATA_DATE_FILE_TEMP" "$DATA_DATE_FILE"
+    #     fi
+    # fi
 
     CreateCmdHyperlink "Analyse" "out" "$symbol"
 
