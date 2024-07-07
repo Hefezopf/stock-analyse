@@ -80,7 +80,7 @@ do
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     dataAlreadyThere=$(grep -m1 -P "^$yesterday\t" "$informerDataFile")
     if { [ -z "$dataAlreadyThere" ]; } then
-        asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
+        asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
         if [ "$asset_type" = 'INDEX' ]; then
             #curlResponse=$(curl -s -O -J -L GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")

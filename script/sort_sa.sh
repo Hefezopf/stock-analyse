@@ -37,7 +37,7 @@ index_TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 for symbol in $symbolListe
 do
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
-    asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
+    asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     echo -n .
     if [ "$asset_type" = 'STOCK' ]; then
         echo -e "$symbol" >> "$stocks_TEMP_FILE"

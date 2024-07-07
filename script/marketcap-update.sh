@@ -30,12 +30,7 @@ do
   lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
   NAME=$(echo "$lineFromTickerFile" | cut -f 2)
   ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
-  EXCHANGE=$(echo "$lineFromTickerFile" | cut -f 8)
-  if [ ! "$EXCHANGE" ]; then # Default = XETRA
-    #EXCHANGE="XFRA" # Frankfurt
-    EXCHANGE="XETRA"
-  fi
-  ASSET_TYPE=$(echo "$lineFromTickerFile" | cut -f 10)
+  ASSET_TYPE=$(echo "$lineFromTickerFile" | cut -f 9)
   if [ ! "$ASSET_TYPE" ]; then # Default = STOCK
     #ASSET_TYPE="INDEX" # STOCK/COIN/INDEX
     ASSET_TYPE="STOCK"
@@ -147,7 +142,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
 
   # Now write all results in file!
   # Replace till end of line: idempotent!
-  sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$EXCHANGE\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE"
+  sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE"
 
   # Spread
   spread=$(echo "$curlResponse" | grep -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")

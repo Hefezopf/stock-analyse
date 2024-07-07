@@ -111,7 +111,7 @@ do
 
     # Market Cap
     marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
-    asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
+    asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     lowMarketCapLinkBackgroundColor="white"
     if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
         lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
@@ -204,7 +204,6 @@ do
         # Buy, if more buy signals in Result file: STOCK >= 7 or INDEX >=5
         if { [ "${#_amountOfBuySignals}" -ge "$alarmCountForStockParam" ] && [ "$asset_type" = 'STOCK' ]; } || 
             { [ "${#_amountOfBuySignals}" -ge "$alarmCountForIndexParam" ] && [ "$asset_type" = 'INDEX' ]; } then
-            echo rein-------------------------
             isHoldPiecesAndNewLow=true
             isMACDhorizontalAndLastStochNeg=true
         fi
@@ -498,7 +497,7 @@ do
     lineFromTickerFile=$(grep -m1 -P "^$value\t" "$TICKER_NAME_ID_FILE")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
-    asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
+    asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     lowMarketCapLinkBackgroundColor="white"
     if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
         lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"

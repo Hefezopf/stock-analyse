@@ -8,9 +8,9 @@
 # 3. Parameter: QUERY - [online|offline] 'offline' do not query via REST API.
 # 4. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
 # 5. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
-# Call example: . analyse.sh 'BEI *ALV' 1 online 9 25
+# Call example: . analyse.sh 'BEI ALV' 1 online 9 25
 # Call example: . analyse.sh 'BEI' 2 offline 9 25
-# Call example: . analyse.sh '*BEI' 1 offline 9 25
+# Call example: . analyse.sh 'BEI' 1 offline 9 25
 # Precondition:
 # Set MARKET_STACK_ACCESS_KEY as ENV Variable (Online)
 # Set GPG_PASSPHRASE as ENV Variable
@@ -189,15 +189,15 @@ do
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-    exchange=$(echo "$lineFromTickerFile" | cut -f 8)
-    if [ ! "$exchange" ]; then # Default: exchange="XETRA"
-        exchange="XETRA"
-    fi
-    hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 9)
+    # exchange=$(echo "$lineFromTickerFile" | cut -f 8)
+    # if [ ! "$exchange" ]; then # Default: exchange="XETRA"
+    #    exchange="XETRA"
+    # fi
+    hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8)
     if [ ! "$hauptversammlung" ]; then # Default: hauptversammlung="?"
         hauptversammlung="?"
     fi
-    asset_type=$(echo "$lineFromTickerFile" | cut -f 10)
+    asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     if [ ! "$asset_type" ]; then # Default: asset_type="?"
         asset_type="?"
     fi
@@ -211,6 +211,7 @@ do
         DATA_DATE_FILE_TEMP="$(mktemp -p "$TEMP_DIR")"
         cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
         # https://marketstack.com/documentation
+        exchange="XETRA"
         curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "$fileSize" -eq "0" ]; then
@@ -618,7 +619,7 @@ do
 
             # Branche und Firmenportrait Tooltip
             branche=$(echo "$lineFromTickerFile" | cut -f 5)
-            firmenportrait=$(echo "$lineFromTickerFile" | cut -f 11)
+            firmenportrait=$(echo "$lineFromTickerFile" | cut -f 10)
             echo "<div class='tooltip'>$branche<br><div class='tooltiptext'>$firmenportrait</div></div></p>"
 
             # Market Cap Progressbar, only if number
@@ -645,7 +646,7 @@ do
         echo "<br><p class='p-result'>"
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
         echo "<b>$quoteDate</b>"
-        echo "<b>&nbsp;&nbsp;$exchange&nbsp;&nbsp;$asset_type</b>"
+        echo "<b>&nbsp;&nbsp;$asset_type</b>"
         if [ "$asset_type" = 'STOCK' ]; then
             echo "<b>&nbsp;&nbsp;HV:$hauptversammlung</b>"
         fi
