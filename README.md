@@ -24,11 +24,11 @@ Alerts via email.
 
 ## Run CMD CLI
 
-./analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
+./analyse.sh SYMBOLS PERCENTAGE STOCHASTIC RSI
 
-./analyse.sh 'BEI' 1 online 9 25
+./analyse.sh 'BEI' 1 9 25
 
-./analyse.sh 'BEI ALV BAS' 2 offline 9 30
+./analyse.sh 'BEI ALV BAS' 2 9 30
 
 # CMD Output
 
@@ -46,11 +46,11 @@ https://github.com/Hefezopf/stock-analyse/blob/main/.github/workflows/schedule.w
 
 ## cURL
 
-sh ./script/curl_github_dispatch_analyse.sh "BEI ALV" 1 offline 9 25
+sh ./script/curl_github_dispatch_analyse.sh "BEI ALV" 1 9 25
 
 or Example cURL
 
-curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "analyse", "client_payload": {"symbols": "BEI ALV", "percentage": "1", "query": "offline", "stochastic": "20", "RSI": "30"}}'
+curl -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "analyse", "client_payload": {"symbols": "BEI ALV", "percentage": "1", "stochastic": "20", "RSI": "30"}}'
 
 other cURLs
 
@@ -68,7 +68,7 @@ https://apps.apple.com/de/app/icurlhttp/id611943891
 
 http://www.smallscreensystems.com/iCurl
 
-{"event_type": "analyse", "client_payload": {"symbols": "BEI", "percentage": "1", "query": "offline", "stochastic": "9", "RSI":"30"}}
+{"event_type": "analyse", "client_payload": {"symbols": "BEI", "percentage": "1", "stochastic": "9", "RSI":"30"}}
 
 {"event_type": "sell", "client_payload": {"symbol": "BEI"}}
 
