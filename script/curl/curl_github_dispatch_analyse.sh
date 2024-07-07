@@ -4,12 +4,12 @@
 # Call: . curl_github_dispatch_analyse.sh SYMBOLS PERCENTAGE QUERY STOCHASTIC RSI
 # Example: . script/curl/curl_github_dispatch_analyse.sh "CEC" 1 offline 9 25
 # Example: . script/curl/curl_github_dispatch_analyse.sh "*GIS" 1 online 9 25
-# !!Only one symbol can be passed as parameter!! For example: This list is NOT possible: "CEC *GIS" 
+# !!Only one symbol can be passed as parameter!! For example: This list is NOT possible: "*CEC GIS" 
 
 # Debug mode
 #set -x
 
-if { [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; } then
+if { [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ]; } then
   echo "Not all parameters specified!"
   echo "Example: . curl_github_dispatch_analyse.sh \"*GIS\" 1 offline 9 25"
   exit 1
