@@ -378,9 +378,11 @@ CalculateMarketCapRSILevel() {
     _lastRSIParam=$1
     _marketCapParam=$2
 
+#echo _marketCapParam=$_marketCapParam
+
 # sim CalculateMarketCapRSILevel
     if [ "$_marketCapParam" = "?" ]; then 
-        _marketCapParam="10000"
+        _marketCapParam="1"
     fi
 # sim CalculateMarketCapRSILevel
 

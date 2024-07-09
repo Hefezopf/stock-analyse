@@ -40,11 +40,11 @@ SYMBOL_NAME="BEIERSDORF AG"
 }
 
 @test "CalculateMarketCapRSILevel" {
-  CalculateMarketCapRSILevel 25 "?"
-  [ "$isMarketCapRSILevel" == "true" ]
-
   CalculateMarketCapRSILevel 1 "?"
   [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 25 "?"
+  [ "$isMarketCapRSILevel" == "false" ]
 
   CalculateMarketCapRSILevel 25 1
   [ "$isMarketCapRSILevel" == "false" ]
