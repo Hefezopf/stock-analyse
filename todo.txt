@@ -1,6 +1,9 @@
 TODO:
 -----
 
+
+
+
 https://www.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=167727081
 https://www.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=193011761
 https://www.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=65789141
@@ -187,6 +190,12 @@ Automatische Order Platzierung?
 Regeln festlegen
 Jeden Tag voten
 Nur Votes wenn Sim vorschläge unterbreitet
+
+
+Delete lines From ticker_name_id.txt:
+------------------------------------
+sed -i 's/\t?\t?\tSTOCK/TOREPLACE/g' config/ticker_name_id.txt
+awk '!/TOREPLACE/' config/ticker_name_id.txt > tmpfile && mv tmpfile config/ticker_name_id.txt
 
 
 -Github Actions - trigger another action after one action is completed
