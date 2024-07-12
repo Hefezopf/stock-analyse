@@ -7,7 +7,7 @@
 StrategieUnderratedNewLow() { 
     _count=$1
     _commaPriceList=$2
-    _last=$3
+    _lastQuote=$3
     _beforeLastQuote=$4
     _outResultFileParam=$5
     _symbolParam=$6
@@ -15,16 +15,19 @@ StrategieUnderratedNewLow() {
     _markerOwnStockParam=$8
     export resultStrategieUnderratedNewLow=""
 
-    #newLow=$(echo "$_last" "$_beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
-    if [ "$(echo "$_last < $_beforeLastQuote" | bc)" ]; then
+    #newLow=$(echo "$_lastQuote" "$_beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
+    newLow="$(echo "$_lastQuote < $_beforeLastQuote" | bc)"
+#echo newLow="$newLow"
+    #if [ "$(echo "$_lastQuote < $_beforeLastQuote" | bc)" ]; then
     #if [ "$newLow" = true ]; then
+    if [ "$newLow" = 1 ]; then
         i=85 # not last and not beforeLast!
         howManyValues=$((86-_count))
         while [ "$i" -ge $howManyValues ]; do
             # shellcheck disable=SC2086,SC2027
             valueNewLow=$(echo ""$_commaPriceList"" | cut -f$i -d",")
-            conditionNewLow=$(echo "$_last" "$valueNewLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
-            #if [ "$(echo "$_last < $valueNewLow" | bc)" ]; then
+            conditionNewLow=$(echo "$_lastQuote" "$valueNewLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
+            #if [ "$(echo "$_lastQuote < $valueNewLow" | bc)" ]; then
             if [ "$conditionNewLow" = false ]; then
                 break;
             fi
@@ -426,9 +429,9 @@ StrategieUnderratedLowHorizontalMACD() {
             jj_index=$((jj_index + 1))
 
             isMACDHorizontalAlarm1=false
-            #isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
-            #if [ "$isNewMACDLower" = true ]; then
-            if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
+            isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
+            if [ "$isNewMACDLower" = true ]; then
+            #if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
                 valueNewMACDLow="$valueMACD"
                 isNegativMACDLast_0=${valueMACDLast_0:0:1}
                 isNegativMACDLast_1=${valueMACDLast_1:0:1}

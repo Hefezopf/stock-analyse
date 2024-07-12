@@ -149,9 +149,9 @@ do
         valueMACDLast_0="$valueMACD" 
 
         isMACDHorizontalAlarm=false
-        #isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
-        if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
-        #if [ "$isNewMACDLower" = true ]; then
+        isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
+        #if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
+        if [ "$isNewMACDLower" = true ]; then
             valueNewMACDLow="$valueMACD"
             isNegativMACDLast_0=${valueMACDLast_0:0:1}
             isNegativMACDLast_1=${valueMACDLast_1:0:1}
