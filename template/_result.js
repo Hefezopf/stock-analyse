@@ -726,9 +726,11 @@ function onContentLoaded(symbol, notationId, asset_type) {
             if (xhr.status === OK) {
                 // console.log(xhr.responseText); // 'This is the output.'
                 console.info('OK...: '+ symbol); 
-                let positionQuote1 = xhr.responseText.indexOf('-size-24 icon--cd-positive\"><svg class=\"icon__svg\" focusable=\"false\"><use xlink:href=\"/ccf2/lsg/assets/svg/svg-symbol.svg#cd_point-full-24\"/></svg></span><span class=\"realtime-indicator--value ');
+                let positionQuote1 = xhr.responseText.indexOf('layer__close-icon layer-tooltip__close-icon layer__close-icon--ring\"><svg class=\"icon__svg\" focusable=\"false\"><use xlink:href=\"/ccf2/lsg/assets/svg/svg-symbol.svg#cd_circle-40\"></use></svg></span><span class=\"icon icon--cd_close-16 icon--size-16 layer__close-icon layer-tooltip__close-icon\"><svg class=\"icon__svg\" focusable=\"false\"><use xlink:href=\"/ccf2/lsg/assets/svg/svg-symbol.svg#cd_close-16\"></use></svg></span></label><div class=\"layer__content layer-tooltip__content\" data-role=\"layer__content\"><header class=\"layer__header  \" data-role=\"layer__header\"></header><div class=\"layer__content-scroll-container grid-container layer-tooltip__content-scroll-container\" data-role=\"layer__inner-content\"></div></div></div></div></div></div></span><span class=\"realtime-indicator--value \">');
                 let positionQuote2 = xhr.responseText.indexOf('&nbsp;EUR</span></div></td>');
-                var realTimeQuote = xhr.responseText.slice(positionQuote1 + 195, positionQuote2);
+                var realTimeQuoteGrob = xhr.responseText.slice(positionQuote1 + 780, positionQuote2);
+                let feinPos = realTimeQuoteGrob.indexOf('>') + 1;
+                var realTimeQuote = realTimeQuoteGrob.slice(feinPos);
                 var elementRealTimeQuoteSymbol = document.getElementById('intervalSectionRealTimeQuote' + symbol);
                 var realTimeQuoteSymbol = realTimeQuote.replace('.', '');
                 if (parseFloat(realTimeQuoteSymbol) < 1000) {
