@@ -483,9 +483,17 @@ do
         # PC-Browser
         echo "<img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
        
-        echo "<p style='text-align:right'><a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_PREFIX_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+        COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
+        COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
+        COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
+        if [ "$asset_type" = 'INDEX' ]; then
+            COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
+            COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
+            COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
+        fi
+        echo "<p style='text-align:right'><a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
 
         echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
 
@@ -575,15 +583,23 @@ do
         echo "$MACDList"
         cat template/indexPart12.html
 
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_PREFIX_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart() 'href=\"$COMDIRECT_URL_PREFIX_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_PREFIX_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+        COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
+        COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
+        COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
+        if [ "$asset_type" = 'INDEX' ]; then
+            COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
+            COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
+            COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
+        fi
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart() 'href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
         echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
         echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
 
-        if [ "$asset_type" = 'STOCK' ]; then
+        if [ "$asset_type" = 'STOCK' ] || [ "$asset_type" = 'INDEX' ]; then            
             # KGVe
-            kgve=$(echo "$lineFromTickerFile" | cut -f 6)
+            kgve=$(echo "$lineFromTickerFile" | cut -f 6)          
             echo "<span style='font-size:50px'>KGV&nbsp;$kgve&nbsp;&nbsp;&nbsp;</span>&nbsp;"
             # DIVe
             dive=$(echo "$lineFromTickerFile" | cut -f 7)
@@ -697,7 +713,7 @@ do
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" "" "$lowMarketCapLinkBackgroundColor"
 
-    if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ] ; then
+    if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ]; then
         counterOwnStocks=$((counterOwnStocks+1)) # For Spinner
 
         stocksPieces=$(grep "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
