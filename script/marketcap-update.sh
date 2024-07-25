@@ -39,22 +39,22 @@ do
   echo ""
   echo "$symbol" "$NAME" ...
 
-if [ "$ASSET_TYPE" = 'STOCK' ]; then
-  # Mrd. Market Cap
-  curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
-  marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
+  if [ "$ASSET_TYPE" = 'STOCK' ]; then
+    # Mrd. Market Cap
+    curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
   if [ "$marktkap" ]; then
     echo "Market Cap:$marktkap Mrd.€"
   else
     # Bil. Market Cap
     marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
     if [ "$marktkap" ]; then
-        marktkap="${marktkap}000"
-        echo "Market Cap:$marktkap Mrd.€"
+      marktkap="${marktkap}000"
+      echo "Market Cap:$marktkap Mrd.€"
     else
-        marktkap="?"
-        marktkapErrorSymbols="$symbol $marktkapErrorSymbols"
-        echo "--> ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, INDEX, COIN or Market Cap too small! $marktkap"
+      marktkap="?"
+      marktkapErrorSymbols="$symbol $marktkapErrorSymbols"
+      echo "--> ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, INDEX, COIN or Market Cap too small! $marktkap"
     fi
   fi
   # Replace till end of line: idempotent!
@@ -63,9 +63,9 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # Branche
   branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-)
   if [ "$branche" ]; then
-      # Replace ' /' with ',', because error with linux
-      branche=$(echo "$branche" | sed "s/ \//,/g")
-      echo "Branche: $branche"
+    # Replace ' /' with ',', because error with linux
+    branche=$(echo "$branche" | sed "s/ \//,/g")
+    echo "Branche: $branche"
   else
     # Branche ><
     branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-)
@@ -87,7 +87,7 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # KGVe
   kgve=$(echo "$curlResponse" | grep -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
   if [ "$kgve" ]; then
-      echo "KGVe: $kgve"
+    echo "KGVe: $kgve"
   else
     kgve="?"
     kgveErrorSymbols="$symbol $kgveErrorSymbols"
@@ -99,10 +99,10 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # DIVe
   dive=$(echo "$curlResponse" | grep -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
   if [ "$dive" ]; then
-      # Replace ',' with '.'
-      # shellcheck disable=SC2001 
-      dive=$(echo "$dive" | sed "s/,/./g")
-      echo "DIVe: $dive%"
+    # Replace ',' with '.'
+    # shellcheck disable=SC2001 
+    dive=$(echo "$dive" | sed "s/,/./g")
+    echo "DIVe: $dive%"
   else
     dive="?"
     diveErrorSymbols="$symbol $diveErrorSymbols"
@@ -114,10 +114,10 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # Hauptversammlung
   hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
   if [ "$hauptversammlung" ]; then
-      echo "Hauptversammlung: $hauptversammlung"
-      if [ "$hauptversammlung" ]; then
-        hauptversammlungSymbols="$symbol $hauptversammlungSymbols"
-      fi
+    echo "Hauptversammlung: $hauptversammlung"
+    if [ "$hauptversammlung" ]; then
+      hauptversammlungSymbols="$symbol $hauptversammlungSymbols"
+    fi
   else
     hauptversammlung="?"
   #   hauptversammlungErrorSymbols="$symbol $hauptversammlungErrorSymbols"
@@ -126,22 +126,21 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # Replace till end of line: idempotent!
   #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung/g" "$TICKER_NAME_ID_FILE"
 
-
   # Firmenportrait
   firmenportrait=$(echo "$curlResponse" | grep -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<")
-   if [ "$firmenportrait" ]; then
-      firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
-      # shellcheck disable=SC2001
-      firmenportrait=$(echo "$firmenportrait" | sed "s/\&/ u. /g")
-      firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g")
-      echo "Firmenportrait: $firmenportrait"
-   else
+  if [ "$firmenportrait" ]; then
+    firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
+    # shellcheck disable=SC2001
+    firmenportrait=$(echo "$firmenportrait" | sed "s/\&/ u. /g")
+    firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g")
+    echo "Firmenportrait: $firmenportrait"
+  else
     firmenportrait="-------------"
     firmenportraitErrorSymbols="$symbol $firmenportraitErrorSymbols"
     echo "--> ERROR Firmenportrait: $symbol $ID_NOTATION! $firmenportrait"
-   fi
-   # shellcheck disable=SC2116
-   firmenportrait=$(echo \""$firmenportrait\"")
+  fi
+  # shellcheck disable=SC2116
+  firmenportrait=$(echo \""$firmenportrait\"")
 
   # Now write all results in file!
   # Replace till end of line: idempotent!
@@ -150,18 +149,18 @@ if [ "$ASSET_TYPE" = 'STOCK' ]; then
   # Spread
   spread=$(echo "$curlResponse" | grep -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")
   if [ "$spread" ]; then
-      echo "Spread: $spread.xx%"
-      if [ "$spread" -gt 1 ]; then
-        highSpreadSymbols="$symbol $highSpreadSymbols"
-      fi
+    echo "Spread: $spread.xx%"
+    if [ "$spread" -gt 1 ]; then
+      highSpreadSymbols="$symbol $highSpreadSymbols"
+    fi
   else
     spread="?"
     spreadErrorSymbols="$symbol $spreadErrorSymbols"
     echo "--> ERROR Spread: $symbol $ID_NOTATION! $spread"
   fi
-else
+  else
     echo "-->$ASSET_TYPE"
-fi
+  fi
 done
 
 if [ "$marktkapErrorSymbols" ]; then
