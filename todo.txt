@@ -12,7 +12,18 @@ edit ticker_name_id.txt (Correct Names and paste notation-Id)
 mc 'XXX'
 
 
+In Memory Calculation
+In Memory DB/Array verwenden statt Files.
+Evtl für ticker_name_id
+    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+    symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
 
+CreateCmdHyperlink "Analyse" "out" "$symbol" #"$symbolName"
+
+
+
+Git verschlanken:
+keine Dateien mit Datum: alarm, buy, sell
 
 
 
@@ -29,19 +40,11 @@ Bei Performance html auch die Links wie überall?
 Eine Kurve bei RSI oder Stoch überlagert als Kaufeinschätung mit einzeichnen? 2 bis 4 Hochs
 
 
-Git verschlanken:
-keine Dateien mit Datum: alarm, buy, sell
 
 
 
 Wie können die MC/RSI Werte dyn. als Parameter mitgegeben werden?
 CalculateMarketCapRSILevel()
-
-
-
-In Memory Calculation
-In Memory DB/Array verwenden statt Files.
-Evtl für ticker_name_id
 
 
 

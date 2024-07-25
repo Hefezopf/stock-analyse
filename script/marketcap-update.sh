@@ -57,6 +57,7 @@ do
         firmenportrait=$(echo "$firmenportrait" | sed "s/\&/ u. /g")
         firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g")
         firmenportrait=$(echo "$firmenportrait" | sed -z "s/            / /g")
+        # shellcheck disable=SC2116
         firmenportrait=$(echo \""$firmenportrait\"")
         echo "Firmenportrait: $firmenportrait"
     else

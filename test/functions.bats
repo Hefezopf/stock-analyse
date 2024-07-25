@@ -14,7 +14,7 @@ OUT_RESULT_FILE="test/_result.html"
 DATA_FILE="test/BEI.txt"
 TICKER_NAMES_FILE="test/ticker_name_id.txt"
 SYMBOL=BEI
-SYMBOL_NAME="BEIERSDORF AG"
+SYMBOL_NAME="BEIERSDORF"
 
 @test "DetermineTendency" {
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 92.6132, 92.5305, 92.4579, 92.3874, 92.3326, 92.3184,"
@@ -136,12 +136,12 @@ SYMBOL_NAME="BEIERSDORF AG"
   rm -rf "$TICKER_NAMES_FILE"
 
   function grep() {
-    echo "BEI \"BEIERSDORF AG\""
+    echo "BEI \"BEIERSDORF\""
   }
   export -f grep  
 
-  CurlSymbolName "$SYMBOL" "$TICKER_NAMES_FILE" 0
-  [ "$symbolName" == 'BEI "BEIERSDORF AG"' ]  
+  CurlSymbolName "$SYMBOL" "$TICKER_NAMES_FILE" 0 "$SYMBOL_NAME"
+  [ "$symbolName" == 'BEIERSDORF' ]  
 
   function grep() {
     echo ""
@@ -153,8 +153,8 @@ SYMBOL_NAME="BEIERSDORF AG"
   }
   export -f curl 
 
-  CurlSymbolName XXX "$TICKER_NAMES_FILE" 0
-   [ "$symbolName" == 'null' ]
+  CurlSymbolName XXX "$TICKER_NAMES_FILE" 0 "$SYMBOL_NAME"
+   [ "$symbolName" == 'BEIERSDORF' ]
 
   function curl() {
     echo "[{
@@ -177,12 +177,12 @@ SYMBOL_NAME="BEIERSDORF AG"
   export -f curl 
 
   function jq() {
-    echo "\"BEIERSDORF AG\""
+    echo "\"BEIERSDORF\""
   }
   export -f jq   
 
-  CurlSymbolName "$SYMBOL" "$TICKER_NAMES_FILE" 0
-  [ "$symbolName" == '"BEIERSDORF AG"' ]
+  CurlSymbolName "$SYMBOL" "$TICKER_NAMES_FILE" 0 "$SYMBOL_NAME"
+  [ "$symbolName" == 'BEIERSDORF' ]
 }
 
 @test "LessThenWithFactor" {

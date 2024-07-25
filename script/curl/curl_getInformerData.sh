@@ -30,8 +30,6 @@ if { [ -z "$symbolsParam" ]; } then
   exit 1
 fi
 
-#echo "!!DATA_INFORMER_DIR $DATA_INFORMER_DIR "
-
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo "Symbols($countSymbols):$symbolsParam"
@@ -49,33 +47,12 @@ do
     symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
 
     informerDataFile="$DATA_INFORMER_DIR/$symbol.txt"
-
     touch "$informerDataFile"
     fileSize=$(stat -c %s "$informerDataFile")
     if [ "$fileSize" -eq "0" ]; then
         echo "$symbol: Create new file" | tee -a "$informerDataFile"
     fi
   
-
-    # Migration Start
-# informerDataReverseFile="$DATA_INFORMER_DIR/$symbol.revers.txt"
-    # dataFile="./data/$symbol.txt"
-    # cp "$dataFile" "$DATA_INFORMER_DIR"
-    # lastLine=$(head -n1 "$dataFile")
-    # cat "$informerDataFile" | tac > "$informerDataReverseFile"
-    # allLines=""
-    # i=10
-    # while [ "$i" -gt 0 ]; do
-    #     allLines=$(echo -e "$allLines\n$lastLine")
-    #     i=$((i - 1))
-    # done
-    # echo "$lastLine" >> "$informerDataReverseFile"
-    # cat "$informerDataReverseFile" | tac > "$informerDataFile"
-    # rm "$informerDataReverseFile"
-    # head -n -10 "$informerDataFile" > tmp.txt && mv tmp.txt "$informerDataFile"
-    # Migration Ende
-
-
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     dataAlreadyThere=$(grep -m1 -P "^$yesterday\t" "$informerDataFile")
@@ -88,22 +65,6 @@ do
             #curlResponse=$(curl -s -O -J -L GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         fi
-
-
-
-        #echo "########################################$curlResponse"
-        #sleep 4
-       # trap 'echo "Broken pipe signal detected" >&2' PIPE
-
-       # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<")
-       # echo "-0----------------------------------------$value"
-       # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*')
-       # echo "-1----------------------------------------$value"
-       # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<")
-       # echo "-2----------------------------------------$value"
-       # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
-       # echo "-3----------------------------------------$value"
-
 
         value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
         if [ "$asset_type" = 'COIN' ]; then

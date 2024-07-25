@@ -145,9 +145,11 @@ CurlSymbolName() {
     _symbolParam=$1
     _tickerNameIdFileParam=$2
     _sleepParam=$3
+    _symbolNameParam=$4
 
-    #symbol=$(echo "$_symbolParam" | tr '[:lower:]' '[:upper:]')
-    symbolName=$(grep -m1 -P "$_symbolParam\t" "$_tickerNameIdFileParam" | cut -f 2)
+    symbolName="$_symbolNameParam"
+#echo "symbolName=$symbolName --- _symbolNameParam=$_symbolNameParam"    
+    #symbolName=$(grep -m1 -P "$_symbolParam\t" "$_tickerNameIdFileParam" | cut -f 2)
     if [ ! "${#symbolName}" -gt 1 ]; then
         symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
         if ! [ "$symbolName" = 'null' ]; then
@@ -313,6 +315,7 @@ CreateCmdHyperlink() {
     _hyperlinkParam=$1
     _outDirParam=$2
     _symbolParam=$3
+   # _symbolNameParam=$4
 
     _outputText="# $_hyperlinkParam $_symbolParam $symbolName"
     if [ "$(uname)" = 'Linux' ]; then

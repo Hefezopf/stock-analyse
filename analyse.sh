@@ -182,16 +182,12 @@ do
     symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
     echo "<div id='symbolLineId$symbol'>" >> $OUT_RESULT_FILE # Sorting
 
-    # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
-    # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
-    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14
-
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-    # exchange=$(echo "$lineFromTickerFile" | cut -f 8)
-    # if [ ! "$exchange" ]; then # Default: exchange="XETRA"
-    #    exchange="XETRA"
-    # fi
+    # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
+    # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
+    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "$symbolName"
+
     hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8)
     if [ ! "$hauptversammlung" ]; then # Default: hauptversammlung="?"
         hauptversammlung="?"
@@ -221,7 +217,7 @@ do
     #     fi
     # fi
 
-    CreateCmdHyperlink "Analyse" "out" "$symbol"
+    CreateCmdHyperlink "Analyse" "out" "$symbol" #"$symbolName"
 
     # Check, if 100 last quotes are availible, otherwise fill up to 100 
     numOfQuotes=$(grep "" -c "$DATA_DATE_FILE")

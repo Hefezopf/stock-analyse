@@ -25,7 +25,7 @@ symbolsParam=$1
 TEMP_DIR=/dev/shm/
 rm -rf $TEMP_DIR/tmp.*
 mkdir -p temp
-TICKER_NAME_ID_FILE=config/ticker_name_id.txt
+#TICKER_NAME_ID_FILE=config/ticker_name_id.txt
 
 # Check for multiple identical symbols in cmd. Do not ignore '*'' 
 if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -v '^ *1 '; then
@@ -45,9 +45,7 @@ do
         echo ""
         echo "# Get $symbol"
         DATA_FILE="$(mktemp -p $TEMP_DIR)"
-        #DATA_DATE_FILE="data/$symbol.txt"
         DATA_DATE_FILE="$DATA_DIR/$symbol.txt"
-
         DATA_DATE_FILE_TEMP="$(mktemp -p $TEMP_DIR)"
         # https://marketstack.com/documentation
         #exchange="XFRA" # Frankfurt
@@ -67,7 +65,7 @@ do
         if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
             #echo "OK, quote from last trading day"
             symbolsWithData=$(echo "$symbol $symbolsWithData")
-            CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14
+            CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14 "_symbolNameParam_TODO"
         else # NOK!
             echo "remove $symbol" 
             rm -rf "$DATA_DATE_FILE"
