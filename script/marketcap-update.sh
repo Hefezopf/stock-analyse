@@ -50,7 +50,7 @@ do
     kgve="0"
     dive="0"
     hauptversammlung="?"
-    firmenportrait=$(echo "$curlResponse" | grep -A2 "\"paragraph\"" | tail -n 2)
+    firmenportrait=$(echo "$curlResponse" | grep -F -A2 "\"paragraph\"" | tail -n 2)
     if [ "$firmenportrait" ]; then
         firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
         # shellcheck disable=SC2001
@@ -93,14 +93,14 @@ do
     #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap/g" "$TICKER_NAME_ID_FILE"
 
     # Branche
-    branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-)
+    branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-)
     if [ "$branche" ]; then
         # Replace ' /' with ',', because error with linux
         branche=$(echo "$branche" | sed "s/ \//,/g")
         echo "Branche: $branche"
     else
         # Branche ><
-        branche=$(echo "$curlResponse" | grep -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-)
+        branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-)
         if [ "$branche" ]; then
         # Replace ' /' with ',', because error with linux
         branche=$(echo "$branche" | sed "s/ \//,/g")
@@ -117,7 +117,7 @@ do
     #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche/g" "$TICKER_NAME_ID_FILE"
 
     # KGVe
-    kgve=$(echo "$curlResponse" | grep -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
+    kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
     if [ "$kgve" ]; then
         echo "KGVe: $kgve"
     else
@@ -129,7 +129,7 @@ do
     #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve/g" "$TICKER_NAME_ID_FILE"
 
     # DIVe
-    dive=$(echo "$curlResponse" | grep -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
+    dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
     if [ "$dive" ]; then
         # Replace ',' with '.'
         # shellcheck disable=SC2001 
@@ -159,7 +159,7 @@ do
     #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung/g" "$TICKER_NAME_ID_FILE"
 
     # Firmenportrait
-    firmenportrait=$(echo "$curlResponse" | grep -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<")
+    firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<")
     if [ "$firmenportrait" ]; then
         firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
         # shellcheck disable=SC2001
@@ -179,7 +179,7 @@ do
     sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE"
 
     # Spread
-    spread=$(echo "$curlResponse" | grep -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")
+    spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")
     if [ "$spread" ]; then
         echo "Spread: $spread.xx%"
         if [ "$spread" -gt 1 ]; then

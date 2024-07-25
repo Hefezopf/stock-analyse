@@ -19,7 +19,7 @@ symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 echo "View Transaction History $symbolParam"
 
-lineFromFile=$(grep "$symbolParam" "$TRANSACTION_HISTORY_FILE")
+lineFromFile=$(grep -F "$symbolParam" "$TRANSACTION_HISTORY_FILE")
 # BEI	2022-04-23	352	SELL	"BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 3)
 #echo "$priceFromFile€"

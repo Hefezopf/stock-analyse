@@ -95,7 +95,7 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <div>"
 echo "$TRANSACTION_HISTORY_HTML_FILE_HEADER" > "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-lineFromFile=$(grep "_blank" "$TRANSACTION_HISTORY_FILE")
+lineFromFile=$(grep -F "_blank" "$TRANSACTION_HISTORY_FILE")
 # BEI	2022-04-23	999	"BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 3)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')

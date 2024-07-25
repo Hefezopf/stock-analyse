@@ -92,7 +92,7 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd. Do not ignore '*' 
-if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -v '^ *1 '; then
+if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -F -v '^ *1 '; then
     echo "WARNING: Multiple symbols in parameter list!" | tee -a $OUT_RESULT_FILE
     echo "<br><br>" >> $OUT_RESULT_FILE
 fi
@@ -220,7 +220,7 @@ do
     CreateCmdHyperlink "Analyse" "out" "$symbol" #"$symbolName"
 
     # Check, if 100 last quotes are availible, otherwise fill up to 100 
-    numOfQuotes=$(grep "" -c "$DATA_DATE_FILE")
+    numOfQuotes=$(grep "" -F -c "$DATA_DATE_FILE")
     if [ "$numOfQuotes" -lt 100 ]; then
         echo "<br>" >> $OUT_RESULT_FILE
         echo "!!! LESS then 100 quotes for $symbol" | tee -a $OUT_RESULT_FILE
@@ -545,7 +545,7 @@ do
         # Draw 5% lines
         if [ "$markerOwnStock" = '*' ]; then
             # Get buying rate
-            buyingRate=$(grep "$symbol" "$OWN_SYMBOLS_FILE" | cut -f2 -d ' ')
+            buyingRate=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f2 -d ' ')
         else
             buyingRate=$last
         fi
@@ -712,7 +712,7 @@ do
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ]; then
         counterOwnStocks=$((counterOwnStocks+1)) # For Spinner
 
-        stocksPieces=$(grep "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
+        stocksPieces=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
         stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
         stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
