@@ -92,7 +92,7 @@ HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd. Do not ignore '*' 
-if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -F -v '^ *1 '; then
+if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -v '^ *1 '; then
     echo "WARNING: Multiple symbols in parameter list!" | tee -a $OUT_RESULT_FILE
     echo "<br><br>" >> $OUT_RESULT_FILE
 fi
@@ -112,14 +112,6 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
     exit 6
 fi
-
-# if { [ "$queryParam" = 'online' ]; } &&
-#    { [ -z "$MARKET_STACK_ACCESS_KEY" ]; } then
-#     echo "Error 'online' query: MARKET_STACK_ACCESS_KEY NOT set!" | tee -a $OUT_RESULT_FILE
-#     echo "<br>" >> $OUT_RESULT_FILE
-#     echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
-#     exit 8
-# fi
 
 #percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
 percentageLesserFactor=$(echo "scale=2;(100+$percentageParam)/100" | bc)
