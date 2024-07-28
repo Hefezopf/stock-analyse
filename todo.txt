@@ -1,6 +1,7 @@
 TODO:
 -----
 
+
 buy.sh
     symbol="${symbol^^}" # all uppercase
 anal:
@@ -8,15 +9,18 @@ symbol=$(echo "${symbol^^}") # all uppercase
 
 
 
+
 New Werte die in Fonds sind einpflegen
 hier weiter
-CBUN "ISH Digital Entertain."  6M   5Y   SA 
+CEBS "ISH Copper Miners"  6M   5Y   SA 
 
 . analyse.sh 'XXX' 2 9 25 cc
 add 'XXX' to config: stock_symbols.txt
 edit ticker_name_id.txt (Correct Names and paste notation-Id)
 . script/curl/curl_getInformerData.sh 'XXX'
 mc 'XXX'
+
+
 
 
 In Memory Calculation
@@ -26,6 +30,30 @@ Evtl für ticker_name_id
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
 
 CreateCmdHyperlink "Analyse" "out" "$symbol" #"$symbolName"
+
+
+
+
+mapfile < "$TICKER_NAME_ID_FILE"
+#echo "${MAPFILE[@]}"
+
+echo "${sounds[dog]}" # Dog's sound
+
+# Analyse stock data for each symbol
+for symbol in $symbolsParam
+do
+
+lineFromTickerFile=$(printf "%s\n" "${mapfile[@]}")
+#lineFromTickerFile=$(echo "${mapfile[@]}")
+#printf -- '%s\n' "${MAPFILE[@]}" | grep "$symbol"
+
+   #grep "$symbol" "${MAPFILE[@]}"
+   #lineFromTickerFile=$(grep "$symbol" "${MAPFILE[@]}")
+echo "lineFromTickerFile=$lineFromTickerFile"
+
+
+
+
 
 
 
