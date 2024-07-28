@@ -28,7 +28,7 @@ _priceParam=$3
 
 # To uppercase
 #symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
-symbolParam=$(echo "${_symbolParam^^}") # all uppercase
+symbolParam="${_symbolParam^^}" # all uppercase
 #echo "symbolParam= $symbolParam"
 
 # Pieces has to be without dot
