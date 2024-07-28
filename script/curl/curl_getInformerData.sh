@@ -44,7 +44,8 @@ do
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
         symbol=$(echo "$symbol" | cut -b 2-7)
     fi
-    symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
+    #symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
+    symbol="${symbol^^}" # all uppercase
 
     informerDataFile="$DATA_INFORMER_DIR/$symbol.txt"
     touch "$informerDataFile"
