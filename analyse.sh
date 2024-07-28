@@ -171,7 +171,8 @@ do
         symbol=$(echo "$symbol" | cut -b 2-7)
     fi
 
-    symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
+    #symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
+    symbol=$(echo "${symbol^^}") # all uppercase
     echo "<div id='symbolLineId$symbol'>" >> $OUT_RESULT_FILE # Sorting
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")

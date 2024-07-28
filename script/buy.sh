@@ -22,16 +22,22 @@ export txFee
 export totalAmountOfPieces
 export summe
 
+_symbolParam=$1
+_piecesParam=$2
+_priceParam=$3
+
 # To uppercase
-symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
+#symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
+symbolParam=$(echo "${_symbolParam^^}") # all uppercase
+#echo "symbolParam= $symbolParam"
 
 # Pieces has to be without dot
 # shellcheck disable=SC2001
-piecesParam=$(echo "$2" | sed 's/\.//g')
+piecesParam=$(echo "$_piecesParam" | sed 's/\.//g')
 
 # Price has to be without comma
 # shellcheck disable=SC2001
-priceParam=$(echo "$3" | sed 's/,/./g')
+priceParam=$(echo "$_priceParam" | sed 's/,/./g')
 
 if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$piecesParam" ]; } then
   echo "Not all parameters specified!"

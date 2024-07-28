@@ -39,7 +39,6 @@ alarmCountForIndexOrigParam=$9 # Copy as orig. value needed for summary at the e
 export LC_ALL=en_US.UTF-8
 
 OUT_SIMULATE_FILE="simulate/out/_simulate.html"
-#TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 QUOTE_MAX_VALUE=999999
 ARRAY_BUY_POS_SIM=()
 
