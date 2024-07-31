@@ -200,6 +200,26 @@ if [ -f "sell/""$symbol""_2024-07-30.txt" ]; then
     cp -f sell/"$symbol"_2024-07-30.txt sell/"$symbol".txt
     rm -f sell/"$symbol"_2024-07-30.txt
 fi
+
+#Migration
+#Migration
+#Migration
+#Migration
+
+if [ -f "alarm/""$symbol""_2024-07-31.txt" ]; then
+    cp -f alarm/"$symbol"_2024-07-31.txt alarm/"$symbol".txt
+    rm -f alarm/"$symbol"_2024-07-31.txt
+fi
+
+if [ -f "buy/""$symbol""_2024-07-31.txt" ]; then
+    cp -f buy/"$symbol"_2024-07-31.txt buy/"$symbol".txt
+    rm -f buy/"$symbol"_2024-07-31.txt
+fi
+
+if [ -f "sell/""$symbol""_2024-07-31.txt" ]; then
+    cp -f sell/"$symbol"_2024-07-31.txt sell/"$symbol".txt
+    rm -f sell/"$symbol"_2024-07-31.txt
+fi
 #Migration
 #Migration
 #Migration

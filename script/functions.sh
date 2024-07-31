@@ -37,7 +37,6 @@ WriteTransactionFile() {
     _transactionOutputDir=$3
  
     transactionSymbolLastDateFile=$_transactionOutputDir/$_symbolParam.txt 
-    
     if [ ! -f "$transactionSymbolLastDateFile" ]; then
        commaListTransaction="{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, "
        echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
@@ -48,10 +47,9 @@ WriteTransactionFile() {
         touch "$statusFile"
         echo "$_lastDateInDataFile" > "$statusFile"
     fi
+
     statusDate=$(cat "$statusFile")
     if [ ! "$statusDate" = "$_lastDateInDataFile" ]; then
-   #     echo "" # DO NOTHING
-   # else
         echo "$_lastDateInDataFile" > "$statusFile"
         commaListTransaction=$(cut -d ' ' -f 2-90 < "$transactionSymbolLastDateFile")
         commaListTransaction="$commaListTransaction""{}, "
@@ -85,15 +83,15 @@ WriteAlarmAbbrevXAxisFile() {
        echo "$commaListAlarm" > "$alarmSymbolFile"
     fi
 
+    # shellcheck disable=SC2140
     statusFile="$STATUS_DIR/$_symbolParam"_"$_dataDateOutputDir.txt"
     if [ ! -f "$statusFile" ]; then # Todays statusFile doesn't exists e.g: status/BEI.txt
         touch "$statusFile"
         echo "$lastDateInDataFile" > "$statusFile"
     fi
+    
     statusDate=$(cat "$statusFile")
     if [ ! "$statusDate" = "$lastDateInDataFile" ]; then
-    #     echo "" # DO NOTHING
-    # else
         echo "$lastDateInDataFile" > "$statusFile"
         commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolFile")
         commaListAlarm="$commaListAlarm,'$_newAlarmAbbrevTextParam'"

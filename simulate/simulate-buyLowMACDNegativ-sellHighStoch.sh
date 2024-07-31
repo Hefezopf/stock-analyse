@@ -65,7 +65,7 @@ export winOverall=0
 export _outputText=""
 export txFee
 
- # shellcheck disable=SC2140
+# shellcheck disable=SC2140
 echo "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8' /><link rel='shortcut icon' type='image/ico' href='favicon.ico' /><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
 
 Out "" $OUT_SIMULATE_FILE

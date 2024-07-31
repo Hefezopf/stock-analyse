@@ -66,3 +66,7 @@ bats --tap --timing test/averages.bats
 bats --tap --timing test/simulate.bats
 bats --tap --timing test/analyse.bats
 
+# Cleanup
+rm -rf 30
+rm -rf test/alarm/BEI.txt
+rm -rf test/buy/BEI.txt
