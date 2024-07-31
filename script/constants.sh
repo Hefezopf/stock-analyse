@@ -25,6 +25,7 @@ export  COMDIRECT_URL_INDEX_PREFIX_5Y="$COMDIRECT_URL_INDEX_PREFIX""&timeSpan=5Y
 
 # Files
 export DATA_DIR="data"
+export STATUS_DIR="status"
 
 #export TEMP_DIR=/tmp
 export TEMP_DIR=/dev/shm/

@@ -33,27 +33,30 @@ WriteOverallChartsButtons() {
 # Output: buy/$symbol.txt file. E.g: buy/BEI.txt
 WriteTransactionFile() {
     _lastDateInDataFile=$1
-    _beforeLastDateInDataFile=$2
-    _symbolParam=$3
-    _transactionOutputDir=$4
+    _symbolParam=$2
+    _transactionOutputDir=$3
+ 
+    transactionSymbolLastDateFile=$_transactionOutputDir/$_symbolParam.txt 
     
-    mkdir -p "$_transactionOutputDir"
-    transactionSymbolLastDateFile=$_transactionOutputDir/$_symbolParam"_"$_lastDateInDataFile.txt 
-    transactionSymbolBeforeLastDateFile=$_transactionOutputDir/$_symbolParam"_"$_beforeLastDateInDataFile.txt 
-
-    if [ ! -f "$transactionSymbolLastDateFile" ]; then # Todays datefile doesn't exists e.g: buy/BEI_2021-02-09.txt
-        if [ -f "$transactionSymbolBeforeLastDateFile" ]; then # Last datefile exists. Take the last datefile e.g: buy/BEI_2021-02-08.txt
-            commaListTransaction=$(cut -d ' ' -f 2-90 < "$transactionSymbolBeforeLastDateFile")
-            commaListTransaction="$commaListTransaction""{}, "
-            echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
-            rm -rf "$transactionSymbolBeforeLastDateFile"
-        else # Last datefile File doesn't exists. Create actual datefile from scratch e.g: buy/BEI_2021-02-09.txt
-            rm -rf "$_transactionOutputDir"/"$_symbolParam"*.txt
-            commaListTransaction="{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, "
-            echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
-        fi
+    if [ ! -f "$transactionSymbolLastDateFile" ]; then
+       commaListTransaction="{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, "
+       echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
     fi
-    cp -f "$transactionSymbolLastDateFile" "$_transactionOutputDir"/"$_symbolParam".txt  # Copy e.g: buy/BEI_2021-02-09.txt to buy/BEI.txt
+
+    statusFile="$STATUS_DIR/$_symbolParam""_$_transactionOutputDir.txt"
+    if [ ! -f "$statusFile" ]; then # yesterdays statusFile doesn't exists e.g: status/BEI.txt
+        touch "$statusFile"
+        echo "$_lastDateInDataFile" > "$statusFile"
+    fi
+    statusDate=$(cat "$statusFile")
+    if [ ! "$statusDate" = "$_lastDateInDataFile" ]; then
+   #     echo "" # DO NOTHING
+   # else
+        echo "$_lastDateInDataFile" > "$statusFile"
+        commaListTransaction=$(cut -d ' ' -f 2-90 < "$transactionSymbolLastDateFile")
+        commaListTransaction="$commaListTransaction""{}, "
+        echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
+    fi
 }
 
 # WriteAlarmAbbrevXAxisFile function: 
@@ -67,12 +70,8 @@ WriteAlarmAbbrevXAxisFile() {
     _dataDateFile=$3
     _dataDateOutputDir=$4
     _markerOwnStockParam=$5 
-    mkdir -p "$_dataDateOutputDir"
     lastDateInDataFile=$(head -n1 "$_dataDateFile" | cut -f 1)
-    beforeLastDateInDataFile=$(head -n2 "$_dataDateFile" | tail -1 | cut -f 1)
     alarmSymbolFile=$_dataDateOutputDir/$_symbolParam.txt
-    alarmSymbolLastDateFile=$_dataDateOutputDir/$_symbolParam"_"$lastDateInDataFile.txt 
-    alarmSymbolBeforeLastDateFile=$_dataDateOutputDir/$_symbolParam"_"$beforeLastDateInDataFile.txt 
     
     lastDay=$(echo "$lastDateInDataFile" | cut -f 3 -d '-') # 2021-02-16 -> 16
     if [ "${#_newAlarmAbbrevTextParam}" -eq 0 ]; then
@@ -81,28 +80,30 @@ WriteAlarmAbbrevXAxisFile() {
         _newAlarmAbbrevTextParam="$_markerOwnStockParam""$_newAlarmAbbrevTextParam"
     fi
 
-    if [ ! -f "$alarmSymbolLastDateFile" ]; then # Todays datefile doesn't exists e.g: alarm/BEI_2021-02-09.txt
-        if [ -f "$alarmSymbolBeforeLastDateFile" ]; then # Last datefile exists. Take the last datefile e.g: alarm/BEI_2021-02-08.txt
-            commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolBeforeLastDateFile")
-            commaListAlarm="$commaListAlarm,'$_newAlarmAbbrevTextParam'"
-            echo "$commaListAlarm" > "$alarmSymbolLastDateFile"
-            rm -rf "$alarmSymbolBeforeLastDateFile"
-        else # Last datefile File doesn't exists. Create actual datefile from scratch e.g: alarm/BEI_2021-02-09.txt
-            rm -rf "$_dataDateOutputDir"/"$_symbolParam"*.txt
-#            alarmAbbrevTemplate="'','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
-            commaListAlarm="$alarmAbbrevTemplate,'$_newAlarmAbbrevTextParam'"
-            echo "$commaListAlarm" > "$alarmSymbolLastDateFile"
-        fi
+    if [ ! -f "$alarmSymbolFile" ]; then
+       commaListAlarm="$alarmAbbrevTemplate,'$_newAlarmAbbrevTextParam'"
+       echo "$commaListAlarm" > "$alarmSymbolFile"
     fi
 
-    cp -f "$alarmSymbolLastDateFile" "$alarmSymbolFile" # Copy e.g: alarm/BEI_2021-02-09.txt to alarm/BEI.txt
+    statusFile="$STATUS_DIR/$_symbolParam"_"$_dataDateOutputDir.txt"
+    if [ ! -f "$statusFile" ]; then # Todays statusFile doesn't exists e.g: status/BEI.txt
+        touch "$statusFile"
+        echo "$lastDateInDataFile" > "$statusFile"
+    fi
+    statusDate=$(cat "$statusFile")
+    if [ ! "$statusDate" = "$lastDateInDataFile" ]; then
+    #     echo "" # DO NOTHING
+    # else
+        echo "$lastDateInDataFile" > "$statusFile"
+        commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolFile")
+        commaListAlarm="$commaListAlarm,'$_newAlarmAbbrevTextParam'"
+        echo "$commaListAlarm" > "$alarmSymbolFile"
+    fi
 
-    # Remove the first occurance of the alarms for a better Chart visiulization
-    # '','*C+3R+4S+P+D+N+M+','*C+4R+4S+P+M+',.....
-    alarmStringWithoutFristAlarm=$(cat "$alarmSymbolFile")
+    alarmStringWithoutFristAlarm=$(cat "$alarmSymbolFile")    
     alarmStringWithoutFristAlarm=${alarmStringWithoutFristAlarm#*,}
     alarmStringWithoutFristAlarm="'',$alarmStringWithoutFristAlarm"
-    echo "$alarmStringWithoutFristAlarm" > "$alarmSymbolFile"
+    echo "$alarmStringWithoutFristAlarm" > "$alarmSymbolFile"    
 }
 
 # DetermineTendency function: 

@@ -29,10 +29,10 @@ cat config/stock_symbols.txt | sed -i s/"$symbolParam "// config/stock_symbols.t
 
 # Delete all files
 rm -rf out/"$symbolParam".html
-rm -rf alarm/"$symbolParam"*.txt
-rm -rf buy/"$symbolParam"*.txt
-#rm -rf data/"$symbolParam"*.txt
+#rm -rf alarm/"$symbolParam"*.txt
+#rm -rf buy/"$symbolParam"*.txt
 rm -rf "$DATA_DIR/$symbolParam"*.txt
 rm -rf history/"$symbolParam"*.txt
-rm -rf sell/"$symbolParam"*.txt
+#rm -rf sell/"$symbolParam"*.txt
+rm -rf status/"$symbolParam"*.txt
 rm -rf simulate/out/"$symbolParam"*.html

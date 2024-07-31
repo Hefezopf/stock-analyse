@@ -87,7 +87,7 @@ SYMBOL_NAME="BEIERSDORF"
 
 @test "WriteTransactionFile" {
   mkdir -p test/buy
-  run WriteTransactionFile "2021-02-09" "2021-02-08" "$SYMBOL" "test/buy"
+  run WriteTransactionFile "2021-02-09" "$SYMBOL" "test/buy"
   [ "$status" -eq 0 ]
 }
 

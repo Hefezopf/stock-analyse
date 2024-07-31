@@ -119,9 +119,10 @@ do
     
 
     #DATA_FILE=data/"$symbol".txt
-    DATA_FILE="$DATA_DIR/$symbol".txt
-    dateOfFile=$(head -n1 "$DATA_FILE" | tail -1 | cut -f 1)
-    ALARM_FILE=alarm/"$symbol"_"$dateOfFile".txt
+    #DATA_FILE="$DATA_DIR/$symbol".txt
+    #dateOfFile=$(head -n1 "$DATA_FILE" | tail -1 | cut -f 1)
+    #ALARM_FILE=alarm/"$symbol"_"$dateOfFile".txt
+    ALARM_FILE=alarm/"$symbol".txt
     alarms=$(head "$ALARM_FILE")
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
@@ -396,6 +397,7 @@ do
     done
     # sed -i "/labels: /c\labels: [$xAxis" simulate/out/"$symbol".html
     labelsTemplate="labels:[$xAxis"
+    #labelsTemplate="$xAxis"
     # ATTENTION Line number may change, if there will be development!
     sed -i "81s/.*/$labelsTemplate/" simulate/out/"$symbol".html    
  
@@ -449,7 +451,7 @@ do
     # GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! $creationDate</p>"
     GOOD_LUCK="<br>Good Luck! $creationDate"
     # ATTENTION Line number may change, if there will be development!
-    sed -i "580s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
+    sed -i "579s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
 done
 
 Out "" $OUT_SIMULATE_FILE

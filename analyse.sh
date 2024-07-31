@@ -56,6 +56,10 @@ RSIQuoteParam=$4
 lowestRSI=100
 counterOwnStocks=0 # For Spinner
 rm -rf "$TEMP_DIR"/tmp.*
+mkdir -p "$STATUS_DIR"
+mkdir -p sell
+mkdir -p buy
+mkdir -p alarm
 mkdir -p out
 mkdir -p temp
 cp template/favicon.ico out
@@ -173,6 +177,37 @@ do
 
     #symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
     symbol="${symbol^^}" # all uppercase
+
+
+
+
+
+#Migration
+#Migration
+#Migration
+#Migration
+if [ -f "alarm/""$symbol""_2024-07-30.txt" ]; then
+    cp -f alarm/"$symbol"_2024-07-30.txt alarm/"$symbol".txt
+    rm -f alarm/"$symbol"_2024-07-30.txt
+fi
+
+if [ -f "buy/""$symbol""_2024-07-30.txt" ]; then
+    cp -f buy/"$symbol"_2024-07-30.txt buy/"$symbol".txt
+    rm -f buy/"$symbol"_2024-07-30.txt
+fi
+
+if [ -f "sell/""$symbol""_2024-07-30.txt" ]; then
+    cp -f sell/"$symbol"_2024-07-30.txt sell/"$symbol".txt
+    rm -f sell/"$symbol"_2024-07-30.txt
+fi
+#Migration
+#Migration
+#Migration
+#Migration
+
+
+
+
     echo "<div id='symbolLineId$symbol'>" >> $OUT_RESULT_FILE # Sorting
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
@@ -511,15 +546,17 @@ do
         cat template/indexPart3.html
 
         # shellcheck disable=SC2154
-        WriteTransactionFile "$lastDateInDataFile" "$beforeLastDateInDataFile" "$symbol" "buy"
+        #WriteTransactionFile "$lastDateInDataFile" "$beforeLastDateInDataFile" "$symbol" "buy"
+        WriteTransactionFile "$lastDateInDataFile" "$symbol" "buy"
         cat buy/"$symbol".txt
         cat template/indexPart3a.html
-        rm -rf buy/"$symbol".txt # Remove temp SYMBOL file and keep buy/SYMBOL_DATE.txt
+        #rm -rf buy/"$symbol".txt # Remove temp SYMBOL file and keep buy/SYMBOL_DATE.txt
 
-        WriteTransactionFile "$lastDateInDataFile" "$beforeLastDateInDataFile" "$symbol" "sell"
+        #WriteTransactionFile "$lastDateInDataFile" "$beforeLastDateInDataFile" "$symbol" "sell"
+        WriteTransactionFile "$lastDateInDataFile" "$symbol" "sell"
         cat sell/"$symbol".txt
         cat template/indexPart3b.html
-        rm -rf sell/"$symbol".txt # Remove temp SYMBOL file and keep sell/SYMBOL_DATE.txt
+        #rm -rf sell/"$symbol".txt # Remove temp SYMBOL file and keep sell/SYMBOL_DATE.txt
 
         echo "'" Average $averageInDays18 "',"
         cat template/indexPart4.html
@@ -567,7 +604,7 @@ do
         cat template/indexPart11.html
         cat alarm/"$symbol".txt
         cat template/indexPart11b.html        
-        rm alarm/"$symbol".txt # Remove temp SYMBOL file and keep alarm/SYMBOL_DATE.txt
+       # rm alarm/"$symbol".txt # Remove temp SYMBOL file and keep alarm/SYMBOL_DATE.txt
 
         echo "$MACDList"
         cat template/indexPart12.html
