@@ -1,6 +1,54 @@
 TODO:
 -----
 
+OLDIFS=$IFS
+..
+IFS="," set -- $_stochasticQuoteListParam
+..
+IFS=$OLDIFS
+
+
+    symbolMap["$symbol"]="$lineFromTickerFile"
+    #symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+    symbolName=$(echo "${symbolMap["$symbol"]}" | cut -f 2)
+#echo "---------symbolName:$symbolName"
+
+
+# symbolMap["$symbol"]="$lineFromTickerFile"
+ #symbolMap["2"]="value2"
+ #echo ${symbolMap["$symbol"]}
+ #echo "--------"
+#echo ${symbolMap["$2"]}
+
+
+declare -A symbolMap
+symbolMap["key1"]="value1"
+symbolMap["key2"]="value2"
+echo ${symbolMap[@]}
+symbolMap[$symbol]="value3"
+echo ${symbolMap[@]}
+
+
+mapfile < "$TICKER_NAME_ID_FILE"
+#echo "${MAPFILE[@]}"
+
+echo "${sounds[dog]}" # Dog's sound
+
+# Analyse stock data for each symbol
+for symbol in $symbolsParam
+do
+
+lineFromTickerFile=$(printf "%s\n" "${mapfile[@]}")
+#lineFromTickerFile=$(echo "${mapfile[@]}")
+#printf -- '%s\n' "${MAPFILE[@]}" | grep "$symbol"
+
+   #grep "$symbol" "${MAPFILE[@]}"
+   #lineFromTickerFile=$(grep "$symbol" "${MAPFILE[@]}")
+echo "lineFromTickerFile=$lineFromTickerFile"
+
+
+
+
 
 New Werte die in Fonds sind einpflegen
 hier weiter
@@ -29,31 +77,8 @@ CreateCmdHyperlink "Analyse" "out" "$symbol" #"$symbolName"
 
 
 
-mapfile < "$TICKER_NAME_ID_FILE"
-#echo "${MAPFILE[@]}"
-
-echo "${sounds[dog]}" # Dog's sound
-
-# Analyse stock data for each symbol
-for symbol in $symbolsParam
-do
-
-lineFromTickerFile=$(printf "%s\n" "${mapfile[@]}")
-#lineFromTickerFile=$(echo "${mapfile[@]}")
-#printf -- '%s\n' "${MAPFILE[@]}" | grep "$symbol"
-
-   #grep "$symbol" "${MAPFILE[@]}"
-   #lineFromTickerFile=$(grep "$symbol" "${MAPFILE[@]}")
-echo "lineFromTickerFile=$lineFromTickerFile"
-
-
-
-
-
-
-
-Git verschlanken:
-keine Dateien mit Datum: alarm, buy, sell
++Git verschlanken:
++keine Dateien mit Datum: alarm, buy, sell
 
 
 

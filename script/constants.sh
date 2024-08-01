@@ -23,13 +23,12 @@ export  COMDIRECT_URL_INDEX_PREFIX_10D="$COMDIRECT_URL_INDEX_PREFIX""&timeSpan=1
 export  COMDIRECT_URL_INDEX_PREFIX_6M="$COMDIRECT_URL_INDEX_PREFIX""&timeSpan=6M&ID_NOTATION="
 export  COMDIRECT_URL_INDEX_PREFIX_5Y="$COMDIRECT_URL_INDEX_PREFIX""&timeSpan=5Y&ID_NOTATION="
 
-# Files
+# Dirs
 export DATA_DIR="data"
 export STATUS_DIR="status"
-
-#export TEMP_DIR=/tmp
 export TEMP_DIR=/dev/shm/
 
+# Files
 export OWN_SYMBOLS_FILE="config/own_symbols.txt"
 export TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 export TRANSACTION_COUNT_FILE="config/transaction_count.txt"
