@@ -178,48 +178,9 @@ do
     #symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
     symbol="${symbol^^}" # all uppercase
 
-
-
-
-
-#Migration
-#Migration
-#Migration
-#Migration
-if [ ! -f "status/$symbol/$symbol""_alarm.txt" ]; then
-    mkdir -p status/"$symbol"
-    mv status/"$symbol"_alarm.txt status/"$symbol/$symbol"_alarm.txt 2>/dev/null
-    mv status/"$symbol"_buy.txt status/"$symbol/$symbol"_buy.txt 2>/dev/null
-    mv status/"$symbol"_sell.txt status/"$symbol/$symbol"_sell.txt 2>/dev/null
-fi
-#Migration
-#Migration
-#Migration
-#Migration
-
-
-
-# if [ -f "alarm/""$symbol""_2024-07-31.txt" ]; then
-#     cp -f alarm/"$symbol"_2024-07-31.txt alarm/"$symbol".txt
-#     rm -f alarm/"$symbol"_2024-07-31.txt
-# fi
-
-# if [ -f "buy/""$symbol""_2024-07-31.txt" ]; then
-#     cp -f buy/"$symbol"_2024-07-31.txt buy/"$symbol".txt
-#     rm -f buy/"$symbol"_2024-07-31.txt
-# fi
-
-# if [ -f "sell/""$symbol""_2024-07-31.txt" ]; then
-#     cp -f sell/"$symbol"_2024-07-31.txt sell/"$symbol".txt
-#     rm -f sell/"$symbol"_2024-07-31.txt
-# fi
-#Migration
-#Migration
-#Migration
-#Migration
-
-
-
+    if [ ! -f "status/$symbol/$symbol""_alarm.txt" ]; then # For new symbols only
+        mkdir -p status/"$symbol"
+    fi
 
     echo "<div id='symbolLineId$symbol'>" >> $OUT_RESULT_FILE # Sorting
 

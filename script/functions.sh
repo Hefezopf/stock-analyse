@@ -43,8 +43,8 @@ WriteTransactionFile() {
     fi
 
     statusFile="$STATUS_DIR/$_symbolParam/$_symbolParam""_$_transactionOutputDir.txt"
-    if [ ! -f "$statusFile" ]; then # Yesterdays statusFile doesn't exists e.g: status/BEI.txt
-        touch "$statusFile"
+    if [ ! -f "$statusFile" ]; then # Yesterdays statusFile doesn't exists e.g: status/BEI/BEI_buy.txt
+        #touch "$statusFile"
         echo "$_lastDateInDataFile" > "$statusFile"
     fi
 
@@ -85,8 +85,8 @@ WriteAlarmAbbrevXAxisFile() {
 
     # shellcheck disable=SC2140
     statusFile="$STATUS_DIR/$_symbolParam/$_symbolParam"_"$_dataDateOutputDir.txt"
-    if [ ! -f "$statusFile" ]; then # Yesterdays statusFile doesn't exists e.g: status/BEI.txt
-        touch "$statusFile"
+    if [ ! -f "$statusFile" ]; then # Yesterdays statusFile doesn't exists e.g: status/BEI/BEI_alarm.txt
+        #touch "$statusFile"
         echo "$lastDateInDataFile" > "$statusFile"
     fi
     
