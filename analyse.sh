@@ -186,40 +186,33 @@ do
 #Migration
 #Migration
 #Migration
-if [ -f "alarm/""$symbol""_2024-07-30.txt" ]; then
-    cp -f alarm/"$symbol"_2024-07-30.txt alarm/"$symbol".txt
-    rm -f alarm/"$symbol"_2024-07-30.txt
+if [ ! -f "status/""$symbol"/""$symbol"_alarm.txt" ]; then
+    mkdir -p status/"$symbol"
+    mv status/"$symbol"_alarm.txt status/"$symbol/$symbol"_alarm.txt
+    mv status/"$symbol"_buy.txt status/"$symbol/$symbol"_buy.txt
+    mv status/"$symbol"_sell.txt status/"$symbol/$symbol"_sell.txt
 fi
-
-if [ -f "buy/""$symbol""_2024-07-30.txt" ]; then
-    cp -f buy/"$symbol"_2024-07-30.txt buy/"$symbol".txt
-    rm -f buy/"$symbol"_2024-07-30.txt
-fi
-
-if [ -f "sell/""$symbol""_2024-07-30.txt" ]; then
-    cp -f sell/"$symbol"_2024-07-30.txt sell/"$symbol".txt
-    rm -f sell/"$symbol"_2024-07-30.txt
-fi
-
 #Migration
 #Migration
 #Migration
 #Migration
 
-if [ -f "alarm/""$symbol""_2024-07-31.txt" ]; then
-    cp -f alarm/"$symbol"_2024-07-31.txt alarm/"$symbol".txt
-    rm -f alarm/"$symbol"_2024-07-31.txt
-fi
 
-if [ -f "buy/""$symbol""_2024-07-31.txt" ]; then
-    cp -f buy/"$symbol"_2024-07-31.txt buy/"$symbol".txt
-    rm -f buy/"$symbol"_2024-07-31.txt
-fi
 
-if [ -f "sell/""$symbol""_2024-07-31.txt" ]; then
-    cp -f sell/"$symbol"_2024-07-31.txt sell/"$symbol".txt
-    rm -f sell/"$symbol"_2024-07-31.txt
-fi
+# if [ -f "alarm/""$symbol""_2024-07-31.txt" ]; then
+#     cp -f alarm/"$symbol"_2024-07-31.txt alarm/"$symbol".txt
+#     rm -f alarm/"$symbol"_2024-07-31.txt
+# fi
+
+# if [ -f "buy/""$symbol""_2024-07-31.txt" ]; then
+#     cp -f buy/"$symbol"_2024-07-31.txt buy/"$symbol".txt
+#     rm -f buy/"$symbol"_2024-07-31.txt
+# fi
+
+# if [ -f "sell/""$symbol""_2024-07-31.txt" ]; then
+#     cp -f sell/"$symbol"_2024-07-31.txt sell/"$symbol".txt
+#     rm -f sell/"$symbol"_2024-07-31.txt
+# fi
 #Migration
 #Migration
 #Migration
