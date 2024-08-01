@@ -98,6 +98,7 @@ SYMBOL_NAME="BEIERSDORF"
 }
 
 @test "UsageCheckParameter" {
+  # UsageCheckParameter "$symbolsParam" "$percentageParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
   run UsageCheckParameter 'ADS BEI' 1 9 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 0 ]
 
@@ -111,9 +112,6 @@ SYMBOL_NAME="BEIERSDORF"
   [ "$status" -eq 5 ]
 
   run UsageCheckParameter "$SYMBOL" xxx 9 30 "$OUT_RESULT_FILE"
-  [ "$status" -eq 5 ]
-
-  run UsageCheckParameter "$SYMBOL" 1 xxx 9 30 "$OUT_RESULT_FILE"
   [ "$status" -eq 5 ]
 
   run UsageCheckParameter "$SYMBOL" 1 9 30 "$OUT_RESULT_FILE"

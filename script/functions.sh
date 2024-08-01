@@ -163,6 +163,7 @@ CurlSymbolName() {
 }
 
 # UsageCheckParameter function:
+# UsageCheckParameter "$symbolsParam" "$percentageParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
 # Input: ${x}
 # Output: OUT_RESULT_FILE
 UsageCheckParameter() {
