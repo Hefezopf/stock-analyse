@@ -451,7 +451,7 @@ do
     # GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! $creationDate</p>"
     GOOD_LUCK="<br>Good Luck! $creationDate"
     # ATTENTION Line number may change, if there will be development!
-    sed -i "579s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
+    sed -i "580s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html  
 done
 
 Out "" $OUT_SIMULATE_FILE
