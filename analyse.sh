@@ -186,11 +186,11 @@ do
 #Migration
 #Migration
 #Migration
-if [ ! -f "status/""$symbol"/""$symbol"_alarm.txt" ]; then
+if [ ! -f "status/$symbol/$symbol""_alarm.txt" ]; then
     mkdir -p status/"$symbol"
-    mv status/"$symbol"_alarm.txt status/"$symbol/$symbol"_alarm.txt
-    mv status/"$symbol"_buy.txt status/"$symbol/$symbol"_buy.txt
-    mv status/"$symbol"_sell.txt status/"$symbol/$symbol"_sell.txt
+    mv status/"$symbol"_alarm.txt status/"$symbol/$symbol"_alarm.txt 2>/dev/null
+    mv status/"$symbol"_buy.txt status/"$symbol/$symbol"_buy.txt 2>/dev/null
+    mv status/"$symbol"_sell.txt status/"$symbol/$symbol"_sell.txt 2>/dev/null
 fi
 #Migration
 #Migration
