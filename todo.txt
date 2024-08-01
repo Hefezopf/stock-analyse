@@ -4,7 +4,7 @@ TODO:
 
 New Werte die in Fonds sind einpflegen
 hier weiter
-DX2J "XTR Small Cap"
+DXSE "XTR Health Care"  6M   5Y   SA 
 
 . analyse.sh 'XXX' 2 9 25 cc
 add 'XXX' to config: stock_symbols.txt
@@ -12,6 +12,8 @@ edit ticker_name_id.txt (Correct Names and paste notation-Id)
 . script/curl/curl_getInformerData.sh 'XXX'
 mc 'XXX'
 . analyse.sh 'XXX' 2 9 25 cc
+
+
 
 
 
@@ -131,6 +133,49 @@ Verwenden Sie einen leistungsstarken Shell-Interpreter wie z.B. zsh anstelle von
 -bash substitutions
 https://wiki.bash-hackers.org/syntax/pe#substring_removal
 
+1.8.2024:
+. test.sh | gnomon --medium=1.0 --high=4.0 --ignore-blank --real-time=100
+   0.3951s   shellcheck ...
+   0.4095s   bats ...
+   0.7044s   Bats 1.9.0
+   4.1712s   1..9
+   0.3853s   ok 1 DetermineTendency in 2873ms
+   0.6816s   ok 2 CalculateMarketCapRSILevel in 173ms
+   0.4667s   ok 3 CalculateTxFee in 454ms
+   0.7003s   ok 4 WriteTransactionFile in 229ms
+   2.1688s   ok 5 WriteAlarmAbbrevXAxisFile in 417ms
+   0.3334s   ok 6 UsageCheckParameter in 1923ms
+   1.1794s   ok 7 CurlSymbolName in 95ms
+   1.4213s   ok 8 LessThenWithFactor in 927ms
+   1.0571s   ok 9 GreaterThenWithFactor in 1171ms
+   2.8939s   1..15
+  81.0428s   ok 1 StrategieUnderratedNewLow in 1969ms
+   3.2316s   ok 2 StrategieUnderratedLowHorizontalMACD in 80792ms
+   0.7255s   ok 3 StrategieOverratedHighHorizontalMACD in 2918ms
+   0.4123s   ok 4 StrategieOverratedDivergenceRSI in 437ms
+   4.2616s   ok 5 StrategieUnderratedDivergenceRSI in 137ms
+   5.1443s   ok 6 StrategieOverratedXHighRSI in 3970ms
+   9.2040s   ok 7 StrategieUnderratedXLowRSI in 4889ms
+   5.0344s   ok 8 StrategieOverratedXHighStochastic in 8944ms
+   3.3507s   ok 9 StrategieUnderratedXLowStochastic in 4775ms
+   0.3864s   ok 10 StrategieByTendency in 3103ms
+   0.4431s   ok 11 StrategieOverratedHighStochasticHighRSIHighMACD in 159ms
+   0.3887s   ok 12 StrategieUnderratedLowStochasticLowRSILowMACD in 159ms
+   0.4080s   ok 13 StrategieUnderratedByPercentAndStoch in 119ms
+   0.3887s   ok 14 StrategieOverratedByPercentAndStoch in 105ms
+   0.7216s   ok 15 StrategieOverratedStochasticWhenOwn in 128ms
+  17.9862s   1..5
+  14.4200s   ok 1 MACD_12_26 in 17207ms
+   7.4387s   ok 2 EMAverageOfDays in 14176ms
+  29.6494s   ok 3 AverageOfDays in 7164ms
+  29.7085s   ok 4 StochasticOfDays in 29426ms
+   0.5873s   ok 5 RSIOfDays in 29460ms
+  41.3917s   1..1
+   0.5264s   ok 1 Simulation in 40684ms
+   2.7445s   1..1
+   0.2082s   ok 1 Analyse in 2060ms
+
+     Total   276.7759s
 
 16.6.2024:
 ./test.sh | gnomon --medium=1.0 --high=4.0 --ignore-blank --real-time=100
