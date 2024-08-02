@@ -138,16 +138,12 @@ Out "###########" $OUT_RESULT_FILE
 Out "" $OUT_RESULT_FILE
 echo "# Parameter" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-#echo "!!! DATA_DIR:$DATA_DIR " | tee -a $OUT_RESULT_FILE
-#echo "<br>" >> $OUT_RESULT_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "Percentage:$percentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
-#echo "Query:$queryParam " | tee -a $OUT_RESULT_FILE
-#echo "<br>" >> $OUT_RESULT_FILE
 echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
 echo "<br>" >> $OUT_RESULT_FILE
 echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
@@ -204,20 +200,6 @@ do
     echo "# Get $symbol $symbolName"
     DATA_FILE="$(mktemp -p "$TEMP_DIR")"
     DATA_DATE_FILE="$DATA_DIR/$symbol.txt"
-    # if [ "$queryParam" = 'online' ]; then
-    #     DATA_DATE_FILE_TEMP="$(mktemp -p "$TEMP_DIR")"
-    #     cp "$DATA_DATE_FILE" "$DATA_DATE_FILE_TEMP"
-    #     # https://marketstack.com/documentation
-    #     exchange="XETRA"
-    #     curl -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}' > "$DATA_DATE_FILE"
-    #     fileSize=$(stat -c %s "$DATA_DATE_FILE")
-    #     if [ "$fileSize" -eq "0" ]; then
-    #         echo "<br>" >> $OUT_RESULT_FILE
-    #         echo "!!! $symbol NO data retrieved online or CURL blocked" | tee -a $OUT_RESULT_FILE
-    #         echo "<br>" >> $OUT_RESULT_FILE
-    #         mv "$DATA_DATE_FILE_TEMP" "$DATA_DATE_FILE"
-    #     fi
-    # fi
 
     CreateCmdHyperlink "Analyse" "out" "$symbol" #"$symbolName"
 
@@ -520,17 +502,13 @@ do
         cat template/indexPart3.html
 
         # shellcheck disable=SC2154
-        #WriteTransactionFile "$lastDateInDataFile" "$beforeLastDateInDataFile" "$symbol" "buy"
         WriteTransactionFile "$lastDateInDataFile" "$symbol" "buy"
         cat buy/"$symbol".txt
         cat template/indexPart3a.html
-        #rm -rf buy/"$symbol".txt # Remove temp SYMBOL file and keep buy/SYMBOL_DATE.txt
 
-        #WriteTransactionFile "$lastDateInDataFile" "$beforeLastDateInDataFile" "$symbol" "sell"
         WriteTransactionFile "$lastDateInDataFile" "$symbol" "sell"
         cat sell/"$symbol".txt
         cat template/indexPart3b.html
-        #rm -rf sell/"$symbol".txt # Remove temp SYMBOL file and keep sell/SYMBOL_DATE.txt
 
         echo "'" Average $averageInDays18 "',"
         cat template/indexPart4.html
@@ -578,7 +556,6 @@ do
         cat template/indexPart11.html
         cat alarm/"$symbol".txt
         cat template/indexPart11b.html        
-       # rm alarm/"$symbol".txt # Remove temp SYMBOL file and keep alarm/SYMBOL_DATE.txt
 
         echo "$MACDList"
         cat template/indexPart12.html
@@ -640,7 +617,7 @@ do
             # Market Cap Progressbar, only if number
             if [ "$marketCapFromFile" = '?' ]; then
                 echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"
-                echo "<br>" # Extra line, because of GOOD LUCK replacemant. Low Market Cap Symbol files need the same length!
+                echo "" # Extra line, because of GOOD LUCK replacemant. Low Market Cap Symbol files need the same length!
             else
                 marketCapScaled=$((marketCapFromFile * 5)) # Scale factor in progressbar
                 # shellcheck disable=SC2086,SC2027
@@ -648,16 +625,6 @@ do
                 echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;$marketCapFromFile Mrd.€</div><br>"
             fi
         fi
-
-        # Check, if quote day is from last trading day, including weekend
-        # yesterday=$(date --date="-1 day" +"%Y-%m-%d")
-        # dayOfWeek=$(date +%u)
-        # if [ "$dayOfWeek" -eq 7 ]; then # 7 SUN
-        #     yesterday=$(date --date="-2 day" +"%Y-%m-%d")
-        # fi
-        # if [ "$dayOfWeek" -eq 1 ]; then # 1 MON
-        #     yesterday=$(date --date="-3 day" +"%Y-%m-%d")
-        # fi
 
         echo "<br><p class='p-result'>"
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
@@ -829,7 +796,6 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
     stocksPerformanceOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print (($1 / $2)-1)*100}')
     stocksPerformanceOverall=$(printf "%.1f" "$stocksPerformanceOverall")
     obfuscatedValueGainOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print $1 - $2}')
-#    obfuscatedValueGainOverall="$stocksPerformanceOverall"ZZ"$obfuscatedValueGainOverall"YY
     obfuscatedValueGainOverall="$stocksPerformanceOverall"ZZ # "$obfuscatedValueGainOverall"YY
     obfuscatedValueGainOverall=$(echo "$obfuscatedValueGainOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
     isNegativ=${stocksPerformanceOverall:0:1}
