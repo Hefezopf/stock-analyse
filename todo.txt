@@ -1,51 +1,6 @@
 TODO:
 -----
 
-OLDIFS=$IFS
-..
-IFS="," set -- $_stochasticQuoteListParam
-..
-IFS=$OLDIFS
-
-
-    symbolMap["$symbol"]="$lineFromTickerFile"
-    #symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-    symbolName=$(echo "${symbolMap["$symbol"]}" | cut -f 2)
-#echo "---------symbolName:$symbolName"
-
-
-# symbolMap["$symbol"]="$lineFromTickerFile"
- #symbolMap["2"]="value2"
- #echo ${symbolMap["$symbol"]}
- #echo "--------"
-#echo ${symbolMap["$2"]}
-
-
-declare -A symbolMap
-symbolMap["key1"]="value1"
-symbolMap["key2"]="value2"
-echo ${symbolMap[@]}
-symbolMap[$symbol]="value3"
-echo ${symbolMap[@]}
-
-
-mapfile < "$TICKER_NAME_ID_FILE"
-#echo "${MAPFILE[@]}"
-
-echo "${sounds[dog]}" # Dog's sound
-
-# Analyse stock data for each symbol
-for symbol in $symbolsParam
-do
-
-lineFromTickerFile=$(printf "%s\n" "${mapfile[@]}")
-#lineFromTickerFile=$(echo "${mapfile[@]}")
-#printf -- '%s\n' "${MAPFILE[@]}" | grep "$symbol"
-
-   #grep "$symbol" "${MAPFILE[@]}"
-   #lineFromTickerFile=$(grep "$symbol" "${MAPFILE[@]}")
-echo "lineFromTickerFile=$lineFromTickerFile"
-
 
 
 
@@ -327,6 +282,54 @@ D:\code\stock-analyse\buy\0OK_2022-12-16.txt
 \sell
 \alarm
 Date in File?! First line?
+
+
+OLDIFS=$IFS
+..
+IFS="," set -- $_stochasticQuoteListParam
+..
+IFS=$OLDIFS
+
+
+    symbolMap["$symbol"]="$lineFromTickerFile"
+    #symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+    symbolName=$(echo "${symbolMap["$symbol"]}" | cut -f 2)
+#echo "---------symbolName:$symbolName"
+
+
+# symbolMap["$symbol"]="$lineFromTickerFile"
+ #symbolMap["2"]="value2"
+ #echo ${symbolMap["$symbol"]}
+ #echo "--------"
+#echo ${symbolMap["$2"]}
+
+
+declare -A symbolMap
+symbolMap["key1"]="value1"
+symbolMap["key2"]="value2"
+echo ${symbolMap[@]}
+symbolMap[$symbol]="value3"
+echo ${symbolMap[@]}
+
+
+mapfile < "$TICKER_NAME_ID_FILE"
+#echo "${MAPFILE[@]}"
+
+echo "${sounds[dog]}" # Dog's sound
+
+# Analyse stock data for each symbol
+for symbol in $symbolsParam
+do
+
+lineFromTickerFile=$(printf "%s\n" "${mapfile[@]}")
+#lineFromTickerFile=$(echo "${mapfile[@]}")
+#printf -- '%s\n' "${MAPFILE[@]}" | grep "$symbol"
+
+   #grep "$symbol" "${MAPFILE[@]}"
+   #lineFromTickerFile=$(grep "$symbol" "${MAPFILE[@]}")
+echo "lineFromTickerFile=$lineFromTickerFile"
+
+
 
 
 -Sell own (O) auch wenn RSI über Linie?
