@@ -492,19 +492,58 @@ fi
 Out "" $OUT_SIMULATE_FILE
 Out "# Buy now" $OUT_SIMULATE_FILE
 
-echo "<script>var linkMap = new Map();</script>" >> $OUT_SIMULATE_FILE
+#echo "<script>var linkMap = new Map();</script>" >> $OUT_SIMULATE_FILE
+
+echo "<script>
+var linkMap = new Map();
+// Hover Chart
+function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
+    var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
+    elementSpanToReplace.style.display = 'block';
+    //elementSpanToReplace.style.left = '17%'; 
+    elementSpanToReplace.style.left = '500px'; 
+    elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
+
+}
+
+function hideChart(symbol) {  // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
+    var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
+    elementSpanToReplace.style.display = 'none';
+}
+</script>" >> $OUT_SIMULATE_FILE
+
 echo "<br><button id='buttonOpenAllInTab' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doOpenAllInTab(){for (let [key, value] of linkMap) {window.open(value, \"_blank\").focus();}};doOpenAllInTab()'>Open All</button><br><br>" >> $OUT_SIMULATE_FILE
 for value in "${ARRAY_BUY_POS_SIM[@]}"
 do
     lineFromTickerFile=$(grep -m1 -P "^$value\t" "$TICKER_NAME_ID_FILE")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+id_notation=$(echo "$lineFromTickerFile" | cut -f 3)
     marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     lowMarketCapLinkBackgroundColor="white"
     if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
         lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
     fi
-    echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">$value $symbolName</a><br>" >> $OUT_SIMULATE_FILE
+
+
+
+echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>" >> $OUT_SIMULATE_FILE
+COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
+COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
+COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
+# shellcheck disable=SC2154
+if [ "$asset_type" = 'INDEX' ]; then
+    COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
+    COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
+    COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
+fi
+echo "<a id='headlineLink$value' style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('10D', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_10D$id_notation' target='_blank'>$value $symbolName</a>" >> $OUT_SIMULATE_FILE
+echo "<a style='background:$lowMarketCapLinkBackgroundColor';  onmouseover=\"javascript:showChart('6M', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_6M$id_notation' target='_blank'>&nbsp;6M&nbsp;</a>" >> $OUT_SIMULATE_FILE
+echo "<a style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('5Y', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_5Y$id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>" >> $OUT_SIMULATE_FILE
+
+
+
+    echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">SIM</a><br>" >> $OUT_SIMULATE_FILE
     echo "$value"
     # shellcheck disable=SC2027,SC2086
     echo "<script>linkMap.set(\""$value"\", \"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\");</script>" >> $OUT_SIMULATE_FILE
