@@ -448,12 +448,11 @@ do
      #creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
      creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # Sommerzeit / Summertime
     fi
-    # GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! $creationDate</p>"
     GOOD_LUCK="<br>Good Luck! $creationDate"
     # ATTENTION Line number may change, if there will be development!
-    #lineNumer=$(grep -wn "Good Luck" out/"$symbol".html | cut -d: -f1)
-    #sed -i ""$lineNumer"s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html
-    sed -i "580s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html
+    lineNumer=$(grep -wn "Good Luck" out/"$symbol".html | cut -d: -f1)
+    sed -i ""$lineNumer"s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html
+    #sed -i "580s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html
 done
 
 Out "" $OUT_SIMULATE_FILE
