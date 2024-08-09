@@ -616,7 +616,7 @@ do
             # Market Cap Progressbar, only if number
             if [ "$marketCapFromFile" = '?' ]; then
                 echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"
-                echo "" # Extra line, because of GOOD LUCK replacemant. Low Market Cap Symbol files need the same length!
+                #echo "" # Extra line, because of GOOD LUCK replacemant. Low Market Cap Symbol files need the same length!
             else
                 marketCapScaled=$((marketCapFromFile * 5)) # Scale factor in progressbar
                 # shellcheck disable=SC2086,SC2027

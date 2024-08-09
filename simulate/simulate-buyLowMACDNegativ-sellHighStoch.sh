@@ -450,7 +450,7 @@ do
     fi
     GOOD_LUCK="<br>Good Luck! $creationDate"
     # ATTENTION Line number may change, if there will be development!
-    lineNumer=$(grep -wn "Good Luck" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html | cut -d: -f1)
     sed -i """$lineNumer""s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html
     #sed -i "580s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html
 done
@@ -539,8 +539,8 @@ id_notation=$(echo "$lineFromTickerFile" | cut -f 3)
         COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
     fi
     echo "<a id='headlineLink$value' style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('10D', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_10D$id_notation' target='_blank'>$value $symbolName</a>"
-    echo "<a style='background:$lowMarketCapLinkBackgroundColor';  onmouseover=\"javascript:showChart('6M', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_6M$id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
-    echo "<a style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('5Y', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_5Y$id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
+    #echo "<a style='background:$lowMarketCapLinkBackgroundColor';  onmouseover=\"javascript:showChart('6M', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_6M$id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
+    #echo "<a style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('5Y', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_5Y$id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
 
     echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">SIM</a><br>" >> $OUT_SIMULATE_FILE
 } >> "$OUT_SIMULATE_FILE"
