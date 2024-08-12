@@ -529,15 +529,15 @@ id_notation=$(echo "$lineFromTickerFile" | cut -f 3)
 
 {
 #    echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
-    echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:30%;left:30%;transform:scale(1.6,1.6);'/>"
+    echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:25%;left:25%;transform:scale(1.7);'/>"
     COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
-    COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
-    COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
+   # COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
+   # COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
     # shellcheck disable=SC2154
     if [ "$asset_type" = 'INDEX' ]; then
         COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
-        COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
-        COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
+       # COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
+       # COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
     fi
     echo "<a id='headlineLink$value' style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('10D', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_10D$id_notation' target='_blank'>$value $symbolName</a>"
     #echo "<a style='background:$lowMarketCapLinkBackgroundColor';  onmouseover=\"javascript:showChart('6M', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_6M$id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
