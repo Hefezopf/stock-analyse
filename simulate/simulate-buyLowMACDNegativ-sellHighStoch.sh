@@ -528,7 +528,8 @@ id_notation=$(echo "$lineFromTickerFile" | cut -f 3)
 
 
 {
-    echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
+#    echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
+    echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-65%,-50%);'/>"
     COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
     COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
     COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
