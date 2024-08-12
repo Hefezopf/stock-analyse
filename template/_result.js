@@ -861,7 +861,7 @@ function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol paramet
     elementSpanToReplace.style.display = 'block';
     //elementSpanToReplace.style.left = '17%'; 
 //    elementSpanToReplace.style.left = '500px'; 
-    elementSpanToReplace.style.left = '25%'; 
+    elementSpanToReplace.style.left = '20%'; 
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
 
 }
