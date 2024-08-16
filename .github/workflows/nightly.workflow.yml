@@ -1,0 +1,135 @@
+# Is triggered:
+#   1. cron
+name: Nightly
+
+# Controls when the action will run. 
+on:
+  # Can be triggered with cURL
+  repository_dispatch:
+    types: [data] 
+       
+  # Can be triggered manually
+#   workflow_dispatch:
+#     inputs:
+#       symbolsParam:
+#         description: 'SYMBOLS - List of stock symbols like: "DBK BEI".'
+#         required: false
+#         default: 'DBK'
+      
+ # schedule:
+  # At 10:05 on Mon, Tue, Wed, Thr, Fri (MEST: run is 2 hour delayed: --> 12:05)
+  #- cron: "05 10 * * 1,2,3,4,5"  
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Runs a set of commands using the runners shell
+      - name: Run curl InformerData
+        run: |
+          echo "Start Nightly ..."
+
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
+
+          symbolsDefault='${{github.event.client_payload.symbols}}'
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
+          symbolsVar=${symbolsInput:-$symbolsDefault}
+
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
+          ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          rm -rf config/own_symbols.txt
+          stockSymbolsVar=$(cat config/stock_symbols.txt)
+          symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
+
+          #
+          # InformerData
+          #
+          chmod +x ./script/curl/curl_getInformerData.sh
+          ./script/curl/curl_getInformerData.sh "$symbolsVar"
+
+          #
+          # Schedule
+          #
+          percentageVar=1
+          stochasticVar=9
+          RSIVar=25
+          # If manuell Symbols
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
+          symbolsVar=${symbolsInput:-$symbolsVar}
+          chmod +x ./analyse.sh
+          ./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
+          cp out/_result.html out/_result_schedule.html
+          sed -i 's/Result SA/Result Schedule SA/g' out/_result_schedule.html
+
+          #
+          # Simulate
+          #
+          amountPerTradeVar=2500
+          RSIBuyLevelVar=24
+          StockSellLevelVar=65
+          incrementPerTradeVar=1.01
+          sellIfOverPercentageVar=5
+          keepIfUnderPercentageVar=2
+          alarmCountForStockVar=7
+          alarmCountForIndexVar=5
+
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
+          amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
+          RSIBuyLevelInput="${{github.event.inputs.RSIBuyLevelParam}}"
+          StockSellLevelInput="${{github.event.inputs.StockSellLevelParam}}"
+          incrementPerTradeInput="${{github.event.inputs.incrementPerTradeParam}}"
+          sellIfOverPercentageInput="${{github.event.inputs.sellIfOverPercentageParam}}"
+          keepIfUnderPercentageInput="${{github.event.inputs.keepIfUnderPercentageParam}}"
+          alarmCountForStockInput="${{github.event.inputs.alarmCountForStockParam}}"
+          alarmCountForIndexInput="${{github.event.inputs.alarmCountForIndexParam}}"
+          
+          symbolsVar=${symbolsInput:-$symbolsVar}
+          amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeVar}
+          RSIBuyLevelVar=${RSIBuyLevelInput:-$RSIBuyLevelVar}
+          StockSellLevelVar=${StockSellLevelInput:-$StockSellLevelVar}
+          incrementPerTradeVar=${incrementPerTradeInput:-$incrementPerTradeVar}
+          sellIfOverPercentageVar=${sellIfOverPercentageInput:-$sellIfOverPercentageVar}
+          keepIfUnderPercentageVar=${keepIfUnderPercentageInput:-$keepIfUnderPercentageVar}
+          alarmCountForStockVar=${alarmCountForStockInput:-$alarmCountForStockVar}
+          alarmCountForIndexVar=${alarmCountForIndexInput:-$alarmCountForIndexVar}
+
+          chmod +x ./simulate.sh
+          chmod +x ./simulate/*.sh 
+          # In case of shell errors with end of line: end of file unexpected (expecting "then")
+          sed -i 's/\r$//' ./simulate/*.sh
+          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
+
+
+          git config user.email ${{secrets.MAIL_ADRESS}}
+          git config user.name "Markus Hopf"
+          git add config/own_symbols.txt.gpg config/stock_symbols.txt
+          git add data/*.txt
+          git add history/*.txt
+          git add alarm/*.txt
+          git add buy/*.txt
+          git add sell/*.txt
+          git add status
+          git add out/*.html
+          git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
+          git push
+          
+    #   - name: Send result via email
+    #     uses: dawidd6/action-send-mail@v3.11.0
+    #     with:
+    #       server_address: smtp.ionos.de
+    #       server_port: 465
+    #       username: ${{secrets.MAIL_USERNAME}}
+    #       password: ${{secrets.MAIL_PASSWORD}}
+    #       subject: SA Nightly ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}
+    #       # Read file contents as body:
+    #       html_body: file://template/email.html
+    #       to: ${{secrets.MAIL_ADRESS}}
+    #       from: Github stock-analyse # <githubÄhopf-...de>
