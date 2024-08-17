@@ -39,15 +39,16 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          symbolsDefault='${{github.event.client_payload.symbols}}'
-          symbolsInput="${{github.event.inputs.symbolsParam}}"
-          symbolsVar=${symbolsInput:-$symbolsDefault}
+          #symbolsDefault='${{github.event.client_payload.symbols}}'
+          #symbolsInput="${{github.event.inputs.symbolsParam}}"
+          #symbolsVar=${symbolsInput:-$symbolsDefault}
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
           stockSymbolsVar=$(cat config/stock_symbols.txt)
-          symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
+          #symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
+          symbolsVar=EFE
 
           #
           # InformerData
@@ -61,9 +62,8 @@ jobs:
           percentageVar=1
           stochasticVar=9
           RSIVar=25
-          # If manuell Symbols
-          symbolsInput="${{github.event.inputs.symbolsParam}}"
-          symbolsVar=${symbolsInput:-$symbolsVar}
+          #symbolsInput="${{github.event.inputs.symbolsParam}}"
+          #symbolsVar=${symbolsInput:-$symbolsVar}
           chmod +x ./analyse.sh
           ./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
           cp out/_result.html out/_result_schedule.html
@@ -81,25 +81,25 @@ jobs:
           alarmCountForStockVar=7
           alarmCountForIndexVar=5
 
-          symbolsInput="${{github.event.inputs.symbolsParam}}"
-          amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
-          RSIBuyLevelInput="${{github.event.inputs.RSIBuyLevelParam}}"
-          StockSellLevelInput="${{github.event.inputs.StockSellLevelParam}}"
-          incrementPerTradeInput="${{github.event.inputs.incrementPerTradeParam}}"
-          sellIfOverPercentageInput="${{github.event.inputs.sellIfOverPercentageParam}}"
-          keepIfUnderPercentageInput="${{github.event.inputs.keepIfUnderPercentageParam}}"
-          alarmCountForStockInput="${{github.event.inputs.alarmCountForStockParam}}"
-          alarmCountForIndexInput="${{github.event.inputs.alarmCountForIndexParam}}"
+          #symbolsInput="${{github.event.inputs.symbolsParam}}"
+          #amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
+          #RSIBuyLevelInput="${{github.event.inputs.RSIBuyLevelParam}}"
+          #StockSellLevelInput="${{github.event.inputs.StockSellLevelParam}}"
+          #incrementPerTradeInput="${{github.event.inputs.incrementPerTradeParam}}"
+          #sellIfOverPercentageInput="${{github.event.inputs.sellIfOverPercentageParam}}"
+          #keepIfUnderPercentageInput="${{github.event.inputs.keepIfUnderPercentageParam}}"
+          #alarmCountForStockInput="${{github.event.inputs.alarmCountForStockParam}}"
+          #alarmCountForIndexInput="${{github.event.inputs.alarmCountForIndexParam}}"
           
-          symbolsVar=${symbolsInput:-$symbolsVar}
-          amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeVar}
-          RSIBuyLevelVar=${RSIBuyLevelInput:-$RSIBuyLevelVar}
-          StockSellLevelVar=${StockSellLevelInput:-$StockSellLevelVar}
-          incrementPerTradeVar=${incrementPerTradeInput:-$incrementPerTradeVar}
-          sellIfOverPercentageVar=${sellIfOverPercentageInput:-$sellIfOverPercentageVar}
-          keepIfUnderPercentageVar=${keepIfUnderPercentageInput:-$keepIfUnderPercentageVar}
-          alarmCountForStockVar=${alarmCountForStockInput:-$alarmCountForStockVar}
-          alarmCountForIndexVar=${alarmCountForIndexInput:-$alarmCountForIndexVar}
+          #symbolsVar=${symbolsInput:-$symbolsVar}
+          #amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeVar}
+          #RSIBuyLevelVar=${RSIBuyLevelInput:-$RSIBuyLevelVar}
+          #StockSellLevelVar=${StockSellLevelInput:-$StockSellLevelVar}
+          #incrementPerTradeVar=${incrementPerTradeInput:-$incrementPerTradeVar}
+          #sellIfOverPercentageVar=${sellIfOverPercentageInput:-$sellIfOverPercentageVar}
+          #keepIfUnderPercentageVar=${keepIfUnderPercentageInput:-$keepIfUnderPercentageVar}
+          #alarmCountForStockVar=${alarmCountForStockInput:-$alarmCountForStockVar}
+          #alarmCountForIndexVar=${alarmCountForIndexInput:-$alarmCountForIndexVar}
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh 
