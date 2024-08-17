@@ -39,22 +39,17 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #symbolsDefault='${{github.event.client_payload.symbols}}'
-          #symbolsInput="${{github.event.inputs.symbolsParam}}"
-          #symbolsVar=${symbolsInput:-$symbolsDefault}
-
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
           stockSymbolsVar=$(cat config/stock_symbols.txt)
-          #symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
-          symbolsVar=EFE
+          symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
 
           #
           # InformerData
           #
           chmod +x ./script/curl/curl_getInformerData.sh
-          ./script/curl/curl_getInformerData.sh "$symbolsVar"
+          #./script/curl/curl_getInformerData.sh "$symbolsVar"
 
           #
           # Schedule
@@ -62,8 +57,6 @@ jobs:
           percentageVar=1
           stochasticVar=9
           RSIVar=25
-          #symbolsInput="${{github.event.inputs.symbolsParam}}"
-          #symbolsVar=${symbolsInput:-$symbolsVar}
           chmod +x ./analyse.sh
           ./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
           cp out/_result.html out/_result_schedule.html
@@ -81,33 +74,15 @@ jobs:
           alarmCountForStockVar=7
           alarmCountForIndexVar=5
 
-          #symbolsInput="${{github.event.inputs.symbolsParam}}"
-          #amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
-          #RSIBuyLevelInput="${{github.event.inputs.RSIBuyLevelParam}}"
-          #StockSellLevelInput="${{github.event.inputs.StockSellLevelParam}}"
-          #incrementPerTradeInput="${{github.event.inputs.incrementPerTradeParam}}"
-          #sellIfOverPercentageInput="${{github.event.inputs.sellIfOverPercentageParam}}"
-          #keepIfUnderPercentageInput="${{github.event.inputs.keepIfUnderPercentageParam}}"
-          #alarmCountForStockInput="${{github.event.inputs.alarmCountForStockParam}}"
-          #alarmCountForIndexInput="${{github.event.inputs.alarmCountForIndexParam}}"
-          
-          #symbolsVar=${symbolsInput:-$symbolsVar}
-          #amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeVar}
-          #RSIBuyLevelVar=${RSIBuyLevelInput:-$RSIBuyLevelVar}
-          #StockSellLevelVar=${StockSellLevelInput:-$StockSellLevelVar}
-          #incrementPerTradeVar=${incrementPerTradeInput:-$incrementPerTradeVar}
-          #sellIfOverPercentageVar=${sellIfOverPercentageInput:-$sellIfOverPercentageVar}
-          #keepIfUnderPercentageVar=${keepIfUnderPercentageInput:-$keepIfUnderPercentageVar}
-          #alarmCountForStockVar=${alarmCountForStockInput:-$alarmCountForStockVar}
-          #alarmCountForIndexVar=${alarmCountForIndexInput:-$alarmCountForIndexVar}
-
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh 
           # In case of shell errors with end of line: end of file unexpected (expecting "then")
           sed -i 's/\r$//' ./simulate/*.sh
           ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
 
-
+          #
+          # Send eMail
+          #
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt
@@ -121,15 +96,15 @@ jobs:
           git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
           git push
           
-    #   - name: Send result via email
-    #     uses: dawidd6/action-send-mail@v3.11.0
-    #     with:
-    #       server_address: smtp.ionos.de
-    #       server_port: 465
-    #       username: ${{secrets.MAIL_USERNAME}}
-    #       password: ${{secrets.MAIL_PASSWORD}}
-    #       subject: SA Nightly ${{github.event.client_payload.symbol}} Result ${{github.event_name}} ${{github.event.action}}
-    #       # Read file contents as body:
-    #       html_body: file://template/email.html
-    #       to: ${{secrets.MAIL_ADRESS}}
-    #       from: Github stock-analyse # <githubÄhopf-...de>
+      - name: Send result via email
+        uses: dawidd6/action-send-mail@v3.11.0
+        with:
+          server_address: smtp.ionos.de
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: SA Nightly Result ${{github.event_name}} ${{github.event.action}}
+          # Read file contents as body:
+          html_body: file://template/email.html
+          to: ${{secrets.MAIL_ADRESS}}
+          from: Github stock-analyse # <githubÄhopf-...de>
