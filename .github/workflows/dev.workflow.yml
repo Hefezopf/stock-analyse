@@ -24,7 +24,7 @@ on:
       symbolsParam:
         description: 'SYMBOLS - List of stock symbols like: "*DBK BEI". Own stocks marked *'
         required: true
-        default: '*DBK *CRIN MOR FPE3 BC8 BEI'
+        default: '*DBK BEI'
       percentageParam:
         description: 'PERCENTAGE - "1" means 1 percent'     
         required: true
@@ -95,7 +95,6 @@ jobs:
           stochasticVar=${stochasticVar:-$stochasticEnv}          
           RSIVar=${RSIVar:-$RSIEnv}
 
-          chmod +x ./analyse.sh
           # In case of shell errors with end of line: end of file unexpected (expecting "then")
           sed -i 's/\r$//' ./script/*.sh
           sed -i 's/\r$//' ./script/curl/*.sh
@@ -107,6 +106,7 @@ jobs:
           rm -rf config/own_symbols.txt
           symbolsVar=$ownSymbolsVar
           
+          chmod +x ./analyse.sh
           ./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
 
           #git fetch --unshallow origin
