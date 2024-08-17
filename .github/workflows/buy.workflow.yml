@@ -57,7 +57,6 @@ jobs:
           piecesVar=${piecesInput:-$piecesDefault}
 
           chmod +x ./script/buy.sh
-
           ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
 
           symbolName=$(grep -m1 -P "$symbolVar\t" "config/ticker_name_id.txt" | cut -f 2)
@@ -73,7 +72,6 @@ jobs:
           rm -rf config/own_symbols.txt
 
           chmod +x ./analyse.sh
-
           ./analyse.sh "$symbolsVar" 1 9 25
 
           git config user.email ${{secrets.MAIL_ADRESS}}

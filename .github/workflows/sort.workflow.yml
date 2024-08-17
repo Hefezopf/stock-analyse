@@ -10,17 +10,13 @@ on:
   workflow_dispatch:
     inputs:
       symbolParam:
-        description: 'DUMMY - xxx'
+        description: 'DUMMY - XXX'
         required: false
         default: 'XXX'
 
   schedule:
-  # Every frist day of each month
+  # Every frist day of each month. At 23:15 (MEST: run is 2 hour delayed: --> 01:15)
   - cron: "15 23 1 */1 *"
-  # Every frist day of each 2nd month
-  #- cron: "0 0 1 */2 *"
-  # Every frist day of each 4th month
-  #- cron: "0 0 1 */4 *"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -40,7 +36,6 @@ jobs:
           echo "Sort Symbols ..."
 
           chmod +x ./script/sort_sa.sh
-
           ./script/sort_sa.sh
 
           #git fetch --unshallow origin

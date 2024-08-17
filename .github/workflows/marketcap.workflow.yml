@@ -15,12 +15,10 @@ on:
         default: 'XXX'
 
   schedule:
-  # Every second (2.) day of each month
-  #- cron: "0 0 2 */1 *"
-  # Every frist day of each 2nd month
-  #- cron: "0 0 1 */2 *"
   # Every 2nd, 9th, 16th and 23th day of each month
-  - cron: "30 23 2,9,16,23 */1 *"
+  #- cron: "30 23 2,9,16,23 */1 *"
+  # At 00:05 on saturday (MEST: run is 2 hour delayed: --> 2:05)
+  - cron: "05 0 * * 6"  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -42,17 +40,14 @@ jobs:
           #export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #Depot+DAX+MDAX+TDAX+SDAX+Eurostoxx+DOW (432).
+          #Depot+DAX+MDAX+TDAX+SDAX+Eurostoxx+DOW (745).
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
           stockSymbolsVar=$(cat config/stock_symbols.txt)
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
 
-          #symbolsVar='AXA 5EA AZ2 COP DIC KGX'
-
           chmod +x ./script/marketcap-update.sh
-
           ./script/marketcap-update.sh "$symbolsVar"
 
           #git fetch --unshallow origin

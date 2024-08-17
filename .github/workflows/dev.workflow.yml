@@ -7,7 +7,6 @@ name: Dev
 env:
   symbolsEnv: '*DBK' # If more then 1 symbol -> Error!
   percentageEnv: '1'
-  #queryEnv: 'offline'
   stochasticEnv: '9'
   RSIEnv: '25'
 
@@ -30,10 +29,6 @@ on:
         description: 'PERCENTAGE - "1" means 1 percent'     
         required: true
         default: '1'
-    #   queryParam:
-    #     description: 'QUERY - [online|offline]'     
-    #     required: true
-    #     default: 'offline'
       stochasticParam:
         description: 'STOCHASTIC14 - "9" means 9/91 percent (only single digit allowed!)'     
         required: true
@@ -91,19 +86,16 @@ jobs:
           RSIInput=${{github.event.inputs.RSIParam}}
           
           symbolsVar=${symbolsInput:-$symbolsDefault}
-          percentageVar=${percentageInput:-$percentageDefault}
-          #queryVar=${queryInput:-$queryDefault}         
+          percentageVar=${percentageInput:-$percentageDefault}       
           stochasticVar=${stochasticInput:-$stochasticDefault}          
           RSIVar=${RSIInput:-$RSIDefault}   
 
           symbolsVar=${symbolsVar:-$symbolsEnv}
-          percentageVar=${percentageVar:-$percentageEnv}
-          #queryVar=${queryVar:-$queryEnv}         
+          percentageVar=${percentageVar:-$percentageEnv}      
           stochasticVar=${stochasticVar:-$stochasticEnv}          
           RSIVar=${RSIVar:-$RSIEnv}
 
           chmod +x ./analyse.sh
-
           # In case of shell errors with end of line: end of file unexpected (expecting "then")
           sed -i 's/\r$//' ./script/*.sh
           sed -i 's/\r$//' ./script/curl/*.sh

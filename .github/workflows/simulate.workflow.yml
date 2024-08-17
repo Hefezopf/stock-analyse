@@ -1,13 +1,9 @@
 name: Simulate
 
 on:
-  schedule:
-  # At 05:30am
-  #- cron: "30 5 * * *"
-  # At 05:30am on Tue, Wed, Thr, Fri, Sat (MEST: run is 2 hour delayed: --> 7:30)
-  #- cron: "30 5 * * 2,3,4,5,6"
+  #schedule:
   # At 05:00 on Mon, Tue, Wed, Thr, Fri (MEST: run is 2 hour delayed: --> 7:00)
-  - cron: "0 5 * * 1,2,3,4,5"
+  #- cron: "0 5 * * 1,2,3,4,5"
 
   # Can be triggered with cURL
   #repository_dispatch:
@@ -111,10 +107,8 @@ jobs:
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh
-          
           # In case of shell errors with end of line: end of file unexpected (expecting "then")
           sed -i 's/\r$//' ./simulate/*.sh
-
           ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
 
           #git fetch --unshallow origin

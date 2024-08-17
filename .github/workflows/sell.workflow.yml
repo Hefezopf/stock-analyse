@@ -41,20 +41,14 @@ jobs:
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
           
           symbolDefault='${{github.event.client_payload.symbol}}'
-
           symbolInput="${{github.event.inputs.symbolParam}}"
-
           symbolVar=${symbolInput:-$symbolDefault}  
 
-
           sellPriceDefault='${{github.event.client_payload.sellPrice}}'
-
           sellPriceInput="${{github.event.inputs.sellPriceParam}}"
-
           sellPriceVar=${sellPriceInput:-$sellPriceDefault}  
 
           chmod +x ./script/sell.sh
-
           ./script/sell.sh "$symbolVar" "$sellPriceVar"
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
@@ -62,7 +56,6 @@ jobs:
           rm -rf config/own_symbols.txt
 
           chmod +x ./analyse.sh
-
           ./analyse.sh "$symbolsVar $symbolVar" 1 9 25
 
           #git fetch --unshallow origin

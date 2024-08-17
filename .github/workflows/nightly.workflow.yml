@@ -12,9 +12,9 @@ on:
   workflow_dispatch:
     inputs:
       symbolsParam:
-        description: 'SYMBOLS - List of stock symbols like: "DBK BEI".'
+        description: 'DUMMY - XXX'
         required: false
-        default: 'XXX (DUMMY)'
+        default: 'XXX'
       
  # schedule:
   # At 10:05 on Mon, Tue, Wed, Thr, Fri (MEST: run is 2 hour delayed: --> 12:05)
@@ -80,9 +80,6 @@ jobs:
           sed -i 's/\r$//' ./simulate/*.sh
           ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
 
-          #
-          # Send eMail
-          #
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt
@@ -95,7 +92,7 @@ jobs:
           git add out/*.html
           git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
           git push
-          
+                
       - name: Send result via email
         uses: dawidd6/action-send-mail@v3.11.0
         with:
