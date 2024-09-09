@@ -44,7 +44,6 @@ do
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
         symbol=$(echo "$symbol" | cut -b 2-7)
     fi
-    #symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
     symbol="${symbol^^}" # all uppercase
 
     informerDataFile="$DATA_INFORMER_DIR/$symbol.txt"
@@ -60,10 +59,8 @@ do
     if { [ -z "$dataAlreadyThere" ]; } then
         asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
         if [ "$asset_type" = 'INDEX' ]; then
-            #curlResponse=$(curl -s -O -J -L GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         else
-            #curlResponse=$(curl -s -O -J -L GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         fi
        # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
@@ -79,20 +76,28 @@ do
             value=$(echo "$value" | sed "s/\.//") # Wenn Punkt dann löschen 1.000,00 -> 1000,00
             # shellcheck disable=SC2001
             value=$(echo "$value" | sed "s/,/./g") # Replace , -> . 1000,00 -> 1000.00
+
+####
+            valueTest=$(echo "$value" | sed "s/\.//g") # Replace , -> . 1000.00 -> 100000
+            case "$valueTest" in
+                ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
+            esac
+####
+
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
             numOfLines=$(awk 'END { print NR }' "$informerDataFile")
             numOfLinesToFill=$((101 - numOfLines))
 
-# oldtext='2024-09-08	uter-spacing--small-top">nbsp;EUR'
-# newtext="2024-09-08	$value"
-# sed -i "s/$oldtext/$newtext/g" "$informerDataFile"
+            # oldtext='2024-09-08	uter-spacing--small-top">nbsp;EUR'
+            # newtext="2024-09-08	$value"
+            # sed -i "s/$oldtext/$newtext/g" "$informerDataFile"
 
-        while [ "$numOfLinesToFill" -gt 0 ]; do
-            dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")
-            sed -i "1s/^/$dayBefore	$value\n/" "$informerDataFile"
-            numOfLinesToFill=$((numOfLinesToFill - 1))
-        done
-        sed -i "1,100!d" "$informerDataFile" # Alles was länger als 100 Zeilen ist löschen
+            while [ "$numOfLinesToFill" -gt 0 ]; do
+                dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")
+                sed -i "1s/^/$dayBefore	$value\n/" "$informerDataFile"
+                numOfLinesToFill=$((numOfLinesToFill - 1))
+            done
+            sed -i "1,100!d" "$informerDataFile" # Alles was länger als 100 Zeilen ist löschen
         else
             echo "Error retrieving Value for Symbol:$symbol"
             errorSymbols="$errorSymbols $symbol"
