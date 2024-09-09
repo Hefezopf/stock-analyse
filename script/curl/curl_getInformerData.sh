@@ -66,12 +66,14 @@ do
             #curlResponse=$(curl -s -O -J -L GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         fi
-
-        value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
+       # value=$(echo "$curlResponse" | grep -m1 "&nbsp;EUR<" | grep -o 'medium.*' | cut -f1 -d"<" | cut -c 9-)
+        
         if [ "$asset_type" = 'COIN' ]; then
             curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
-            value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d"<" | cut -c 29-)
+            #value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d"<" | cut -c 29-)
         fi
+        value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d"<" | cut -c 29-)
+
         if [ "$value" ]; then
             # shellcheck disable=SC2001
             value=$(echo "$value" | sed "s/\.//") # Wenn Punkt dann löschen 1.000,00 -> 1000,00
@@ -80,12 +82,17 @@ do
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
             numOfLines=$(awk 'END { print NR }' "$informerDataFile")
             numOfLinesToFill=$((101 - numOfLines))
-            while [ "$numOfLinesToFill" -gt 0 ]; do
-                dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")
-                sed -i "1s/^/$dayBefore	$value\n/" "$informerDataFile"
-                numOfLinesToFill=$((numOfLinesToFill - 1))
-            done
-            sed -i "1,100!d" "$informerDataFile" # Alles was länger als 100 Zeilen ist löschen
+
+# oldtext='2024-09-08	uter-spacing--small-top">nbsp;EUR'
+# newtext="2024-09-08	$value"
+# sed -i "s/$oldtext/$newtext/g" "$informerDataFile"
+
+        while [ "$numOfLinesToFill" -gt 0 ]; do
+            dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")
+            sed -i "1s/^/$dayBefore	$value\n/" "$informerDataFile"
+            numOfLinesToFill=$((numOfLinesToFill - 1))
+        done
+        sed -i "1,100!d" "$informerDataFile" # Alles was länger als 100 Zeilen ist löschen
         else
             echo "Error retrieving Value for Symbol:$symbol"
             errorSymbols="$errorSymbols $symbol"
