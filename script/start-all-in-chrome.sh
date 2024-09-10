@@ -744,4 +744,4 @@ start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-an
 start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CY2.html
 start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/WPHB.html
 start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/MEQA.html
-          
+start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/22UA.html
