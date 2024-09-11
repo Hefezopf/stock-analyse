@@ -28,6 +28,22 @@ var chartNotationIdStore = new Map();
 // Open all in Tabs
 var linkMap = new Map();
 
+// Refresh the page after a delay of 5 Min
+// If changed, change here as well: analyse.sh: <progress value=0 max=300 id=intervalSectionHeadlineDailyProgressBar
+const initRefreshValue = 300;
+setTimeout(function(){
+    location.reload();
+}, initRefreshValue * 1000); // 300 * 1000 milliseconds = 300 seconds = 5 Min
+
+var timeleftToRefresh = initRefreshValue; // 300 seconds total
+var downloadTimer = setInterval(function(){
+  if(timeleftToRefresh <= 0){
+    clearInterval(downloadTimer);
+  }
+  document.getElementById("intervalSectionHeadlineDailyProgressBar").value = initRefreshValue - timeleftToRefresh;
+  timeleftToRefresh -= 1;
+}, 1000); // Visualize in 1 second steps
+
 var delay = ( function() {
     var timer = 0;
     return function(callback, ms) {
@@ -343,6 +359,7 @@ function addButtons(container) {
 
     var intervalSectionHeadlineDaily = document.getElementById('intervalSectionHeadlineDaily');
     var obfuscatedValueBuyingDailyRealtime = document.getElementById('obfuscatedValueBuyingDailyRealtime');
+    var intervalSectionHeadlineDailyProgressBar = document.getElementById('intervalSectionHeadlineDailyProgressBar');
 
     var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
     var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
@@ -364,6 +381,8 @@ function addButtons(container) {
     container.appendChild(intervalSectionHeadlineDaily);
     container.appendChild(document.createElement("br"));
     container.appendChild(obfuscatedValueBuyingDailyRealtime);
+    container.appendChild(document.createTextNode(" "));
+    container.appendChild(intervalSectionHeadlineDailyProgressBar);    
     container.appendChild(document.createElement("br"));
     container.appendChild(document.createElement("br"));
 
@@ -606,7 +625,7 @@ function processAll(ele) {
         Array.prototype.forEach.call(intervalValues, revealElement);
 
         var intervalOwnSymbolsValues = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
-        Array.prototype.forEach.call(intervalOwnSymbolsValues, calulateRealtimeDailyDiff);
+        Array.prototype.forEach.call(intervalOwnSymbolsValues, calculateRealtimeDailyDiff);
 
         Array.prototype.forEach.call(obfuscatedValues, revealElement);
         if (!toggleDecryptOnlyOnce) {
@@ -673,7 +692,7 @@ function unstyleElement(ele) {
     ele.style.marginBottom = '';
 }
 
-function calulateRealtimeDailyDiff(ele) {
+function calculateRealtimeDailyDiff(ele) {
     var siblingElem = ele.nextElementSibling;
     siblingElem = siblingElem.nextElementSibling;
     var difference = siblingElem.innerHTML.split('€')[0];
@@ -703,7 +722,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
         revealElement(linkPCValue);
     }
 
-    console.info('fetch...: '+ symbol);
+    console.info('fetch '+ symbol + ' ...');
 
     var part_url = 'aktien';
     if (['INDEX'].indexOf(asset_type) >= 0) {
@@ -731,7 +750,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
         if (xhr.readyState === DONE) {
             if (xhr.status === OK) {
                 //console.log(xhr.responseText); // 'This is the output.'
-                console.info('OK...: '+ symbol); 
+                console.info('... ' + symbol +' done.'); 
 
                 // Quote
                 //searchstring = notationId + '\', key: \'prices.[type=LAST].price.value';
