@@ -43,6 +43,12 @@ SYMBOL_NAME="BEIERSDORF"
   CalculateMarketCapRSILevel 1 "?"
   [ "$isMarketCapRSILevel" == "true" ]
 
+  CalculateMarketCapRSILevel 16 ?
+  [ "$isMarketCapRSILevel" == "false" ]  
+
+  CalculateMarketCapRSILevel 15 ?
+  [ "$isMarketCapRSILevel" == "true" ]  
+
   CalculateMarketCapRSILevel 25 "?"
   [ "$isMarketCapRSILevel" == "false" ]
 
@@ -62,7 +68,7 @@ SYMBOL_NAME="BEIERSDORF"
   [ "$isMarketCapRSILevel" == "true" ]
 
   CalculateMarketCapRSILevel 21 77
-  [ "$isMarketCapRSILevel" == "true" ]
+  [ "$isMarketCapRSILevel" == "true" ]  
 }
 
 @test "CalculateTxFee" {

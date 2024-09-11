@@ -78,6 +78,7 @@ do
             value=$(echo "$value" | sed "s/,/./g") # Replace , -> . 1000,00 -> 1000.00
 
 ####
+            # shellcheck disable=SC2001
             valueTest=$(echo "$value" | sed "s/\.//g") # Replace , -> . 1000.00 -> 100000
             case "$valueTest" in
                 ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;

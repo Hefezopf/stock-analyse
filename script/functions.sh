@@ -396,7 +396,7 @@ CalculateMarketCapRSILevel() {
 
     export isMarketCapRSILevel="false"
 
-#echo _lastRSIParam "$_lastRSIParam" _marketCapParam "$_marketCapParam"
+echo _lastRSIParam "$_lastRSIParam" _marketCapParam "$_marketCapParam"
 
     isMarketCapRSILevel="false"
     if [ "$_lastRSIParam" -gt 24 ] && [ "$_marketCapParam" -gt 100 ]; then # > 25 RSI
@@ -419,9 +419,9 @@ CalculateMarketCapRSILevel() {
         isMarketCapRSILevel="true"
     elif [ "$_lastRSIParam" -eq 16 ] && [ "$_marketCapParam" -gt 10 ]; then 
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 15 ] && [ "$_marketCapParam" -gt 1 ]; then 
+    elif [ "$_lastRSIParam" -lt 16 ] && [ "$_marketCapParam" -gt 1 ]; then 
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -lt 15 ]; then 
+    elif [ "$_lastRSIParam" -lt 16 ]; then 
         isMarketCapRSILevel="true"
     fi
 }
