@@ -31,9 +31,11 @@ var linkMap = new Map();
 // Refresh the page after a delay of 5 Min
 // If changed, change here as well: analyse.sh: <progress value=0 max=300 id=intervalSectionHeadlineDailyProgressBar
 const initRefreshValue = 300;
-setTimeout(function(){
-    location.reload();
-}, initRefreshValue * 1000); // 300 * 1000 milliseconds = 300 seconds = 5 Min
+if (location.href.startsWith('file')) {
+    setTimeout(function(){
+        location.reload();
+    }, initRefreshValue * 1000); // 300 * 1000 milliseconds = 300 seconds = 5 Min
+}
 
 var timeleftToRefresh = initRefreshValue; // 300 seconds total
 var downloadTimer = setInterval(function(){
