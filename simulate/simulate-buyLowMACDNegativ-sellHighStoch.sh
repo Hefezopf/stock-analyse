@@ -49,7 +49,7 @@ function ParameterOut()
     Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
     Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
     Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
-    Out "Sell Over Percentage:$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
+    Out "Sell Over Percentage (NOT USED!!!):$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
     Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
     Out "Buy Alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
     Out "Buy Alarm count for Indexes:$alarmCountForIndexOrigParam" $OUT_SIMULATE_FILE

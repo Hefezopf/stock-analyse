@@ -28,10 +28,9 @@ rm -rf "$OUT_SIMULATE_FILE"
 #                                                                  RSI_BUY_LEVEL
 #                                                                       STOCH_SELL_LEVEL
 #                                                                            INCREMENT_PER_TRADE
-#                                                                               SELL_IF_OVER_PERCENTAGE
+#                                                                               SELL_IF_OVER_PERCENTAGE (NOT USED!!!)
 #                                                                                   KEEP_IF_UNDER_PERCENTAGE
 #                                                                                       ALARM_COUNT_FOR_STOCK
 #                                                                                           ALARM_COUNT_FOR_INDEX
-#X_TIMES_AMOUNT_PER_TRADE=$(echo "$2" | awk '{print $1 * 2}')
 
 ./simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
