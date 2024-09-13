@@ -30,19 +30,22 @@ var linkMap = new Map();
 
 // Refresh the page after a delay of 5 Min
 // If changed, change here as well: analyse.sh: <progress value=0 max=300 id=intervalSectionHeadlineDailyProgressBar
-const initRefreshValue = 300;
-if (location.href.startsWith('file')) {
-    setTimeout(function(){
+const initRefreshSeconds = 300;
+if (location.href.startsWith('file') && location.href.endsWith('_result.html')) {
+    setTimeout(function() {
         location.reload();
-    }, initRefreshValue * 1000); // 300 * 1000 milliseconds = 300 seconds = 5 Min
+    }, initRefreshSeconds * 1000); // 300 * 1000 milliseconds = 300 seconds = 5 Min
 }
 
-var timeleftToRefresh = initRefreshValue; // 300 seconds total
-var downloadTimer = setInterval(function(){
-  if(timeleftToRefresh <= 0){
-    clearInterval(downloadTimer);
+var timeleftToRefresh = initRefreshSeconds; // 300 seconds total
+var progressBarTimer = setInterval(function() {
+  if(timeleftToRefresh <= 0) {
+    clearInterval(progressBarTimer);
   }
-  document.getElementById("intervalSectionHeadlineDailyProgressBar").value = initRefreshValue - timeleftToRefresh;
+  var intervalSectionHeadlineDailyProgressBar = document.getElementById("intervalSectionHeadlineDailyProgressBar");
+  if(intervalSectionHeadlineDailyProgressBar) {
+    intervalSectionHeadlineDailyProgressBar.value = initRefreshSeconds - timeleftToRefresh;
+  }
   timeleftToRefresh -= 1;
 }, 1000); // Visualize in 1 second steps
 
@@ -59,7 +62,7 @@ var intervalLoadingSpinnerId = setInterval(function () {
     if (counterFetchLoaded >= counterOwnStocks) {
         // Show local link, if on PC
         if (location.href.startsWith('file')) {
-            delay(function(){
+            delay(function() {
                 processAll();
                 doHideDetails();
                 doSortDailyGain();
@@ -72,12 +75,30 @@ var intervalLoadingSpinnerId = setInterval(function () {
         hideSpinner();
         clearInterval(intervalLoadingSpinnerId);
         // Enable Buttons
-        document.querySelector('#intervalSectionButtonSortDaily').disabled = false;
-        document.querySelector('#intervalSectionButtonSortValue').disabled = false;
-        document.querySelector('#intervalSectionButtonSortOverall').disabled = false;
-        document.querySelector('#intervalSectionButtonHideDetails').disabled = false;
-        document.querySelector('#intervalSectionButtonGoToEnd').disabled = false;
-        document.querySelector('#intervalSectionButtonOpenAll').disabled = false;
+        var intervalSectionButtonSortDaily = document.querySelector('#intervalSectionButtonSortDaily');
+        if(intervalSectionButtonSortDaily) {
+            intervalSectionButtonSortDaily.disabled = false;
+        }
+        var intervalSectionButtonSortValue = document.querySelector('#intervalSectionButtonSortValue');
+        if(intervalSectionButtonSortValue) {
+            intervalSectionButtonSortValue.disabled = false;
+        }
+        var intervalSectionButtonSortOverall = document.querySelector('#intervalSectionButtonSortOverall');
+        if(intervalSectionButtonSortOverall) {
+            intervalSectionButtonSortOverall.disabled = false;
+        }
+        var intervalSectionButtonHideDetails = document.querySelector('#intervalSectionButtonHideDetails');
+        if(intervalSectionButtonHideDetails) {
+            intervalSectionButtonHideDetails.disabled = false;
+        }
+        var intervalSectionButtonGoToEnd = document.querySelector('#intervalSectionButtonGoToEnd');
+        if(intervalSectionButtonGoToEnd) {
+            intervalSectionButtonGoToEnd.disabled = false;
+        }
+        var intervalSectionButtonOpenAll = document.querySelector('#intervalSectionButtonOpenAll');
+        if(intervalSectionButtonOpenAll) {
+            intervalSectionButtonOpenAll.disabled = false;
+        }
     }
 }, 3000);
 
@@ -126,7 +147,7 @@ function updateImage(symbol, notationId, timespan) {
         var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=' + chartNotationIdStore.get(symbol) + '&TIME_SPAN=' + chartTimeSpanStore.get(symbol);
 //        var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=' + chartNotationIdStore.get(symbol) + '&TIME_SPAN=' + chartTimeSpanStore.get(symbol);
         var elemIntervalSectionImage = document.getElementById('intervalSectionImage' + symbol);
-        if(elemIntervalSectionImage){
+        if(elemIntervalSectionImage) {
             elemIntervalSectionImage.src = urlWithTimeSpan;
             elemIntervalSectionImage.style.width = newWidth; 
         }
@@ -139,94 +160,95 @@ function updateImage(symbol, notationId, timespan) {
 
 function doSortDailyGain() {
     var portfolioValueDaxFooterId = document.getElementById('portfolioValueDaxFooterId');
-
-    sortToggleSortDaily = !sortToggleSortDaily;
-    var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
-    if (sortToggleSortDaily) {
-        intervalSectionButtonSortDailyButton.innerHTML = '&uarr;&nbsp;Daily&nbsp;%';
-    }
-    else {
-        intervalSectionButtonSortDailyButton.innerHTML = '&darr;&nbsp;Daily&nbsp;%';
-    }
-    var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
-    intervalSectionButtonSortOverallButton.innerHTML = '&nbsp;&nbsp;&sum;&nbsp;%';
-    var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
-    intervalSectionButtonSortValueButton.innerHTML = '&nbsp;&nbsp;Value&nbsp;€';
-
-    var container = document.getElementById('symbolsListId');
-    var elements = container.childNodes;
-    var sortPositivDailyValues = [];
-    var sortNegativDailyValues = [];
-    for (var i = 0; i < elements.length; i++) {
-        // Skip nodes without an ID
-        if (!elements[i].id) {
-            continue;
-        }
-
-        var sortPart = elements[i].id.split('_');
-        // Only add the element for sorting if it has a '+' in it
-        // Example ID: id='symbolLineIdEUZ_-115_+111_9999'
-        if (sortPart.length > 1) {
-            if (sortPart[1][0] === '-') {
-                sortNegativDailyValues.push([-1 * sortPart[1], elements[i]]);
-            }
-            else { // if (sortPart[1][0] === '+') {
-                /*
-                * prepare the ID for faster comparison
-                * array will contain:
-                *   [0] => number which will be used for sorting 
-                *   [1] => element
-                * 1 * something is the fastest way I know to convert a string to a
-                * number. It should be a number to make it sort in a natural way,
-                * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
-                */
-                sortPositivDailyValues.push([1 * sortPart[1], elements[i]]);
-            }
-        }
-    }
-
-    // Sort the array sortPositivDailyValues, elements with the highest ID will be first
-    sortPositivDailyValues.sort(function (x, y) {
+    if (portfolioValueDaxFooterId) {
+        sortToggleSortDaily = !sortToggleSortDaily;
+        var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
         if (sortToggleSortDaily) {
-            return y[0] - x[0];
+            intervalSectionButtonSortDailyButton.innerHTML = '&uarr;&nbsp;Daily&nbsp;%';
         }
         else {
-            return x[0] - y[0];
+            intervalSectionButtonSortDailyButton.innerHTML = '&darr;&nbsp;Daily&nbsp;%';
         }
-    });
-    sortNegativDailyValues.sort(function (x, y) {
+        var intervalSectionButtonSortOverallButton = document.getElementById('intervalSectionButtonSortOverall');
+        intervalSectionButtonSortOverallButton.innerHTML = '&nbsp;&nbsp;&sum;&nbsp;%';
+        var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
+        intervalSectionButtonSortValueButton.innerHTML = '&nbsp;&nbsp;Value&nbsp;€';
+
+        var container = document.getElementById('symbolsListId');
+        var elements = container.childNodes;
+        var sortPositivDailyValues = [];
+        var sortNegativDailyValues = [];
+        for (var i = 0; i < elements.length; i++) {
+            // Skip nodes without an ID
+            if (!elements[i].id) {
+                continue;
+            }
+
+            var sortPart = elements[i].id.split('_');
+            // Only add the element for sorting if it has a '+' in it
+            // Example ID: id='symbolLineIdEUZ_-115_+111_9999'
+            if (sortPart.length > 1) {
+                if (sortPart[1][0] === '-') {
+                    sortNegativDailyValues.push([-1 * sortPart[1], elements[i]]);
+                }
+                else { // if (sortPart[1][0] === '+') {
+                    /*
+                    * prepare the ID for faster comparison
+                    * array will contain:
+                    *   [0] => number which will be used for sorting 
+                    *   [1] => element
+                    * 1 * something is the fastest way I know to convert a string to a
+                    * number. It should be a number to make it sort in a natural way,
+                    * so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
+                    */
+                    sortPositivDailyValues.push([1 * sortPart[1], elements[i]]);
+                }
+            }
+        }
+
+        // Sort the array sortPositivDailyValues, elements with the highest ID will be first
+        sortPositivDailyValues.sort(function (x, y) {
+            if (sortToggleSortDaily) {
+                return y[0] - x[0];
+            }
+            else {
+                return x[0] - y[0];
+            }
+        });
+        sortNegativDailyValues.sort(function (x, y) {
+            if (sortToggleSortDaily) {
+                return x[0] - y[0];
+            }
+            else {
+                return y[0] - x[0];
+            }
+        });
+
+        addButtons(container);
+
+        // Append the sorted elements again, the old element will be moved to the new position
         if (sortToggleSortDaily) {
-            return x[0] - y[0];
+            for (var i = 0; i < sortPositivDailyValues.length; i++) {
+                container.appendChild(sortPositivDailyValues[i][1]);
+            }
+            for (var i = 0; i < sortNegativDailyValues.length; i++) {
+                container.appendChild(sortNegativDailyValues[i][1]);
+            }
         }
         else {
-            return y[0] - x[0];
+            for (var i = 0; i < sortNegativDailyValues.length; i++) {
+                container.appendChild(sortNegativDailyValues[i][1]);
+            }
+            for (var i = 0; i < sortPositivDailyValues.length; i++) {
+                container.appendChild(sortPositivDailyValues[i][1]);
+            }
         }
-    });
 
-    addButtons(container);
+        container.appendChild(document.createElement("br"));
+        container.appendChild(portfolioValueDaxFooterId);
 
-    // Append the sorted elements again, the old element will be moved to the new position
-    if (sortToggleSortDaily) {
-        for (var i = 0; i < sortPositivDailyValues.length; i++) {
-            container.appendChild(sortPositivDailyValues[i][1]);
-        }
-        for (var i = 0; i < sortNegativDailyValues.length; i++) {
-            container.appendChild(sortNegativDailyValues[i][1]);
-        }
+        resizeSortedText('xx-large', 'medium', 'medium');
     }
-    else {
-        for (var i = 0; i < sortNegativDailyValues.length; i++) {
-            container.appendChild(sortNegativDailyValues[i][1]);
-        }
-        for (var i = 0; i < sortPositivDailyValues.length; i++) {
-            container.appendChild(sortPositivDailyValues[i][1]);
-        }
-    }
-
-    container.appendChild(document.createElement("br"));
-    container.appendChild(portfolioValueDaxFooterId);
-
-    resizeSortedText('xx-large', 'medium', 'medium');
 }
 
 function doSortInvestedValue() {
@@ -383,8 +405,12 @@ function addButtons(container) {
     container.appendChild(intervalSectionHeadlineDaily);
     container.appendChild(document.createElement("br"));
     container.appendChild(obfuscatedValueBuyingDailyRealtime);
-    container.appendChild(document.createTextNode(" "));
-    container.appendChild(intervalSectionHeadlineDailyProgressBar);    
+
+    if (location.href.startsWith('file')) {
+        container.appendChild(document.createTextNode(" "));
+        container.appendChild(intervalSectionHeadlineDailyProgressBar); 
+    }
+        
     container.appendChild(document.createElement("br"));
     container.appendChild(document.createElement("br"));
 
@@ -451,14 +477,16 @@ function doHideDetails() {
     var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= \"intervalSectionPortfolioValues\"]');
 
     var symbolLineIdValues = document.querySelectorAll('[id ^= \"symbolLineId\"]');
-    if(toggleIsDetailsVisible){
+    if(toggleIsDetailsVisible) {
         Array.prototype.forEach.call(detailsIdValues, hideElement);
         Array.prototype.forEach.call(intervalSectionBeepValues, hideElement);
         Array.prototype.forEach.call(intervalSectionButtonValues, hideElement);
         Array.prototype.forEach.call(intervalSectionRealTimeQuoteValues, hideElement);
         Array.prototype.forEach.call(intervalSectionGainValues, hideElement); 
         Array.prototype.forEach.call(intervalSectionPortfolioValues, hideElement);
-        intervalSectionButtonHideDetailsButton.innerHTML = '- Details';
+        if(intervalSectionButtonHideDetailsButton) {
+            intervalSectionButtonHideDetailsButton.innerHTML = '- Details';
+        }
         Array.prototype.forEach.call(symbolLineIdValues, styleElement);
     }
     else{
@@ -507,7 +535,7 @@ function curlBuy(symbolParam, price, pieces) {
 
         // 940pc 51362€
         var overallPastValue = intervalSectionPortfolioValues.split(' ')[1];
-        if(overallPastValue){
+        if(overallPastValue) {
             overallPastValue = overallPastValue.split('€')[0];
         }        
         var intervalSectionPortfolioGain = document.getElementById('intervalSectionPortfolioGain' + symbolParamTrimmed).innerHTML;
@@ -569,13 +597,24 @@ function curlBuy(symbolParam, price, pieces) {
 }
 
 function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
+    if (symbolParam.charAt(0) !== '*') {
+        alert('Error: Stock ' + symbolParam.trim() + ' not in portfolio!');
+        return;
+    }
+    symbolParam = trimOwnChar(symbolParam);    
+
     if (sellPriceParam == '') {
         alert('Error: Price not set!');
         return;
     }
-    var headlineLink = document.getElementById('headlineLink' + symbolParam).innerHTML;
+
+    var headlineLink = symbolParam;
+    var headlineLinkElem = document.getElementById('headlineLink' + symbolParam);
+    if(headlineLinkElem) {
+        headlineLink = headlineLinkElem.innerHTML;
+    }
+   
     if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
-    //if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of:\n' + symbolParam + ' for ' + sellPriceParam + '€?') == false) {
         return;
     }
     var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
@@ -635,41 +674,45 @@ function processAll(ele) {
 
             // 105778/95439€
             var obfuscatedValueBuyingOverallElem = document.getElementById('obfuscatedValueBuyingOverall');
-            var buyingOverallYesterdaysValue = obfuscatedValueBuyingOverallElem.innerHTML;
-            var buyingValue = buyingOverallYesterdaysValue.split('/')[0];
-            var realtimeToBuyingDiffValue = realtimeOverallValue - buyingValue;
-            var obfuscatedValueBuyingOverallRealtimeElem = document.getElementById('obfuscatedValueBuyingOverallRealtime');
-           
-            var percentageRealtime = 100 / buyingValue * realtimeToBuyingDiffValue;
-            obfuscatedValueBuyingOverallRealtimeElem.innerHTML = realtimeToBuyingDiffValue + '€ / ' + percentageRealtime.toFixed(1) + '%';
+            if(obfuscatedValueBuyingOverallElem) {
+                var buyingOverallYesterdaysValue = obfuscatedValueBuyingOverallElem.innerHTML;
+                var buyingValue = buyingOverallYesterdaysValue.split('/')[0];
+                var realtimeToBuyingDiffValue = realtimeOverallValue - buyingValue;
+                var obfuscatedValueBuyingOverallRealtimeElem = document.getElementById('obfuscatedValueBuyingOverallRealtime');
+            
+                var percentageRealtime = 100 / buyingValue * realtimeToBuyingDiffValue;
+                obfuscatedValueBuyingOverallRealtimeElem.innerHTML = realtimeToBuyingDiffValue + '€ / ' + percentageRealtime.toFixed(1) + '%';
 
-            if (realtimeToBuyingDiffValue < 0) {
-                obfuscatedValueBuyingOverallRealtimeElem.style.color = 'red';
-            }
-            else {
-                obfuscatedValueBuyingOverallRealtimeElem.style.color = 'green';
+                if (realtimeToBuyingDiffValue < 0) {
+                    obfuscatedValueBuyingOverallRealtimeElem.style.color = 'red';
+                }
+                else {
+                    obfuscatedValueBuyingOverallRealtimeElem.style.color = 'green';
+                }
             }
 
             // 940pc 51362€
             var obfuscatedValueBuyingDailyRealtimeElem = document.getElementById('obfuscatedValueBuyingDailyRealtime');
-            var buyingYesterdaysValue = buyingOverallYesterdaysValue.split('/')[1];
-            if (buyingYesterdaysValue) {
-                buyingYesterdaysValue = buyingYesterdaysValue.split('€')[0];
-            }
-            var diff = (realtimeDailyDiff).toFixed(0);
-            if (diff < 0) {
-                obfuscatedValueBuyingDailyRealtimeElem.style.color = 'red';
-            }
-            else {
-                obfuscatedValueBuyingDailyRealtimeElem.style.color = 'green';
-            }
+            if(obfuscatedValueBuyingDailyRealtimeElem) {
+                var buyingYesterdaysValue = buyingOverallYesterdaysValue.split('/')[1];
+                if (buyingYesterdaysValue) {
+                    buyingYesterdaysValue = buyingYesterdaysValue.split('€')[0];
+                }
+                var diff = (realtimeDailyDiff).toFixed(0);
+                if (diff < 0) {
+                    obfuscatedValueBuyingDailyRealtimeElem.style.color = 'red';
+                }
+                else {
+                    obfuscatedValueBuyingDailyRealtimeElem.style.color = 'green';
+                }
 
-            if (diff === "NaN") {
-                obfuscatedValueBuyingDailyRealtimeElem.innerHTML = 'TIMEOUT / Moesif CORS';
-                obfuscatedValueBuyingDailyRealtimeElem.style.color = 'red';
-            }
-            else{
-                obfuscatedValueBuyingDailyRealtimeElem.innerHTML = diff + '€';
+                if (diff === "NaN") {
+                    obfuscatedValueBuyingDailyRealtimeElem.innerHTML = 'TIMEOUT / Moesif CORS';
+                    obfuscatedValueBuyingDailyRealtimeElem.style.color = 'red';
+                }
+                else{
+                    obfuscatedValueBuyingDailyRealtimeElem.innerHTML = diff + '€';
+                }
             }
 
             toggleDecryptOnlyOnce = true;
@@ -729,7 +772,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
     var part_url = 'aktien';
     if (['INDEX'].indexOf(asset_type) >= 0) {
 //        if (['IWLE', 'IS4S', 'XXXX'].indexOf(symbol) >= 0) {
-            // if(symbol === "IWLE"){
+            // if(symbol === "IWLE") {
         part_url = 'etfs';
     }
     var url = 'https://www.comdirect.de/inf/' + part_url + '/detail/uebersicht.html?ID_NOTATION=' + notationId;
@@ -931,6 +974,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
 
 // Hover Chart
 function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
+//console.log('result.js: showChart');
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
     //elementSpanToReplace.style.left = '17%'; 
@@ -941,6 +985,14 @@ function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol paramet
 }
 
 function hideChart(symbol) {  // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
+//console.log('result.js: hideChart');
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'none';
+}
+
+function trimOwnChar(text) {
+    if(text.charAt(0) === '*') {
+        return text.substring(1).trim();
+    }
+    return text.trim();
 }
