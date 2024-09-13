@@ -406,7 +406,9 @@ function addButtons(container) {
     container.appendChild(document.createElement("br"));
     container.appendChild(obfuscatedValueBuyingDailyRealtime);
 
+console.log('location.href:' + location.href);    
     if (location.href.startsWith('file')) {
+console.log('+++++++++in location.href:' + location.href);        
         container.appendChild(document.createTextNode(" "));
         container.appendChild(intervalSectionHeadlineDailyProgressBarSpan); 
     }
