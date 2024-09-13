@@ -152,7 +152,7 @@ echo "</span>" >> $OUT_RESULT_FILE
     echo "<br><span id='intervalSectionHeadlineDaily' style='display: none'># Realtime difference to previous day</span><br>"
     echo "<span id='obfuscatedValueBuyingDailyRealtime' style='font-size:xx-large; display: none'>---</span>&nbsp;"
 # echo "<progress value='0' max='300' id='intervalSectionHeadlineDailyProgressBar' style='display: none'></progress><br><br>"
-    echo "<span id='intervalSectionHeadlineDailyProgressBarSpan' style='display: none'><progress value='0' max='300' id='intervalSectionHeadlineDailyProgressBar' style='display: none'></progress></span><br><br>"
+    echo "<span id='intervalSectionHeadlineDailyProgressBarSpan' style='display: none;'><progress value='0' max='300' id='intervalSectionHeadlineDailyProgressBar' style='display: none;'></progress></span><br><br>"
     echo "<button id='intervalSectionButtonSortDaily' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doSortDailyGain()'>&nbsp;&nbsp;Daily&nbsp;%</button>&nbsp;"
     echo "<button id='intervalSectionButtonSortValue' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doSortInvestedValue()'>&nbsp;&nbsp;Value&nbsp;€</button>&nbsp;"
     echo "<button id='intervalSectionButtonSortOverall' style='font-size:large; height: 60px; width: 118px; display: none' disabled='disabled' type='button' onClick='javascript:doSortOverallGain()'>&nbsp;&nbsp;&sum;&nbsp;%</button>&nbsp;"
