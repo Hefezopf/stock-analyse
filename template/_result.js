@@ -405,13 +405,11 @@ function addButtons(container) {
     container.appendChild(intervalSectionHeadlineDaily);
     container.appendChild(document.createElement("br"));
     container.appendChild(obfuscatedValueBuyingDailyRealtime);
-
-//console.log('location.href:' + location.href);    
-    if (location.href.startsWith('file')) {
-//console.log('+++++++++in location.href:' + location.href);        
+   
+    if (location.href.startsWith('file')) {    
         container.appendChild(document.createTextNode(" "));
         container.appendChild(intervalSectionHeadlineDailyProgressBarSpan); 
-        intervalSectionHeadlineDailyProgressBarSpan.style.display = "inline-block"; //"inherit"; 
+        intervalSectionHeadlineDailyProgressBarSpan.style.display = "inline-block";
     }
         
     container.appendChild(document.createElement("br"));
@@ -810,26 +808,11 @@ function onContentLoaded(symbol, notationId, asset_type) {
                 //console.log(xhr.responseText); // 'This is the output.'
                 console.info('... ' + symbol +' done.'); 
 
-                // Quote
-                //searchstring = notationId + '\', key: \'prices.[type=LAST].price.value';
+                // Realtime Quote
                 let positionQuote1 = xhr.responseText.indexOf(notationId + '\', key: \'prices.[type=LAST].price.value');
-                //let positionQuote1 = xhr.responseText.indexOf(', key: \'prices.[type=LAST].price.value');
-                //let positionQuote1 = xhr.responseText.indexOf(notationId +', key: \'prices.[type=LAST].price.value');
-                //let positionQuote1 = xhr.responseText.indexOf('prices.[type=LAST].price.value');
-                
-                //</td>let positionQuote1 = xhr.responseText.indexOf('layer__close-icon layer-tooltip__close-icon layer__close-icon--ring\"><svg class=\"icon__svg\" focusable=\"false\"><use xlink:href=\"/ccf2/lsg/assets/svg/svg-symbol.svg#cd_circle-40\"></use></svg></span><span class=\"icon icon--cd_close-16 icon--size-16 layer__close-icon layer-tooltip__close-icon\"><svg class=\"icon__svg\" focusable=\"false\"><use xlink:href=\"/ccf2/lsg/assets/svg/svg-symbol.svg#cd_close-16\"></use></svg></span></label><div class=\"layer__content layer-tooltip__content\" data-role=\"layer__content\"><header class=\"layer__header  \" data-role=\"layer__header\"></header><div class=\"layer__content-scroll-container grid-container layer-tooltip__content-scroll-container\" data-role=\"layer__inner-content\"></div></div></div></div></div></div></span><span class=\"realtime-indicator--value \">');
-                //let positionQuote1 = xhr.responseText.indexOf('<td class=\"simple-table__cell\"><div class=\"realtime-indicator\"');
-                //let positionQuote2 = xhr.responseText.indexOf('com-push-text>');
-                //let positionQuote2 = xhr.responseText.indexOf('&nbsp;EUR</span></div></td>');
-                
-                var realTimeQuoteGrob = xhr.responseText.slice(positionQuote1 + 65, positionQuote1 + 74);
-               // var realTimeQuoteGrob = xhr.responseText.slice(positionQuote1 + 48, positionQuote2);
-//                var realTimeQuoteGrob = xhr.responseText.slice(positionQuote1 + 780, positionQuote2);
-                //var realTimeQuoteGrob = xhr.responseText.slice(positionQuote1 + 1990, positionQuote2);
+                var realTimeQuoteGrob = xhr.responseText.slice(positionQuote1 + 64, positionQuote1 + 74);
                 let feinPos = realTimeQuoteGrob.indexOf('\n') + 0;
-                //let feinPos = realTimeQuoteGrob.indexOf('>') + 1;
                 var realTimeQuote = realTimeQuoteGrob.slice(0, feinPos);
-                //var realTimeQuote = realTimeQuoteGrob.slice(feinPos);
                 var elementRealTimeQuoteSymbol = document.getElementById('intervalSectionRealTimeQuote' + symbol);
                 // var realTimeQuoteSymbol = realTimeQuote.replace('.', '');
                 // if (parseFloat(realTimeQuoteSymbol) < 1000) {
@@ -842,18 +825,9 @@ function onContentLoaded(symbol, notationId, asset_type) {
                 elementRealTimeQuoteSymbol.innerHTML = realTimeQuote + '€';
                // console.info('elementRealTimeQuoteSymbol.innerHTML: '+ elementRealTimeQuoteSymbol.innerHTML);
         
-                // Percent
-                //let positionProz1 = xhr.responseText.indexOf('com-push-text dynamic-color show-positive-sign format=\"ticker\" suffix=\"%\"');
-                //let positionProz1 = xhr.responseText.indexOf('&#160;%');
-                //let positionProz1 = xhr.responseText.indexOf('com-push-text dynamic-color show-positive-sign format=\"ticker\" suffix=\"%\"');
-                //let positionProz1 = xhr.responseText.indexOf('prices.[type=LAST].profitLossAbs.value');
+                // Realtime Percent
                 let positionProz1 = xhr.responseText.indexOf(notationId + '\', key: \'prices.[type=LAST].profitLossRel');
-                
-                //var realTimeProzSymbol = xhr.responseText.slice(positionProz1 + 206, positionProz1 + 211);
-                var realTimeProzSymbol = xhr.responseText.slice(positionProz1 + 67, positionProz1 + 73);
-                //var realTimeProzSymbol = xhr.responseText.slice(positionProz1 + 56, positionProz1 + 61);
-                //var realTimeProzSymbol = xhr.responseText.slice(positionProz1 - 4, positionProz1);
-                //var realTimeProzSymbol = xhr.responseText.slice(positionProz1 - 6, positionProz1);
+                var realTimeProzSymbol = xhr.responseText.slice(positionProz1 + 66, positionProz1 + 73);
                 realTimeProzSymbol = realTimeProzSymbol.replace(' ', '');
                 realTimeProzSymbol = realTimeProzSymbol.replace(',', '.');
                 var elementPercentageSymbol = document.getElementById('intervalSectionPercentage' + symbol);
@@ -868,22 +842,9 @@ function onContentLoaded(symbol, notationId, asset_type) {
                     elementPercentageSymbol.style.color = 'green';
                 }
         
-                // Gain
+                // Realtime Gain
                 let positionGain1 = xhr.responseText.indexOf(notationId + '\', key: \'prices.[type=LAST].profitLossAbs.value');
-                //let positionGain1 = xhr.responseText.indexOf('prices.[type=LAST].profitLossAbs.value');
-                //let positionGain1 = xhr.responseText.indexOf('com-push-text dynamic-color show-positive-sign format=\"ticker\" suffix=\"%\"');
-                
-                //let positionGain1 = xhr.responseText.indexOf('&#160;%');
-                //let positionGain2 = xhr.responseText.indexOf('com-push-text>');
-                //var realTimeGainSymbol = xhr.responseText.slice(positionGain1 + 200, positionGain2 );
-                var realTimeGainSymbol = xhr.responseText.slice(positionGain1 + 73, positionGain1 + 78);
-                //var realTimeGainSymbol = xhr.responseText.slice(positionGain1 + 56, positionGain1 + 61);
-               // var realTimeGainSymbol = xhr.responseText.slice(positionGain1 + 206, positionGain1 + 211);
-//                var realTimeGainSymbol = xhr.responseText.slice(positionGain1, positionGain1 + 200);
-                
-//realTimeGainSymbol = realTimeGainSymbol.split('         '); // \n
-  //              realTimeGainSymbol = realTimeGainSymbol[4]; // \n
-    //            realTimeGainSymbol = realTimeGainSymbol.trim();
+                var realTimeGainSymbol = xhr.responseText.slice(positionGain1 + 73, positionGain1 + 79);
                 realTimeGainSymbol = realTimeGainSymbol.replace(' ', '');
                 realTimeGainSymbol = realTimeGainSymbol.replace(',', '.');
                 var elementGainSymbol = document.getElementById('intervalSectionGain' + symbol);
@@ -923,7 +884,6 @@ function onContentLoaded(symbol, notationId, asset_type) {
                 var piecesSymbol = obfuscatedValuePcEuroSymbol.innerHTML.split('pc')[0];
                 var buyingValueSymbol = obfuscatedValuePcEuroSymbol.innerHTML.split('/')[0];
                 buyingValueSymbol = buyingValueSymbol.split(' ')[1];
-               // var portfolioValueSymbol = piecesSymbol * realTimeQuoteSymbol;
                 var portfolioValueSymbol = piecesSymbol * realTimeQuote;
         
                 // Sum up all current symbols
@@ -939,17 +899,33 @@ function onContentLoaded(symbol, notationId, asset_type) {
                //console.info('elementPortfolioValuesSymbol.innerHTML: '+ elementPortfolioValuesSymbol.innerHTML);
         
                 var elementPortfolioGainSymbol = document.getElementById('intervalSectionPortfolioGain' + symbol);
-                //elementPortfolioGainSymbol.innerHTML = stocksPerformanceSymbol.toFixed(1) + '% ' + (portfolioValueSymbol - buyingValueSymbol).toFixed(0) + '€';
                 elementPortfolioGainSymbol.innerHTML = (portfolioValueSymbol - buyingValueSymbol).toFixed(0) + '€ ' + stocksPerformanceSymbol.toFixed(1) + '%';
                 //console.info('elementPortfolioGainSymbol.innerHTML: '+ elementPortfolioGainSymbol.innerHTML);
         
                 // Sorting, if 0,00% then add '+' -> +0,00%
                 if (realTimeProzSymbol[0] === ' ') {
-                    realTimeProzSymbol = '+' + realTimeProzSymbol.substring(1);
-                }
+                    realTimeProzSymbol = realTimeProzSymbol.substring(1).trim();
+               } 
+               if ((realTimeProzSymbol.charAt(0) === '-') || (realTimeProzSymbol.charAt(0) === '+')) {
+                   ;
+               }   
+               else {
+                   realTimeProzSymbol = '+' + realTimeProzSymbol;
+               }  
         
                 // Example ID: id='symbolLineIdEUZ_-115_+111_9999'
-                var numericRealTimeProzSymbol = realTimeProzSymbol.replace('.', '');
+                var numericRealTimeProzSymbol = realTimeProzSymbol.trim().replace('.', '');   
+                // if (symbol === '0QF') {
+                //     console.info('0QF');
+                //    // if (!numericRealTimeProzSymbol.charAt(3)) {
+                //      //   numericRealTimeProzSymbol = numericRealTimeProzSymbol + 0; // TODO 3- > 4stellig
+                //    // }
+                // }
+                // Mit Nullen hinten auffüllen
+                if (!numericRealTimeProzSymbol.charAt(4)) {
+                    numericRealTimeProzSymbol = numericRealTimeProzSymbol + 0; // 3 -> 4 stellig
+                }
+
                 var symbolLineId = 'symbolLineId' + symbol;
                 var symbolLineIdElements = document.querySelectorAll('[id ^="' + symbolLineId + '"]');
                 var numericOverallProzSymbol;
