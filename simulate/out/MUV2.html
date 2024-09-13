@@ -498,19 +498,7 @@ bgElem.style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-
-<script type="text/javascript"> // Hover Chart
-function showChart(timeSpan) { // function is ALLMOST!!! redundant in result html and detail html file! (template\_result.js)
-var elementSpanToReplace = document.getElementById('imgToReplace');
-elementSpanToReplace.style.display = 'block';
-elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
-
-}    
-function hideChart() { // function is ALLMOST!!! redundant in result html and detail html file! (template\_result.js)
-var elementSpanToReplace = document.getElementById('imgToReplace');
-elementSpanToReplace.style.display = 'none';
-}
-</script><a style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=10337124"  target="_blank">MUV2 "Muenchener Rue"</a>
+<a style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=10337124"  target="_blank">MUV2 "Muenchener Rue"</a>
 <a style="font-size:50px; color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart() 'href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=10337124"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=10337124"  target="_blank">&nbsp;5Y&nbsp;</a>
 &nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>483.80€</b></span>
@@ -577,7 +565,44 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 13-Sep-2024 04:59
+<br>Good Luck! 13-Sep-2024 16:26
+
+<script type='text/javascript' src='_result.js'></script>
+<script>
+document.getElementsByTagName('body')[0].ondblclick = showBuyingSection;
+
+function showBuyingSection() {
+var ele = document.querySelectorAll('[id ^= \"buyingSection\"]');
+Array.prototype.forEach.call(ele, revealElement);
+}
+</script>
+<script type="text/javascript"> // Hover Chart
+function showChart(timeSpan) { // function is ALLMOST!!! redundant in result html and detail html file! (template\_result.js)
+console.log('indexPart12.html: showChart');            
+var elementSpanToReplace = document.getElementById('imgToReplace');
+elementSpanToReplace.style.display = 'block';
+elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!  
+}    
+function hideChart() { // function is ALLMOST!!! redundant in result html and detail html file! (template\_result.js)
+console.log('indexPart12.html: hideChart'); 
+var elementSpanToReplace = document.getElementById('imgToReplace');
+elementSpanToReplace.style.display = 'none';
+}
+</script>    
+<br>
+<br>
+
+<div id='buyingSectionButtonDetailsP' style='display: none'>
+<button id="buyingSectionButtonSell" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlSell(
+document.getElementsByTagName('TITLE')[0].text,
+'', document.getElementById('buyingSectionInputPriceBuy').value)">Sell</button>
+<button id="buyingSectionButtonBuy" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlBuy(
+trimOwnChar(document.getElementsByTagName('TITLE')[0].text),
+document.getElementById('buyingSectionInputPriceBuy').value, document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
+Pieces&nbsp;<input name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+Price&nbsp;<input name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+</div>
+
 </div>
 </body>
 </html>
