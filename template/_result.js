@@ -383,7 +383,7 @@ function addButtons(container) {
 
     var intervalSectionHeadlineDaily = document.getElementById('intervalSectionHeadlineDaily');
     var obfuscatedValueBuyingDailyRealtime = document.getElementById('obfuscatedValueBuyingDailyRealtime');
-    var intervalSectionHeadlineDailyProgressBar = document.getElementById('intervalSectionHeadlineDailyProgressBar');
+    var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');
 
     var intervalSectionButtonSortDailyButton = document.getElementById('intervalSectionButtonSortDaily');
     var intervalSectionButtonSortValueButton = document.getElementById('intervalSectionButtonSortValue');
@@ -408,7 +408,7 @@ function addButtons(container) {
 
     if (location.href.startsWith('file')) {
         container.appendChild(document.createTextNode(" "));
-        container.appendChild(intervalSectionHeadlineDailyProgressBar); 
+        container.appendChild(intervalSectionHeadlineDailyProgressBarSpan); 
     }
         
     container.appendChild(document.createElement("br"));
