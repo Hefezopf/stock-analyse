@@ -411,6 +411,7 @@ console.log('location.href:' + location.href);
 console.log('+++++++++in location.href:' + location.href);        
         container.appendChild(document.createTextNode(" "));
         container.appendChild(intervalSectionHeadlineDailyProgressBarSpan); 
+        intervalSectionHeadlineDailyProgressBarSpan.style.display = "block"; 
     }
         
     container.appendChild(document.createElement("br"));
@@ -724,6 +725,15 @@ function processAll(ele) {
         Array.prototype.forEach.call(intervalValues, hideElement);
         Array.prototype.forEach.call(obfuscatedValues, hideElement);
     }
+
+    var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');    
+console.log('location.href:' + location.href);    
+    if (location.href.startsWith('http')) {
+        Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
+console.log('+++++++++in location.href:' + location.href);        
+    }
+     
+    
     toggleIsContentVisible = !toggleIsContentVisible;
 }
 
