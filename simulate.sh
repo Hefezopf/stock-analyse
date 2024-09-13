@@ -11,8 +11,8 @@
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
 # 8. Parameter: ALARM_COUNT_FOR_STOCK: Buy, if count is true for alarm. Like: 'C+4R+7S+P+D+N+M+' = 7 times '+'
 # 9. Parameter: ALARM_COUNT_FOR_INDEX: Buy, if count is true for alarm. Like: '7S+P+D+N+M+' = 5 times '+'
-# Call example: . simulate.sh 'BEI ALV' 2000 25 91 1.05 5 1 7 5
-# Call example: . simulate.sh 'BEI' 2500 15 65 1.01 5 2 7 5
+# Call example: . simulate.sh 'BEI ALV' 2000 25 91 1.05 99 1 7 5
+# Call example: . simulate.sh 'BEI' 2500 15 65 1.01 99 2 7 5
 # Hint: Grep output to find symbols -> grep Position:100 simulate/out/_simulate.html
 
 # Debug mode

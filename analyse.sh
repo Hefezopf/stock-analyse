@@ -91,7 +91,6 @@ if [ "$(uname)" = 'Linux' ]; then
 fi
 GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> $creationDate</p>"
 HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
-<!-- <script type='text/javascript' src='_result.js'></script> -->
 </body></html>"
 START_TIME_MEASUREMENT=$(date +%s);
 
@@ -851,7 +850,6 @@ fi
             Pieces&nbsp;<input name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
             Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
           </span>"
-        #</p>"
 
     # Workflow        
     echo "<br><br># Workflow<br><a href=\"https://github.com/Hefezopf/stock-analyse/actions\" target=\"_blank\">Github Action</a><br>"
