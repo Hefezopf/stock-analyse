@@ -58,10 +58,8 @@ function curlBuy(symbolParam, price, pieces) {
     else {
         headlineLink = symbolParamTrimmed;
     }
-    //var headlineLink = document.getElementById('headlineLink' + symbolParamTrimmed).innerHTML;
     if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
-    //    if (confirm('Buy ' + pieces + ' pieces of:\n' + symbolParamTrimmed + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
-            return;
+        return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
         document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed).value = '';
@@ -147,15 +145,14 @@ function revealElement(ele) {
     ele.style.display = '';
 }
 
+// Hover Chart
 function showChart(timeSpan) {
-    //console.log('detail_indexPart13.html: showChart');            
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!  
 }   
- 
+
 function hideChart() {
-    //console.log('detail_indexPart13.html: hideChart'); 
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'none';
 }

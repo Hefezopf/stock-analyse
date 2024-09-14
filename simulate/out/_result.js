@@ -53,8 +53,7 @@ var intervalLoadingSpinnerId = setInterval(function () {
                 processAll();
                 doHideDetails();
                 doSortDailyGain();
-           // }, 12000 ); // end delay, timeout, Warten
-            }, 500 ); // end delay, timeout, Warten
+            }, 1000); // end delay, timeout, Warten
         }   
         else{
             document.getElementsByTagName('body')[0].ondblclick = processAll;
@@ -136,7 +135,6 @@ function updateImage(symbol, notationId, timespan) {
 
     if (chartImageStore.get(symbol).complete) {
         var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=' + chartNotationIdStore.get(symbol) + '&TIME_SPAN=' + chartTimeSpanStore.get(symbol);
-//        var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=' + chartNotationIdStore.get(symbol) + '&TIME_SPAN=' + chartTimeSpanStore.get(symbol);
         var elemIntervalSectionImage = document.getElementById('intervalSectionImage' + symbol);
         if(elemIntervalSectionImage) {
             elemIntervalSectionImage.src = urlWithTimeSpan;
@@ -146,7 +144,6 @@ function updateImage(symbol, notationId, timespan) {
         imageSymbol.src = urlWithTimeSpan;
         chartImageStore.set(symbol, imageSymbol);
     }
-    // setTimeout(updateImage$symbol, 5*60*1000); // 5 Minutes // 5*60*1000
 }
 
 function doSortDailyGain() {
@@ -177,7 +174,7 @@ function doSortDailyGain() {
 
             var sortPart = elements[i].id.split('_');
             // Only add the element for sorting if it has a '+' in it
-            // Example ID: id='symbolLineIdEUZ_-115_+111_9999'
+            // Example ID: id='symbolLineIdEUZ_-1150_+111_9999'
             if (sortPart.length > 1) {
                 if (sortPart[1][0] === '-') {
                     sortNegativDailyValues.push([-1 * sortPart[1], elements[i]]);
@@ -427,25 +424,23 @@ function addButtons(container) {
 }
 
 function resizeSortedText(fontSizeRealTimeQuotesPercentagesGain, fontSizePortfolioValues, fontSizePortfolioGains) {
-    var intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
+    const intervalSectionRealTimeQuotes = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
     for (var i = 0; i < intervalSectionRealTimeQuotes.length; i++) {
         intervalSectionRealTimeQuotes[i].style.fontSize = fontSizeRealTimeQuotesPercentagesGain;
     }
-    var intervalSectionPercentages = document.querySelectorAll('[id ^= \"intervalSectionPercentage\"]');
+    const intervalSectionPercentages = document.querySelectorAll('[id ^= \"intervalSectionPercentage\"]');
     for (var i = 0; i < intervalSectionPercentages.length; i++) {
         intervalSectionPercentages[i].style.fontSize = fontSizeRealTimeQuotesPercentagesGain;
     }
-    var intervalSectionGain = document.querySelectorAll('[id ^= \"intervalSectionGain\"]');
+    const intervalSectionGain = document.querySelectorAll('[id ^= \"intervalSectionGain\"]');
     for (var i = 0; i < intervalSectionGain.length; i++) {
         intervalSectionGain[i].style.fontSize = fontSizeRealTimeQuotesPercentagesGain;
     }
-
-    var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= \"intervalSectionPortfolioValues\"]');
+    const intervalSectionPortfolioValues = document.querySelectorAll('[id ^= \"intervalSectionPortfolioValues\"]');
     for (var i = 0; i < intervalSectionPortfolioValues.length; i++) {
         intervalSectionPortfolioValues[i].style.fontSize = fontSizePortfolioValues;
     }
-
-    var intervalSectionPortfolioGains = document.querySelectorAll('[id ^= \"intervalSectionPortfolioGain\"]');
+    const intervalSectionPortfolioGains = document.querySelectorAll('[id ^= \"intervalSectionPortfolioGain\"]');
     for (var i = 0; i < intervalSectionPortfolioGains.length; i++) {
         intervalSectionPortfolioGains[i].style.fontSize = fontSizePortfolioGains;
     }
@@ -556,10 +551,8 @@ function curlBuy(symbolParam, price, pieces) {
     else {
         headlineLink = symbolParamTrimmed;
     }
-    //var headlineLink = document.getElementById('headlineLink' + symbolParamTrimmed).innerHTML;
     if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
-    //    if (confirm('Buy ' + pieces + ' pieces of:\n' + symbolParamTrimmed + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
-            return;
+        return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
         document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed).value = '';
@@ -656,7 +649,6 @@ function revers(num) {
 
 var toggleIsContentVisible = false;
 var toggleDecryptOnlyOnce = false;
-
 function processAll(ele) {
     var intervalValues = document.querySelectorAll('[id ^= \"intervalSection\"]');
     var obfuscatedValues = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
@@ -721,15 +713,12 @@ function processAll(ele) {
         Array.prototype.forEach.call(obfuscatedValues, hideElement);
     }
 
-    var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');    
-//console.log('location.href:' + location.href);    
+    var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');       
     if (location.href.startsWith('http')) {
         Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
-        intervalSectionHeadlineDailyProgressBarSpan.style.display = "none"; 
-//console.log('+++++++++in location.href:' + location.href);        
+        intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";         
     }
      
-    
     toggleIsContentVisible = !toggleIsContentVisible;
 }
 
@@ -753,7 +742,6 @@ function calculateRealtimeDailyDiff(ele) {
     siblingElem = siblingElem.nextElementSibling;
     siblingElem = siblingElem.nextElementSibling;
     var pieces = siblingElem.innerHTML.split('pc')[0];
-    //var pieces = siblingElem.innerHTML.split(' ')[0];
     diffFloat = parseFloat(difference);
     realtimeDailyDiff = realtimeDailyDiff + (diffFloat * parseInt(pieces));
 }
@@ -783,7 +771,6 @@ function onContentLoaded(symbol, notationId, asset_type) {
         part_url = 'etfs';
     }
     var url = 'https://www.comdirect.de/inf/' + part_url + '/detail/uebersicht.html?ID_NOTATION=' + notationId;
-    //var url = 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=' + notationId;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     //console.log(url); // url
@@ -792,10 +779,6 @@ function onContentLoaded(symbol, notationId, asset_type) {
     xhr.ontimeout = (e) => {
         console.error('TIMEOUT!!'+ symbol);
     };
-   // xhr.setRequestHeader("Origin", null);
-
-    //xhr.setRequestHeader("Origin", "https://www.comdirect.de");
-    //xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onreadystatechange = function () {
         const DONE = 4; // readyState 4 means the request is done.
         const OK = 200; // status 200 is a successful return.
@@ -819,7 +802,6 @@ function onContentLoaded(symbol, notationId, asset_type) {
                 // }
                 // elementRealTimeQuoteSymbol.innerHTML = realTimeQuoteSymbol + '€';
                 elementRealTimeQuoteSymbol.innerHTML = realTimeQuote + '€';
-               // console.info('elementRealTimeQuoteSymbol.innerHTML: '+ elementRealTimeQuoteSymbol.innerHTML);
         
                 // Realtime Percent
                 let positionProz1 = xhr.responseText.indexOf(notationId + '\', key: \'prices.[type=LAST].profitLossRel');
@@ -828,9 +810,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
                 realTimeProzSymbol = realTimeProzSymbol.replace(',', '.');
                 var elementPercentageSymbol = document.getElementById('intervalSectionPercentage' + symbol);
                 elementPercentageSymbol.innerHTML = realTimeProzSymbol.slice(0, -1) + '%';
-                //console.info('elementPercentageSymbol.innerHTML: '+ elementPercentageSymbol.innerHTML);
-        
-                //elementPercentageSymbol.innerHTML = realTimeProzSymbol + '%';
+
                 if (parseFloat(realTimeProzSymbol) < 0) {
                     elementPercentageSymbol.style.color = 'red';
                 }
@@ -845,7 +825,6 @@ function onContentLoaded(symbol, notationId, asset_type) {
                 realTimeGainSymbol = realTimeGainSymbol.replace(',', '.');
                 var elementGainSymbol = document.getElementById('intervalSectionGain' + symbol);
                 elementGainSymbol.innerHTML = realTimeGainSymbol + '€';
-                //console.info('elementGainSymbol.innerHTML: '+ elementGainSymbol.innerHTML);
         
                 if (parseFloat(realTimeGainSymbol) < 0) {
                     elementGainSymbol.style.color = 'red';
@@ -871,7 +850,6 @@ function onContentLoaded(symbol, notationId, asset_type) {
                 var deltaMinutesSymbol = ((new Date().getTime() - dateEclpsedSymbol.getTime()) / 1000) / 60;
                 var elementRegularMarketTimeOffsetSymbol = document.getElementById('intervalSectionRegularMarketTimeOffset' + symbol);
                 elementRegularMarketTimeOffsetSymbol.innerHTML = deltaMinutesSymbol.toFixed(0) + 'min';
-                //console.info('elementRegularMarketTimeOffsetSymbol.innerHTML: '+ elementRegularMarketTimeOffsetSymbol.innerHTML);
         
                 var elementPortfolioValuesSymbol = document.getElementById('intervalSectionPortfolioValues' + symbol);
                 var obfuscatedValuePcEuroSymbol = document.getElementById('obfuscatedValuePcEuro' + symbol);
@@ -888,15 +866,12 @@ function onContentLoaded(symbol, notationId, asset_type) {
                 if (obfuscatedValueBuyingOverallRealtimeElem) {
                     obfuscatedValueBuyingOverallRealtimeElem.innerHTML = revers(realtimeOverallValue);
                 }
-                //console.info('obfuscatedValueBuyingOverallRealtimeElem.innerHTML: '+ obfuscatedValueBuyingOverallRealtimeElem.innerHTML);
         
                 var stocksPerformanceSymbol = ((portfolioValueSymbol / buyingValueSymbol) - 1) * 100;
                 elementPortfolioValuesSymbol.innerHTML = piecesSymbol + 'pc ' + portfolioValueSymbol.toFixed(0) + '€ ';
-               //console.info('elementPortfolioValuesSymbol.innerHTML: '+ elementPortfolioValuesSymbol.innerHTML);
         
                 var elementPortfolioGainSymbol = document.getElementById('intervalSectionPortfolioGain' + symbol);
                 elementPortfolioGainSymbol.innerHTML = (portfolioValueSymbol - buyingValueSymbol).toFixed(0) + '€ ' + stocksPerformanceSymbol.toFixed(1) + '%';
-                //console.info('elementPortfolioGainSymbol.innerHTML: '+ elementPortfolioGainSymbol.innerHTML);
         
                 // Sorting, if 0,00% then add '+' -> +0,00%
                 if (realTimeProzSymbol[0] === ' ') {
@@ -911,12 +886,6 @@ function onContentLoaded(symbol, notationId, asset_type) {
         
                 // Example ID: id='symbolLineIdEUZ_-115_+111_9999'
                 var numericRealTimeProzSymbol = realTimeProzSymbol.trim().replace('.', '');   
-                // if (symbol === '0QF') {
-                //     console.info('0QF');
-                //    // if (!numericRealTimeProzSymbol.charAt(3)) {
-                //      //   numericRealTimeProzSymbol = numericRealTimeProzSymbol + 0; // TODO 3- > 4stellig
-                //    // }
-                // }
                 // Mit Nullen hinten auffüllen
                 if (!numericRealTimeProzSymbol.charAt(4)) {
                     numericRealTimeProzSymbol = numericRealTimeProzSymbol + 0; // 3 -> 4 stellig
@@ -959,16 +928,13 @@ function onContentLoaded(symbol, notationId, asset_type) {
 
 // Hover Chart
 function showChart(timeSpan, symbol) {
-//console.log('result.js: showChart');
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.style.left = '20%'; 
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
-
 }
 
 function hideChart(symbol) {
-//console.log('result.js: hideChart');
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'none';
 }
