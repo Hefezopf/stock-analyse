@@ -38,6 +38,7 @@ alarmCountForIndexOrigParam=$9 # Copy as orig. value needed for summary at the e
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
 
+cp out/_detail.js simulate/out/_detail.js
 cp out/_result.js simulate/out/_result.js
 
 OUT_SIMULATE_FILE="simulate/out/_simulate.html"

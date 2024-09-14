@@ -582,7 +582,7 @@ function curlBuy(symbolParam, price, pieces) {
     xhr.onreadystatechange = function () {
         const DONE = 4; // readyState 4 means the request is done.
         if (xhr.readyState === DONE) {
-            console.log(xhr.status);
+            // console.log(xhr.status);
             console.log(xhr.responseText);
         }
     };

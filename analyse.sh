@@ -64,6 +64,7 @@ mkdir -p out
 mkdir -p temp
 cp template/favicon.ico out
 cp template/_result.css out
+cp template/_detail.js out
 cp template/_result.js out
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
