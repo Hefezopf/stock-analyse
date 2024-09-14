@@ -147,34 +147,18 @@ function revealElement(ele) {
     ele.style.display = '';
 }
 
-function showChart(timeSpan) { // function is ALLMOST!!! redundant in result html and detail html file! (template\_result.js)
+function showChart(timeSpan) {
     //console.log('detail_indexPart13.html: showChart');            
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!  
-}    
-function hideChart() { // function is ALLMOST!!! redundant in result html and detail html file! (template\_result.js)
+}   
+ 
+function hideChart() {
     //console.log('detail_indexPart13.html: hideChart'); 
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'none';
 }
-
-// Hover Chart
-// function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
-// console.log('detail.js: showChart');
-//     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-//     elementSpanToReplace.style.display = 'block';
-//     //elementSpanToReplace.style.left = '17%'; 
-// //    elementSpanToReplace.style.left = '500px'; 
-//     elementSpanToReplace.style.left = '20%'; 
-//     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
-// }
-
-// function hideChart(symbol) {  // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
-// console.log('detail.js: hideChart');
-//     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-//     elementSpanToReplace.style.display = 'none';
-// }
 
 function trimOwnChar(text) {
     if(text.charAt(0) === '*') {
