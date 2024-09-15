@@ -713,7 +713,14 @@ function processAll(ele) {
         Array.prototype.forEach.call(obfuscatedValues, hideElement);
     }
 
-    // var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');       
+
+    var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');
+    // Hide Refresh ProgressBar in Mobil Version, because CORS is not working there!
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
+        intervalSectionHeadlineDailyProgressBarSpan.style.display = "none"; 
+    }
+     
     // if (location.href.startsWith('http')) {
     //     Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
     //     intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";         
