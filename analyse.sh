@@ -64,6 +64,7 @@ mkdir -p out
 mkdir -p temp
 cp template/favicon.ico out
 cp template/_result.css out
+cp template/_common.js out
 cp template/_detail.js out
 cp template/_result.js out
 OUT_RESULT_FILE=out/_result.html
@@ -78,6 +79,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <meta http-equiv='expires' content='0' />
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
 <link rel='stylesheet' href='_result.css'>
+<script type='text/javascript' src='_common.js'></script> 
 <script type='text/javascript' src='_result.js'></script>
 <title>Result SA</title>
 </head>
