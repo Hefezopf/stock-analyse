@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8" />
-<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+<link rel="shortcut icon" type="image/ico" href="favicon.ico" /><script type='text/javascript' src='_common.js'></script><script type='text/javascript' src='_detail.js'></script>
 <title>DAU0
 </title>
 <style>
@@ -493,8 +493,7 @@ new Chart(ctxMACD, configMACD);
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 if (document.getElementById('oldDataId') || document.getElementById('lowMarketCapId')) {
-var bgElem = document.getElementById('bodyId');
-bgElem.style.backgroundColor = 'rgb(251, 225, 173)';
+document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
@@ -531,8 +530,8 @@ visibility: visible;
 }
 </style>
 <div class='tooltip'>"Luft- und Raumfahrtindustrie"<br><div class='tooltiptext'>" Dassault Aviation SA ist ein Unternehmen mit Sitz in Paris, Frankreich, das primär im Bereich Industrielle Produktion tätig ist. Das Unternehmen wurde im Jahr 1971 gegründet und beschäftigte zum Ende des letzten Geschäftsjahres 13533 Mitarbeiter. Den Vorsitz in der Geschäftsführung hat Éric Trappier. Die größten Anteilseigner sind Dassault Family, Airbus SE und T. Rowe Price International Ltd. Der Umsatz des Unternehmens betrug zum Ende des letzten Geschäftsjahres 4.80 Mrd. EUR mit einem Gewinn von 693.40 Mio. EUR. Der Umsatz hat sich gegenüber dem vorherigen Geschäftsjahr um -30.9% verringert. Die derzeitige Marktkapitalisierung beträgt 15.80 Mrd. EUR. Die Angaben zum Geschäftsjahresende beziehen sich auf den 31.12.2023. Die Sektorklassifizierung des Unternehmens basiert auf dem FactSet eigenen RBICS Sektorsystem. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 70px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;14 Mrd.€</div><br>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 75px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;15 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2024-09-12</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -565,44 +564,30 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 13-Sep-2024 15:18</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 15-Sep-2024 16:56</p>
 
-<script type='text/javascript' src='_result.js'></script>
 <script>
-document.getElementsByTagName('body')[0].ondblclick = showBuyingSection;
-
+document.getElementsByTagName('body')[0].ondblclick = showBuyingSection; 
 function showBuyingSection() {
-var ele = document.querySelectorAll('[id ^= \"buyingSection\"]');
+const ele = document.querySelectorAll('[id ^= \"buyingSection\"]');
 Array.prototype.forEach.call(ele, revealElement);
 }
 </script>
-<script type="text/javascript"> // Hover Chart
-function showChart(timeSpan) { // function is ALLMOST!!! redundant in result html and detail html file! (template\_result.js)
-console.log('indexPart12.html: showChart');            
-var elementSpanToReplace = document.getElementById('imgToReplace');
-elementSpanToReplace.style.display = 'block';
-elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!  
-}    
-function hideChart() { // function is ALLMOST!!! redundant in result html and detail html file! (template\_result.js)
-console.log('indexPart12.html: hideChart'); 
-var elementSpanToReplace = document.getElementById('imgToReplace');
-elementSpanToReplace.style.display = 'none';
-}
-</script>    
 <br>
 <br>
 
 <div id='buyingSectionButtonDetailsP' style='display: none'>
 <button id="buyingSectionButtonSell" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlSell(
 document.getElementsByTagName('TITLE')[0].text,
-'', document.getElementById('buyingSectionInputPriceBuy').value)">Sell</button>
+'?',
+document.getElementById('buyingSectionInputPriceBuy').value)">Sell</button>
 <button id="buyingSectionButtonBuy" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlBuy(
 trimOwnChar(document.getElementsByTagName('TITLE')[0].text),
-document.getElementById('buyingSectionInputPriceBuy').value, document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
+document.getElementById('buyingSectionInputPriceBuy').value,
+document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
 Pieces&nbsp;<input name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
 Price&nbsp;<input name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
 </div>
-
 </div>
 </body>
 </html>
