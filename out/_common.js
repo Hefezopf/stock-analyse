@@ -58,6 +58,9 @@ function curlBuy(symbolParam, price, pieces) {
     else {
         headlineLink = symbolParamTrimmed;
     }
+    if(overallPieces === pieces) {
+        overallPieces = '?';
+    }
     if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
         return;
     }
@@ -95,7 +98,7 @@ function curlBuy(symbolParam, price, pieces) {
 }
 
 function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
-    if (symbolParam.charAt(0) !== '*') {
+    if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
         alert('Error: Stock ' + symbolParam.trim() + ' not in portfolio!');
         return;
     }
