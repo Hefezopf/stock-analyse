@@ -713,11 +713,11 @@ function processAll(ele) {
         Array.prototype.forEach.call(obfuscatedValues, hideElement);
     }
 
-    var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');       
-    if (location.href.startsWith('http')) {
-        Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
-        intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";         
-    }
+    // var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');       
+    // if (location.href.startsWith('http')) {
+    //     Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
+    //     intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";         
+    // }
      
     toggleIsContentVisible = !toggleIsContentVisible;
 }
