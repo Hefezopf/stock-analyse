@@ -93,8 +93,8 @@ if [ "$(uname)" = 'Linux' ]; then
     creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") #  Sommerzeit / Summertime
 fi
 GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> $creationDate</p>"
-HTML_RESULT_FILE_END="$GOOD_LUCK<br></div>
-</body></html>"
+#HTML_RESULT_FILE_END="$GOOD_LUCK<br></div></body></html>"
+HTML_RESULT_FILE_END="<br></div></body></html>"
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd. Do not ignore '*' 
@@ -862,9 +862,15 @@ fi
     echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html\" target=\"_blank\">Simulation</a><br>"
     # Informer        
     echo "<br># Informer<br><a href=\"https://nutzer.comdirect.de/inf/musterdepot/pmd/meineuebersicht.html?name=Max\" target=\"_blank\">Comdirect Informer</a><br>"
+
+echo "$GOOD_LUCK"
+#GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> $creationDate</p>"
+
     echo "</div>" # END portfolioValueDaxFooterId
     echo "$HTML_RESULT_FILE_END" 
 } >> "$OUT_RESULT_FILE"
+
+#echo "$GOOD_LUCK" >> "$OUT_RESULT_FILE"
 
 # Minify _result.html file
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
