@@ -931,7 +931,9 @@ function onContentLoaded(symbol, notationId, asset_type) {
 function showChart(timeSpan, symbol) {
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
-    elementSpanToReplace.style.left = '20%'; 
+    //elementSpanToReplace.style.left = '20%'; 
+    elementSpanToReplace.style.left = '10%'; 
+    elementSpanToReplace.style.transform = 'scale(1.2)';
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
 }
 

@@ -149,6 +149,8 @@
 function showChart(timeSpan) {
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'block';
+   // elementSpanToReplace.style.transform = 'scale(2)';
+ 
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!  
 }   
 
