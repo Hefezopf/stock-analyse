@@ -1,6 +1,6 @@
 // Global Varables
-var token1 = 'ghp_';
-var token2 = 'x7Hce3kvS91tOCaKO0mSwTZO4eIOHsuUeCFd';
+//var token1 = 'ghp_';
+//var token2 = 'x7Hce3kvS91tOCaKO0mSwTZO4eIOHsuUeCFd';
 
 // Spinner Counters
 var counterFetchLoaded = 0;
