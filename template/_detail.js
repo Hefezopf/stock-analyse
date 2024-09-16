@@ -3,7 +3,7 @@ function showChart(timeSpan) {
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.style.left = '30%'; 
-    elementSpanToReplace.style.transform = 'scale(1.8)';
+    elementSpanToReplace.style.transform = 'scale(1.9)';
  
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!  
 }   
