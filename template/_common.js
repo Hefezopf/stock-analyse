@@ -140,25 +140,9 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     xhr.send(JSON.stringify(data));
 }
 
-// function revers(num) {
-//     return String(num).split("").reverse().join("");
-// }
-
 function revealElement(ele) {
     ele.style.display = '';
 }
-
-// // Hover Chart
-// function showChart(timeSpan) {
-//     var elementSpanToReplace = document.getElementById('imgToReplace');
-//     elementSpanToReplace.style.display = 'block';
-//     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!  
-// }   
-
-// function hideChart() {
-//     var elementSpanToReplace = document.getElementById('imgToReplace');
-//     elementSpanToReplace.style.display = 'none';
-// }
 
 function trimOwnChar(text) {
     if(text.charAt(0) === '*') {
