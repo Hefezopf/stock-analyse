@@ -100,7 +100,7 @@ do
             done
             sed -i "1,100!d" "$informerDataFile" # Alles was länger als 100 Zeilen ist löschen
         else
-            echo "Error retrieving Value for Symbol:$symbol"
+            echo "Error retrieving Value for Symbol (Wrong Type? INDEX or COIN?):$symbol"
             errorSymbols="$errorSymbols $symbol"
         fi
     else
