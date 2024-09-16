@@ -790,7 +790,7 @@ function showChart(timeSpan, symbol) {
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.style.top = '30%'; 
     elementSpanToReplace.style.left = '5%'; 
-    elementSpanToReplace.style.transform = 'scale(1.1)';
+    elementSpanToReplace.style.transform = 'scale(1.05)';
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
 }
 
