@@ -598,7 +598,7 @@ do
                 visibility: hidden;
                 background-color: black;
                 color: #fff;
-                padding: 7px 10px 30px 10px;
+                padding: 7px 10px 40px 10px;
                 border-radius: 6px;
                 position: absolute;
                 z-index: 1;
