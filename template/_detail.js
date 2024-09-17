@@ -2,7 +2,6 @@
 // _detail.js
 //
 
-// Hover Chart
 function showChart(timeSpan) {
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'block';

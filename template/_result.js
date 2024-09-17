@@ -788,7 +788,6 @@ function revealElement(ele) {
     ele.style.display = '';
 }
 
-// Hover Chart
 function showChart(timeSpan, symbol) {
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
