@@ -879,11 +879,18 @@ sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remov
 cat template/_common.js template/_result.js > out/_result.js
 cat template/_common.js template/_detail.js > out/_detail.js
 
+# Remove Comments
+#sed -i '/\/\/ /d' out/_result.js
+#sed -i '/\/\/ /d' out/_detail.js
+
+# Remove spaces
+#sed -i ':a;N;$!ba;s/\n/ /g' out/_result.js
+#sed -i ':a;N;$!ba;s/\n/ /g' out/_detail.js
+
 # Minify out/*.js files
 #sed -i "s/^[ \t]*//g" "out/_common.js"
 sed -i "s/^[ \t]*//g" "out/_result.js"
 sed -i "s/^[ \t]*//g" "out/_detail.js"
-
 
 # Delete decrypted, readable portfolio file
 rm -rf "$OWN_SYMBOLS_FILE"
