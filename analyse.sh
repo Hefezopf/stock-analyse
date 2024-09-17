@@ -79,8 +79,8 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <meta http-equiv='expires' content='0' />
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
 <link rel='stylesheet' href='_result.css'>
-<script type='text/javascript' src='_common.js'></script> 
-<script type='text/javascript' src='_result.js'></script>
+<script type='text/javascript' src='_common.js' defer></script> 
+<script type='text/javascript' src='_result.js' defer></script>
 <title>Result SA</title>
 </head>
 <body>
