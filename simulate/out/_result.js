@@ -784,6 +784,10 @@ function onContentLoaded(symbol, notationId, asset_type) {
     xhr.send();
 }
 
+function revealElement(ele) {
+    ele.style.display = '';
+}
+
 // Hover Chart
 function showChart(timeSpan, symbol) {
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);

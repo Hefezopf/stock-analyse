@@ -140,10 +140,6 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     xhr.send(JSON.stringify(data));
 }
 
-function revealElement(ele) {
-    ele.style.display = '';
-}
-
 function trimOwnChar(text) {
     if(text.charAt(0) === '*') {
         return text.substring(1).trim();
