@@ -1,11 +1,19 @@
 
-    <script type='text/javascript' src='_common.js' async></script>
+    <!-- <script type='text/javascript' src='_common.js' async></script> -->
     <script type='text/javascript' src='_detail.js' async></script>
     <script>
         document.getElementsByTagName('body')[0].ondblclick = showBuyingSection; 
         function showBuyingSection() {
+            var script = document.createElement('script');
+            script.setAttribute('type', 'text/javascript');
+            script.setAttribute('src', '_common.js');
+            script.async = false;
+            script.defer = false;
+            document.head.appendChild(script);    
             const ele = document.querySelectorAll('[id ^= \"buyingSection\"]');
-            Array.prototype.forEach.call(ele, revealElement);
+            Array.prototype.forEach.call(ele,  function(ele) {
+                ele.style.display = '';
+            });
         }
     </script>
 
