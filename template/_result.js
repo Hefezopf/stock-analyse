@@ -1,3 +1,7 @@
+//
+// _result.js
+//
+
 // Spinner Counters
 var counterFetchLoaded = 0;
 var counterOwnStocks = 0;
