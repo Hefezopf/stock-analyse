@@ -874,6 +874,9 @@ echo "$GOOD_LUCK"
 # Minify _result.html file
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!
+# Minify out/*.js files
+sed -i "s/^[ \t]*//g" "out/_result.js"
+sed -i "s/^[ \t]*//g" "out/_common.js"
 
 # Delete decrypted, readable portfolio file
 rm -rf "$OWN_SYMBOLS_FILE"

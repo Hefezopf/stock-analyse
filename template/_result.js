@@ -51,7 +51,7 @@ var intervalLoadingSpinnerId = setInterval(function () {
                 doSortDailyGain();
             }, 1000); // end delay, timeout, Warten
         }   
-        else{
+        else {
             document.getElementsByTagName('body')[0].ondblclick = processAll;
         }
         hideSpinner();
@@ -476,9 +476,11 @@ function doHideDetails() {
         if(intervalSectionButtonHideDetailsButton) {
             intervalSectionButtonHideDetailsButton.innerHTML = '- Details';
         }
-        Array.prototype.forEach.call(symbolLineIdValues, styleElement);
+        Array.prototype.forEach.call(symbolLineIdValues, function(ele) {
+            ele.style.marginBottom = '-22px';
+        });
     }
-    else{
+    else {
         Array.prototype.forEach.call(detailsIdValues, revealElement);
         Array.prototype.forEach.call(intervalSectionBeepValues, revealElement);
         Array.prototype.forEach.call(intervalSectionButtonValues, revealElement);
@@ -486,7 +488,9 @@ function doHideDetails() {
         Array.prototype.forEach.call(intervalSectionGainValues, revealElement);
         Array.prototype.forEach.call(intervalSectionPortfolioValues, revealElement);
         intervalSectionButtonHideDetailsButton.innerHTML = '+ Details';
-        Array.prototype.forEach.call(symbolLineIdValues, unstyleElement);
+        Array.prototype.forEach.call(symbolLineIdValues, function(ele) {
+            ele.style.display = '';
+        });
     }
     toggleIsDetailsVisible = !toggleIsDetailsVisible;
 }
@@ -561,7 +565,7 @@ function processAll(ele) {
                     obfuscatedValueBuyingDailyRealtimeElem.innerHTML = 'TIMEOUT / Moesif CORS';
                     obfuscatedValueBuyingDailyRealtimeElem.style.color = 'red';
                 }
-                else{
+                else {
                     obfuscatedValueBuyingDailyRealtimeElem.innerHTML = diff + '€';
                 }
             }
@@ -582,14 +586,6 @@ function processAll(ele) {
     }
      
     toggleIsContentVisible = !toggleIsContentVisible;
-}
-
-function styleElement(ele) {
-    ele.style.marginBottom = '-22px';
-}
-
-function unstyleElement(ele) {
-    ele.style.marginBottom = '';
 }
 
 function calculateRealtimeDailyDiff(ele) {
