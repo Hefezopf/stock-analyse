@@ -563,19 +563,33 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b> Sell: High 4 last Stochastic (S): 4 last quotes over level </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 17-Sep-2024 12:43</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 17-Sep-2024 12:43pp</p>
 
 <!-- <script type='text/javascript' src='_common.js' async></script> -->
 <script type='text/javascript' src='_detail.js' async></script>
 <script>
 document.getElementsByTagName('body')[0].ondblclick = showBuyingSection; 
 function showBuyingSection() {
-var script = document.createElement('script');
-script.setAttribute('type', 'text/javascript');
-script.setAttribute('src', '_common.js');
-script.async = false;
-script.defer = false;
-document.head.appendChild(script);    
+// https://htmlpreview.github.io/htmlpreview.js    
+// https://htmlpreview.github.io/htmlpreview.js
+//"https://raw.githubusercontent.com/Hefezopf/stock-analyse/main/out/htmlpreview.js"
+
+if (location.href.startsWith('http')) {
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', 'https://htmlpreview.github.io/htmlpreview.js');
+    script.async = false;
+    script.defer = false;
+    document.head.appendChild(script);
+}    
+
+var script2 = document.createElement('script');
+script2.setAttribute('type', 'text/javascript');
+script2.setAttribute('src', '_common.js');
+script2.async = false;
+script2.defer = false;
+document.head.appendChild(script2);
+   
 const ele = document.querySelectorAll('[id ^= \"buyingSection\"]');
 Array.prototype.forEach.call(ele, function(ele) {
 ele.style.display = '';
