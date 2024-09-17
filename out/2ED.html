@@ -570,12 +570,24 @@ visibility: visible;
 <script>
 document.getElementsByTagName('body')[0].ondblclick = showBuyingSection; 
 function showBuyingSection() {
-var script = document.createElement('script');
-script.setAttribute('type', 'text/javascript');
-script.setAttribute('src', '_common.js');
-script.async = false;
-script.defer = false;
-document.head.appendChild(script);    
+
+// https://htmlpreview.github.io/htmlpreview.js    
+if (location.href.startsWith('http')) {
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', 'htmlpreview.js');
+    script.async = false;
+    script.defer = false;
+    document.head.appendChild(script);
+}    
+
+var script2 = document.createElement('script');
+script2.setAttribute('type', 'text/javascript');
+script2.setAttribute('src', '_common.js');
+script2.async = false;
+script2.defer = false;
+document.head.appendChild(script2);
+
 const ele = document.querySelectorAll('[id ^= \"buyingSection\"]');
 Array.prototype.forEach.call(ele, function(ele) {
 ele.style.display = '';
