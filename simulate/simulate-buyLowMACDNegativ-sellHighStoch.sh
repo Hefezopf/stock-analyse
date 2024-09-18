@@ -121,11 +121,6 @@ do
     fi
     echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE
     
-
-    #DATA_FILE=data/"$symbol".txt
-    #DATA_FILE="$DATA_DIR/$symbol".txt
-    #dateOfFile=$(head -n1 "$DATA_FILE" | tail -1 | cut -f 1)
-    #ALARM_FILE=alarm/"$symbol"_"$dateOfFile".txt
     ALARM_FILE=alarm/"$symbol".txt
     alarms=$(head "$ALARM_FILE")
     HISTORY_FILE=history/"$symbol".txt
@@ -372,10 +367,8 @@ do
         quoteAt=$(printf "%.2f" "$quoteAt")
         percentageLost=$(echo "$wallet $amount" | awk '{print (100-(100 / $1 * $2 ))*(-1)}')
         percentageLost=$(printf "%.1f" "$percentageLost")
-        #percentageLost=$(printf "%.2f" "$percentageLost")
         Out "Keep\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tCurrent Value=$amount€\tPerc=$percentageLost%" $OUT_SIMULATE_FILE
         sellOnLastDayAmountOverAll=$(echo "$sellOnLastDayAmountOverAll $amount" | awk '{print ($1 + $2)}')
-       # lastLowestQuoteAt=$QUOTE_MAX_VALUE 
         RSIBuyLevelParam=$3
     fi
 
@@ -517,7 +510,9 @@ echo "<script>var linkMap = new Map();</script>" >> $OUT_SIMULATE_FILE
 # }
 # </script>" >> $OUT_SIMULATE_FILE
 
-echo "<br><button id='buttonOpenAllInTab' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doOpenAllInTab(){for (let [key, value] of linkMap) {window.open(value, \"_blank\").focus();}};doOpenAllInTab()'>Open All</button><br><br>" >> $OUT_SIMULATE_FILE
+
+#echo "<br><button id='buttonOpenAllInTab' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doOpenAllInTab(){for (let [key, value] of linkMap) {window.open(value, \"_blank\").focus();}};doOpenAllInTab()'>Open All</button><br><br>" >> $OUT_SIMULATE_FILE
+echo "<br><button id='buttonOpenAllInTab' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> $OUT_SIMULATE_FILE
 for value in "${ARRAY_BUY_POS_SIM[@]}"
 do
     lineFromTickerFile=$(grep -m1 -P "^$value\t" "$TICKER_NAME_ID_FILE")
@@ -531,7 +526,6 @@ do
     fi
 
     {
-    #    echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'/>"
         echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.2);'/>"
         COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
     # COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"

@@ -81,6 +81,9 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <title>Result SA</title>
 </head>
 <body>
+
+<script>var linkMap = new Map();</script>
+
 <div id='symbolsListId'>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
