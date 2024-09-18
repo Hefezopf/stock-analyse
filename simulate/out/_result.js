@@ -153,6 +153,17 @@ return text.substring(1).trim();
 }
 return text.trim();
 }
+
+function isMobil() {
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+console.log('Mobil!');
+return;
+}
+else {
+console.log('Web!');
+return undefined;
+}
+}
 // 
 // _result.js
 // 
@@ -284,7 +295,7 @@ if (width <= 1000) {
 newWidth = '100%';
 }
 
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+if(isMobil()) {
 newWidth = '80%';
 }
 
@@ -737,7 +748,7 @@ Array.prototype.forEach.call(obfuscatedValues, hideElement);
 
 var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');
 // Hide Refresh ProgressBar in Mobil Version, because CORS is not working there!
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+if(isMobil()) {
 Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
 intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";
 }

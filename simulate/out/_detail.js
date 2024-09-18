@@ -153,6 +153,17 @@ return text.substring(1).trim();
 }
 return text.trim();
 }
+
+function isMobil() {
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+console.log('Mobil!');
+return;
+}
+else {
+console.log('Web!');
+return undefined;
+}
+}
 // 
 // _detail.js
 // 
@@ -161,11 +172,11 @@ function showChart(timeSpan) {
 var elementSpanToReplace = document.getElementById('imgToReplace');
 elementSpanToReplace.style.display = 'block';
 
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+if(isMobil()) {
 elementSpanToReplace.style.top = '25%';
 elementSpanToReplace.style.left = '25%';
 }
-else{
+else {
 elementSpanToReplace.style.top = '38%';
 elementSpanToReplace.style.left = '38%';
 }   

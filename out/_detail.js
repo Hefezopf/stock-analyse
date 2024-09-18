@@ -174,7 +174,7 @@ elementSpanToReplace.style.display = 'block';
 
 if(isMobil()) {
 elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '25%';
+elementSpanToReplace.style.left = '23%'
 }
 else {
 elementSpanToReplace.style.top = '38%';
