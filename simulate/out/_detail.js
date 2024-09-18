@@ -159,7 +159,6 @@ return text.trim();
 function showChart(timeSpan) {
 var elementSpanToReplace = document.getElementById('imgToReplace');
 elementSpanToReplace.style.display = 'block';
-elementSpanToReplace.style.top = '40%';
 elementSpanToReplace.style.left = '26%';
 elementSpanToReplace.style.transform = 'scale(1.85)';
 
