@@ -6,14 +6,14 @@ function showChart(timeSpan) {
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'block';
 
-    var bodyId = document.getElementById('bodyId');
+    //var bodyId = document.getElementById('bodyId');
     if(isMobil()) {
-        bodyId.style.background = 'blue';
+        //bodyId.style.background = 'blue';
         elementSpanToReplace.style.top = '25%';
         elementSpanToReplace.style.left = '25%'
     }
     else {
-        bodyId.style.background = 'red'
+       // bodyId.style.background = 'red'
         elementSpanToReplace.style.top = '38%';
         elementSpanToReplace.style.left = '40%';
     }   
