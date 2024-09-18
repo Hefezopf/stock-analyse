@@ -108,7 +108,7 @@ if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
 alert('Error: Stock ' + symbolParam.trim() + ' not in portfolio!');
 return;
 }
-symbolParam = trimOwnChar(symbolParam);    
+symbolParam = trimOwnChar(symbolParam);
 
 if (sellPriceParam == '') {
 alert('Error: Price not set!');
@@ -181,7 +181,7 @@ location.reload();
 }
 
 // 300 seconds total
-var timeleftToRefresh = initRefreshSeconds; 
+var timeleftToRefresh = initRefreshSeconds;
 var progressBarTimer = setInterval(function() {
 if(timeleftToRefresh <= 0) {
 clearInterval(progressBarTimer);
@@ -299,7 +299,7 @@ var urlWithTimeSpan = 'https://charts.comdirect.de/charts/rebrush/design_big.cha
 var elemIntervalSectionImage = document.getElementById('intervalSectionImage' + symbol);
 if(elemIntervalSectionImage) {
 elemIntervalSectionImage.src = urlWithTimeSpan;
-elemIntervalSectionImage.style.width = newWidth; 
+elemIntervalSectionImage.style.width = newWidth;
 }
 var imageSymbol = new Image();
 imageSymbol.src = urlWithTimeSpan;
@@ -553,7 +553,7 @@ container.appendChild(obfuscatedValueBuyingDailyRealtime);
 
 if (location.href.startsWith('file')) {    
 container.appendChild(document.createTextNode(" "));
-container.appendChild(intervalSectionHeadlineDailyProgressBarSpan); 
+container.appendChild(intervalSectionHeadlineDailyProgressBarSpan);
 intervalSectionHeadlineDailyProgressBarSpan.style.display = "inline-block";
 }
 
@@ -605,7 +605,7 @@ scrollingElement.scrollTop = scrollingElement.scrollHeight;
 }
 
 // Open all in Tabs
-var linkMap = new Map();
+//var linkMap = new Map();
 function doOpenAllInTab() {
 for (let [key, value] of linkMap) {
 window.open(value, '_blank').focus();
@@ -628,7 +628,7 @@ Array.prototype.forEach.call(detailsIdValues, hideElement);
 Array.prototype.forEach.call(intervalSectionBeepValues, hideElement);
 Array.prototype.forEach.call(intervalSectionButtonValues, hideElement);
 Array.prototype.forEach.call(intervalSectionRealTimeQuoteValues, hideElement);
-Array.prototype.forEach.call(intervalSectionGainValues, hideElement); 
+Array.prototype.forEach.call(intervalSectionGainValues, hideElement);
 Array.prototype.forEach.call(intervalSectionPortfolioValues, hideElement);
 if(intervalSectionButtonHideDetailsButton) {
 intervalSectionButtonHideDetailsButton.innerHTML = '- Details';
@@ -739,7 +739,7 @@ var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('inter
 // Hide Refresh ProgressBar in Mobil Version, because CORS is not working there!
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
-intervalSectionHeadlineDailyProgressBarSpan.style.display = "none"; 
+intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";
 }
 
 toggleIsContentVisible = !toggleIsContentVisible;
@@ -784,22 +784,22 @@ part_url = 'etfs';
 var url = 'https://www.comdirect.de/inf/' + part_url + '/detail/uebersicht.html?ID_NOTATION=' + notationId;
 var xhr = new XMLHttpRequest();
 xhr.open("GET", url, true);
-// console.log(url); // url
+// console.log(url);// url
 
 // time in milliseconds
-xhr.timeout = 3000; 
+xhr.timeout = 3000;
 xhr.ontimeout = (e) => {
 console.error('TIMEOUT!!'+ symbol);
 };
 xhr.onreadystatechange = function () {
 // readyState 4 means the request is done.
-const DONE = 4; 
+const DONE = 4;
 // status 200 is a successful return.
-const OK = 200; 
+const OK = 200;
 if (xhr.readyState === DONE) {
 if (xhr.status === OK) {
 // console.log(xhr.responseText); // 'This is the output.'
-console.info('... ' + symbol +' done.'); 
+console.info('... ' + symbol +' done.');
 
 // Realtime Quote
 let positionQuote1 = xhr.responseText.indexOf(notationId + '\', key: \'prices.[type=LAST].price.value');
@@ -899,7 +899,7 @@ realTimeProzSymbol = '+' + realTimeProzSymbol;
 }  
 
 // Example ID: id='symbolLineIdEUZ_-115_+111_9999'
-var numericRealTimeProzSymbol = realTimeProzSymbol.trim().replace('.', '');   
+var numericRealTimeProzSymbol = realTimeProzSymbol.trim().replace('.', ''); 
 // Mit Nullen hinten auffüllen
 if (!numericRealTimeProzSymbol.charAt(4)) {
 // 3 -> 4 stellig
@@ -951,8 +951,8 @@ ele.style.display = '';
 function showChart(timeSpan, symbol) {
 var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
 elementSpanToReplace.style.display = 'block';
-elementSpanToReplace.style.top = '30%'; 
-elementSpanToReplace.style.left = '5%'; 
+elementSpanToReplace.style.top = '30%';
+elementSpanToReplace.style.left = '5%';
 elementSpanToReplace.style.transform = 'scale(1.05)';
 // Concat is not clean, but works!
 elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
