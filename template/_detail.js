@@ -8,7 +8,7 @@ function showChart(timeSpan) {
 
     if(isMobil()) {
         elementSpanToReplace.style.top = '25%';
-        elementSpanToReplace.style.left = '23%'
+        elementSpanToReplace.style.left = '22%'
     }
     else {
         elementSpanToReplace.style.top = '38%';
