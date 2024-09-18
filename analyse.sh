@@ -65,17 +65,6 @@ cp template/_common.js out
 cp template/_result.css out
 cp template/_result.js out
 
-# Remove Comments
-sed -i '/\/\/ /d' out/_common.js
-sed -i '/\/\/ /d' out/_result.js
-# Remove spaces
-#sed -i ':a;N;$!ba;s/\n/ /g' out/_common.js
-#sed -i ':a;N;$!ba;s/\n/ /g' out/_result.js
-# Minify out/*.js files
-#sed -i "s/^[ \t]*//g" "out/_common.js"
-#sed -i "s/^[ \t]*//g" "out/_result.js"
-#sed -i "s/^[ \t]*//g" "out/_detail.js"
-
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null

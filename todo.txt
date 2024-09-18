@@ -15,13 +15,6 @@ Die ersten 3 dort btn nicht in mobil
 Buy 40 pieces of: *RMC "Remy Cointreau" for 62.10€? Overall pieces 40, Overall amount NaN€?
 
 
-?comprimieren von buy/sell
-// Remove Comments
-sed -i '/\/\/ /d' out/_detail.js
-// Remove spaces
-sed -i ':a;N;$!ba;s/\n/ /g' out/_detail.js
-
-
 Refresh Balken Farbe anpassen
 
 
@@ -329,6 +322,19 @@ D:\code\stock-analyse\buy\0OK_2022-12-16.txt
 \sell
 \alarm
 Date in File?! First line?
+
+
+?comprimieren von buy/sell -> nicht, da schecht wartbar!!
+# Remove Comments
+sed -i '/\/\/ /d' out/_common.js
+sed -i '/\/\/ /d' out/_result.js
+# Remove spaces
+#sed -i ':a;N;$!ba;s/\n/ /g' out/_common.js
+#sed -i ':a;N;$!ba;s/\n/ /g' out/_result.js # NOK!
+# Minify out/*.js files
+#sed -i "s/^[ \t]*//g" "out/_common.js"
+#sed -i "s/^[ \t]*//g" "out/_result.js"
+#sed -i "s/^[ \t]*//g" "out/_detail.js"
 
 
 OLDIFS=$IFS
