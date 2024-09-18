@@ -23,8 +23,6 @@ function showChart(timeSpan) {
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
 }   
 
-return true;
-
 function hideChart() {
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'none';
