@@ -17,10 +17,10 @@ var sound = new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfk
 
 // Refresh the page after a delay of initRefreshSeconds seconds
 // If changed, change max=300  here as well: analyse.sh: <progress value='0' max='300' id='intervalSectionHeadlineDailyProgressBar'
-const initRefreshSeconds = 20;
-//const initRefreshSeconds = 300;
-if (!isMobil() && location.href.endsWith('_result.html')) {
-//    if (location.href.startsWith('file') && location.href.endsWith('_result.html')) {
+// const initRefreshSeconds = 20;
+const initRefreshSeconds = 300;
+// if (!isMobil() && location.href.endsWith('_result.html')) {
+if (location.href.startsWith('file') && location.href.endsWith('_result.html')) {
         setTimeout(function() {
         location.reload();
     // 300 * 1000 milliseconds = 300 seconds = 5 Min
