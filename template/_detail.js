@@ -10,7 +10,7 @@ function showChart(timeSpan) {
     if(isMobil()) {
         bodyId.style.background = 'blue';
         elementSpanToReplace.style.top = '25%';
-        elementSpanToReplace.style.left = '19%'
+        elementSpanToReplace.style.left = '25%'
     }
     else {
         bodyId.style.background = 'red'
