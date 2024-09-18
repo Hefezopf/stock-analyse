@@ -44,7 +44,6 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/
 # Read symbol and amount
 SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
 BUY_TOTAL_AMOUNT=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f5 -d ' ' | sed 's/€//g')
-#BUY_TOTAL_AMOUNT=$(echo "$BUY_TOTAL_AMOUNT" | sed 's/€//g')
 TOTAL_PIECES=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
 SELL_TOTAL_AMOUNT=$(echo "$sellPriceParam $TOTAL_PIECES $BUY_TOTAL_AMOUNT" | awk '{print ($1 * $2) - $3}')
 SELL_TOTAL_AMOUNT=$(echo "$SELL_TOTAL_AMOUNT" | cut -f 1 -d '.')
@@ -64,12 +63,8 @@ rm -rf "$OWN_SYMBOLS_FILE"
 echo ""
 
 # Write sell/SYMBOL_DATE file
-#lastDateInDataFile=$(head -n1 "$DATA_DIR/$symbolParam".txt | cut -f 1)
-#transactionSymbolLastDateFile="sell/""$symbolParam"_"$lastDateInDataFile".txt
 transactionSymbolLastDateFile="sell/""$symbolParam".txt
 commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
-#rm sell/"$symbolParam"_"$lastDateInDataFile".txt
-#echo "$commaListTransaction" "{x:1,y:$sellPriceParam,r:10}, " > sell/"$symbolParam"_"$lastDateInDataFile".txt
 echo "$commaListTransaction" "{x:1,y:$sellPriceParam,r:10}, " > sell/"$symbolParam".txt
 
 today=$(date --date="-0 day" +"%Y-%m-%d")
@@ -78,7 +73,6 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 echo "Win: $SELL_TOTAL_AMOUNT€"
 # 2022-04-23	999€	BEI "BEIERSDORF"
 echo "&nbsp;$today	$SELL_TOTAL_AMOUNT&euro;	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	$SYMBOL_NAME</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
-#echo "&nbsp;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam</a>	$today	$SELL_TOTAL_AMOUNT&euro;	$SYMBOL_NAME<br>" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
@@ -89,8 +83,8 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <meta http-equiv='pragma' content='no-cache' />
 <meta http-equiv='expires' content='0' />
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
-<!--
 <link rel='stylesheet' href='_result.css' />
+<!--
 <script type='text/javascript' src='_result.js'></script>
 -->
 <title>Performance SA 2024</title>
@@ -105,7 +99,6 @@ priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 echo "&nbsp;Performance SA 2024<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-#TEMP_DIR=/tmp
 TEMP_DIR=/dev/shm/
 rm -rf $TEMP_DIR/tmp.*
 TEMP_REVERS_FILE="$(mktemp -p $TEMP_DIR)"
