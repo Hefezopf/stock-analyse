@@ -5,10 +5,20 @@
 function showChart(timeSpan) {
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'block';
-    // ?Hier muss unterschieden werden, ob Mobil oder PC-Browser?
-    elementSpanToReplace.style.top = '40%';
-    elementSpanToReplace.style.left = '26%';
-    elementSpanToReplace.style.transform = 'scale(1.85)';
+
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        elementSpanToReplace.style.top = '25%';
+        elementSpanToReplace.style.left = '20%';
+        elementSpanToReplace.style.transform = 'scale(1.85)';
+    }
+    else{
+        elementSpanToReplace.style.top = '38%';
+        elementSpanToReplace.style.left = '30%';
+        elementSpanToReplace.style.transform = 'scale(1.85)';
+        // top:25%;left:20%;transform:scale(1.5);'/>"
+    }   
+    // elementSpanToReplace.style.left = '26%';
+    // elementSpanToReplace.style.transform = 'scale(1.85)';
  
     // Concat is not clean, but works!
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
