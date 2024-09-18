@@ -757,7 +757,7 @@ return text.trim();
 function isMobil() {
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 console.log('Mobil!');
-return;
+return true;
 }
 else {
 console.log('Web!');
@@ -772,11 +772,16 @@ function showChart(timeSpan) {
 var elementSpanToReplace = document.getElementById('imgToReplace');
 elementSpanToReplace.style.display = 'block';
 
+var bodyId = document.getElementById('bodyId');
 if(isMobil()) {
+    
+    bodyId.style.background = 'blue';
 elementSpanToReplace.style.top = '25%';
 elementSpanToReplace.style.left = '19%'
 }
 else {
+  
+    bodyId.style.background = 'red';
 elementSpanToReplace.style.top = '38%';
 elementSpanToReplace.style.left = '40%';
 }   
