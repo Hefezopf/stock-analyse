@@ -6,11 +6,11 @@ function showChart(timeSpan) {
     var elementSpanToReplace = document.getElementById('imgToReplace');
     elementSpanToReplace.style.display = 'block';
 
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if(isMobil()) {
         elementSpanToReplace.style.top = '25%';
         elementSpanToReplace.style.left = '25%';
     }
-    else{
+    else {
         elementSpanToReplace.style.top = '38%';
         elementSpanToReplace.style.left = '38%';
     }   

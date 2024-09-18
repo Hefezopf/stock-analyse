@@ -129,7 +129,7 @@ function updateImage(symbol, notationId, timespan) {
         newWidth = '100%';
     }
 
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if(isMobil()) {
         newWidth = '80%';
     }
 
@@ -582,7 +582,7 @@ function processAll(ele) {
 
     var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');
     // Hide Refresh ProgressBar in Mobil Version, because CORS is not working there!
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if(isMobil()) {
         Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
         intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";
     }
