@@ -84,9 +84,6 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <meta http-equiv='expires' content='0' />
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
 <link rel='stylesheet' href='_result.css' />
-<!--
-<script type='text/javascript' src='_result.js'></script>
--->
 <title>Performance SA 2024</title>
 </head>
 <body>
