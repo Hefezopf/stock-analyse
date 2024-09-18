@@ -59,10 +59,23 @@ mkdir -p buy
 mkdir -p alarm
 mkdir -p out
 mkdir -p temp
+
 cp template/favicon.ico out
 cp template/_common.js out
 cp template/_result.css out
 cp template/_result.js out
+
+# Remove Comments
+sed -i '/\/\/ /d' out/_common.js
+sed -i '/\/\/ /d' out/_result.js
+# Remove spaces
+#sed -i ':a;N;$!ba;s/\n/ /g' out/_common.js
+#sed -i ':a;N;$!ba;s/\n/ /g' out/_result.js
+# Minify out/*.js files
+#sed -i "s/^[ \t]*//g" "out/_common.js"
+#sed -i "s/^[ \t]*//g" "out/_result.js"
+#sed -i "s/^[ \t]*//g" "out/_detail.js"
+
 OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
@@ -857,35 +870,14 @@ fi
     # Informer        
     echo "<br># Informer<br><a href=\"https://nutzer.comdirect.de/inf/musterdepot/pmd/meineuebersicht.html?name=Max\" target=\"_blank\">Comdirect Informer</a><br>"
 
-echo "$GOOD_LUCK"
-#GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> $creationDate</p>"
-
+    echo "$GOOD_LUCK"
     echo "</div>" # END portfolioValueDaxFooterId
     echo "$HTML_RESULT_FILE_END" 
 } >> "$OUT_RESULT_FILE"
 
-#echo "$GOOD_LUCK" >> "$OUT_RESULT_FILE"
-
 # Minify _result.html file
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!
-
-# Concat 2 files, so that the loading in the SYMBOL.HTMl is faster!
-#cat template/_common.js template/_result.js > out/_result.js
-#cat template/_common.js template/_detail.js > out/_detail.js
-
-# Remove Comments
-#sed -i '/\/\/ /d' out/_result.js
-#sed -i '/\/\/ /d' out/_detail.js
-
-# Remove spaces
-#sed -i ':a;N;$!ba;s/\n/ /g' out/_result.js
-#sed -i ':a;N;$!ba;s/\n/ /g' out/_detail.js
-
-# Minify out/*.js files
-#sed -i "s/^[ \t]*//g" "out/_common.js"
-#sed -i "s/^[ \t]*//g" "out/_result.js"
-#sed -i "s/^[ \t]*//g" "out/_detail.js"
 
 # Delete decrypted, readable portfolio file
 rm -rf "$OWN_SYMBOLS_FILE"
