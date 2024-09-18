@@ -1,6 +1,6 @@
-//
+// 
 // _common.js
-//
+// 
 
 // Global Varables
 var token1 = 'ghp_';
@@ -51,9 +51,10 @@ else {
 var overallPieces = pieces;
 var totalAmount = (pieces * price).toFixed(0);
 }
-totalAmount = Number(totalAmount) + Number(10); // Fees
+// Fees
+totalAmount = Number(totalAmount) + Number(10);
 
-//headlineLinkBTL
+// headlineLinkBTL
 var headlineLink;
 var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
 if(headlineLinkElem) {
@@ -84,7 +85,8 @@ xhr.open('POST', url);
 xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split("").reverse().join(""));
 xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
 xhr.onreadystatechange = function () {
-const DONE = 4; // readyState 4 means the request is done.
+// readyState 4 means the request is done.
+const DONE = 4;
 if (xhr.readyState === DONE) {
 // console.log(xhr.status);
 console.log(xhr.responseText);
@@ -128,7 +130,8 @@ xhr.open('POST', url);
 xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split("").reverse().join(""));
 xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
 xhr.onreadystatechange = function () {
-const DONE = 4; // readyState 4 means the request is done.
+// readyState 4 means the request is done.
+const DONE = 4;
 if (xhr.readyState === DONE) {
 console.log(xhr.status);
 console.log(xhr.responseText);
@@ -150,17 +153,17 @@ return text.substring(1).trim();
 }
 return text.trim();
 }
-//
+// 
 // _detail.js
-//
-
+// 
 function showChart(timeSpan) {
 var elementSpanToReplace = document.getElementById('imgToReplace');
 elementSpanToReplace.style.display = 'block';
 elementSpanToReplace.style.left = '26%'; 
 elementSpanToReplace.style.transform = 'scale(1.85)';
 
-elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!  
+// Concat is not clean, but works!
+elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;  
 }   
 
 function hideChart() {

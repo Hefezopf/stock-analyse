@@ -1,6 +1,6 @@
-//
+// 
 // _common.js
-//
+// 
 
 // Global Varables
 var token1 = 'ghp_';
@@ -51,9 +51,10 @@ else {
 var overallPieces = pieces;
 var totalAmount = (pieces * price).toFixed(0);
 }
-totalAmount = Number(totalAmount) + Number(10); // Fees
+// Fees
+totalAmount = Number(totalAmount) + Number(10);
 
-//headlineLinkBTL
+// headlineLinkBTL
 var headlineLink;
 var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
 if(headlineLinkElem) {
@@ -84,7 +85,8 @@ xhr.open('POST', url);
 xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split("").reverse().join(""));
 xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
 xhr.onreadystatechange = function () {
-const DONE = 4; // readyState 4 means the request is done.
+// readyState 4 means the request is done.
+const DONE = 4;
 if (xhr.readyState === DONE) {
 // console.log(xhr.status);
 console.log(xhr.responseText);
@@ -128,7 +130,8 @@ xhr.open('POST', url);
 xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split("").reverse().join(""));
 xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
 xhr.onreadystatechange = function () {
-const DONE = 4; // readyState 4 means the request is done.
+// readyState 4 means the request is done.
+const DONE = 4;
 if (xhr.readyState === DONE) {
 console.log(xhr.status);
 console.log(xhr.responseText);
@@ -150,9 +153,9 @@ return text.substring(1).trim();
 }
 return text.trim();
 }
-//
+// 
 // _result.js
-//
+// 
 
 // Spinner Counters
 var counterFetchLoaded = 0;
@@ -173,10 +176,12 @@ const initRefreshSeconds = 300;
 if (location.href.startsWith('file') && location.href.endsWith('_result.html')) {
 setTimeout(function() {
 location.reload();
-}, initRefreshSeconds * 1000); // 300 * 1000 milliseconds = 300 seconds = 5 Min
+// 300 * 1000 milliseconds = 300 seconds = 5 Min
+}, initRefreshSeconds * 1000);
 }
 
-var timeleftToRefresh = initRefreshSeconds; // 300 seconds total
+// 300 seconds total
+var timeleftToRefresh = initRefreshSeconds; 
 var progressBarTimer = setInterval(function() {
 if(timeleftToRefresh <= 0) {
 clearInterval(progressBarTimer);
@@ -186,7 +191,8 @@ if(intervalSectionHeadlineDailyProgressBar) {
 intervalSectionHeadlineDailyProgressBar.value = initRefreshSeconds - timeleftToRefresh;
 }
 timeleftToRefresh -= 1;
-}, 1000); // Visualize in 1 second steps
+// Visualize in 1 second steps
+}, 1000);
 
 var delay = ( function() {
 var timer = 0;
@@ -205,7 +211,8 @@ delay(function() {
 processAll();
 doHideDetails();
 doSortDailyGain();
-}, 1000); // end delay, timeout, Warten
+// end delay, timeout, Warten
+}, 1000);
 }   
 else {
 document.getElementsByTagName('body')[0].ondblclick = processAll;
@@ -248,7 +255,8 @@ elementAlert.innerHTML = ' ALERT!!!';
 elementAlert.style.color = 'red';
 sound.play();
 clearInterval(intervalVarSymbol);
-}, intervalValue * 60 * 1000); // 60*1000 = 1 Minute
+// 60*1000 = 1 Minute
+}, intervalValue * 60 * 1000);
 var elementIntervalText = document.getElementById('intervalText' + symbol);
 elementIntervalText.innerHTML = ' ...' + intervalValue;
 elementIntervalText.style.color = 'green';
@@ -268,7 +276,8 @@ newWidth = '40%';
 if (width <= 2000) {
 newWidth = '50%';
 }    
-if (width <= 1200) { // Mobil IPhone = 1153xp
+// Mobil IPhone = 1153xp
+if (width <= 1200) {
 newWidth = '70%';
 }
 if (width <= 1000) {
@@ -331,16 +340,8 @@ if (sortPart.length > 1) {
 if (sortPart[1][0] === '-') {
 sortNegativDailyValues.push([-1 * sortPart[1], elements[i]]);
 }
-else { // if (sortPart[1][0] === '+') {
-/*
-* prepare the ID for faster comparison
-* array will contain:
-*   [0] => number which will be used for sorting 
-*   [1] => element
-* 1 * something is the fastest way I know to convert a string to a
-* number. It should be a number to make it sort in a natural way,
-* so that it will be sorted as 1, 2, 10, 20, and not 1, 10, 2, 20
-*/
+// if (sortPart[1][0] === '+') {
+else { 
 sortPositivDailyValues.push([1 * sortPart[1], elements[i]]);
 }
 }
@@ -783,18 +784,21 @@ part_url = 'etfs';
 var url = 'https://www.comdirect.de/inf/' + part_url + '/detail/uebersicht.html?ID_NOTATION=' + notationId;
 var xhr = new XMLHttpRequest();
 xhr.open("GET", url, true);
-//console.log(url); // url
+// console.log(url); // url
 
-xhr.timeout = 3000; // time in milliseconds
+// time in milliseconds
+xhr.timeout = 3000; 
 xhr.ontimeout = (e) => {
 console.error('TIMEOUT!!'+ symbol);
 };
 xhr.onreadystatechange = function () {
-const DONE = 4; // readyState 4 means the request is done.
-const OK = 200; // status 200 is a successful return.
+// readyState 4 means the request is done.
+const DONE = 4; 
+// status 200 is a successful return.
+const OK = 200; 
 if (xhr.readyState === DONE) {
 if (xhr.status === OK) {
-//console.log(xhr.responseText); // 'This is the output.'
+// console.log(xhr.responseText); // 'This is the output.'
 console.info('... ' + symbol +' done.'); 
 
 // Realtime Quote
@@ -898,7 +902,8 @@ realTimeProzSymbol = '+' + realTimeProzSymbol;
 var numericRealTimeProzSymbol = realTimeProzSymbol.trim().replace('.', '');   
 // Mit Nullen hinten auffüllen
 if (!numericRealTimeProzSymbol.charAt(4)) {
-numericRealTimeProzSymbol = numericRealTimeProzSymbol + 0; // 3 -> 4 stellig
+// 3 -> 4 stellig
+numericRealTimeProzSymbol = numericRealTimeProzSymbol + 0;
 }
 
 var symbolLineId = 'symbolLineId' + symbol;
@@ -921,16 +926,19 @@ else {
 elementPortfolioGainSymbol.style.color = 'green';
 }
 
-counterFetchLoaded++; // For Spinner
+// For Spinner
+counterFetchLoaded++;
 
 } else {
 console.error('Network response error:' + symbol);
-counterFetchLoaded++; // For Spinner
+// For Spinner
+counterFetchLoaded++;
 throw new Error('Network response error!');
 }
 }
 else {
-counterFetchLoaded++; // For Spinner
+// For Spinner
+counterFetchLoaded++;
 }
 }
 xhr.send();
@@ -946,7 +954,8 @@ elementSpanToReplace.style.display = 'block';
 elementSpanToReplace.style.top = '30%'; 
 elementSpanToReplace.style.left = '5%'; 
 elementSpanToReplace.style.transform = 'scale(1.05)';
-elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
+// Concat is not clean, but works!
+elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
 }
 
 function hideChart(symbol) {
