@@ -38,7 +38,7 @@ alarmCountForIndexOrigParam=$9 # Copy as orig. value needed for summary at the e
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
 
-cp out/_common.js simulate/out  # /_common.js
+#cp out/_common.js simulate/out  # /_common.js
 cp out/_detail.js simulate/out  # /_detail.js
 cp out/_result.js simulate/out  # /_result.js
 
@@ -495,27 +495,27 @@ fi
 Out "" $OUT_SIMULATE_FILE
 Out "# Buy now" $OUT_SIMULATE_FILE
 
-#echo "<script>var linkMap = new Map();</script>" >> $OUT_SIMULATE_FILE
+echo "<script>var linkMap = new Map();</script>" >> $OUT_SIMULATE_FILE
 
-echo "<script>
-var linkMap = new Map();
-// Hover Chart
-function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
-//console.log('simulate: showChart');
-    var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-    elementSpanToReplace.style.display = 'block';
-    //elementSpanToReplace.style.left = '17%'; 
-    //elementSpanToReplace.style.left = '500px'; 
-    elementSpanToReplace.style.left = '12%'; 
-    elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
-}
+# echo "<script>
+# var linkMap = new Map();
+# // Hover Chart
+# function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
+# //console.log('simulate: showChart');
+#     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
+#     elementSpanToReplace.style.display = 'block';
+#     //elementSpanToReplace.style.left = '17%'; 
+#     //elementSpanToReplace.style.left = '500px'; 
+#     elementSpanToReplace.style.left = '12%'; 
+#     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
+# }
 
-function hideChart(symbol) {  // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
-//console.log('simulate: hideChart');
-    var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-    elementSpanToReplace.style.display = 'none';
-}
-</script>" >> $OUT_SIMULATE_FILE
+# function hideChart(symbol) {  // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
+# //console.log('simulate: hideChart');
+#     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
+#     elementSpanToReplace.style.display = 'none';
+# }
+# </script>" >> $OUT_SIMULATE_FILE
 
 echo "<br><button id='buttonOpenAllInTab' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doOpenAllInTab(){for (let [key, value] of linkMap) {window.open(value, \"_blank\").focus();}};doOpenAllInTab()'>Open All</button><br><br>" >> $OUT_SIMULATE_FILE
 for value in "${ARRAY_BUY_POS_SIM[@]}"

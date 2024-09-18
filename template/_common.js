@@ -108,7 +108,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         alert('Error: Stock ' + symbolParam.trim() + ' not in portfolio!');
         return;
     }
-    symbolParam = trimOwnChar(symbolParam);    
+    symbolParam = trimOwnChar(symbolParam);
 
     if (sellPriceParam == '') {
         alert('Error: Price not set!');
