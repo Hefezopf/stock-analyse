@@ -1,4 +1,8 @@
+// 
+// _common.js
+// 
 
+// Global Varables
 var token1 = 'ghp_';
 var token2 = 'x7Hce3kvS91tOCaKO0mSwTZO4eIOHsuUeCFd';
 
@@ -33,6 +37,7 @@ function curlBuy(symbolParam, price, pieces) {
         var overallPieces = intervalSectionPortfolioValues.split('pc')[0];
         overallPieces = Number(overallPieces) + Number(pieces);
 
+        // 940pc 51362€
         var overallPastValue = intervalSectionPortfolioValues.split(' ')[1];
         if(overallPastValue) {
             overallPastValue = overallPastValue.split('€')[0];
@@ -46,8 +51,10 @@ function curlBuy(symbolParam, price, pieces) {
         var overallPieces = pieces;
         var totalAmount = (pieces * price).toFixed(0);
     }
+    // Fees
     totalAmount = Number(totalAmount) + Number(10);
 
+    // headlineLinkBTL
     var headlineLink;
     var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
     if(headlineLinkElem) {
@@ -78,8 +85,10 @@ function curlBuy(symbolParam, price, pieces) {
     xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split("").reverse().join(""));
     xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
     xhr.onreadystatechange = function () {
+        // readyState 4 means the request is done.
         const DONE = 4;
         if (xhr.readyState === DONE) {
+            // console.log(xhr.status);
             console.log(xhr.responseText);
         }
     };
@@ -121,6 +130,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split("").reverse().join(""));
     xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
     xhr.onreadystatechange = function () {
+        // readyState 4 means the request is done.
         const DONE = 4;
         if (xhr.readyState === DONE) {
             console.log(xhr.status);
