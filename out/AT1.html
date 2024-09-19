@@ -51,12 +51,12 @@ grey: 'rgb(201, 203, 207)'
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
-<img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=219581902&TIME_SPAN=10D' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);'/>
+<img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=219581902&TIME_SPAN=10D' style='display:none;position:fixed;'/>
 <p style='text-align:right'><a style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=219581902"  target="_blank">AT1 "Aroundtown"</a>
 <a style="font-size:50px; color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=219581902"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=219581902"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>2.63€</b></span>
-&nbsp;<span style='font-size:50px; color:red'><b>-3.3%</b></span></p>
+&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>2.66€</b></span>
+&nbsp;<span style='font-size:50px; color:green'><b>1.1%</b></span></p>
 
 <div style="width:98%">
 <canvas id="canvasQuote"></canvas>
@@ -78,7 +78,7 @@ grey: 'rgb(201, 203, 207)'
 var config = {
 type: 'line',
 data: {
-labels: ['','5R-M-','5R-M-','23','26','27','28','M-','30','02','M-','P-','P-M-','06','09','10','11','12','4S+','5S+M+','6S+M+','6S+M+','6S+M+','5S+M+','6S+M+','C+6S+M+','C+6S+M+','C+3R+6S+D+N+M+','3R+5S+M+','30','M+','M+','M+','04','M+','08','M+','10','4S-','5S-','4S-M-','M-','M-','M-','M-','22','23','24','25','28','29','M+','M+','M+','M+','M+','M+','M+','M+','11','12','M+','4S-','5S-','5S-M-','6S-','6S-M-','6S-M-','6S-','6S-','6S-M-','C-7S-','C-7S-','6S-M-','M-','5S-P-','4S-M-','M-','05','D+N+','4S-P-M-','C-5S-P-','4S-','M-','15','M-','M-'
+labels: ['','5R-M-','23','26','27','28','M-','30','02','M-','P-','P-M-','06','09','10','11','12','4S+','5S+M+','6S+M+','6S+M+','6S+M+','5S+M+','6S+M+','C+6S+M+','C+6S+M+','C+3R+6S+D+N+M+','3R+5S+M+','30','M+','M+','M+','04','M+','08','M+','10','4S-','5S-','4S-M-','M-','M-','M-','M-','22','23','24','25','28','29','M+','M+','M+','M+','M+','M+','M+','M+','11','12','M+','4S-','5S-','5S-M-','6S-','6S-M-','6S-M-','6S-','6S-','6S-M-','C-7S-','C-7S-','6S-M-','M-','5S-P-','4S-M-','M-','05','D+N+','4S-P-M-','C-5S-P-','4S-','M-','15','M-','M-','M-'
 ],
 datasets: [{
 label: ' "Aroundtown" ',
@@ -86,8 +86,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [2.162,
-2.193,
+data: [2.193,
 2.183,
 2.067,
 2.071,
@@ -173,6 +172,7 @@ data: [2.162,
 2.713,
 2.719,
 2.633,
+2.657,
 ]},
 {
 label: 'buy',
@@ -193,34 +193,34 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 2.10817, 2.11539, 2.12211, 2.12156, 2.12328, 2.12872, 2.13483, 2.1445, 2.15306, 2.15378, 2.146, 2.13389, 2.11856, 2.10719, 2.09433, 2.07978, 2.06472, 2.05706, 2.04722, 2.03678, 2.022, 2.01414, 2.00319, 1.98497, 1.971, 1.95767, 1.94108, 1.93028, 1.92614, 1.92764, 1.93303, 1.93361, 1.93764, 1.94875, 1.96547, 1.98169, 1.99486, 2.00631, 2.01714, 2.02906, 2.03933, 2.04989, 2.05128, 2.0495, 2.048, 2.0525, 2.05447, 2.05142, 2.04869, 2.04603, 2.04264, 2.03314, 2.01994, 2.00542, 1.99408, 1.98858, 1.98436, 1.97858, 1.97636, 1.98014, 1.98472, 1.994, 2.00586, 2.01322, 2.02133, 2.035, 2.04722, 2.06361, 2.08706, 2.10256, 2.12119, 2.14267, 2.16178, 2.17822, 2.20011, 2.223, 2.2465, 2.28589, 2.32311, 2.35172, 2.38489, 2.41889, 2.44778,
+data: [ , , , , 2.11539, 2.12211, 2.12156, 2.12328, 2.12872, 2.13483, 2.1445, 2.15306, 2.15378, 2.146, 2.13389, 2.11856, 2.10719, 2.09433, 2.07978, 2.06472, 2.05706, 2.04722, 2.03678, 2.022, 2.01414, 2.00319, 1.98497, 1.971, 1.95767, 1.94108, 1.93028, 1.92614, 1.92764, 1.93303, 1.93361, 1.93764, 1.94875, 1.96547, 1.98169, 1.99486, 2.00631, 2.01714, 2.02906, 2.03933, 2.04989, 2.05128, 2.0495, 2.048, 2.0525, 2.05447, 2.05142, 2.04869, 2.04603, 2.04264, 2.03314, 2.01994, 2.00542, 1.99408, 1.98858, 1.98436, 1.97858, 1.97636, 1.98014, 1.98472, 1.994, 2.00586, 2.01322, 2.02133, 2.035, 2.04722, 2.06361, 2.08706, 2.10256, 2.12119, 2.14267, 2.16178, 2.17822, 2.20011, 2.223, 2.2465, 2.28589, 2.32311, 2.35172, 2.38489, 2.41889, 2.44778, 2.47317,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 2.06947, 2.06759, 2.06351, 2.05741, 2.05387, 2.05168, 2.0478, 2.04374, 2.03999, 2.03825, 2.03517, 2.02993, 2.02454, 2.02286, 2.0242, 2.02493, 2.02357, 2.02536, 2.02636, 2.0267, 2.0243, 2.02346, 2.01976, 2.01416, 2.00667, 2.00016, 1.99329, 1.98976, 1.98908, 1.98832, 1.98858, 1.98778, 1.98896, 1.98971, 1.99011, 1.99292, 1.99658, 1.99913, 2.00268, 2.00736, 2.01101, 2.01843, 2.02318, 2.02647, 2.0313, 2.03937, 2.04643, 2.05272, 2.06154, 2.0678, 2.07591, 2.08157, 2.08309, 2.08601, 2.0938, 2.10178, 2.11133, 2.12901, 2.14543, 2.16141, 2.18121, 2.20145, 2.22067,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 2.06759, 2.06351, 2.05741, 2.05387, 2.05168, 2.0478, 2.04374, 2.03999, 2.03825, 2.03517, 2.02993, 2.02454, 2.02286, 2.0242, 2.02493, 2.02357, 2.02536, 2.02636, 2.0267, 2.0243, 2.02346, 2.01976, 2.01416, 2.00667, 2.00016, 1.99329, 1.98976, 1.98908, 1.98832, 1.98858, 1.98778, 1.98896, 1.98971, 1.99011, 1.99292, 1.99658, 1.99913, 2.00268, 2.00736, 2.01101, 2.01843, 2.02318, 2.02647, 2.0313, 2.03937, 2.04643, 2.05272, 2.06154, 2.0678, 2.07591, 2.08157, 2.08309, 2.08601, 2.0938, 2.10178, 2.11133, 2.12901, 2.14543, 2.16141, 2.18121, 2.20145, 2.22067, 2.23863,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 2.08401, 2.09165, 2.09768, 2.10448, 2.11132, 2.11729,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 2.09165, 2.09768, 2.10448, 2.11132, 2.11729, 2.1234,
 ]},
 {
 label:' Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
-data: [2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,2.63,               ]},
+data: [2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,2.66,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
-data: [2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,2.7615,			]}	
+data: [2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,2.793,			]}	
 ]},
 options: {
 responsive: true,
@@ -266,7 +266,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','5R-M-','5R-M-','23','26','27','28','M-','30','02','M-','P-','P-M-','06','09','10','11','12','4S+','5S+M+','6S+M+','6S+M+','6S+M+','5S+M+','6S+M+','C+6S+M+','C+6S+M+','C+3R+6S+D+N+M+','3R+5S+M+','30','M+','M+','M+','04','M+','08','M+','10','4S-','5S-','4S-M-','M-','M-','M-','M-','22','23','24','25','28','29','M+','M+','M+','M+','M+','M+','M+','M+','11','12','M+','4S-','5S-','5S-M-','6S-','6S-M-','6S-M-','6S-','6S-','6S-M-','C-7S-','C-7S-','6S-M-','M-','5S-P-','4S-M-','M-','05','D+N+','4S-P-M-','C-5S-P-','4S-','M-','15','M-','M-'
+labels: ['','5R-M-','23','26','27','28','M-','30','02','M-','P-','P-M-','06','09','10','11','12','4S+','5S+M+','6S+M+','6S+M+','6S+M+','5S+M+','6S+M+','C+6S+M+','C+6S+M+','C+3R+6S+D+N+M+','3R+5S+M+','30','M+','M+','M+','04','M+','08','M+','10','4S-','5S-','4S-M-','M-','M-','M-','M-','22','23','24','25','28','29','M+','M+','M+','M+','M+','M+','M+','M+','11','12','M+','4S-','5S-','5S-M-','6S-','6S-M-','6S-M-','6S-','6S-','6S-M-','C-7S-','C-7S-','6S-M-','M-','5S-P-','4S-M-','M-','05','D+N+','4S-P-M-','C-5S-P-','4S-','M-','15','M-','M-','M-'
 ],
 datasets: [
 {
@@ -275,7 +275,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 79, 90, 84, 11, 14, 43, 82, 0, 29, 70, 86, 100, 100, 18, 0, 0, 0, 19, 0, 0, 0, 5, 0, 10, 5, 6, 5, 0, 64, 94, 60, 39, 65, 100, 100, 85, 86, 100, 100, 100, 76, 73, 65, 72, 59, 32, 0, 0, 0, 22, 20, 16, 24, 21, 16, 25, 32, 30, 20, 100, 97, 92, 100, 100, 69, 100, 99, 94, 97, 100, 100, 100, 100, 63, 84, 94, 71, 90, 100, 100, 100, 100, 85, 71, 84, 85, 69,
+data: [		 90, 84, 11, 14, 43, 82, 0, 29, 70, 86, 100, 100, 18, 0, 0, 0, 19, 0, 0, 0, 5, 0, 10, 5, 6, 5, 0, 64, 94, 60, 39, 65, 100, 100, 85, 86, 100, 100, 100, 76, 73, 65, 72, 59, 32, 0, 0, 0, 22, 20, 16, 24, 21, 16, 25, 32, 30, 20, 100, 97, 92, 100, 100, 69, 100, 99, 94, 97, 100, 100, 100, 100, 63, 84, 94, 71, 90, 100, 100, 100, 100, 85, 71, 84, 85, 69, 72,
 ]},
 {
 label: '91',
@@ -338,7 +338,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','5R-M-','5R-M-','23','26','27','28','M-','30','02','M-','P-','P-M-','06','09','10','11','12','4S+','5S+M+','6S+M+','6S+M+','6S+M+','5S+M+','6S+M+','C+6S+M+','C+6S+M+','C+3R+6S+D+N+M+','3R+5S+M+','30','M+','M+','M+','04','M+','08','M+','10','4S-','5S-','4S-M-','M-','M-','M-','M-','22','23','24','25','28','29','M+','M+','M+','M+','M+','M+','M+','M+','11','12','M+','4S-','5S-','5S-M-','6S-','6S-M-','6S-M-','6S-','6S-','6S-M-','C-7S-','C-7S-','6S-M-','M-','5S-P-','4S-M-','M-','05','D+N+','4S-P-M-','C-5S-P-','4S-','M-','15','M-','M-'
+labels: ['','5R-M-','23','26','27','28','M-','30','02','M-','P-','P-M-','06','09','10','11','12','4S+','5S+M+','6S+M+','6S+M+','6S+M+','5S+M+','6S+M+','C+6S+M+','C+6S+M+','C+3R+6S+D+N+M+','3R+5S+M+','30','M+','M+','M+','04','M+','08','M+','10','4S-','5S-','4S-M-','M-','M-','M-','M-','22','23','24','25','28','29','M+','M+','M+','M+','M+','M+','M+','M+','11','12','M+','4S-','5S-','5S-M-','6S-','6S-M-','6S-M-','6S-','6S-','6S-M-','C-7S-','C-7S-','6S-M-','M-','5S-P-','4S-M-','M-','05','D+N+','4S-P-M-','C-5S-P-','4S-','M-','15','M-','M-','M-'
 ],
 datasets: [
 {
@@ -347,7 +347,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 80, 78, 70, 50, 50, 55, 60, 50, 52, 56, 53, 51, 51, 42, 40, 36, 34, 44, 41, 37, 31, 39, 33, 30, 26, 21, 20, 23, 42, 50, 49, 40, 50, 57, 60, 56, 60, 66, 71, 71, 64, 71, 63, 62, 63, 60, 52, 44, 39, 47, 47, 33, 26, 23, 28, 30, 34, 30, 30, 51, 58, 59, 69, 66, 59, 67, 65, 68, 70, 75, 74, 79, 87, 67, 70, 73, 64, 65, 73, 71, 72, 81, 75, 68, 70, 69, 61,
+data: [ 73, 70, 50, 50, 55, 60, 50, 52, 56, 53, 51, 51, 42, 40, 36, 34, 44, 41, 37, 31, 39, 33, 30, 26, 21, 20, 23, 42, 50, 49, 40, 50, 57, 60, 56, 60, 66, 71, 71, 64, 71, 63, 62, 63, 60, 52, 44, 39, 47, 47, 33, 26, 23, 28, 30, 34, 30, 30, 51, 58, 59, 69, 66, 59, 67, 65, 68, 70, 75, 74, 79, 87, 67, 70, 73, 64, 65, 73, 71, 72, 81, 75, 68, 70, 69, 61, 69,
 ]},
 {
 label: '75',
@@ -413,7 +413,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','5R-M-','5R-M-','23','26','27','28','M-','30','02','M-','P-','P-M-','06','09','10','11','12','4S+','5S+M+','6S+M+','6S+M+','6S+M+','5S+M+','6S+M+','C+6S+M+','C+6S+M+','C+3R+6S+D+N+M+','3R+5S+M+','30','M+','M+','M+','04','M+','08','M+','10','4S-','5S-','4S-M-','M-','M-','M-','M-','22','23','24','25','28','29','M+','M+','M+','M+','M+','M+','M+','M+','11','12','M+','4S-','5S-','5S-M-','6S-','6S-M-','6S-M-','6S-','6S-','6S-M-','C-7S-','C-7S-','6S-M-','M-','5S-P-','4S-M-','M-','05','D+N+','4S-P-M-','C-5S-P-','4S-','M-','15','M-','M-'
+labels: ['','5R-M-','23','26','27','28','M-','30','02','M-','P-','P-M-','06','09','10','11','12','4S+','5S+M+','6S+M+','6S+M+','6S+M+','5S+M+','6S+M+','C+6S+M+','C+6S+M+','C+3R+6S+D+N+M+','3R+5S+M+','30','M+','M+','M+','04','M+','08','M+','10','4S-','5S-','4S-M-','M-','M-','M-','M-','22','23','24','25','28','29','M+','M+','M+','M+','M+','M+','M+','M+','11','12','M+','4S-','5S-','5S-M-','6S-','6S-M-','6S-M-','6S-','6S-','6S-M-','C-7S-','C-7S-','6S-M-','M-','5S-P-','4S-M-','M-','05','D+N+','4S-P-M-','C-5S-P-','4S-','M-','15','M-','M-','M-'
 ],
 datasets: [
 {
@@ -422,7 +422,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.03, 0.03, 0.01, 0.00, -0.01, -0.02, -0.03, -0.03, -0.04, -0.04, -0.05, -0.05, -0.05, -0.05, -0.05, -0.06, -0.05, -0.04, -0.04, -0.04, -0.04, -0.03, -0.02, -0.02, -0.01, 0.00, 0.02, 0.03, 0.04, 0.04, 0.04, 0.04, 0.04, 0.03, 0.02, 0.01, -0.00, -0.01, -0.01, -0.02, -0.02, -0.02, -0.02, -0.02, -0.02, -0.02, -0.02, -0.01, -0.01, -0.01, -0.00, 0.01, 0.01, 0.02, 0.02, 0.02, 0.03, 0.04, 0.04, 0.05, 0.07, 0.07, 0.07, 0.08, 0.08, 0.08, 0.09, 0.10, 0.10, 0.13, 0.15, 0.15, 0.16, 0.16, 0.16,
+data: [ , , , , , , , , , , , , 0.01, 0.01, -0.00, -0.02, -0.02, -0.03, -0.04, -0.05, -0.05, -0.05, -0.05, -0.05, -0.05, -0.05, -0.06, -0.05, -0.05, -0.04, -0.04, -0.04, -0.03, -0.02, -0.02, -0.01, 0.00, 0.02, 0.03, 0.04, 0.04, 0.04, 0.04, 0.04, 0.03, 0.02, 0.01, -0.01, -0.01, -0.01, -0.02, -0.02, -0.02, -0.02, -0.02, -0.02, -0.02, -0.02, -0.02, -0.01, -0.01, -0.00, 0.01, 0.01, 0.02, 0.02, 0.02, 0.03, 0.04, 0.04, 0.05, 0.07, 0.07, 0.07, 0.08, 0.08, 0.08, 0.09, 0.10, 0.10, 0.13, 0.15, 0.15, 0.16, 0.16, 0.16, 0.16,
 ]},
 {
 label: '0',
@@ -500,8 +500,8 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=219581902"  target="_blank">AT1 "Aroundtown"</a>
 <a style="font-size:50px; color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart() 'href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=219581902"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=219581902"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>2.63€</b></span>
-&nbsp;<span style='font-size:50px; color:red'><b>-3.3%</b></span><br>
+&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>2.66€</b></span>
+&nbsp;<span style='font-size:50px; color:green'><b>1.1%</b></span><br>
 <span style='font-size:50px'>KGV&nbsp;--&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <span style='font-size:50px'>DIV&nbsp;--%&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <style>
@@ -532,16 +532,16 @@ visibility: visible;
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 10px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;2 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2024-09-17</b>
+<b>2024-09-18</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>2.45€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>2.22€</b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>2.47€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>2.24€</b></span>
 &nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>2.12€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>69 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>61 </b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>72 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>69 </b></span>
 &nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.16 </b></span>
 </p>
 <p class='p-result'>
@@ -563,18 +563,12 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 18-Sep-2024 03:54</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 19-Sep-2024 03:52</p>
 
 
 <script>
 document.getElementsByTagName('body')[0].ondblclick = showBuyingSection; 
-function showBuyingSection() {
-// var script = document.createElement('script');
-// script.setAttribute('type', 'text/javascript');
-// script.setAttribute('src', '_common.js');
-// script.async = false;
-// script.defer = false;
-// document.head.appendChild(script);    
+function showBuyingSection() {   
 const ele = document.querySelectorAll('[id ^= \"buyingSection\"]');
 Array.prototype.forEach.call(ele, function(ele) {
 ele.style.display = '';
@@ -597,7 +591,191 @@ Pieces&nbsp;<input name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiec
 Price&nbsp;<input name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
 </div>
 </div>
-<!-- <script type='text/javascript' src='_common.js' async></script> -->
-<script type='text/javascript' src='_detail.js' async></script>
-</body>
-</html>
+<script>
+// 
+// _common.js
+// 
+
+// Global Varables
+var token1 = 'ghp_';
+var token2 = 'x7Hce3kvS91tOCaKO0mSwTZO4eIOHsuUeCFd';
+
+function curlBuy(symbolParam, price, pieces) {
+if (symbolParam == '' || price == '' || pieces == '') {
+var currentInnerHTMLValueIntervalSectionRegularMarketPrice = document.getElementById('intervalSectionRegularMarketPrice' + symbolParam);
+if (currentInnerHTMLValueIntervalSectionRegularMarketPrice) {
+var currentStockValue = currentInnerHTMLValueIntervalSectionRegularMarketPrice.innerHTML.replace('€', '');
+var piecesSuggestion3000 = (3000 / currentStockValue).toFixed(0);
+var piecesSuggestion3500 = (3500 / currentStockValue).toFixed(0);
+var piecesSuggestion4000 = (4000 / currentStockValue).toFixed(0);
+alert('Error: Symbol, Price or Pieces not set! ' + piecesSuggestion3000 + ' pieces are 3000€. ' + piecesSuggestion3500 + ' pieces are 3500€. ' + piecesSuggestion4000 + ' pieces are 4000€.');
+}
+else {
+if (symbolParam == '' && price != '' && pieces == '') {
+var piecesSuggestion3000 = (3000 / price).toFixed(0);
+alert('Error: Symbol, Price or Pieces not set! ' + piecesSuggestion3000 + ' pieces are 3000€.');
+}
+else {
+alert('Error: Symbol, Price or Pieces not set!');
+}
+}
+return;
+}
+var symbolParamTrimmed = symbolParam.trim();
+var price = parseFloat(price.replace(',', '.')).toFixed(2);
+var pieces = pieces.replace('.', '');
+
+var intervalSectionPortfolioValues = document.getElementById('intervalSectionPortfolioValues' + symbolParamTrimmed);
+if (intervalSectionPortfolioValues) {
+intervalSectionPortfolioValues = intervalSectionPortfolioValues.innerHTML;
+var overallPieces = intervalSectionPortfolioValues.split('pc')[0];
+overallPieces = Number(overallPieces) + Number(pieces);
+
+// 940pc 51362€
+var overallPastValue = intervalSectionPortfolioValues.split(' ')[1];
+if(overallPastValue) {
+overallPastValue = overallPastValue.split('€')[0];
+}        
+var intervalSectionPortfolioGain = document.getElementById('intervalSectionPortfolioGain' + symbolParamTrimmed).innerHTML;
+var overallPastGain = intervalSectionPortfolioGain.split(' ')[0];
+overallPastGain = Math.abs(overallPastGain.split('€')[0]);
+var totalAmount = Number((pieces * price).toFixed(0)) + Number(overallPastValue) + Number(overallPastGain);
+}
+else {
+var overallPieces = pieces;
+var totalAmount = (pieces * price).toFixed(0);
+}
+// Fees
+totalAmount = Number(totalAmount) + Number(10);
+
+// headlineLinkBTL
+var headlineLink;
+var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
+if(headlineLinkElem) {
+headlineLink = headlineLinkElem.innerHTML;
+}
+else {
+headlineLink = symbolParamTrimmed;
+}
+if(overallPieces === pieces) {
+overallPieces = '?';
+}
+if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
+return;
+}
+if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
+document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed).value = '';
+}
+if (document.getElementById('intervalSectionInputPiecesBuy' + symbolParamTrimmed)) {
+document.getElementById('intervalSectionInputPiecesBuy' + symbolParamTrimmed).value = '';
+}
+document.getElementById('intervalSectionInputSymbolBuyGenerell') ? document.getElementById('intervalSectionInputSymbolBuyGenerell').value : '';
+document.getElementById('intervalSectionInputPriceBuyGenerell') ? document.getElementById('intervalSectionInputPriceBuyGenerell').value : '';
+document.getElementById('intervalSectionInputPiecesBuyGenerell') ? document.getElementById('intervalSectionInputPiecesBuyGenerell').value : '';
+
+var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
+var xhr = new XMLHttpRequest();
+xhr.open('POST', url);
+xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split("").reverse().join(""));
+xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
+xhr.onreadystatechange = function () {
+// readyState 4 means the request is done.
+const DONE = 4;
+if (xhr.readyState === DONE) {
+// console.log(xhr.status);
+console.log(xhr.responseText);
+}
+};
+var data = {
+event_type: 'buy',
+client_payload: {
+symbol: symbolParamTrimmed,
+pieces: pieces,
+price: price,
+}
+};
+xhr.send(JSON.stringify(data));
+}
+
+function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
+if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
+alert('Error: Stock ' + symbolParam.trim() + ' not in portfolio!');
+return;
+}
+symbolParam = trimOwnChar(symbolParam);
+
+if (sellPriceParam == '') {
+alert('Error: Price not set!');
+return;
+}
+
+var headlineLink = symbolParam;
+var headlineLinkElem = document.getElementById('headlineLink' + symbolParam);
+if(headlineLinkElem) {
+headlineLink = headlineLinkElem.innerHTML;
+}
+
+if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
+return;
+}
+var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
+var xhr = new XMLHttpRequest();
+xhr.open('POST', url);
+xhr.setRequestHeader('Authorization', 'token ' + token1 + token2.split("").reverse().join(""));
+xhr.setRequestHeader('Accept', 'application/vnd.github.everest-preview+json');
+xhr.onreadystatechange = function () {
+// readyState 4 means the request is done.
+const DONE = 4;
+if (xhr.readyState === DONE) {
+console.log(xhr.status);
+console.log(xhr.responseText);
+}
+};
+var data = {
+event_type: 'sell',
+client_payload: {
+symbol: symbolParam,
+sellPrice: sellPriceParam
+}
+};
+xhr.send(JSON.stringify(data));
+}
+
+function trimOwnChar(text) {
+if(text.charAt(0) === '*') {
+return text.substring(1).trim();
+}
+return text.trim();
+}
+
+function isMobil() {
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+return true;
+}
+}
+// 
+// _detail.js
+// 
+
+function showChart(timeSpan) {
+var elementSpanToReplace = document.getElementById('imgToReplace');
+if(isMobil()) {
+elementSpanToReplace.style.top = '25%';
+elementSpanToReplace.style.left = '25%'
+}
+else {
+elementSpanToReplace.style.top = '38%';
+elementSpanToReplace.style.left = '52%';
+}   
+elementSpanToReplace.style.transform = 'scale(1.85)';
+elementSpanToReplace.style.display = 'block';
+
+// Concat is not clean, but works!
+elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
+}   
+
+function hideChart() {
+var elementSpanToReplace = document.getElementById('imgToReplace');
+elementSpanToReplace.style.display = 'none';
+}
+</script></body></html>
