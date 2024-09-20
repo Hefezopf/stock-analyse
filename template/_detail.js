@@ -7,12 +7,13 @@ function showChart(timeSpan) {
     if(isMobil()) {
         elementSpanToReplace.style.top = '25%';
         elementSpanToReplace.style.left = '25%'
+        elementSpanToReplace.style.transform = 'scale(1.85)';
     }
     else {
-        elementSpanToReplace.style.top = '38%';
+        elementSpanToReplace.style.top = '20%';
         elementSpanToReplace.style.left = '52%';
+        elementSpanToReplace.style.transform = 'scale(1.3)';
     }   
-    elementSpanToReplace.style.transform = 'scale(1.85)';
     elementSpanToReplace.style.display = 'block';
  
     // Concat is not clean, but works!
