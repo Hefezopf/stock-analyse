@@ -562,7 +562,8 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b> Sell: High 4 last Stochastic (S): 4 last quotes over level </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Sep-2024 11:41</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Sep-2024 16:00</p>
+<span id='stocksPiecesId' style='display:none'>1850</span>
 
 
 <script>
@@ -641,8 +642,12 @@ overallPastGain = Math.abs(overallPastGain.split('€')[0]);
 var totalAmount = Number((pieces * price).toFixed(0)) + Number(overallPastValue) + Number(overallPastGain);
 }
 else {
-var overallPieces = pieces;
-var totalAmount = (pieces * price).toFixed(0);
+// var overallPieces = pieces;
+var overallPieces = document.getElementById('stocksPiecesId').textContent;
+var overallPieces = Number(overallPieces) + Number(pieces);
+var totalAmount = (overallPieces * price).toFixed(0);
+// (overallPieces * price).toFixed(0);
+var totalAmount = '?'; 
 }
 // Fees
 totalAmount = Number(totalAmount) + Number(10);

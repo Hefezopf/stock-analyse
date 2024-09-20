@@ -48,8 +48,12 @@ function curlBuy(symbolParam, price, pieces) {
         var totalAmount = Number((pieces * price).toFixed(0)) + Number(overallPastValue) + Number(overallPastGain);
     }
     else {
-        var overallPieces = pieces;
-        var totalAmount = (pieces * price).toFixed(0);
+        // var overallPieces = pieces;
+        var overallPieces = document.getElementById('stocksPiecesId').textContent;
+        var overallPieces = Number(overallPieces) + Number(pieces);
+        var totalAmount = (overallPieces * price).toFixed(0);
+        // (overallPieces * price).toFixed(0);
+        var totalAmount = '?'; 
     }
     // Fees
     totalAmount = Number(totalAmount) + Number(10);
