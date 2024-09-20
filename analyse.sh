@@ -668,6 +668,11 @@ do
 
         echo "<br>$GOOD_LUCK"
 
+
+stocksPieces=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
+echo "<span id='stocksPiecesId' style='display:none'>$stocksPieces</span>"
+
+
         cat template/indexPart13.html
         cat template/_common.js
         cat template/_detail.js
@@ -683,7 +688,8 @@ do
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ]; then
         counterOwnStocks=$((counterOwnStocks+1)) # For Spinner
 
-        stocksPieces=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
+#stocksPieces=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
+
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
         stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
         stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
