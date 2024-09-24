@@ -122,7 +122,10 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         headlineLink = headlineLinkElem.innerHTML;
     }
    
-    var stockPiecesParam = document.getElementById('stocksPiecesId').innerHTML;
+    var stocksPiecesId = document.getElementById('stocksPiecesId');
+    if(stocksPiecesId) {
+        stockPiecesParam = stocksPiecesId.innerHTML;
+    }
     if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
         return;
     }
