@@ -670,9 +670,18 @@ function onContentLoaded(symbol, notationId, asset_type) {
                 realTimeProzSymbol = realTimeProzSymbol.replace(' ', '');
                 realTimeProzSymbol = realTimeProzSymbol.replace(',', '.');
                 var elementPercentageSymbol = document.getElementById('intervalSectionPercentage' + symbol);
-                elementPercentageSymbol.innerHTML = realTimeProzSymbol.slice(0, -1) + '%';
 
-                if (parseFloat(realTimeProzSymbol) < 0) {
+                var posDot = realTimeProzSymbol.indexOf('.');
+                var realTimeProzSymbolRounded = realTimeProzSymbol.slice(0, posDot+2);
+                elementPercentageSymbol.innerHTML = realTimeProzSymbolRounded + '%';
+
+
+                //elementPercentageSymbol.innerHTML = realTimeProzSymbol.slice(0, -1) + '%';
+                if (parseFloat(realTimeProzSymbolRounded) < 0) {
+
+               // elementPercentageSymbol.innerHTML = realTimeProzSymbol.slice(0, -1) + '%';
+
+              //  if (parseFloat(realTimeProzSymbol) < 0) {
                     elementPercentageSymbol.style.color = 'red';
                 }
                 else {
