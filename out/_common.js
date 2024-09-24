@@ -49,13 +49,13 @@ function curlBuy(symbolParam, price, pieces) {
     }
     else {
         // var overallPieces = pieces;
-        var overallPieces = document.getElementById('stocksPiecesId').textContent;
-        var overallPieces = Number(overallPieces) + Number(pieces);
-        var totalAmount = (overallPieces * price).toFixed(0);
-        // (overallPieces * price).toFixed(0);
-        var totalAmount = '?'; 
+        var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
+        var overallPieces = Number(stocksPieces) + Number(pieces);
+        var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
+        var buyingAmount = (pieces * price).toFixed(0);
+        var totalAmount =  Number(buyingAmount) + Number(stocksBuyingValue.innerHTML);
     }
-    // Fees
+    // Add fixed amount of 10€ trading fees
     totalAmount = Number(totalAmount) + Number(10);
 
     // headlineLinkBTL
@@ -66,9 +66,6 @@ function curlBuy(symbolParam, price, pieces) {
     }
     else {
         headlineLink = symbolParamTrimmed;
-    }
-    if(overallPieces === pieces) {
-        overallPieces = '?';
     }
     if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
         return;
@@ -125,6 +122,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         headlineLink = headlineLinkElem.innerHTML;
     }
    
+    var stockPiecesParam = document.getElementById('stocksPiecesId').innerHTML;
     if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
         return;
     }
