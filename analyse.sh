@@ -676,7 +676,7 @@ do
 
 stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
 stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
-echo "<span id='stocksBuyingValueId' style='display:none'>$stocksBuyingValue</span>" >> "$indexSymbolFile"
+echo "<span id='stocksBuyingValueId' style='display:none'>$stocksBuyingValue</span>" # >> "$indexSymbolFile"
 
 
 
