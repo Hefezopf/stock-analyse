@@ -82,12 +82,12 @@ do
         # Bil. Market Cap
         marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
         if [ "$marktkap" ]; then
-        marktkap="${marktkap}000"
-        echo "Market Cap:$marktkap Mrd.€"
+            marktkap="${marktkap}000"
+            echo "Market Cap:$marktkap Mrd.€"
         else
-        marktkap="?"
-        marktkapErrorSymbols="$symbol $marktkapErrorSymbols"
-        echo "--> ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, INDEX, COIN or Market Cap too small! $marktkap"
+            marktkap="?"
+            marktkapErrorSymbols="$symbol $marktkapErrorSymbols"
+            echo "--> ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, INDEX, COIN or Market Cap too small! $marktkap"
         fi
     fi
     # Replace till end of line: idempotent!
@@ -103,15 +103,15 @@ do
         # Branche ><
         branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-)
         if [ "$branche" ]; then
-        # Replace ' /' with ',', because error with linux
-        branche=$(echo "$branche" | sed "s/ \//,/g")
-        # shellcheck disable=SC2116 
-        branche=$(echo \""$branche\"")
-        echo "Branche: $branche"
+            # Replace ' /' with ',', because error with linux
+            branche=$(echo "$branche" | sed "s/ \//,/g")
+            # shellcheck disable=SC2116 
+            branche=$(echo \""$branche\"")
+            echo "Branche: $branche"
         else
-        branche="?"
-        brancheErrorSymbols="$symbol $brancheErrorSymbols"
-        echo "--> ERROR Branche: $symbol $ID_NOTATION! $branche"
+            branche="?"
+            brancheErrorSymbols="$symbol $brancheErrorSymbols"
+            echo "--> ERROR Branche: $symbol $ID_NOTATION! $branche"
         fi
     fi
     # Replace till end of line: idempotent!
