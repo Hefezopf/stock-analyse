@@ -27,6 +27,8 @@ fi
 # Delete $SYMBOL in stock_symbols.txt
 cat config/stock_symbols.txt | sed -i s/"$symbolParam "// config/stock_symbols.txt
 
+sed -i "/$symbolParam/d" ./script/start-all-in-chrome.sh
+
 # Delete all files
 rm -rf out/"$symbolParam".html
 rm -rf alarm/"$symbolParam"*.txt
