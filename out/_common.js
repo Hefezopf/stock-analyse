@@ -83,7 +83,7 @@ function curlBuy(symbolParam, price, pieces) {
     }
 
     // Condition only for Mobil -> No CORS!
-    if(totalAmount === undefined) {
+    if(isNaN(totalAmount)) {
         totalAmount = '?';
         overallPieces = '?';
     }
