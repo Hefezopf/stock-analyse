@@ -55,10 +55,24 @@ function curlBuy(symbolParam, price, pieces) {
         var buyingAmount = (pieces * price).toFixed(0);
         var totalAmount =  Number(buyingAmount) + Number(stocksBuyingValue.innerHTML);
     }
-    // Add fixed amount of 10€ trading fees
-    totalAmount = Number(totalAmount) + Number(10);
 
-    // headlineLinkBTL
+    // Add trading fees
+    var txFee=7;
+    if (buyingAmount > 25000) {
+        txFee=47;
+    } 
+    else if (buyingAmount > 15000) {
+        txFee=30;
+    }
+    else if (buyingAmount > 10000) {
+        txFee=20;
+    }
+    else if (buyingAmount > 5000) {
+        txFee=10;
+    }
+    totalAmount = Number(totalAmount) + txFee;
+
+    // headlineLink<Symbol>
     var headlineLink;
     var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
     if(headlineLinkElem) {
