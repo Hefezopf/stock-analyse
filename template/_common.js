@@ -81,6 +81,13 @@ function curlBuy(symbolParam, price, pieces) {
     else {
         headlineLink = symbolParamTrimmed;
     }
+
+    // Condition only for Mobil -> No CORS!
+    if(totalAmount === undefined) {
+        totalAmount = '?';
+        overallPieces = '?';
+    }
+
     if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
         return;
     }
