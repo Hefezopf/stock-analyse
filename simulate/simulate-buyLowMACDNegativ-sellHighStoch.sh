@@ -27,7 +27,7 @@
 symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 amountPerTradeParam=$2
 RSIBuyLevelParam=$3
-StochSellLevelParam=$4
+stochSellLevelParam=$4
 incrementPerTradeParam=$5
 sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
@@ -38,9 +38,7 @@ alarmCountForIndexOrigParam=$9 # Copy as orig. value needed for summary at the e
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
 
-#cp out/_common.js simulate/out  # /_common.js
-#cp out/_detail.js simulate/out  # /_detail.js
-cp out/_result.js simulate/out  # /_result.js
+cp out/_result.js simulate/out
 
 OUT_SIMULATE_FILE="simulate/out/_simulate.html"
 QUOTE_MAX_VALUE=999999
@@ -51,7 +49,7 @@ function ParameterOut()
     #Out "!!! DATA_DIR:$DATA_DIR" $OUT_SIMULATE_FILE
     Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
     Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
-    Out "Stoch Sell Level:$StochSellLevelParam" $OUT_SIMULATE_FILE
+    Out "Stoch Sell Level:$stochSellLevelParam" $OUT_SIMULATE_FILE
     Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
     Out "Sell Over Percentage (NOT USED!!!):$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
     Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
@@ -295,8 +293,8 @@ do
                 fi
             fi
             # Sell if over Percentage Param (5%) or, if over Stoch Level Param (70)
-            if [ "$stochAt" -gt "$StochSellLevelParam" ]; then
-            #if [ "$intermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$StochSellLevelParam" ]; then
+            if [ "$stochAt" -gt "$stochSellLevelParam" ]; then
+            #if [ "$intermediateProzWinFirstDigit" -gt "$sellIfOverPercentageParam" ] || [ "$stochAt" -gt "$stochSellLevelParam" ]; then
                 isIntermediateProzWinNegativ=${intermediateProzWin:0:1}
                 # NOT Sell, if tx would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
@@ -438,11 +436,23 @@ do
     percentOverBuyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${percentOverBuyingAvg}/g")
     sed -i "223s/.*/$percentOverBuyingAvgSequenceReplaced/" simulate/out/"$symbol".html
 
+    # Write/Replace simulation "Selling STOCH" values. Replace line!
+    # ATTENTION Line number may change, if there will be development!
+    dataStochTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X"
+    stochSellingSequenceReplaced=$(echo -n "$dataStochTemplate" | sed "s/X/${stochSellLevelParam}/g")
+    sed -i "285s/.*/$stochSellingSequenceReplaced/" simulate/out/"$symbol".html
+
+    # Write/Replace simulation "RSIBuy" values. Replace line!
+    # ATTENTION Line number may change, if there will be development!
+    dataRSIBuyTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X"
+    RSIBuySequenceReplaced=$(echo -n "$dataRSIBuyTemplate" | sed "s/X/${RSIBuyLevelParam}/g")
+    sed -i "367s/.*/$RSIBuySequenceReplaced/" simulate/out/"$symbol".html
+
     # Write/Replace timestamp. Replace line!
     creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
     if [ "$(uname)" = 'Linux' ]; then
      # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
-     #creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
+     # creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
      creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # Sommerzeit / Summertime
     fi
 
@@ -490,28 +500,6 @@ Out "# Buy now" $OUT_SIMULATE_FILE
 
 echo "<script>var linkMap = new Map();</script>" >> $OUT_SIMULATE_FILE
 
-# echo "<script>
-# var linkMap = new Map();
-# // Hover Chart
-# function showChart(timeSpan, symbol) { // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
-# //console.log('simulate: showChart');
-#     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-#     elementSpanToReplace.style.display = 'block';
-#     //elementSpanToReplace.style.left = '17%'; 
-#     //elementSpanToReplace.style.left = '500px'; 
-#     elementSpanToReplace.style.left = '12%'; 
-#     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan; // Concat is not clean, but works!
-# }
-
-# function hideChart(symbol) {  // function is ALLMOST!!! (symbol parameter) redundant in result html and detail html file! (template\indexPart12.html)
-# //console.log('simulate: hideChart');
-#     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-#     elementSpanToReplace.style.display = 'none';
-# }
-# </script>" >> $OUT_SIMULATE_FILE
-
-
-#echo "<br><button id='buttonOpenAllInTab' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doOpenAllInTab(){for (let [key, value] of linkMap) {window.open(value, \"_blank\").focus();}};doOpenAllInTab()'>Open All</button><br><br>" >> $OUT_SIMULATE_FILE
 echo "<br><button id='buttonOpenAllInTab' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> $OUT_SIMULATE_FILE
 for value in "${ARRAY_BUY_POS_SIM[@]}"
 do
