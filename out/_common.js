@@ -88,8 +88,7 @@ function curlBuy(symbolParam, price, pieces) {
         overallPieces = '?';
     }
 
-    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Fees ' + txFee + '€)') == false) {
-//        if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€ Fees' + txFee + '€?') == false) {
+    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
