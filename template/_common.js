@@ -55,10 +55,6 @@ function curlBuy(symbolParam, price, pieces) {
         var totalAmount =  Number(buyingAmount) + Number(stocksBuyingValue.innerHTML);
     }
 
-    // Add trading fees
-    var txFee = tradingFees(totalAmount);
-    totalAmount = Number(totalAmount) + txFee;
-
     // headlineLink<Symbol>
     var headlineLink;
     var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
@@ -69,13 +65,17 @@ function curlBuy(symbolParam, price, pieces) {
         headlineLink = symbolParamTrimmed;
     }
 
+    // Trading fees
+    var txFee = tradingFees(totalAmount);
+    //totalAmount = Number(totalAmount) + txFee;
+    
     // Condition only for Mobil -> No CORS!
     if(isNaN(totalAmount)) {
         totalAmount = '?';
         overallPieces = '?';
     }
 
-    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
+    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Plus fees ' + txFee + '€)') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -135,10 +135,10 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         stockPiecesParam = stocksPiecesId.innerHTML;
     }
 
-    // Add trading fees
     const sellingAmount = Number(stockPiecesParam) * Number(sellPriceParam);
+    // Trading fees
     var txFee = tradingFees(sellingAmount);
-    if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€? (Included fees ' + txFee + '€)') == false) {
+    if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€? (Plus fees ' + txFee + '€)') == false) {
         return;
     }
     var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
