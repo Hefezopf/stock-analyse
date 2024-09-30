@@ -562,7 +562,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 30-Sep-2024 15:45</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 30-Sep-2024 16:31</p>
 <span id='stocksPiecesId' style='display:none'>3400</span>
 <span id='stocksBuyingValueId' style='display:none'>50033</span>
 
@@ -650,10 +650,6 @@ var buyingAmount = (pieces * price).toFixed(0);
 var totalAmount =  Number(buyingAmount) + Number(stocksBuyingValue.innerHTML);
 }
 
-// Add trading fees
-var txFee = tradingFees(totalAmount);
-totalAmount = Number(totalAmount) + txFee;
-
 // headlineLink<Symbol>
 var headlineLink;
 var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
@@ -664,13 +660,17 @@ else {
 headlineLink = symbolParamTrimmed;
 }
 
+// Trading fees
+var txFee = tradingFees(totalAmount);
+//totalAmount = Number(totalAmount) + txFee;
+
 // Condition only for Mobil -> No CORS!
 if(isNaN(totalAmount)) {
 totalAmount = '?';
 overallPieces = '?';
 }
 
-if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
+if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Plus fees ' + txFee + '€)') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -730,10 +730,10 @@ if(stocksPiecesId) {
 stockPiecesParam = stocksPiecesId.innerHTML;
 }
 
-// Add trading fees
 const sellingAmount = Number(stockPiecesParam) * Number(sellPriceParam);
+// Trading fees
 var txFee = tradingFees(sellingAmount);
-if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€? (Included fees ' + txFee + '€)') == false) {
+if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€? (Plus fees ' + txFee + '€)') == false) {
 return;
 }
 var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
