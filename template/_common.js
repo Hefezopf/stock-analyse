@@ -48,7 +48,6 @@ function curlBuy(symbolParam, price, pieces) {
         var totalAmount = Number((pieces * price).toFixed(0)) + Number(overallPastValue) + Number(overallPastGain);
     }
     else {
-        // var overallPieces = pieces;
         var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
         var overallPieces = Number(stocksPieces) + Number(pieces);
         var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
@@ -57,19 +56,7 @@ function curlBuy(symbolParam, price, pieces) {
     }
 
     // Add trading fees
-    var txFee=7;
-    if (buyingAmount > 25000) {
-        txFee=47;
-    } 
-    else if (buyingAmount > 15000) {
-        txFee=30;
-    }
-    else if (buyingAmount > 10000) {
-        txFee=20;
-    }
-    else if (buyingAmount > 5000) {
-        txFee=10;
-    }
+    var txFee = tradingFees(totalAmount);
     totalAmount = Number(totalAmount) + txFee;
 
     // headlineLink<Symbol>
@@ -88,7 +75,7 @@ function curlBuy(symbolParam, price, pieces) {
         overallPieces = '?';
     }
 
-    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
+    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -147,7 +134,11 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     if(stocksPiecesId) {
         stockPiecesParam = stocksPiecesId.innerHTML;
     }
-    if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
+
+    // Add trading fees
+    const sellingAmount = Number(stockPiecesParam) * Number(sellPriceParam);
+    var txFee = tradingFees(sellingAmount);
+    if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€? (Included fees ' + txFee + '€)') == false) {
         return;
     }
     var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
@@ -184,4 +175,21 @@ function isMobil() {
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         return true;
     }
+}
+
+function tradingFees(tradingAmount) {
+    var txFee = 7;
+    if (tradingAmount > 25000) {
+        txFee = 47;
+    } 
+    else if (tradingAmount > 15000) {
+        txFee = 30;
+    }
+    else if (tradingAmount > 10000) {
+        txFee = 20;
+    }
+    else if (tradingAmount > 5000) {
+        txFee = 10;
+    }
+    return txFee;
 }
