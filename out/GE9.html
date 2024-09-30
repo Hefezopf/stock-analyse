@@ -563,7 +563,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 30-Sep-2024 10:11</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 30-Sep-2024 11:44</p>
 <span id='stocksPiecesId' style='display:none'>48</span>
 <span id='stocksBuyingValueId' style='display:none'>10404</span>
 
@@ -644,7 +644,6 @@ overallPastGain = Math.abs(overallPastGain.split('€')[0]);
 var totalAmount = Number((pieces * price).toFixed(0)) + Number(overallPastValue) + Number(overallPastGain);
 }
 else {
-// var overallPieces = pieces;
 var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
 var overallPieces = Number(stocksPieces) + Number(pieces);
 var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
@@ -653,19 +652,7 @@ var totalAmount =  Number(buyingAmount) + Number(stocksBuyingValue.innerHTML);
 }
 
 // Add trading fees
-var txFee=7;
-if (buyingAmount > 25000) {
-txFee=47;
-} 
-else if (buyingAmount > 15000) {
-txFee=30;
-}
-else if (buyingAmount > 10000) {
-txFee=20;
-}
-else if (buyingAmount > 5000) {
-txFee=10;
-}
+var txFee = tradingFees(totalAmount);
 totalAmount = Number(totalAmount) + txFee;
 
 // headlineLink<Symbol>
@@ -684,7 +671,7 @@ totalAmount = '?';
 overallPieces = '?';
 }
 
-if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€?') == false) {
+if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -743,7 +730,11 @@ var stocksPiecesId = document.getElementById('stocksPiecesId');
 if(stocksPiecesId) {
 stockPiecesParam = stocksPiecesId.innerHTML;
 }
-if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€?') == false) {
+
+// Add trading fees
+const sellingAmount = Number(stockPiecesParam) * Number(sellPriceParam);
+var txFee = tradingFees(sellingAmount);
+if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€? (Included fees ' + txFee + '€)') == false) {
 return;
 }
 var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
@@ -780,6 +771,23 @@ function isMobil() {
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 return true;
 }
+}
+
+function tradingFees(tradingAmount) {
+var txFee = 7;
+if (tradingAmount > 25000) {
+txFee = 47;
+} 
+else if (tradingAmount > 15000) {
+txFee = 30;
+}
+else if (tradingAmount > 10000) {
+txFee = 20;
+}
+else if (tradingAmount > 5000) {
+txFee = 10;
+}
+return txFee;
 }
 // 
 // _detail.js
