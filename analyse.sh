@@ -694,14 +694,6 @@ echo "<span id='stocksBuyingValueId' style='display:none'>$stocksBuyingValue</sp
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ]; then
         counterOwnStocks=$((counterOwnStocks+1)) # For Spinner
-
-        #stocksPieces=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
-
- #       stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
- #       stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
-
- # echo "<span id='stocksBuyingValueId' style='display:none'>$stocksBuyingValue</span>" >> "$indexSymbolFile"
-
         stocksCurrentValue=$(echo "$stocksPieces $last" | awk '{print $1 * $2}')
         stocksCurrentValue=$(printf "%.0f" "$stocksCurrentValue")
         stocksPerformance=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print (($1 / $2)-1)*100}')

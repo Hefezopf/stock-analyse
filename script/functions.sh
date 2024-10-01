@@ -345,14 +345,14 @@ Out() {
 # Input: Order rate
 # Input: Pieces
 # Output: trading fee
-# 3.000 EUR Minimumprovision 7,12 EUR
-# 5.000 EUR 0,25 % vom Kurswert EUR 10,00 EUR
+# 3.000 EUR Minimumprovision 9,12 EUR
+# 5.000 EUR 0,25 % vom Kurswert EUR 15,00 EUR
 # 10.000 EUR 0,25 % vom Kurswert 20,00 EUR
 # 15.000 EUR 0,25 % vom Kurswert 30,00 EUR
 # 25.000 EUR Maximalprovision 47,12 EUR
-# Example 2500 -> return 7,12
-# Example 3500 -> return 7,12
-# Example 5100 -> return 10,00
+# Example 2500 -> return 9,12
+# Example 3500 -> return 9,12
+# Example 5100 -> return 15,00
 # Example 10400 -> return 20,00
 # Example 15500 -> return 30,00
 # Example 40000 -> return 47,12
@@ -360,13 +360,13 @@ CalculateTxFee() {
     _orderrateParam=$1
     _piecesParam=$2
 
-    export txFee="7"
+    export txFee="10"
 
     orderValue=$(echo "$_orderrateParam $_piecesParam" | awk '{print ($1 * $2)}')
     # Float to integer
     orderValue=${orderValue%.*}
 
-    txFee="7"
+    txFee="10"
     if [ "$orderValue" -gt 25000 ]; then 
         txFee="47"
     elif [ "$orderValue" -gt 15000 ]; then 
@@ -374,7 +374,7 @@ CalculateTxFee() {
     elif [ "$orderValue" -gt 10000 ]; then 
         txFee="20"
     elif [ "$orderValue" -gt 5000 ]; then
-        txFee="10"
+        txFee="15"
     fi
 }
 

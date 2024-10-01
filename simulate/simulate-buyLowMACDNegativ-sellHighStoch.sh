@@ -383,6 +383,9 @@ do
     # Copy HTML file: out -> simulate/out
     cp out/"$symbol".html simulate/out/"$symbol".html
 
+    # Search and Replace
+    lineNumer=$(grep -wn "X_AXIS_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$((lineNumer+1)) # 81
     # Write/Replace X-Axis
     xAxis="$alarmAbbrevTemplate"",'100'"
     for i in "${!ARRAY_TX_INDEX[@]}"; do
@@ -390,12 +393,12 @@ do
         # shellcheck disable=SC2001
         xAxis=$(echo "$xAxis" | sed "s/'$i'/'${ARRAY_TX_INDEX[i]}'/g")
     done
-    # sed -i "/labels: /c\labels: [$xAxis" simulate/out/"$symbol".html
     labelsTemplate="labels:[$xAxis"
-    #labelsTemplate="$xAxis"
-    # ATTENTION Line number may change, if there will be development!
-    sed -i "81s/.*/$labelsTemplate/" simulate/out/"$symbol".html    
- 
+    sed -i """$lineNumer""s/.*/$labelsTemplate/" simulate/out/"$symbol".html
+
+    # Search and Replace
+    lineNumer=$(grep -wn "BUY_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$((lineNumer+1)) # 182
     # Write/Replace "buy"
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_BUY_PRICE[@]}"; do
@@ -403,10 +406,11 @@ do
             buySequenceReplaced="$buySequenceReplaced${ARRAY_TX_BUY_PRICE[i]},"
         fi
     done
-    # Write/Replace simulation "buy" values
-    # ATTENTION Line number may change, if there will be development!
-    sed -i "182s/.*/$buySequenceReplaced/" simulate/out/"$symbol".html    
+    sed -i """$lineNumer""s/.*/$buySequenceReplaced/" simulate/out/"$symbol".html    
 
+    # Search and Replace
+    lineNumer=$(grep -wn "SELL_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$((lineNumer+1)) # 189
     # Write/Replace "sell"
     sellSequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
     for i in "${!ARRAY_TX_SELL_PRICE[@]}"; do
@@ -414,39 +418,46 @@ do
             sellSequenceReplaced="$sellSequenceReplaced${ARRAY_TX_SELL_PRICE[i]},"
         fi
     done
-    # Write/Replace simulation "sell" values. Replace line!
-    # ATTENTION Line number may change, if there will be development!
-    sed -i "189s/.*/$sellSequenceReplaced/" simulate/out/"$symbol".html
+    sed -i """$lineNumer""s/.*/$sellSequenceReplaced/" simulate/out/"$symbol".html
 
     if [ "$piecesHold" -gt 0 ]; then
         currentAvg=$(echo "$wallet $piecesHold" | awk '{print ($1 / $2)}')
     else 
         currentAvg="$quoteAt"
     fi
-    # Write/Replace simulation "Buying/Last" values. Replace line!
-    # ATTENTION Line number may change, if there will be development!
+
+    # Search and Replace
+    lineNumer=$(grep -wn "BUYING_LAST_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$((lineNumer+1)) # 217
     dataTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,]},"
     buyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${currentAvg}/g")
-    sed -i "217s/.*/$buyingAvgSequenceReplaced/" simulate/out/"$symbol".html
+    sed -i """$lineNumer""s/.*/$buyingAvgSequenceReplaced/" simulate/out/"$symbol".html
 
+    # Search and Replace
+    lineNumer=$(grep -wn "5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
     # Draw 5% over buying/last quote
     percentOverBuyingAvg=$(echo "$currentAvg 1.05" | awk '{print $1 * $2}')
-    # Write/Replace simulation "Draw 5% over BuyingAvg" values. Replace line!
-    # ATTENTION Line number may change, if there will be development!
     percentOverBuyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${percentOverBuyingAvg}/g")
-    sed -i "223s/.*/$percentOverBuyingAvgSequenceReplaced/" simulate/out/"$symbol".html
+    lineNumer=$((lineNumer+1)) # 223
+    sed -i """$lineNumer""s/.*/$percentOverBuyingAvgSequenceReplaced/" simulate/out/"$symbol".html
 
-    # Write/Replace simulation "Selling STOCH" values. Replace line!
-    # ATTENTION Line number may change, if there will be development!
+    # Search and Replace
+    lineNumer=$(grep -wn "STOCH_HIGH_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    borderColor="borderColor: window.chartColors.red,"
+    sed -i """$lineNumer""s/.*/$borderColor/" simulate/out/"$symbol".html
     dataStochTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X"
     stochSellingSequenceReplaced=$(echo -n "$dataStochTemplate" | sed "s/X/${stochSellLevelParam}/g")
-    sed -i "285s/.*/$stochSellingSequenceReplaced/" simulate/out/"$symbol".html
+    lineNumer=$((lineNumer+1)) # 284
+    sed -i """$lineNumer""s/.*/$stochSellingSequenceReplaced/" simulate/out/"$symbol".html
 
-    # Write/Replace simulation "RSIBuy" values. Replace line!
-    # ATTENTION Line number may change, if there will be development!
+    # Search and Replace
+    lineNumer=$(grep -wn "RSI_LOW_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    borderColor="borderColor: window.chartColors.green,"
+    sed -i """$lineNumer""s/.*/$borderColor/" simulate/out/"$symbol".html
     dataRSIBuyTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X"
     RSIBuySequenceReplaced=$(echo -n "$dataRSIBuyTemplate" | sed "s/X/${RSIBuyLevelParam}/g")
-    sed -i "367s/.*/$RSIBuySequenceReplaced/" simulate/out/"$symbol".html
+    lineNumer=$((lineNumer+1)) # 367
+    sed -i """$lineNumer""s/.*/$RSIBuySequenceReplaced/" simulate/out/"$symbol".html
 
     # Write/Replace timestamp. Replace line!
     creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
@@ -456,6 +467,7 @@ do
      creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # Sommerzeit / Summertime
     fi
 
+    # Search and Replace
     lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html | cut -d: -f1)
     GOOD_LUCK="<br>Good Luck! $creationDate"
     sed -i """$lineNumer""s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html

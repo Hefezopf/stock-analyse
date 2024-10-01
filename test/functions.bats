@@ -73,13 +73,13 @@ SYMBOL_NAME="BEIERSDORF"
 
 @test "CalculateTxFee" {
   CalculateTxFee 100 25
-  [ "$txFee" == "7" ]
+  [ "$txFee" == "10" ]
 
   CalculateTxFee 100 35
-  [ "$txFee" == "7" ]
+  [ "$txFee" == "10" ]
   
   CalculateTxFee 100 51
-  [ "$txFee" == "10" ]
+  [ "$txFee" == "15" ]
    
   CalculateTxFee 100 104
   [ "$txFee" == "20" ]

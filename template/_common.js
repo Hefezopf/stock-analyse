@@ -178,7 +178,7 @@ function isMobil() {
 }
 
 function tradingFees(tradingAmount) {
-    var txFee = 7;
+    var txFee = 10;
     if (tradingAmount > 25000) {
         txFee = 47;
     } 
@@ -189,7 +189,7 @@ function tradingFees(tradingAmount) {
         txFee = 20;
     }
     else if (tradingAmount > 5000) {
-        txFee = 10;
+        txFee = 15;
     }
     return txFee;
 }
