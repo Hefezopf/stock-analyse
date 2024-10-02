@@ -26,3 +26,5 @@ rm .git/refs/tags -Rf
 echo ""
 echo "Directory size after:"
 du -sh .
+
+echo "git push --mirror --force?"
