@@ -4,6 +4,7 @@
 # Call: simulate/simulate-buy-candidates.sh SYMBOL
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI ALV BAS ...'
 # Call example: simulate/simulate-buy-candidates.sh 'BEI HLE GZF TNE5'
+# then: "Call: ./simulate/simulate-buy-candidates-open-in-chrome.sh (in Clipboard)"
 
 # Parameter
 symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
