@@ -315,7 +315,6 @@ CreateCmdHyperlink() {
     _hyperlinkParam=$1
     _outDirParam=$2
     _symbolParam=$3
-   # _symbolNameParam=$4
 
     _outputText="# $_hyperlinkParam $_symbolParam $symbolName"
     if [ "$(uname)" = 'Linux' ]; then

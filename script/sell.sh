@@ -120,5 +120,8 @@ echo "$count" >> "$TRANSACTION_COUNT_FILE"
 echo "Transactions: $count (150/250)"
 echo "Quali Phase: 01.04. bis 30.09. and"
 echo "Quali Phase: 01.10. bis 31.03."
-echo ""
-echo "Red Sell Marker appears tomorrow in HTML!"
+
+if [ ! "$(uname)" = 'Linux' ]; then
+    echo ""
+    echo "Windows:Red Sell-Marker appears tomorrow in HTML!"
+fi
