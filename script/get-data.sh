@@ -36,7 +36,7 @@ fi
 # Analyse stock data for each symbol
 for symbol in $symbolsParam
 do
-    symbolExists=$(grep -n "$symbol" config/stock_symbols.txt)
+    symbolExists=$(grep -n "$symbol" "$STOCK_SYMBOLS_FILE")
     if [ "$symbolExists" ]; then
         echo ""
         echo Skip, because "$symbol" exists!

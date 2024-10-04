@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# This script adds a symbol to various files. Steps:
+# 1. run analyse.sh
+# 2. add to config: stock_symbols.txt
+# 3. add to start-all-in-chrome.sh
+# 4. manuallay add edit ticker_name_id.txt (Correct Names and paste notation-Id)
+#    press key to continue
+# 5. run script/curl/curl_getInformerData.sh
+# 6. run script/marketcap-update.sh
+# Call: ./script/add-symbol.sh SYMBOL
+# 1. Parameter: SYMBOL - A stock symbols like: 'BEI'
+# Call example: ./script/add-symbol.sh 'BEI'
+# Or alias assa
+
+# Import
+# shellcheck disable=SC1091
+. script/constants.sh
+
+# Parameter
+symbolsParameter=$(echo "$1" | tr '[:lower:]' '[:upper:]')
+
+if { [ -z "$symbolsParameter" ]; } then
+  echo "Not all parameters specified!"
+  echo "Call: sh ./script/add-symbol.sh SYMBOL"
+  echo "Example: sh ./script/add-symbol.sh 'BEI'"
+  exit 1
+fi
+
+# 1.
+. analyse.sh "$symbolsParameter" 2 9 25 cc
+
+# 2.
+sed -i -z 's/^\n*\|\n*$//g' "$STOCK_SYMBOLS_FILE"
+echo -n "$symbolsParameter " >> "$STOCK_SYMBOLS_FILE"
+echo "" >> "$STOCK_SYMBOLS_FILE"
+
+# 3.
+echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolsParameter.html" >> "$SCRIPT_START_ALL_IN_CHROME_FILE"
+
+# 4.
+read -n 1 -p "Correct values in 'config/ticker_name_id.txt' now and then hit ->ANY key!"
+
+# 5.
+. script/curl/curl_getInformerData.sh "$symbolsParameter"
+
+# 6.
+. script/marketcap-update.sh "$symbolsParameter"

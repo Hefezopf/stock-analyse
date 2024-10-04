@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Alphabetic sorting of all Symbols in config/stock_symbols.txt
+# Takes some seconds (60 sec.)
 # Do manually every other week, to sort all available symbols again.
 # Or scheduled with ../workflows/sort.workflow.yml
 
@@ -12,7 +13,7 @@
 # shellcheck disable=SC1091
 . script/constants.sh
 
-echo "Sorting..."
+echo "Sorting (60 sec.)..."
 
 # Sort symbols in stock_symbols.txt
 symbolListe=$(cat "$STOCK_SYMBOLS_FILE")

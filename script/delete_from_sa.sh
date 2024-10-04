@@ -25,9 +25,9 @@ if { [ -z "$symbolParam" ]; } then
 fi
 
 # Delete $SYMBOL in stock_symbols.txt
-cat config/stock_symbols.txt | sed -i s/"$symbolParam "// config/stock_symbols.txt
+cat "$STOCK_SYMBOLS_FILE" | sed -i s/"$symbolParam "// "$STOCK_SYMBOLS_FILE"
 
-sed -i "/$symbolParam/d" ./script/start-all-in-chrome.sh
+sed -i "/$symbolParam/d" "$SCRIPT_START_ALL_IN_CHROME_FILE"
 
 # Delete all files
 rm -rf out/"$symbolParam".html

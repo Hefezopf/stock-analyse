@@ -13,7 +13,7 @@ charactersParam=$2
 
 if { [ -z "$symbolsParam" ] || [ -z "$charactersParam" ]; } then
   echo "Not all parameters specified!"
-  echo "Call: sh ././simulate/simulate-buy-candidates.sh SYMBOL CHAR_LENGTH_ALARM"
+  echo "Call: sh ./simulate/simulate-buy-candidates.sh SYMBOL CHAR_LENGTH_ALARM"
   echo "Example: sh ./simulate/simulate-buy-candidates.sh 'BEI HLE GZF TNE5' 35"
   exit 1
 fi
