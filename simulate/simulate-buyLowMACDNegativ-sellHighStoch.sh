@@ -181,7 +181,7 @@ do
         # lastRSI
         lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')" 
 
-        # Allways buy, if allready hold pieces and new low
+        # Allways buy, if already hold pieces and new low
         if [ "$isBuyArrayFilled" = true ] && [ "$piecesHold" -gt 0 ] && [ "$isNewLow" = true ]; then
             isHoldPiecesAndNewLow=true
         else
