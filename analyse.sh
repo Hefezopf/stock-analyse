@@ -864,6 +864,7 @@ fi
     echo "<br># Result<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a>"
     echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a>"
     echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html\" target=\"_blank\">Simulation</a><br>"
+    echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html\" target=\"_blank\">Simulation Last Alarms</a><br>"
     # Informer        
     echo "<br># Informer<br><a href=\"https://nutzer.comdirect.de/inf/musterdepot/pmd/meineuebersicht.html?name=Max\" target=\"_blank\">Comdirect Informer</a><br>"
 
