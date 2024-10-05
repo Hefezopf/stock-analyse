@@ -45,7 +45,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <body>
 <div>"
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "Simulate Last Alarms" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "Simulate Last '$lastDaysParam' Days with min '$charactersParam' Alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 # Simulate stocks for each symbol
