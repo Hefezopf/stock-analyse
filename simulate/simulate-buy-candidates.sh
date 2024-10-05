@@ -57,7 +57,33 @@ do
     fi
 done
 
+rm -rf "$SIM_LAST_ALARMS_HTML_FILE"
+HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
+<head>
+<meta charset='utf-8' />
+<meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate' />
+<meta http-equiv='pragma' content='no-cache' />
+<meta http-equiv='expires' content='0' />
+<link rel='shortcut icon' type='image/ico' href='favicon.ico' />
+<link rel='stylesheet' href='_result.css' />
+<title>Simulate Last Alarms</title>
+</head>
+<body>
+<div>"
+echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "Simulate Last Alarms" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+
+cat "simulate/simulate-buy-candidates-open-in-chrome.sh" >> "$SIM_LAST_ALARMS_HTML_FILE"
+
+echo "<br></div></body></html>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+
+sed -i "s/start chrome /<a href='/g" "$SIM_LAST_ALARMS_HTML_FILE"
+sed -i "s/\.html/\.html'\>XXX<\/a\><br\>/g" "$SIM_LAST_ALARMS_HTML_FILE"
+
 if [ ! "$(uname)" = 'Linux' ]; then
     echo "./simulate/simulate-buy-candidates-open-in-chrome.sh" | clip
     echo "Call: ./simulate/simulate-buy-candidates-open-in-chrome.sh (in Clipboard)"
 fi
+echo "file:///D:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
+echo "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html"

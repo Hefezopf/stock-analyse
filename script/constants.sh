@@ -36,3 +36,5 @@ export STOCK_SYMBOLS_FILE="config/stock_symbols.txt"
 export TRANSACTION_HISTORY_FILE="config/transaction_history.txt"
 export OUT_TRANSACTION_HISTORY_HTML_FILE="out/_transaction_history.html"
 export SCRIPT_START_ALL_IN_CHROME_FILE="script/start-all-in-chrome.sh"
+
+export SIM_LAST_ALARMS_HTML_FILE="simulate/out/_simulate_last_alarms.html"
