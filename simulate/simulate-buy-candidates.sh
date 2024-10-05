@@ -57,5 +57,7 @@ do
     fi
 done
 
-echo "./simulate/simulate-buy-candidates-open-in-chrome.sh" | clip
-echo "Call: ./simulate/simulate-buy-candidates-open-in-chrome.sh (in Clipboard)"
+if [ ! "$(uname)" = 'Linux' ]; then
+    echo "./simulate/simulate-buy-candidates-open-in-chrome.sh" | clip
+    echo "Call: ./simulate/simulate-buy-candidates-open-in-chrome.sh (in Clipboard)"
+fi
