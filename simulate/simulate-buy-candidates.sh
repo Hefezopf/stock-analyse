@@ -48,7 +48,7 @@ do
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values
             lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
             symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-            echo "Last 3 Alarms for $symbol $symbolName: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
+            echo "Last '$lastDaysParam' Alarms for $symbol $symbolName: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
             echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
 
             # TODO: if more then 50 -> build in!
