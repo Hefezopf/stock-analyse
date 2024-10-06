@@ -106,7 +106,8 @@ rm -rf "$TEMP_REVERS_FILE"
 
 echo "<br>&nbsp;Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-# Write/Replace timestamp. Replace line!
+# $creationDate
+#GetCreationDate() 
 creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
 if [ "$(uname)" = 'Linux' ]; then
     # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
