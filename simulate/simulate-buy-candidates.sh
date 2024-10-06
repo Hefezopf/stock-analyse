@@ -71,12 +71,18 @@ do
             # TODO: if more then 50 -> build in!
             # echo "read -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
 
-#CreateCmdHyperlink "Simulation" "simulate/out" "$symbol" #"$symbolName"
-
             echo "<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html'>$symbol $symbolName</a><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
         fi
     fi
 done
+# Write/Replace timestamp. Replace line!
+creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
+if [ "$(uname)" = 'Linux' ]; then
+    # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
+    # creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
+    creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # Sommerzeit / Summertime
+fi
+echo "<br>Good Luck! $creationDate" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br></div></body></html>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo ""
 if [ ! "$(uname)" = 'Linux' ]; then
