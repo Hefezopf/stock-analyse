@@ -16,6 +16,11 @@ TICKER_NAMES_FILE="test/ticker_name_id.txt"
 SYMBOL=BEI
 SYMBOL_NAME="BEIERSDORF"
 
+@test "GetCreationDate" {
+  GetCreationDate
+  [ "$creationDate" != "" ]
+}
+
 @test "DetermineTendency" {
   DetermineTendency " , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 92.6132, 92.5305, 92.4579, 92.3874, 92.3326, 92.3184,"
   [ "$tendency" == $FALLING ]

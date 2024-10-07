@@ -106,14 +106,7 @@ rm -rf "$TEMP_REVERS_FILE"
 
 echo "<br>&nbsp;Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-# $creationDate
-#GetCreationDate() 
-creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
-if [ "$(uname)" = 'Linux' ]; then
-    # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
-    # creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
-    creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # Sommerzeit / Summertime
-fi
+GetCreationDate # $creationDate
 echo "<br><br>&nbsp;Good Luck! $creationDate" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 echo "<br></div></body></html>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
