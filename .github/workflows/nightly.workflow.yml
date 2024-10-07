@@ -81,6 +81,8 @@ jobs:
           sed -i 's/\r$//' ./simulate/*.sh
           ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
 
+          ./simulate/simulate-buy-candidates.sh "$symbolsVar" 3 35
+                    
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt
