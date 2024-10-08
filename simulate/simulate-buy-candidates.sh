@@ -11,7 +11,7 @@
 # Import
 # shellcheck disable=SC1091
 . script/constants.sh
-#. script/functions.sh
+. script/functions.sh
 
 # Parameter
 symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
