@@ -66,7 +66,7 @@ function curlBuy(symbolParam, price, pieces) {
     }
 
     // Trading fees
-    var txFee = tradingFees(totalAmount);
+    var txFee = tradingFees(buyingAmount);
     
     // Condition only for Mobil -> No CORS!
     if(isNaN(totalAmount)) {
