@@ -135,9 +135,9 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         stockPiecesParam = stocksPiecesId.innerHTML;
     }
 
-    const sellingAmount = Number(stockPiecesParam) * Number(sellPriceParam);
     // Trading fees
     var txFee = tradingFees(sellingAmount);
+    const sellingAmount = (Number(stockPiecesParam) * Number(sellPriceParam)) + fees;
     if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€? (Included fees ' + txFee + '€)') == false) {
         return;
     }
