@@ -565,7 +565,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  8-Oct-2024 18:44</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  8-Oct-2024 19:00</p>
 <span id='stocksPiecesId' style='display:none'>6100</span>
 <span id='stocksBuyingValueId' style='display:none'>76322</span>
 
@@ -629,6 +629,8 @@ var symbolParamTrimmed = symbolParam.trim();
 var price = parseFloat(price.replace(',', '.')).toFixed(2);
 var pieces = pieces.replace('.', '');
 
+var buyingAmount = Number((pieces * price).toFixed(0));
+
 var intervalSectionPortfolioValues = document.getElementById('intervalSectionPortfolioValues' + symbolParamTrimmed);
 if (intervalSectionPortfolioValues) {
 intervalSectionPortfolioValues = intervalSectionPortfolioValues.innerHTML;
@@ -643,14 +645,13 @@ overallPastValue = overallPastValue.split('€')[0];
 var intervalSectionPortfolioGain = document.getElementById('intervalSectionPortfolioGain' + symbolParamTrimmed).innerHTML;
 var overallPastGain = intervalSectionPortfolioGain.split(' ')[0];
 overallPastGain = Math.abs(overallPastGain.split('€')[0]);
-var totalAmount = Number((pieces * price).toFixed(0)) + Number(overallPastValue) + Number(overallPastGain);
+var totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
 }
 else {
 var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
 var overallPieces = Number(stocksPieces) + Number(pieces);
 var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
-var buyingAmount = (pieces * price).toFixed(0);
-var totalAmount =  Number(buyingAmount) + Number(stocksBuyingValue.innerHTML);
+var totalAmount =  buyingAmount + Number(stocksBuyingValue.innerHTML);
 }
 
 // headlineLink<Symbol>
