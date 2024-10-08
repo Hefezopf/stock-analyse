@@ -564,7 +564,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  8-Oct-2024 19:54</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  8-Oct-2024 20:04</p>
 <span id='stocksPiecesId' style='display:none'>11</span>
 <span id='stocksBuyingValueId' style='display:none'>2591</span>
 
@@ -630,6 +630,7 @@ var pieces = pieces.replace('.', '');
 
 var buyingAmount = Number((pieces * price).toFixed(0));
 
+var totalAmount;
 var intervalSectionPortfolioValues = document.getElementById('intervalSectionPortfolioValues' + symbolParamTrimmed);
 if (intervalSectionPortfolioValues) {
 intervalSectionPortfolioValues = intervalSectionPortfolioValues.innerHTML;
@@ -644,30 +645,36 @@ overallPastValue = overallPastValue.split('€')[0];
 var intervalSectionPortfolioGain = document.getElementById('intervalSectionPortfolioGain' + symbolParamTrimmed).innerHTML;
 var overallPastGain = intervalSectionPortfolioGain.split(' ')[0];
 overallPastGain = Math.abs(overallPastGain.split('€')[0]);
-var totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
+totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
+
+if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' overallPastValue ' + overallPastValue) == false) {
+return;
+}
+
+
 }
 else {
 var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
 var overallPieces = Number(stocksPieces) + Number(pieces);
 var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
-var totalAmount =  buyingAmount + Number(stocksBuyingValue.innerHTML);
+totalAmount = buyingAmount + Number(stocksBuyingValue.innerHTML);
 
 
 
-// Mobil result.html
-if(isNaN(totalAmount)) {
+//         // Mobil result.html
+//         if(isNaN(totalAmount)) {
 
-//<span id='obfuscatedValuePcEuroBM8' style='display:none'>YY85001/91001XX061</span>&nbsp;
-var obfuscatedValuePcEuroSymbol = document.getElementById('obfuscatedValuePcEuro' + symbolParamTrimmed);
-decryptElement(obfuscatedValuePcEuroSymbol);
-// 940pc 51362€
-var stocksPieces = obfuscatedValuePcEuroSymbol.innerHTML.split('pc')[0];
-var buyingValueSymbol = obfuscatedValuePcEuroSymbol.innerHTML.split('/')[0];
-buyingValueSymbol = buyingValueSymbol.split(' ')[1];
-//var portfolioValueSymbol = piecesSymbol * realTimeQuote;
-if (confirm('piecesSymbol ' + piecesSymbol) == false) {
-return;
-} 
+// //<span id='obfuscatedValuePcEuroBM8' style='display:none'>YY85001/91001XX061</span>&nbsp;
+// var obfuscatedValuePcEuroSymbol = document.getElementById('obfuscatedValuePcEuro' + symbolParamTrimmed);
+// decryptElement(obfuscatedValuePcEuroSymbol);
+// // 940pc 51362€
+// var stocksPieces = obfuscatedValuePcEuroSymbol.innerHTML.split('pc')[0];
+// var buyingValueSymbol = obfuscatedValuePcEuroSymbol.innerHTML.split('/')[0];
+// buyingValueSymbol = buyingValueSymbol.split(' ')[1];
+// //var portfolioValueSymbol = piecesSymbol * realTimeQuote;
+// if (confirm('piecesSymbol ' + piecesSymbol) == false) {
+//     return;
+// } 
 
 
 
