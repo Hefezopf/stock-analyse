@@ -67,15 +67,15 @@ function curlBuy(symbolParam, price, pieces) {
 
     // Trading fees
     var txFee = tradingFees(totalAmount);
-    //totalAmount = Number(totalAmount) + txFee;
     
     // Condition only for Mobil -> No CORS!
     if(isNaN(totalAmount)) {
-        totalAmount = '?';
+        totalAmount = '0';
         overallPieces = '?';
     }
+    totalAmount = Number(totalAmount) + txFee;
 
-    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Plus fees ' + txFee + '€)') == false) {
+    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
