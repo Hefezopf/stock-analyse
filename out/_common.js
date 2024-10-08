@@ -50,9 +50,9 @@ function curlBuy(symbolParam, price, pieces) {
         overallPastGain = Math.abs(overallPastGain.split('€')[0]);
         totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
 
-if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' intervalSectionPortfolioValues ' + intervalSectionPortfolioValues) == false) {
-    return;
-}
+// if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' intervalSectionPortfolioValues ' + intervalSectionPortfolioValues) == false) {
+//     return;
+// }
 
 
     }
@@ -61,26 +61,6 @@ if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' i
         var overallPieces = Number(stocksPieces) + Number(pieces);
         var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
         totalAmount = buyingAmount + Number(stocksBuyingValue.innerHTML);
-
-
-
-//         // Mobil result.html
-//         if(isNaN(totalAmount)) {
-
-// //<span id='obfuscatedValuePcEuroBM8' style='display:none'>YY85001/91001XX061</span>&nbsp;
-// var obfuscatedValuePcEuroSymbol = document.getElementById('obfuscatedValuePcEuro' + symbolParamTrimmed);
-// decryptElement(obfuscatedValuePcEuroSymbol);
-// // 940pc 51362€
-// var stocksPieces = obfuscatedValuePcEuroSymbol.innerHTML.split('pc')[0];
-// var buyingValueSymbol = obfuscatedValuePcEuroSymbol.innerHTML.split('/')[0];
-// buyingValueSymbol = buyingValueSymbol.split(' ')[1];
-// //var portfolioValueSymbol = piecesSymbol * realTimeQuote;
-// if (confirm('piecesSymbol ' + piecesSymbol) == false) {
-//     return;
-// } 
-//   }  
-
-
     }
 
     // headlineLink<Symbol>
