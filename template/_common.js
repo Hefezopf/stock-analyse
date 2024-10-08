@@ -78,10 +78,9 @@ if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' o
 // if (confirm('piecesSymbol ' + piecesSymbol) == false) {
 //     return;
 // } 
+//   }  
 
 
-
-        }        
     }
 
     // headlineLink<Symbol>
