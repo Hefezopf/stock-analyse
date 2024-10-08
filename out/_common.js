@@ -50,7 +50,7 @@ function curlBuy(symbolParam, price, pieces) {
         overallPastGain = Math.abs(overallPastGain.split('€')[0]);
         totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
 
-if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' overallPastValue ' + overallPastValue) == false) {
+if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' intervalSectionPortfolioValues ' + intervalSectionPortfolioValues) == false) {
     return;
 }
 
