@@ -31,6 +31,8 @@ function curlBuy(symbolParam, price, pieces) {
     var price = parseFloat(price.replace(',', '.')).toFixed(2);
     var pieces = pieces.replace('.', '');
 
+    var buyingAmount = Number((pieces * price).toFixed(0));
+
     var intervalSectionPortfolioValues = document.getElementById('intervalSectionPortfolioValues' + symbolParamTrimmed);
     if (intervalSectionPortfolioValues) {
         intervalSectionPortfolioValues = intervalSectionPortfolioValues.innerHTML;
@@ -45,14 +47,13 @@ function curlBuy(symbolParam, price, pieces) {
         var intervalSectionPortfolioGain = document.getElementById('intervalSectionPortfolioGain' + symbolParamTrimmed).innerHTML;
         var overallPastGain = intervalSectionPortfolioGain.split(' ')[0];
         overallPastGain = Math.abs(overallPastGain.split('€')[0]);
-        var totalAmount = Number((pieces * price).toFixed(0)) + Number(overallPastValue) + Number(overallPastGain);
+        var totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
     }
     else {
         var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
         var overallPieces = Number(stocksPieces) + Number(pieces);
         var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
-        var buyingAmount = (pieces * price).toFixed(0);
-        var totalAmount =  Number(buyingAmount) + Number(stocksBuyingValue.innerHTML);
+        var totalAmount =  buyingAmount + Number(stocksBuyingValue.innerHTML);
     }
 
     // headlineLink<Symbol>
