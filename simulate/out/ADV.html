@@ -565,7 +565,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck!  8-Oct-2024 05:04
+<br>Good Luck!  9-Oct-2024 05:16
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -629,6 +629,9 @@ var symbolParamTrimmed = symbolParam.trim();
 var price = parseFloat(price.replace(',', '.')).toFixed(2);
 var pieces = pieces.replace('.', '');
 
+var buyingAmount = Number((pieces * price).toFixed(0));
+
+var totalAmount;
 var intervalSectionPortfolioValues = document.getElementById('intervalSectionPortfolioValues' + symbolParamTrimmed);
 if (intervalSectionPortfolioValues) {
 intervalSectionPortfolioValues = intervalSectionPortfolioValues.innerHTML;
@@ -643,14 +646,19 @@ overallPastValue = overallPastValue.split('€')[0];
 var intervalSectionPortfolioGain = document.getElementById('intervalSectionPortfolioGain' + symbolParamTrimmed).innerHTML;
 var overallPastGain = intervalSectionPortfolioGain.split(' ')[0];
 overallPastGain = Math.abs(overallPastGain.split('€')[0]);
-var totalAmount = Number((pieces * price).toFixed(0)) + Number(overallPastValue) + Number(overallPastGain);
+totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
+
+// if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' intervalSectionPortfolioValues ' + intervalSectionPortfolioValues) == false) {
+//     return;
+// }
+
+
 }
 else {
 var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
 var overallPieces = Number(stocksPieces) + Number(pieces);
 var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
-var buyingAmount = (pieces * price).toFixed(0);
-var totalAmount =  Number(buyingAmount) + Number(stocksBuyingValue.innerHTML);
+totalAmount = buyingAmount + Number(stocksBuyingValue.innerHTML);
 }
 
 // headlineLink<Symbol>
@@ -664,16 +672,16 @@ headlineLink = symbolParamTrimmed;
 }
 
 // Trading fees
-var txFee = tradingFees(totalAmount);
-//totalAmount = Number(totalAmount) + txFee;
+var txFee = tradingFees(buyingAmount);
 
 // Condition only for Mobil -> No CORS!
 if(isNaN(totalAmount)) {
-totalAmount = '?';
+totalAmount = '0';
 overallPieces = '?';
 }
+totalAmount = Number(totalAmount) + txFee;
 
-if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Plus fees ' + txFee + '€)') == false) {
+if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -733,10 +741,11 @@ if(stocksPiecesId) {
 stockPiecesParam = stocksPiecesId.innerHTML;
 }
 
-const sellingAmount = Number(stockPiecesParam) * Number(sellPriceParam);
+const sellingAmount = (Number(stockPiecesParam) * Number(sellPriceParam));
 // Trading fees
 var txFee = tradingFees(sellingAmount);
-if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellPriceParam + '€? (Plus fees ' + txFee + '€)') == false) {
+const sellingAmountAndTxFee = sellingAmount + txFee;
+if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? (Included fees ' + txFee + '€)') == false) {
 return;
 }
 var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
