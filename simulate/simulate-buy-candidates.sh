@@ -71,7 +71,14 @@ do
             # TODO: if more then 50 -> build in!
             # echo "read -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
 
-            echo "<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html'>$symbol $symbolName</a><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+            # Market Cap
+            marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
+            asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
+            lowMarketCapLinkBackgroundColor="white"
+            if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
+                lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
+            fi
+            echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html' target='_blank'>$symbol $symbolName</a><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
         fi
     fi
 done
