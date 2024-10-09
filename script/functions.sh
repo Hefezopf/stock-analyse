@@ -431,7 +431,6 @@ GetCreationDate() {
     export creationDate
 
     creationDate=$(date +"%e-%b-%Y %R") # 29-Apr-2021 08:52
-#echo "----creationDate: $creationDate"
     if [ "$(uname)" = 'Linux' ]; then
         # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
         # creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
