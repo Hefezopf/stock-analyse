@@ -35,6 +35,13 @@ if { [ -z "$symbolParam" ] || [ -z "$sellPriceParam" ]; } then
     exit 1
 fi
 
+if { [ "$3" ]; } then
+    echo "Too many parameters specified!"
+    echo "Call: sh ./sell.sh SYMBOL SELLPRICE"
+    echo "Example: sh ./sell.sh BEI 9.99"
+    exit 2
+fi
+
 # Add symbol in front of overall list
 sed -i "0,/^/s//$symbolParam /" "$STOCK_SYMBOLS_FILE"
 
