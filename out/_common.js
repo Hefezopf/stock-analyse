@@ -142,6 +142,9 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     if(stocksPiecesId) {
         stockPiecesParam = stocksPiecesId.innerHTML;
     }
+    else {
+        stockPiecesParam = 0;
+    }    
 
     const sellingAmount = (Number(stockPiecesParam) * Number(sellPriceParam));
     // Trading fees
