@@ -5,7 +5,7 @@ TODO:
 +Die ersten 3 Sort Btn nicht in mobil anzeigen
 
 
-Refresh Balken Farbe anpassen
+Refresh Balken Farbe anpassen -> minor
 
 
 Refesh von PC/local result.html erst wenn Tab wieder aktiv?
@@ -58,9 +58,6 @@ Evtl für ticker_name_id
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
 
-CreateCmdHyperlink "Analyse" "out" "$symbol" #"$symbolName"
-
-
 
 Warum ist result.html nicht korrekt? Keine Links!
 Der erste Eintrag ist nicht da!
@@ -69,47 +66,37 @@ Der erste Eintrag ist nicht da!
 . analyse.sh '*SXRS *VNA' 2 9 25 CC
 
 
-
 Eine Kurve bei RSI oder Stoch überlagert als Kaufeinschätzung mit einzeichnen? 2 bis 4 Hochs
 -> wie sähe diese aus?
-
 
 
 Wie können die MC/RSI Werte dyn. als Parameter mitgegeben werden?
 CalculateMarketCapRSILevel()
 
 
-
 Schwelle 5 % wieder aktivieren?
-
-
-
-Hover Bild größer für Handy
-img class='imgborder' id='imgToReplace'
-transform: scale(2,2);
-
-
 
 
 
 Reihenfolge neue Werte aufnehmen:
 ---------------------------------
+-> alias atsa
 . analyse.sh 'XXX' 2 9 25 cc
-add 'XXX' to config: stock_symbols.txt
+add to config: stock_symbols.txt
+add to start-all-in-chrome.sh
 edit ticker_name_id.txt (Correct Names and paste notation-Id)
 . script/curl/curl_getInformerData.sh 'XXX'
 mc 'XXX'
 
 
-
-
 Informer:
 ---------
 Workflow getInformerData: Einzelnes Symbol als Start Parameter Eingabe von Hand? Nicht immer alles curlen
+-> minor
 
 
 -Broken pipe
-unter linux: getInformerData: ./script/curl/curl_getInformerData.sh: line 89:
+Nur unter linux!: getInformerData: ./script/curl/curl_getInformerData.sh: line 89:
 MC: Broken pipe
 
 
@@ -243,13 +230,6 @@ where bc
 D:\Programme\Git\usr\bin
 cp tools/bc.exe /d/Programme/Git/usr/bin
 cp tools/dc.exe /d/Programme/Git/usr/bin
-(
-oder
-ist lokal langsamer!
-https://github.com/BurntSushi/ripgrep
-rg
-choco install ripgrep
-)
 
 
 Moesif Settings:
@@ -261,28 +241,10 @@ comdirect.de
 git config merge.renamelimit 3000
 
 
--Mögliche weitere SYMBOLE:
-IONOS
-https://nutzer.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=410197360&ISIN=DE000A3E00M1
-
-
--Local on PC: beim refresh wird immer geladen: 400 mal
-https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=RSI&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=170159540&TIME_SPAN=10D
-
-
--Timeout in Loading: Wenn alle mit OK geladen wurden timeout canceln
-
-
--RSI oben rot einfärben. chartjs?
-
-
--Zusätzlich 100 Tage low alarm?
-
-
--in DAO umwandeln?
+-SA in Community DAO umwandeln?
 SmartContract
 abstimmen automatisierte Entscheidungen
-Voting und EMmail für Order
+Voting und EMail für Order
 Automatische Order Platzierung?
 Regeln festlegen
 Jeden Tag voten
@@ -303,89 +265,7 @@ https://stackoverflow.com/questions/62750603/github-actions-trigger-another-acti
 -Sortierung nach Value zeigt grösste verluste an aber nicht grösste Position
 
 
--Umbau Dateien ohne Datum im Namen; Git performance/space/auch wg history
-D:\code\stock-analyse\buy\0OK_2022-12-16.txt
-\buy
-\sell
-\alarm
-Date in File?! First line?
-
-
-?comprimieren von buy/sell -> nicht, da schecht wartbar!!
-# Remove Comments
-sed -i '/\/\/ /d' out/_common.js
-sed -i '/\/\/ /d' out/_result.js
-# Remove spaces
-#sed -i ':a;N;$!ba;s/\n/ /g' out/_common.js
-#sed -i ':a;N;$!ba;s/\n/ /g' out/_result.js # NOK!
-# Minify out/*.js files
-#sed -i "s/^[ \t]*//g" "out/_common.js"
-#sed -i "s/^[ \t]*//g" "out/_result.js"
-#sed -i "s/^[ \t]*//g" "out/_detail.js"
-
-
-OLDIFS=$IFS
-..
-IFS="," set -- $_stochasticQuoteListParam
-..
-IFS=$OLDIFS
-
-
-    symbolMap["$symbol"]="$lineFromTickerFile"
-    #symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-    symbolName=$(echo "${symbolMap["$symbol"]}" | cut -f 2)
-#echo "---------symbolName:$symbolName"
-
-
-# symbolMap["$symbol"]="$lineFromTickerFile"
- #symbolMap["2"]="value2"
- #echo ${symbolMap["$symbol"]}
- #echo "--------"
-#echo ${symbolMap["$2"]}
-
-
-declare -A symbolMap
-symbolMap["key1"]="value1"
-symbolMap["key2"]="value2"
-echo ${symbolMap[@]}
-symbolMap[$symbol]="value3"
-echo ${symbolMap[@]}
-
-
-mapfile < "$TICKER_NAME_ID_FILE"
-#echo "${MAPFILE[@]}"
-
-echo "${sounds[dog]}" # Dog's sound
-
-# Analyse stock data for each symbol
-for symbol in $symbolsParam
-do
-
-lineFromTickerFile=$(printf "%s\n" "${mapfile[@]}")
-#lineFromTickerFile=$(echo "${mapfile[@]}")
-#printf -- '%s\n' "${MAPFILE[@]}" | grep "$symbol"
-
-   #grep "$symbol" "${MAPFILE[@]}"
-   #lineFromTickerFile=$(grep "$symbol" "${MAPFILE[@]}")
-echo "lineFromTickerFile=$lineFromTickerFile"
-
-
-
-
--Sell own (O) auch wenn RSI über Linie?
-
-
--In Sim auch Vorschau 
-
-
--Sim result ganz oben?
-
-
 -Beim Click auf <a> Anker hide aufrufen. Denn beim zurück im Handy ist hover chart zu sehen 
-
-
--RESULT: Button open all to the side
-only works for Chrome and FF! -> safari?
 
 
 -HTML Seite mit anstehenden Dividenden? oder markant markieren, wenn eine DIV ansteht?!
@@ -433,45 +313,15 @@ git remote add origin https://github.com/Hefezopf/stock-analyse.git
 git push -u --force origin master
 
 
--Sell over 2 times?
-
-
--CURL: Fondsvolumen im Detail ausgeben? Bisher nur bei Aktien?
-
-
 -Marktphase berücksichtigen
 Bären Markt
 Bullen Markt
 Neutraler Markt 
 
 
--Warum ist hier das Portfolio zu sehen?
-https://nutzer.comdirect.de/inf/etfs/detail/uebersicht.html?POSITION=382%2C%2C162382376&NAME_PORTFOLIO=Watch&ID_NOTATION=162382376
-
-
--??Mittelwert bei SIM einzeichnen
-,               ]},
-
--Welt Aktien anschauen. Spread?
-Nikkei leider 1,5 bis 2.5% Spread!
-Hier leider kein XETRA! Evtl Abfrage mit Frankfurt machen -> viel Umbau, da 2 Börsen unterschieden werden müssen!
-SON1 TOM MAT1 HIA1 NTO RAK MBI TKD MMO NSE 1RH MZA LCJ KEE NKN MFZ NT5 ABW MARA NTT OLY1 IOC TDK FUC CNN1 KHE SFT 1JP S3X G9Y SMM SRP KPI1 FUH EJR CL2 KOM1 TMI YOJ SEH TKK1 MIE1 0C2 XMF MUR1 DSE SUK
-
-
 -2 mal async / await einbauen und schaunen ob es schneller geht
 
-
--Wie kann ich mit Stopp Loss arbeiten?
-
--MACD von vorne anfangen lassen XETRA&limit=112
-
--Indizes auch analysieren https://marketstack.com/documentation
-
--Daten veraltet: General Electric GEC -> GCP
-
 -Wie kann Token abgesichert werden - unleserlich im HTML
-
--Sortierung nach Tagesgewinn
 
 -Buy Price parametrisieren oder last price nehmen?
 -Sell mit Price parametrisieren oder last price nehmen?
@@ -581,8 +431,6 @@ edit ticker_name_id.txt
 . script/curl/curl_getInformerData.sh 'BY6'
 mc 'BY6'
 add SYM to config stock_symbols.txt
-
-
 
 
 Speed up:
@@ -714,7 +562,6 @@ git remote remove origin
 git remote add origin https://ghp_XXXX@github.com/Hefezopf/stock-analyse.git
 
 
-
 Too many request per Hour?
 curl -I https://api.github.com/users/octocat
 
@@ -780,8 +627,6 @@ https://stedolan.github.io/jq/
 cat Xetra.json | jq '.data[].symbol'
 
 
-MSF AMZ ABEC ABEA AHLA FB2A BRYN BRH VODJ CMC JNJ WMT M4I SOBA UNH NCB HDI INL CCC3 BAC XONA MOH 6MK CTP2 PFE PEP CHV ADB CIS NWT R6C R6C3 NVD NFC ORC BCO FOO LOR MDO SAP NOVC NKE ABL UNVB TRVC CTO 2M6 BRM TL0 4I1 4AB 2PP LLY HBC1 AMG ASMF ZEG SNW ASME 1TY IBM NOVA TOTB 1YD LOM UNP 1NBA TII BPE CQD LIN BPE5 DAP GS71 IXD1 BIL AIR GIS GEC BMT SRB QCI AEC1 ENL ALV MMM CVS GUI SIE KTF UPAB
-
 Allow actions:
 https://github.com/Hefezopf/stock-analyse/settings/actions
 
@@ -846,4 +691,3 @@ alias dfsa='/d/code/stock-analyse/script/delete_from_sa.sh $1'
 alias sortsa='/d/code/stock-analyse/script/sort_sa.sh'
 alias mc='/d/code/stock-analyse/script/marketcap-update.sh $1'
 alias jq='/d/tools/jq/jq-win64.exe'
-

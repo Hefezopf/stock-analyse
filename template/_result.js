@@ -422,13 +422,6 @@ function addButtons(container) {
     container.appendChild(document.createTextNode(" "));
     container.appendChild(intervalSectionButtonHideDetails);
     container.appendChild(document.createTextNode(" "));
-
-    // if(isMobil()) {
-    //     intervalSectionButtonSortDailyButton.disabled = true;
-    //     intervalSectionButtonSortValueButton.disabled = true;
-    //     intervalSectionButtonSortOverallButton.disabled = true;
-    // }
-
     container.appendChild(intervalSectionButtonGoToEnd);
     container.appendChild(document.createTextNode(" "));
     container.appendChild(intervalSectionButtonOpenAll);
