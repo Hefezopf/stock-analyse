@@ -404,6 +404,7 @@ function addButtons(container) {
     container.appendChild(document.createElement("br"));
     container.appendChild(obfuscatedValueBuyingDailyRealtime);
    
+    // Add ProgressBar
     if (location.href.startsWith('file')) {    
         container.appendChild(document.createTextNode(" "));
         container.appendChild(intervalSectionHeadlineDailyProgressBarSpan);
@@ -421,6 +422,13 @@ function addButtons(container) {
     container.appendChild(document.createTextNode(" "));
     container.appendChild(intervalSectionButtonHideDetails);
     container.appendChild(document.createTextNode(" "));
+
+    if(isMobil()) {
+        intervalSectionButtonSortDailyButton.disabled = true;
+        intervalSectionButtonSortValueButton.disabled = true;
+        intervalSectionButtonSortOverallButton.disabled = true;
+    }
+
     container.appendChild(intervalSectionButtonGoToEnd);
     container.appendChild(document.createTextNode(" "));
     container.appendChild(intervalSectionButtonOpenAll);
