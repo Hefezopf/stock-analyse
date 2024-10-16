@@ -497,6 +497,12 @@ function doHideDetails() {
         Array.prototype.forEach.call(symbolLineIdValues, function(ele) {
             ele.style.marginBottom = '-22px';
         });
+
+        // if(isMobil()) {
+        //     document.getElementById('intervalSectionButtonSortDaily').disabled = true;
+        //     document.getElementById('intervalSectionButtonSortOverall').disabled = true;
+        //     document.getElementById('intervalSectionButtonSortValue').disabled = true;            
+        // }        
     }
     else {
         Array.prototype.forEach.call(detailsIdValues, revealElement);
@@ -537,10 +543,8 @@ function processAll(ele) {
     var obfuscatedValues = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
     if (!toggleIsContentVisible) {
         Array.prototype.forEach.call(intervalValues, revealElement);
-
         var intervalOwnSymbolsValues = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
         Array.prototype.forEach.call(intervalOwnSymbolsValues, calculateRealtimeDailyDiff);
-
         Array.prototype.forEach.call(obfuscatedValues, revealElement);
         if (!toggleDecryptOnlyOnce) {
             Array.prototype.forEach.call(obfuscatedValues, decryptElement);
@@ -597,10 +601,18 @@ function processAll(ele) {
     }
 
     var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');
-    // Hide Refresh ProgressBar in Mobil Version, because CORS is not working there!
+    
     if(isMobil()) {
+        // Hide Refresh ProgressBar in Mobil Version, because CORS is not working there!
         Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
         intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";
+
+
+        // if(isMobil()) {
+            document.getElementById('intervalSectionButtonSortDaily').disabled = true;
+            document.getElementById('intervalSectionButtonSortOverall').disabled = true;
+            document.getElementById('intervalSectionButtonSortValue').disabled = true;            
+        // }         
     }
      
     toggleIsContentVisible = !toggleIsContentVisible;
