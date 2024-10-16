@@ -423,11 +423,11 @@ function addButtons(container) {
     container.appendChild(intervalSectionButtonHideDetails);
     container.appendChild(document.createTextNode(" "));
 
-    if(isMobil()) {
-        intervalSectionButtonSortDailyButton.disabled = true;
-        intervalSectionButtonSortValueButton.disabled = true;
-        intervalSectionButtonSortOverallButton.disabled = true;
-    }
+    // if(isMobil()) {
+    //     intervalSectionButtonSortDailyButton.disabled = true;
+    //     intervalSectionButtonSortValueButton.disabled = true;
+    //     intervalSectionButtonSortOverallButton.disabled = true;
+    // }
 
     container.appendChild(intervalSectionButtonGoToEnd);
     container.appendChild(document.createTextNode(" "));
@@ -497,12 +497,6 @@ function doHideDetails() {
         Array.prototype.forEach.call(symbolLineIdValues, function(ele) {
             ele.style.marginBottom = '-22px';
         });
-
-        // if(isMobil()) {
-        //     document.getElementById('intervalSectionButtonSortDaily').disabled = true;
-        //     document.getElementById('intervalSectionButtonSortOverall').disabled = true;
-        //     document.getElementById('intervalSectionButtonSortValue').disabled = true;            
-        // }        
     }
     else {
         Array.prototype.forEach.call(detailsIdValues, revealElement);
@@ -543,8 +537,10 @@ function processAll(ele) {
     var obfuscatedValues = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
     if (!toggleIsContentVisible) {
         Array.prototype.forEach.call(intervalValues, revealElement);
+
         var intervalOwnSymbolsValues = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
         Array.prototype.forEach.call(intervalOwnSymbolsValues, calculateRealtimeDailyDiff);
+
         Array.prototype.forEach.call(obfuscatedValues, revealElement);
         if (!toggleDecryptOnlyOnce) {
             Array.prototype.forEach.call(obfuscatedValues, decryptElement);
@@ -607,12 +603,10 @@ function processAll(ele) {
         Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
         intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";
 
-
-        // if(isMobil()) {
-            document.getElementById('intervalSectionButtonSortDaily').disabled = true;
-            document.getElementById('intervalSectionButtonSortOverall').disabled = true;
-            document.getElementById('intervalSectionButtonSortValue').disabled = true;            
-        // }         
+        // Hide Sort Buttons, because CORS is not working there!
+        document.getElementById('intervalSectionButtonSortDaily').disabled = true;
+        document.getElementById('intervalSectionButtonSortOverall').disabled = true;
+        document.getElementById('intervalSectionButtonSortValue').disabled = true;        
     }
      
     toggleIsContentVisible = !toggleIsContentVisible;
