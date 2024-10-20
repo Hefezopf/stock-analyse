@@ -56,8 +56,8 @@ do
         # shellcheck disable=SC2001
         firmenportrait=$(echo "$firmenportrait" | sed "s/\&/ u. /g")
         firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g")
-        firmenportrait=$(echo "$firmenportrait" | sed -z "s/            / /g")
-        firmenportrait=${firmenportrait::-2}
+        firmenportrait=$(echo "$firmenportrait" | sed -z "s/    / /g")
+        firmenportrait=${firmenportrait::-5}
         # shellcheck disable=SC2116
         firmenportrait=$(echo \""$firmenportrait\"")
         echo "Firmenportrait: $firmenportrait"
