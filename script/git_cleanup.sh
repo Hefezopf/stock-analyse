@@ -6,6 +6,7 @@
 # To see the size in Github: https://github.com/settings/repositories
 #
 # Call: . script/git_cleanup.sh
+#       or alias gc
 
 #set -x
 
