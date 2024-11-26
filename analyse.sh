@@ -172,7 +172,7 @@ do
     #symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
     symbol="${symbol^^}" # all uppercase
 
-    if [ ! -f "status/$symbol/$symbol""_alarm.txt" ]; then # For new symbols only
+    if [ ! -f "status/$symbol/$symbol""_alarm.txt" ]; then # For brand new symbols only
         mkdir -p status/"$symbol"
     fi
 
