@@ -55,6 +55,7 @@ function curlBuy(symbolParam, price, pieces) {
 // }
 
 
+
     }
     else {
         var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
