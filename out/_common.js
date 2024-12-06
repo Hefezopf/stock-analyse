@@ -191,18 +191,19 @@ function isMobil() {
 }
 
 function tradingFees(tradingAmount) {
-    var txFee = 10;
-    if (tradingAmount > 25000) {
-        txFee = 47;
-    } 
-    else if (tradingAmount > 15000) {
-        txFee = 30;
-    }
-    else if (tradingAmount > 10000) {
-        txFee = 20;
-    }
-    else if (tradingAmount > 5000) {
-        txFee = 15;
-    }
+    var txFee = 1;
+    //var txFee = 10;
+    // if (tradingAmount > 25000) {
+    //     txFee = 47;
+    // } 
+    // else if (tradingAmount > 15000) {
+    //     txFee = 30;
+    // }
+    // else if (tradingAmount > 10000) {
+    //     txFee = 20;
+    // }
+    // else if (tradingAmount > 5000) {
+    //     txFee = 15;
+    // }
     return txFee;
 }

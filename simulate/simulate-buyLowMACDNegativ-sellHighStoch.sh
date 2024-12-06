@@ -462,6 +462,7 @@ do
     # Search and Replace
     lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html | cut -d: -f1)
     GetCreationDate # $creationDate
+    # shellcheck disable=SC2154
     GOOD_LUCK="<br>Good Luck! $creationDate"
     sed -i """$lineNumer""s/.*/$GOOD_LUCK/" simulate/out/"$symbol".html
 done

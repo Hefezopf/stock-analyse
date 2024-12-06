@@ -114,6 +114,7 @@ rm -rf "$TEMP_REVERS_FILE"
 echo "<br>&nbsp;Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 GetCreationDate # $creationDate
+# shellcheck disable=SC2154
 echo "<br><br>&nbsp;Good Luck! $creationDate" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 echo "<br></div></body></html>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"

@@ -359,7 +359,8 @@ CalculateTxFee() {
     _orderrateParam=$1
     _piecesParam=$2
 
-    export txFee="10"
+    #export txFee="10"
+    export txFee="1"
 
     orderValue=$(echo "$_orderrateParam $_piecesParam" | awk '{print ($1 * $2)}')
     # Float to integer
@@ -375,6 +376,7 @@ CalculateTxFee() {
     elif [ "$orderValue" -gt 5000 ]; then
         txFee="15"
     fi
+    txFee="1"
 }
 
 # CalculateMarketCapRSILevel function:
