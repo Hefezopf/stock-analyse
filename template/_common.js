@@ -4,7 +4,7 @@
 
 // Global Varables
 var token1 = 'ghp_';
-var token2 = 'dePda2duP5N3FtOigNWojzsJ0TNlqvEYRfl5';
+var token2 = 'PCh2P2A6ONurE1R1X6gTm2JnWSnmekTJOtSn';
 
 function curlBuy(symbolParam, price, pieces) {
     if (symbolParam == '' || price == '' || pieces == '') {
