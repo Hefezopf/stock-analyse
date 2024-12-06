@@ -573,27 +573,29 @@ expiredToke — repo, workflow
 GITHUB_TOKEN=ghp_XXXX
 Expiration
 This token expires on 27 12 2024
+Check Ckeckbox: repo  All
+!! AND !!
 Check Ckeckbox: workflow (Update GitHub Action workflows)
 
 Neuer Personal access tokens generieren: https://github.com/settings/tokens
 Kopieren
 String umdrehen mit bash:
 node
-'xxXXXX'.split("").reverse().join("");
+'ghp_rdq...'.split("").reverse().join("");
 Oder String umdrehen mit online node:
 https://replit.com/languages/nodejs
 console.log('xxXXXX'.split("").reverse().join(""));
 
-Kopieren und in template/_result.js rein kopieren.
-Zeile 2: var token2 = 'xxx';
+Kopieren und in template/_common.js rein kopieren.
+Zeile 6: var token2 = 'xxx';
 In den 3 Systemen PC, HP Laptop, Thinkpad Laptop in .bash_profile RICHTIG HERUM (ORIGINAL) einsetzen
 
 
-!! 3 times: Update GITHUB_TOKEN in analyse.sh AND in .bash_profile AND git remote
-
+!! Token an 3 Stellen: Update GITHUB_TOKEN in _common.js AND in .bash_profile AND git remote
 git remote -v
 git remote remove origin
-git remote add origin https://ghp_XXXX@github.com/Hefezopf/stock-analyse.git
+git remote add origin https://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@github.com/Hefezopf/stock-analyse.git
+git branch --set-upstream-to=origin/main main
 
 
 Too many request per Hour?
