@@ -504,7 +504,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=89777142"  target="_blank">&nbsp;5Y&nbsp;</a>
 &nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>33.77€</b></span>
 &nbsp;<span style='font-size:50px; color:red'><b>-1.2%</b></span><br>
-<span style='font-size:50px'>KGV&nbsp;10&nbsp;&nbsp;&nbsp;</span>&nbsp;
+<span style='font-size:50px'>KGV&nbsp;9&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <span style='font-size:50px'>DIV&nbsp;3%&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <style>
 .tooltip {
@@ -565,7 +565,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jan-2025 13:06</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 11-Jan-2025 13:47</p>
 <span id='stocksPiecesId' style='display:none'>2260</span>
 <span id='stocksBuyingValueId' style='display:none'>112077</span>
 
@@ -647,13 +647,6 @@ var intervalSectionPortfolioGain = document.getElementById('intervalSectionPortf
 var overallPastGain = intervalSectionPortfolioGain.split(' ')[0];
 overallPastGain = Math.abs(overallPastGain.split('€')[0]);
 totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
-
-// if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' intervalSectionPortfolioValues ' + intervalSectionPortfolioValues) == false) {
-//     return;
-// }
-
-
-
 }
 else {
 var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
@@ -681,6 +674,7 @@ totalAmount = '0';
 overallPieces = '?';
 }
 totalAmount = Number(totalAmount) + txFee;
+navigator.clipboard.writeText(totalAmount);
 
 if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
 return;
