@@ -49,13 +49,6 @@ function curlBuy(symbolParam, price, pieces) {
         var overallPastGain = intervalSectionPortfolioGain.split(' ')[0];
         overallPastGain = Math.abs(overallPastGain.split('€')[0]);
         totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
-
-// if (confirm('totalAmount ' + totalAmount + ' buyingAmount ' + buyingAmount + ' intervalSectionPortfolioValues ' + intervalSectionPortfolioValues) == false) {
-//     return;
-// }
-
-
-
     }
     else {
         var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
@@ -83,7 +76,8 @@ function curlBuy(symbolParam, price, pieces) {
         overallPieces = '?';
     }
     totalAmount = Number(totalAmount) + txFee;
-
+    navigator.clipboard.writeText(totalAmount);
+    
     if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
         return;
     }
