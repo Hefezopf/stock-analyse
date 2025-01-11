@@ -454,7 +454,7 @@ do
 
         ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
 
-        # Hover Chart (on detail page)
+        # Hover Chart (on detail page; top URLs)
         echo "<img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;'/>"
         COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
         COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
@@ -553,6 +553,9 @@ do
         echo "$MACDList"
         cat template/indexPart12.html
 
+        # Hover Chart (on detail page; lower URLs)
+        
+        # Maybe delete next lines? redundant to those in 460...
         COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
         COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
         COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
@@ -561,6 +564,8 @@ do
             COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
             COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
         fi
+        # Maybe delete next lines? redundant to those in 460...
+
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart() 'href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
