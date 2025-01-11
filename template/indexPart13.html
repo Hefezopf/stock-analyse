@@ -6,6 +6,13 @@
             const ele = document.querySelectorAll('[id ^= \"buyingSection\"]');
             Array.prototype.forEach.call(ele, function(ele) {
                 ele.style.display = '';
+
+                var title=document.getElementsByTagName('TITLE')[0].text;
+                if (title.charAt(0) === '*') {
+                    title = trimOwnChar(title);
+                }
+                navigator.clipboard.writeText(title);
+
             });
         }
     </script>
