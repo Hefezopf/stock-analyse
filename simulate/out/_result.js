@@ -461,8 +461,7 @@ function doGoToEnd() {
 // Open all in Tabs
 function doOpenAllInTab() {
     for (let [key, value] of linkMap) {
-        // window.open(value, '_blank').focus();
-        window.open(value, '_blank'); //.focus();
+        window.open(value, '_blank');
     }
 }
 
