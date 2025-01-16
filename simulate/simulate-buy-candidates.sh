@@ -44,10 +44,12 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <title>Simulate Last Alarms</title>
 </head>
 <body>
+<script>var linkMap = new Map();</script>
 <div>"
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "Simulate Last '$lastDaysParam' Days with min '$charactersParam' Alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 60px; width: 118px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
@@ -68,6 +70,8 @@ do
             symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
             echo "Last '$lastDaysParam' Alarms for $symbol $symbolName: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
             echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
+            echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+
             # TODO: if more then 50 -> build in!
             # echo "read -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
 
@@ -85,7 +89,16 @@ done
 
 GetCreationDate # $creationDate
 echo "<br>Good Luck! $creationDate" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br></div></body></html>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br></div>
+<script>
+// Open all in Tabs
+function doOpenAllInTab() {
+    for (let [key, value] of linkMap) {
+        window.open(value, '_blank');
+    }
+}
+</script>
+</body></html>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo ""
 if [ ! "$(uname)" = 'Linux' ]; then
     echo "./simulate/simulate-buy-candidates-open-in-chrome.sh" | clip
