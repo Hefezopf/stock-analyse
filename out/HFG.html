@@ -52,11 +52,11 @@ grey: 'rgb(201, 203, 207)'
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
 <img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=202668674&TIME_SPAN=10D' style='display:none;position:fixed;'/>
-<p style='text-align:right'><a style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=202668674"  target="_blank">HFG "Hellofresh"</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=202668674"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=202668674"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>11.36€</b></span>
-&nbsp;<span style='font-size:50px; color:red'><b>-4.5%</b></span></p>
+<p style='text-align:right'><a style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=202668674"  target="_blank">HFG "Hellofresh"</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=202668674"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=202668674"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>11.28€</b></span>
+&nbsp;<span style='font-size:50px; color:red'><b>-0.7%</b></span></p>
 
 <div style="width:98%">
 <canvas id="canvasQuote"></canvas>
@@ -78,7 +78,7 @@ grey: 'rgb(201, 203, 207)'
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','C-P-','C-3R-P-','3R-','M-','02','03','06','P-','08','09','10','13','14','15','16','17','4S+','5S+','5S+','6S+','5S+','P-','P-','29','30','31','P-','04','05','06','07','P-','P-','P-','C-4S-P-','4S-M-','17','18','19','20','21','24','25','26','27','28','M-','02','P-','P-','P-','08','09','10','11','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','P-','P-','06','P-','08','4S-P-','4S-','13','14','P-','P-','4S-P-','4S-P-','4S-','22','23'
+labels: ['','C-3R-P-','3R-','M-','02','03','06','P-','08','09','10','13','14','15','16','17','4S+','5S+','5S+','6S+','5S+','P-','P-','29','30','31','P-','04','05','06','07','P-','P-','P-','C-4S-P-','4S-M-','17','18','19','20','21','24','25','26','27','28','M-','02','P-','P-','P-','08','09','10','11','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','P-','P-','06','P-','08','4S-P-','4S-','13','14','P-','P-','4S-P-','4S-P-','4S-','22','23','D+N+'
 ],
 datasets: [{
 label: ' "Hellofresh" ',
@@ -86,8 +86,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [8.568,
-9.112,
+data: [9.112,
 9.454,
 9.20,
 9.206,
@@ -173,6 +172,7 @@ data: [8.568,
 12.61,
 11.895,
 11.36,
+11.285,
 ]},
 {
 label: 'buy',
@@ -193,21 +193,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 8.26789, 8.40467, 8.53678, 8.672, 8.78133, 8.86933, 8.94967, 9.00411, 9.01933, 9.02533, 9.04867, 9.07422, 9.09711, 9.08178, 9.08078, 9.05367, 9.00067, 8.98011, 9.04394, 9.12233, 9.18511, 9.22628, 9.25283, 9.33622, 9.38783, 9.44367, 9.51394, 9.60372, 9.70378, 9.81283, 9.93772, 10.113, 10.2608, 10.3653, 10.5072, 10.6314, 10.6664, 10.6544, 10.6758, 10.7522, 10.8281, 10.8539, 10.9075, 10.9814, 11.0458, 11.1158, 11.1731, 11.2914, 11.3675, 11.3833, 11.4389, 11.535, 11.6144, 11.7031, 11.7744, 11.8836, 11.9642, 11.9917, 12.0192, 12.0703, 12.1158, 12.15, 12.1958, 12.215, 12.1994, 12.1161, 12.0742, 12.1114, 12.1442, 12.1628, 12.1761, 12.1656, 12.1919, 12.1728, 12.1625, 12.1831, 12.2256, 12.2597, 12.2936, 12.3353, 12.3608, 12.3464, 12.34,
+data: [ , , , , 8.40467, 8.53678, 8.672, 8.78133, 8.86933, 8.94967, 9.00411, 9.01933, 9.02533, 9.04867, 9.07422, 9.09711, 9.08178, 9.08078, 9.05367, 9.00067, 8.98011, 9.04394, 9.12233, 9.18511, 9.22628, 9.25283, 9.33622, 9.38783, 9.44367, 9.51394, 9.60372, 9.70378, 9.81283, 9.93772, 10.113, 10.2608, 10.3653, 10.5072, 10.6314, 10.6664, 10.6544, 10.6758, 10.7522, 10.8281, 10.8539, 10.9075, 10.9814, 11.0458, 11.1158, 11.1731, 11.2914, 11.3675, 11.3833, 11.4389, 11.535, 11.6144, 11.7031, 11.7744, 11.8836, 11.9642, 11.9917, 12.0192, 12.0703, 12.1158, 12.15, 12.1958, 12.215, 12.1994, 12.1161, 12.0742, 12.1114, 12.1442, 12.1628, 12.1761, 12.1656, 12.1919, 12.1728, 12.1625, 12.1831, 12.2256, 12.2597, 12.2936, 12.3353, 12.3608, 12.3464, 12.34, 12.3294,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 8.74995, 8.83713, 8.92497, 9.028, 9.09855, 9.165, 9.22224, 9.28355, 9.33879, 9.39192, 9.45392, 9.539, 9.61821, 9.66371, 9.72916, 9.78055, 9.82084, 9.85163, 9.89055, 9.94913, 10.0103, 10.0615, 10.1057, 10.1654, 10.2152, 10.2838, 10.359, 10.4653, 10.5523, 10.6328, 10.7275, 10.8258, 10.9293, 11.0355, 11.1347, 11.227, 11.2738, 11.3083, 11.3528, 11.4087, 11.4618, 11.4983, 11.5453, 11.5966, 11.6311, 11.6554, 11.6751, 11.7216, 11.7726, 11.7967, 11.8366, 11.8883, 11.9328, 11.9571, 11.9825, 12.0324, 12.0868, 12.1228, 12.1561, 12.2, 12.2337, 12.2432, 12.2441,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 8.83713, 8.92497, 9.028, 9.09855, 9.165, 9.22224, 9.28355, 9.33879, 9.39192, 9.45392, 9.539, 9.61821, 9.66371, 9.72916, 9.78055, 9.82084, 9.85163, 9.89055, 9.94913, 10.0103, 10.0615, 10.1057, 10.1654, 10.2152, 10.2838, 10.359, 10.4653, 10.5523, 10.6328, 10.7275, 10.8258, 10.9293, 11.0355, 11.1347, 11.227, 11.2738, 11.3083, 11.3528, 11.4087, 11.4618, 11.4983, 11.5453, 11.5966, 11.6311, 11.6554, 11.6751, 11.7216, 11.7726, 11.7967, 11.8366, 11.8883, 11.9328, 11.9571, 11.9825, 12.0324, 12.0868, 12.1228, 12.1561, 12.2, 12.2337, 12.2432, 12.2441, 12.2303,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 10.4919, 10.5555, 10.6198, 10.6805, 10.7248, 10.7635,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 10.5555, 10.6198, 10.6805, 10.7248, 10.7635, 10.7982,
 ]},
 {
 label:' Buying/Last ',
@@ -215,14 +215,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,11.36,               ]},
+data: [ 11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,11.28,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,11.928,			]}	
+data: [ 11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,11.844,			]}	
 ]},
 options: {
 responsive: true,
@@ -268,7 +268,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','C-P-','C-3R-P-','3R-','M-','02','03','06','P-','08','09','10','13','14','15','16','17','4S+','5S+','5S+','6S+','5S+','P-','P-','29','30','31','P-','04','05','06','07','P-','P-','P-','C-4S-P-','4S-M-','17','18','19','20','21','24','25','26','27','28','M-','02','P-','P-','P-','08','09','10','11','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','P-','P-','06','P-','08','4S-P-','4S-','13','14','P-','P-','4S-P-','4S-P-','4S-','22','23'
+labels: ['','C-3R-P-','3R-','M-','02','03','06','P-','08','09','10','13','14','15','16','17','4S+','5S+','5S+','6S+','5S+','P-','P-','29','30','31','P-','04','05','06','07','P-','P-','P-','C-4S-P-','4S-M-','17','18','19','20','21','24','25','26','27','28','M-','02','P-','P-','P-','08','09','10','11','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','P-','P-','06','P-','08','4S-P-','4S-','13','14','P-','P-','4S-P-','4S-P-','4S-','22','23','D+N+'
 ],
 datasets: [
 {
@@ -277,7 +277,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 87, 100, 100, 85, 86, 80, 77, 86, 100, 73, 85, 68, 30, 33, 3, 0, 0, 0, 4, 10, 0, 28, 100, 100, 86, 73, 78, 100, 82, 75, 73, 90, 98, 100, 100, 100, 72, 29, 63, 61, 55, 13, 34, 82, 87, 66, 74, 90, 74, 100, 96, 100, 71, 60, 70, 67, 71, 81, 59, 61, 49, 34, 19, 32, 23, 33, 33, 33, 0, 0, 0, 100, 100, 82, 94, 75, 95, 38, 35, 59, 96, 97, 96, 100, 69, 0, 0,
+data: [		 100, 100, 85, 86, 80, 77, 86, 100, 73, 85, 68, 30, 33, 3, 0, 0, 0, 4, 10, 0, 28, 100, 100, 86, 73, 78, 100, 82, 75, 73, 90, 98, 100, 100, 100, 72, 29, 63, 61, 55, 13, 34, 82, 87, 66, 74, 90, 74, 100, 96, 100, 71, 60, 70, 67, 71, 81, 59, 61, 49, 34, 19, 32, 23, 33, 33, 33, 0, 0, 0, 100, 100, 82, 94, 75, 95, 38, 35, 59, 96, 97, 96, 100, 69, 0, 0, 0,
 ]},
 {
 label: '91',
@@ -340,7 +340,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','C-P-','C-3R-P-','3R-','M-','02','03','06','P-','08','09','10','13','14','15','16','17','4S+','5S+','5S+','6S+','5S+','P-','P-','29','30','31','P-','04','05','06','07','P-','P-','P-','C-4S-P-','4S-M-','17','18','19','20','21','24','25','26','27','28','M-','02','P-','P-','P-','08','09','10','11','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','P-','P-','06','P-','08','4S-P-','4S-','13','14','P-','P-','4S-P-','4S-P-','4S-','22','23'
+labels: ['','C-3R-P-','3R-','M-','02','03','06','P-','08','09','10','13','14','15','16','17','4S+','5S+','5S+','6S+','5S+','P-','P-','29','30','31','P-','04','05','06','07','P-','P-','P-','C-4S-P-','4S-M-','17','18','19','20','21','24','25','26','27','28','M-','02','P-','P-','P-','08','09','10','11','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','P-','P-','06','P-','08','4S-P-','4S-','13','14','P-','P-','4S-P-','4S-P-','4S-','22','23','D+N+'
 ],
 datasets: [
 {
@@ -349,7 +349,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 76, 79, 80, 75, 70, 70, 67, 66, 65, 56, 64, 61, 59, 52, 56, 45, 31, 33, 34, 37, 35, 40, 59, 68, 61, 61, 67, 72, 66, 64, 67, 72, 72, 73, 75, 77, 60, 49, 57, 61, 59, 45, 53, 62, 63, 56, 56, 57, 54, 51, 56, 75, 61, 58, 60, 68, 68, 64, 58, 62, 58, 53, 57, 54, 54, 35, 48, 55, 33, 33, 24, 49, 59, 54, 60, 59, 62, 47, 47, 51, 56, 56, 66, 67, 63, 40, 32,
+data: [ 79, 80, 75, 70, 70, 67, 66, 65, 56, 64, 61, 59, 52, 56, 45, 31, 33, 34, 37, 35, 40, 59, 68, 61, 61, 67, 72, 66, 64, 67, 72, 72, 73, 75, 77, 60, 49, 57, 61, 59, 45, 53, 62, 63, 56, 56, 57, 54, 51, 56, 75, 61, 58, 60, 68, 68, 64, 58, 62, 58, 53, 57, 54, 54, 35, 48, 55, 33, 33, 24, 49, 59, 54, 60, 59, 62, 47, 47, 51, 56, 56, 66, 67, 63, 40, 32, 34,
 ]},
 {
 label: '75',
@@ -415,7 +415,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','C-P-','C-3R-P-','3R-','M-','02','03','06','P-','08','09','10','13','14','15','16','17','4S+','5S+','5S+','6S+','5S+','P-','P-','29','30','31','P-','04','05','06','07','P-','P-','P-','C-4S-P-','4S-M-','17','18','19','20','21','24','25','26','27','28','M-','02','P-','P-','P-','08','09','10','11','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','P-','P-','06','P-','08','4S-P-','4S-','13','14','P-','P-','4S-P-','4S-P-','4S-','22','23'
+labels: ['','C-3R-P-','3R-','M-','02','03','06','P-','08','09','10','13','14','15','16','17','4S+','5S+','5S+','6S+','5S+','P-','P-','29','30','31','P-','04','05','06','07','P-','P-','P-','C-4S-P-','4S-M-','17','18','19','20','21','24','25','26','27','28','M-','02','P-','P-','P-','08','09','10','11','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','P-','P-','06','P-','08','4S-P-','4S-','13','14','P-','P-','4S-P-','4S-P-','4S-','22','23','D+N+'
 ],
 datasets: [
 {
@@ -424,7 +424,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.46, 0.46, 0.41, 0.37, 0.31, 0.25, 0.21, 0.18, 0.14, 0.13, 0.25, 0.36, 0.42, 0.43, 0.45, 0.51, 0.52, 0.51, 0.49, 0.50, 0.52, 0.53, 0.54, 0.61, 0.61, 0.56, 0.55, 0.54, 0.52, 0.44, 0.41, 0.43, 0.45, 0.44, 0.44, 0.45, 0.43, 0.45, 0.46, 0.56, 0.57, 0.55, 0.55, 0.54, 0.55, 0.57, 0.54, 0.52, 0.48, 0.43, 0.39, 0.36, 0.34, 0.32, 0.30, 0.28, 0.21, 0.15, 0.10, 0.15, 0.21, 0.23, 0.26, 0.25, 0.27, 0.22, 0.18, 0.16, 0.19, 0.21, 0.23, 0.24, 0.23, 0.17, 0.07,
+data: [ , , , , , , , , , , , , 0.36, 0.36, 0.32, 0.27, 0.21, 0.17, 0.14, 0.11, 0.10, 0.22, 0.33, 0.39, 0.41, 0.43, 0.49, 0.50, 0.49, 0.47, 0.49, 0.50, 0.52, 0.53, 0.59, 0.60, 0.55, 0.54, 0.53, 0.51, 0.44, 0.40, 0.43, 0.45, 0.44, 0.44, 0.44, 0.43, 0.45, 0.46, 0.56, 0.57, 0.55, 0.54, 0.54, 0.55, 0.56, 0.54, 0.52, 0.48, 0.43, 0.39, 0.36, 0.34, 0.32, 0.30, 0.28, 0.21, 0.15, 0.10, 0.15, 0.21, 0.23, 0.26, 0.25, 0.27, 0.22, 0.18, 0.16, 0.19, 0.21, 0.23, 0.24, 0.23, 0.16, 0.07, -0.02,
 ]},
 {
 label: '0',
@@ -499,12 +499,12 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=202668674"  target="_blank">HFG "Hellofresh"</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart() 'href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=202668674"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=202668674"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>11.36€</b></span>
-&nbsp;<span style='font-size:50px; color:red'><b>-4.5%</b></span><br>
-<span style='font-size:50px'>KGV&nbsp;31&nbsp;&nbsp;&nbsp;</span>&nbsp;
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=202668674"  target="_blank">HFG "Hellofresh"</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart() 'href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=202668674"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=202668674"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>11.28€</b></span>
+&nbsp;<span style='font-size:50px; color:red'><b>-0.7%</b></span><br>
+<span style='font-size:50px'>KGV&nbsp;34&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <span style='font-size:50px'>DIV&nbsp;--%&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <style>
 .tooltip {
@@ -531,28 +531,28 @@ visibility: visible;
 }
 </style>
 <div class='tooltip'>"Einzelhandel"<br><div class='tooltiptext'>" Die HelloFresh SE liefert ihren Kunden frische und nach persönlichen Wünschen zusammengestellte Mahlzeiten. Wichtigste Produktlinie sind die Mahlzeitensets, die direkt zu einer beliebigen Uhrzeit zu den Kunden an die Haustür geliefert werden. In nur rund fünf Jahren nach der Aufnahme der Geschäftstätigkeit im Jahr 2012 hat das Unternehmen einen Stamm von mehr als 1,3 Millionen Kunden aufgebaut. Im Dreimonatszeitraum per Ende Dezember 2020 belief sich die Zahl der Kunden bereits auf 5,29 Millionen, gegenüber der Vorjahresvergleichszeit war das ein Zuwachs von 78,3 Prozent. Davon wurden 2,61 Millionen Kunden in den USA (plus 46,4 Prozent) bedient und 2,68  Millionen Kunden (plus 126,4 Prozent) im internationalen Geschäft, das neben Deutschland die Niederlande, Belgien, Großbritannien, Österreich, Frankreich, Dänemark, Luxemburg, die Schweiz, Schweden sowie Australien, Neuseeland und Kanada umfasst. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 10px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;2 Mrd.€</div><br>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 5px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2025-01-23</b>
+<b>2025-01-26</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>12.34€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>12.24€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>10.76€</b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>12.33€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>12.23€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>10.80€</b></span>
 &nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>0 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>32 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.07 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>34 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.02 </b></span>
 </p>
 <p class='p-result'>
 <span style='color:rgb(153, 102, 255)'>Tendency18:<b>RISING</b></span>
 &nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>RISING</b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
-<p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
-<p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
+<p class='p-result' style='color:rgb(0, 0, 0)'><b> Buy: New 40 days Low (N) </b></p>
+<p class='p-result' style='color:rgb(245, 111, 66)'><b> Buy: RSI Divergence (D) </b></p>
 <p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
@@ -565,7 +565,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 24-Jan-2025 04:56</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 27-Jan-2025 05:14</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
