@@ -52,11 +52,11 @@ grey: 'rgb(201, 203, 207)'
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
 <img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=10336908&TIME_SPAN=10D' style='display:none;position:fixed;'/>
-<p style='text-align:right'><a style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=10336908"  target="_blank">EVT "Evotec"</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=10336908"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=10336908"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>8.10€</b></span>
-&nbsp;<span style='font-size:50px; color:red'><b>-1.9%</b></span></p>
+<p style='text-align:right'><a style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=10336908"  target="_blank">EVT "Evotec"</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=10336908"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=10336908"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>7.24€</b></span>
+&nbsp;<span style='font-size:50px; color:red'><b>-10.6%</b></span></p>
 
 <div style="width:98%">
 <canvas id="canvasQuote"></canvas>
@@ -78,7 +78,7 @@ grey: 'rgb(201, 203, 207)'
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','C-3R-5S-','C-4R-6S-','4R-5S-','07','4S-','5S-','4S-','13','14','4S-','5S-','4S-M-','20','21','24','25','26','27','28','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19','22','23','24','25','M+','29','M+','M+','M+','M+','05','06','07','M+','09','12','13','D+N+M+','M+','D+N+M+','M+','M+','M+','M+','M+','26','27','28','29','30','02','03','04','05','4S-','4S-','10','11','12','13','M-','17','18','19','20','23','24','25','26','27','02','03'
+labels: ['','C-4R-6S-','4R-5S-','07','4S-','5S-','4S-','13','14','4S-','5S-','4S-M-','20','21','24','25','26','27','28','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19','22','23','24','25','M+','29','M+','M+','M+','M+','05','06','07','M+','09','12','13','D+N+M+','M+','D+N+M+','M+','M+','M+','M+','M+','26','27','28','29','30','02','03','04','05','4S-','4S-','10','11','12','13','M-','17','18','19','20','23','24','25','26','27','02','03','4S+D+N+M+'
 ],
 datasets: [{
 label: ' "Evotec" ',
@@ -86,8 +86,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [7.10,
-8.055,
+data: [8.055,
 8.325,
 7.085,
 7.83,
@@ -173,6 +172,7 @@ data: [7.10,
 8.23,
 8.26,
 8.10,
+7.245,
 ]},
 {
 label: 'buy',
@@ -193,21 +193,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 6.66917, 6.85222, 7.05472, 7.20806, 7.35528, 7.57222, 7.81583, 8.02972, 8.1975, 8.37861, 8.53306, 8.60417, 8.71667, 8.82583, 8.93861, 8.99111, 9.02, 9.12194, 9.16472, 9.17, 9.16222, 9.18722, 9.20694, 9.15722, 9.07583, 8.9875, 8.91972, 8.86861, 8.80667, 8.79528, 8.74028, 8.70389, 8.66111, 8.62472, 8.59694, 8.565, 8.56278, 8.52833, 8.48278, 8.44444, 8.41639, 8.40222, 8.38417, 8.38361, 8.38167, 8.37083, 8.34944, 8.34167, 8.32306, 8.30028, 8.26528, 8.24389, 8.22417, 8.19972, 8.16556, 8.15722, 8.16083, 8.17194, 8.16, 8.13611, 8.13389, 8.12639, 8.12667, 8.11194, 8.13667, 8.18694, 8.22917, 8.27472, 8.31556, 8.34361, 8.38778, 8.43333, 8.47639, 8.52861, 8.54778, 8.56194, 8.58333, 8.61194, 8.60417, 8.58139, 8.57556, 8.57361, 8.52889,
+data: [ , , , , 6.85222, 7.05472, 7.20806, 7.35528, 7.57222, 7.81583, 8.02972, 8.1975, 8.37861, 8.53306, 8.60417, 8.71667, 8.82583, 8.93861, 8.99111, 9.02, 9.12194, 9.16472, 9.17, 9.16222, 9.18722, 9.20694, 9.15722, 9.07583, 8.9875, 8.91972, 8.86861, 8.80667, 8.79528, 8.74028, 8.70389, 8.66111, 8.62472, 8.59694, 8.565, 8.56278, 8.52833, 8.48278, 8.44444, 8.41639, 8.40222, 8.38417, 8.38361, 8.38167, 8.37083, 8.34944, 8.34167, 8.32306, 8.30028, 8.26528, 8.24389, 8.22417, 8.19972, 8.16556, 8.15722, 8.16083, 8.17194, 8.16, 8.13611, 8.13389, 8.12639, 8.12667, 8.11194, 8.13667, 8.18694, 8.22917, 8.27472, 8.31556, 8.34361, 8.38778, 8.43333, 8.47639, 8.52861, 8.54778, 8.56194, 8.58333, 8.61194, 8.60417, 8.58139, 8.57556, 8.57361, 8.52889, 8.42917,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 7.96184, 8.05289, 8.14303, 8.22789, 8.30816, 8.38618, 8.45066, 8.51132, 8.57132, 8.62026, 8.64789, 8.67776, 8.70842, 8.74316, 8.77592, 8.78355, 8.78974, 8.81513, 8.82092, 8.80711, 8.78803, 8.79355, 8.79553, 8.77053, 8.71868, 8.67289, 8.64329, 8.60276, 8.54842, 8.53382, 8.49461, 8.4675, 8.4375, 8.40868, 8.385, 8.35816, 8.34539, 8.33434, 8.31329, 8.29566, 8.28724, 8.28224, 8.26908, 8.25816, 8.27237, 8.27987, 8.27487, 8.28724, 8.29342, 8.29684, 8.30803, 8.31803, 8.32789, 8.34092, 8.33829, 8.35026, 8.36092, 8.375, 8.37618, 8.36711, 8.35974, 8.34816, 8.34211,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 8.05289, 8.14303, 8.22789, 8.30816, 8.38618, 8.45066, 8.51132, 8.57132, 8.62026, 8.64789, 8.67776, 8.70842, 8.74316, 8.77592, 8.78355, 8.78974, 8.81513, 8.82092, 8.80711, 8.78803, 8.79355, 8.79553, 8.77053, 8.71868, 8.67289, 8.64329, 8.60276, 8.54842, 8.53382, 8.49461, 8.4675, 8.4375, 8.40868, 8.385, 8.35816, 8.34539, 8.33434, 8.31329, 8.29566, 8.28724, 8.28224, 8.26908, 8.25816, 8.27237, 8.27987, 8.27487, 8.28724, 8.29342, 8.29684, 8.30803, 8.31803, 8.32789, 8.34092, 8.33829, 8.35026, 8.36092, 8.375, 8.37618, 8.36711, 8.35974, 8.34816, 8.34211, 8.3075,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 8.22674, 8.25884, 8.28821, 8.31663, 8.34268, 8.36747,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 8.25884, 8.28821, 8.31663, 8.34268, 8.36747, 8.38147,
 ]},
 {
 label:' Buying/Last ',
@@ -215,14 +215,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,8.10,               ]},
+data: [ 7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,7.24,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,8.505,			]}	
+data: [ 7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,7.602,			]}	
 ]},
 options: {
 responsive: true,
@@ -268,7 +268,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','C-3R-5S-','C-4R-6S-','4R-5S-','07','4S-','5S-','4S-','13','14','4S-','5S-','4S-M-','20','21','24','25','26','27','28','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19','22','23','24','25','M+','29','M+','M+','M+','M+','05','06','07','M+','09','12','13','D+N+M+','M+','D+N+M+','M+','M+','M+','M+','M+','26','27','28','29','30','02','03','04','05','4S-','4S-','10','11','12','13','M-','17','18','19','20','23','24','25','26','27','02','03'
+labels: ['','C-4R-6S-','4R-5S-','07','4S-','5S-','4S-','13','14','4S-','5S-','4S-M-','20','21','24','25','26','27','28','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19','22','23','24','25','M+','29','M+','M+','M+','M+','05','06','07','M+','09','12','13','D+N+M+','M+','D+N+M+','M+','M+','M+','M+','M+','26','27','28','29','30','02','03','04','05','4S-','4S-','10','11','12','13','M-','17','18','19','20','23','24','25','26','27','02','03','4S+D+N+M+'
 ],
 datasets: [
 {
@@ -277,7 +277,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 94, 100, 100, 51, 80, 100, 100, 72, 77, 100, 100, 100, 78, 80, 89, 43, 66, 46, 41, 35, 27, 26, 6, 10, 21, 17, 20, 18, 47, 17, 0, 50, 75, 0, 0, 16, 20, 17, 18, 18, 53, 0, 0, 0, 29, 56, 90, 100, 43, 78, 63, 13, 0, 3, 0, 23, 26, 18, 22, 17, 39, 62, 40, 46, 100, 100, 72, 67, 100, 100, 66, 74, 49, 40, 73, 67, 67, 73, 22, 28, 21, 22, 0, 0, 10, 15, 0,
+data: [		 100, 100, 51, 80, 100, 100, 72, 77, 100, 100, 100, 78, 80, 89, 43, 66, 46, 41, 35, 27, 26, 6, 10, 21, 17, 20, 18, 47, 17, 0, 50, 75, 0, 0, 16, 20, 17, 18, 18, 53, 0, 0, 0, 29, 56, 90, 100, 43, 78, 63, 13, 0, 3, 0, 23, 26, 18, 22, 17, 39, 62, 40, 46, 100, 100, 72, 67, 100, 100, 66, 74, 49, 40, 73, 67, 67, 73, 22, 28, 21, 22, 0, 0, 10, 15, 0, 0,
 ]},
 {
 label: '91',
@@ -340,7 +340,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','C-3R-5S-','C-4R-6S-','4R-5S-','07','4S-','5S-','4S-','13','14','4S-','5S-','4S-M-','20','21','24','25','26','27','28','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19','22','23','24','25','M+','29','M+','M+','M+','M+','05','06','07','M+','09','12','13','D+N+M+','M+','D+N+M+','M+','M+','M+','M+','M+','26','27','28','29','30','02','03','04','05','4S-','4S-','10','11','12','13','M-','17','18','19','20','23','24','25','26','27','02','03'
+labels: ['','C-4R-6S-','4R-5S-','07','4S-','5S-','4S-','13','14','4S-','5S-','4S-M-','20','21','24','25','26','27','28','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19','22','23','24','25','M+','29','M+','M+','M+','M+','05','06','07','M+','09','12','13','D+N+M+','M+','D+N+M+','M+','M+','M+','M+','M+','26','27','28','29','30','02','03','04','05','4S-','4S-','10','11','12','13','M-','17','18','19','20','23','24','25','26','27','02','03','4S+D+N+M+'
 ],
 datasets: [
 {
@@ -349,7 +349,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 86, 89, 90, 66, 69, 73, 74, 64, 64, 71, 71, 71, 64, 66, 67, 52, 54, 61, 58, 53, 48, 55, 51, 40, 34, 33, 40, 38, 35, 54, 29, 44, 43, 36, 37, 38, 44, 42, 36, 39, 44, 35, 33, 35, 48, 43, 41, 63, 52, 55, 52, 45, 41, 42, 34, 48, 48, 47, 42, 35, 41, 40, 43, 36, 50, 61, 61, 59, 75, 74, 62, 66, 59, 60, 61, 58, 62, 63, 49, 48, 52, 55, 37, 30, 39, 37, 39,
+data: [ 89, 90, 66, 69, 73, 74, 64, 64, 71, 71, 71, 64, 66, 67, 52, 54, 61, 58, 53, 48, 55, 51, 40, 34, 33, 40, 38, 35, 54, 29, 44, 43, 36, 37, 38, 44, 42, 36, 39, 44, 35, 33, 35, 48, 43, 41, 63, 52, 55, 52, 45, 41, 42, 34, 48, 48, 47, 42, 35, 41, 40, 43, 36, 50, 61, 61, 59, 75, 74, 62, 66, 59, 60, 61, 58, 62, 63, 49, 48, 52, 55, 37, 30, 39, 37, 39, 27,
 ]},
 {
 label: '75',
@@ -415,7 +415,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','C-3R-5S-','C-4R-6S-','4R-5S-','07','4S-','5S-','4S-','13','14','4S-','5S-','4S-M-','20','21','24','25','26','27','28','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19','22','23','24','25','M+','29','M+','M+','M+','M+','05','06','07','M+','09','12','13','D+N+M+','M+','D+N+M+','M+','M+','M+','M+','M+','26','27','28','29','30','02','03','04','05','4S-','4S-','10','11','12','13','M-','17','18','19','20','23','24','25','26','27','02','03'
+labels: ['','C-4R-6S-','4R-5S-','07','4S-','5S-','4S-','13','14','4S-','5S-','4S-M-','20','21','24','25','26','27','28','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19','22','23','24','25','M+','29','M+','M+','M+','M+','05','06','07','M+','09','12','13','D+N+M+','M+','D+N+M+','M+','M+','M+','M+','M+','26','27','28','29','30','02','03','04','05','4S-','4S-','10','11','12','13','M-','17','18','19','20','23','24','25','26','27','02','03','4S+D+N+M+'
 ],
 datasets: [
 {
@@ -424,7 +424,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 1.35, 1.35, 1.33, 1.18, 1.10, 1.02, 0.95, 0.87, 0.79, 0.72, 0.64, 0.57, 0.53, 0.47, 0.43, 0.39, 0.36, 0.32, 0.26, 0.25, 0.23, 0.18, 0.13, 0.10, 0.07, 0.05, 0.03, 0.02, 0.03, -0.01, -0.04, -0.06, -0.06, -0.04, -0.02, 0.01, -0.00, 0.01, 0.01, -0.01, -0.05, -0.08, -0.11, -0.12, -0.12, -0.13, -0.13, -0.14, -0.12, -0.09, -0.09, -0.08, -0.04, -0.01, 0.00, 0.01, 0.06, 0.11, 0.12, 0.13, 0.12, 0.11, 0.12, 0.13, 0.13, 0.14, 0.11, 0.10, 0.08, 0.08, 0.05, 0.02, -0.00, -0.02, -0.04,
+data: [ , , , , , , , , , , , , 1.32, 1.32, 1.17, 1.10, 1.01, 0.94, 0.87, 0.79, 0.72, 0.64, 0.57, 0.52, 0.47, 0.43, 0.39, 0.36, 0.32, 0.26, 0.24, 0.23, 0.18, 0.13, 0.09, 0.07, 0.05, 0.03, 0.02, 0.02, -0.01, -0.04, -0.06, -0.06, -0.04, -0.02, 0.01, -0.00, 0.01, 0.01, -0.01, -0.05, -0.08, -0.11, -0.12, -0.12, -0.13, -0.13, -0.14, -0.12, -0.09, -0.09, -0.08, -0.04, -0.01, 0.00, 0.01, 0.06, 0.11, 0.12, 0.13, 0.12, 0.11, 0.12, 0.13, 0.13, 0.14, 0.11, 0.10, 0.08, 0.08, 0.05, 0.02, -0.00, -0.02, -0.04, -0.13,
 ]},
 {
 label: '0',
@@ -499,11 +499,11 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=10336908"  target="_blank">EVT "Evotec"</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart() 'href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=10336908"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=10336908"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>8.10€</b></span>
-&nbsp;<span style='font-size:50px; color:red'><b>-1.9%</b></span><br>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=10336908"  target="_blank">EVT "Evotec"</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart() 'href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=10336908"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=10336908"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>7.24€</b></span>
+&nbsp;<span style='font-size:50px; color:red'><b>-10.6%</b></span><br>
 <span style='font-size:50px'>KGV&nbsp;--&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <span style='font-size:50px'>DIV&nbsp;--%&nbsp;&nbsp;&nbsp;</span>&nbsp;
 <style>
@@ -534,28 +534,28 @@ visibility: visible;
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 5px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2025-03-03</b>
+<b>2025-03-04</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>8.53€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>8.34€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>8.37€</b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>8.43€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>8.31€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>8.38€</b></span>
 &nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>0 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>39 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.04 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>27 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.13 </b></span>
 </p>
 <p class='p-result'>
 <span style='color:rgb(153, 102, 255)'>Tendency18:<b>FALLING</b></span>
 &nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>FALLING</b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
-<p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
-<p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
-<p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
+<p class='p-result' style='color:rgb(0, 0, 0)'><b> Buy: New 40 days Low (N) </b></p>
+<p class='p-result' style='color:rgb(245, 111, 66)'><b> Buy: RSI Divergence (D) </b></p>
+<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -0.13 </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b>  </b></p>
-<p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
+<p class='p-result' style='color:rgb(255, 159, 64)'><b> Buy: Low 4 last Stochastic (S): 4 last quotes under level </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 166)'><b>  </b></p>
@@ -565,7 +565,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  4-Mar-2025 06:04</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  5-Mar-2025 06:03</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
