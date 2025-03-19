@@ -436,6 +436,7 @@ GetCreationDate() {
     if [ "$(uname)" = 'Linux' ]; then
         # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") # +2h Winterzeit / Wintertime
         # creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
-        creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") #  Sommerzeit / Summertime
+        # creationDate=$(TZ=EST-1EDT date +"%e-%b-%Y %R") #  Winterzeit / Wintertime
+        creationDate=$(TZ=EST-0EDT date +"%e-%b-%Y %R") # +1h Sommerzeit / Summertime
     fi
 }
