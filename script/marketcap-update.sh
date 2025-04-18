@@ -21,13 +21,21 @@ if  [ -z "$symbolsParam" ]; then
   exit 1
 fi
 
+#mem
+mkdir -p "$TEMP_DIR/config"
+cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
+#mem
+
+START_TIME_MEASUREMENT=$(date +%s);
+
 for symbol in $symbolsParam
 do
   # Remove prefix '*', if present
   if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
     symbol=$(echo "$symbol" | cut -b 2-7)
   fi
-  lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE")
+ # lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE") #mem
+  lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE_MEM") #mem
   NAME=$(echo "$lineFromTickerFile" | cut -f 2)
   ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
   ASSET_TYPE=$(echo "$lineFromTickerFile" | cut -f 9)
@@ -69,7 +77,7 @@ do
 
     # Now write all results in file!
     # Replace till end of line: idempotent!
-    sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE"
+    sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE_MEM"
   fi  
 
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
@@ -90,8 +98,6 @@ do
             echo "--> ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, INDEX, COIN or Market Cap too small! $marktkap"
         fi
     fi
-    # Replace till end of line: idempotent!
-    #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap/g" "$TICKER_NAME_ID_FILE"
 
     # Branche
     branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-)
@@ -114,8 +120,6 @@ do
             echo "--> ERROR Branche: $symbol $ID_NOTATION! $branche"
         fi
     fi
-    # Replace till end of line: idempotent!
-    #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche/g" "$TICKER_NAME_ID_FILE"
 
     # KGVe
     kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
@@ -126,8 +130,6 @@ do
         kgveErrorSymbols="$symbol $kgveErrorSymbols"
         echo "--> ERROR KGVe: $symbol $ID_NOTATION! $kgve"
     fi
-    # Replace till end of line: idempotent!
-    #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve/g" "$TICKER_NAME_ID_FILE"
 
     # DIVe
     dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
@@ -141,8 +143,6 @@ do
         diveErrorSymbols="$symbol $diveErrorSymbols"
         echo "--> ERROR DIVe: $symbol $ID_NOTATION! $dive"
     fi
-    # Replace till end of line: idempotent!
-    #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive/g" "$TICKER_NAME_ID_FILE"
 
     # Hauptversammlung
     hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
@@ -156,8 +156,6 @@ do
     #   hauptversammlungErrorSymbols="$symbol $hauptversammlungErrorSymbols"
     #   echo "--> ERROR Hauptversammlung: $symbol $ID_NOTATION! $hauptversammlung"
     fi
-    # Replace till end of line: idempotent!
-    #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung/g" "$TICKER_NAME_ID_FILE"
 
     # Firmenportrait
     firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<")
@@ -177,7 +175,8 @@ do
 
     # Now write all results in file!
     # Replace till end of line: idempotent!
-    sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE"
+    #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE" #mem
+    sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE_MEM" #mem
 
     # Spread
     spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")
@@ -228,4 +227,13 @@ if [ "$highSpreadSymbols" ]; then
 fi
 
 # Replace CR in Linux
-sed -i ':a;N;$!ba;s/\r\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE"
+#sed -i ':a;N;$!ba;s/\r\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE" #mem
+sed -i ':a;N;$!ba;s/\r\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE_MEM" #mem
+
+cp "$TICKER_NAME_ID_FILE_MEM" "config" #mem
+
+# Time measurement
+END_TIME_MEASUREMENT=$(date +%s);
+echo ""
+echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
+echo "time elapsed."

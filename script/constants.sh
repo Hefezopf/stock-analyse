@@ -31,6 +31,7 @@ export TEMP_DIR=/dev/shm/
 # Files
 export OWN_SYMBOLS_FILE="config/own_symbols.txt"
 export TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
+export TICKER_NAME_ID_FILE_MEM="$TEMP_DIR""config/ticker_name_id.txt" #mem
 export TRANSACTION_COUNT_FILE="config/transaction_count.txt"
 export STOCK_SYMBOLS_FILE="config/stock_symbols.txt"
 export TRANSACTION_HISTORY_FILE="config/transaction_history.txt"
