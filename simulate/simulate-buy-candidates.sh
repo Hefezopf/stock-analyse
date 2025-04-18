@@ -87,7 +87,7 @@ do
     fi
 done
 
-GetCreationDate # $creationDate
+GetCreationDate
 echo "<br>Good Luck! $creationDate" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br></div>
 <script>

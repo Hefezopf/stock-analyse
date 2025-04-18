@@ -87,7 +87,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 
 <div id='symbolsListId'>"
 echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
-GetCreationDate # $creationDate
+GetCreationDate
 # shellcheck disable=SC2154
 GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> $creationDate</p>"
 HTML_RESULT_FILE_END="<br></div></body></html>"
@@ -669,17 +669,12 @@ do
 
         echo "<br>$GOOD_LUCK"
 
-
         stocksPieces=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
         echo "<span id='stocksPiecesId' style='display:none'>$stocksPieces</span>"
 
-
-
-stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
-stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
-echo "<span id='stocksBuyingValueId' style='display:none'>$stocksBuyingValue</span>" # >> "$indexSymbolFile"
-
-
+        stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
+        stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
+        echo "<span id='stocksBuyingValueId' style='display:none'>$stocksBuyingValue</span>" # >> "$indexSymbolFile"
 
         cat template/indexPart13.html
         cat template/_common.js
