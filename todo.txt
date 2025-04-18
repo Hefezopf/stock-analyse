@@ -2,7 +2,7 @@ TODO:
 -----
 
 
-Profilbild + Name + email Lena Github
++Profilbild + Name + email Lena Github
 
 
 
@@ -115,6 +115,23 @@ Verwenden Sie einen leistungsstarken Shell-Interpreter wie z.B. zsh anstelle von
 
 
 -in mem statt in file umlenken; am ende mem in file schreiben
+
+
+Dynamscher Variablen Name:
+-------------------------
+symbol=M4I
+declare "prefix_$symbol=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")"
+varname=prefix_$symbol
+echo ${!varname}
+
+symbol=BEI
+declare "prefix_$symbol=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")"
+varname=prefix_$symbol
+echo ${!varname}
+
+symbol=M4I
+var="prefix_$symbol"
+echo "${!var}"
 
 
 -bash substitutions
