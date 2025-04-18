@@ -27,6 +27,8 @@ fi
 # Delete $SYMBOL in stock_symbols.txt
 cat "$STOCK_SYMBOLS_FILE" | sed -i s/"$symbolParam "// "$STOCK_SYMBOLS_FILE"
 
+sed -i "/$symbolParam/d" "$TICKER_NAME_ID_FILE"
+
 sed -i "/\/$symbolParam/d" "$SCRIPT_START_ALL_IN_CHROME_FILE"
 
 # Delete all files
