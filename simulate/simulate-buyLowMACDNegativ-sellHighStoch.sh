@@ -58,6 +58,9 @@ function ParameterOut()
     Out "Buy Alarm count for Indexes:$alarmCountForIndexOrigParam" $OUT_SIMULATE_FILE
 }
 
+mkdir -p "$TEMP_DIR/config"
+cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
+
 mkdir -p simulate/out
 sellAmountOverAll=0
 sellOnLastDayAmountOverAll=0
@@ -104,7 +107,7 @@ do
         symbol=$(echo "$symbol" | cut -b 2-7)
     fi
 
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
 
     Out "" $OUT_SIMULATE_FILE
@@ -510,7 +513,7 @@ echo "<script>var linkMap = new Map();</script>" >> $OUT_SIMULATE_FILE
 echo "<br><button id='buttonOpenAllInTab' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> $OUT_SIMULATE_FILE
 for value in "${ARRAY_BUY_POS_SIM[@]}"
 do
-    lineFromTickerFile=$(grep -m1 -P "^$value\t" "$TICKER_NAME_ID_FILE")
+    lineFromTickerFile=$(grep -m1 -P "^$value\t" "$TICKER_NAME_ID_FILE_MEM")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     id_notation=$(echo "$lineFromTickerFile" | cut -f 3)
     marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
@@ -580,3 +583,5 @@ Out "" $OUT_SIMULATE_FILE
 Out "Good Luck! $creationDate" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 echo "</body></html>" >> $OUT_SIMULATE_FILE
+
+rm -rf "$TEMP_DIR"/config

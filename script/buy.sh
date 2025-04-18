@@ -27,9 +27,7 @@ _piecesParam=$2
 _priceParam=$3
 
 # To uppercase
-#symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 symbolParam="${_symbolParam^^}" # all uppercase
-#echo "symbolParam= $symbolParam"
 
 # Pieces has to be without dot
 # shellcheck disable=SC2001
@@ -65,7 +63,7 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/
 # 3. Lookup in TradeRepublic: 'Buy In','Anteile im Besitz' and 'investierte Gesamtsumme' [Gesamtwert + (- Rendite)]
 # 4. Press ANY key (NOT enter!)
 # 5. Revert Changes
-read -n 1 -p "Correct values in 'config/own_symbols.txt' now and then hit ->ANY key!<- (NOT enter AND NOT space!)" correctValuesInput
+#read -n 1 -p "Correct values in 'config/own_symbols.txt' now and then hit ->ANY key!<- (NOT enter AND NOT space!)" correctValuesInput
 
 # shellcheck disable=SC2154
 if [ "$correctValuesInput" ]; then

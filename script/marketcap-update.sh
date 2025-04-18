@@ -21,12 +21,12 @@ if  [ -z "$symbolsParam" ]; then
   exit 1
 fi
 
+START_TIME_MEASUREMENT=$(date +%s);
+
 #mem
 mkdir -p "$TEMP_DIR/config"
 cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 #mem
-
-START_TIME_MEASUREMENT=$(date +%s);
 
 for symbol in $symbolsParam
 do

@@ -30,6 +30,9 @@ if { [ -z "$symbolsParam" ]; } then
   exit 1
 fi
 
+mkdir -p "$TEMP_DIR/config"
+cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
+
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo "Symbols($countSymbols):$symbolsParam"
@@ -53,7 +56,7 @@ do
         echo "$symbol: Create new file" | tee -a "$informerDataFile"
     fi
   
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     dataAlreadyThere=$(grep -m1 -P "^$yesterday\t" "$informerDataFile")
     if { [ -z "$dataAlreadyThere" ]; } then
@@ -114,6 +117,8 @@ if { [ "$errorSymbols" ]; } then
         exit 2
     fi
 fi
+
+rm -rf "$TEMP_DIR"/config
 
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);

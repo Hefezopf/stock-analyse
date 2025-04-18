@@ -18,7 +18,7 @@ WriteOverallChartsButtons() {
     do
         if [ "$(echo "$ownSymbol" | cut -b 1-1)" = '*' ]; then
             ownSymbol=$(echo "$ownSymbol" | cut -b 2-7)
-            lineFromTickerFile=$(grep -m1 -P "$ownSymbol\t" "$TICKER_NAME_ID_FILE")
+            lineFromTickerFile=$(grep -m1 -P "$ownSymbol\t" "$TICKER_NAME_ID_FILE_MEM")
             notationId=$(echo "$lineFromTickerFile" | cut -f 3)
             echo "javascript:updateImage('$ownSymbol', '$notationId', '$_timeSpan');"
         fi
@@ -271,7 +271,7 @@ WriteComdirectUrlAndStoreFileList() {
         _linkColorParam="$BLACK"
     fi
 
-    _id_notation=$(grep -m1 -P "$_symbolParam\t" "$TICKER_NAME_ID_FILE" | cut -f 3)
+    _id_notation=$(grep -m1 -P "$_symbolParam\t" "$TICKER_NAME_ID_FILE_MEM" | cut -f 3)
     if [ ! "${#_id_notation}" -gt 1 ]; then
         _id_notation=999999
     fi

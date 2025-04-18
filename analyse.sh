@@ -52,14 +52,16 @@ RSIQuoteParam=$4
 # Prepare
 lowestRSI=100
 counterOwnStocks=0 # For Spinner
-rm -rf "$TEMP_DIR"/tmp.*
+
 mkdir -p "$STATUS_DIR"
 mkdir -p sell
 mkdir -p buy
 mkdir -p alarm
 mkdir -p out
 mkdir -p temp
+mkdir -p "$TEMP_DIR/config"
 
+cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 cp template/favicon.ico out
 cp template/_common.js out
 cp template/_result.css out
@@ -179,11 +181,11 @@ do
 
     echo "<div id='symbolLineId$symbol'>" >> $OUT_RESULT_FILE # Sorting
 
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
     # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
-    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "$symbolName"
+    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE_MEM" 14 "$symbolName"
 
     hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8)
     if [ ! "$hauptversammlung" ]; then # Default: hauptversammlung="?"
@@ -876,8 +878,12 @@ sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remov
 # Delete decrypted, readable portfolio file
 rm -rf "$OWN_SYMBOLS_FILE"
 
+rm -rf "$TEMP_DIR"/tmp.*
+rm -rf "$TEMP_DIR"/config
+
 # Time measurement
 END_TIME_MEASUREMENT=$(date +%s);
 echo ""
 echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
 echo "time elapsed."
+

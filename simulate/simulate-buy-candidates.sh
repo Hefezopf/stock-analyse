@@ -25,6 +25,9 @@ if { [ -z "$symbolsParam" ] || [ -z "$lastDaysParam" ] || [ -z "$charactersParam
   exit 1
 fi
 
+mkdir -p "$TEMP_DIR/config"
+cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
+
 rm -f ./simulate/simulate-buy-candidates-open-in-chrome.sh
 
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
@@ -57,7 +60,7 @@ do
     if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
         symbol=$(echo "$symbol" | cut -b 2-7)
     fi
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     echo "Symbol: $symbol"
     minRange=$((88-lastDaysParam))
@@ -66,7 +69,7 @@ do
     if [ "${#lastAlarms}" -gt "$charactersParam" ]; then # Check if lastAlarms are large enough
         vorzeichen="${lastAlarms: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values
-            lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+            lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
             symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
             echo "Last '$lastDaysParam' Alarms for $symbol $symbolName: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
             echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
@@ -107,3 +110,4 @@ fi
 echo "file:///D:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
 echo "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html"
 
+rm -rf "$TEMP_DIR"/config

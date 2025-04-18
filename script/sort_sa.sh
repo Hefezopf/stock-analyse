@@ -13,7 +13,12 @@
 # shellcheck disable=SC1091
 . script/constants.sh
 
-echo "Sorting (60 sec.)..."
+echo "Sorting (70 sec.)..."
+
+START_TIME_MEASUREMENT=$(date +%s);
+
+mkdir -p "$TEMP_DIR/config"
+cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 
 # Sort symbols in stock_symbols.txt
 symbolListe=$(cat "$STOCK_SYMBOLS_FILE")
@@ -30,14 +35,13 @@ echo "$symbolListe" >> "$TEMP_FILE"
 rm "$STOCK_SYMBOLS_FILE"
 mv "$TEMP_FILE" "$STOCK_SYMBOLS_FILE"
 
-
 # Sort STOCK, COIN, INDEX (Fonds) at the end
 stocks_TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 coin_TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 index_TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 for symbol in $symbolListe
 do
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE")
+    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     echo -n .
     if [ "$asset_type" = 'STOCK' ]; then
@@ -77,4 +81,10 @@ rm "$index_TEMP_FILE"
 rm "$stocks_line_TEMP_FILE"
 rm "$coin_line_TEMP_FILE"
 rm "$index_line_TEMP_FILE"
+rm -rf "$TEMP_DIR"/config
 
+# Time measurement
+END_TIME_MEASUREMENT=$(date +%s);
+echo ""
+echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
+echo "time elapsed."
