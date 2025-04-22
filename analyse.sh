@@ -184,16 +184,19 @@ do
     echo "<div id='symbolLineId$symbol'>" >> $OUT_RESULT_FILE # Sorting
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
-    symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+    #symbolName=$(echo "$lineFromTickerFile" | cut -f 2) #| cut -f
+    symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}')
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
     # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
     CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "$symbolName" # !!!NOT: TICKER_NAME_ID_FILE_MEM
 
-    hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8)
+    #hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8) #| cut -f
+    hauptversammlung=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $8}')
     if [ ! "$hauptversammlung" ]; then # Default: hauptversammlung="?"
         hauptversammlung="?"
     fi
-    asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
+    #asset_type=$(echo "$lineFromTickerFile" | cut -f 9) #| cut -f
+    asset_type=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $9}')
     if [ ! "$asset_type" ]; then # Default: asset_type="?"
         asset_type="?"
     fi
