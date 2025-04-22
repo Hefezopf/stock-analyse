@@ -30,9 +30,10 @@ cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 
 for symbol in $symbolsParam
 do
-  # Remove prefix '*', if present
-  if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-    symbol=$(echo "$symbol" | cut -b 2-7)
+  if [ "${symbol::1}" = '*' ]; then
+  #if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
+   # symbol=$(echo "$symbol" | cut -b 2-7)
+    symbol="${symbol:1:7}"
   fi
  # lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE") #mem
   lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE_MEM") #mem
