@@ -187,7 +187,7 @@ do
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
     # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
-    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE_MEM" 14 "$symbolName"
+    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "$symbolName" # !!!NOT: TICKER_NAME_ID_FILE_MEM
 
     hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8)
     if [ ! "$hauptversammlung" ]; then # Default: hauptversammlung="?"

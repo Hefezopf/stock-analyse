@@ -11,7 +11,7 @@
 # Call: ./script/add-symbol-to-sa.sh SYMBOL
 # 1. Parameter: SYMBOL - A stock symbols like: 'BEI'
 # Call example: ./script/add-symbol-to-sa.sh 'BEI'
-# Or alias assa
+# Or alias atsa
 
 # Import
 # shellcheck disable=SC1091
