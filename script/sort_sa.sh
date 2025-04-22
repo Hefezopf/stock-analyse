@@ -17,18 +17,25 @@ echo "Sorting (70 sec.)..."
 
 START_TIME_MEASUREMENT=$(date +%s);
 
+#mem
 mkdir -p "$TEMP_DIR/config"
 cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
+#mem
 
 # Sort symbols in stock_symbols.txt
 symbolListe=$(cat "$STOCK_SYMBOLS_FILE")
 symbolListe=$(echo "$symbolListe" | tr " " "\n" | sort | tr "\n" " ")
 
 # Delete first blank char, if exists
-firstChar="$(printf '%s' "$symbolListe" | cut -c1)"
-if [ "$firstChar" = ' ' ]; then
-  symbolListe="$(printf '%s' "$symbolListe" | cut -c 2-)"
+#firstChar="$(printf '%s' "$symbolListe" | cut -c1)" #| cut -c
+#firstChar="${symbolListe::1}"
+if [ "${symbolListe::1}" = ' ' ]; then # firstChar is a blank?
+ # symbolListe="$(printf '%s' "$symbolListe" | cut -c 2-)"
+  symbolListe="${symbolListe:1}"
 fi
+#echo "----symbolListe:$symbolListe"
+#exit
+
 
 TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 echo "$symbolListe" >> "$TEMP_FILE"

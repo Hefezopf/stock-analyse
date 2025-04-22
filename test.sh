@@ -21,6 +21,8 @@
 # npm install -g gnomon
 # Call: . test.sh | gnomon --medium=1.0 --high=4.0 --ignore-blank --real-time=100
 
+START_TIME_MEASUREMENT=$(date +%s);
+
 echo shellcheck ...
 cat script/constants.sh | tr -d '\r' > script/constants1.sh
 rm script/constants.sh
@@ -78,3 +80,9 @@ bats --tap --timing test/analyse.bats
 rm -rf 30
 rm -rf test/alarm/BEI.txt
 rm -rf test/buy/BEI.txt
+
+# Time measurement
+END_TIME_MEASUREMENT=$(date +%s);
+echo ""
+echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
+echo "time elapsed."

@@ -342,7 +342,8 @@ StrategieOverratedHighHorizontalMACD() {
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
 #        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000) #| cut -
-        _MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
+        #_MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
+        _MACDQuoteListParam="${_MACDQuoteListParam:25}"
 #echo "----_MACDQuoteListParam:$_MACDQuoteListParam"        
         jj_index=0
         # shellcheck disable=SC2001
@@ -408,7 +409,8 @@ StrategieUnderratedLowHorizontalMACD() {
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
        # _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000) #| cut -
-        _MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
+        #_MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
+        _MACDQuoteListParam="${_MACDQuoteListParam:25}"
         jj_index=0
         valueNewMACDLow=100
         

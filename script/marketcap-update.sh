@@ -40,10 +40,17 @@ do
   NAME=$(echo "$lineFromTickerFile" | cut -f 2)
   ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
   ASSET_TYPE=$(echo "$lineFromTickerFile" | cut -f 9)
-  if [ ! "$ASSET_TYPE" ]; then # Default = STOCK
-    #ASSET_TYPE="INDEX" # STOCK/COIN/INDEX
-    ASSET_TYPE="STOCK"
+
+  if [ ! "$ASSET_TYPE" ]; then
+    echo ""
+    echo "Error: Unknown Symbol:$symbol"
+    exit 2
   fi
+
+#   if [ ! "$ASSET_TYPE" ]; then # Default = STOCK
+#     #ASSET_TYPE="INDEX" # STOCK/COIN/INDEX
+#     ASSET_TYPE="STOCK"
+#   fi
 
   echo ""
   echo "$symbol" "$NAME" ...
@@ -84,12 +91,16 @@ do
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
     # Mrd. Market Cap
     curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
-    marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
+    #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-) #| cut -c
+    marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d",")
+    marktkap="${marktkap:1}"
     if [ "$marktkap" ]; then
         echo "Market Cap:$marktkap Mrd.€"
     else
         # Bil. Market Cap
-        marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-)
+       # marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-) #| cut -c
+        marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d",")
+        marktkap="${marktkap:1}"
         if [ "$marktkap" ]; then
             marktkap="${marktkap}000"
             echo "Market Cap:$marktkap Mrd.€"
@@ -101,14 +112,18 @@ do
     fi
 
     # Branche
-    branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-)
+    #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-) #| cut -c
+    branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">")
+    branche="${branche:2}"
     if [ "$branche" ]; then
         # Replace ' /' with ',', because error with linux
         branche=$(echo "$branche" | sed "s/ \//,/g")
         echo "Branche: $branche"
     else
         # Branche ><
-        branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-)
+        #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-) #| cut -c
+        branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<")
+        branche="${branche:1}"
         if [ "$branche" ]; then
             # Replace ' /' with ',', because error with linux
             branche=$(echo "$branche" | sed "s/ \//,/g")
@@ -123,7 +138,9 @@ do
     fi
 
     # KGVe
-    kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
+    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-) #| cut -c
+    kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d",")
+    kgve="${kgve:3}"
     if [ "$kgve" ]; then
         echo "KGVe: $kgve"
     else
@@ -133,7 +150,9 @@ do
     fi
 
     # DIVe
-    dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-)
+    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-) #| cut -c
+    dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d",")
+    dive="${dive:3}"
     if [ "$dive" ]; then
         # Replace ',' with '.'
         # shellcheck disable=SC2001 
@@ -177,7 +196,7 @@ do
     # Now write all results in file!
     # Replace till end of line: idempotent!
     #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE" #mem
-    sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE_MEM" #mem
+    sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE_MEM"
 
     # Spread
     spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")
@@ -229,7 +248,7 @@ fi
 
 # Replace CR in Linux
 #sed -i ':a;N;$!ba;s/\r\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE" #mem
-sed -i ':a;N;$!ba;s/\r\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE_MEM" #mem
+sed -i ':a;N;$!ba;s/\r\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE_MEM"
 
 cp "$TICKER_NAME_ID_FILE_MEM" "config" #mem
 

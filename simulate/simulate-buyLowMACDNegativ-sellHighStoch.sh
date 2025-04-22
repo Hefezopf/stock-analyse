@@ -134,7 +134,8 @@ do
     historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
     
     #historyMACDs=$(echo "$historyMACDs" | cut -b 64-10000) #| cut -b
-    historyMACDs="${historyMACDs:63:10000}"
+    #historyMACDs="${historyMACDs:63:10000}"
+    historyMACDs="${historyMACDs:63}"
     RSIindex=26
     valueNewMACDLow=100
     valueMACDLast_3="-1" 
