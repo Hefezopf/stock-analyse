@@ -57,8 +57,10 @@ echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
 do
-    if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-        symbol=$(echo "$symbol" | cut -b 2-7)
+    if [ "${symbol::1}" = '*' ]; then 
+    #if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then #| cut -b
+       # symbol=$(echo "$symbol" | cut -b 2-7)
+        symbol="${symbol:1:7}"
     fi
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)

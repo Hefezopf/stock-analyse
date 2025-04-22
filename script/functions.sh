@@ -16,8 +16,10 @@ WriteOverallChartsButtons() {
     echo "<button id=\"intervalSectionButtonAll$_timeSpan\" style=\"font-size:large; height: 50px; width: 80px; display: none\" type=\"button\" onClick=\""
     for ownSymbol in $_symbolsParam
     do
-        if [ "$(echo "$ownSymbol" | cut -b 1-1)" = '*' ]; then
-            ownSymbol=$(echo "$ownSymbol" | cut -b 2-7)
+        if [ "${ownSymbol::1}" = '*' ]; then
+        #if [ "$(echo "$ownSymbol" | cut -b 1-1)" = '*' ]; then #| cut -
+            #ownSymbol=$(echo "$ownSymbol" | cut -b 2-7) #| cut -
+            ownSymbol="${ownSymbol:1:7}"
             lineFromTickerFile=$(grep -m1 -P "$ownSymbol\t" "$TICKER_NAME_ID_FILE_MEM")
             notationId=$(echo "$lineFromTickerFile" | cut -f 3)
             echo "javascript:updateImage('$ownSymbol', '$notationId', '$_timeSpan');"

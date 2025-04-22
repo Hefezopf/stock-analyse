@@ -2,8 +2,19 @@ TODO:
 -----
 
 
-+Profilbild + Name + email Lena Github
-
+bash expression language vs cut:
+-------------------------------
+  if [ "${symbol::1}" = '*' ]; then
+  #if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
+   # symbol=$(echo "$symbol" | cut -b 2-7)
+    symbol="${symbol:1:7}"
+  fi
+        value7="${7:1:2}"
+        # value1=$(echo "$1" | cut -b 2-3)  
+TODO
+#| cut -b
+| cut -f
+| cut -c
 
 
 Refresh Balken Farbe anpassen -> minor
@@ -13,7 +24,7 @@ Refesh von PC/local result.html erst wenn Tab wieder aktiv?
 Timer aktieren, wenn Tab aktiv oder Focus?!
 
 
-Strukturell: Aufteilung Repo versuchen. Allg. und Eigenes
+Strukturell: Aufteilung in Repo versuchen. Allg. und Eigenes
 stock-analyse-base
 stock-analyse-custom
 stock-analyse-xxx

@@ -34,12 +34,20 @@ cat script/strategies.sh | tr -d '\r' > script/strategies1.sh
 rm script/strategies.sh
 mv script/strategies1.sh script/strategies.sh
 
+cat script/marketcap-update.sh | tr -d '\r' > script/marketcap-update1.sh
+rm script/marketcap-update.sh
+mv script/marketcap-update1.sh script/marketcap-update.sh
+
+cat simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh | tr -d '\r' > simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh
+rm simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
+mv simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
+
 cat analyse.sh | tr -d '\r' > analyse1.sh
 rm analyse.sh
 mv analyse1.sh analyse.sh
 
-shellcheck --shell=bash script/averages.sh
 shellcheck --shell=bash script/strategies.sh
+shellcheck --shell=bash script/averages.sh
 shellcheck --shell=bash script/constants.sh
 shellcheck --shell=bash script/functions.sh
 shellcheck --shell=bash script/buy.sh
@@ -59,8 +67,8 @@ rm -rf test/_result.html
 echo bats ...
 bats -version
 
-bats --tap --timing test/functions.bats
 bats --tap --timing test/strategies.bats
+bats --tap --timing test/functions.bats
 bats --tap --timing test/averages.bats
 
 bats --tap --timing test/simulate.bats

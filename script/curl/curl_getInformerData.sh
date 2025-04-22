@@ -44,8 +44,10 @@ START_TIME_MEASUREMENT=$(date +%s);
 
 for symbol in $symbolsParam
 do
-    if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-        symbol=$(echo "$symbol" | cut -b 2-7)
+    if [ "${symbol::1}" = '*' ]; then  
+   # if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then #| cut -b
+        #symbol=$(echo "$symbol" | cut -b 2-7)
+        symbol="${symbol:1:7}"
     fi
     symbol="${symbol^^}" # all uppercase
 

@@ -341,7 +341,9 @@ StrategieOverratedHighHorizontalMACD() {
    
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
-        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
+#        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000) #| cut -
+        _MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
+#echo "----_MACDQuoteListParam:$_MACDQuoteListParam"        
         jj_index=0
         # shellcheck disable=SC2001
         #_MACDQuoteListParam=${_MACDQuoteListParam/,/ /$}
@@ -405,7 +407,8 @@ StrategieUnderratedLowHorizontalMACD() {
 
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
-        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000)
+       # _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000) #| cut -
+        _MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
         jj_index=0
         valueNewMACDLow=100
         
@@ -563,13 +566,22 @@ StrategieOverratedXHighStochastic() {
         # shellcheck disable=SC2086
         IFS="," set -- $_stochasticQuoteListParam
         # Cut comma, like: ",22" -> "22"
-        value1=$(echo "$1" | cut -b 2-3)
-        value2=$(echo "$2" | cut -b 2-3)
-        value3=$(echo "$3" | cut -b 2-3)
-        value4=$(echo "$4" | cut -b 2-3)
-        value5=$(echo "$5" | cut -b 2-3)
-        value6=$(echo "$6" | cut -b 2-3)
-        value7=$(echo "$7" | cut -b 2-3)
+
+        value1="${1:1:2}"
+        value2="${2:1:2}"
+        value3="${3:1:2}"
+        value4="${4:1:2}"
+        value5="${5:1:2}"
+        value6="${6:1:2}"
+        value7="${7:1:2}"
+        # value1=$(echo "$1" | cut -b 2-3) #| cut -
+        # value2=$(echo "$2" | cut -b 2-3)
+        # value3=$(echo "$3" | cut -b 2-3)
+        # value4=$(echo "$4" | cut -b 2-3)
+        # value5=$(echo "$5" | cut -b 2-3)
+        # value6=$(echo "$6" | cut -b 2-3)
+        # value7=$(echo "$7" | cut -b 2-3)
+    #echo "---value1:$value1---value2:$value2"
 
         # revsers digits '18' will be '81'
         value1=$(echo "$value1" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}')
@@ -664,13 +676,22 @@ StrategieUnderratedXLowStochastic() {
         # shellcheck disable=SC2086
         IFS="," set -- $_stochasticQuoteListParam
         # Cut comma, like: ",22" -> "22"
-        value1=$(echo "$1" | cut -b 2-3)
-        value2=$(echo "$2" | cut -b 2-3)
-        value3=$(echo "$3" | cut -b 2-3)
-        value4=$(echo "$4" | cut -b 2-3)
-        value5=$(echo "$5" | cut -b 2-3)
-        value6=$(echo "$6" | cut -b 2-3)
-        value7=$(echo "$7" | cut -b 2-3)
+
+        value1="${1:1:2}"
+        value2="${2:1:2}"
+        value3="${3:1:2}"
+        value4="${4:1:2}"
+        value5="${5:1:2}"
+        value6="${6:1:2}"
+        value7="${7:1:2}"        
+        #value1=$(echo "$1" | cut -b 2-3) #| cut -b
+        #value2=$(echo "$2" | cut -b 2-3)
+        #value3=$(echo "$3" | cut -b 2-3)
+        #value4=$(echo "$4" | cut -b 2-3)
+        #value5=$(echo "$5" | cut -b 2-3)
+        #value6=$(echo "$6" | cut -b 2-3)
+        #value7=$(echo "$7" | cut -b 2-3)
+
         IFS=$OLDIFS
         howManyUnderLowStochasticValue=0
         oneOfTheLastStochasticLow=0

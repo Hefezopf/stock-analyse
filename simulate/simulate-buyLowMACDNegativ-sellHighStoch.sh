@@ -103,8 +103,10 @@ do
     intermediateProzWin=0
     amountPerTrade=$amountPerTradeParam
 
-    if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-        symbol=$(echo "$symbol" | cut -b 2-7)
+    if [ "${symbol::1}" = '*' ]; then  
+   # if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then #| cut -b
+       #symbol=$(echo "$symbol" | cut -b 2-7)
+        symbol="${symbol:1:7}"
     fi
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
@@ -131,7 +133,8 @@ do
     historyRSIs=$(head -n6 "$HISTORY_FILE" | tail -1)
     historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
     
-    historyMACDs=$(echo "$historyMACDs" | cut -b 64-10000)
+    #historyMACDs=$(echo "$historyMACDs" | cut -b 64-10000) #| cut -b
+    historyMACDs="${historyMACDs:63:10000}"
     RSIindex=26
     valueNewMACDLow=100
     valueMACDLast_3="-1" 

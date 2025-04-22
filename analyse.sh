@@ -167,9 +167,11 @@ for symbol in $symbolsParam
 do
     # Stocks with prefix '*' are marked as own stocks
     markerOwnStock=""
-    if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
+    if [ "${symbol::1}" = '*' ]; then
+    #if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then #| cut -
         markerOwnStock="*"
-        symbol=$(echo "$symbol" | cut -b 2-7)
+        symbol="${symbol:1:7}"
+        #symbol=$(echo "$symbol" | cut -b 2-7) #| cut -
     fi
 
     #symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
