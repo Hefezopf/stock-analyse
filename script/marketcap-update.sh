@@ -37,9 +37,14 @@ do
   fi
  # lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE") #mem
   lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE_MEM") #mem
-  NAME=$(echo "$lineFromTickerFile" | cut -f 2)
-  ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
-  ASSET_TYPE=$(echo "$lineFromTickerFile" | cut -f 9)
+  #NAME=$(echo "$lineFromTickerFile" | cut -f 2) #| cut -f
+  NAME=$(echo "$lineFromTickerFile" | awk '{ print $2; }')
+  #ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3) #| cut -f
+  ID_NOTATION=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $3}')
+  #ASSET_TYPE=$(echo "$lineFromTickerFile" | cut -f 9) #| cut -f
+  ASSET_TYPE=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $9}')
+#echo "--------:$ID_NOTATION"
+#echo "--------:$ASSET_TYPE"
 
   if [ ! "$ASSET_TYPE" ]; then
     echo ""
@@ -92,7 +97,8 @@ do
     # Mrd. Market Cap
     curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-) #| cut -c
-    marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d",")
+    #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d",") #| cut -f
+    marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | awk 'BEGIN{FS=","} {print $1}')
     marktkap="${marktkap:1}"
     if [ "$marktkap" ]; then
         echo "Market Cap:$marktkap Mrd.€"
@@ -113,7 +119,8 @@ do
 
     # Branche
     #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-) #| cut -c
-    branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">")
+    #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">") #| cut -f
+    branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | awk 'BEGIN{FS=">"} {print $1}')
     branche="${branche:2}"
     if [ "$branche" ]; then
         # Replace ' /' with ',', because error with linux
@@ -139,7 +146,8 @@ do
 
     # KGVe
     #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-) #| cut -c
-    kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d",")
+    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d",") #| cut -f
+    kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | awk 'BEGIN{FS=","} {print $1}')
     kgve="${kgve:3}"
     if [ "$kgve" ]; then
         echo "KGVe: $kgve"
@@ -151,7 +159,8 @@ do
 
     # DIVe
     #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-) #| cut -c
-    dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d",")
+    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d",") #| cut -f
+    dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | awk 'BEGIN{FS=","} {print $1}')
     dive="${dive:3}"
     if [ "$dive" ]; then
         # Replace ',' with '.'
@@ -165,7 +174,8 @@ do
     fi
 
     # Hauptversammlung
-    hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<")
+    #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<") #| cut -f
+    hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | awk 'BEGIN{FS="<"} {print $1}')
     if [ "$hauptversammlung" ]; then
         echo "Hauptversammlung: $hauptversammlung"
         if [ "$hauptversammlung" ]; then
@@ -178,7 +188,8 @@ do
     fi
 
     # Firmenportrait
-    firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<")
+    #firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<") #| cut -f
+    firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | awk 'BEGIN{FS="<"} {print $1}')
     if [ "$firmenportrait" ]; then
         firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
         # shellcheck disable=SC2001
@@ -199,7 +210,8 @@ do
     sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE_MEM"
 
     # Spread
-    spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",")
+    #spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",") #| cut -f
+    spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | awk 'BEGIN{FS=","} {print $1}')
     if [ "$spread" ]; then
         echo "Spread: $spread.xx%"
         if [ "$spread" -gt 1 ]; then
