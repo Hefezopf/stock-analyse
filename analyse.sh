@@ -185,13 +185,38 @@ do
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     #symbolName=$(echo "$lineFromTickerFile" | cut -f 2) #| cut -f
-    symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}')
+    #symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}') # BEGIN{FS
+symbolName=${lineFromTickerFile#*"\""*}
+symbolName=${symbolName%*"\""*}
+symbolName=${symbolName%*"\""*}
+symbolName=${symbolName%*"\""*}
+symbolName=${symbolName%*"\""*}
+symbolName=\"${symbolName%*"\""*}\"
+
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
     # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
     CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "$symbolName" # !!!NOT: TICKER_NAME_ID_FILE_MEM
 
     #hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8) #| cut -f
-    hauptversammlung=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $8}')
+    #hauptversammlung=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $8}') # BEGIN{FS
+#echo "-----lineFromTickerFile:$lineFromTickerFile"
+    hauptversammlung=${lineFromTickerFile#*"\""*}  
+    hauptversammlung=${hauptversammlung#*"\""*}  
+    hauptversammlung=${hauptversammlung#*"\""*}  
+    hauptversammlung=${hauptversammlung#*"\""*}  
+#echo "-----0hauptversammlung:$hauptversammlung"
+    hauptversammlung=${hauptversammlung%*"\""*}
+    hauptversammlung=${hauptversammlung%*"\""*}
+#echo "-----1hauptversammlung:$hauptversammlung"       
+    hauptversammlung=${hauptversammlung//$'\t'/_} 
+##echo "-----2hauptversammlung:$hauptversammlung"
+    hauptversammlung=${hauptversammlung#*"_"*} 
+    hauptversammlung=${hauptversammlung#*"_"*} 
+    hauptversammlung=${hauptversammlung#*"_"*}
+    hauptversammlung=${hauptversammlung%*"_"*} 
+    hauptversammlung=${hauptversammlung%*"_"*} 
+#echo "-----3hauptversammlung:$hauptversammlung"
+
     if [ ! "$hauptversammlung" ]; then # Default: hauptversammlung="?"
         hauptversammlung="?"
     fi
@@ -207,7 +232,7 @@ do
     DATA_FILE="$(mktemp -p "$TEMP_DIR")"
     DATA_DATE_FILE="$DATA_DIR/$symbol.txt"
 
-    CreateCmdHyperlink "Analyse" "out" "$symbol" #"$symbolName"
+    CreateCmdHyperlink "Analyse" "out" "$symbol"
 
     # Check, if 100 last quotes are availible, otherwise fill up to 100 
     numOfQuotes=$(grep "" -F -c "$DATA_DATE_FILE")
