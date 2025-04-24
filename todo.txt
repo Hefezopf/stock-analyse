@@ -1,37 +1,16 @@
 TODO:
 -----
 
+
+mc
+xx:xx
+
 mc
 33:39
 
 
 ./test.sh
 4:33
-
-
-bash expression language vs cut:
--------------------------------
-  if [ "${symbol::1}" = '*' ]; then
-  #if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-   # symbol=$(echo "$symbol" | cut -b 2-7)
-    symbol="${symbol:1:7}"
-  fi
-        value7="${7:1:2}"
-        # value1=$(echo "$1" | cut -b 2-3)  
-TODO
- #| cut -b
-./test.sh
-4:33
-
- #| cut -c
-| cut -c
-
- #| cut -f
-| cut -f
-| awk 'BEGIN{FS="\t"} {print $1}'
-
-?grep ersetzen durch expr Lang?
-
 
 
 Refresh Balken Farbe anpassen -> minor
@@ -106,6 +85,20 @@ CalculateMarketCapRSILevel()
 
 Schwelle 5 % wieder aktivieren?
 
+bash expression language Parameter Expansion vs cut:
+-------------------------------
+  if [ "${symbol::1}" = '*' ]; then
+  #if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
+   # symbol=$(echo "$symbol" | cut -b 2-7)
+    symbol="${symbol:1:7}"
+  fi
+        value7="${7:1:2}"
+        # value1=$(echo "$1" | cut -b 2-3)  
+
+https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02
+bash expression language Parameter Expansion
+dive=${dive%*,*}
+firmenportrait=${firmenportrait%*"<"*}
 
 
 Reihenfolge neue Werte aufnehmen:
