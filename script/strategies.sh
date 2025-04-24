@@ -60,15 +60,13 @@ StrategieOverratedStochasticWhenOwn() {
     export resultStrategieOverratedStochasticWhenOwn=""
 
     if [ "$_lastStochParam" -gt "$_highStochValueParam" ]; then
-       ## if [ "$_beforeLastStochParam" -le "$_highStochValueParam" ]; then
-            if [ "$_markerOwnStockParam" = '*' ]; then
-                alarmAbbrevValue="O-"$alarmAbbrevValue
-                reasonPrefix="Sell: Stochastic Own (O)"
-                resultStrategieOverratedStochasticWhenOwn="$reasonPrefix"
-                echo "$resultStrategieOverratedStochasticWhenOwn"
-                WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
-            fi
-       ## fi
+        if [ "$_markerOwnStockParam" = '*' ]; then
+            alarmAbbrevValue="O-"$alarmAbbrevValue
+            reasonPrefix="Sell: Stochastic Own (O)"
+            resultStrategieOverratedStochasticWhenOwn="$reasonPrefix"
+            echo "$resultStrategieOverratedStochasticWhenOwn"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+        fi
     fi
 }
 
