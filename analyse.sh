@@ -198,7 +198,7 @@ symbolName=\"${symbolName%*"\""*}\"
 
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
     # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
-    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "$symbolName" # !!!NOT: TICKER_NAME_ID_FILE_MEM
+    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE_MEM" 14 "$symbolName" # !!!NOT: TICKER_NAME_ID_FILE_MEM
 
     #hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8) #| cut -f
     #hauptversammlung=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $8}') # BEGIN{FS
@@ -902,6 +902,8 @@ fi
 # Minify _result.html file
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!
+
+cp "$TICKER_NAME_ID_FILE_MEM" "config" #mem
 
 # Delete decrypted, readable portfolio file
 rm -rf "$OWN_SYMBOLS_FILE"
