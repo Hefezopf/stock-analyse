@@ -185,20 +185,20 @@ do
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     #symbolName=$(echo "$lineFromTickerFile" | cut -f 2) #| cut -f
-   # symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}') # BEGIN{FS
-symbolName=${lineFromTickerFile#*"\""*}
-symbolName=${symbolName//$'\" '/"'"} 
-symbolName=${symbolName//$'\",'/"'"} 
-symbolName=${symbolName//$' \"'/"'"} 
-symbolName=${symbolName%*"\""*}
-symbolName=${symbolName%*"\""*}
-symbolName=${symbolName%*"\""*}
-symbolName=${symbolName%*"\""*}
-symbolName=\"${symbolName%*"\""*}\"
+    symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}') # BEGIN{FS
+# symbolName=${lineFromTickerFile#*"\""*}
+# symbolName=${symbolName//$'\" '/"'"} 
+# symbolName=${symbolName//$'\",'/"'"} 
+# symbolName=${symbolName//$' \"'/"'"} 
+# symbolName=${symbolName%*"\""*}
+# symbolName=${symbolName%*"\""*}
+# symbolName=${symbolName%*"\""*}
+# symbolName=${symbolName%*"\""*}
+# symbolName=\"${symbolName%*"\""*}\"
 
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
     # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
-    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE_MEM" 14 "$symbolName" # !!!NOT: TICKER_NAME_ID_FILE_MEM
+    CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "$symbolName" # !!!NOT: TICKER_NAME_ID_FILE_MEM
 
     #hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8) #| cut -f
     #hauptversammlung=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $8}') # BEGIN{FS
@@ -249,6 +249,7 @@ symbolName=\"${symbolName%*"\""*}\"
 
     awk '{print $2}' "$DATA_DATE_FILE" > "$DATA_FILE"
     lastRaw=$(head -n1 "$DATA_FILE")
+echo "--------lastRaw:$lastRaw"    
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown symbols or not fetched symbols in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
@@ -903,7 +904,7 @@ fi
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
 sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!
 
-cp "$TICKER_NAME_ID_FILE_MEM" "config" #mem
+#cp "$TICKER_NAME_ID_FILE_MEM" "config" #mem
 
 # Delete decrypted, readable portfolio file
 rm -rf "$OWN_SYMBOLS_FILE"
