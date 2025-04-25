@@ -45,7 +45,7 @@ echo "" >> "$STOCK_SYMBOLS_FILE"
 echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolsParameter.html" >> "$SCRIPT_START_ALL_IN_CHROME_FILE"
 
 # 4.
-read -n 1 -p "Correct values in 'config/ticker_name_id.txt' now and then hit ->ANY key!"
+read -n 1 -p "Correct values in 'config/ticker_name_id.txt' (Name + ID_NOTATION) now and then hit ->ANY key!"
 
 # 5.
 . script/curl/curl_getInformerData.sh "$symbolsParameter"

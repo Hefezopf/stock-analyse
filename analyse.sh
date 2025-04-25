@@ -249,7 +249,7 @@ do
 
     awk '{print $2}' "$DATA_DATE_FILE" > "$DATA_FILE"
     lastRaw=$(head -n1 "$DATA_FILE")
-echo "--------lastRaw:$lastRaw"    
+#echo "--------lastRaw:$lastRaw"    
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown symbols or not fetched symbols in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
