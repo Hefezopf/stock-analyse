@@ -23,6 +23,8 @@
 . script/constants.sh
 . script/functions.sh
 
+START_TIME_MEASUREMENT=$(date +%s);
+
 # Parameter
 symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 amountPerTradeParam=$2
@@ -392,7 +394,7 @@ do
     cp out/"$symbol".html simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "X_AXIS_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$(grep -wn "X_AXIS_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
     lineNumer=$((lineNumer+1)) # 81
     # Write/Replace X-Axis
     xAxis="$alarmAbbrevTemplate"",'100'"
@@ -405,7 +407,7 @@ do
     sed -i """$lineNumer""s/.*/$labelsTemplate/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "BUY_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$(grep -wn "BUY_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
     lineNumer=$((lineNumer+1)) # 182
     # Write/Replace "buy"
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
@@ -417,7 +419,7 @@ do
     sed -i """$lineNumer""s/.*/$buySequenceReplaced/" simulate/out/"$symbol".html    
 
     # Search and Replace
-    lineNumer=$(grep -wn "SELL_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$(grep -wn "SELL_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
     lineNumer=$((lineNumer+1)) # 189
     # Write/Replace "sell"
     sellSequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
@@ -435,14 +437,14 @@ do
     fi
 
     # Search and Replace
-    lineNumer=$(grep -wn "BUYING_LAST_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$(grep -wn "BUYING_LAST_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
     lineNumer=$((lineNumer+1)) # 217
     dataTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,]},"
     buyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${currentAvg}/g")
     sed -i """$lineNumer""s/.*/$buyingAvgSequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$(grep -wn "5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
     # Draw 5% over buying/last quote
     percentOverBuyingAvg=$(echo "$currentAvg 1.05" | awk '{print $1 * $2}')
     percentOverBuyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${percentOverBuyingAvg}/g")
@@ -450,7 +452,7 @@ do
     sed -i """$lineNumer""s/.*/$percentOverBuyingAvgSequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "STOCH_HIGH_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$(grep -wn "STOCH_HIGH_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
     borderColor="borderColor: window.chartColors.red,"
     sed -i """$lineNumer""s/.*/$borderColor/" simulate/out/"$symbol".html
     dataStochTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X"
@@ -459,7 +461,7 @@ do
     sed -i """$lineNumer""s/.*/$stochSellingSequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "RSI_LOW_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$(grep -wn "RSI_LOW_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
     borderColor="borderColor: window.chartColors.green,"
     sed -i """$lineNumer""s/.*/$borderColor/" simulate/out/"$symbol".html
     dataRSIBuyTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X"
@@ -468,7 +470,7 @@ do
     sed -i """$lineNumer""s/.*/$RSIBuySequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html | cut -d: -f1)
+    lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html | cut -f 1 -d ':')
     GetCreationDate
     # shellcheck disable=SC2154
     GOOD_LUCK="<br>Good Luck! $creationDate"
@@ -589,3 +591,9 @@ Out "" $OUT_SIMULATE_FILE
 echo "</body></html>" >> $OUT_SIMULATE_FILE
 
 rm -rf "$TEMP_DIR"/config
+
+# Time measurement
+END_TIME_MEASUREMENT=$(date +%s);
+echo ""
+echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
+echo "time elapsed."

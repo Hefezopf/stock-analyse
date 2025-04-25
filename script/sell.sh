@@ -71,7 +71,7 @@ echo ""
 
 # Write sell/SYMBOL_DATE file
 transactionSymbolLastDateFile="sell/""$symbolParam".txt
-commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
+commaListTransaction=$(cut -f 1-86 -d ' ' < "$transactionSymbolLastDateFile")
 echo "$commaListTransaction" "{x:1,y:$sellPriceParam,r:10}, " > sell/"$symbolParam".txt
 
 today=$(date --date="-0 day" +"%Y-%m-%d")

@@ -53,7 +53,7 @@ WriteTransactionFile() {
     statusDate=$(cat "$statusFile")
     if [ ! "$statusDate" = "$_lastDateInDataFile" ]; then
         echo "$_lastDateInDataFile" > "$statusFile"
-        commaListTransaction=$(cut -d ' ' -f 2-90 < "$transactionSymbolLastDateFile")
+        commaListTransaction=$(cut -f 2-90 -d ' ' < "$transactionSymbolLastDateFile")
         commaListTransaction="$commaListTransaction""{}, "
         echo "$commaListTransaction" > "$transactionSymbolLastDateFile"
     fi
@@ -95,7 +95,7 @@ WriteAlarmAbbrevXAxisFile() {
     statusDate=$(cat "$statusFile")
     if [ ! "$statusDate" = "$lastDateInDataFile" ]; then
         echo "$lastDateInDataFile" > "$statusFile"
-        commaListAlarm=$(cut -d , -f 2-100 < "$alarmSymbolFile")
+        commaListAlarm=$(cut -f 2-100 -d ',' < "$alarmSymbolFile")
         commaListAlarm="$commaListAlarm,'$_newAlarmAbbrevTextParam'"
         echo "$commaListAlarm" > "$alarmSymbolFile"
     fi

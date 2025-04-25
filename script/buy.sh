@@ -138,7 +138,7 @@ echo ""
 #lastDateInDataFile=$(head -n1 "$DATA_DIR/$symbolParam".txt | cut -f 1)
 #transactionSymbolLastDateFile="buy/""$symbolParam"_"$lastDateInDataFile".txt
 transactionSymbolLastDateFile="buy/""$symbolParam".txt
-commaListTransaction=$(cut -d ' ' -f 1-86 < "$transactionSymbolLastDateFile")
+commaListTransaction=$(cut -f 1-86 -d ' ' < "$transactionSymbolLastDateFile")
 #rm buy/"$symbolParam"_"$lastDateInDataFile".txt
 #echo "$commaListTransaction" "{x:1,y:$pricePlusFees,r:10}, " > buy/"$symbolParam"_"$lastDateInDataFile".txt
 echo "$commaListTransaction" "{x:1,y:$pricePlusFees,r:10}, " > buy/"$symbolParam".txt
