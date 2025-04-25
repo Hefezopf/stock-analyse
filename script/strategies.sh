@@ -25,7 +25,7 @@ StrategieUnderratedNewLow() {
         howManyValues=$((86-_count))
         while [ "$i" -ge $howManyValues ]; do
             # shellcheck disable=SC2086,SC2027
-            valueNewLow=$(echo ""$_commaPriceList"" | cut -f$i -d",")
+            valueNewLow=$(echo ""$_commaPriceList"" | cut -f$i -d ",")
             conditionNewLow=$(echo "$_lastQuote" "$valueNewLow" | awk '{if ($1 < $2) print "true"; else print "false"}')
             #if [ "$(echo "$_lastQuote < $valueNewLow" | bc)" ]; then
             if [ "$conditionNewLow" = false ]; then

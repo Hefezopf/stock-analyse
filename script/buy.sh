@@ -80,9 +80,9 @@ sed -i "s/$symbolParam //" "$STOCK_SYMBOLS_FILE"
 sleep 1
 
 lineFromOwnSymbolsFile=$(grep -m1 -P "$symbolParam" "$OWN_SYMBOLS_FILE")
-priceFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 2 -d' ')
-piecesFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 4 -d' ')
-summeFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 5 -d' ' | sed 's/€//g')
+priceFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 2 -d ' ')
+piecesFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 4 -d ' ')
+summeFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 5 -d ' ' | sed 's/€//g')
 totalAmountOfPieces=$((piecesParam + piecesFromOwnSymbolsFile))
 
 # Rebuy: Remove from own list, if symbol not found -> do nothing

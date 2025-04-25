@@ -96,8 +96,8 @@ do
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
     # Mrd. Market Cap
     curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
-    #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-) #| cut -c
-    #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d",") #| cut -f
+    #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d "," | cut -c 2-) #| cut -c
+    #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d ",") #| cut -f
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | awk 'BEGIN{FS=","} {print $1}')
     marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*')
 #echo "-----0marktkap:$marktkap"
@@ -110,8 +110,8 @@ do
         echo "Market Cap:$marktkap Mrd.€"
     else
         # Bil. Market Cap
-       # marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d"," | cut -c 2-) #| cut -c
-        #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d",")
+       # marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d "," | cut -c 2-) #| cut -c
+        #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d ",")
         #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | awk 'BEGIN{FS=","} {print $1}')
         marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*')
         marktkap=${marktkap%*,*}
@@ -127,8 +127,8 @@ do
     fi
 
     # Branche
-    #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">" | cut -c 3-) #| cut -c
-    #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d">") #| cut -f
+    #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d ">" | cut -c 3-) #| cut -c
+    #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d ">") #| cut -f
     #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | awk 'BEGIN{FS=">"} {print $1}')
     branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*')
     branche=${branche%*"\""*}\"
@@ -139,8 +139,8 @@ do
         echo "Branche: $branche"
     else
         # Branche ><
-        #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<" | cut -c 2-) #| cut -c
-        #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d"<")
+        #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d "<" | cut -c 2-) #| cut -c
+        #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d "<")
         #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | awk 'BEGIN{FS="<"} {print $1}')
         branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*')
         branche=${branche%*"<"*}
@@ -159,9 +159,9 @@ do
     fi
 
     # KGVe
-    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-) #| cut -c
-    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d",") #| cut -f
-    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d"<" | awk 'BEGIN{FS=","} {print $1}')
+    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d "<" | cut -f1 -d "," | cut -c 4-) #| cut -c
+    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d "<" | cut -f1 -d ",") #| cut -f
+    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d "<" | awk 'BEGIN{FS=","} {print $1}')
     #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | awk 'BEGIN{FS="<"} {print $2}' | awk 'BEGIN{FS=","} {print $1}')
     kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | awk 'BEGIN{FS="<"} {print $2}')
     kgve=${kgve%*,*}
@@ -175,9 +175,9 @@ do
     fi
 
     # DIVe
-    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d"," | cut -c 4-) #| cut -c
-    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | cut -f1 -d",") #| cut -f
-    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d"<" | awk 'BEGIN{FS=","} {print $1}')
+    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d "<" | cut -f1 -d "," | cut -c 4-) #| cut -c
+    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d "<" | cut -f1 -d ",") #| cut -f
+    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d "<" | awk 'BEGIN{FS=","} {print $1}')
     #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | awk 'BEGIN{FS="<"} {print $2}' | awk 'BEGIN{FS=","} {print $1}')
     dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | awk 'BEGIN{FS="<"} {print $2}')
     dive=${dive%*,*}
@@ -194,8 +194,8 @@ do
     fi
 
     # Hauptversammlung
-    #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | cut -f1 -d"<") #| cut -f
-    #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d">" | awk 'BEGIN{FS="<"} {print $1}')
+    #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d ">" | cut -f1 -d "<") #| cut -f
+    #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d ">" | awk 'BEGIN{FS="<"} {print $1}')
     #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | awk 'BEGIN{FS=">"} {print $2}' | awk 'BEGIN{FS="<"} {print $1}')
     hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | awk 'BEGIN{FS=">"} {print $2}')
     hauptversammlung=${hauptversammlung%*"<"*}
@@ -211,8 +211,8 @@ do
     fi
 
     # Firmenportrait
-    #firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | cut -f1 -d"<") #| cut -f
-    #firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d">" | awk 'BEGIN{FS="<"} {print $1}')
+    #firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d ">" | cut -f1 -d "<") #| cut -f
+    #firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d ">" | awk 'BEGIN{FS="<"} {print $1}')
 #    firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | awk 'BEGIN{FS=">"} {print $2}' | awk 'BEGIN{FS="<"} {print $1}')
     firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | awk 'BEGIN{FS=">"} {print $2}')
 
@@ -241,8 +241,8 @@ do
     sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE_MEM"
 
     # Spread
-    #spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | cut -f1 -d",") #| cut -f
-    #spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d">" | awk 'BEGIN{FS=","} {print $1}')
+    #spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d ">" | cut -f1 -d ",") #| cut -f
+    #spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d ">" | awk 'BEGIN{FS=","} {print $1}')
     #spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | awk 'BEGIN{FS=">"} {print $2}' | awk 'BEGIN{FS=","} {print $1}')
     spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | awk 'BEGIN{FS=">"} {print $2}')
     spread=${spread%*,*}
