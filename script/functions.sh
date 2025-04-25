@@ -118,12 +118,20 @@ DetermineTendency() {
     value_87=$(echo "$_listParam" | cut -f 87 -d ',')
 
     difference=$(echo "$value_87 $value_82" | awk '{print ($1 - $2)}')
-    #difference=$(echo "scale=2;$value_87-$value_82" | bc)
 
     isNegativ=${difference:0:1}
     relative=$(echo "$value_87 $value_82" | awk '{print (($1 / $2)-1)*100}')
-    valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
-    valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
+
+#echo "-------relative:$relative"    
+    #valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
+     valueBeforeComma=${relative%*.*}
+#echo "-------valueBeforeComma:$valueBeforeComma"
+
+    #valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
+     valueAfterComma=${relative#*.*}
+#echo "-------valueAfterComma:$valueAfterComma"
+
+
     isLevelPos1=${valueAfterComma:0:1}
     if [ "$isLevelPos1" != "-" ]; then
         if [ "$isLevelPos1" -lt 2 ] && # < 0.02 %
