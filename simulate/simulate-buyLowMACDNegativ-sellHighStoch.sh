@@ -394,7 +394,11 @@ do
     cp out/"$symbol".html simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "X_AXIS_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
+    #lineNumer=$(grep -wn "X_AXIS_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
+    lineNumer=$(grep -wn "X_AXIS_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html) 
+    lineNumer=${lineNumer%*":"*}
+    lineNumer=${lineNumer%*":"*}
+#echo "-----lineNumer:$lineNumer"    
     lineNumer=$((lineNumer+1)) # 81
     # Write/Replace X-Axis
     xAxis="$alarmAbbrevTemplate"",'100'"
@@ -407,7 +411,11 @@ do
     sed -i """$lineNumer""s/.*/$labelsTemplate/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "BUY_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
+    #lineNumer=$(grep -wn "BUY_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
+    lineNumer=$(grep -wn "BUY_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html)
+    lineNumer=${lineNumer%*":"*}
+    lineNumer=${lineNumer%*":"*}
+#    echo "-----lineNumer:$lineNumer" 
     lineNumer=$((lineNumer+1)) # 182
     # Write/Replace "buy"
     buySequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
@@ -419,7 +427,11 @@ do
     sed -i """$lineNumer""s/.*/$buySequenceReplaced/" simulate/out/"$symbol".html    
 
     # Search and Replace
-    lineNumer=$(grep -wn "SELL_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
+    #lineNumer=$(grep -wn "SELL_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
+    lineNumer=$(grep -wn "SELL_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html)
+    lineNumer=${lineNumer%*":"*}
+    lineNumer=${lineNumer%*":"*}
+ #   echo "-----lineNumer:$lineNumer" 
     lineNumer=$((lineNumer+1)) # 189
     # Write/Replace "sell"
     sellSequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
@@ -437,40 +449,66 @@ do
     fi
 
     # Search and Replace
-    lineNumer=$(grep -wn "BUYING_LAST_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
-    lineNumer=$((lineNumer+1)) # 217
+    #lineNumer=$(grep -wn "BUYING_LAST_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
+    lineNumer=$(grep -wn "BUYING_LAST_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html)
+    lineNumer=${lineNumer%*":"*}
+    lineNumer=${lineNumer%*":"*}
+  #  echo "-----lineNumer:$lineNumer" 
+    lineNumer=$((lineNumer+1)) # 218
     dataTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,]},"
     buyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${currentAvg}/g")
     sed -i """$lineNumer""s/.*/$buyingAvgSequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
+    #lineNumer=$(grep -wn "5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
+    lineNumer=$(grep -wn "5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html)
+    lineNumer=${lineNumer%*":"*}
+    lineNumer=${lineNumer%*":"*}
+  #  echo "-----lineNumer:$lineNumer" 
     # Draw 5% over buying/last quote
     percentOverBuyingAvg=$(echo "$currentAvg 1.05" | awk '{print $1 * $2}')
     percentOverBuyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${percentOverBuyingAvg}/g")
-    lineNumer=$((lineNumer+1)) # 223
+    lineNumer=$((lineNumer+1)) # 224
     sed -i """$lineNumer""s/.*/$percentOverBuyingAvgSequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "STOCH_HIGH_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
+    #lineNumer=$(grep -wn "STOCH_HIGH_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
+    lineNumer=$(grep -wn "STOCH_HIGH_PARAM_TO_BE_REPLACED" out/"$symbol".html)
+    lineNumer=${lineNumer%*":"*}
+    lineNumer=${lineNumer%*":"*}
+ #   echo "-----lineNumer:$lineNumer" 
     borderColor="borderColor: window.chartColors.red,"
     sed -i """$lineNumer""s/.*/$borderColor/" simulate/out/"$symbol".html
     dataStochTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X"
     stochSellingSequenceReplaced=$(echo -n "$dataStochTemplate" | sed "s/X/${stochSellLevelParam}/g")
-    lineNumer=$((lineNumer+1)) # 284
+    lineNumer=$((lineNumer+1)) # 286
     sed -i """$lineNumer""s/.*/$stochSellingSequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "RSI_LOW_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':')
+    #lineNumer=$(grep -wn "RSI_LOW_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
+    lineNumer=$(grep -wn "RSI_LOW_PARAM_TO_BE_REPLACED" out/"$symbol".html)
+    lineNumer=${lineNumer%*":"*}
+    lineNumer=${lineNumer%*":"*}
+#    echo "-----lineNumer:$lineNumer" 
     borderColor="borderColor: window.chartColors.green,"
     sed -i """$lineNumer""s/.*/$borderColor/" simulate/out/"$symbol".html
     dataRSIBuyTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X"
     RSIBuySequenceReplaced=$(echo -n "$dataRSIBuyTemplate" | sed "s/X/${RSIBuyLevelParam}/g")
-    lineNumer=$((lineNumer+1)) # 367
+    lineNumer=$((lineNumer+1)) # 368
     sed -i """$lineNumer""s/.*/$RSIBuySequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html | cut -f 1 -d ':')
+    #lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
+    lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html)
+    lineNumer=${lineNumer%*"<"*}
+    lineNumer=${lineNumer%*"<"*}
+    lineNumer=${lineNumer%*"<"*}
+    lineNumer=${lineNumer%*"<"*}
+    lineNumer=${lineNumer%*"<"*}
+    lineNumer=${lineNumer%*":"*} # 568
+ #   echo "-----lineNumer:$lineNumer"
+#<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 25-Apr-2025 13:07</p>
+
     GetCreationDate
     # shellcheck disable=SC2154
     GOOD_LUCK="<br>Good Luck! $creationDate"

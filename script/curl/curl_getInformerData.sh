@@ -59,7 +59,13 @@ do
     fi
   
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
-    ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
+    #ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
+    ID_NOTATION=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $3}')
+#echo "-----lineFromTickerFile:$lineFromTickerFile"  
+    #ID_NOTATION=${ID_NOTATION#*"\t"*} # cut suffix inclunding ','
+#echo "-----ID_NOTATION:$ID_NOTATION"
+   # marktkap="${marktkap:1}"
+
     dataAlreadyThere=$(grep -m1 -P "^$yesterday\t" "$informerDataFile")
     if { [ -z "$dataAlreadyThere" ]; } then
         asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
@@ -98,11 +104,6 @@ do
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
             numOfLines=$(awk 'END { print NR }' "$informerDataFile")
             numOfLinesToFill=$((101 - numOfLines))
-
-            # oldtext='2024-09-08	uter-spacing--small-top">nbsp;EUR'
-            # newtext="2024-09-08	$value"
-            # sed -i "s/$oldtext/$newtext/g" "$informerDataFile"
-
             while [ "$numOfLinesToFill" -gt 0 ]; do
                 dayBefore=$(date --date="-$numOfLinesToFill day" +"%Y-%m-%d")
                 sed -i "1s/^/$dayBefore	$value\n/" "$informerDataFile"
@@ -110,11 +111,11 @@ do
             done
             sed -i "1,100!d" "$informerDataFile" # Alles was länger als 100 Zeilen ist löschen
         else
-            echo "Error retrieving Value for Symbol (Wrong Type? INDEX or COIN?):$symbol"
+            echo "Error: Retrieving value for Symbol (Wrong Type? INDEX or COIN?): '$symbol'"
             errorSymbols="$errorSymbols $symbol"
         fi
     else
-        echo "$symbol:	Actual data already there. NO CURL query needed!"
+        echo "Info: Actual data for symbol already there. NO CURL query needed: '$symbol'"
     fi
 done
 echo "---------------"
