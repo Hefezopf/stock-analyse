@@ -107,7 +107,7 @@ summe=$((summe + txFee + summeFromOwnSymbolsFile))
 # Prepare for eMail Header sending 
 BUY_RESULT_FILE="buy_result.txt"
 rm -rf "$BUY_RESULT_FILE"
-echo "Pieces=$totalAmountOfPieces Amount=$summe€" >> "$BUY_RESULT_FILE"
+echo "Pieces=$totalAmountOfPieces Invested Amount=$summe€" >> "$BUY_RESULT_FILE"
 
 if [ "$(uname)" = 'Linux' ]; then
     echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total"
