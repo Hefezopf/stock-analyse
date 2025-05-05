@@ -70,13 +70,13 @@ do
     if { [ -z "$dataAlreadyThere" ]; } then
         asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
         if [ "$asset_type" = 'INDEX' ]; then
-            curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+            curlResponse=$(curl -c cookies.txt -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         else
-            curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+            curlResponse=$(curl -c cookies.txt -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         fi
      
         if [ "$asset_type" = 'COIN' ]; then
-            curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
+            curlResponse=$(curl -c cookies.txt -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
         fi
         #value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d "<" | cut -c 29-) #| cut -c 
         #value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d "<")  # | cut -f1 -d "<"

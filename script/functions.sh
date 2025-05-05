@@ -162,7 +162,7 @@ CurlSymbolName() {
 #echo "symbolName=$symbolName --- _symbolNameParam=$_symbolNameParam"    
     #symbolName=$(grep -m1 -P "$_symbolParam\t" "$_tickerNameIdFileParam" | cut -f 2)
     if [ ! "${#symbolName}" -gt 1 ]; then
-        symbolName=$(curl -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
+        symbolName=$(curl -c cookies.txt -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
 #echo "-------1symbolName:$symbolName"         
         if ! [ "$symbolName" = 'null' ]; then
             echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999""$(printf '\t')""?""$(printf '\t')""\"--\"""$(printf '\t')""--""$(printf '\t')""--""$(printf '\t')""?""$(printf '\t')""STOCK""$(printf '\t')""\"---\"" | tee -a "$_tickerNameIdFileParam"

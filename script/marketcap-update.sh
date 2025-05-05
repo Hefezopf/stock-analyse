@@ -65,7 +65,7 @@ do
   fi
   
   if [ "$ASSET_TYPE" = 'INDEX' ]; then
-    curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    curlResponse=$(curl -c cookies.txt -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
     marktkap="1000"
     branche="\"Strategie\""
     kgve="0"
@@ -95,7 +95,7 @@ do
 
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
     # Mrd. Market Cap
-    curlResponse=$(curl -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    curlResponse=$(curl -c cookies.txt -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d "," | cut -c 2-) #| cut -c
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d ",") #| cut -f
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | awk 'BEGIN{FS=","} {print $1}')
