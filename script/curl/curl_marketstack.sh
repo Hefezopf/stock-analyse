@@ -14,4 +14,4 @@ if { [ -z "$1" ]; } then
 fi
 
 #export MARKET_STACK_ACCESS_KEY=$MARKET_STACK_ACCESS_KEY
-curl -c cookies.txt -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${1}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}'
+curl -c "'$COOKIES_FILE'" -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=XETRA&symbols=${1}.XETRA" | jq -jr '.data[]|.date, "T", .close, "\n"' | awk -F'T' '{print $1 "\t" $3}'

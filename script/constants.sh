@@ -29,6 +29,8 @@ export STATUS_DIR="status"
 export TEMP_DIR="/dev/shm/"
 
 # Files
+
+export COOKIES_FILE="$TEMP_DIR""cookies.txt"
 export OWN_SYMBOLS_FILE="config/own_symbols.txt"
 export TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
 export TICKER_NAME_ID_FILE_MEM="$TEMP_DIR""config/ticker_name_id.txt" #mem

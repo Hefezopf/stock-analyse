@@ -44,6 +44,10 @@ cat simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh | tr -d '\r' > simulate
 rm simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 mv simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 
+cat script/curl/curl_getInformerData.sh | tr -d '\r' > script/curl/curl_getInformerData1.sh
+rm script/curl/curl_getInformerData.sh
+mv script/curl/curl_getInformerData1.sh script/curl/curl_getInformerData.sh
+
 cat analyse.sh | tr -d '\r' > analyse1.sh
 rm analyse.sh
 mv analyse1.sh analyse.sh
