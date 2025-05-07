@@ -13,6 +13,8 @@
 . script/constants.sh
 . script/functions.sh
 
+START_TIME_MEASUREMENT=$(date +%s);
+
 # Parameter
 symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 lastDaysParam=$2
@@ -113,3 +115,9 @@ echo "file:///D:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
 echo "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html"
 
 rm -rf "$TEMP_DIR"/config
+
+# Time measurement
+END_TIME_MEASUREMENT=$(date +%s);
+echo ""
+echo $((END_TIME_MEASUREMENT-START_TIME_MEASUREMENT)) | awk '{print int($1/60)":"int($1%60)}'
+echo "time elapsed."
