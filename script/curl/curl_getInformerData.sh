@@ -80,12 +80,12 @@ do
         fi
         #value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d "<" | cut -c 29-) #| cut -c 
         #value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d "<")  # | cut -f1 -d "<"
-        value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')
-#echo "----------0value:$value"        
+        value=$(echo "$curlResponse" 2>/dev/null | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')
+#echo "----------0value:$value"
         value=${value%*"<"*}
         value=${value%*"<"*}
-        value=${value%*"<"*}       
-#echo "----------1value:$value"          
+        value=${value%*"<"*}
+#echo "----------1value:$value"
         value="${value:28}"
 #echo "----------2value:$value"
 

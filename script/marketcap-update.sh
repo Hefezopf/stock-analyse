@@ -86,11 +86,11 @@ do
   fi
   
   if [ "$ASSET_TYPE" = 'INDEX' ]; then
-    #curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
     
     
-    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" &)
-    wait
+    #curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" &)
+    #wait
 
 
     marktkap="1000"
@@ -122,15 +122,15 @@ do
 
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
     # Mrd. Market Cap
-    #curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
 
-    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" &)
-    wait
+    #curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" &)
+    #wait
 
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d "," | cut -c 2-) #| cut -c
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d ",") #| cut -f
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | awk 'BEGIN{FS=","} {print $1}')
-    marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*')
+    marktkap=$(echo "$curlResponse" 2>/dev/null | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*')
 #echo "-----0marktkap:$marktkap"
     marktkap=${marktkap%*,*} # cut suffix inclunding ','
 #echo "-----1marktkap:$marktkap"
