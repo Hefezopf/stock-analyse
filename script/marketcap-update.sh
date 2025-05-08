@@ -228,7 +228,7 @@ do
     #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d ">" | cut -f1 -d "<") #| cut -f
     #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d ">" | awk 'BEGIN{FS="<"} {print $1}')
     #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | awk 'BEGIN{FS=">"} {print $2}' | awk 'BEGIN{FS="<"} {print $1}')
-    hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | awk 'BEGIN{FS=">"} {print $2}')
+    hauptversammlung=$(echo "$curlResponse" 2>/dev/null | grep -B1 -m1 "Hauptversammlung" | head -n 1 | awk 'BEGIN{FS=">"} {print $2}')
     hauptversammlung=${hauptversammlung%*"<"*}
     if [ "$hauptversammlung" ]; then
         echo "Hauptversammlung: $hauptversammlung"
