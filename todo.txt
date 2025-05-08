@@ -2,6 +2,20 @@ TODO:
 -----
 
 
+
+https://www.baeldung.com/linux/curl-parallel-download
+curl -c /d/temp/cookies.txt -s --location --request GET -Z "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671380" -o out1.html -Z "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671167" -o out2.html
+curl --parallel --config urls_outputs.txt
+curl -Z url1 -o out1 url2 -o out2 url3 -o out3
+# for symbol in $symbolsParam
+# do
+# urls=$(echo "$urls" | awk 'BEGIN{FS="\t"} {print $3}')
+#     urls=($urls 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671380' 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671167')
+#     outs=('UPAB.html' 'BOX.html')
+# done
+
+
+
 +Messen und ausgeben:
 Time bei Last 3
 

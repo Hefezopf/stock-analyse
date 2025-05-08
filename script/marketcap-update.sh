@@ -28,6 +28,15 @@ mkdir -p "$TEMP_DIR/config"
 cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 #mem
 
+
+# for symbol in $symbolsParam
+# do
+# urls=$(echo "$urls" | awk 'BEGIN{FS="\t"} {print $3}')
+#     urls=($urls 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671380' 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671167')
+#     outs=('UPAB.html' 'BOX.html')
+# done
+
+
 for symbol in $symbolsParam
 do
   if [ "${symbol::1}" = '*' ]; then
@@ -45,6 +54,18 @@ do
   ASSET_TYPE=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $9}')
 #echo "--------:$ID_NOTATION"
 #echo "--------:$ASSET_TYPE"
+
+
+# urls=('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671380' 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671167')
+# outs=('UPAB.html' 'BOX.html')
+# for i in "${!urls[@]}"; 
+# do  
+#     curl -c "'$COOKIES_FILE'" -s --location --request GET ${urls[$i]} -o ${outs[$i]} &
+# done
+# wait
+# exit
+
+
 
   if [ ! "$ASSET_TYPE" ]; then
     echo ""
@@ -65,7 +86,13 @@ do
   fi
   
   if [ "$ASSET_TYPE" = 'INDEX' ]; then
-    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    #curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    
+    
+    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" &)
+    wait
+
+
     marktkap="1000"
     branche="\"Strategie\""
     kgve="0"
@@ -95,7 +122,11 @@ do
 
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
     # Mrd. Market Cap
-    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    #curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+
+    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION" &)
+    wait
+
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d "," | cut -c 2-) #| cut -c
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d ",") #| cut -f
     #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | awk 'BEGIN{FS=","} {print $1}')
