@@ -6,12 +6,14 @@
 # Recommented run frequency: once a year
 # Approx. duration: 4 hours!
 #
-# Status: January 2023 (after cleanup):
+# Status:
 # See repo size in Github: https://github.com/settings/repositories
-# ->328 MB
+# ->328 MB (January 2023)
+# ->1.01 GB (Mai 2025)
 # See local repo size
 # du -sh .
-# -> 558 M
+# -> 558M (January 2023)
+# -> 2.8G (Mai 2025)
 #
 # Call: . script/git_clean_history.sh
 
