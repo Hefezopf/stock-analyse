@@ -28,15 +28,6 @@ mkdir -p "$TEMP_DIR/config"
 cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 #mem
 
-
-# for symbol in $symbolsParam
-# do
-# urls=$(echo "$urls" | awk 'BEGIN{FS="\t"} {print $3}')
-#     urls=($urls 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671380' 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671167')
-#     outs=('UPAB.html' 'BOX.html')
-# done
-
-
 for symbol in $symbolsParam
 do
   if [ "${symbol::1}" = '*' ]; then
@@ -55,26 +46,11 @@ do
 #echo "--------:$ID_NOTATION"
 #echo "--------:$ASSET_TYPE"
 
-
-# urls=('https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671380' 'https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=46671167')
-# outs=('UPAB.html' 'BOX.html')
-# for i in "${!urls[@]}"; 
-# do  
-#     curl -c "'$COOKIES_FILE'" -s --location --request GET ${urls[$i]} -o ${outs[$i]} &
-# done
-# wait
-# exit
-
   if [ ! "$ASSET_TYPE" ]; then
     echo ""
     echo "Error: Unknown Symbol:$symbol"
     exit 2
   fi
-
-#   if [ ! "$ASSET_TYPE" ]; then # Default = STOCK
-#     #ASSET_TYPE="INDEX" # STOCK/COIN/INDEX
-#     ASSET_TYPE="STOCK"
-#   fi
 
   echo ""
   echo "$symbol" "$NAME" ...

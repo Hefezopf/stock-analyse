@@ -20,7 +20,7 @@ if { [ -z "$GPG_PASSPHRASE" ] ; } then
   exit 1
 fi
 
-gpg --decrypt --pinentry-mode=loopback --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg > "$TEMP_FILE"
+gpg --decrypt --pinentry-mode=loopback --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg > "$TEMP_FILE" 2>/dev/null
 
 echo ""
 
