@@ -151,6 +151,6 @@ count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
 rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
-echo "Transactions: $count (150/250)"
+echo "Transactions: $count (Year 2025)"
 echo "Quali Phase: 01.04. bis 30.09. and"
 echo "Quali Phase: 01.10. bis 31.03."
