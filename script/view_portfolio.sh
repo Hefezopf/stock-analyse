@@ -26,6 +26,11 @@ echo ""
 
 sed 's/ /\t/g' "$TEMP_FILE"
 
+echo ""
+
+overallPositions=$(awk 'END { print NR }' "$TEMP_FILE")
+echo "Overall Positions: $overallPositions"
+
 rm -rf "$TEMP_FILE"
 
 echo ""
