@@ -44,6 +44,10 @@ if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$piecesParam" ]; } t
   exit 1
 fi
 
+if [ "${symbolParam::1}" = '*' ]; then
+    symbolParam="${symbolParam:1:7}"
+fi
+
 lineFromTickerFile=$(grep -m1 -P "$symbolParam\t" "$TICKER_NAME_ID_FILE")
 symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
 echo "Buy $symbolParam $symbolName $piecesParam $priceParam"

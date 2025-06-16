@@ -42,6 +42,10 @@ if { [ "$3" ]; } then
     exit 2
 fi
 
+if [ "${symbolParam::1}" = '*' ]; then
+    symbolParam="${symbolParam:1:7}"
+fi
+
 # Add symbol in front of overall list
 sed -i "0,/^/s//$symbolParam /" "$STOCK_SYMBOLS_FILE"
 
