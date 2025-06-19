@@ -97,9 +97,14 @@ do
 
             # shellcheck disable=SC2001
             valueTest=$(echo "$value" | sed "s/\.//g") # Replace , -> . 1000.00 -> 100000
-            case "$valueTest" in
-                ''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
-            esac
+       # echo "----------valueTest:$valueTest"
+            if [ "${valueTest::1}" = '-' ]; then
+                echo "Error: PIECES Not a integer number! Taking value from Yesterday."
+                value=$(head -1 "$informerDataFile" | cut -f 2)
+            fi
+            #case "$valueTest" in
+               #''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
+            #esac
 
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
             numOfLines=$(awk 'END { print NR }' "$informerDataFile")
