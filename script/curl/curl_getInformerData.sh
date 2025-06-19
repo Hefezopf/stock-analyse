@@ -99,7 +99,7 @@ do
             valueTest=$(echo "$value" | sed "s/\.//g") # Replace , -> . 1000.00 -> 100000
        # echo "----------valueTest:$valueTest"
             if [ "${valueTest::1}" = '-' ]; then
-                echo "Error: PIECES Not a integer number! Taking value from Yesterday."
+                echo "Error: '$symbol' value NOT a integer number! Taking value from Yesterday."
                 value=$(head -1 "$informerDataFile" | cut -f 2)
             fi
             #case "$valueTest" in
@@ -116,11 +116,11 @@ do
             done
             sed -i "1,100!d" "$informerDataFile" # Alles was länger als 100 Zeilen ist löschen
         else
-            echo "Error: Retrieving value for Symbol (Wrong Type? INDEX or COIN?): '$symbol'"
+            echo "Error: '$symbol' retrieving value for Symbol (Wrong Type? INDEX or COIN?)."
             errorSymbols="$errorSymbols $symbol"
         fi
     else
-        echo "Info: Actual data for symbol already there. NO CURL query needed: '$symbol'"
+        echo "Info: '$symbol' actual data for symbol already there. NO CURL query needed."
     fi
 done
 echo "---------------"
