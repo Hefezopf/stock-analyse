@@ -81,7 +81,17 @@ do
         #value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d "<" | cut -c 29-) #| cut -c 
         #value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d "<")  # | cut -f1 -d "<"
         value=$(echo "$curlResponse" 2>/dev/null | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')
+
+
 #echo "----------0value:$value"
+#echo "----------.........value:${value:18:2}"
+        if [ "${value:18:2}" = '--' ]; then
+            #echo "----------curl again........."
+                value=$(echo "$curlResponse" 2>/dev/null | grep -m3 "</span></div></span>" | sort -r | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')
+        fi
+#echo "----------00value:$value"
+
+
         value=${value%*"<"*}
         value=${value%*"<"*}
         value=${value%*"<"*}
@@ -97,14 +107,19 @@ do
 
             # shellcheck disable=SC2001
             valueTest=$(echo "$value" | sed "s/\.//g") # Replace , -> . 1000.00 -> 100000
+
+
+
        # echo "----------valueTest:$valueTest"
-            if [ "${valueTest::1}" = '-' ]; then
-                echo "Error: '$symbol' value NOT a integer number! Taking value from Yesterday."
-                value=$(head -1 "$informerDataFile" | cut -f 2)
-            fi
+            #if [ "${valueTest::1}" = '-' ]; then
+            #    echo "Error: '$symbol' value NOT a integer number! Taking value from yesterday."
+            #    value=$(head -1 "$informerDataFile" | cut -f 2)
+            #fi
             #case "$valueTest" in
                #''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
             #esac
+
+
 
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
             numOfLines=$(awk 'END { print NR }' "$informerDataFile")
