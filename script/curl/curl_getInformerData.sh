@@ -110,11 +110,11 @@ do
 
 
 
-       # echo "----------valueTest:$valueTest"
-            #if [ "${valueTest::1}" = '-' ]; then
-            #    echo "Error: '$symbol' value NOT a integer number! Taking value from yesterday."
-            #    value=$(head -1 "$informerDataFile" | cut -f 2)
-            #fi
+# echo "----------valueTest:$valueTest"
+            if [ "${valueTest::1}" = '-' ]; then
+                echo "Error: '$symbol' value NOT a integer number! Taking value from yesterday."
+                value=$(head -1 "$informerDataFile" | cut -f 2)
+            fi
             #case "$valueTest" in
                #''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
             #esac
