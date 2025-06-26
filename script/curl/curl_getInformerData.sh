@@ -84,10 +84,10 @@ do
 
 
 #echo "----------0value:$value"
-#echo "----------.........value:${value:18:2}"
-        if [ "${value:18:2}" = '--' ]; then
-            #echo "----------curl again........."
-                value=$(echo "$curlResponse" 2>/dev/null | grep -m3 "</span></div></span>" | sort -r | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')
+#echo "----------.........value:${value:28:2}"
+        if [ "${value:28:2}" = '--' ]; then
+            echo "Warning: '$symbol' value NOT a integer number! Trying with next exchange..."
+            value=$(echo "$curlResponse" 2>/dev/null | grep -m3 "</span></div></span>" | sort -r | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')              
         fi
 #echo "----------00value:$value"
 
@@ -112,7 +112,7 @@ do
 
 # echo "----------valueTest:$valueTest"
             if [ "${valueTest::1}" = '-' ]; then
-                echo "Error: '$symbol' value NOT a integer number! Taking value from yesterday."
+                echo "Warning: '$symbol' value NOT a integer number! Taking value from yesterday."
                 value=$(head -1 "$informerDataFile" | cut -f 2)
             fi
             #case "$valueTest" in
