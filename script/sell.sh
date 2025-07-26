@@ -63,6 +63,12 @@ SELL_TOTAL_AMOUNT=$(echo "$SELL_TOTAL_AMOUNT" | cut -f 1 -d '.')
 CalculateTxFee "$sellPriceParam" "$TOTAL_PIECES"
 SELL_TOTAL_AMOUNT=$((SELL_TOTAL_AMOUNT - txFee))
 
+#echo SELL_TOTAL_AMOUNT: $SELL_TOTAL_AMOUNT
+#echo BUY_TOTAL_AMOUNT: $BUY_TOTAL_AMOUNT
+winPercentage=$(echo "scale=1; ($SELL_TOTAL_AMOUNT *100 / $BUY_TOTAL_AMOUNT)" | bc)
+#echo winPercentage: $winPercentage%
+
+
 # Remove symbol from own list
 sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
 
@@ -82,8 +88,8 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 
 # Write Tx History
 echo "Win: $SELL_TOTAL_AMOUNT€"
-# 2022-04-23	999€	BEI "BEIERSDORF"
-echo "&nbsp;$today	$SELL_TOTAL_AMOUNT&euro;	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	$SYMBOL_NAME</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
+# 2022-04-23	999€	20%	BEI "BEIERSDORF"
+echo "&nbsp;$today	$SELL_TOTAL_AMOUNT&euro;	$winPercentage%	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	$SYMBOL_NAME</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
@@ -140,5 +146,5 @@ echo "Transactions: $count (Year $(date +%Y))"
 
 if [ ! "$(uname)" = 'Linux' ]; then
     echo ""
-    echo "Windows:Red Sell-Marker appears tomorrow in HTML!"
+    echo "Windows:Red Sell-Marker appears in HTML next time Git 'Nightly Action' runs!"
 fi
