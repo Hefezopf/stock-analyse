@@ -44,6 +44,14 @@ cat simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh | tr -d '\r' > simulate
 rm simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 mv simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 
+cat script/sell.sh | tr -d '\r' > script/sell1.sh
+rm script/sell.sh
+mv script/sell1.sh script/sell.sh
+
+cat script/buy.sh | tr -d '\r' > script/buy1.sh
+rm script/buy.sh
+mv script/buy1.sh script/buy.sh
+
 cat script/curl/curl_getInformerData.sh | tr -d '\r' > script/curl/curl_getInformerData1.sh
 rm script/curl/curl_getInformerData.sh
 mv script/curl/curl_getInformerData1.sh script/curl/curl_getInformerData.sh
@@ -58,11 +66,11 @@ shellcheck --shell=bash script/constants.sh
 shellcheck --shell=bash script/functions.sh
 shellcheck --shell=bash script/buy.sh
 shellcheck --shell=bash script/sell.sh
-shellcheck --shell=bash script/curl/curl_getInformerData.sh
 shellcheck --shell=bash script/view_portfolio.sh
 shellcheck --shell=bash script/marketcap-update.sh
 shellcheck --shell=bash script/git_cleanup.sh
 shellcheck --shell=bash script/sort_sa.sh
+shellcheck --shell=bash script/curl/curl_getInformerData.sh
 shellcheck --shell=bash simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 shellcheck --shell=bash simulate.sh
 shellcheck --shell=bash analyse.sh
