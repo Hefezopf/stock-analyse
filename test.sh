@@ -10,7 +10,7 @@
 # ./install.sh ~
 # 4 dirs are created in ~ (/c/Users/info/bin/bats)
 # /libexec, /bin, /share and /lib
-# bats -version
+# bats --version
 
 # To get rid of carage returns, may run:
 # sed -i 's/\r//g' script/constants.sh
@@ -78,8 +78,9 @@ shellcheck --shell=bash analyse.sh
 rm -rf test/_result.html
 
 # /C/Users/xcg4444/bin/bats --tap test/*.bats
+# C:\Users\info\bin\bats
 echo bats ...
-bats -version
+bats --version
 
 bats --tap --timing test/strategies.bats
 bats --tap --timing test/functions.bats
