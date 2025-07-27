@@ -31,20 +31,12 @@ cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 for symbol in $symbolsParam
 do
   if [ "${symbol::1}" = '*' ]; then
-  #if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then
-   # symbol=$(echo "$symbol" | cut -b 2-7)
     symbol="${symbol:1:7}"
   fi
- # lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE") #mem
   lineFromTickerFile=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE_MEM") #mem
   NAME=$(echo "$lineFromTickerFile" | cut -f 2) #| cut -f
-  #NAME=$(echo "$lineFromTickerFile" | awk '{ print $2; }')
-  #ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3) #| cut -f
   ID_NOTATION=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $3}')
-  #ASSET_TYPE=$(echo "$lineFromTickerFile" | cut -f 9) #| cut -f
   ASSET_TYPE=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $9}')
-#echo "--------:$ID_NOTATION"
-#echo "--------:$ASSET_TYPE"
 
   if [ ! "$ASSET_TYPE" ]; then
     echo ""
@@ -91,9 +83,6 @@ do
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
     # Mrd. Market Cap
     curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
-    #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d "," | cut -c 2-) #| cut -c
-    #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d ",") #| cut -f
-    #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*' | awk 'BEGIN{FS=","} {print $1}')
     marktkap=$(echo "$curlResponse" 2>/dev/null | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*')
 #echo "-----0marktkap:$marktkap"
     marktkap=${marktkap%*,*} # cut suffix inclunding ','
@@ -105,9 +94,6 @@ do
         echo "Market Cap:$marktkap Mrd.€"
     else
         # Bil. Market Cap
-       # marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d "," | cut -c 2-) #| cut -c
-        #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | cut -f1 -d ",")
-        #marktkap=$(echo "$curlResponse" | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*' | awk 'BEGIN{FS=","} {print $1}')
         marktkap=$(echo "$curlResponse" 2>/dev/null | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*')
         marktkap=${marktkap%*,*}
         marktkap="${marktkap:1}"
@@ -122,9 +108,6 @@ do
     fi
 
     # Branche
-    #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d ">" | cut -c 3-) #| cut -c
-    #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | cut -f1 -d ">") #| cut -f
-    #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*' | awk 'BEGIN{FS=">"} {print $1}')
     branche=$(echo "$curlResponse" 2>/dev/null | grep -F -A1 ">Branche<" | tail -n 1 | grep -o 'e=.*')
     branche=${branche%*"\""*}\"
     branche="${branche:2}"
@@ -134,9 +117,6 @@ do
         echo "Branche: $branche"
     else
         # Branche ><
-        #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d "<" | cut -c 2-) #| cut -c
-        #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | cut -f1 -d "<")
-        #branche=$(echo "$curlResponse" | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*' | awk 'BEGIN{FS="<"} {print $1}')
         branche=$(echo "$curlResponse" 2>/dev/null | grep -F -A1 ">Branche<" | tail -n 1 | grep -o '>.*')
         branche=${branche%*"<"*}
         branche="${branche:1}"
@@ -154,10 +134,6 @@ do
     fi
 
     # KGVe
-    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d "<" | cut -f1 -d "," | cut -c 4-) #| cut -c
-    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d "<" | cut -f1 -d ",") #| cut -f
-    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | cut -f2 -d "<" | awk 'BEGIN{FS=","} {print $1}')
-    #kgve=$(echo "$curlResponse" | grep -F -A1 ">KGVe<" | tail -n 1 | awk 'BEGIN{FS="<"} {print $2}' | awk 'BEGIN{FS=","} {print $1}')
     kgve=$(echo "$curlResponse" 2>/dev/null | grep -F -A1 ">KGVe<" | tail -n 1 | awk 'BEGIN{FS="<"} {print $2}')
     kgve=${kgve%*,*}
     kgve="${kgve:3}"
@@ -170,10 +146,6 @@ do
     fi
 
     # DIVe
-    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d "<" | cut -f1 -d "," | cut -c 4-) #| cut -c
-    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d "<" | cut -f1 -d ",") #| cut -f
-    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | cut -f2 -d "<" | awk 'BEGIN{FS=","} {print $1}')
-    #dive=$(echo "$curlResponse" | grep -F -A1 ">DIVe<" | tail -n 1 | awk 'BEGIN{FS="<"} {print $2}' | awk 'BEGIN{FS=","} {print $1}')
     dive=$(echo "$curlResponse" 2>/dev/null | grep -F -A1 ">DIVe<" | tail -n 1 | awk 'BEGIN{FS="<"} {print $2}')
     dive=${dive%*,*}
     dive="${dive:3}"
@@ -189,9 +161,6 @@ do
     fi
 
     # Hauptversammlung
-    #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d ">" | cut -f1 -d "<") #| cut -f
-    #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | cut -f2 -d ">" | awk 'BEGIN{FS="<"} {print $1}')
-    #hauptversammlung=$(echo "$curlResponse" | grep -B1 -m1 "Hauptversammlung" | head -n 1 | awk 'BEGIN{FS=">"} {print $2}' | awk 'BEGIN{FS="<"} {print $1}')
     hauptversammlung=$(echo "$curlResponse" 2>/dev/null | grep -B1 -m1 "Hauptversammlung" | head -n 1 | awk 'BEGIN{FS=">"} {print $2}')
     hauptversammlung=${hauptversammlung%*"<"*}
     if [ "$hauptversammlung" ]; then
@@ -201,20 +170,11 @@ do
         fi
     else
         hauptversammlung="?"
-    #   hauptversammlungErrorSymbols="$symbol $hauptversammlungErrorSymbols"
-    #   echo "--> ERROR Hauptversammlung: $symbol $ID_NOTATION! $hauptversammlung"
     fi
 
     # Firmenportrait
-    #firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d ">" | cut -f1 -d "<") #| cut -f
-    #firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | cut -f2 -d ">" | awk 'BEGIN{FS="<"} {print $1}')
-#    firmenportrait=$(echo "$curlResponse" | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | awk 'BEGIN{FS=">"} {print $2}' | awk 'BEGIN{FS="<"} {print $1}')
     firmenportrait=$(echo "$curlResponse" 2>/dev/null | grep -F -A1 "inner-spacing--medium-left inner-spacing--medium-right" | tail -n2 | awk 'BEGIN{FS=">"} {print $2}')
-
-#echo "-----0firmenportrait:$firmenportrait"
     firmenportrait=${firmenportrait%*"<"*}
-#echo "-----1firmenportrait:$firmenportrait"
-
 
     if [ "$firmenportrait" ]; then
         firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
@@ -232,13 +192,9 @@ do
 
     # Now write all results in file!
     # Replace till end of line: idempotent!
-    #sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE" #mem
     sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE_MEM"
 
     # Spread
-    #spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d ">" | cut -f1 -d ",") #| cut -f
-    #spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | cut -f2 -d ">" | awk 'BEGIN{FS=","} {print $1}')
-    #spread=$(echo "$curlResponse" | grep -F -A1 ">Spread<" | tail -n 1 | awk 'BEGIN{FS=">"} {print $2}' | awk 'BEGIN{FS=","} {print $1}')
     spread=$(echo "$curlResponse" 2>/dev/null | grep -F -A1 ">Spread<" | tail -n 1 | awk 'BEGIN{FS=">"} {print $2}')
     spread=${spread%*,*}
     if [ "$spread" ]; then
@@ -288,7 +244,6 @@ if [ "$highSpreadSymbols" ]; then
 fi
 
 # Replace CR in Linux
-#sed -i ':a;N;$!ba;s/\r\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE" #mem
 sed -i ':a;N;$!ba;s/\r\tSTOCK/\?\tSTOCK/g' "$TICKER_NAME_ID_FILE_MEM"
 
 cp "$TICKER_NAME_ID_FILE_MEM" "config" #mem

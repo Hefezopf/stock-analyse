@@ -45,8 +45,6 @@ START_TIME_MEASUREMENT=$(date +%s);
 for symbol in $symbolsParam
 do
     if [ "${symbol::1}" = '*' ]; then  
-   # if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then #| cut -b
-        #symbol=$(echo "$symbol" | cut -b 2-7)
         symbol="${symbol:1:7}"
     fi
     symbol="${symbol^^}" # all uppercase
@@ -59,13 +57,7 @@ do
     fi
   
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
-    #ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
     ID_NOTATION=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $3}')
-#echo "-----lineFromTickerFile:$lineFromTickerFile"  
-    #ID_NOTATION=${ID_NOTATION#*"\t"*} # cut suffix inclunding ','
-#echo "-----ID_NOTATION:$ID_NOTATION"
-   # marktkap="${marktkap:1}"
-
     dataAlreadyThere=$(grep -m1 -P "^$yesterday\t" "$informerDataFile")
     if { [ -z "$dataAlreadyThere" ]; } then
         asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
@@ -78,26 +70,17 @@ do
         if [ "$asset_type" = 'COIN' ]; then
             curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
         fi
-        #value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d "<" | cut -c 29-) #| cut -c 
-        #value=$(echo "$curlResponse" | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*' | cut -f1 -d "<")  # | cut -f1 -d "<"
         value=$(echo "$curlResponse" 2>/dev/null | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')
 
-
-#echo "----------0value:$value"
-#echo "----------.........value:${value:28:2}"
         if [ "${value:28:2}" = '--' ]; then
             echo "Warning: '$symbol' value NOT a integer number! Trying with next exchange..."
             value=$(echo "$curlResponse" 2>/dev/null | grep -m3 "</span></div></span>" | sort -r | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')              
         fi
-#echo "----------00value:$value"
-
 
         value=${value%*"<"*}
         value=${value%*"<"*}
         value=${value%*"<"*}
-#echo "----------1value:$value"
         value="${value:28}"
-#echo "----------2value:$value"
 
         if [ "$value" ]; then
             # shellcheck disable=SC2001
@@ -108,18 +91,10 @@ do
             # shellcheck disable=SC2001
             valueTest=$(echo "$value" | sed "s/\.//g") # Replace , -> . 1000.00 -> 100000
 
-
-
-# echo "----------valueTest:$valueTest"
             if [ "${valueTest::1}" = '-' ]; then
                 echo "Warning: '$symbol' value NOT a integer number! Taking value from yesterday."
                 value=$(head -1 "$informerDataFile" | cut -f 2)
             fi
-            #case "$valueTest" in
-               #''|*[!0-9]*) echo "Error: PIECES Not a integer number!" >&2; exit 3 ;;
-            #esac
-
-
 
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
             numOfLines=$(awk 'END { print NR }' "$informerDataFile")
