@@ -8,9 +8,9 @@
 #    press key to continue
 # 5. run script/curl/curl_getInformerData.sh
 # 6. run script/marketcap-update.sh
-# Call: ./script/add-symbol-to-sa.sh SYMBOL
+# Call: ./script/add-to-sa.sh SYMBOL
 # 1. Parameter: SYMBOL - A stock symbols like: 'BEI'
-# Call example: ./script/add-symbol-to-sa.sh 'BEI'
+# Call example: ./script/add-to-sa.sh 'BEI'
 # Or alias atsa
 
 # Import
@@ -22,8 +22,8 @@ symbolsParameter=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 if { [ -z "$symbolsParameter" ]; } then
   echo "Not all parameters specified!"
-  echo "Call: sh ./script/add-symbol-to-sa.sh SYMBOL"
-  echo "Example: sh ./script/add-symbol-to-sa.sh 'BEI'"
+  echo "Call: sh ./script/add-to-sa.sh SYMBOL"
+  echo "Example: sh ./script/add-to-sa.sh 'BEI'"
   exit 1
 fi
 
