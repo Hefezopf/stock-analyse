@@ -2,13 +2,13 @@
 
 # Get Symbol base from Comdirect Informer
 # Call: . curl_getSymbolForISIN.sh ISINS
-# Example: . script/curl/curl_getSymbolForISIN.sh 'DE0007164600 NL0010273215'
+# Example: . script/curl/curl_getSymbolForISIN.sh 'DE0007164600 IE00A10RZP78 NL0010273215 GB00B10RZP78'
 #
 # Reihenfolge neue Werte aufnehmen:
 # ---------------------------------
 # . analyse.sh 'BEI' 2 9 25 cc
 # edit ticker_name_id.txt
-# . script/curl/curl_getSymbolForISIN.sh 'DE0007164600'
+# . script/curl/curl_getSymbolForISIN.sh 'DE0007164600 IE00A10RZP78 NL0010273215 GB00B10RZP78'
 # mc 'BEI'
 # add BEI to config stock_symbols.txt
 
@@ -39,6 +39,13 @@ START_TIME_MEASUREMENT=$(date +%s);
 for ISIN in $ISINS
 do
     ISIN="${ISIN^^}" # all uppercase
+
+    preFix="${ISIN:0:2}"
+    #echo "preFix $preFix"
+    if { [ "$preFix" = 'GB' ] || [ "$preFix" = 'IE' ] || [ "$preFix" = 'JP' ]; } then 
+        echo "ISIN: $ISIN is a GB or IE or JP ISIN, skipping..."
+        continue
+    fi
 
     curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/search/all.html?SEARCH_VALUE=$ISIN")  
     value=$(echo "$curlResponse" 2>/dev/null | grep -m1 -A1 "Symbol" | grep td)

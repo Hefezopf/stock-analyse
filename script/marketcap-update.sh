@@ -40,7 +40,7 @@ do
 
   if [ ! "$ASSET_TYPE" ]; then
     echo ""
-    echo "Error: Unknown Symbol:$symbol"
+    echo "Error: Symbol not in config:$symbol"
     exit 2
   fi
 
