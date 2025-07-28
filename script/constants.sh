@@ -37,6 +37,7 @@ export TICKER_NAME_ID_FILE_MEM="$TEMP_DIR""config/ticker_name_id.txt" #mem
 export TRANSACTION_COUNT_FILE="config/transaction_count.txt"
 export STOCK_SYMBOLS_FILE="config/stock_symbols.txt"
 export TRANSACTION_HISTORY_FILE="config/transaction_history.txt"
+export OUT_RESULT_FILE="out/_result.html"
 export OUT_TRANSACTION_HISTORY_HTML_FILE="out/_transaction_history.html"
 export SCRIPT_START_ALL_IN_CHROME_FILE="script/start-all-in-chrome.sh"
 

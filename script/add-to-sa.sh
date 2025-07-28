@@ -35,6 +35,7 @@ fi
 
 # 1.
 . analyse.sh "$symbolsParameter" 2 9 25 cc
+rm -rf $OUT_RESULT_FILE
 
 # 2.
 sed -i -z 's/^\n*\|\n*$//g' "$STOCK_SYMBOLS_FILE"

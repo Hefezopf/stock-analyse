@@ -67,7 +67,6 @@ cp template/_common.js out
 cp template/_result.css out
 cp template/_result.js out
 
-OUT_RESULT_FILE=out/_result.html
 rm -rf $OUT_RESULT_FILE
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 alarmAbbrevValue=""
