@@ -66,7 +66,7 @@ do
     fi
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-    echo "Symbol: $symbol"
+    #echo "Symbol: $symbol"
     minRange=$((88-lastDaysParam))
     lastAlarms=$(cat alarm/$symbol.txt | cut -f "$minRange"-87 -d ',')
     #lastAlarms=$(cat alarm/$symbol.txt | cut -f 85-87 -d ',')
@@ -75,7 +75,7 @@ do
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values
             lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
             symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-            echo "Last '$lastDaysParam' Alarms for $symbol $symbolName: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
+            echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
             echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
             echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
