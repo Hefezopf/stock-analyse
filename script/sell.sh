@@ -89,7 +89,7 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 # Write Tx History
 echo "Win: $SELL_TOTAL_AMOUNT€"
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
-echo "&nbsp;$today	$SELL_TOTAL_AMOUNT&euro;	$winPercentage%	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	$SYMBOL_NAME</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
+echo "&nbsp;$today	<span>$SELL_TOTAL_AMOUNT&euro;</span>	$winPercentage%	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	$SYMBOL_NAME</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
@@ -102,24 +102,32 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
 <link rel='stylesheet' href='_result.css' />
 <title>Performance SA $(date +%Y)</title>
+<style type="text/css">
+span {text-align:right;display:inline-block;width:50px;}
+</style>
 </head>
 <body>
 <div>"
 echo "$TRANSACTION_HISTORY_HTML_FILE_HEADER" > "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-lineFromFile=$(grep -F "_blank" "$TRANSACTION_HISTORY_FILE")
-# 2022-04-23	999€	BEI "BEIERSDORF"
+TEMP_DIR=/dev/shm/
+rm -rf $TEMP_DIR/tmp.*
+TEMP_REVERS_FILE="$(mktemp -p $TEMP_DIR)"
+TEMP_TRANSACTION_HISTORY_FILE="$(mktemp -p $TEMP_DIR)"
+
+sed 's/<span>//g' "$TRANSACTION_HISTORY_FILE" >> "$TEMP_TRANSACTION_HISTORY_FILE"
+
+lineFromFile=$(grep -F "_blank" "$TEMP_TRANSACTION_HISTORY_FILE")
+# 2022-04-23	999€	20%	BEI "BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-TEMP_DIR=/dev/shm/
-rm -rf $TEMP_DIR/tmp.*
-TEMP_REVERS_FILE="$(mktemp -p $TEMP_DIR)"
 # shellcheck disable=SC2086
 awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' $TRANSACTION_HISTORY_FILE* > "$TEMP_REVERS_FILE"
 cat -ev "$TEMP_REVERS_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 rm -rf "$TEMP_REVERS_FILE"
+rm -rf "$TEMP_TRANSACTION_HISTORY_FILE"
 
 echo "<br>&nbsp;Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
