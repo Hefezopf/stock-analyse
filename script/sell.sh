@@ -101,9 +101,11 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <meta http-equiv='expires' content='0' />
 <link rel='shortcut icon' type='image/ico' href='favicon.ico' />
 <link rel='stylesheet' href='_result.css' />
+<script type='text/javascript' src='_common.js'></script>
+<script type='text/javascript' src='_result.js'></script>
 <title>Performance SA $(date +%Y)</title>
 <style type="text/css">
-span {text-align:right;display:inline-block;width:50px;}
+span {text-align:right;display:inline-block;width:90px;font-size:larger;}
 </style>
 </head>
 <body>
