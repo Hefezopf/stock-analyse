@@ -553,7 +553,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
-<p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
+<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -3.61 </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b> Buy: Low Percent & Stochastic (P): 78.64€ is .99 under Avg18 < Avg38 < Avg95 and Stoch14 2 under level </b></p>
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
@@ -565,9 +565,9 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 12-Aug-2025 07:11
-<span id='stocksPiecesId' style='display:none'>270</span>
-<span id='stocksBuyingValueId' style='display:none'>23159</span>
+<br>Good Luck! 12-Aug-2025 14:06
+<span id='stocksPiecesId' style='display:none'>305</span>
+<span id='stocksBuyingValueId' style='display:none'>25928</span>
 
 
 <script>
@@ -619,15 +619,15 @@ var currentStockValue = currentInnerHTMLValueIntervalSectionRegularMarketPrice.i
 var piecesSuggestion3000 = (3000 / currentStockValue).toFixed(0);
 var piecesSuggestion3500 = (3500 / currentStockValue).toFixed(0);
 var piecesSuggestion4000 = (4000 / currentStockValue).toFixed(0);
-alert('Error: Symbol, Price or Pieces not set! ' + piecesSuggestion3000 + ' pieces are 3000€. ' + piecesSuggestion3500 + ' pieces are 3500€. ' + piecesSuggestion4000 + ' pieces are 4000€.');
+alert('Error: Symbol, Pieces or Price not set! ' + piecesSuggestion3000 + ' pieces are 3000€. ' + piecesSuggestion3500 + ' pieces are 3500€. ' + piecesSuggestion4000 + ' pieces are 4000€.');
 }
 else {
 if (symbolParam == '' && price != '' && pieces == '') {
 var piecesSuggestion3000 = (3000 / price).toFixed(0);
-alert('Error: Symbol, Price or Pieces not set! ' + piecesSuggestion3000 + ' pieces are 3000€.');
+alert('Error: Symbol, Pieces or Price not set! ' + piecesSuggestion3000 + ' pieces are 3000€.');
 }
 else {
-alert('Error: Symbol, Price or Pieces not set!');
+alert('Error: Symbol, Pieces or Price not set!');
 }
 }
 return;
@@ -722,7 +722,7 @@ xhr.send(JSON.stringify(data));
 
 function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
 if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
-alert('Error: Stock ' + symbolParam.trim() + ' not in portfolio!');
+alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
 return;
 }
 symbolParam = trimOwnChar(symbolParam);
@@ -741,6 +741,10 @@ headlineLink = headlineLinkElem.innerHTML;
 var stocksPiecesId = document.getElementById('stocksPiecesId');
 if(stocksPiecesId) {
 stockPiecesParam = stocksPiecesId.innerHTML;
+var buyingSectionInputPiecesBuyValue = document.getElementById('buyingSectionInputPiecesBuy').value;
+if (buyingSectionInputPiecesBuyValue) {
+stockPiecesParam = buyingSectionInputPiecesBuyValue;
+}
 }
 else {
 stockPiecesParam = 0;
@@ -750,7 +754,7 @@ const sellingAmount = (Number(stockPiecesParam) * Number(sellPriceParam));
 // Trading fees
 var txFee = tradingFees(sellingAmount);
 const sellingAmountAndTxFee = Number(sellingAmount) + txFee;
-if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? (Included fees ' + txFee + '€)') == false) {
+if (confirm('Sell ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? (Included fees ' + txFee + '€)') == false) {
 return;
 }
 var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
@@ -770,6 +774,7 @@ var data = {
 event_type: 'sell',
 client_payload: {
 symbol: symbolParam,
+sellPieces: stockPiecesParam,
 sellPrice: sellPriceParam
 }
 };
