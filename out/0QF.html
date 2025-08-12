@@ -565,7 +565,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 12-Aug-2025 11:21</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 12-Aug-2025 12:31</p>
 <span id='stocksPiecesId' style='display:none'>5100</span>
 <span id='stocksBuyingValueId' style='display:none'>186957</span>
 
@@ -741,6 +741,10 @@ headlineLink = headlineLinkElem.innerHTML;
 var stocksPiecesId = document.getElementById('stocksPiecesId');
 if(stocksPiecesId) {
 stockPiecesParam = stocksPiecesId.innerHTML;
+var buyingSectionInputPiecesBuyValue = document.getElementById('buyingSectionInputPiecesBuy').value;
+if (buyingSectionInputPiecesBuyValue) {
+stockPiecesParam = buyingSectionInputPiecesBuyValue;
+}
 }
 else {
 stockPiecesParam = 0;
@@ -750,7 +754,7 @@ const sellingAmount = (Number(stockPiecesParam) * Number(sellPriceParam));
 // Trading fees
 var txFee = tradingFees(sellingAmount);
 const sellingAmountAndTxFee = Number(sellingAmount) + txFee;
-if (confirm('Sell ALL ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? (Included fees ' + txFee + '€)') == false) {
+if (confirm('Sell ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? (Included fees ' + txFee + '€)') == false) {
 return;
 }
 var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
@@ -770,6 +774,7 @@ var data = {
 event_type: 'sell',
 client_payload: {
 symbol: symbolParam,
+sellPieces: stockPiecesParam,
 sellPrice: sellPriceParam
 }
 };
