@@ -14,15 +14,15 @@ function curlBuy(symbolParam, price, pieces) {
             var piecesSuggestion3000 = (3000 / currentStockValue).toFixed(0);
             var piecesSuggestion3500 = (3500 / currentStockValue).toFixed(0);
             var piecesSuggestion4000 = (4000 / currentStockValue).toFixed(0);
-            alert('Error: Symbol, Price or Pieces not set! ' + piecesSuggestion3000 + ' pieces are 3000€. ' + piecesSuggestion3500 + ' pieces are 3500€. ' + piecesSuggestion4000 + ' pieces are 4000€.');
+            alert('Error: Symbol, Pieces or Price not set! ' + piecesSuggestion3000 + ' pieces are 3000€. ' + piecesSuggestion3500 + ' pieces are 3500€. ' + piecesSuggestion4000 + ' pieces are 4000€.');
         }
         else {
             if (symbolParam == '' && price != '' && pieces == '') {
                 var piecesSuggestion3000 = (3000 / price).toFixed(0);
-                alert('Error: Symbol, Price or Pieces not set! ' + piecesSuggestion3000 + ' pieces are 3000€.');
+                alert('Error: Symbol, Pieces or Price not set! ' + piecesSuggestion3000 + ' pieces are 3000€.');
             }
             else {
-                alert('Error: Symbol, Price or Pieces not set!');
+                alert('Error: Symbol, Pieces or Price not set!');
             }
         }
         return;
