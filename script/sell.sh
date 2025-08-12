@@ -33,14 +33,14 @@ sellPriceParam=$(echo "$3" | sed 's/,/./g')
 echo "Sell $symbolParam $sellPiecesParam $sellPriceParam"
 
 if { [ -z "$symbolParam" ] || [ -z "$sellPiecesParam" ] || [ -z "$sellPriceParam" ]; } then
-    echo "Not all parameters specified!"
+    echo "Error: Not all parameters specified!"
     echo "Call: sh ./sell.sh SYMBOL SELLPIECES SELLPRICE"
     echo "Example: sh ./sell.sh BEI 100 9.99"
     exit 1
 fi
 
 if { [ "$4" ]; } then
-    echo "Too many parameters specified!"
+    echo "Error: Too many parameters specified!"
     echo "Call: sh ./sell.sh SYMBOL SELLPIECES SELLPRICE"
     echo "Example: sh ./sell.sh BEI 100 9.99"
     exit 2
@@ -64,6 +64,13 @@ SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
 AVG_PRICE=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f2 -d ' ')
 BUY_TOTAL_AMOUNT=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f5 -d ' ' | sed 's/€//g')
 TOTAL_PIECES=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
+
+#echo "++++TOTAL_PIECES $TOTAL_PIECES ; sellPiecesParam $sellPiecesParam"
+
+if { [ -z "$TOTAL_PIECES" ]; } then
+    echo "Error: Stock Symbol $symbolParam not in portfolio!"
+    exit 3
+fi
 
 # Fees
 CalculateTxFee "$sellPriceParam" "$sellPiecesParam"
@@ -115,6 +122,7 @@ echo "&nbsp;$today	<span>$SELL_AMOUNT&euro;</span>	$winPercentage%	<a href='http
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+# shellcheck disable=SC1078
 TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <head>
 <meta charset='utf-8' />
@@ -126,7 +134,7 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <script type='text/javascript' src='_common.js'></script>
 <script type='text/javascript' src='_result.js'></script>
 <title>Performance SA $(date +%Y)</title>
-<style type="text/css">
+<style type='text/css'>
 span {text-align:right;display:inline-block;width:90px;font-size:larger;}
 </style>
 </head>

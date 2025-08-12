@@ -15,7 +15,7 @@
 symbolsParam=$1
 
 if  [ -z "$symbolsParam" ]; then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Call: sh ./script/marketcap-update.sh SYMBOLS"
   echo "Example: sh ./script/marketcap-update.sh 'BEI VH2'"
   exit 1

@@ -38,7 +38,7 @@ piecesParam=$(echo "$_piecesParam" | sed 's/\.//g')
 priceParam=$(echo "$_priceParam" | sed 's/,/./g')
 
 if { [ -z "$symbolParam" ] || [ -z "$piecesParam" ] || [ -z "$priceParam" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Call: sh ./buy.sh SYMBOL PIECES PRICE"
   echo "Example: sh ./buy.sh BEI 100 9.99"
   exit 1

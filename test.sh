@@ -52,6 +52,10 @@ cat script/buy.sh | tr -d '\r' > script/buy1.sh
 rm script/buy.sh
 mv script/buy1.sh script/buy.sh
 
+cat script/add-to-sa.sh | tr -d '\r' > script/add-to-sa1.sh
+rm script/add-to-sa.sh
+mv script/add-to-sa1.sh script/add-to-sa.sh
+
 cat script/curl/curl_getInformerData.sh | tr -d '\r' > script/curl/curl_getInformerData1.sh
 rm script/curl/curl_getInformerData.sh
 mv script/curl/curl_getInformerData1.sh script/curl/curl_getInformerData.sh
@@ -60,6 +64,12 @@ cat analyse.sh | tr -d '\r' > analyse1.sh
 rm analyse.sh
 mv analyse1.sh analyse.sh
 
+shellcheck --shell=bash simulate.sh
+shellcheck --shell=bash analyse.sh
+shellcheck --shell=bash script/add-to-sa.sh
+shellcheck --shell=bash script/add-to-sa-check.sh
+shellcheck --shell=bash script/calc.sh
+shellcheck --shell=bash script/delete_from_sa.sh
 shellcheck --shell=bash script/strategies.sh
 shellcheck --shell=bash script/averages.sh
 shellcheck --shell=bash script/constants.sh
@@ -71,9 +81,8 @@ shellcheck --shell=bash script/marketcap-update.sh
 shellcheck --shell=bash script/git_cleanup.sh
 shellcheck --shell=bash script/sort_sa.sh
 shellcheck --shell=bash script/curl/curl_getInformerData.sh
+shellcheck --shell=bash simulate/simulate-buy-candidates.sh
 shellcheck --shell=bash simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
-shellcheck --shell=bash simulate.sh
-shellcheck --shell=bash analyse.sh
 
 rm -rf test/_result.html
 

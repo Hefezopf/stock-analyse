@@ -67,7 +67,7 @@ cp template/_common.js out
 cp template/_result.css out
 cp template/_result.js out
 
-rm -rf $OUT_RESULT_FILE
+rm -rf "$OUT_RESULT_FILE"
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 alarmAbbrevValue=""
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
@@ -87,7 +87,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <script>var linkMap = new Map();</script>
 
 <div id='symbolsListId'>"
-echo "$HTML_RESULT_FILE_HEADER" > $OUT_RESULT_FILE
+echo "$HTML_RESULT_FILE_HEADER" > "$OUT_RESULT_FILE"
 GetCreationDate
 # shellcheck disable=SC2154
 GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> $creationDate</p>"
@@ -96,23 +96,23 @@ START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd. Do not ignore '*' 
 if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -v '^ *1 '; then
-    echo "WARNING: Multiple symbols in parameter list!" | tee -a $OUT_RESULT_FILE
-    echo "<br><br>" >> $OUT_RESULT_FILE
+    echo "WARNING: Multiple symbols in parameter list!" | tee -a "$OUT_RESULT_FILE"
+    echo "<br><br>" >> "$OUT_RESULT_FILE"
 fi
 
 # Usage: Check parameter
-UsageCheckParameter "$symbolsParam" "$percentageParam" "$stochasticPercentageParam" "$RSIQuoteParam" $OUT_RESULT_FILE
+UsageCheckParameter "$symbolsParam" "$percentageParam" "$stochasticPercentageParam" "$RSIQuoteParam" "$OUT_RESULT_FILE"
 
 if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$CalculateMACD" = true ]; then
-    echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!" | tee -a $OUT_RESULT_FILE
-    echo "<br><br>" >> $OUT_RESULT_FILE
+    echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!" | tee -a "$OUT_RESULT_FILE"
+    echo "<br><br>" >> "$OUT_RESULT_FILE"
     ApplyStrategieHorizontalMACD=false
 fi
 
 if { [ -z "$GPG_PASSPHRASE" ]; } then
-    echo "Error GPG_PASSPHRASE NOT set!" | tee -a $OUT_RESULT_FILE
-    echo "<br>" >> $OUT_RESULT_FILE
-    echo "$HTML_RESULT_FILE_END" >> $OUT_RESULT_FILE
+    echo "Error: GPG_PASSPHRASE NOT set!" | tee -a "$OUT_RESULT_FILE"
+    echo "<br>" >> "$OUT_RESULT_FILE"
+    echo "$HTML_RESULT_FILE_END" >> "$OUT_RESULT_FILE"
     exit 6
 fi
 
@@ -130,23 +130,23 @@ stochasticPercentageLower=$stochasticPercentageParam
 stochasticPercentageUpper=$((100-stochasticPercentageParam))
 
 # Spinner
-echo "<div id='spinner' style='display: X' class='loader'></div>" >> $OUT_RESULT_FILE
-echo "<span id='parameterId'>" >> $OUT_RESULT_FILE
-Out "# SA Analyse" $OUT_RESULT_FILE
-Out "###########" $OUT_RESULT_FILE
-Out "" $OUT_RESULT_FILE
-echo "# Parameter" | tee -a $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
+echo "<div id='spinner' style='display: X' class='loader'></div>" >> "$OUT_RESULT_FILE"
+echo "<span id='parameterId'>" >> "$OUT_RESULT_FILE"
+Out "# SA Analyse" "$OUT_RESULT_FILE"
+Out "###########" "$OUT_RESULT_FILE"
+Out "" "$OUT_RESULT_FILE"
+echo "# Parameter" | tee -a "$OUT_RESULT_FILE"
+echo "<br>" >> "$OUT_RESULT_FILE"
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
-echo "Symbols($countSymbols):$symbolsParam" | tee -a $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo "Percentage:$percentageParam " | tee -a $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo "Stochastic:$stochasticPercentageParam " | tee -a $OUT_RESULT_FILE
-echo "<br>" >> $OUT_RESULT_FILE
-echo "RSI:$RSIQuoteParam" | tee -a $OUT_RESULT_FILE
-echo "</span>" >> $OUT_RESULT_FILE
+echo "Symbols($countSymbols):$symbolsParam" | tee -a "$OUT_RESULT_FILE"
+echo "<br>" >> "$OUT_RESULT_FILE"
+echo "Percentage:$percentageParam " | tee -a "$OUT_RESULT_FILE"
+echo "<br>" >> "$OUT_RESULT_FILE"
+echo "Stochastic:$stochasticPercentageParam " | tee -a "$OUT_RESULT_FILE"
+echo "<br>" >> "$OUT_RESULT_FILE"
+echo "RSI:$RSIQuoteParam" | tee -a "$OUT_RESULT_FILE"
+echo "</span>" >> "$OUT_RESULT_FILE"
 {
     echo "<span id='analyseId'><br><br># Analyse<br></span>"
     echo "<br><span id='intervalSectionHeadlineDaily' style='display: none'># Realtime difference to previous day</span><br>"
@@ -180,7 +180,7 @@ do
         mkdir -p status/"$symbol"
     fi
 
-    echo "<div id='symbolLineId$symbol'>" >> $OUT_RESULT_FILE # Sorting
+    echo "<div id='symbolLineId$symbol'>" >> "$OUT_RESULT_FILE" # Sorting
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     #symbolName=$(echo "$lineFromTickerFile" | cut -f 2) #| cut -f
@@ -234,9 +234,9 @@ do
     # Check, if 100 last quotes are availible, otherwise fill up to 100 
     numOfQuotes=$(grep "" -F -c "$DATA_DATE_FILE")
     if [ "$numOfQuotes" -lt 100 ]; then
-        echo "<br>" >> $OUT_RESULT_FILE
-        echo "!!! LESS then 100 quotes for $symbol" | tee -a $OUT_RESULT_FILE
-        echo "<br>" >> $OUT_RESULT_FILE
+        echo "<br>" >> "$OUT_RESULT_FILE"
+        echo "!!! LESS then 100 quotes for $symbol" | tee -a "$OUT_RESULT_FILE"
+        echo "<br>" >> "$OUT_RESULT_FILE"
         lastQuoteInFile=$(tail -1 "$DATA_DATE_FILE" | cut -f 2)
         numOfQuotesToAdd=$((100 - numOfQuotes))
         indexWhile=0
@@ -252,9 +252,9 @@ do
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown symbols or not fetched symbols in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
-        echo "<br>" >> $OUT_RESULT_FILE
-        echo "!!! $symbol NOT found in $DATA_DIR/$symbol.txt" | tee -a $OUT_RESULT_FILE
-        echo "<br>" >> $OUT_RESULT_FILE
+        echo "<br>" >> "$OUT_RESULT_FILE"
+        echo "!!! $symbol NOT found in $DATA_DIR/$symbol.txt" | tee -a "$OUT_RESULT_FILE"
+        echo "<br>" >> "$OUT_RESULT_FILE"
         # Continue with next symbol in the list
         continue
     fi
@@ -375,13 +375,13 @@ do
         # Strategie: Quote by Tendency
         if [ "$ApplyStrategieByTendency" = true ]; then
             resultStrategieByTendency=""
-            StrategieByTendency "$last" "$tendency38" "$percentageLesserFactor" "$average95" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+            StrategieByTendency "$last" "$tendency38" "$percentageLesserFactor" "$average95" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
         fi
 
         # Buy Strategie: Low horizontal MACD
         if [ "$ApplyStrategieHorizontalMACD" = true ]; then
             resultStrategieUnderratedLowHorizontalMACD=""
-            StrategieUnderratedLowHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+            StrategieUnderratedLowHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
         fi
 
         # Buy Strategie: New Low
@@ -392,60 +392,60 @@ do
         beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
         resultStrategieUnderratedNewLow=""
         conditionNewLow=false
-        StrategieUnderratedNewLow 40 "$commaPriceList" "$last" "$beforeLastQuote" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedNewLow 40 "$commaPriceList" "$last" "$beforeLastQuote" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Divergence RSI
         resultStrategieUnderratedDivergenceRSI=""
-        StrategieUnderratedDivergenceRSI "$RSIQuoteLower" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$lowestRSI" "$conditionNewLow"
+        StrategieUnderratedDivergenceRSI "$RSIQuoteLower" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$lowestRSI" "$conditionNewLow"
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
-        StrategieUnderratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv95" "$agv18UnderAgv38" "$agv38UnderAgv95" "$agv18UnderAgv95" "$last" "$percentageGreaterFactor" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv95" "$agv18UnderAgv38" "$agv38UnderAgv95" "$agv18UnderAgv95" "$last" "$percentageGreaterFactor" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
     
         # Buy Strategie: Low Stochastic X last values under lowStochasticValue
         resultStrategieUnderratedXLowStochastic=""
-        StrategieUnderratedXLowStochastic "$stochasticPercentageLower" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedXLowStochastic "$stochasticPercentageLower" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low RSI X last values under RSIQuoteLower
         resultStrategieUnderratedXLowRSI=""
-        StrategieUnderratedXLowRSI "$RSIQuoteLower" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedXLowRSI "$RSIQuoteLower" "$RSIQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Buy Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
         resultStrategieUnderratedLowStochasticLowRSILowMACD=""
-        StrategieUnderratedLowStochasticLowRSILowMACD "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedLowStochasticLowRSILowMACD "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High horizontal MACD
         if [ "$ApplyStrategieHorizontalMACD" = true ]; then
             resultStrategieOverratedHighHorizontalMACD=""
-            StrategieOverratedHighHorizontalMACD "$MACDList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+            StrategieOverratedHighHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
         fi
 
         # Sell Strategie: Stochastic When Own
         resultStrategieOverratedStochasticWhenOwn=""
-        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: Divergence RSI
         resultStrategieOverratedDivergenceRSI=""
-        StrategieOverratedDivergenceRSI "$RSIQuoteUpper" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
+        StrategieOverratedDivergenceRSI "$RSIQuoteUpper" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
 
         # Sell Strategie: High Percentage & Stochastic
         resultStrategieOverratedByPercentAndStochastic=""
-        StrategieOverratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv95" "$agv18OverAgv38" "$agv38OverAgv95" "$agv18OverAgv95" "$last" "$percentageLesserFactor" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv95" "$agv18OverAgv38" "$agv38OverAgv95" "$agv18OverAgv95" "$last" "$percentageLesserFactor" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High Stochastic X last values over highStochasticValue
         resultStrategieOverratedXHighStochastic=""
-        StrategieOverratedXHighStochastic "$stochasticPercentageUpper" "$stochasticQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedXHighStochastic "$stochasticPercentageUpper" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High RSI X last values over RSIQuoteUpper
         resultStrategieOverratedXHighRSI=""
-        StrategieOverratedXHighRSI "$RSIQuoteUpper" "$RSIQuoteList" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedXHighRSI "$RSIQuoteUpper" "$RSIQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High stochastic and High RSI last quote over stochasticPercentageUpper and RSIQuoteUpper
         resultStrategieOverratedHighStochasticHighRSIHighMACD=""
-        StrategieOverratedHighStochasticHighRSIHighMACD "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" $OUT_RESULT_FILE "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedHighStochasticHighRSIHighMACD "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
     else
-        echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a $OUT_RESULT_FILE
-        echo "<br>" >> $OUT_RESULT_FILE
+        echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a "$OUT_RESULT_FILE"
+        echo "<br>" >> "$OUT_RESULT_FILE"
     fi
 
     #
@@ -787,13 +787,13 @@ do
             # Sorting End symbolsListId
             echo "</div>"
 
-        } >> $OUT_RESULT_FILE
+        } >> "$OUT_RESULT_FILE"
 
         # Collect Values for Overall Yesterday
         obfuscatedValueBuyingOverall=$(echo "$obfuscatedValueBuyingOverall $stocksBuyingValue" | awk '{print $1 + $2}')
         obfuscatedValueSellingOverall=$(echo "$obfuscatedValueSellingOverall $stocksCurrentValue" | awk '{print $1 + $2}')
     else
-        echo "</div>" >> $OUT_RESULT_FILE
+        echo "</div>" >> "$OUT_RESULT_FILE"
     fi
 
     # Write history file

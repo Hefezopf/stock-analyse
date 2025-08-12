@@ -21,7 +21,7 @@
 symbolsParameter=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 if { [ -z "$symbolsParameter" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Call: sh ./script/add-to-sa.sh SYMBOL"
   echo "Example: sh ./script/add-to-sa.sh 'BEI'"
   exit 1
@@ -29,13 +29,13 @@ fi
 
 found=$(grep -n "$symbolsParameter" "$STOCK_SYMBOLS_FILE")
 if { [ "$found" ]; } then
-  echo "Error Symbol '"$symbolsParameter"' already there!"
+  echo "Error: Symbol $symbolsParameter already there!"
   exit 2
 fi
 
 # 1.
 . analyse.sh "$symbolsParameter" 2 9 25 cc
-rm -rf $OUT_RESULT_FILE
+rm -rf "$OUT_RESULT_FILE"
 
 # 2.
 sed -i -z 's/^\n*\|\n*$//g' "$STOCK_SYMBOLS_FILE"
@@ -46,7 +46,7 @@ echo "" >> "$STOCK_SYMBOLS_FILE"
 echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolsParameter.html" >> "$SCRIPT_START_ALL_IN_CHROME_FILE"
 
 # 4.
-read -n 1 -p "Correct values in 'config/ticker_name_id.txt' (Name + ID_NOTATION) now and then hit ->ANY key!"
+read -r -n 1 -p "Correct values in 'config/ticker_name_id.txt' (Name + ID_NOTATION) now and then hit ->ANY key!"
 
 # 5.
 . script/curl/curl_getInformerData.sh "$symbolsParameter"

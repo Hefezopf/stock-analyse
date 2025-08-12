@@ -21,7 +21,7 @@ lastDaysParam=$2
 charactersParam=$3
 
 if { [ -z "$symbolsParam" ] || [ -z "$lastDaysParam" ] || [ -z "$charactersParam" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Call: sh ./simulate/simulate-buy-candidates.sh SYMBOL LAST_DAYS CHAR_LENGTH_ALARM"
   echo "Example: sh ./simulate/simulate-buy-candidates.sh 'BEI HLE GZF TNE5' 3 35"
   exit 1
@@ -51,6 +51,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <body>
 <script>var linkMap = new Map();</script>
 <div>"
+# shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "Simulate Last '$lastDaysParam' Days with min '$charactersParam' Alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
@@ -68,7 +69,8 @@ do
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     #echo "Symbol: $symbol"
     minRange=$((88-lastDaysParam))
-    lastAlarms=$(cat alarm/$symbol.txt | cut -f "$minRange"-87 -d ',')
+    # shellcheck disable=SC2002
+    lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-87 -d ',')
     #lastAlarms=$(cat alarm/$symbol.txt | cut -f 85-87 -d ',')
     if [ "${#lastAlarms}" -gt "$charactersParam" ]; then # Check if lastAlarms are large enough
         vorzeichen="${lastAlarms: -2 : -1}"
@@ -95,6 +97,7 @@ do
 done
 
 GetCreationDate
+# shellcheck disable=SC2154
 echo "<br>Good Luck! $creationDate" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br></div>
 <script>

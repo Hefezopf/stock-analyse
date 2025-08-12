@@ -10,7 +10,7 @@
 #set -x
 
 if { [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Example: . curl_github_dispatch_analyse.sh \"*GIS\" 1 9 25"
   exit 1
 fi

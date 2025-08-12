@@ -15,7 +15,7 @@ TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
 echo "View Portfolio ..."
 
 if { [ -z "$GPG_PASSPHRASE" ] ; } then
-  echo "GPG_PASSPHRASE Not specified!"
+  echo "Error: GPG_PASSPHRASE Not specified!"
   echo "Example: view_portfolio.sh"
   exit 1
 fi

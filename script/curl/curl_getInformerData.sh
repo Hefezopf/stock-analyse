@@ -25,7 +25,7 @@ export DATA_INFORMER_DIR="data" # where to write informer intermediate files; Fo
 symbolsParam=$1
 
 if { [ -z "$symbolsParam" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Example: . curl_getInformerData.sh '*BEI IBM TUI1'"
   exit 1
 fi

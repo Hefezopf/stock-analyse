@@ -19,12 +19,13 @@ symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 echo "Delete all files for $symbolParam"
 
 if { [ -z "$symbolParam" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Example: delete_from_sa.sh BEI"
   exit 1
 fi
 
 # Delete $SYMBOL in stock_symbols.txt
+# shellcheck disable=SC2002
 cat "$STOCK_SYMBOLS_FILE" | sed -i s/"$symbolParam "// "$STOCK_SYMBOLS_FILE"
 
 sed -i "/$symbolParam\t/d" "$TICKER_NAME_ID_FILE"

@@ -14,7 +14,7 @@
 symbolsParameter=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 if { [ -z "$symbolsParameter" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Call: sh ./script/add-to-sa-check.sh SYMBOLS"
   echo "Example: sh ./script/add-to-sa-check.sh 'BEI DBK'"
   exit 1
@@ -26,7 +26,7 @@ for symbol in $symbolsParameter
 do
     found=$(grep -n "$symbol" "$STOCK_SYMBOLS_FILE")
     if { [ "$found" ]; } then
-        echo "Warning Symbol '"$symbol"' already there!"
+        echo "Warning: Symbol $symbol already there!"
     else
         echo "Not there:$symbol"
         symbolsNotThere="$symbolsNotThere $symbol"

@@ -23,7 +23,7 @@
 ISINS=$1
 
 if { [ -z "$ISINS" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Example: . curl_getSymbolForISIN.sh 'DE0007164600 NL0010273215'"
   exit 1
 fi

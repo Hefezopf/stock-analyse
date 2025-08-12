@@ -9,7 +9,7 @@
 echo "calc $1 $2 $3 $4 ..."
 
 if { [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Call: sh ./calc.sh ORDERRATE PIECES SPREAD_IN_PERCENT SELLRATE"
   echo "Example: sh ./calc.sh 9.99 100 0.1 10.1"
   exit 1
@@ -41,20 +41,21 @@ elif [ "$orderValue" -gt 5000 ]; then
     txFee=10.0
 fi
 txFee=$(echo "$txFee 2" | awk '{print $1 * $2}')
+txFee=1 # Trade Republic
 
 spreadFee=$(echo "$1 $2 $3" | awk '{print ($1 * $2 * $3 / 100)}')
 sellValue=$(echo "$2 $4" | awk '{print $1 * $2}')
-diffValue=$(echo "$sellValue $orderValue $txFee $spreadValue" | awk '{print ($1 - $2 - $3 - $4)}')
+diffValue=$(echo "$sellValue $orderValue $txFee $3" | awk '{print ($1 - $2 - $3 - $4)}') # $3 is this correct ??
 percentValue=$(echo "$sellValue $orderValue" | awk '{print (($1 / $2 * 100) - 100)}')
 afterTaxValue=$(echo "$diffValue 1.25" | awk '{print $1 / $2}')
 
 echo ""
-echo "Order Value: $orderValue"€
-echo "Tx Fee:     -"$txFee€
-echo "Spread Fee: -"$spreadFee€
-echo "Sell Value:  $sellValue"€
-echo "Difference:  $diffValue"€
-echo "Percent:     $percentValue"%
+echo "Order Value: $orderValue€"
+echo "Tx Fee:     -$txFee€"
+echo "Spread Fee: -$spreadFee€"
+echo "Sell Value:  $sellValue€"
+echo "Difference:  $diffValue€"
+echo "Percent:     $percentValue%"
 
 isNegativ=${afterTaxValue:0:1}
 if [ "$isNegativ" != '-' ]; then

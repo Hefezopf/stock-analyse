@@ -9,7 +9,7 @@
 #set -x
 
 if { [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; } then
-  echo "Not all parameters specified!"
+  echo "Error: Not all parameters specified!"
   echo "Example: . curl_github_dispatch_sell.sh BEI 100 9.99"
   exit 1
 fi
