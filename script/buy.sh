@@ -33,11 +33,11 @@ symbolParam="${_symbolParam^^}" # all uppercase
 # shellcheck disable=SC2001
 piecesParam=$(echo "$_piecesParam" | sed 's/\.//g')
 
-# Price has to be without comma
+# Price has to be without comma -> replace comma with dot
 # shellcheck disable=SC2001
 priceParam=$(echo "$_priceParam" | sed 's/,/./g')
 
-if { [ -z "$symbolParam" ] || [ -z "$priceParam" ] || [ -z "$piecesParam" ]; } then
+if { [ -z "$symbolParam" ] || [ -z "$piecesParam" ] || [ -z "$priceParam" ]; } then
   echo "Not all parameters specified!"
   echo "Call: sh ./buy.sh SYMBOL PIECES PRICE"
   echo "Example: sh ./buy.sh BEI 100 9.99"
