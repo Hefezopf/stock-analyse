@@ -117,7 +117,7 @@ function curlBuy(symbolParam, price, pieces) {
 
 function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
-        alert('Error: Stock ' + symbolParam.trim() + ' not in portfolio!');
+        alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
         return;
     }
     symbolParam = trimOwnChar(symbolParam);
