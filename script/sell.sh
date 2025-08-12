@@ -6,10 +6,10 @@
 # and
 # Adding Tx to config/transaction_history.txt
 #
-# Call: . script/sell.sh SYMBOL SELLPRICE
-# Example: . script/sell.sh BEI 9.99
-# alias sell='/d/code/stock-analyse/script/sell.sh $1 $2'
-# {"event_type": "sell", "client_payload": {"symbol": "BEI", "sellPrice": "9.99"}}
+# Call: . script/sell.sh SYMBOL SELLPIECES SELLPRICE
+# Example: . script/sell.sh BEI 100 9.99
+# alias sell='/d/code/stock-analyse/script/sell.sh $1 $2 $3'
+# {"event_type": "sell", "client_payload": {"symbol": "BEI", "sellPieces": "100", "sellPrice": "9.99"}}
 
 # Import
 # shellcheck disable=SC1091
@@ -22,23 +22,27 @@ export txFee
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
-# Sell Price has to be without comma
+# Pieces has to be without dot
 # shellcheck disable=SC2001
-sellPriceParam=$(echo "$2" | sed 's/,/./g')
+sellPiecesParam=$(echo "$2" | sed 's/\.//g')
 
-echo "Sell $symbolParam $sellPriceParam"
+# Sell Price has to be without comma -> replace comma with dot
+# shellcheck disable=SC2001
+sellPriceParam=$(echo "$3" | sed 's/,/./g')
 
-if { [ -z "$symbolParam" ] || [ -z "$sellPriceParam" ]; } then
+echo "Sell $symbolParam $sellPiecesParam $sellPriceParam"
+
+if { [ -z "$symbolParam" ] || [ -z "$sellPiecesParam" ] || [ -z "$sellPriceParam" ]; } then
     echo "Not all parameters specified!"
-    echo "Call: sh ./sell.sh SYMBOL SELLPRICE"
-    echo "Example: sh ./sell.sh BEI 9.99"
+    echo "Call: sh ./sell.sh SYMBOL SELLPIECES SELLPRICE"
+    echo "Example: sh ./sell.sh BEI 100 9.99"
     exit 1
 fi
 
-if { [ "$3" ]; } then
+if { [ "$4" ]; } then
     echo "Too many parameters specified!"
-    echo "Call: sh ./sell.sh SYMBOL SELLPRICE"
-    echo "Example: sh ./sell.sh BEI 9.99"
+    echo "Call: sh ./sell.sh SYMBOL SELLPIECES SELLPRICE"
+    echo "Example: sh ./sell.sh BEI 100 9.99"
     exit 2
 fi
 
@@ -46,31 +50,49 @@ if [ "${symbolParam::1}" = '*' ]; then
     symbolParam="${symbolParam:1:7}"
 fi
 
-# Add symbol in front of overall list
-sed -i "0,/^/s//$symbolParam /" "$STOCK_SYMBOLS_FILE"
-
 # Encrypt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 
 # Read symbol and amount
 SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
+# SYMBOL_NAME has to be without Hochkomma '"'
+# shellcheck disable=SC2001
+SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
+# SYMBOL_NAME has to be without blank ' ' -> replace with dash '-'
+# shellcheck disable=SC2001
+SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
+AVG_PRICE=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f2 -d ' ')
 BUY_TOTAL_AMOUNT=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f5 -d ' ' | sed 's/€//g')
 TOTAL_PIECES=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
-SELL_TOTAL_AMOUNT=$(echo "$sellPriceParam $TOTAL_PIECES $BUY_TOTAL_AMOUNT" | awk '{print ($1 * $2) - $3}')
-SELL_TOTAL_AMOUNT=$(echo "$SELL_TOTAL_AMOUNT" | cut -f 1 -d '.')
 
 # Fees
-CalculateTxFee "$sellPriceParam" "$TOTAL_PIECES"
-SELL_TOTAL_AMOUNT=$((SELL_TOTAL_AMOUNT - txFee))
-
-#echo SELL_TOTAL_AMOUNT: $SELL_TOTAL_AMOUNT
-#echo BUY_TOTAL_AMOUNT: $BUY_TOTAL_AMOUNT
-winPercentage=$(echo "scale=1; ($SELL_TOTAL_AMOUNT *100 / $BUY_TOTAL_AMOUNT)" | bc)
-#echo winPercentage: $winPercentage%
-
+CalculateTxFee "$sellPriceParam" "$sellPiecesParam"
 
 # Remove symbol from own list
 sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
+
+if [ "${TOTAL_PIECES}" = "$sellPiecesParam" ]; then
+    echo "Sell all: $TOTAL_PIECES pieces"
+    # Add symbol in front of overall list
+    sed -i "0,/^/s//$symbolParam /" "$STOCK_SYMBOLS_FILE"
+    SELL_AMOUNT=$(echo "$sellPiecesParam $sellPriceParam $BUY_TOTAL_AMOUNT" | awk '{print ($1 * $2) - $3}')
+    SELL_AMOUNT=$(echo "$SELL_AMOUNT" | cut -f 1 -d '.')
+    SELL_AMOUNT=$((SELL_AMOUNT - txFee))
+    winPercentage=$(echo "scale=1; ($SELL_AMOUNT *100 / $BUY_TOTAL_AMOUNT)" | bc)
+else
+    echo "Sell partial: $sellPiecesParam pieces"
+    SELL_AMOUNT=$(echo "$sellPiecesParam $sellPriceParam $AVG_PRICE $sellPiecesParam" | awk '{print ($1 * $2) - ($3 * $4)}')
+    SELL_AMOUNT=$(echo "$SELL_AMOUNT" | cut -f 1 -d '.')
+    SELL_AMOUNT=$((SELL_AMOUNT - txFee))
+    winPercentage=$(echo "scale=1; ($sellPriceParam *100 / $AVG_PRICE) - 100" | bc)
+
+    today=$(date --date="-0 day" +"%Y-%m-%d")
+    totalAmountOfPieces=$((TOTAL_PIECES - sellPiecesParam))
+    summe=$(echo "$totalAmountOfPieces $AVG_PRICE" | awk '{print $1 * $2}')
+    summe=${summe%.*}
+    # shellcheck disable=SC2027,SC1003,SC2086
+    sed -i '1 i\'$symbolParam' '$AVG_PRICE' '$today' '$totalAmountOfPieces' '$summe'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
+fi
 
 # Decrypt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c "$OWN_SYMBOLS_FILE" 2>/dev/null
@@ -87,9 +109,9 @@ echo "$commaListTransaction" "{x:1,y:$sellPriceParam,r:10}, " > sell/"$symbolPar
 today=$(date --date="-0 day" +"%Y-%m-%d")
 
 # Write Tx History
-echo "Win: $SELL_TOTAL_AMOUNT€"
+echo "Win: $SELL_AMOUNT€"
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
-echo "&nbsp;$today	<span>$SELL_TOTAL_AMOUNT&euro;</span>	$winPercentage%	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	$SYMBOL_NAME</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
+echo "&nbsp;$today	<span>$SELL_AMOUNT&euro;</span>	$winPercentage%	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	\"$SYMBOL_NAME\"</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"

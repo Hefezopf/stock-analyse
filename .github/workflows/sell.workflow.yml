@@ -13,9 +13,13 @@ on:
   workflow_dispatch:
     inputs:
       symbolParam:
-        description: 'SYMBOL - stock symbol to delete from own stocks list: "BEI"'
+        description: 'SYMBOL - stock symbol to sell from own stocks list: "BEI"'
         required: true
         default: 'BEI'
+      sellPiecesParam:
+        description: 'SELL_PIECES - Number of pieces to sell: "100"'
+        required: true
+        default: '100'
       sellPriceParam:
         description: 'SELL_PRICE - Selling Price: "9.99"'
         required: true
@@ -44,12 +48,16 @@ jobs:
           symbolInput="${{github.event.inputs.symbolParam}}"
           symbolVar=${symbolInput:-$symbolDefault}  
 
+          sellPiecesDefault='${{github.event.client_payload.sellPieces}}'
+          sellPiecesInput="${{github.event.inputs.sellPiecesParam}}"
+          sellPiecesVar=${sellPiecesInput:-$sellPiecesDefault}  
+
           sellPriceDefault='${{github.event.client_payload.sellPrice}}'
           sellPriceInput="${{github.event.inputs.sellPriceParam}}"
           sellPriceVar=${sellPriceInput:-$sellPriceDefault}  
 
           chmod +x ./script/sell.sh
-          ./script/sell.sh "$symbolVar" "$sellPriceVar"
+          ./script/sell.sh "$symbolVar" "$sellPiecesVar" "$sellPriceVar"
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
