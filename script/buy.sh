@@ -62,11 +62,12 @@ esac
 # Decript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 
-# 1. Comment only line 'read -n....' to correct values
-# 2. Comment in .gitignore #config/own_symbols.txt
-# 3. Lookup in TradeRepublic: 'Buy In','Anteile im Besitz' and 'investierte Gesamtsumme' [Gesamtwert + (- Rendite)]
-# 4. Press ANY key (NOT enter!)
-# 5. Revert Changes
+# 1. Comment IN only line 'read -n....' to correct values
+# 2. Comment OUT .gitignore #config/own_symbols.txt
+# 3. Lookup in TradeRepublic: 'Buy In','Aktien' and 'investierte Gesamtsumme' [Gesamtwert + (- Rendite)]
+# 4 Correct values in config/own_symbols.txt
+# 5. Press ANY key+ENTER (NOT Just ENTER!)
+# 6. Revert Changes 1. + 2.
 #read -n 1 -p "Correct values in 'config/own_symbols.txt' now and then hit ->ANY key!<- (NOT enter AND NOT space!)" correctValuesInput
 
 # shellcheck disable=SC2154
