@@ -101,6 +101,10 @@ else
     sed -i '1 i\'$symbolParam' '$AVG_PRICE' '$today' '$totalAmountOfPieces' '$summe'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
 fi
 
+if [ ${winPercentage:0:1} = "." ]; then
+    winPercentage="0$winPercentage" # Add leading 0
+fi
+
 # Decrypt
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c "$OWN_SYMBOLS_FILE" 2>/dev/null
 
