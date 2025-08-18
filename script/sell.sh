@@ -143,6 +143,7 @@ span {text-align:right;display:inline-block;width:90px;font-size:larger;}
 </style>
 </head>
 <body>
+<script>var linkMap = new Map();</script>
 <div>"
 echo "$TRANSACTION_HISTORY_HTML_FILE_HEADER" > "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
@@ -158,6 +159,7 @@ lineFromFile=$(grep -F "_blank" "$TEMP_TRANSACTION_HISTORY_FILE")
 priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 118px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
 awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' $TRANSACTION_HISTORY_FILE* > "$TEMP_REVERS_FILE"
@@ -169,9 +171,14 @@ echo "<br>&nbsp;Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FIL
 
 GetCreationDate
 # shellcheck disable=SC2154
-echo "<br><br>&nbsp;Good Luck! $creationDate" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<br><br>&nbsp;Good Luck! $creationDate<br></div><script>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-echo "<br></div></body></html>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+for symbol in `awk '{print $6}' config/transaction_history.txt | sed "s/'/xxx/g" | sed 's/target\=xxx_blankxxx>//g' | awk '!seen[$0]++'`
+do 
+    echo "linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html');" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+done
+
+echo "</script></body></html>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 TEMP_FILE="$(mktemp -p $TEMP_DIR)"
 sed 's/\$/\<br>/g' "$OUT_TRANSACTION_HISTORY_HTML_FILE" >> "$TEMP_FILE"
