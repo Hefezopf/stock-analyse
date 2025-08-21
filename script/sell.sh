@@ -101,7 +101,7 @@ else
     sed -i '1 i\'$symbolParam' '$AVG_PRICE' '$today' '$totalAmountOfPieces' '$summe'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
 fi
 
-if [ ${winPercentage:0:1} = "." ]; then
+if [ "${winPercentage:0:1}" = "." ]; then
     winPercentage="0$winPercentage" # Add leading 0
 fi
 
@@ -173,7 +173,8 @@ GetCreationDate
 # shellcheck disable=SC2154
 echo "<br><br>&nbsp;Good Luck! $creationDate<br></div><script>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-for symbol in `awk '{print $6}' config/transaction_history.txt | sed "s/'/xxx/g" | sed 's/target\=xxx_blankxxx>//g' | awk '!seen[$0]++'`
+# shellcheck disable=SC2013
+for symbol in $(awk '{print $6}' config/transaction_history.txt | sed "s/'/xxx/g" | sed 's/target\=xxx_blankxxx>//g' | awk '!seen[$0]++')
 do 
     echo "linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html');" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 done

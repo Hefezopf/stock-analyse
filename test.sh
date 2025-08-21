@@ -40,6 +40,10 @@ cat script/marketcap-update.sh | tr -d '\r' > script/marketcap-update1.sh
 rm script/marketcap-update.sh
 mv script/marketcap-update1.sh script/marketcap-update.sh
 
+cat script/view_portfolio.sh | tr -d '\r' > script/view_portfolio1.sh
+rm script/view_portfolio.sh
+mv script/view_portfolio1.sh script/view_portfolio.sh
+
 cat simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh | tr -d '\r' > simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh
 rm simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 mv simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh

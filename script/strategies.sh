@@ -59,7 +59,9 @@ StrategieOverratedStochasticWhenOwn() {
     _markerOwnStockParam=$6
     export resultStrategieOverratedStochasticWhenOwn=""
 
+#echo "outtttt" "$_lastStochParam" "$_highStochValueParam"  
     if [ "$_lastStochParam" -gt "$_highStochValueParam" ]; then
+#echo "iiiiiiiiii"    
         if [ "$_markerOwnStockParam" = '*' ]; then
             alarmAbbrevValue="O-"$alarmAbbrevValue
             reasonPrefix="Sell: Stochastic Own (O)"

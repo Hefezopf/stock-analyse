@@ -422,6 +422,7 @@ do
 
         # Sell Strategie: Stochastic When Own
         resultStrategieOverratedStochasticWhenOwn=""
+#echo "XXX:" "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"        
         StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: Divergence RSI
@@ -460,6 +461,18 @@ do
 
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:50px; color:black\""
+
+        # Green
+        if 
+           [ "$(echo "$resultStrategieByTendency" | cut -f 1 -d ':')" = "Buy" ] ||
+           [ "${#resultStrategieUnderratedNewLow}" -gt 1 ] || 
+           [ "${#resultStrategieUnderratedDivergenceRSI}" -gt 1 ] || 
+           [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
+           [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
+           [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
+            styleComdirectLink="style=\"font-size:50px; color:green\""
+        fi
+
         # Red link only for stocks that are marked as own stocks
         if [ "$markerOwnStock" = '*' ] &&
            {
@@ -470,16 +483,6 @@ do
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
             styleComdirectLink="style=\"font-size:50px; color:red\""
-        fi
-
-        if 
-           [ "$(echo "$resultStrategieByTendency" | cut -f 1 -d ':')" = "Buy" ] ||
-           [ "${#resultStrategieUnderratedNewLow}" -gt 1 ] || 
-           [ "${#resultStrategieUnderratedDivergenceRSI}" -gt 1 ] || 
-           [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
-           [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
-           [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
-            styleComdirectLink="style=\"font-size:50px; color:green\""
         fi
 
         ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
