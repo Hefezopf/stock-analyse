@@ -65,8 +65,6 @@ AVG_PRICE=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f2 -d ' ')
 BUY_TOTAL_AMOUNT=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f5 -d ' ' | sed 's/€//g')
 TOTAL_PIECES=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
 
-#echo "++++TOTAL_PIECES $TOTAL_PIECES ; sellPiecesParam $sellPiecesParam"
-
 if { [ -z "$TOTAL_PIECES" ]; } then
     echo "Error: Stock Symbol $symbolParam not in portfolio!"
     exit 3
