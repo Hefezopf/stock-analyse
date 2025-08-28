@@ -564,7 +564,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 28-Aug-2025 20:13</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 28-Aug-2025 20:24</p>
 <span id='stocksPiecesId' style='display:none'>300</span>
 <span id='stocksBuyingValueId' style='display:none'>2812</span>
 
@@ -682,7 +682,7 @@ overallPieces = '?';
 totalAmount = Number(totalAmount) + txFee;
 navigator.clipboard.writeText(totalAmount);
 
-if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
+if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? [Included fees ' + txFee + '€]') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -761,7 +761,7 @@ navigator.clipboard.writeText(newAmount);
 // Trading fees
 var txFee = tradingFees(sellingAmount);
 const sellingAmountAndTxFee = Number(sellingAmount) + txFee;
-if (confirm('Sell ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? (Included fees ' + txFee + '€)') == false) {
+if (confirm('Sell ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmount + '€)? [Included fees ' + txFee + '€]') == false) {
 return;
 }
 var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';

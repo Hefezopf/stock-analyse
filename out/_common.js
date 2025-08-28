@@ -78,7 +78,7 @@ function curlBuy(symbolParam, price, pieces) {
     totalAmount = Number(totalAmount) + txFee;
     navigator.clipboard.writeText(totalAmount);
     
-    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? (Included fees ' + txFee + '€)') == false) {
+    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? [Included fees ' + txFee + '€]') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -157,7 +157,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     // Trading fees
     var txFee = tradingFees(sellingAmount);
     const sellingAmountAndTxFee = Number(sellingAmount) + txFee;
-    if (confirm('Sell ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? (Included fees ' + txFee + '€)') == false) {
+    if (confirm('Sell ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmount + '€)? [Included fees ' + txFee + '€]') == false) {
         return;
     }
     var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
