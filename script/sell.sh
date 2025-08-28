@@ -82,17 +82,28 @@ if [ "${TOTAL_PIECES}" = "$sellPiecesParam" ]; then
     echo "Sell all: $TOTAL_PIECES pieces"
     # Add symbol in front of overall list
     sed -i "0,/^/s//$symbolParam /" "$STOCK_SYMBOLS_FILE"
-    SELL_AMOUNT=$(echo "$sellPiecesParam $sellPriceParam $BUY_TOTAL_AMOUNT" | awk '{print ($1 * $2) - $3}')
-    SELL_AMOUNT=$(echo "$SELL_AMOUNT" | cut -f 1 -d '.')
-    SELL_AMOUNT=$((SELL_AMOUNT - txFee))
-    winPercentage=$(echo "scale=1; ($SELL_AMOUNT *100 / $BUY_TOTAL_AMOUNT)" | bc)
+    WIN_AMOUNT=$(echo "$sellPiecesParam $sellPriceParam $BUY_TOTAL_AMOUNT" | awk '{print ($1 * $2) - $3}')
+    WIN_AMOUNT=$(echo "$WIN_AMOUNT" | cut -f 1 -d '.')
+    WIN_AMOUNT=$((WIN_AMOUNT - txFee))
+    winPercentage=$(echo "scale=1; ($WIN_AMOUNT *100 / $BUY_TOTAL_AMOUNT)" | bc)
 else
+    newPiecesAmount=$((TOTAL_PIECES - sellPiecesParam))
     echo "Sell partial: $sellPiecesParam pieces"
-    SELL_AMOUNT=$(echo "$sellPiecesParam $sellPriceParam $AVG_PRICE $sellPiecesParam" | awk '{print ($1 * $2) - ($3 * $4)}')
-    SELL_AMOUNT=$(echo "$SELL_AMOUNT" | cut -f 1 -d '.')
-    SELL_AMOUNT=$((SELL_AMOUNT - txFee))
+    echo "Now: $newPiecesAmount pieces in portfolio"
+
+    WIN_AMOUNT=$(echo "$sellPiecesParam $sellPriceParam $AVG_PRICE $sellPiecesParam" | awk '{print ($1 * $2) - ($3 * $4)}')
+    WIN_AMOUNT=$(echo "$WIN_AMOUNT" | cut -f 1 -d '.')
+    WIN_AMOUNT=$((WIN_AMOUNT - txFee))
+
+#echo "BUY_TOTAL_AMOUNT: $BUY_TOTAL_AMOUNT"
+#echo "WIN_AMOUNT: $WIN_AMOUNT"
+newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')  
+#echo "newAmount: $newAmount"
+echo "$newAmount" | clip
+
     winPercentage=$(echo "scale=1; ($sellPriceParam *100 / $AVG_PRICE) - 100" | bc)
 
+ 
     today=$(date --date="-0 day" +"%Y-%m-%d")
     totalAmountOfPieces=$((TOTAL_PIECES - sellPiecesParam))
     summe=$(echo "$totalAmountOfPieces $AVG_PRICE" | awk '{print $1 * $2}')
@@ -120,9 +131,9 @@ echo "$commaListTransaction" "{x:1,y:$sellPriceParam,r:10}, " > sell/"$symbolPar
 today=$(date --date="-0 day" +"%Y-%m-%d")
 
 # Write Tx History
-echo "Win: $SELL_AMOUNT€"
+echo "Win: $WIN_AMOUNT€"
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
-echo "&nbsp;$today	<span>$SELL_AMOUNT&euro;</span>	$winPercentage%	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	\"$SYMBOL_NAME\"</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
+echo "&nbsp;$today	<span>$WIN_AMOUNT&euro;</span>	$winPercentage%	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	\"$SYMBOL_NAME\"</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
@@ -191,12 +202,9 @@ count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
 rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
-#echo "Transactions: $count (Year 2025)"
 echo "Transactions: $count (Year $(date +%Y))"
-#echo "Quali Phase: 01.04. bis 30.09. and"
-#echo "Quali Phase: 01.10. bis 31.03."
 
 if [ ! "$(uname)" = 'Linux' ]; then
     echo ""
-    echo "Windows:Red Sell-Marker appears in HTML next time Git 'Nightly Action' runs!"
+    echo "Windows:Red Sell-Marker appears next time in HTML when Github 'Nightly Action' runs!"
 fi
