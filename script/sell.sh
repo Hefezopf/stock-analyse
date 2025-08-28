@@ -93,9 +93,14 @@ else
     WIN_AMOUNT=$(echo "$WIN_AMOUNT" | cut -f 1 -d '.')
     WIN_AMOUNT=$((WIN_AMOUNT - txFee))
 
-    newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')  
-    echo "$newAmount" | clip
+    newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')
 
+    if [ "$(uname)" = 'Linux' ]; then
+        echo ""
+    else
+        echo "$newAmount" | clip
+    fi
+    
     winPercentage=$(echo "scale=1; ($sellPriceParam *100 / $AVG_PRICE) - 100" | bc)
  
     today=$(date --date="-0 day" +"%Y-%m-%d")
