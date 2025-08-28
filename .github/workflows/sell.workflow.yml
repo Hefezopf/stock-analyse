@@ -67,13 +67,26 @@ jobs:
           
 
           # ./analyse.sh "$symbolsVar $symbolVar" 1 9 25
-          if [ "$symbolsVar" =~ "$symbolVar" ]; then
+
+          if echo "$symbolsVar" | grep -q "$symbolVar"
+          then
+            echo "$2 is in $1"
             echo "Sell partial..."
             ./analyse.sh "$symbolsVar" 1 9 25
-          else
+          else 
+            echo "$2 is not in $1"
             echo "Sell all..."
             ./analyse.sh "$symbolsVar $symbolVar" 1 9 25
-          fi          
+          fi
+
+
+          #if [ "$symbolsVar" =~ "$symbolVar" ]; then
+          #  echo "Sell partial..."
+          #  ./analyse.sh "$symbolsVar" 1 9 25
+          # else
+          #   echo "Sell all..."
+          #  ./analyse.sh "$symbolsVar $symbolVar" 1 9 25
+          #fi          
 
 
           #git fetch --unshallow origin
