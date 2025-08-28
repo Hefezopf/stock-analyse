@@ -145,11 +145,19 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         stockPiecesParam = 0;
     }    
 
-    const sellingAmount = (Number(stockPiecesParam) * Number(sellPriceParam));
+    var sellPriceReplaced = parseFloat(sellPriceParam.replace(',', '.')).toFixed(2);
+    const sellingAmount = (Number(stockPiecesParam) * Number(sellPriceReplaced));
+    var stocksBuyingValue = Number(document.getElementById('stocksBuyingValueId').innerHTML);
+    var newAmount = (stocksBuyingValue - Number(stockPiecesParam) * Number(sellPriceReplaced));
+    var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
+    var newPiecesAmount=(stocksPieces - stockPiecesParam);
+    //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
+    navigator.clipboard.writeText(newAmount);
+
     // Trading fees
     var txFee = tradingFees(sellingAmount);
     const sellingAmountAndTxFee = Number(sellingAmount) + txFee;
-    if (confirm('Sell ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? (Included fees ' + txFee + '€)') == false) {
+    if (confirm('Sell ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? (Included fees ' + txFee + '€)') == false) {
         return;
     }
     var url = 'https://api.github.com/repos/Hefezopf/stock-analyse/dispatches';
