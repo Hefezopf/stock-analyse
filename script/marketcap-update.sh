@@ -71,8 +71,8 @@ do
         echo "Firmenportrait: $firmenportrait"
     else
         firmenportrait="-------------"
-        firmenportraitErrorSymbols="$symbol $firmenportraitErrorSymbols"
-        echo "--> ERROR Firmenportrait: $symbol $ID_NOTATION! $firmenportrait"
+        firmenportraitWarningSymbols="$symbol $firmenportraitWarningSymbols"
+        echo "--> Warning Firmenportrait: $symbol $ID_NOTATION! $firmenportrait"
     fi    
 
     # Now write all results in file!
@@ -102,8 +102,8 @@ do
             echo "Market Cap:$marktkap Mrd.€"
         else
             marktkap="?"
-            marktkapErrorSymbols="$symbol $marktkapErrorSymbols"
-            echo "--> ERROR Market Cap: $symbol $ID_NOTATION -> Not Found, INDEX, COIN or Market Cap too small! $marktkap"
+            marketkapWarningSymbols="$symbol $marketkapWarningSymbols"
+            echo "--> WARNING Market Cap: $symbol $ID_NOTATION -> Not Found, INDEX, COIN or Market Cap too small?! $marktkap"
         fi
     fi
 
@@ -128,8 +128,8 @@ do
             echo "Branche: $branche"
         else
             branche="?"
-            brancheErrorSymbols="$symbol $brancheErrorSymbols"
-            echo "--> ERROR Branche: $symbol $ID_NOTATION! $branche"
+            brancheWarningSymbols="$symbol $brancheWarningSymbols"
+            echo "--> WARNING Branche: $symbol $ID_NOTATION! $branche"
         fi
     fi
 
@@ -141,8 +141,8 @@ do
         echo "KGVe: $kgve"
     else
         kgve="?"
-        kgveErrorSymbols="$symbol $kgveErrorSymbols"
-        echo "--> ERROR KGVe: $symbol $ID_NOTATION! $kgve"
+        kgveWarningSymbols="$symbol $kgveWarningSymbols"
+        echo "--> WARNING KGVe: $symbol $ID_NOTATION! $kgve"
     fi
 
     # DIVe
@@ -156,8 +156,8 @@ do
         echo "DIVe: $dive%"
     else
         dive="?"
-        diveErrorSymbols="$symbol $diveErrorSymbols"
-        echo "--> ERROR DIVe: $symbol $ID_NOTATION! $dive"
+        diveWarningSymbols="$symbol $diveWarningSymbols"
+        echo "--> WARNING DIVe: $symbol $ID_NOTATION! $dive"
     fi
 
     # Hauptversammlung
@@ -184,8 +184,8 @@ do
         echo "Firmenportrait: $firmenportrait"
     else
         firmenportrait="-------------"
-        firmenportraitErrorSymbols="$symbol $firmenportraitErrorSymbols"
-        echo "--> ERROR Firmenportrait: $symbol $ID_NOTATION! $firmenportrait"
+        firmenportraitWarningSymbols="$symbol $firmenportraitWarningSymbols"
+        echo "--> WARNING Firmenportrait: $symbol $ID_NOTATION! $firmenportrait"
     fi
     # shellcheck disable=SC2116
     firmenportrait=$(echo \""$firmenportrait\"")
@@ -204,39 +204,39 @@ do
         fi
     else
         spread="?"
-        spreadErrorSymbols="$symbol $spreadErrorSymbols"
-        echo "--> ERROR Spread: $symbol $ID_NOTATION! $spread"
+        spreadWarningSymbols="$symbol $spreadWarningSymbols"
+        echo "--> WARNING Spread: $symbol $ID_NOTATION! $spread"
     fi
   fi
 done
 
-if [ "$marktkapErrorSymbols" ]; then
+if [ "$marketkapWarningSymbols" ]; then
     echo ""
-    echo "Symbols with Market Cap Error: marktkapErrorSymbols=$marktkapErrorSymbols"
+    echo "Symbols with Market Cap Warning: marketkapWarningSymbols=$marketkapWarningSymbols"
 fi
-if [ "$brancheErrorSymbols" ]; then
+if [ "$brancheWarningSymbols" ]; then
     echo ""
-    echo "Symbols with Branche Error: brancheErrorSymbols=$brancheErrorSymbols"
+    echo "Symbols with Branche Warning: brancheWarningSymbols=$brancheWarningSymbols"
 fi
-if [ "$kgveErrorSymbols" ]; then
+if [ "$kgveWarningSymbols" ]; then
     echo ""
-    echo "Symbols with KGVe Error: kgveErrorSymbols=$kgveErrorSymbols"
+    echo "Symbols with KGVe Warning: kgveWarningSymbols=$kgveWarningSymbols"
 fi
-if [ "$diveErrorSymbols" ]; then
+if [ "$diveWarningSymbols" ]; then
     echo ""
-    echo "Symbols with DIVe Error: diveErrorSymbols=$diveErrorSymbols"
+    echo "Symbols with DIVe Warning: diveWarningSymbols=$diveWarningSymbols"
 fi
-# if [ "$hauptversammlungErrorSymbols" ]; then
+# if [ "$hauptversammlungWarningSymbols" ]; then
 #     echo ""
-#     echo "Symbols with Hauptversammlung Error: hauptversammlungErrorSymbols=$hauptversammlungErrorSymbols"
+#     echo "Symbols with Hauptversammlung Warning: hauptversammlungWarningSymbols=$hauptversammlungWarningSymbols"
 # fi
-if [ "$firmenportraitErrorSymbols" ]; then
+if [ "$firmenportraitWarningSymbols" ]; then
     echo ""
-    echo "Symbols with firmenportrait Error: firmenportraitErrorSymbols=$firmenportraitErrorSymbols"
+    echo "Symbols with firmenportrait Warning: firmenportraitWarningSymbols=$firmenportraitWarningSymbols"
 fi
-if [ "$spreadErrorSymbols" ]; then
+if [ "$spreadWarningSymbols" ]; then
     echo ""
-    echo "Symbols with Spread Error: spreadErrorSymbols=$spreadErrorSymbols"
+    echo "Symbols with Spread Warning: spreadWarningSymbols=$spreadWarningSymbols"
 fi
 if [ "$highSpreadSymbols" ]; then
     echo ""
