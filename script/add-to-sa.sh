@@ -33,6 +33,11 @@ if { [ "$found" ]; } then
   exit 2
 fi
 
+if [ "$symbolsParameter" = 'CON' ]; then
+  echo "Error: Symbol $symbolsParameter causes UNIX problems !!!DO NOT ADD!!!"
+  exit 3
+fi
+
 # 1.
 . analyse.sh "$symbolsParameter" 2 9 25 cc
 rm -rf "$OUT_RESULT_FILE"
