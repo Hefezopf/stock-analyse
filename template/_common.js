@@ -163,7 +163,9 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         }        
     }
     else {
-        if (confirm('Sell partial ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmount + '€)? [Included fees ' + txFee + '€]') == false) {
+        var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
+        var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
+        if (confirm('Sell partial ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
             return;
         }
     }
