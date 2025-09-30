@@ -37,8 +37,8 @@ else
 fi
 
 # Switches to turn on/off Strategies. Default is 'true'
-ApplyStrategieByTendency=false
-ApplyStrategieHorizontalMACD=true
+applyStrategieByTendency=false
+applyStrategieHorizontalMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
 export LC_ALL=en_US.UTF-8
@@ -106,7 +106,7 @@ UsageCheckParameter "$symbolsParam" "$percentageParam" "$stochasticPercentagePar
 if [ ! "$CalculateStochastic" = true ] || [ ! "$CalculateRSI" = true ] || [ ! "$CalculateMACD" = true ]; then
     echo "WARNING: CalculateStochastic or CalculateRSI or CalculateMACD NOT set!" | tee -a "$OUT_RESULT_FILE"
     echo "<br><br>" >> "$OUT_RESULT_FILE"
-    ApplyStrategieHorizontalMACD=false
+    applyStrategieHorizontalMACD=false
 fi
 
 if { [ -z "$GPG_PASSPHRASE" ]; } then
@@ -346,14 +346,16 @@ do
     AverageOfDays $averageInDays95 "$DATA_FILE"
     averagePriceList95=$averagePriceList
 
-    tendency18=""
-    DetermineTendency "$averagePriceList18"
-    # shellcheck disable=SC2154
-    tendency18="$tendency"
+    if [ "$applyStrategieByTendency" = true ]; then
+        tendency18=""
+        DetermineTendency "$averagePriceList18"
+        # shellcheck disable=SC2154
+        tendency18="$tendency"
 
-    tendency38=""
-    DetermineTendency "$averagePriceList38"
-    tendency38="$tendency"
+        tendency38=""
+        DetermineTendency "$averagePriceList38"
+        tendency38="$tendency"
+    fi
 
     ProgressBar 8 8
     
@@ -373,13 +375,13 @@ do
         fi
 
         # Strategie: Quote by Tendency
-        if [ "$ApplyStrategieByTendency" = true ]; then
+        if [ "$applyStrategieByTendency" = true ]; then
             resultStrategieByTendency=""
             StrategieByTendency "$last" "$tendency38" "$percentageLesserFactor" "$average95" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
         fi
 
         # Buy Strategie: Low horizontal MACD
-        if [ "$ApplyStrategieHorizontalMACD" = true ]; then
+        if [ "$applyStrategieHorizontalMACD" = true ]; then
             resultStrategieUnderratedLowHorizontalMACD=""
             StrategieUnderratedLowHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
         fi
@@ -415,7 +417,7 @@ do
         StrategieUnderratedLowStochasticLowRSILowMACD "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
 
         # Sell Strategie: High horizontal MACD
-        if [ "$ApplyStrategieHorizontalMACD" = true ]; then
+        if [ "$applyStrategieHorizontalMACD" = true ]; then
             resultStrategieOverratedHighHorizontalMACD=""
             StrategieOverratedHighHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
         fi
@@ -673,10 +675,13 @@ do
         echo "&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>""$lastRSIQuoteRounded" "</b></span>"
         echo "&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>""$lastMACDValue" "</b></span>"
         echo "</p>"
-        echo "<p class='p-result'>"
-        echo "<span style='color:rgb(153, 102, 255)'>Tendency18:<b>""$tendency18""</b></span>"
-        echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>""$tendency38""</b></span>"
-        echo "</p>"
+
+        if [ "$applyStrategieByTendency" = true ]; then
+            echo "<p class='p-result'>"
+            echo "<span style='color:rgb(153, 102, 255)'>Tendency18:<b>""$tendency18""</b></span>"
+            echo "&nbsp;<span style='color:rgb(205, 99, 132)'>Tendency38:<b>""$tendency38""</b></span>"
+            echo "</p>"
+        fi
 
         # Strategies output
         # Sell/Buy
