@@ -50,6 +50,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 </head>
 <body>
 <script>var linkMap = new Map();</script>
+<script type='text/javascript' src='_result.js'></script>
 <div>"
 # shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
@@ -65,8 +66,10 @@ do
        # symbol=$(echo "$symbol" | cut -b 2-7)
         symbol="${symbol:1:7}"
     fi
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
-    symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+ #   lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
+ #   symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+ #   ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
+
     #echo "Symbol: $symbol"
     minRange=$((88-lastDaysParam))
     # shellcheck disable=SC2002
@@ -77,6 +80,7 @@ do
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values
             lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
             symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+            ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
             echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
             echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
             echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
@@ -91,7 +95,8 @@ do
             if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
                 lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
             fi
-            echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html' target='_blank'>$symbol $symbolName</a><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+            echo "<img class='imgborder' id='imgToReplace$symbol' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;'/>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+            echo "<a style='background:$lowMarketCapLinkBackgroundColor;' onmouseover=\"javascript:showChart('10D', '$symbol')\" onmouseout=\"javascript:hideChart('$symbol')\" href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html' target='_blank'>$symbol $symbolName</a><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
         fi
     fi
 done
