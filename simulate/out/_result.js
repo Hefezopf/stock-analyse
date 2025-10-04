@@ -636,7 +636,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
 
     var part_url = 'aktien';
     if (['INDEX'].indexOf(asset_type) >= 0) {
-//         if (['IWLE', 'IS4S', 'XXXX'].indexOf(symbol) >= 0) {
+//        if (['IWLE', 'IS4S', 'XXXX'].indexOf(symbol) >= 0) {
             // if(symbol === "IWLE") {
         part_url = 'etfs';
     }
