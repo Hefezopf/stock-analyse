@@ -559,7 +559,7 @@ for value in "${ARRAY_BUY_POS_SIM[@]}"
 do
     lineFromTickerFile=$(grep -m1 -P "^$value\t" "$TICKER_NAME_ID_FILE_MEM")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-    id_notation=$(echo "$lineFromTickerFile" | cut -f 3)
+    #id_notation=$(echo "$lineFromTickerFile" | cut -f 3)
     marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     lowMarketCapLinkBackgroundColor="white"
@@ -567,23 +567,25 @@ do
         lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
     fi
 
-    {
-        echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.2);'/>"
-        COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
-    # COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
-    # COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
-        # shellcheck disable=SC2154
-        if [ "$asset_type" = 'INDEX' ]; then
-            COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
-        # COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
-        # COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
-        fi
-        echo "<a id='headlineLink$value' style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('10D', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_10D$id_notation' target='_blank'>$value $symbolName</a>"
-        #echo "<a style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('6M', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_6M$id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
-        #echo "<a style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('5Y', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_5Y$id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
+    # {
+    #     echo "<img class='imgborder' id='imgToReplace$value' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.2);'/>"
+    #     COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
+    # # COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
+    # # COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
+    #     # shellcheck disable=SC2154
+    #     if [ "$asset_type" = 'INDEX' ]; then
+    #         COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
+    #     # COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
+    #     # COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
+    #     fi
+    #     echo "<a id='headlineLink$value' style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('10D', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_10D$id_notation' target='_blank'>$value $symbolName</a>"
+    #     #echo "<a style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('6M', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_6M$id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
+    #     #echo "<a style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('5Y', '$value')\" onmouseout=\"javascript:hideChart('$value')\" href='$COMDIRECT_URL_5Y$id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
 
-        echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">SIM</a><br>" >> $OUT_SIMULATE_FILE
-    } >> "$OUT_SIMULATE_FILE"
+    #     echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$value"".html\" target=\"_blank\">SIM</a><br>" >> $OUT_SIMULATE_FILE
+    # } >> "$OUT_SIMULATE_FILE"
+
+    WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$GREEN" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate"
 
     echo "$value"
     # shellcheck disable=SC2027,SC2086

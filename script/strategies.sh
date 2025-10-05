@@ -40,7 +40,7 @@ StrategieUnderratedNewLow() {
             resultStrategieUnderratedNewLow="$reasonPrefix"
             echo "$resultStrategieUnderratedNewLow"
             # shellcheck disable=SC2154
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -67,7 +67,7 @@ StrategieOverratedStochasticWhenOwn() {
             reasonPrefix="Sell: Stochastic Own (O)"
             resultStrategieOverratedStochasticWhenOwn="$reasonPrefix"
             echo "$resultStrategieOverratedStochasticWhenOwn"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -98,7 +98,7 @@ StrategieOverratedDivergenceRSI() {
             reasonPrefix="Sell: RSI Divergence (D)"
             resultStrategieOverratedDivergenceRSI="$reasonPrefix"
             echo "$resultStrategieOverratedDivergenceRSI"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -129,7 +129,7 @@ StrategieUnderratedDivergenceRSI() {
             reasonPrefix="Buy: RSI Divergence (D)"
             resultStrategieUnderratedDivergenceRSI="$reasonPrefix"
             echo "$resultStrategieUnderratedDivergenceRSI"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -156,7 +156,7 @@ StrategieByTendency() {
             reasonPrefix="Buy: Low Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
         # 10 times _percentageFactorParam
         _percentagePowOf=$(echo "$_percentageFactorParam 10" | awk '{print $1 ^ $2}')
@@ -166,7 +166,7 @@ StrategieByTendency() {
             reasonPrefix="Sell: High Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is over Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     elif [ "$_tendencyParam" = "$LEVEL" ]; then 
         # 3 times _percentageFactorParam
@@ -177,7 +177,7 @@ StrategieByTendency() {
             reasonPrefix="Sell: High Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is over Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
         _valueWithFactor=$(echo "$_percentagePowOf $_lastPriceParam" | awk '{print $1 * $2}')
         if awk 'BEGIN {exit !('"$_valueWithFactor"' < '"$_lastAverage95Param"')}'; then
@@ -185,7 +185,7 @@ StrategieByTendency() {
             reasonPrefix="Buy: Low Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     elif [ "$_tendencyParam" = "$FALLING" ]; then 
         # 0 times _percentageFactorParam
@@ -194,7 +194,7 @@ StrategieByTendency() {
             reasonPrefix="Sell: High Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is over Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
         # 10 times _percentageFactorParam
         _percentagePowOf=$(echo "$_percentageFactorParam 10" | awk '{print $1 ^ $2}')
@@ -204,7 +204,7 @@ StrategieByTendency() {
             reasonPrefix="Buy: Low Quote by Tendency (T)"
             resultStrategieByTendency="$reasonPrefix: $_lastPriceParam€ is under Avg95 $_lastAverage95Param€ with Tendency $_tendencyParam"
             echo "$resultStrategieByTendency"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -263,7 +263,7 @@ StrategieOverratedXHighRSI() {
             reasonPrefix="Sell: High $countHighRSI last RSI (R)"
             resultStrategieOverratedXHighRSI="$reasonPrefix: $countHighRSI last quotes over level"
             echo "$resultStrategieOverratedXHighRSI"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -322,7 +322,7 @@ StrategieUnderratedXLowRSI() {
             reasonPrefix="Buy: Low $countLowRSI last RSI (R)"
             resultStrategieUnderratedXLowRSI="$reasonPrefix: $countLowRSI last quotes under level"
             echo "$resultStrategieUnderratedXLowRSI"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -389,7 +389,7 @@ StrategieOverratedHighHorizontalMACD() {
             reasonPrefix="Sell: High MACD (M)"
             resultStrategieOverratedHighHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
             echo "$resultStrategieOverratedHighHorizontalMACD"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -508,7 +508,7 @@ StrategieOverratedByPercentAndStochastic() {
             reasonPrefix="Sell: High Percent & Stochastic (P)"
             resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 > Avg38 > Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam over level"
             echo "$resultStrategieOverratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -541,7 +541,7 @@ StrategieUnderratedByPercentAndStochastic() {
             reasonPrefix="Buy: Low Percent & Stochastic (P)"
             resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 < Avg38 < Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam under level"
             echo "$resultStrategieUnderratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -651,7 +651,7 @@ StrategieOverratedXHighStochastic() {
             reasonPrefix="Sell: High $howManyOverHighStochasticValue last Stochastic (S)"
             resultStrategieOverratedXHighStochastic="$reasonPrefix: $howManyOverHighStochasticValue last quotes over level"
             echo "$resultStrategieOverratedXHighStochastic"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -729,7 +729,7 @@ StrategieUnderratedXLowStochastic() {
             reasonPrefix="Buy: Low $howManyUnderLowStochasticValue last Stochastic (S)"
             resultStrategieUnderratedXLowStochastic="$reasonPrefix: $howManyUnderLowStochasticValue last quotes under level"
             echo "$resultStrategieUnderratedXLowStochastic"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -758,7 +758,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
             reasonPrefix="Sell: High Stochastic & RSI & MACD+ (C)"
             resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam over level and RSI $_lastRSIQuoteRoundedParam over level"
             echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }
@@ -787,7 +787,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
             reasonPrefix="Buy: Low Stochastic & RSI & MACD- (C)"
             resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam under level and RSI $_lastRSIQuoteRoundedParam under level"
             echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" ""
         fi
     fi
 }

@@ -28,6 +28,10 @@ cat script/constants.sh | tr -d '\r' > script/constants1.sh
 rm script/constants.sh
 mv script/constants1.sh script/constants.sh
 
+cat script/averages.sh | tr -d '\r' > script/averages1.sh
+rm script/averages.sh
+mv script/averages1.sh script/averages.sh
+
 cat script/functions.sh | tr -d '\r' > script/functions1.sh
 rm script/functions.sh
 mv script/functions1.sh script/functions.sh
@@ -44,21 +48,37 @@ cat script/view_portfolio.sh | tr -d '\r' > script/view_portfolio1.sh
 rm script/view_portfolio.sh
 mv script/view_portfolio1.sh script/view_portfolio.sh
 
-cat simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh | tr -d '\r' > simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh
-rm simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
-mv simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
-
 cat script/sell.sh | tr -d '\r' > script/sell1.sh
 rm script/sell.sh
 mv script/sell1.sh script/sell.sh
+
+cat script/delete_from_sa.sh | tr -d '\r' > script/delete_from_sa1.sh
+rm script/delete_from_sa.sh
+mv script/delete_from_sa1.sh script/delete_from_sa.sh
+
+cat script/git_cleanup.sh | tr -d '\r' > script/git_cleanup1.sh
+rm script/git_cleanup.sh
+mv script/git_cleanup1.sh script/git_cleanup.sh
 
 cat script/buy.sh | tr -d '\r' > script/buy1.sh
 rm script/buy.sh
 mv script/buy1.sh script/buy.sh
 
+cat script/calc.sh | tr -d '\r' > script/calc1.sh
+rm script/calc.sh
+mv script/calc1.sh script/calc.sh
+
+cat script/sort_sa.sh | tr -d '\r' > script/sort_sa1.sh
+rm script/sort_sa.sh
+mv script/sort_sa1.sh script/sort_sa.sh
+
 cat script/add-to-sa.sh | tr -d '\r' > script/add-to-sa1.sh
 rm script/add-to-sa.sh
 mv script/add-to-sa1.sh script/add-to-sa.sh
+
+cat script/add-to-sa-check.sh | tr -d '\r' > script/add-to-sa-check1.sh
+rm script/add-to-sa-check.sh
+mv script/add-to-sa-check1.sh script/add-to-sa-check.sh
 
 cat script/curl/curl_getInformerData.sh | tr -d '\r' > script/curl/curl_getInformerData1.sh
 rm script/curl/curl_getInformerData.sh
@@ -67,6 +87,18 @@ mv script/curl/curl_getInformerData1.sh script/curl/curl_getInformerData.sh
 cat analyse.sh | tr -d '\r' > analyse1.sh
 rm analyse.sh
 mv analyse1.sh analyse.sh
+
+cat simulate/simulate-buy-candidates.sh | tr -d '\r' > simulate/simulate-buy-candidates1.sh
+rm simulate/simulate-buy-candidates.sh
+mv simulate/simulate-buy-candidates1.sh simulate/simulate-buy-candidates.sh
+
+cat simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh | tr -d '\r' > simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh
+rm simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
+mv simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
+
+cat simulate.sh | tr -d '\r' > simulate1.sh
+rm simulate.sh
+mv simulate1.sh simulate.sh
 
 shellcheck --shell=bash simulate.sh
 shellcheck --shell=bash analyse.sh

@@ -279,6 +279,7 @@ WriteComdirectUrlAndStoreFileList() {
     _markerOwnStockParam=$5
     _reasonParam=$6
     _lowMarketCapBackgroundColorParam=$7
+    _pathParam="$8"
 
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "$_markerOwnStockParam" = '' ]; then
@@ -311,8 +312,8 @@ WriteComdirectUrlAndStoreFileList() {
             echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('10D', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('6M', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
-            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
-            echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='D:/code/stock-analyse/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
+            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
+            echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='file:///D:/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
             echo "</div>"
         } >> "$_outResultFileParam"
     fi
