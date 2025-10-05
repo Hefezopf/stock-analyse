@@ -88,7 +88,7 @@ Out "Symbols($countSymbols):$symbolsParam" $OUT_SIMULATE_FILE
 
 ParameterOut
 
-echo "<br><button id='buttonGoToEnd' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doGoToEnd(){var scrollingElement = (document.scrollingElement || document.body);scrollingElement.scrollTop = scrollingElement.scrollHeight;};doGoToEnd()'>GoTo End</button>" >> $OUT_SIMULATE_FILE
+echo "<br><button id='buttonGoToEnd' style='font-size:large; height: 60px; width: 118px;' type='button' onclick='function doGoToEnd(){var scrollingElement = (document.scrollingElement || document.body);scrollingElement.scrollTop = scrollingElement.scrollHeight;};doGoToEnd()'>To End</button>" >> $OUT_SIMULATE_FILE
 echo "&nbsp;<a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html\" target=\"_blank\">Simulation</a><br>" >> $OUT_SIMULATE_FILE
 
 # Simulate stocks for each symbol
