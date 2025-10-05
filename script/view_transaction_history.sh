@@ -23,15 +23,16 @@ echo "View Transaction History $symbolParam"
 echo ""
 
 lineFromFile=$(grep -F "$symbolParam" "$TRANSACTION_HISTORY_FILE")
-# &nbsp;2025-09-19	<span>245&euro;</span>	4.8%	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/RCF.html' target='_blank'>RCF	"Teleperformance"</a><br>
-
+#<div style='font-size: x-large;'>&nbsp;2025-10-03&#9;133&#8364;&#9;4.9%&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/58H.html' target='_blank'>58H&#9;"Davide-Campari"</a></div><br>
 echo "$lineFromFile"
 
-#<span>245&euro;</span>
+lineFromFile=$(echo "$lineFromFile" | sed 's/&#9;/\t/g')
+
+#\t245&#8364;
 priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 
 priceFromFile=$(echo "$priceFromFile" | sed 's/%//g')
-priceFromFile=$(echo "$priceFromFile" | sed 's/<span>//g')
+priceFromFile=$(echo "$priceFromFile" | sed 's/&#9;/\t/g')
   
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 
