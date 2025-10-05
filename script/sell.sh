@@ -132,7 +132,7 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 # Write Tx History
 echo "Win: $WIN_AMOUNT€"
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
-echo "&nbsp;$today	<span>$WIN_AMOUNT&euro;</span>	$winPercentage%	<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam	\"$SYMBOL_NAME\"</a><br>" | tee -a "$TRANSACTION_HISTORY_FILE"
+echo "<div style='font-size: large;'>&nbsp;$today&#9;$WIN_AMOUNT&#8364;&#9;$winPercentage%&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam&#9;\"$SYMBOL_NAME\"</a></div>" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
@@ -162,14 +162,14 @@ rm -rf $TEMP_DIR/tmp.*
 TEMP_REVERS_FILE="$(mktemp -p $TEMP_DIR)"
 TEMP_TRANSACTION_HISTORY_FILE="$(mktemp -p $TEMP_DIR)"
 
-sed 's/<span>//g' "$TRANSACTION_HISTORY_FILE" >> "$TEMP_TRANSACTION_HISTORY_FILE"
+sed 's/&#9;/\t/g' "$TRANSACTION_HISTORY_FILE" >> "$TEMP_TRANSACTION_HISTORY_FILE"
 
 lineFromFile=$(grep -F "_blank" "$TEMP_TRANSACTION_HISTORY_FILE")
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
-echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 118px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
 awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' $TRANSACTION_HISTORY_FILE* > "$TEMP_REVERS_FILE"
