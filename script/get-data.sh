@@ -29,8 +29,8 @@ mkdir -p temp
 
 # Check for multiple identical symbols in cmd. Do not ignore '*'' 
 if echo "$symbolsParam" | tr -d '*' | tr '[:lower:]' '[:upper:]' | tr " " "\n" | sort | uniq -c | grep -v '^ *1 '; then
-    echo "WARNING: Multiple symbols in parameter list!" | tee -a $OUT_RESULT_FILE
-    echo "<br><br>" >> $OUT_RESULT_FILE
+    echo "WARNING: Multiple symbols in parameter list!" | tee -a "$OUT_RESULT_FILE"
+    echo "<br><br>" >> "$OUT_RESULT_FILE"
 fi
 
 # Analyse stock data for each symbol
@@ -44,9 +44,9 @@ do
         # Get stock data
         echo ""
         echo "# Get $symbol"
-        DATA_FILE="$(mktemp -p $TEMP_DIR)"
+       # DATA_FILE="$(mktemp -p $TEMP_DIR)"
         DATA_DATE_FILE="$DATA_DIR/$symbol.txt"
-        DATA_DATE_FILE_TEMP="$(mktemp -p $TEMP_DIR)"
+       # DATA_DATE_FILE_TEMP="$(mktemp -p $TEMP_DIR)"
         # https://marketstack.com/documentation
         #exchange="XFRA" # Frankfurt
         exchange="XETRA"
@@ -55,17 +55,18 @@ do
         # curl -c "'$COOKIES_FILE'" -s --location --request GET "https://api.marketstack.com/v1/eod?access_key=${MARKET_STACK_ACCESS_KEY}&exchange=${exchange}&symbols=${symbol}.${exchange}&limit=100" | jq -jr '.data[]|.date, "T", .close, "T", .volume, "\n"' | awk -F'T' '{print $1 "\t" $3 "\t" $4}' > "$DATA_DATE_FILE"
         fileSize=$(stat -c %s "$DATA_DATE_FILE")
         if [ "$fileSize" -eq "0" ]; then
-            echo "<br>" >> $OUT_RESULT_FILE
-            echo "!!! $symbol NO data retrieved online; Maybe CURL is blocked?" | tee -a $OUT_RESULT_FILE
-            echo "<br>" >> $OUT_RESULT_FILE
+            echo "<br>" >> "$OUT_RESULT_FILE"
+            echo "!!! $symbol NO data retrieved online; Maybe CURL is blocked?" | tee -a "$OUT_RESULT_FILE"
+            echo "<br>" >> "$OUT_RESULT_FILE"
         fi
 
         yesterday=$(date --date="-1 day" +"%Y-%m-%d")
         quoteDate=$(head -n1 "$DATA_DATE_FILE" | awk '{print $1}')
         if [ "$quoteDate" = "$yesterday" ]; then # OK, quote from last trading day
             #echo "OK, quote from last trading day"
+            # shellcheck disable=SC2116
             symbolsWithData=$(echo "$symbol $symbolsWithData")
-            CurlSymbolName "$symbol" $TICKER_NAME_ID_FILE 14 "_symbolNameParam_TODO"
+            CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "_symbolNameParam_TODO"
         else # NOK!
             echo "remove $symbol" 
             rm -rf "$DATA_DATE_FILE"
@@ -74,4 +75,4 @@ do
 done
 
 echo ""
-echo "symbolsWithData="$symbolsWithData""
+echo "symbolsWithData=$symbolsWithData"

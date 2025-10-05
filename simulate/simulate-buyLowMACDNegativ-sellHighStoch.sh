@@ -574,7 +574,7 @@ do
     #     echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html\" target=\"_blank\">SIM</a><br>" >> $OUT_SIMULATE_FILE
     # } >> "$OUT_SIMULATE_FILE"
 
-    ID_NOTATION_STORE_FOR_NEXT_TIME=""
+    export ID_NOTATION_STORE_FOR_NEXT_TIME=""
     WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$GREEN" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate"
 
     echo "$symbol"

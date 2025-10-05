@@ -80,7 +80,7 @@ do
             echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
             # TODO: if more then 50 -> build in!
-            # echo "read -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
+            # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulate-buy-candidates-open-in-chrome.sh
 
             # Market Cap
             marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)

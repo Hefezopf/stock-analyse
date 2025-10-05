@@ -14,4 +14,5 @@ if { [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; } then
   exit 1
 fi
 
+# shellcheck disable=SC2086
 curl -X POST -H "Authorization: token $GITHUB_TOKEN" -H 'Accept: application/vnd.github.everest-preview+json' "https://api.github.com/repos/Hefezopf/stock-analyse/dispatches" -d '{"event_type": "sell", "client_payload": {"symbol": "'$1'", "sellPieces": "'$2'", "sellPrice": "'$3'"}}'

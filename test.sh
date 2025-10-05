@@ -24,101 +24,46 @@
 START_TIME_MEASUREMENT=$(date +%s);
 
 echo shellcheck ...
-cat script/constants.sh | tr -d '\r' > script/constants1.sh
-rm script/constants.sh
-mv script/constants1.sh script/constants.sh
 
-cat script/averages.sh | tr -d '\r' > script/averages1.sh
-rm script/averages.sh
-mv script/averages1.sh script/averages.sh
+for filename in *.sh; do
+   # shellcheck disable=SC2002
+   cat "$filename" | tr -d '\r' > "$filename""1"
+   rm "$filename"
+   mv "$filename""1" "$filename"
+done
+for filename in *.sh; do
+    shellcheck --shell=bash "$filename"
+done
 
-cat script/functions.sh | tr -d '\r' > script/functions1.sh
-rm script/functions.sh
-mv script/functions1.sh script/functions.sh
+for filename in script/*.sh; do
+   # shellcheck disable=SC2002
+   cat "$filename" | tr -d '\r' > "$filename""1"
+   rm "$filename"
+   mv "$filename""1" "$filename"
+done
+for filename in script/*.sh; do
+    shellcheck --shell=bash "$filename"
+done
 
-cat script/strategies.sh | tr -d '\r' > script/strategies1.sh
-rm script/strategies.sh
-mv script/strategies1.sh script/strategies.sh
+for filename in script/curl/*.sh; do
+   # shellcheck disable=SC2002
+   cat "$filename" | tr -d '\r' > "$filename""1"
+   rm "$filename"
+   mv "$filename""1" "$filename"
+done
+for filename in script/curl/*.sh; do
+    shellcheck --shell=bash "$filename"
+done
 
-cat script/marketcap-update.sh | tr -d '\r' > script/marketcap-update1.sh
-rm script/marketcap-update.sh
-mv script/marketcap-update1.sh script/marketcap-update.sh
-
-cat script/view_portfolio.sh | tr -d '\r' > script/view_portfolio1.sh
-rm script/view_portfolio.sh
-mv script/view_portfolio1.sh script/view_portfolio.sh
-
-cat script/sell.sh | tr -d '\r' > script/sell1.sh
-rm script/sell.sh
-mv script/sell1.sh script/sell.sh
-
-cat script/delete_from_sa.sh | tr -d '\r' > script/delete_from_sa1.sh
-rm script/delete_from_sa.sh
-mv script/delete_from_sa1.sh script/delete_from_sa.sh
-
-cat script/git_cleanup.sh | tr -d '\r' > script/git_cleanup1.sh
-rm script/git_cleanup.sh
-mv script/git_cleanup1.sh script/git_cleanup.sh
-
-cat script/buy.sh | tr -d '\r' > script/buy1.sh
-rm script/buy.sh
-mv script/buy1.sh script/buy.sh
-
-cat script/calc.sh | tr -d '\r' > script/calc1.sh
-rm script/calc.sh
-mv script/calc1.sh script/calc.sh
-
-cat script/sort_sa.sh | tr -d '\r' > script/sort_sa1.sh
-rm script/sort_sa.sh
-mv script/sort_sa1.sh script/sort_sa.sh
-
-cat script/add-to-sa.sh | tr -d '\r' > script/add-to-sa1.sh
-rm script/add-to-sa.sh
-mv script/add-to-sa1.sh script/add-to-sa.sh
-
-cat script/add-to-sa-check.sh | tr -d '\r' > script/add-to-sa-check1.sh
-rm script/add-to-sa-check.sh
-mv script/add-to-sa-check1.sh script/add-to-sa-check.sh
-
-cat script/curl/curl_getInformerData.sh | tr -d '\r' > script/curl/curl_getInformerData1.sh
-rm script/curl/curl_getInformerData.sh
-mv script/curl/curl_getInformerData1.sh script/curl/curl_getInformerData.sh
-
-cat analyse.sh | tr -d '\r' > analyse1.sh
-rm analyse.sh
-mv analyse1.sh analyse.sh
-
-cat simulate/simulate-buy-candidates.sh | tr -d '\r' > simulate/simulate-buy-candidates1.sh
-rm simulate/simulate-buy-candidates.sh
-mv simulate/simulate-buy-candidates1.sh simulate/simulate-buy-candidates.sh
-
-cat simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh | tr -d '\r' > simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh
-rm simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
-mv simulate/simulate-buyLowMACDNegativ-sellHighStoch1.sh simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
-
-cat simulate.sh | tr -d '\r' > simulate1.sh
-rm simulate.sh
-mv simulate1.sh simulate.sh
-
-shellcheck --shell=bash simulate.sh
-shellcheck --shell=bash analyse.sh
-shellcheck --shell=bash script/add-to-sa.sh
-shellcheck --shell=bash script/add-to-sa-check.sh
-shellcheck --shell=bash script/calc.sh
-shellcheck --shell=bash script/delete_from_sa.sh
-shellcheck --shell=bash script/strategies.sh
-shellcheck --shell=bash script/averages.sh
-shellcheck --shell=bash script/constants.sh
-shellcheck --shell=bash script/functions.sh
-shellcheck --shell=bash script/buy.sh
-shellcheck --shell=bash script/sell.sh
-shellcheck --shell=bash script/view_portfolio.sh
-shellcheck --shell=bash script/marketcap-update.sh
-shellcheck --shell=bash script/git_cleanup.sh
-shellcheck --shell=bash script/sort_sa.sh
-shellcheck --shell=bash script/curl/curl_getInformerData.sh
-shellcheck --shell=bash simulate/simulate-buy-candidates.sh
-shellcheck --shell=bash simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
+for filename in simulate/*.sh; do
+   # shellcheck disable=SC2002
+   cat "$filename" | tr -d '\r' > "$filename""1"
+   rm "$filename"
+   mv "$filename""1" "$filename"
+done
+for filename in simulate/*.sh; do
+    shellcheck --shell=bash "$filename"
+done
 
 rm -rf test/_result.html
 
