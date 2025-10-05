@@ -62,13 +62,8 @@ echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 
 for symbol in $symbolsParam
 do
     if [ "${symbol::1}" = '*' ]; then 
-    #if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then #| cut -b
-       # symbol=$(echo "$symbol" | cut -b 2-7)
         symbol="${symbol:1:7}"
     fi
- #   lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
- #   symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
- #   ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
 
     #echo "Symbol: $symbol"
     minRange=$((88-lastDaysParam))
@@ -95,8 +90,11 @@ do
             if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
                 lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
             fi
+            echo "<div>" >> "$SIM_LAST_ALARMS_HTML_FILE"
             echo "<img class='imgborder' id='imgToReplace$symbol' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;'/>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-            echo "<a style='font-size: xxx-large; background:$lowMarketCapLinkBackgroundColor;' onmouseover=\"javascript:showChart('10D', '$symbol')\" onmouseout=\"javascript:hideChart('$symbol')\" href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html' target='_blank'>$symbol $symbolName</a><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+            echo "<a style='font-size: xxx-large; background:$lowMarketCapLinkBackgroundColor;' onmouseover=\"javascript:showChart('10D', '$symbol')\" onmouseout=\"javascript:hideChart('$symbol')\" href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html' target='_blank'>$symbol $symbolName</a><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+            echo "</div>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+
         fi
     fi
 done
