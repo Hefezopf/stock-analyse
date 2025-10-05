@@ -116,9 +116,7 @@ if { [ -z "$GPG_PASSPHRASE" ]; } then
     exit 6
 fi
 
-#percentageLesserFactor=$(echo "100 $percentageParam" | awk '{print ($1 + $2)/100}')
 percentageLesserFactor=$(echo "scale=2;(100+$percentageParam)/100" | bc)
-#percentageGreaterFactor=$(echo "100 $percentageParam" | awk '{print ($1 - $2)/100}')
 percentageGreaterFactor=$(echo "scale=2;(100-$percentageParam)/100" | bc)
 
 # RSI percentage
@@ -185,22 +183,11 @@ do
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     #symbolName=$(echo "$lineFromTickerFile" | cut -f 2) #| cut -f
     symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}') # BEGIN{FS
-# symbolName=${lineFromTickerFile#*"\""*}
-# symbolName=${symbolName//$'\" '/"'"} 
-# symbolName=${symbolName//$'\",'/"'"} 
-# symbolName=${symbolName//$' \"'/"'"} 
-# symbolName=${symbolName%*"\""*}
-# symbolName=${symbolName%*"\""*}
-# symbolName=${symbolName%*"\""*}
-# symbolName=${symbolName%*"\""*}
-# symbolName=\"${symbolName%*"\""*}\"
 
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
     # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
     CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "$symbolName" # !!!NOT: TICKER_NAME_ID_FILE_MEM
 
-    #hauptversammlung=$(echo "$lineFromTickerFile" | cut -f 8) #| cut -f
-    #hauptversammlung=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $8}') # BEGIN{FS
     hauptversammlung=${lineFromTickerFile#*"\""*}  
     hauptversammlung=${hauptversammlung//$'\t'/_} 
     hauptversammlung=${hauptversammlung#*"\""*}  

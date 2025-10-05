@@ -69,7 +69,6 @@ do
     minRange=$((88-lastDaysParam))
     # shellcheck disable=SC2002
     lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-87 -d ',')
-    #lastAlarms=$(cat alarm/$symbol.txt | cut -f 85-87 -d ',')
     if [ "${#lastAlarms}" -gt "$charactersParam" ]; then # Check if lastAlarms are large enough
         vorzeichen="${lastAlarms: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values

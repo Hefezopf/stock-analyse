@@ -106,8 +106,6 @@ do
     amountPerTrade=$amountPerTradeParam
 
     if [ "${symbol::1}" = '*' ]; then  
-   # if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then #| cut -b
-       #symbol=$(echo "$symbol" | cut -b 2-7)
         symbol="${symbol:1:7}"
     fi
 
@@ -135,9 +133,6 @@ do
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
     historyRSIs=$(head -n6 "$HISTORY_FILE" | tail -1)
     historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
-    
-    #historyMACDs=$(echo "$historyMACDs" | cut -b 64-10000) #| cut -b
-    #historyMACDs="${historyMACDs:63:10000}"
     historyMACDs="${historyMACDs:63}"
     RSIindex=26
     valueNewMACDLow=100
@@ -158,7 +153,6 @@ do
 
         isMACDHorizontalAlarm=false
         isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
-        #if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
         if [ "$isNewMACDLower" = true ]; then
             valueNewMACDLow="$valueMACD"
             isNegativMACDLast_0=${valueMACDLast_0:0:1}
@@ -173,7 +167,6 @@ do
         # isNewLow
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         isNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
-
 #echo isNewLow $isNewLow quoteAt $quoteAt beforeLastQuote $beforeLastQuote
 
         if [ "$isNewLow" = true ]; then
@@ -450,7 +443,6 @@ do
     fi
 
     # Search and Replace
-    #lineNumer=$(grep -wn "BUYING_LAST_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
     lineNumer=$(grep -wn "BUYING_LAST_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html)
     lineNumer=${lineNumer%*":"*}
     lineNumer=${lineNumer%*":"*}
@@ -461,7 +453,6 @@ do
     sed -i """$lineNumer""s/.*/$buyingAvgSequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    #lineNumer=$(grep -wn "5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
     lineNumer=$(grep -wn "5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html)
     lineNumer=${lineNumer%*":"*}
     lineNumer=${lineNumer%*":"*}
@@ -473,7 +464,6 @@ do
     sed -i """$lineNumer""s/.*/$percentOverBuyingAvgSequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    #lineNumer=$(grep -wn "STOCH_HIGH_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
     lineNumer=$(grep -wn "STOCH_HIGH_PARAM_TO_BE_REPLACED" out/"$symbol".html)
     lineNumer=${lineNumer%*":"*}
     lineNumer=${lineNumer%*":"*}
@@ -486,7 +476,6 @@ do
     sed -i """$lineNumer""s/.*/$stochSellingSequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    #lineNumer=$(grep -wn "RSI_LOW_PARAM_TO_BE_REPLACED" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
     lineNumer=$(grep -wn "RSI_LOW_PARAM_TO_BE_REPLACED" out/"$symbol".html)
     lineNumer=${lineNumer%*":"*}
     lineNumer=${lineNumer%*":"*}
@@ -499,7 +488,6 @@ do
     sed -i """$lineNumer""s/.*/$RSIBuySequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
-    #lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html | cut -f 1 -d ':') # | cut -f 1 -d ':'
     lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html)
     lineNumer=${lineNumer%*"<"*}
     lineNumer=${lineNumer%*"<"*}
