@@ -11,9 +11,9 @@
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
 # 8. Parameter: ALARM_COUNT_FOR_STOCK: Buy, if count is true for alarm. Like: 'C+4R+7S+P+D+N+M+' = 7 times '+'
 # 9. Parameter: ALARM_COUNT_FOR_INDEX: Buy, if count is true for alarm. Like: '7S+P+D+N+M+' = 5 times '+'
-# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI' 2500 13 70 1.1 99 2 7 5
-# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 25 91 1.1 99 1 7 5
-# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 14 65 1.05 99 2 7 5
+# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI' 2500 24 70 1.1 99 2 7 5
+# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 24 91 1.1 99 1 7 5
+# Call example: simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 24 65 1.01 99 2 7 5
 
 # Debug mode
 #set -x
@@ -577,7 +577,7 @@ do
     export ID_NOTATION_STORE_FOR_NEXT_TIME=""
     WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$GREEN" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate"
 
-    echo "$symbol"
+    echo "$symbol "$symbolName""
     # shellcheck disable=SC2027,SC2086
     echo "<script>linkMap.set(\""$symbol"\", \"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html\");</script>" >> $OUT_SIMULATE_FILE
 done
