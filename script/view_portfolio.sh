@@ -26,7 +26,7 @@ gpg --decrypt --pinentry-mode=loopback --batch --yes --passphrase "$GPG_PASSPHRA
 sed -i 's/ /\t/g' "$TEMP_FILE"
 
 
-
+###################
 for symbol in $(awk '{print $1}' "$TEMP_FILE")
 do 
     lineFromOwnSymbolsFile=$(grep -m1 -P "$symbol" "$TEMP_FILE")
@@ -40,20 +40,17 @@ do
     performance=$(echo "$avgPrice $lastQuote" | awk '{print (100 * $2 / $1) - 100}')
     performance=$(printf "%.1f" "$performance")
 
-    echo "$symbol $avgPrice $today $totalAmountOfPieces $summe $performance% $SYMBOL_NAME" >> "$TEMP_FILE2"
+    echo -e "$symbol\t$avgPrice\t$today\t$totalAmountOfPieces\t$summe\t$performance%\t$SYMBOL_NAME" >> "$TEMP_FILE2"
     echo -n .
 done
 mv "$TEMP_FILE2" "$TEMP_FILE"
 echo ""
-
+###################
 
 
 echo ""
-
-sed -i 's/ /\t/g' "$TEMP_FILE"
-#cat "$TEMP_FILE" 
-cat "$TEMP_FILE" | tac 
-
+cat "$TEMP_FILE"
+#sort -k6 -n "$TEMP_FILE"
 echo ""
 
 overallPositions=$(awk 'END { print NR }' "$TEMP_FILE")
