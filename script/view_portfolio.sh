@@ -11,6 +11,7 @@
 . script/constants.sh
 
 TEMP_FILE="$(mktemp -p "$TEMP_DIR")"
+TEMP_FILE2="$(mktemp -p "$TEMP_DIR")"
 
 echo "View Portfolio ..."
 
@@ -22,9 +23,36 @@ fi
 
 gpg --decrypt --pinentry-mode=loopback --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg > "$TEMP_FILE" 2>/dev/null
 
+sed -i 's/ /\t/g' "$TEMP_FILE"
+
+
+
+for symbol in $(awk '{print $1}' "$TEMP_FILE")
+do 
+    lineFromOwnSymbolsFile=$(grep -m1 -P "$symbol" "$TEMP_FILE")
+    DATA_DATE_FILE="$DATA_DIR/$symbol.txt"
+    lastQuote=$(head -n1 "$DATA_DATE_FILE" | awk '{print $2}')
+    avgPrice=$(echo "$lineFromOwnSymbolsFile" | cut -f 2)
+    today=$(echo "$lineFromOwnSymbolsFile" | cut -f 3)
+    totalAmountOfPieces=$(echo "$lineFromOwnSymbolsFile" | cut -f 4)
+    summe=$(echo "$lineFromOwnSymbolsFile" | cut -f 5)
+    SYMBOL_NAME=$(echo "$lineFromOwnSymbolsFile" | cut -f 6)
+    performance=$(echo "$avgPrice $lastQuote" | awk '{print (100 * $2 / $1) - 100}')
+    performance=$(printf "%.1f" "$performance")
+
+    echo "$symbol $avgPrice $today $totalAmountOfPieces $summe $performance% $SYMBOL_NAME" >> "$TEMP_FILE2"
+    echo -n .
+done
+mv "$TEMP_FILE2" "$TEMP_FILE"
 echo ""
 
-sed 's/ /\t/g' "$TEMP_FILE"
+
+
+echo ""
+
+sed -i 's/ /\t/g' "$TEMP_FILE"
+#cat "$TEMP_FILE" 
+cat "$TEMP_FILE" | tac 
 
 echo ""
 
@@ -32,6 +60,7 @@ overallPositions=$(awk 'END { print NR }' "$TEMP_FILE")
 echo "Overall Positions: $overallPositions"
 
 rm -rf "$TEMP_FILE"
+rm -rf "$TEMP_FILE2"
 
 echo ""
 
