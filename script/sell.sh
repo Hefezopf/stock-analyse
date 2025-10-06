@@ -132,7 +132,7 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 # Write Tx History
 echo "Win: $WIN_AMOUNT€"
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
-echo "<div style='font-size: x-large;'>&nbsp;$today&#9;$WIN_AMOUNT&#8364;&#9;&nbsp;&#9;$winPercentage%&#9;&nbsp;&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam&#9;\"$SYMBOL_NAME\"</a></div>" | tee -a "$TRANSACTION_HISTORY_FILE"
+echo "<div style='font-size: x-large; padding-top: 5px'>&nbsp;$today&#9;$WIN_AMOUNT&#8364;&#9;&nbsp;&#9;$winPercentage%&#9;&nbsp;&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam&#9;\"$SYMBOL_NAME\"</a></div>" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
