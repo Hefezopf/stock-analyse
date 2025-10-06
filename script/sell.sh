@@ -132,7 +132,7 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 # Write Tx History
 echo "Win: $WIN_AMOUNT€"
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
-echo "<div style='font-size: x-large; padding-top: 5px'>&nbsp;$today&#9;$WIN_AMOUNT&#8364;&#9;&nbsp;&#9;$winPercentage%&#9;&nbsp;&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam&#9;\"$SYMBOL_NAME\"</a></div>" | tee -a "$TRANSACTION_HISTORY_FILE"
+echo "<div>&nbsp;$today&#9;$WIN_AMOUNT&#8364;&#9;&nbsp;&#9;$winPercentage%&#9;&nbsp;&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam&#9;\"$SYMBOL_NAME\"</a></div>" | tee -a "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
@@ -149,7 +149,7 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <script type='text/javascript' src='_result.js'></script>
 <title>Performance SA $(date +%Y)</title>
 <style type='text/css'>
-span {text-align:right;display:inline-block;width:90px;font-size:larger;}
+div {font-size: x-large; padding-top: 10px;}
 </style>
 </head>
 <body>
@@ -181,7 +181,7 @@ echo "<br>&nbsp;Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FIL
 
 GetCreationDate
 # shellcheck disable=SC2154
-echo "<br><br>&nbsp;Good Luck! $creationDate<br></div><script>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<br><br>&nbsp;Good Luck! $creationDate<br><br></div><script>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2013
 for symbol in $(awk '{print $6}' config/transaction_history.txt | sed "s/'/xxx/g" | sed 's/target\=xxx_blankxxx>//g' | awk '!seen[$0]++')
