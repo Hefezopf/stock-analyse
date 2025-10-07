@@ -27,6 +27,7 @@ sed -i 's/ /\t/g' "$TEMP_FILE"
 
 
 ###################
+# shellcheck disable=SC2013
 for symbol in $(awk '{print $1}' "$TEMP_FILE")
 do 
     lineFromOwnSymbolsFile=$(grep -m1 -P "$symbol" "$TEMP_FILE")

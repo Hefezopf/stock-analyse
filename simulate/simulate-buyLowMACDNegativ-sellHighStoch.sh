@@ -577,7 +577,7 @@ do
     export ID_NOTATION_STORE_FOR_NEXT_TIME=""
     WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate"
 
-    echo "$symbol "$symbolName""
+    echo "$symbol $symbolName"
     # shellcheck disable=SC2027,SC2086
     echo "<script>linkMap.set(\""$symbol"\", \"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html\");</script>" >> $OUT_SIMULATE_FILE
 done
