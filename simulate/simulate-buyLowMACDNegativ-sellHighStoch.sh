@@ -575,7 +575,7 @@ do
     # } >> "$OUT_SIMULATE_FILE"
 
     export ID_NOTATION_STORE_FOR_NEXT_TIME=""
-    WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$GREEN" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate"
+    WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate"
 
     echo "$symbol "$symbolName""
     # shellcheck disable=SC2027,SC2086
