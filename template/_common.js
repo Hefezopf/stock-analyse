@@ -164,7 +164,8 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     }
     else {
         var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
-        var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
+        //var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
+        var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));        
         if (confirm('Sell partial ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
             return;
         }
