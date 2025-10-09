@@ -48,10 +48,14 @@ mv "$TEMP_FILE2" "$TEMP_FILE"
 echo ""
 ###################
 
-
 echo ""
-cat "$TEMP_FILE"
-#sort -k6 -n "$TEMP_FILE"
+
+if [ "$1" ]; then
+    sort -k6 -n "$TEMP_FILE"
+else
+    cat "$TEMP_FILE"
+fi
+
 echo ""
 
 overallPositions=$(awk 'END { print NR }' "$TEMP_FILE")
