@@ -66,10 +66,10 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/
 # 2. Comment OUT .gitignore #config/own_symbols.txt
 # 3. Lookup in TradeRepublic: 'Buy In', 'Aktien' and 'Gesamtsumme' [Gesamtwert + (-Rendite)]
 # 4. Correct values in config/own_symbols.txt
-# 5. Press ENTER
+# 5. Press ANY KEY! -> NOT ENTER
 # 6. Checkin config/own_symbols.txt.gpg
 # 7. Revert Changes 1. + 2.
-#read -n 1 -p "Correct values in 'config/own_symbols.txt' now and then hit ENTER" correctValuesInput
+read -n 1 -p "Correct values in 'config/own_symbols.txt' now and then hit ANY KEY! -> NOT ENTER" correctValuesInput
 
 # shellcheck disable=SC2154
 if [ "$correctValuesInput" ]; then
