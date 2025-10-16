@@ -51,7 +51,6 @@ function curlBuy(symbolParam, price, pieces) {
         totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
     }
     else {
-
         var stocksPieces = document.getElementById('stocksPiecesId');
         if (stocksPieces) {
             var stocksPieces = stocksPieces.innerHTML;
