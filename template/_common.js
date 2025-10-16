@@ -51,10 +51,14 @@ function curlBuy(symbolParam, price, pieces) {
         totalAmount = buyingAmount + Number(overallPastValue) + Number(overallPastGain);
     }
     else {
-        var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
-        var overallPieces = Number(stocksPieces) + Number(pieces);
-        var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
-        totalAmount = buyingAmount + Number(stocksBuyingValue.innerHTML);
+
+        var stocksPieces = document.getElementById('stocksPiecesId');
+        if (stocksPieces) {
+            var stocksPieces = stocksPieces.innerHTML;
+            var overallPieces = Number(stocksPieces) + Number(pieces);
+            var stocksBuyingValue = document.getElementById('stocksBuyingValueId');
+            totalAmount = buyingAmount + Number(stocksBuyingValue.innerHTML);
+        }
     }
 
     // headlineLink<Symbol>
