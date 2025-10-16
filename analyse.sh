@@ -892,7 +892,7 @@ fi
     # Generell Buy Elements
     echo "<br><br>
           <span id='intervalSectionButtonBuyGenerellParagraph' style='display: none'>
-            Buy new Symbols (Enter Values from single order):
+            Buy new Symbols:
             <br>
             <button id='intervalSectionButtonBuyGenerellButton' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
