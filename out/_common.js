@@ -172,11 +172,11 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         navigator.clipboard.writeText(newAmount);
     }
 
-    console.log('xxxxxxxxxxxxx:stockPiecesParam:' + stockPiecesParam);
+    //console.log('xxxxxxxxxxxxx:stockPiecesParam:' + stockPiecesParam);
 
     // Trading fees
     var txFee = tradingFees(sellingAmount);
-    const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) + txFee);
+    const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
     if (stocksPiecesId === null || newAmount < 0) {
         if (confirm('Sell all ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? [Included fees ' + txFee + '€]') == false) {
             return;
