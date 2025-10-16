@@ -163,12 +163,16 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
 
     var sellPriceReplaced = parseFloat(sellPriceParam.replace(',', '.')).toFixed(2);
     const sellingAmount = (Number(stockPiecesParam) * Number(sellPriceReplaced));
-    var stocksBuyingValue = Number(document.getElementById('stocksBuyingValueId').innerHTML);
-    var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(sellPriceReplaced));
-    var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
-    var newPiecesAmount=(stocksPieces - stockPiecesParam);
-    //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
-    navigator.clipboard.writeText(newAmount);
+
+    var stocksBuyingValueId = document.getElementById('stocksBuyingValueId');
+    if(stocksBuyingValueId) {    
+        var stocksBuyingValue = Number(stocksBuyingValueId.innerHTML);
+        var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(sellPriceReplaced));
+        var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
+        var newPiecesAmount=(stocksPieces - stockPiecesParam);
+        //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
+        navigator.clipboard.writeText(newAmount);
+    }
 
     // Trading fees
     var txFee = tradingFees(sellingAmount);
