@@ -501,7 +501,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500612"  target="_blank">*KMY "Kimberly-Clark"</a>
+<a id='linkName10DaysId' style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500612"  target="_blank">*KMY "Kimberly-Clark"</a>
 <a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart() 'href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500612"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500612"  target="_blank">&nbsp;5Y&nbsp;</a>
 &nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>102.18€</b></span>
@@ -563,7 +563,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 16-Oct-2025 10:22</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 16-Oct-2025 12:13</p>
 <span id='stocksPiecesId' style='display:none'>110</span>
 <span id='stocksBuyingValueId' style='display:none'>11360</span>
 
@@ -661,13 +661,21 @@ totalAmount = buyingAmount + Number(stocksBuyingValue.innerHTML);
 }
 
 // headlineLink<Symbol>
-var headlineLink;
-var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
-if(headlineLinkElem) {
-headlineLink = headlineLinkElem.innerHTML;
+// var headlineLink;
+// var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
+// if(headlineLinkElem) {
+//     headlineLink = headlineLinkElem.innerHTML;
+// }
+// else {
+//     headlineLink = symbolParamTrimmed;
+// }
+var linkName10Days;
+var linkName10DaysIdElem = document.getElementById('linkName10DaysId');
+if(linkName10DaysIdElem) {
+linkName10Days = linkName10DaysIdElem.innerHTML;
 }
 else {
-headlineLink = symbolParamTrimmed;
+linkName10Days = symbolParamTrimmed;
 }
 
 // Trading fees
@@ -681,7 +689,7 @@ overallPieces = '?';
 totalAmount = Number(totalAmount) + txFee;
 navigator.clipboard.writeText(totalAmount);
 
-if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? [Included fees ' + txFee + '€]') == false) {
+if (confirm('Buy ' + pieces + ' pieces of: ' + linkName10Days + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? [Included fees ' + txFee + '€]') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -730,10 +738,15 @@ alert('Error: Price not set!');
 return;
 }
 
-var headlineLink = symbolParam;
-var headlineLinkElem = document.getElementById('headlineLink' + symbolParam);
-if(headlineLinkElem) {
-headlineLink = headlineLinkElem.innerHTML;
+// var headlineLink = symbolParam;
+// var headlineLinkElem = document.getElementById('headlineLink' + symbolParam);
+// if(headlineLinkElem) {
+//     headlineLink = headlineLinkElem.innerHTML;
+// }
+var linkName10Days;
+var linkName10DaysIdElem = document.getElementById('linkName10DaysId');
+if(linkName10DaysIdElem) {
+linkName10Days = linkName10DaysIdElem.innerHTML;
 }
 
 var stocksPiecesId = document.getElementById('stocksPiecesId');
@@ -761,7 +774,7 @@ navigator.clipboard.writeText(newAmount);
 var txFee = tradingFees(sellingAmount);
 const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) + txFee);
 if (newAmount < 0) {
-if (confirm('Sell all ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? [Included fees ' + txFee + '€]') == false) {
+if (confirm('Sell all ' + stockPiecesParam + ' pieces of: ' + linkName10Days + ' for ' + sellingAmountAndTxFee + '€? [Included fees ' + txFee + '€]') == false) {
 return;
 }        
 }
@@ -769,7 +782,7 @@ else {
 var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
 //var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
 var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));        
-if (confirm('Sell partial ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
+if (confirm('Sell partial ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + linkName10Days + ' for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
 return;
 }
 }

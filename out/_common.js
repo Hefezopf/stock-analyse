@@ -58,13 +58,21 @@ function curlBuy(symbolParam, price, pieces) {
     }
 
     // headlineLink<Symbol>
-    var headlineLink;
-    var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
-    if(headlineLinkElem) {
-        headlineLink = headlineLinkElem.innerHTML;
+    // var headlineLink;
+    // var headlineLinkElem = document.getElementById('headlineLink' + symbolParamTrimmed);
+    // if(headlineLinkElem) {
+    //     headlineLink = headlineLinkElem.innerHTML;
+    // }
+    // else {
+    //     headlineLink = symbolParamTrimmed;
+    // }
+    var linkName10Days;
+    var linkName10DaysIdElem = document.getElementById('linkName10DaysId');
+    if(linkName10DaysIdElem) {
+        linkName10Days = linkName10DaysIdElem.innerHTML;
     }
     else {
-        headlineLink = symbolParamTrimmed;
+        linkName10Days = symbolParamTrimmed;
     }
 
     // Trading fees
@@ -78,7 +86,7 @@ function curlBuy(symbolParam, price, pieces) {
     totalAmount = Number(totalAmount) + txFee;
     navigator.clipboard.writeText(totalAmount);
     
-    if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? [Included fees ' + txFee + '€]') == false) {
+    if (confirm('Buy ' + pieces + ' pieces of: ' + linkName10Days + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? [Included fees ' + txFee + '€]') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -127,12 +135,17 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         return;
     }
 
-    var headlineLink = symbolParam;
-    var headlineLinkElem = document.getElementById('headlineLink' + symbolParam);
-    if(headlineLinkElem) {
-        headlineLink = headlineLinkElem.innerHTML;
+    // var headlineLink = symbolParam;
+    // var headlineLinkElem = document.getElementById('headlineLink' + symbolParam);
+    // if(headlineLinkElem) {
+    //     headlineLink = headlineLinkElem.innerHTML;
+    // }
+    var linkName10Days;
+    var linkName10DaysIdElem = document.getElementById('linkName10DaysId');
+    if(linkName10DaysIdElem) {
+        linkName10Days = linkName10DaysIdElem.innerHTML;
     }
-   
+
     var stocksPiecesId = document.getElementById('stocksPiecesId');
     if(stocksPiecesId) {
         stockPiecesParam = stocksPiecesId.innerHTML;
@@ -158,7 +171,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     var txFee = tradingFees(sellingAmount);
     const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) + txFee);
     if (newAmount < 0) {
-        if (confirm('Sell all ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? [Included fees ' + txFee + '€]') == false) {
+        if (confirm('Sell all ' + stockPiecesParam + ' pieces of: ' + linkName10Days + ' for ' + sellingAmountAndTxFee + '€? [Included fees ' + txFee + '€]') == false) {
             return;
         }        
     }
@@ -166,7 +179,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
         //var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
         var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));        
-        if (confirm('Sell partial ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
+        if (confirm('Sell partial ' + stockPiecesParam + ' pieces (Now: ' + newPiecesAmount + ' pieces) of: ' + linkName10Days + ' for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
             return;
         }
     }
