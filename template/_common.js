@@ -172,7 +172,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         navigator.clipboard.writeText(newAmount);
     }
 
-    //console.log('xxxxxxxxxxxxx:stockPiecesParam:' + stockPiecesParam);
+    console.log('xxxxxxxxxxxxx:stockPiecesParam:' + stockPiecesParam);
 
     // Trading fees
     var txFee = tradingFees(sellingAmount);
