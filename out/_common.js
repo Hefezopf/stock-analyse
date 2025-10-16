@@ -168,7 +168,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     if(stocksBuyingValueId) {    
         var stocksBuyingValue = Number(stocksBuyingValueId.innerHTML);
         var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(sellPriceReplaced));
-        var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
+        var stocksPieces = stocksPiecesId.innerHTML;
         var newPiecesAmount=(stocksPieces - stockPiecesParam);
         //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
         navigator.clipboard.writeText(newAmount);
@@ -177,7 +177,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     // Trading fees
     var txFee = tradingFees(sellingAmount);
     const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) + txFee);
-    if (newAmount < 0) {
+    if (stocksPiecesId === null || newAmount < 0) {
         if (confirm('Sell all ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? [Included fees ' + txFee + '€]') == false) {
             return;
         }        

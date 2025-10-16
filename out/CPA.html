@@ -563,7 +563,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 16-Oct-2025 13:18</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 16-Oct-2025 13:34</p>
 <span id='stocksPiecesId' style='display:none'>160</span>
 <span id='stocksBuyingValueId' style='display:none'>10649</span>
 
@@ -771,7 +771,7 @@ var stocksBuyingValueId = document.getElementById('stocksBuyingValueId');
 if(stocksBuyingValueId) {    
 var stocksBuyingValue = Number(stocksBuyingValueId.innerHTML);
 var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(sellPriceReplaced));
-var stocksPieces = document.getElementById('stocksPiecesId').innerHTML;
+var stocksPieces = stocksPiecesId.innerHTML;
 var newPiecesAmount=(stocksPieces - stockPiecesParam);
 //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
 navigator.clipboard.writeText(newAmount);
@@ -780,7 +780,7 @@ navigator.clipboard.writeText(newAmount);
 // Trading fees
 var txFee = tradingFees(sellingAmount);
 const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) + txFee);
-if (newAmount < 0) {
+if (stocksPiecesId === null || newAmount < 0) {
 if (confirm('Sell all ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? [Included fees ' + txFee + '€]') == false) {
 return;
 }        
