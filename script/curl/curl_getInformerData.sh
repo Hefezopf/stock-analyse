@@ -63,10 +63,10 @@ do
         asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
         if [ "$asset_type" = 'INDEX' ]; then
             curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
-        else
+        fi
+        if [ "$asset_type" = 'STOCK' ]; then
             curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
         fi
-     
         if [ "$asset_type" = 'COIN' ]; then
             curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
         fi

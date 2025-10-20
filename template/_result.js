@@ -598,7 +598,7 @@ function processAll(ele) {
         // Hide Sort Buttons, because CORS is not working there!
         document.getElementById('intervalSectionButtonSortDaily').disabled = true;
         document.getElementById('intervalSectionButtonSortOverall').disabled = true;
-        document.getElementById('intervalSectionButtonSortValue').disabled = true;        
+        document.getElementById('intervalSectionButtonSortValue').disabled = true;
     }
      
     toggleIsContentVisible = !toggleIsContentVisible;
@@ -759,7 +759,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
                }  
         
                 // Example ID: id='symbolLineIdEUZ_-115_+111_9999'
-                var numericRealTimeProzSymbol = realTimeProzSymbol.trim().replace('.', ''); 
+                var numericRealTimeProzSymbol = realTimeProzSymbol.trim().replace('.', '');
                 // Mit Nullen hinten auffüllen
                 if (!numericRealTimeProzSymbol.charAt(4)) {
                     // 3 -> 4 stellig
