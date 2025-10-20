@@ -488,26 +488,12 @@ do
         fi
 
 # Alte Reihenfolge
-        # echo "<p style='text-align:right'><a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-
-        # echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
-
-        # percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
-        # percentLastDay=$(printf "%.1f" "$percentLastDay")
-        # isNegativ=${percentLastDay:0:1}
-        # _linkColor="$GREEN"
-        # if [ "$isNegativ" = '-' ]; then
-        #     _linkColor="$RED"
-        # fi
-
-        # echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span></p>" 
-# Alte Reihenfolge
-
-# Neue Reihenfolge
         echo "<p style='text-align:right'>"
-        echo "<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+
+        echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
 
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.1f" "$percentLastDay")
@@ -517,11 +503,27 @@ do
             _linkColor="$RED"
         fi
 
-        echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b>&nbsp;</span>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y</a>"
-        echo "&nbsp;&nbsp;</p>"
+        echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span>"
+        echo "</p>"
+# Alte Reihenfolge
+
+# Neue Reihenfolge
+        # echo "<p style='text-align:right'>"
+        # echo "<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
+
+        # percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
+        # percentLastDay=$(printf "%.1f" "$percentLastDay")
+        # isNegativ=${percentLastDay:0:1}
+        # _linkColor="$GREEN"
+        # if [ "$isNegativ" = '-' ]; then
+        #     _linkColor="$RED"
+        # fi
+
+        # echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b>&nbsp;</span>"
+        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
+        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y</a>"
+        # echo "&nbsp;&nbsp;</p>"
 # Neue Reihenfolge        
         
         cat template/indexPart1a.html
