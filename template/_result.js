@@ -805,7 +805,9 @@ function onContentLoaded(symbol, notationId, asset_type) {
 }
 
 function revealElement(ele) {
-    ele.style.display = '';
+    if(ele) {
+        ele.style.display = '';
+    }
 }
 
 function showChart(timeSpan, symbol) {
