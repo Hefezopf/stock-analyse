@@ -9,5 +9,5 @@ clear && rm -rf "$HOME"/test/test_helper/batscore && rm -rf "$HOME"/test/test_he
 git clone https://github.com/ztombol/bats-core "$HOME"/test/test_helper/batscore
 git clone https://github.com/ztombol/bats-assert "$HOME"/test/test_helper/batsassert
 
-# shellcheck disable=SC1090
+# shellcheck disable=SC1090,SC1091
 . "$HOME"/test/test_helper/batscore/script/install-bats.sh ~
