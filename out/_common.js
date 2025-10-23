@@ -188,7 +188,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
         //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
         navigator.clipboard.writeText(newAmountPartial);
-        if (confirm('Sell partial ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' (YYYNow: ' + newPiecesAmount + ' pieces) for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
+        if (confirm('Sell partial ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' (Now: ' + newPiecesAmount + ' pieces) for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
             return;
         }
     }
