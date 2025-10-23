@@ -57,6 +57,7 @@ lineFromFile=$(echo "$lineFromFile" | sed 's/\.html//g')
 lineFromFile=$(echo "$lineFromFile" | sed 's/\.com//g')
 lineFromFile=$(echo "$lineFromFile" | sed 's/\.io//g')
 lineFromFile=$(echo "$lineFromFile" | sed 's/:.\/?:\/\/\/\///g')
+lineFromFile=$(echo "$lineFromFile" | sed "s/'//g")
 
 echo "$lineFromFile"
 echo ""
