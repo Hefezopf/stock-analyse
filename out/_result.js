@@ -56,7 +56,6 @@ var delay = ( function() {
 })();
 
 // Spinner
-// Spinner commented: Retrieving data is blocked by comdirect, because of CORS
 var intervalLoadingSpinnerId = setInterval(function () {
     if (counterFetchLoaded >= counterOwnStocks) {
         // Show local link, if on PC
@@ -100,7 +99,6 @@ var intervalLoadingSpinnerId = setInterval(function () {
         }
     }
 }, 3000);
-// Spinner commented: Retrieving data is blocked by comdirect, because of CORS
 
 function setBeepInterval(symbol) {
     var intervalValue = document.getElementById('intervalField' + symbol).value;
@@ -634,7 +632,6 @@ function onContentLoaded(symbol, notationId, asset_type) {
         revealElement(linkPCValue);
     }
 
-// Spinner commented: Retrieving data is blocked by comdirect, because of CORS
     console.info('fetch '+ symbol + ' ...');
 
     var part_url = 'aktien';
@@ -805,7 +802,6 @@ function onContentLoaded(symbol, notationId, asset_type) {
         }
     }
     xhr.send();
-// Spinner commented: Retrieving data is blocked by comdirect, because of CORS
 }
 
 function revealElement(ele) {
