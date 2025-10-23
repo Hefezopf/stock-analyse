@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Get Symbol base from Comdirect Informer
+# Get Symbol base from Comdirect Informer and check for prefix like 'GB' or 'JP'
 # Call: . curl_getSymbolForISIN.sh ISINS
 # Example: . script/curl/curl_getSymbolForISIN.sh 'DE0007164600 IE00A10RZP78 NL0010273215 GB00B10RZP78'
 #
@@ -41,9 +41,8 @@ do
     ISIN="${ISIN^^}" # all uppercase
 
     preFix="${ISIN:0:2}"
-    #echo "preFix $preFix"
     if { [ "$preFix" = 'GB' ] || [ "$preFix" = 'IE' ] || [ "$preFix" = 'JP' ]; } then 
-        echo "ISIN: $ISIN is a GB or IE or JP ISIN, skipping..."
+        echo "ISIN: $ISIN is a GB (Great Britain) or IE (Irland) or JP (Japan) ISIN, skipping..."
         continue
     fi
 
@@ -52,8 +51,13 @@ do
     value=${value%*"<"*}
     value="${value:47}" # cut off the first 47 characters
 
-    echo "$ISIN=$value"
-    allSymbols="$allSymbols $value"
+    found=$(grep -n "$value" "$STOCK_SYMBOLS_FILE")
+    if { [ "$found" ]; } then
+        echo "Error: Symbol $ISIN=$value already there!"
+    else
+        echo "$ISIN=$value"
+        allSymbols="$allSymbols $value"    
+    fi
 done
 echo "---------------"
 echo "Summary allSymbols:$allSymbols"
