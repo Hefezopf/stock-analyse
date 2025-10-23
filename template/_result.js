@@ -56,49 +56,51 @@ var delay = ( function() {
 })();
 
 // Spinner
-var intervalLoadingSpinnerId = setInterval(function () {
-    if (counterFetchLoaded >= counterOwnStocks) {
-        // Show local link, if on PC
-        if (location.href.startsWith('file')) {
-            delay(function() {
-                processAll();
-                doHideDetails();
-                doSortDailyGain();
-            // end delay, timeout, Warten
-            }, 1000);
-        }   
-        else {
-            document.getElementsByTagName('body')[0].ondblclick = processAll;
-        }
-        hideSpinner();
-        clearInterval(intervalLoadingSpinnerId);
-        // Enable Buttons
-        var intervalSectionButtonSortDaily = document.querySelector('#intervalSectionButtonSortDaily');
-        if(intervalSectionButtonSortDaily) {
-            intervalSectionButtonSortDaily.disabled = false;
-        }
-        var intervalSectionButtonSortValue = document.querySelector('#intervalSectionButtonSortValue');
-        if(intervalSectionButtonSortValue) {
-            intervalSectionButtonSortValue.disabled = false;
-        }
-        var intervalSectionButtonSortOverall = document.querySelector('#intervalSectionButtonSortOverall');
-        if(intervalSectionButtonSortOverall) {
-            intervalSectionButtonSortOverall.disabled = false;
-        }
-        var intervalSectionButtonHideDetails = document.querySelector('#intervalSectionButtonHideDetails');
-        if(intervalSectionButtonHideDetails) {
-            intervalSectionButtonHideDetails.disabled = false;
-        }
-        var intervalSectionButtonGoToEnd = document.querySelector('#intervalSectionButtonGoToEnd');
-        if(intervalSectionButtonGoToEnd) {
-            intervalSectionButtonGoToEnd.disabled = false;
-        }
-        var intervalSectionButtonOpenAll = document.querySelector('#intervalSectionButtonOpenAll');
-        if(intervalSectionButtonOpenAll) {
-            intervalSectionButtonOpenAll.disabled = false;
-        }
-    }
-}, 3000);
+// Spinner commented: Retrieving data is blocked by comdirect, because of CORS
+// var intervalLoadingSpinnerId = setInterval(function () {
+//     if (counterFetchLoaded >= counterOwnStocks) {
+//         // Show local link, if on PC
+//         if (location.href.startsWith('file')) {
+//             delay(function() {
+//                 processAll();
+//                 doHideDetails();
+//                 doSortDailyGain();
+//             // end delay, timeout, Warten
+//             }, 1000);
+//         }   
+//         else {
+//             document.getElementsByTagName('body')[0].ondblclick = processAll;
+//         }
+//         hideSpinner();
+//         clearInterval(intervalLoadingSpinnerId);
+//         // Enable Buttons
+//         var intervalSectionButtonSortDaily = document.querySelector('#intervalSectionButtonSortDaily');
+//         if(intervalSectionButtonSortDaily) {
+//             intervalSectionButtonSortDaily.disabled = false;
+//         }
+//         var intervalSectionButtonSortValue = document.querySelector('#intervalSectionButtonSortValue');
+//         if(intervalSectionButtonSortValue) {
+//             intervalSectionButtonSortValue.disabled = false;
+//         }
+//         var intervalSectionButtonSortOverall = document.querySelector('#intervalSectionButtonSortOverall');
+//         if(intervalSectionButtonSortOverall) {
+//             intervalSectionButtonSortOverall.disabled = false;
+//         }
+//         var intervalSectionButtonHideDetails = document.querySelector('#intervalSectionButtonHideDetails');
+//         if(intervalSectionButtonHideDetails) {
+//             intervalSectionButtonHideDetails.disabled = false;
+//         }
+//         var intervalSectionButtonGoToEnd = document.querySelector('#intervalSectionButtonGoToEnd');
+//         if(intervalSectionButtonGoToEnd) {
+//             intervalSectionButtonGoToEnd.disabled = false;
+//         }
+//         var intervalSectionButtonOpenAll = document.querySelector('#intervalSectionButtonOpenAll');
+//         if(intervalSectionButtonOpenAll) {
+//             intervalSectionButtonOpenAll.disabled = false;
+//         }
+//     }
+// }, 3000);
+// Spinner commented: Retrieving data is blocked by comdirect, because of CORS
 
 function setBeepInterval(symbol) {
     var intervalValue = document.getElementById('intervalField' + symbol).value;
@@ -632,6 +634,8 @@ function onContentLoaded(symbol, notationId, asset_type) {
         revealElement(linkPCValue);
     }
 
+// Spinner commented: Retrieving data is blocked by comdirect, because of CORS
+/*
     console.info('fetch '+ symbol + ' ...');
 
     var part_url = 'aktien';
@@ -802,6 +806,8 @@ function onContentLoaded(symbol, notationId, asset_type) {
         }
     }
     xhr.send();
+*/
+// Spinner commented: Retrieving data is blocked by comdirect, because of CORS
 }
 
 function revealElement(ele) {

@@ -128,7 +128,12 @@ stochasticPercentageLower=$stochasticPercentageParam
 stochasticPercentageUpper=$((100-stochasticPercentageParam))
 
 # Spinner
-echo "<div id='spinner' style='display: X' class='loader'></div>" >> "$OUT_RESULT_FILE"
+
+# Spinner commented: Retrieving data is blocked by comdirect, because of CORS
+#echo "<div id='spinner' style='display: X' class='loader'></div>" >> "$OUT_RESULT_FILE"
+echo "<div id='spinner' style='display: none' class='loader'></div>" >> "$OUT_RESULT_FILE"
+# Spinner commented: Retrieving data is blocked by comdirect, because of CORS
+
 echo "<span id='parameterId'>" >> "$OUT_RESULT_FILE"
 Out "# SA Analyse" "$OUT_RESULT_FILE"
 Out "###########" "$OUT_RESULT_FILE"
