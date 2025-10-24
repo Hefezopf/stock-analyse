@@ -41,22 +41,26 @@ do
     ISIN="${ISIN^^}" # all uppercase
 
     preFix="${ISIN:0:2}"
-    if { [ "$preFix" = 'GB' ] || [ "$preFix" = 'IE' ] || [ "$preFix" = 'JP' ]; } then 
-        echo "ISIN: $ISIN is a GB (Great Britain) or IE (Irland) or JP (Japan) ISIN, skipping..."
+    if { [ "$preFix" = 'GB' ] || [ "$preFix" = 'IE' ] || [ "$preFix" = 'JP' ] ; } then 
+        echo "ISIN: $ISIN is a kind GB (Great Britain) or IE (Irland) or JP (Japan) ISIN, skipping because spread too high..."
         continue
     fi
+    if { [ "$ISIN" = 'DE0005439004' ] ; } then # DE0005439004=CON
+        echo "ISIN: $ISIN is excluded!"
+        continue
+    fi    
 
     curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/search/all.html?SEARCH_VALUE=$ISIN")  
-    value=$(echo "$curlResponse" 2>/dev/null | grep -m1 -A1 "Symbol" | grep td)
-    value=${value%*"<"*}
-    value="${value:47}" # cut off the first 47 characters
+    symbol=$(echo "$curlResponse" 2>/dev/null | grep -m1 -A1 "Symbol" | grep td)
+    symbol=${symbol%*"<"*}
+    symbol="${symbol:47}" # cut off the first 47 characters
 
-    found=$(grep -n "$value" "$STOCK_SYMBOLS_FILE")
+    found=$(grep -n "$symbol" "$STOCK_SYMBOLS_FILE")
     if { [ "$found" ]; } then
-        echo "Error: Symbol $ISIN=$value already there!"
+        echo "Symbol: $ISIN=$symbol already in SA!"
     else
-        echo "$ISIN=$value"
-        allSymbols="$allSymbols $value"    
+        echo "$ISIN=$symbol"
+        allSymbols="$allSymbols $symbol"    
     fi
 done
 echo "---------------"
