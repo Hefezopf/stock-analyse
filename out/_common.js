@@ -79,17 +79,17 @@ function curlBuy(symbolParam, price, pieces) {
     // }
 
     // Trading fees
-    var txFee = tradingFees(buyingAmount);
+    //var txFee = tradingFees(buyingAmount);
     
     // Condition only for Mobil -> No CORS!
     if(isNaN(totalAmount)) {
         totalAmount = '0';
         overallPieces = '?';
     }
-    totalAmount = Number(totalAmount) + txFee;
+    totalAmount = Number(totalAmount); // + txFee;
     navigator.clipboard.writeText(totalAmount);
     
-    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nOverall pieces: ' + overallPieces + '\nOverall amount: ' + totalAmount + '€?\n(Fees ' + txFee + '€)') == false) {
+    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nPieces overall ' + overallPieces + '\nValue overall ' + totalAmount + '€?') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -175,10 +175,10 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     //console.log('xxxxxxxxxxxxx:stockPiecesParam:' + stockPiecesParam);
 
     // Trading fees
-    var txFee = tradingFees(sellingAmount);
-    const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
+    //var txFee = tradingFees(sellingAmount);
+    //const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
     if (stocksPiecesId === null || newAmount < 0) {
-        if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nWin: ' + sellingAmountAndTxFee + '€?\n(Fees ' + txFee + '€)') == false) {
+        if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€?') == false) {
             return;
         }        
     }
@@ -188,7 +188,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
         //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
         navigator.clipboard.writeText(newAmountPartial);
-        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nWin: ' + sellingAmountAndTxFee + '€\nPieces now: ' + newPiecesAmount + '\nAmount now: ' + newAmountPartial + '€?\n(Fees ' + txFee + '€)') == false) {
+        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ' + newPiecesAmount + '\nValue now ' + newAmountPartial + '€?') == false) {
             return;
         }
     }
