@@ -89,7 +89,7 @@ function curlBuy(symbolParam, price, pieces) {
     totalAmount = Number(totalAmount) + txFee;
     navigator.clipboard.writeText(totalAmount);
     
-    if (confirm('Buy ' + pieces + ' pieces of ' + headlineLink + ' for ' + price + '€,\nOverall pieces: ' + overallPieces + '\nOverall amount: ' + totalAmount + '€?\n(Fees ' + txFee + '€)') == false) {
+    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nOverall pieces: ' + overallPieces + '\nOverall amount: ' + totalAmount + '€?\n(Fees ' + txFee + '€)') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -178,7 +178,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     var txFee = tradingFees(sellingAmount);
     const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
     if (stocksPiecesId === null || newAmount < 0) {
-        if (confirm('Sell all ' + stockPiecesParam + ' pieces of ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€?\n(Fees ' + txFee + '€)') == false) {
+        if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nAmount: ' + sellingAmountAndTxFee + '€?\n(Fees ' + txFee + '€)') == false) {
             return;
         }        
     }
@@ -188,7 +188,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
         //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
         navigator.clipboard.writeText(newAmountPartial);
-        if (confirm('Sell partial ' + stockPiecesParam + ' pieces of ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€,\nPieces now: ' + newPiecesAmount + ',\nAmount now: ' + newAmountPartial + '€?\n(Fees ' + txFee + '€)') == false) {
+        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nAmount: ' + sellingAmountAndTxFee + '€\nPieces now: ' + newPiecesAmount + '\nAmount now: ' + newAmountPartial + '€?\n(Fees ' + txFee + '€)') == false) {
             return;
         }
     }
