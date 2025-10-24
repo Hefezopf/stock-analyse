@@ -563,7 +563,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 24-Oct-2025 20:21</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 24-Oct-2025 20:38</p>
 <span id='stocksPiecesId' style='display:none'>60</span>
 <span id='stocksBuyingValueId' style='display:none'>8067</span>
 
@@ -692,7 +692,7 @@ overallPieces = '?';
 totalAmount = Number(totalAmount) + txFee;
 navigator.clipboard.writeText(totalAmount);
 
-if (confirm('Buy ' + pieces + ' pieces of ' + headlineLink + ' for ' + price + '€,\nOverall pieces: ' + overallPieces + '\nOverall amount: ' + totalAmount + '€?\n(Fees ' + txFee + '€)') == false) {
+if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nOverall pieces: ' + overallPieces + '\nOverall amount: ' + totalAmount + '€?\n(Fees ' + txFee + '€)') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -781,7 +781,7 @@ navigator.clipboard.writeText(newAmount);
 var txFee = tradingFees(sellingAmount);
 const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
 if (stocksPiecesId === null || newAmount < 0) {
-if (confirm('Sell all ' + stockPiecesParam + ' pieces of ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€?\n(Fees ' + txFee + '€)') == false) {
+if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nAmount: ' + sellingAmountAndTxFee + '€?\n(Fees ' + txFee + '€)') == false) {
 return;
 }        
 }
@@ -791,7 +791,7 @@ var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
 var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
 //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
 navigator.clipboard.writeText(newAmountPartial);
-if (confirm('Sell partial ' + stockPiecesParam + ' pieces of ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€,\nPieces now: ' + newPiecesAmount + ',\nAmount now: ' + newAmountPartial + '€?\n(Fees ' + txFee + '€)') == false) {
+if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nAmount: ' + sellingAmountAndTxFee + '€\nPieces now: ' + newPiecesAmount + '\nAmount now: ' + newAmountPartial + '€?\n(Fees ' + txFee + '€)') == false) {
 return;
 }
 }
