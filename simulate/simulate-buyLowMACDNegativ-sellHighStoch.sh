@@ -141,8 +141,7 @@ do
     valueMACDLast_1="-1" 
     valueMACDLast_0="-1"
     beforeLastQuote="$QUOTE_MAX_VALUE"
-    # shellcheck disable=SC2001
-    for valueMACD in $(echo "$historyMACDs" | sed "s/,/ /g")
+    for valueMACD in ${historyMACDs//,/ }
     do
         ARRAY_TX_BUY_PRICE[RSIindex]="{}"
         ARRAY_TX_SELL_PRICE[RSIindex]="{}"
