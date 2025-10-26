@@ -60,9 +60,8 @@ do
     hauptversammlung="?"
     firmenportrait=$(echo "$curlResponse" 2>/dev/null | grep -F -A2 "\"paragraph\"" | tail -n 2)
     if [ "$firmenportrait" ]; then
-        firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
-        # shellcheck disable=SC2001
-        firmenportrait=$(echo "$firmenportrait" | sed "s/\&/ u. /g")
+        firmenportrait="${firmenportrait//\// }"
+        firmenportrait="${firmenportrait//\&/ u. }"
         firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g")
         firmenportrait=$(echo "$firmenportrait" | sed -z "s/    / /g")
         firmenportrait=${firmenportrait::-2}
@@ -151,8 +150,7 @@ do
     dive="${dive:3}"
     if [ "$dive" ]; then
         # Replace ',' with '.'
-        # shellcheck disable=SC2001 
-        dive=$(echo "$dive" | sed "s/,/./g")
+        dive="${dive//,/.}"          
         echo "DIVe: $dive%"
     else
         dive="?"
@@ -177,9 +175,8 @@ do
     firmenportrait=${firmenportrait%*"<"*}
 
     if [ "$firmenportrait" ]; then
-        firmenportrait=$(echo "$firmenportrait" | sed "s/\// /g")
-        # shellcheck disable=SC2001
-        firmenportrait=$(echo "$firmenportrait" | sed "s/\&/ u. /g")
+        firmenportrait="${firmenportrait//\// }"        
+        firmenportrait="${firmenportrait//\&/ u. }"        
         firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g")
         echo "Firmenportrait: $firmenportrait"
     else
