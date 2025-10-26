@@ -533,8 +533,8 @@ visibility: visible;
 }
 </style>
 <div class='tooltip'>"Maschinenbau"<br><div class='tooltiptext'>" Die Unternehmensgruppe rund um die Schindler Holding AG ist einer der weltweit führenden Hersteller von Aufzügen, Rolltreppen und Laufbändern. Die Konzerngesellschaften entwickeln, planen, produzieren, installieren und warten die kundespezifisch angepassten Lösungen, die sowohl in kleineren Wohn- und Bürogebäuden wie auch in Bürotürmen, Krankenhäusern, Schwertransporteinrichtungen und Hochhäusern eingebaut werden. Schindler Marine ist der Weltmarktführer im Bereich von Aufzügen und Rolltreppen in Kreuzfahrtschiffen. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 65px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;13 Mrd.€</div><br>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 60px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;12 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2025-10-23</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -563,7 +563,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b> Sell: High 6 last Stochastic (S): 6 last quotes over level </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b> Sell: High 6 last RSI (R): 6 last quotes over level </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 24-Oct-2025 05:48</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 26-Oct-2025 15:37</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -682,17 +682,17 @@ headlineLink = symbolParamTrimmed;
 // }
 
 // Trading fees
-var txFee = tradingFees(buyingAmount);
+//var txFee = tradingFees(buyingAmount);
 
 // Condition only for Mobil -> No CORS!
 if(isNaN(totalAmount)) {
 totalAmount = '0';
 overallPieces = '?';
 }
-totalAmount = Number(totalAmount) + txFee;
+totalAmount = Number(totalAmount); // + txFee;
 navigator.clipboard.writeText(totalAmount);
 
-if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? [Included fees ' + txFee + '€]') == false) {
+if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nPieces overall ' + overallPieces + '\nValue overall ' + totalAmount + '€?') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -778,10 +778,10 @@ navigator.clipboard.writeText(newAmount);
 //console.log('xxxxxxxxxxxxx:stockPiecesParam:' + stockPiecesParam);
 
 // Trading fees
-var txFee = tradingFees(sellingAmount);
-const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
+//var txFee = tradingFees(sellingAmount);
+//const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
 if (stocksPiecesId === null || newAmount < 0) {
-if (confirm('Sell all ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? [Included fees ' + txFee + '€]') == false) {
+if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€?') == false) {
 return;
 }        
 }
@@ -791,7 +791,7 @@ var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
 var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
 //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
 navigator.clipboard.writeText(newAmountPartial);
-if (confirm('Sell partial ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' (Now: ' + newPiecesAmount + ' pieces) for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
+if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ' + newPiecesAmount + '\nValue now ' + newAmountPartial + '€?') == false) {
 return;
 }
 }
