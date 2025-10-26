@@ -150,7 +150,7 @@ do
     dive="${dive:3}"
     if [ "$dive" ]; then
         # Replace ',' with '.'
-        dive="${dive//,/.}"          
+        dive="${dive//,/.}"
         echo "DIVe: $dive%"
     else
         dive="?"
@@ -175,8 +175,8 @@ do
     firmenportrait=${firmenportrait%*"<"*}
 
     if [ "$firmenportrait" ]; then
-        firmenportrait="${firmenportrait//\// }"        
-        firmenportrait="${firmenportrait//\&/ u. }"        
+        firmenportrait="${firmenportrait//\// }"
+        firmenportrait="${firmenportrait//\&/ u. }"
         firmenportrait=$(echo "$firmenportrait" | sed -z "s/\n/ /g")
         echo "Firmenportrait: $firmenportrait"
     else

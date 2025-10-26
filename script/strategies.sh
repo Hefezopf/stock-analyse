@@ -680,7 +680,7 @@ StrategieUnderratedXLowStochastic() {
         value4="${4:1:2}"
         value5="${5:1:2}"
         value6="${6:1:2}"
-        value7="${7:1:2}"        
+        value7="${7:1:2}"
         #value1=$(echo "$1" | cut -b 2-3) #| cut -b
         #value2=$(echo "$2" | cut -b 2-3)
         #value3=$(echo "$3" | cut -b 2-3)
