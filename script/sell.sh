@@ -23,12 +23,12 @@ export txFee
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
 # Pieces has to be without dot
-# shellcheck disable=SC2001
-sellPiecesParam=$(echo "$2" | sed 's/\.//g')
+sellPiecesParam=$2
+sellPiecesParam="${sellPiecesParam//\./}"
 
 # Sell Price has to be without comma -> replace comma with dot
-# shellcheck disable=SC2001
-sellPriceParam=$(echo "$3" | sed 's/,/./g')
+sellPriceParam=$3
+sellPriceParam="${sellPriceParam//,/.}"
 
 echo "Sell $symbolParam $sellPiecesParam $sellPriceParam"
 
@@ -56,11 +56,10 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/
 # Read symbol and amount
 SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
 # SYMBOL_NAME has to be without Hochkomma '"'
-# shellcheck disable=SC2001
-SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
+SYMBOL_NAME="${SYMBOL_NAME//\"/}"
+
 # SYMBOL_NAME has to be without blank ' ' -> replace with dash '-'
-# shellcheck disable=SC2001
-SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
+SYMBOL_NAME="${SYMBOL_NAME// /-}"
 AVG_PRICE=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f2 -d ' ')
 BUY_TOTAL_AMOUNT=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f5 -d ' ' | sed 's/€//g')
 TOTAL_PIECES=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
@@ -132,7 +131,7 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 # Write Tx History
 echo "Win: $WIN_AMOUNT€"
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
-echo "<div>&nbsp;$today&#9;$WIN_AMOUNT&#8364;&#9;&nbsp;&#9;$winPercentage%&#9;&nbsp;&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam&#9;\"$SYMBOL_NAME\"</a></div>" | tee -a "$TRANSACTION_HISTORY_FILE"
+echo "<div>&nbsp;$today&#9;$WIN_AMOUNT&#8364;&#9;&nbsp;&#9;$winPercentage%&#9;&nbsp;&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam&#9;\"$SYMBOL_NAME\"</a></div>" >> "$TRANSACTION_HISTORY_FILE"
 echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"

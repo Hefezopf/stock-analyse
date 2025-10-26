@@ -397,7 +397,8 @@ do
     xAxis="$alarmAbbrevTemplate"",'100'"
     for i in "${!ARRAY_TX_INDEX[@]}"; do
         # Buy may replace some Sell-XXX values -> looks strange: 'SELL-9BUY
-        xAxis="${xAxis//'$i'/'${ARRAY_TX_INDEX[i]}'}"
+        #xAxis=$(echo "$xAxis" | sed "s/'$i'/'${ARRAY_TX_INDEX[i]}'/g")
+        xAxis="${xAxis//"$i"/"${ARRAY_TX_INDEX[i]}"}"
     done
     labelsTemplate="labels:[$xAxis"
     sed -i """$lineNumer""s/.*/$labelsTemplate/" simulate/out/"$symbol".html

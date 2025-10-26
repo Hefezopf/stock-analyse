@@ -30,12 +30,10 @@ _priceParam=$3
 symbolParam="${_symbolParam^^}" # all uppercase
 
 # Pieces has to be without dot
-# shellcheck disable=SC2001
-piecesParam=$(echo "$_piecesParam" | sed 's/\.//g')
+piecesParam="${_piecesParam//\./}"
 
 # Price has to be without comma -> replace comma with dot
-# shellcheck disable=SC2001
-priceParam=$(echo "$_priceParam" | sed 's/,/./g')
+priceParam="${_priceParam//,/.}"
 
 if { [ -z "$symbolParam" ] || [ -z "$piecesParam" ] || [ -z "$priceParam" ]; } then
   echo "Error: Not all parameters specified!"
@@ -97,11 +95,9 @@ sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
 # Add symbol in front of own list
 SYMBOL_NAME=$(grep -m1 -P "$symbolParam\t" "$TICKER_NAME_ID_FILE" | cut -f 2)
 # SYMBOL_NAME has to be without Hochkomma '"'
-# shellcheck disable=SC2001
-SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/"//g')
+SYMBOL_NAME="${SYMBOL_NAME//\"/}"
 # SYMBOL_NAME has to be without blank ' ' -> replace with dash '-'
-# shellcheck disable=SC2001
-SYMBOL_NAME=$(echo "$SYMBOL_NAME" | sed 's/ /-/g')
+SYMBOL_NAME="${SYMBOL_NAME// /-}"
 
 # Fees
 CalculateTxFee "$priceParam" "$piecesParam"
