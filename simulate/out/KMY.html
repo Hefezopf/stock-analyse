@@ -533,8 +533,8 @@ visibility: visible;
 }
 </style>
 <div class='tooltip'>"Drogerie und Kosmetikgüter"<br><div class='tooltiptext'>" Die Kimberly-Clark Corp. ist auf die weltweite Vermarktung von Produktinnovationen in den Bereichen Körperpflege und Zellstoffprodukte für Verbraucher konzentriert. Zum Geschäftsfeld Personal Care gehören Lösungen und Produkte wie Wegwerfwindeln, Trainings- und Jugendhosen, Badehosen, Feuchttücher, Damen- und Inkontinenzprodukte, die unter den Marken Huggies, Pull-Ups, Little Swimmers, GoodNites, DryNites, Sweety, Kotex, U by Kotex, Intimus, Depend, Plenitud, Softex und Poise verkauft werden. Das Segment Consumer Tissue umfasst vor allem Gesichts- und Toilettenpapier, Papierhandtücher, Servietten und verwandte Produkte, die unter den Markennamen Kleenex, Scott, Cottonelle, Viva, Andrex, Scottex und Neve vertrieben werden. K-C Professional nutzt die Expertise für Unternehmenskunden. Das frühere Gesundheitsgeschäft war 2014 im Rahmen eines Spin-off in die eigenständig börsennotierte Halyard Health, Inc. ausgegliedert worden. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 170px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;34 Mrd.€</div><br>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 165px; height: 100%; border-radius: 9px; margin-top: -21px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;33 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2025-10-23</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -551,7 +551,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
-<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -1.13 </b></p>
+<p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b> Buy: Low Percent & Stochastic (P): 102.16€ is .99 under Avg18 < Avg38 < Avg95 and Stoch14 0 under level </b></p>
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
@@ -563,9 +563,9 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 24-Oct-2025 06:49
-<span id='stocksPiecesId' style='display:none'>110</span>
-<span id='stocksBuyingValueId' style='display:none'>11360</span>
+<br>Good Luck! 26-Oct-2025 11:12
+<span id='stocksPiecesId' style='display:none'>140</span>
+<span id='stocksBuyingValueId' style='display:none'>14431</span>
 
 
 <script>
@@ -682,17 +682,17 @@ headlineLink = symbolParamTrimmed;
 // }
 
 // Trading fees
-var txFee = tradingFees(buyingAmount);
+//var txFee = tradingFees(buyingAmount);
 
 // Condition only for Mobil -> No CORS!
 if(isNaN(totalAmount)) {
 totalAmount = '0';
 overallPieces = '?';
 }
-totalAmount = Number(totalAmount) + txFee;
+totalAmount = Number(totalAmount); // + txFee;
 navigator.clipboard.writeText(totalAmount);
 
-if (confirm('Buy ' + pieces + ' pieces of: ' + headlineLink + ' for ' + price + '€? Overall pieces ' + overallPieces + ', Overall amount ' + totalAmount + '€? [Included fees ' + txFee + '€]') == false) {
+if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nPieces overall ' + overallPieces + '\nValue overall ' + totalAmount + '€?') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -778,10 +778,10 @@ navigator.clipboard.writeText(newAmount);
 //console.log('xxxxxxxxxxxxx:stockPiecesParam:' + stockPiecesParam);
 
 // Trading fees
-var txFee = tradingFees(sellingAmount);
-const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
+//var txFee = tradingFees(sellingAmount);
+//const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
 if (stocksPiecesId === null || newAmount < 0) {
-if (confirm('Sell all ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' for ' + sellingAmountAndTxFee + '€? [Included fees ' + txFee + '€]') == false) {
+if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€?') == false) {
 return;
 }        
 }
@@ -791,7 +791,7 @@ var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
 var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
 //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
 navigator.clipboard.writeText(newAmountPartial);
-if (confirm('Sell partial ' + stockPiecesParam + ' pieces of: ' + headlineLink + ' (Now: ' + newPiecesAmount + ' pieces) for ' + sellingAmountAndTxFee + '€ (Now: ' + newAmountPartial + '€)? [Included fees ' + txFee + '€]') == false) {
+if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ' + newPiecesAmount + '\nValue now ' + newAmountPartial + '€?') == false) {
 return;
 }
 }
