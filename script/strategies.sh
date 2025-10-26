@@ -346,9 +346,7 @@ StrategieOverratedHighHorizontalMACD() {
         _MACDQuoteListParam="${_MACDQuoteListParam:25}"
 #echo "----_MACDQuoteListParam:$_MACDQuoteListParam"        
         jj_index=0
-        # shellcheck disable=SC2001
-        #_MACDQuoteListParam=${_MACDQuoteListParam/,/ /$}
-        _MACDQuoteListParam=$(sed 's/,/ /g' <<< "$_MACDQuoteListParam")
+        _MACDQuoteListParam="${_MACDQuoteListParam//,/ }"
         for valueMACD in $_MACDQuoteListParam
         do
             if [ "$jj_index" = 72 ]; then
@@ -413,10 +411,7 @@ StrategieUnderratedLowHorizontalMACD() {
         _MACDQuoteListParam="${_MACDQuoteListParam:25}"
         jj_index=0
         valueNewMACDLow=100
-        
-        # shellcheck disable=SC2001
-        #_MACDQuoteListParam=$(sed 's/,/ /g' <<< "$_MACDQuoteListParam")
-        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | sed 's/,/ /g')
+        _MACDQuoteListParam="${_MACDQuoteListParam//,/ }"
         for valueMACD in $_MACDQuoteListParam
         do
             if [ "$jj_index" = 71 ]; then
