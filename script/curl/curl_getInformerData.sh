@@ -83,14 +83,9 @@ do
         value="${value:28}"
 
         if [ "$value" ]; then
-            # shellcheck disable=SC2001
-            value=$(echo "$value" | sed "s/\.//") # Wenn Punkt dann löschen 1.000,00 -> 1000,00
-            # shellcheck disable=SC2001
-            value=$(echo "$value" | sed "s/,/./g") # Replace , -> . 1000,00 -> 1000.00
-
-            # shellcheck disable=SC2001
-            valueTest=$(echo "$value" | sed "s/\.//g") # Replace , -> . 1000.00 -> 100000
-
+            value="${value//\./}"
+            value="${value//,/.}"
+            valueTest="${value//\./}"
             if [ "${valueTest::1}" = '-' ]; then
                 echo "Warning: '$symbol' value NOT a integer number! Taking value from yesterday."
                 value=$(head -1 "$informerDataFile" | cut -f 2)
