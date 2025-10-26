@@ -38,26 +38,28 @@ priceFromFile=$(echo "$priceFromFile" | sed 's/&#9;/\t/g')
   
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 
-lineFromFile=$(echo "$lineFromFile" | sed 's/<div>//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/&nbsp;/ /g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/<\/a><\/div>//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/\/\/htmlpreview//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/target=//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/_blank//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/https//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/github//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/Hefezopf\/stock-analyse//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/\/blob\/main\/out//g')
+lineFromFile="${lineFromFile//<div>/}"
+lineFromFile="${lineFromFile//&nbsp;/ }"
+lineFromFile="${lineFromFile//<\/a><\/div>/}"
+lineFromFile="${lineFromFile//\/\/htmlpreview/}"
+lineFromFile="${lineFromFile//target=/}"
+lineFromFile="${lineFromFile//_blank/}"
+lineFromFile="${lineFromFile//https/}"
+lineFromFile="${lineFromFile//github/}"
+lineFromFile="${lineFromFile//Hefezopf\/stock-analyse/}"
+lineFromFile="${lineFromFile//\/blob\/main\/out/}"
+# shellcheck disable=SC2001
 lineFromFile=$(echo "$lineFromFile" | sed 's/\t/ /g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/a href=//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/&#8364;/€/g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/<//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/>//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/\.html//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/\.com//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/\.io//g')
-lineFromFile=$(echo "$lineFromFile" | sed 's/:.\/?:\/\/\/\///g')
-lineFromFile=$(echo "$lineFromFile" | sed "s/'//g")
+lineFromFile="${lineFromFile//a href=/}"
+lineFromFile="${lineFromFile//&#8364;/€}"
+lineFromFile="${lineFromFile//</}"
+lineFromFile="${lineFromFile//>/}"
+lineFromFile="${lineFromFile//\.html/}"
+lineFromFile="${lineFromFile//\.com/}"
+lineFromFile="${lineFromFile//\.io/}"
+lineFromFile="${lineFromFile//:.\/?:\/\/\/\//}"
+lineFromFile="${lineFromFile//\'/}"
+
 
 echo "$lineFromFile"
 echo ""
