@@ -35,6 +35,8 @@ rm -f ./simulate/simulate-buy-candidates-open-in-chrome.sh
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo ""
+echo "# SA Simulates Buy Candidates"
+echo ""
 echo "Symbols($countSymbols)"
 
 rm -rf "$SIM_LAST_ALARMS_HTML_FILE"
