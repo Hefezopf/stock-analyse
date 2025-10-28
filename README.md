@@ -110,7 +110,7 @@ https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojj
 
 Open:
 
-file:///D:/code/stock-analyse/out/_result.html
+file:///C:/code/stock-analyse/out/_result.html
 
 # Honor Open Source
 
