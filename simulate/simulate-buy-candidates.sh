@@ -118,7 +118,7 @@ if [ ! "$(uname)" = 'Linux' ]; then
     echo "./simulate/simulate-buy-candidates-open-in-chrome.sh" | clip
     echo "Call: ./simulate/simulate-buy-candidates-open-in-chrome.sh (in Clipboard)"
 fi
-echo "file:///D:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
+echo "file:///C:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
 echo "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html"
 
 rm -rf "$TEMP_DIR"/config
