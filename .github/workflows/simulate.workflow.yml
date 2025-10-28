@@ -112,7 +112,7 @@ jobs:
           sed -i 's/\r$//' ./simulate/*.sh
           ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
 
-          ./simulate/simulate-buy-candidates.sh "$symbolsVar" 3 35
+          ./simulate/simulates-last-x-days-y-alarms.sh "$symbolsVar" 3 35
 
           #git fetch --unshallow origin
           git config user.email ${{secrets.MAIL_ADRESS}}
