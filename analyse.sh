@@ -378,6 +378,7 @@ do
         head -n87 "$DATA_FILE" > "$DATA_FILE_87"
         commaPriceList=$(awk '{ print $1","; }' < "$DATA_FILE_87" | tac)
         beforeLastQuote=$(head -n2 "$DATA_FILE" | tail -1)
+#echo "--------beforeLastQuote:$beforeLastQuote" 
         beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
         resultStrategieUnderratedNewLow=""
         conditionNewLow=false
