@@ -364,13 +364,13 @@ do
         # Strategie: Quote by Tendency
         if [ "$applyStrategieByTendency" = true ]; then
             resultStrategieByTendency=""
-            StrategieByTendency "$last" "$tendency38" "$percentageLesserFactor" "$average95" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+            StrategieByTendency "$last" "$tendency38" "$percentageLesserFactor" "$average95" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
         fi
 
         # Buy Strategie: Low horizontal MACD
         if [ "$applyStrategieHorizontalMACD" = true ]; then
             resultStrategieUnderratedLowHorizontalMACD=""
-            StrategieUnderratedLowHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+            StrategieUnderratedLowHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
         fi
 
         # Buy Strategie: New Low
@@ -382,58 +382,58 @@ do
         beforeLastQuote=$(printf "%.2f" "$beforeLastQuote")
         resultStrategieUnderratedNewLow=""
         conditionNewLow=false
-        StrategieUnderratedNewLow 40 "$commaPriceList" "$last" "$beforeLastQuote" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedNewLow 40 "$commaPriceList" "$last" "$beforeLastQuote" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Buy Strategie: Divergence RSI
         resultStrategieUnderratedDivergenceRSI=""
-        StrategieUnderratedDivergenceRSI "$RSIQuoteLower" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$lowestRSI" "$conditionNewLow"
+        StrategieUnderratedDivergenceRSI "$RSIQuoteLower" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$lowestRSI" "$conditionNewLow" "$ID_NOTATION"
 
         # Buy Strategie: Low Percentage & Stochastic
         resultStrategieUnderratedByPercentAndStochastic=""
-        StrategieUnderratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv95" "$agv18UnderAgv38" "$agv38UnderAgv95" "$agv18UnderAgv95" "$last" "$percentageGreaterFactor" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv95" "$agv18UnderAgv38" "$agv38UnderAgv95" "$agv18UnderAgv95" "$last" "$percentageGreaterFactor" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
     
         # Buy Strategie: Low Stochastic X last values under lowStochasticValue
         resultStrategieUnderratedXLowStochastic=""
-        StrategieUnderratedXLowStochastic "$stochasticPercentageLower" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedXLowStochastic "$stochasticPercentageLower" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Buy Strategie: Low RSI X last values under RSIQuoteLower
         resultStrategieUnderratedXLowRSI=""
-        StrategieUnderratedXLowRSI "$RSIQuoteLower" "$RSIQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedXLowRSI "$RSIQuoteLower" "$RSIQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Buy Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
         resultStrategieUnderratedLowStochasticLowRSILowMACD=""
-        StrategieUnderratedLowStochasticLowRSILowMACD "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieUnderratedLowStochasticLowRSILowMACD "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Sell Strategie: High horizontal MACD
         if [ "$applyStrategieHorizontalMACD" = true ]; then
             resultStrategieOverratedHighHorizontalMACD=""
-            StrategieOverratedHighHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+            StrategieOverratedHighHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
         fi
 
         # Sell Strategie: Stochastic When Own
         resultStrategieOverratedStochasticWhenOwn=""
 #echo "XXX:" "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"        
-        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Sell Strategie: Divergence RSI
         resultStrategieOverratedDivergenceRSI=""
-        StrategieOverratedDivergenceRSI "$RSIQuoteUpper" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded"
+        StrategieOverratedDivergenceRSI "$RSIQuoteUpper" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$lastMACDValue" "$last" "$beforeLastQuote" "$lastRSIQuoteRounded" "$beforeLastRSIQuoteRounded" "$ID_NOTATION"
 
         # Sell Strategie: High Percentage & Stochastic
         resultStrategieOverratedByPercentAndStochastic=""
-        StrategieOverratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv95" "$agv18OverAgv38" "$agv38OverAgv95" "$agv18OverAgv95" "$last" "$percentageLesserFactor" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv95" "$agv18OverAgv38" "$agv38OverAgv95" "$agv18OverAgv95" "$last" "$percentageLesserFactor" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Sell Strategie: High Stochastic X last values over highStochasticValue
         resultStrategieOverratedXHighStochastic=""
-        StrategieOverratedXHighStochastic "$stochasticPercentageUpper" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedXHighStochastic "$stochasticPercentageUpper" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Sell Strategie: High RSI X last values over RSIQuoteUpper
         resultStrategieOverratedXHighRSI=""
-        StrategieOverratedXHighRSI "$RSIQuoteUpper" "$RSIQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedXHighRSI "$RSIQuoteUpper" "$RSIQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Sell Strategie: High stochastic and High RSI last quote over stochasticPercentageUpper and RSIQuoteUpper
         resultStrategieOverratedHighStochasticHighRSIHighMACD=""
-        StrategieOverratedHighStochasticHighRSIHighMACD "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"
+        StrategieOverratedHighStochasticHighRSIHighMACD "$stochasticPercentageUpper" "$RSIQuoteUpper" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
     else
         echo -e "\n\r! File sizeof $symbol id suspicious: $fileSize kb" | tee -a "$OUT_RESULT_FILE"
         echo "<br>" >> "$OUT_RESULT_FILE"
@@ -736,7 +736,7 @@ do
     sed -i "s/^[ \t]*//g" "$indexSymbolFile"
     sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript!
 
-    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" "" "$lowMarketCapLinkBackgroundColor"
+    WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" "" "$lowMarketCapLinkBackgroundColor" "" "$ID_NOTATION"
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ]; then
         counterOwnStocks=$((counterOwnStocks+1)) # For Spinner

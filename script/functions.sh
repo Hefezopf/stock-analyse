@@ -258,13 +258,15 @@ WriteComdirectUrlAndStoreFileList() {
     _reasonParam=$6
     _lowMarketCapBackgroundColorParam=$7
     _pathParam="$8"
+    _idNotationParam="$9"
 
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "$_markerOwnStockParam" = '' ]; then
         _linkColorParam="$BLACK"
     fi
 
-    _id_notation=$(grep -m1 -P "$_symbolParam\t" "$TICKER_NAME_ID_FILE_MEM" | cut -f 3)
+    #_id_notation=$(grep -m1 -P "$_symbolParam\t" "$TICKER_NAME_ID_FILE_MEM" | cut -f 3)
+    _id_notation="$_idNotationParam"
     if [ ! "${#_id_notation}" -gt 1 ]; then
         _id_notation=999999
     fi
