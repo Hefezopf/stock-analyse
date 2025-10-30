@@ -37,6 +37,7 @@ on:
         description: 'SELL_IF_OVER_PERCENTAGE - "5" means sell all, if gain is 5% or more'
         required: true
         default: '99'
+      # sellIfOverPercentageParam NOT USED!!!        
       keepIfUnderPercentageParam:
         description: 'KEEP_IF_UNDER_PERCENTAGE - "2" means do NOT sell, if only 2% gain'
         required: true
@@ -69,7 +70,7 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW (432).
+          #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW+S&P (1040).
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           ownSymbolsVar=$(echo "$ownSymbolsVar" | sed 's/*//g')

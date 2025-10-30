@@ -67,18 +67,15 @@ jobs:
         run: |
           echo "Start Stock Analyse ..."
 
-          #export MARKET_STACK_ACCESS_KEY=${{secrets.MARKET_STACK_ACCESS_KEY}}
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
           symbolsEnv=${{env.symbolsEnv}}
           percentageEnv=${{env.percentageEnv}}
-          #queryEnv=${{env.queryEnv}}
           stochasticEnv=${{env.stochasticEnv}}
           RSIEnv=${{env.RSIEnv}}
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           percentageInput=${{github.event.inputs.percentageParam}}
-          #queryInput=${{github.event.inputs.queryParam}}
           stochasticInput=${{github.event.inputs.stochasticParam}}
           RSIInput=${{github.event.inputs.RSIParam}}
           
