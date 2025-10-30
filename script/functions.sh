@@ -6,7 +6,8 @@
 export alarmAbbrevTemplate="'','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99'"
 
 # WriteOverallChartsButtons function: 
-# Write javascript to result file
+# Update logic for charts: javascript:updateImage()
+# Write javascript to result file.
 # Input: ${x}
 # Output: -
 WriteOverallChartsButtons() {
@@ -17,8 +18,6 @@ WriteOverallChartsButtons() {
     for ownSymbol in $_symbolsParam
     do
         if [ "${ownSymbol::1}" = '*' ]; then
-        #if [ "$(echo "$ownSymbol" | cut -b 1-1)" = '*' ]; then #| cut -
-            #ownSymbol=$(echo "$ownSymbol" | cut -b 2-7) #| cut -
             ownSymbol="${ownSymbol:1:7}"
             lineFromTickerFile=$(grep -m1 -P "$ownSymbol\t" "$TICKER_NAME_ID_FILE_MEM")
             notationId=$(echo "$lineFromTickerFile" | cut -f 3)
@@ -46,7 +45,6 @@ WriteTransactionFile() {
 
     statusFile="$STATUS_DIR/$_symbolParam/$_symbolParam""_$_transactionOutputDir.txt"
     if [ ! -f "$statusFile" ]; then # Yesterdays statusFile doesn't exists e.g: status/BEI/BEI_buy.txt
-        #touch "$statusFile"
         echo "$_lastDateInDataFile" > "$statusFile"
     fi
 
@@ -88,7 +86,6 @@ WriteAlarmAbbrevXAxisFile() {
     # shellcheck disable=SC2140
     statusFile="$STATUS_DIR/$_symbolParam/$_symbolParam"_"$_dataDateOutputDir.txt"
     if [ ! -f "$statusFile" ]; then # Yesterdays statusFile doesn't exists e.g: status/BEI/BEI_alarm.txt
-        #touch "$statusFile"
         echo "$lastDateInDataFile" > "$statusFile"
     fi
     
@@ -121,17 +118,8 @@ DetermineTendency() {
 
     isNegativ=${difference:0:1}
     relative=$(echo "$value_87 $value_82" | awk '{print (($1 / $2)-1)*100}')
-
-#echo "-------relative:$relative"    
-    #valueBeforeComma=$(echo "$relative" | cut -f 1 -d '.')
-     valueBeforeComma=${relative%*.*}
-#echo "-------valueBeforeComma:$valueBeforeComma"
-
-    #valueAfterComma=$(echo "$relative" | cut -f 2 -d '.')
-     valueAfterComma=${relative#*.*}
-#echo "-------valueAfterComma:$valueAfterComma"
-
-
+    valueBeforeComma=${relative%*.*}
+    valueAfterComma=${relative#*.*}
     isLevelPos1=${valueAfterComma:0:1}
     if [ "$isLevelPos1" != "-" ]; then
         if [ "$isLevelPos1" -lt 2 ] && # < 0.02 %
@@ -157,18 +145,12 @@ CurlSymbolName() {
     _symbolNameParam=$4
 
     symbolName="$_symbolNameParam"
-#echo "-------0symbolName:$symbolName"
-#echo "-------_tickerNameIdFileParam:$_tickerNameIdFileParam"    
-#echo "symbolName=$symbolName --- _symbolNameParam=$_symbolNameParam"    
-    #symbolName=$(grep -m1 -P "$_symbolParam\t" "$_tickerNameIdFileParam" | cut -f 2)
     if [ ! "${#symbolName}" -gt 1 ]; then
-        symbolName=$(curl -c "'$COOKIES_FILE'" -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
-#echo "-------1symbolName:$symbolName"         
+        symbolName=$(curl -c "'$COOKIES_FILE'" -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')        
         if ! [ "$symbolName" = 'null' ]; then
             echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999""$(printf '\t')""?""$(printf '\t')""\"--\"""$(printf '\t')""--""$(printf '\t')""--""$(printf '\t')""?""$(printf '\t')""STOCK""$(printf '\t')""\"---\"" | tee -a "$_tickerNameIdFileParam"
             tempTickerNameIdFile="$(mktemp -p "$TEMP_DIR")"
-            sort -k 1 "$_tickerNameIdFileParam" > "$tempTickerNameIdFile"
-#echo "-------sort tempTickerNameIdFile:$tempTickerNameIdFile"            
+            sort -k 1 "$_tickerNameIdFileParam" > "$tempTickerNameIdFile"         
             mv "$tempTickerNameIdFile" "$_tickerNameIdFileParam"
             # Can requested in bulk request as an option!
             sleep "$_sleepParam" # 14; Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
@@ -183,14 +165,12 @@ CurlSymbolName() {
 UsageCheckParameter() {
     _symbolsParam=$1
     _percentageParam=$2
-    #_queryParam=$3
     _stochasticPercentageParam=$3
     _RSIQuoteParam=$4
     _outResultFileParam=$5
 
     if  [ -n "${_symbolsParam##*[!a-zA-Z0-9* ]*}" ] && # symbols, blank and '*' allowed
         [ -n "${_percentageParam##*[!0-9]*}" ]  && 
-     #   { [ "$_queryParam" = 'offline' ] || [ "$_queryParam" = 'online' ]; } &&
         [ -n "${_stochasticPercentageParam##*[!0-9]*}" ] && [ ! ${#_stochasticPercentageParam} -gt 1 ] &&
         [ -n "${_RSIQuoteParam##*[!0-9]*}" ] && [ ! "$_RSIQuoteParam" -gt 30 ]; then
         echo ""
@@ -202,8 +182,6 @@ UsageCheckParameter() {
         echo "<br>" >> "$_outResultFileParam"
         echo " PERCENTAGE: Percentage number between 0..100" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
-       # echo " QUERY: Query data online|offline" | tee -a "$_outResultFileParam"
-       # echo "<br>" >> "$_outResultFileParam"
         echo " STOCHASTIC14: Percentage for stochastic indicator (only single digit allowed!)" | tee -a "$_outResultFileParam"
         echo "<br>" >> "$_outResultFileParam"
         echo " RSI14: Quote for RSI indicator (only 30 and less allowed!)" | tee -a "$_outResultFileParam"
@@ -296,8 +274,6 @@ WriteComdirectUrlAndStoreFileList() {
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
         {
             # Hover Chart (result overview page)
-            #echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:40%;transform:scale(1.3);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
-#            echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
             echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
             echo "<div style='font-size: xx-large; margin-top: 26px'>"
             COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
@@ -411,8 +387,6 @@ CalculateMarketCapRSILevel() {
 # sim CalculateMarketCapRSILevel
 
     export isMarketCapRSILevel="false"
-
-#echo _lastRSIParam "$_lastRSIParam" _marketCapParam "$_marketCapParam"
 
     isMarketCapRSILevel="false"
     if [ "$_lastRSIParam" -gt 24 ] && [ "$_marketCapParam" -gt 100 ]; then # > 25 RSI
