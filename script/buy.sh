@@ -112,10 +112,10 @@ rm -rf "$BUY_RESULT_FILE"
 echo "Pieces=$totalAmountOfPieces Invested Amount=$summe€" >> "$BUY_RESULT_FILE"
 
 if [ "$(uname)" = 'Linux' ]; then
-    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total"
+    echo "(re)buy $symbolParam $piecesParam $priceParam ==> $totalAmountOfPieces <== pieces,  $summe€ Value overall"
 else
     echo "$summe" | clip
-    echo "(re)buy $symbolParam $piecesParam $priceParam = $totalAmountOfPieces pieces, $summe€ <== total (in clipboard)"
+    echo "(re)buy $symbolParam $piecesParam $priceParam ==> $totalAmountOfPieces <== pieces, $summe€ Value overall (in clipboard)"
     rm -rf "$BUY_RESULT_FILE"
 fi
 
