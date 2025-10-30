@@ -472,7 +472,7 @@ StrategieUnderratedLowHorizontalMACD() {
             reasonPrefix="Buy: Low MACD (M)"
             resultStrategieUnderratedLowHorizontalMACD="$reasonPrefix: last MACD $valueMACDLast_0"
             echo "$resultStrategieUnderratedLowHorizontalMACD"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "$_idNotationParam"
+            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
         fi
     fi
 }
