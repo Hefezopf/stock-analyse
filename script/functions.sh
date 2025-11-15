@@ -271,14 +271,10 @@ WriteComdirectUrlAndStoreFileList() {
         _id_notation=999999
     fi
 
-    #WriteComdirectUrlAndStoreFileList FIX
-#echo "_id_notation: $_id_notation _idNotationParam: $_idNotationParam  ID_NOTATION_STORE_FOR_NEXT_TIME: $ID_NOTATION_STORE_FOR_NEXT_TIME"
-
     # Only write URL once into result file
     if [ ! "$_id_notation" = "$ID_NOTATION_STORE_FOR_NEXT_TIME" ]; then
         ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
-        {
-#echo "xxxxxxxxx"            
+        {         
             # Hover Chart (result overview page)
             echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
             echo "<div style='font-size: xx-large; margin-top: 26px'>"

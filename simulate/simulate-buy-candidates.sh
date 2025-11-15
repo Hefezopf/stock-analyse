@@ -20,6 +20,9 @@ symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 lastDaysParam=$2
 charactersParam=$3
 
+echo "Error: redundant! -> simulates-last-x-days-y-alarms.sh??"
+exit 1
+
 if { [ -z "$symbolsParam" ] || [ -z "$lastDaysParam" ] || [ -z "$charactersParam" ]; } then
   echo "Error: Not all parameters specified!"
   echo "Call: sh ./simulate/simulate-buy-candidates.sh SYMBOL LAST_DAYS CHAR_LENGTH_ALARM"
@@ -95,7 +98,7 @@ do
             # echo "<img class='imgborder' id='imgToReplace$symbol' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;'/>" >> "$SIM_LAST_ALARMS_HTML_FILE"
             # echo "<a style='font-size: xxx-large; background:$lowMarketCapLinkBackgroundColor;' onmouseover=\"javascript:showChart('10D', '$symbol')\" onmouseout=\"javascript:hideChart('$symbol')\" href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html' target='_blank'>$symbol $symbolName</a><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
             # echo "</div>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-            WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$lowMarketCapLinkBackgroundColor" "" "$ID_NOTATION"
+            WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$GREEN" "" "" "$lowMarketCapLinkBackgroundColor" "" "$ID_NOTATION"
         fi
     fi
 done

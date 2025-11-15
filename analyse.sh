@@ -183,8 +183,6 @@ do
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     #symbolName=$(echo "$lineFromTickerFile" | cut -f 2) #| cut -f
     symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}') # BEGIN{FS
-    
-    #WriteComdirectUrlAndStoreFileList FIX
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
 
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
@@ -478,10 +476,6 @@ do
             styleComdirectLink="style=\"font-size:50px; color:red\""
         fi
 
-#WriteComdirectUrlAndStoreFileList FIX
-#???
-        #ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
-
         # Hover Chart (on detail page; top URLs)
         echo "<img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;'/>"
         COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
@@ -741,11 +735,6 @@ do
     sed -i "s/^[ \t]*//g" "$indexSymbolFile"
     sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript!
 
-    #WriteComdirectUrlAndStoreFileList FIX
-    #export ID_NOTATION_STORE_FOR_NEXT_TIME=""
-  # ID_NOTATION=$(grep -m1 -P "$symbol\t" "$TICKER_NAME_ID_FILE_MEM" | cut -f 3)    
-#echo "ID_NOTATION: $ID_NOTATION"
-#Out "ID_NOTATION: $ID_NOTATION"
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" "" "$lowMarketCapLinkBackgroundColor" "" "$ID_NOTATION"
 
     if [ "$markerOwnStock" = '*' ] && [ "$buyingRate" ]; then
