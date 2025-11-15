@@ -4,11 +4,11 @@ export LC_NUMERIC=en_US.UTF-8
 
 # MACD_12_26 function:
 # Input: ${x}
-# Output: MACDList is comma separted list, lastMACDValue
+# Output: MACD_LIST is comma separted list, lastMACDValue
 MACD_12_26() {
     _averagePriceList12Param=$1
     _averagePriceList26Param=$2
-    export MACDList
+    export MACD_LIST
     export lastMACDValue
 
     # Remove leading commas  
@@ -38,15 +38,15 @@ MACD_12_26() {
 
         # Ignore first incorrect number?!
         if [ "$kk_index" -eq 15 ]; then 
-            MACDList="$MACDList , $difference, $difference,"
+            MACD_LIST="$MACD_LIST , $difference, $difference,"
         fi
         if [ "$kk_index" -gt 15 ]; then 
-            MACDList="$MACDList $difference,"
+            MACD_LIST="$MACD_LIST $difference,"
         fi
     done
     difference=$(printf "%.2f" "$difference")
     lastMACDValue=$difference
-    MACDList=" , , , , , , , , , , ,$MACDList"
+    MACD_LIST=" , , , , , , , , , , ,$MACD_LIST"
 }
 
 # EMAverageOfDays function:

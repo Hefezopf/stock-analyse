@@ -262,7 +262,7 @@ do
         averagePriceList26=$averagePriceList
         # MACD
         lastMACDValue=0
-        MACDList=""
+        MACD_LIST=""
         MACD_12_26 "$averagePriceList12" "$averagePriceList26"
     fi
 
@@ -371,7 +371,7 @@ do
         # Buy Strategie: Low horizontal MACD
         if [ "$applyStrategieHorizontalMACD" = true ]; then
             resultStrategieUnderratedLowHorizontalMACD=""
-            StrategieUnderratedLowHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
+            StrategieUnderratedLowHorizontalMACD "$MACD_LIST" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
         fi
 
         # Buy Strategie: New Low
@@ -408,7 +408,7 @@ do
         # Sell Strategie: High horizontal MACD
         if [ "$applyStrategieHorizontalMACD" = true ]; then
             resultStrategieOverratedHighHorizontalMACD=""
-            StrategieOverratedHighHorizontalMACD "$MACDList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
+            StrategieOverratedHighHorizontalMACD "$MACD_LIST" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
         fi
 
         # Sell Strategie: Stochastic When Own
@@ -596,7 +596,7 @@ do
         cat alarm/"$symbol".txt
         cat template/indexPart11b.html        
 
-        echo "$MACDList"
+        echo "$MACD_LIST"
         cat template/indexPart12.html
 
         # Hover Chart (on detail page; lower URLs)
@@ -832,9 +832,9 @@ do
     echo "# RSI oldest,..,newest" >> "$HISTORY_FILE"
     echo "$PRE_FIX$RSIQuoteList" >> "$HISTORY_FILE"
 
-    MACDList="${MACDList// /}"
+    MACD_LIST="${MACD_LIST// /}"
     echo "# MACD oldest,..,newest" >> "$HISTORY_FILE"
-    echo "$PRE_FIX$MACDList" >> "$HISTORY_FILE"
+    echo "$PRE_FIX$MACD_LIST" >> "$HISTORY_FILE"
 done
 
 # Overall
