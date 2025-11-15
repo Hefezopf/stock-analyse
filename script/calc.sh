@@ -30,28 +30,28 @@ orderValue=${orderValue%.*}
 # 10.000 EUR 0,25 % from order value 25,00 EUR 22,50 EUR 20,00 EUR
 # 15.000 EUR 0,25 % from order value 37,50 EUR 33,75 EUR 30,00 EUR
 # 25.000 EUR Maximalprovision 58,90 EUR 53,01 EUR 47,12 EUR
-txFee=7,12
+TX_FEE=7,12
 if [ "$orderValue" -gt 25000 ]; then 
-    txFee=47.12
+    TX_FEE=47.12
 elif [ "$orderValue" -gt 15000 ]; then 
-    txFee=30.0
+    TX_FEE=30.0
 elif [ "$orderValue" -gt 10000 ]; then 
-    txFee=20.0
+    TX_FEE=20.0
 elif [ "$orderValue" -gt 5000 ]; then
-    txFee=10.0
+    TX_FEE=10.0
 fi
-txFee=$(echo "$txFee 2" | awk '{print $1 * $2}')
-txFee=1 # Trade Republic
+TX_FEE=$(echo "$TX_FEE 2" | awk '{print $1 * $2}')
+TX_FEE=1 # Trade Republic
 
 spreadFee=$(echo "$1 $2 $3" | awk '{print ($1 * $2 * $3 / 100)}')
 sellValue=$(echo "$2 $4" | awk '{print $1 * $2}')
-diffValue=$(echo "$sellValue $orderValue $txFee $3" | awk '{print ($1 - $2 - $3 - $4)}') # $3 is this correct ??
+diffValue=$(echo "$sellValue $orderValue $TX_FEE $3" | awk '{print ($1 - $2 - $3 - $4)}') # $3 is this correct ??
 percentValue=$(echo "$sellValue $orderValue" | awk '{print (($1 / $2 * 100) - 100)}')
 afterTaxValue=$(echo "$diffValue 1.25" | awk '{print $1 / $2}')
 
 echo ""
 echo "Order Value: $orderValue€"
-echo "Tx Fee:     -$txFee€"
+echo "Tx Fee:     -$TX_FEE€"
 echo "Spread Fee: -$spreadFee€"
 echo "Sell Value:  $sellValue€"
 echo "Difference:  $diffValue€"

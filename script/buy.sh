@@ -18,7 +18,7 @@
 . script/functions.sh
 
 # Fix for warning: referenced but not assigned
-export txFee
+export TX_FEE
 export totalAmountOfPieces
 export summe
 
@@ -101,10 +101,10 @@ SYMBOL_NAME="${SYMBOL_NAME// /-}"
 
 # Fees
 CalculateTxFee "$priceParam" "$piecesParam"
-summePlusFees=$((summe + txFee))
+summePlusFees=$((summe + TX_FEE))
 pricePlusFees=$(echo "$summePlusFees $piecesParam" | awk '{print $1 / $2}')
 pricePlusFees=$(printf "%.2f" "$pricePlusFees")
-summe=$((summe + txFee + summeFromOwnSymbolsFile))
+summe=$((summe + TX_FEE + summeFromOwnSymbolsFile))
 
 # Prepare for eMail Header sending 
 BUY_RESULT_FILE="buy_result.txt"

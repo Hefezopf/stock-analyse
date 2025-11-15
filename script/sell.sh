@@ -17,7 +17,7 @@
 . script/functions.sh
 
 # Fix for warning: referenced but not assigned
-export txFee
+export TX_FEE
 
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
@@ -81,7 +81,7 @@ if [ "${TOTAL_PIECES}" = "$sellPiecesParam" ]; then
     sed -i "0,/^/s//$symbolParam /" "$STOCK_SYMBOLS_FILE"
     WIN_AMOUNT=$(echo "$sellPiecesParam $sellPriceParam $BUY_TOTAL_AMOUNT" | awk '{print ($1 * $2) - $3}')
     WIN_AMOUNT=$(echo "$WIN_AMOUNT" | cut -f 1 -d '.')
-    WIN_AMOUNT=$((WIN_AMOUNT - txFee))
+    WIN_AMOUNT=$((WIN_AMOUNT - TX_FEE))
     winPercentage=$(echo "scale=1; ($WIN_AMOUNT *100 / $BUY_TOTAL_AMOUNT)" | bc)
 else
     newPiecesAmount=$((TOTAL_PIECES - sellPiecesParam))
@@ -90,7 +90,7 @@ else
 
     WIN_AMOUNT=$(echo "$sellPiecesParam $sellPriceParam $AVG_PRICE $sellPiecesParam" | awk '{print ($1 * $2) - ($3 * $4)}')
     WIN_AMOUNT=$(echo "$WIN_AMOUNT" | cut -f 1 -d '.')
-    WIN_AMOUNT=$((WIN_AMOUNT - txFee))
+    WIN_AMOUNT=$((WIN_AMOUNT - TX_FEE))
 
     newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')
 

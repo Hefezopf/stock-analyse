@@ -78,28 +78,28 @@ SYMBOL_NAME="BEIERSDORF"
 
 @test "CalculateTxFee" {
   CalculateTxFee 100 25
-  [ "$txFee" == "1" ]
-#  [ "$txFee" == "10" ]
+  [ "$TX_FEE" == "1" ]
+#  [ "$TX_FEE" == "10" ]
 
   CalculateTxFee 100 35
-  [ "$txFee" == "1" ]
-#  [ "$txFee" == "10" ]
+  [ "$TX_FEE" == "1" ]
+#  [ "$TX_FEE" == "10" ]
   
   CalculateTxFee 100 51
-  [ "$txFee" == "1" ]
-#  [ "$txFee" == "15" ]
+  [ "$TX_FEE" == "1" ]
+#  [ "$TX_FEE" == "15" ]
    
   CalculateTxFee 100 104
-  [ "$txFee" == "1" ]
-#  [ "$txFee" == "20" ]
+  [ "$TX_FEE" == "1" ]
+#  [ "$TX_FEE" == "20" ]
      
   CalculateTxFee 100 155
-  [ "$txFee" == "1" ]
-#  [ "$txFee" == "30" ]
+  [ "$TX_FEE" == "1" ]
+#  [ "$TX_FEE" == "30" ]
      
   CalculateTxFee 100 400
-  [ "$txFee" == "1" ]
-#  [ "$txFee" == "47" ]
+  [ "$TX_FEE" == "1" ]
+#  [ "$TX_FEE" == "47" ]
 }
 
 @test "WriteTransactionFile" {

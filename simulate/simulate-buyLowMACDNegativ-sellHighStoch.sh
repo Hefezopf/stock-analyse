@@ -71,7 +71,7 @@ averageHoldingDaysOverallSymbols=0
 export alarmAbbrevTemplate # from functions.sh
 export winOverall=0
 export _outputText=""
-export txFee
+export TX_FEE
 
 # shellcheck disable=SC2140
 echo "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8' /><link rel='shortcut icon' type='image/ico' href='favicon.ico' /><script type='text/javascript' src='_result.js' async></script><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
@@ -229,7 +229,7 @@ do
 
                 # Fees each Buy trade
                 CalculateTxFee "$quoteAt" "$piecesPerTrade"
-                amount=$((amount - txFee))
+                amount=$((amount - TX_FEE))
               
                 piecesHold=$((piecesHold+piecesPerTrade))
                 wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')

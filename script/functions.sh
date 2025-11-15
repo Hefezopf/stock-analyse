@@ -352,24 +352,24 @@ CalculateTxFee() {
     _orderrateParam=$1
     _piecesParam=$2
 
-    #export txFee="10"
-    export txFee="1"
+    #export TX_FEE="10"
+    export TX_FEE="1"
 
     orderValue=$(echo "$_orderrateParam $_piecesParam" | awk '{print ($1 * $2)}')
     # Float to integer
     orderValue=${orderValue%.*}
 
-    txFee="10"
+    TX_FEE="10"
     if [ "$orderValue" -gt 25000 ]; then 
-        txFee="47"
+        TX_FEE="47"
     elif [ "$orderValue" -gt 15000 ]; then 
-        txFee="30"
+        TX_FEE="30"
     elif [ "$orderValue" -gt 10000 ]; then 
-        txFee="20"
+        TX_FEE="20"
     elif [ "$orderValue" -gt 5000 ]; then
-        txFee="15"
+        TX_FEE="15"
     fi
-    txFee="1"
+    TX_FEE="1"
 }
 
 # CalculateMarketCapRSILevel function:
