@@ -160,7 +160,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     // else {stockPiecesParam = 0;}    
 
     var sellPriceReplaced = parseFloat(sellPriceParam.replace(',', '.')).toFixed(2);
-    const sellingAmount = (Number(stockPiecesParam) * Number(sellPriceReplaced));
+    const sellingAmount = Math.round(Number(stockPiecesParam) * Number(sellPriceReplaced));
 
     var stocksBuyingValueId = document.getElementById('stocksBuyingValueId');
     if(stocksBuyingValueId) {    
