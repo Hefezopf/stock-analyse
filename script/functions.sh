@@ -259,6 +259,14 @@ WriteComdirectUrlAndStoreFileList() {
     _lowMarketCapBackgroundColorParam=$7
     _pathParam="$8"
     _idNotationParam="$9"
+#echo "11_linkColorParam $_linkColorParam _reasonParam $_reasonParam"
+# if [[ "$_reasonParam" == *"Sell:"* ]]; then
+#     _linkColorParam="$RED"
+# fi
+# if [ "$_reasonParam" =~ "Sell:" ] && [ "$_markerOwnStockParam" = '*' ]; then
+#     _linkColorParam="$RED"
+# fi
+#echo "22_linkColorParam $_linkColorParam _reasonParam $_reasonParam"
 
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "$_markerOwnStockParam" = '' ]; then

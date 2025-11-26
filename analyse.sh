@@ -368,6 +368,14 @@ do
             StrategieByTendency "$last" "$tendency38" "$percentageLesserFactor" "$average95" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
         fi
 
+
+#sa diasorin in überischt grün aber in deitail ROT        # Sell Strategie: Stochastic When Own
+        resultStrategieOverratedStochasticWhenOwn=""
+#echo "XXX:" "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"        
+        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
+#sa diasorin in überischt grün aber in deitail ROT
+
+
         # Buy Strategie: Low horizontal MACD
         if [ "$applyStrategieHorizontalMACD" = true ]; then
             resultStrategieUnderratedLowHorizontalMACD=""
@@ -411,10 +419,9 @@ do
             StrategieOverratedHighHorizontalMACD "$MACD_LIST" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
         fi
 
-        # Sell Strategie: Stochastic When Own
-        resultStrategieOverratedStochasticWhenOwn=""
-#echo "XXX:" "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"        
-        StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
+#sa diasorin in überischt grün aber in deitail ROT
+#sa diasorin in überischt grün aber in deitail ROT
+
 
         # Sell Strategie: Divergence RSI
         resultStrategieOverratedDivergenceRSI=""
@@ -487,7 +494,6 @@ do
             COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
         fi
 
-# Alte Reihenfolge
         echo "<p style='text-align:right'>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
@@ -497,34 +503,15 @@ do
 
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.1f" "$percentLastDay")
-        isNegativ=${percentLastDay:0:1}
+        isPercentLastDayNegativ=${percentLastDay:0:1}
         _linkColor="$GREEN"
-        if [ "$isNegativ" = '-' ]; then
+        if [ "$isPercentLastDayNegativ" = '-' ]; then
             _linkColor="$RED"
         fi
+#echo "isPercentLastDayNegativ: $isPercentLastDayNegativ $_linkColor"
 
         echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span>"
         echo "</p>"
-# Alte Reihenfolge
-
-# Neue Reihenfolge
-        # echo "<p style='text-align:right'>"
-        # echo "<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
-
-        # percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
-        # percentLastDay=$(printf "%.1f" "$percentLastDay")
-        # isNegativ=${percentLastDay:0:1}
-        # _linkColor="$GREEN"
-        # if [ "$isNegativ" = '-' ]; then
-        #     _linkColor="$RED"
-        # fi
-
-        # echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b>&nbsp;</span>"
-        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y</a>"
-        # echo "&nbsp;&nbsp;</p>"
-# Neue Reihenfolge        
         
         cat template/indexPart1a.html
 
@@ -749,12 +736,12 @@ do
         obfuscatedValueGain=$(echo "$stocksCurrentValue $stocksBuyingValue" | awk '{print $1 - $2}')
         obfuscatedValueGain="$stocksPerformance"ZZ"$obfuscatedValueGain"YY
         obfuscatedValueGain=$(echo "$obfuscatedValueGain" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-        isNegativ=${stocksPerformance:0:1}
+        isStocksPerformanceNegativ=${stocksPerformance:0:1}
         _linkColor="$GREEN"
-        if [ "$isNegativ" = '-' ]; then
+        if [ "$isStocksPerformanceNegativ" = '-' ]; then
             _linkColor="$RED"
         fi
-
+#echo "isStocksPerformanceNegativ: $isStocksPerformanceNegativ $_linkColor"
         {
             # RealTimeQuote
             # shellcheck disable=SC1078,SC1087,SC1079
@@ -847,11 +834,12 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
     obfuscatedValueGainOverall=$(echo "$obfuscatedValueSellingOverall $obfuscatedValueBuyingOverall" | awk '{print $1 - $2}')
     obfuscatedValueGainOverall="$stocksPerformanceOverall"ZZ # "$obfuscatedValueGainOverall"YY
     obfuscatedValueGainOverall=$(echo "$obfuscatedValueGainOverall" | sed 's/./&\n/g' | tac | sed -e :a -e 'N;s/\n//g;ta')
-    isNegativ=${stocksPerformanceOverall:0:1}
+    isStocksPerformanceOverallNegativ=${stocksPerformanceOverall:0:1}
     _linkColor="$GREEN"
-    if [ "$isNegativ" = '-' ]; then
+    if [ "$isStocksPerformanceOverallNegativ" = '-' ]; then
         _linkColor="$RED"
     fi
+#echo "isStocksPerformanceOverallNegativ: $isStocksPerformanceOverallNegativ $_linkColor"
 fi
 
 {
