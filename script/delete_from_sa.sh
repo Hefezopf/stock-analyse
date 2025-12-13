@@ -16,6 +16,10 @@
 # To uppercase
 symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
+if [ "${symbolParam::1}" = '*' ]; then
+    symbolParam="${symbolParam:1:7}"
+fi
+
 echo "Delete all files for $symbolParam"
 
 if { [ -z "$symbolParam" ]; } then
@@ -24,7 +28,19 @@ if { [ -z "$symbolParam" ]; } then
   exit 1
 fi
 
-# Delete $SYMBOL in stock_symbols.txt
+# Check if own symbol -> NO deletion!
+# Encrypt
+gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
+TOTAL_PIECES=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
+if { [ "$TOTAL_PIECES" ]; } then
+    echo "Error: Stock Symbol $symbolParam in portfolio!"
+    exit 2
+fi
+
+
+
+
+# Delete symbol in stock_symbols.txt
 # shellcheck disable=SC2002
 cat "$STOCK_SYMBOLS_FILE" | sed -i s/"$symbolParam "// "$STOCK_SYMBOLS_FILE"
 
