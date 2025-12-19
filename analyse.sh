@@ -185,6 +185,8 @@ do
     symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}') # BEGIN{FS
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
 
+#echo "symbol: $symbol symbolsParam: $symbolsParam symbolName: $symbolName"
+
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
     # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
     CurlSymbolName "$symbol" "$TICKER_NAME_ID_FILE" 14 "$symbolName" # !!!NOT: TICKER_NAME_ID_FILE_MEM
@@ -368,13 +370,9 @@ do
             StrategieByTendency "$last" "$tendency38" "$percentageLesserFactor" "$average95" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
         fi
 
-
-#sa diasorin in überischt grün aber in deitail ROT        # Sell Strategie: Stochastic When Own
         resultStrategieOverratedStochasticWhenOwn=""
 #echo "XXX:" "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock"        
         StrategieOverratedStochasticWhenOwn "$stochasticPercentageUpper" "$lastStochasticQuoteRounded" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
-#sa diasorin in überischt grün aber in deitail ROT
-
 
         # Buy Strategie: Low horizontal MACD
         if [ "$applyStrategieHorizontalMACD" = true ]; then
@@ -418,10 +416,6 @@ do
             resultStrategieOverratedHighHorizontalMACD=""
             StrategieOverratedHighHorizontalMACD "$MACD_LIST" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
         fi
-
-#sa diasorin in überischt grün aber in deitail ROT
-#sa diasorin in überischt grün aber in deitail ROT
-
 
         # Sell Strategie: Divergence RSI
         resultStrategieOverratedDivergenceRSI=""
@@ -741,6 +735,7 @@ do
         if [ "$isStocksPerformanceNegativ" = '-' ]; then
             _linkColor="$RED"
         fi
+#echo "----symbol: $symbol symbolsParam: $symbolsParam symbolName: $symbolName"        
 #echo "isStocksPerformanceNegativ: $isStocksPerformanceNegativ $_linkColor"
         {
             # RealTimeQuote
