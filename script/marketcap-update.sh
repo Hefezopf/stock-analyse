@@ -4,7 +4,7 @@
 #
 # Call: script/marketcap-update.sh SYMBOLS
 # Example: script/marketcap-update.sh 'BEI VH2'
-# alias ???='/d/code/stock-analyse/script/marketcap-update.sh $1'
+# alias mc='/d/code/stock-analyse/script/marketcap-update.sh $1'
 
 #set -x
 
