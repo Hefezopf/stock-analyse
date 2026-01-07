@@ -120,7 +120,7 @@ if [ ! "$(uname)" = 'Linux' ]; then
 fi
 
 if [ "$(uname)" = 'Linux' ]; then
-    echo "file:///home/markus/max/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
+    echo "file:///home/markus/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
 else
     echo "file:///C:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
 fi
