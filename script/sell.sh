@@ -119,7 +119,7 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c "$OWN_SYMBOLS_FILE" 2>/dev/n
 
 # Delete readable file
 rm -rf "$OWN_SYMBOLS_FILE"
-echo ""
+#echo ""
 
 # Write sell/SYMBOL_DATE file
 transactionSymbolLastDateFile="sell/""$symbolParam".txt
@@ -132,7 +132,7 @@ today=$(date --date="-0 day" +"%Y-%m-%d")
 echo "Win: $WIN_AMOUNT€"
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
 echo "<div>&nbsp;$today&#9;$WIN_AMOUNT&#8364;&#9;&nbsp;&#9;$winPercentage%&#9;&nbsp;&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam&#9;\"$SYMBOL_NAME\"</a></div>" >> "$TRANSACTION_HISTORY_FILE"
-echo ""
+#echo ""
 
 rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 # shellcheck disable=SC1078
@@ -167,7 +167,9 @@ lineFromFile=$(grep -F "_blank" "$TEMP_TRANSACTION_HISTORY_FILE")
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
-echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before Tax: $summe€<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+count=$(cat "$TRANSACTION_COUNT_FILE")
+count=$((count + 1))
+echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before Tax: $summe€<br>&nbsp;Transaction count: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
@@ -176,7 +178,7 @@ cat -ev "$TEMP_REVERS_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 rm -rf "$TEMP_REVERS_FILE"
 rm -rf "$TEMP_TRANSACTION_HISTORY_FILE"
 
-echo "<br>&nbsp;Sum before Tax: $summe€" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<br>&nbsp;Sum before Tax: $summe€<br>&nbsp;Transaction count: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 GetCreationDate
 # shellcheck disable=SC2154
@@ -203,7 +205,7 @@ count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
 rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
-echo "Transactions: $count (Year $(date +%Y))"
+echo "Transaction count: $count (Year $(date +%Y))"
 
 if [ ! "$(uname)" = 'Linux' ]; then
     echo ""

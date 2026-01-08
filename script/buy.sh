@@ -149,4 +149,4 @@ count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
 rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
-echo "Transactions: $count (Year $(date +%Y))"
+echo "Transaction count: $count (Year $(date +%Y))"

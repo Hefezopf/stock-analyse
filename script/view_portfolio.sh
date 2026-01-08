@@ -64,8 +64,8 @@ echo "Overall Positions: $overallPositions"
 rm -rf "$TEMP_FILE"
 rm -rf "$TEMP_FILE2"
 
-echo ""
+#echo ""
 
 # Read and output Tx
 count=$(cat "$TRANSACTION_COUNT_FILE")
-echo "Transactions: $count (Year $(date +%Y))"
+echo "Transaction count: $count (Year $(date +%Y))"
