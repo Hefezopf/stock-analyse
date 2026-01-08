@@ -21,7 +21,7 @@ WriteOverallChartsButtons() {
             ownSymbol="${ownSymbol:1:7}"
             lineFromTickerFile=$(grep -m1 -P "$ownSymbol\t" "$TICKER_NAME_ID_FILE_MEM")
             notationId=$(echo "$lineFromTickerFile" | cut -f 3)
-            echo "javascript:updateImage('$ownSymbol', '$notationId', '$_timeSpan');"
+            echo "javascript:updateImage('$ownSymbol', '$notationId', '$_timeSpan');javascript:window.scrollTo(0,0);"
         fi
     done
     echo "\">$_timeSpan</button>" 
