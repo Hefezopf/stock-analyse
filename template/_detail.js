@@ -10,7 +10,7 @@ function showChart(timeSpan) {
         elementSpanToReplace.style.transform = 'scale(1.85)';
     }
     else {
-        elementSpanToReplace.style.top = '20%';
+        elementSpanToReplace.style.top = '25%';
         elementSpanToReplace.style.left = '52%';
         elementSpanToReplace.style.transform = 'scale(1.3)';
     }   
