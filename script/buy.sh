@@ -60,8 +60,8 @@ esac
 # Decript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 
-# 1. Comment IN only line 'read -n....' to correct values
-# 2. Comment OUT .gitignore #config/own_symbols.txt
+# 1. Comment OUT in .gitignore: #config/own_symbols.txt
+# 2. Comment IN line (line 70 here) 'read -n....' to correct values
 # 3. Lookup in TradeRepublic: 'Buy In', 'Aktien' and 'Gesamtsumme' (Gesamtwert - Rendite)
 # 4. Correct values in config/own_symbols.txt
 # 5. Press ANY KEY! -> NOT ENTER
