@@ -20,8 +20,8 @@ symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 lastDaysParam=$2
 charactersParam=$3
 
-echo "Error: redundant! -> simulates-last-x-days-y-alarms.sh??"
-exit 1
+echo "Error: redundant! -> simulates-last-x-days-y-alarms.sh?? -> Delete FILE??"
+#exit 1
 
 if { [ -z "$symbolsParam" ] || [ -z "$lastDaysParam" ] || [ -z "$charactersParam" ]; } then
   echo "Error: Not all parameters specified!"
