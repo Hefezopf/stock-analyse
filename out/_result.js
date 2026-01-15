@@ -483,6 +483,7 @@ function doHideDetails() {
     var intervalSectionRealTimeQuoteValues = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
     var intervalSectionGainValues = document.querySelectorAll('[id ^= \"intervalSectionGain\"]');
     var intervalSectionPortfolioValues = document.querySelectorAll('[id ^= \"intervalSectionPortfolioValues\"]');
+    var intervalSectionImage = document.querySelectorAll('[id ^= \"intervalSectionImage\"]');
 
     var symbolLineIdValues = document.querySelectorAll('[id ^= \"symbolLineId\"]');
     if(toggleIsDetailsVisible) {
@@ -492,6 +493,7 @@ function doHideDetails() {
         Array.prototype.forEach.call(intervalSectionRealTimeQuoteValues, hideElement);
         Array.prototype.forEach.call(intervalSectionGainValues, hideElement);
         Array.prototype.forEach.call(intervalSectionPortfolioValues, hideElement);
+        Array.prototype.forEach.call(intervalSectionImage, hideElement);        
         if(intervalSectionButtonHideDetailsButton) {
             intervalSectionButtonHideDetailsButton.innerHTML = '- Details';
         }
@@ -506,6 +508,7 @@ function doHideDetails() {
         Array.prototype.forEach.call(intervalSectionRealTimeQuoteValues, revealElement);
         Array.prototype.forEach.call(intervalSectionGainValues, revealElement);
         Array.prototype.forEach.call(intervalSectionPortfolioValues, revealElement);
+        Array.prototype.forEach.call(intervalSectionImage, revealElement);
         intervalSectionButtonHideDetailsButton.innerHTML = '+ Details';
         Array.prototype.forEach.call(symbolLineIdValues, function(ele) {
             ele.style.display = '';
