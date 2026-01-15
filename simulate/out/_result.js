@@ -4,7 +4,7 @@
 
 // Spinner Counters
 var counterFetchLoaded = 0;
-var counterOwnStocks = 0;
+var counterOwnStocks = 10000; // 0 // Spinner hide
 
 // Realtime Overall Value
 var realtimeOverallValue = 0;
@@ -632,7 +632,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
         revealElement(linkPCValue);
     }
 
-    console.info('fetch '+ symbol + ' ...');
+    //console.info('fetch '+ symbol + ' ...'); // Spinner hide
 
     var part_url = 'aktien';
     if (['INDEX'].indexOf(asset_type) >= 0) {
@@ -640,6 +640,9 @@ function onContentLoaded(symbol, notationId, asset_type) {
             // if(symbol === "IWLE") {
         part_url = 'etfs';
     }
+
+    // Spinner hide
+    /*
     var url = 'https://www.comdirect.de/inf/' + part_url + '/detail/uebersicht.html?ID_NOTATION=' + notationId;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
@@ -802,6 +805,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
         }
     }
     xhr.send();
+    */
 }
 
 function revealElement(ele) {
