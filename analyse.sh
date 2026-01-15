@@ -155,9 +155,9 @@ echo "</span>" >> "$OUT_RESULT_FILE"
     #echo "<button id='intervalSectionButtonSortValue' style='font-size:large; height: 60px; width: 110px; display: none' disabled='disabled' type='button' onClick='javascript:doSortInvestedValue()'>&nbsp;&nbsp;Value&nbsp;€</button>&nbsp;"
     #echo "<button id='intervalSectionButtonSortOverall' style='font-size:large; height: 60px; width: 110px; display: none' disabled='disabled' type='button' onClick='javascript:doSortOverallGain()'>&nbsp;&nbsp;&sum;&nbsp;%</button>&nbsp;"
 # // Spinner hide    
-    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 60px; width: 110px; display: none' disabled='disabled' type='button' onClick='javascript:doHideDetails()'>&nbsp;Details</button>"
-    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 60px; width: 110px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>To End</button>"
-    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 60px; width: 110px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>"
+    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doHideDetails()'>&nbsp;Details</button>&nbsp;&nbsp;"
+    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;"
+    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;"
     echo "<hr id='intervalSectionHROverallButtons' style='display: none'>"
 } >> "$OUT_RESULT_FILE"
 
