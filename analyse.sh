@@ -76,7 +76,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate' />
 <meta http-equiv='pragma' content='no-cache' />
 <meta http-equiv='expires' content='0' />
-<link rel='shortcut icon' type='image/ico' href='favicon.ico' />
+<link rel='shortcut icon' type='image/ico' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/favicon.ico' />
 <link rel='stylesheet' href='_result.css'>
 <script type='text/javascript' src='_common.js'></script>
 <script type='text/javascript' src='_result.js'></script>
