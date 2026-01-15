@@ -3,8 +3,10 @@
 // 
 
 // Spinner Counters
-var counterFetchLoaded = 0;
+// Spinner hide
+/* var counterFetchLoaded = 0;
 var counterOwnStocks = 0; // 0 // Spinner hide
+ */
 
 // Realtime Overall Value
 var realtimeOverallValue = 0;
@@ -21,20 +23,21 @@ function isMobil() {
     }
 }
 
+// Spinner hide
 // Refresh the page after a delay of initRefreshSeconds seconds
 // If changed, change max=300  here as well: analyse.sh: <progress value='0' max='300' id='intervalSectionHeadlineDailyProgressBar'
 // const initRefreshSeconds = 20;
-const initRefreshSeconds = 300;
+/* const initRefreshSeconds = 300;
 // if (!isMobil() && location.href.endsWith('_result.html')) {
 if (location.href.startsWith('file') && location.href.endsWith('_result.html')) {
         setTimeout(function() {
         location.reload();
     // 300 * 1000 milliseconds = 300 seconds = 5 Min
     }, initRefreshSeconds * 1000);
-}
+} */
 
 // 300 seconds total
-var timeleftToRefresh = initRefreshSeconds;
+/* var timeleftToRefresh = initRefreshSeconds;
 var progressBarTimer = setInterval(function() {
   if(timeleftToRefresh <= 0) {
     clearInterval(progressBarTimer);
@@ -45,7 +48,8 @@ var progressBarTimer = setInterval(function() {
   }
   timeleftToRefresh -= 1;
   // Visualize in 1 second steps
-}, 1000);
+}, 1000); */
+// Spinner hide
 
 var delay = ( function() {
     var timer = 0;
@@ -57,9 +61,10 @@ var delay = ( function() {
 
 // Spinner
 var intervalLoadingSpinnerId = setInterval(function () {
-    if (counterFetchLoaded >= counterOwnStocks) {
+    // Spinner hide
+   // if (counterFetchLoaded >= counterOwnStocks) {
         // Show local link, if on PC
-        if (location.href.startsWith('file')) {
+        /* if (location.href.startsWith('file')) {
             delay(function() {
                 processAll();
                 doHideDetails();
@@ -67,9 +72,10 @@ var intervalLoadingSpinnerId = setInterval(function () {
             // end delay, timeout, Warten
             }, 1000);
         }   
-        else {
+         else {
+        */
             document.getElementsByTagName('body')[0].ondblclick = processAll;
-        }
+      //  }
         hideSpinner();
         clearInterval(intervalLoadingSpinnerId);
         // Enable Buttons
@@ -97,8 +103,9 @@ var intervalLoadingSpinnerId = setInterval(function () {
         if(intervalSectionButtonOpenAll) {
             intervalSectionButtonOpenAll.disabled = false;
         }
-    }
-}, 3000);
+   // }
+}, 10);
+// Spinner hide
 
 function setBeepInterval(symbol) {
     var intervalValue = document.getElementById('intervalField' + symbol).value;
@@ -414,12 +421,14 @@ function addButtons(container) {
     container.appendChild(document.createElement("br"));
     container.appendChild(document.createElement("br"));
 
-    container.appendChild(intervalSectionButtonSortDailyButton);
+    // Spinner hide
+    /* container.appendChild(intervalSectionButtonSortDailyButton);
     container.appendChild(document.createTextNode(" "));
     container.appendChild(intervalSectionButtonSortValueButton);
     container.appendChild(document.createTextNode(" "));
     container.appendChild(intervalSectionButtonSortOverallButton);
-    container.appendChild(document.createTextNode(" "));
+    container.appendChild(document.createTextNode(" ")); */
+    // Spinner hide
     container.appendChild(intervalSectionButtonHideDetails);
     container.appendChild(document.createTextNode(" "));
     container.appendChild(intervalSectionButtonGoToEnd);
@@ -572,7 +581,7 @@ function processAll(ele) {
                 }
 
                 if (diff === "NaN") {
-                    obfuscatedValueBuyingDailyRealtimeElem.innerHTML = 'TIMEOUT / Moesif CORS';
+                  //  obfuscatedValueBuyingDailyRealtimeElem.innerHTML = 'TIMEOUT / Moesif CORS';
                     obfuscatedValueBuyingDailyRealtimeElem.style.color = 'red';
                 }
                 else {
@@ -632,7 +641,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
         revealElement(linkPCValue);
     }
 
-    console.info('fetch '+ symbol + ' ...'); // Spinner hide
+    //console.info('fetch '+ symbol + ' ...'); // Spinner hide
 
     var part_url = 'aktien';
     if (['INDEX'].indexOf(asset_type) >= 0) {
@@ -642,6 +651,7 @@ function onContentLoaded(symbol, notationId, asset_type) {
     }
 
     // Spinner hide
+    /*
     var url = 'https://www.comdirect.de/inf/' + part_url + '/detail/uebersicht.html?ID_NOTATION=' + notationId;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
@@ -804,6 +814,8 @@ function onContentLoaded(symbol, notationId, asset_type) {
         }
     }
     xhr.send();
+    */
+   // Spinner hide
 }
 
 function revealElement(ele) {
