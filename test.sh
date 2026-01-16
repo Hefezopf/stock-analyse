@@ -77,6 +77,7 @@ bats --tap --timing test/averages.bats
 bats --tap --timing test/functions.bats
 bats --tap --timing test/simulate.bats
 bats --tap --timing test/strategies.bats
+#bats --verbose-run --tap --timing test/strategies.bats -x --gather-test-outputs-in ~/tmp
 
 # Cleanup
 rm -rf 30

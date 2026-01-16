@@ -88,7 +88,7 @@ StrategieOverratedDivergenceRSI() {
 
     isMACDNegativ=${_lastMACDParam:0:1}
     if [ "$_lastRSIParam" -gt "$_highRSIValueParam" ] && [ "$isMACDNegativ" != '-' ]; then
-        newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"; else print "false"}')
+        newHigh=$(echo "$_lastQuoteParam" "$_beforeLastQuoteParam" | awk '{if ($1 > $2) print "true"}')
         if [ "$newHigh" = true ] && [ "$_lastRSIParam" -le "$_beforeLastRSIParam" ]; then
             alarmAbbrevValue="D-"$alarmAbbrevValue
             reasonPrefix="Sell: RSI Divergence (D)"
@@ -415,7 +415,7 @@ StrategieUnderratedLowHorizontalMACD() {
         valueNewMACDLow=100
         _MACDQuoteListParam="${_MACDQuoteListParam//,/ }"
         for valueMACD in $_MACDQuoteListParam
-        do
+        do      
             if [ "$jj_index" = 71 ]; then
                 valueMACDLast_3="$valueMACD" 
             fi
@@ -428,13 +428,19 @@ StrategieUnderratedLowHorizontalMACD() {
             if [ "$jj_index" = 74 ]; then
                 valueMACDLast_0="$valueMACD" 
             fi
+
             jj_index=$((jj_index + 1))
 
             isMACDHorizontalAlarm1=false
-            isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
+            isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"}')      
             if [ "$isNewMACDLower" = true ]; then
             #if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
-                valueNewMACDLow="$valueMACD"
+                
+                # valueNewMACDLow="$valueMACD"
+                if [ "$jj_index" -le 70 ]; then
+                    continue
+                fi           
+
                 isNegativMACDLast_0=${valueMACDLast_0:0:1}
                 isNegativMACDLast_1=${valueMACDLast_1:0:1}
                 isNegativMACDLast_2=${valueMACDLast_2:0:1}
@@ -442,9 +448,10 @@ StrategieUnderratedLowHorizontalMACD() {
                 if [ "$isNegativMACDLast_0" = '-' ] && [ "$isNegativMACDLast_1" = '-' ] && [ "$isNegativMACDLast_2" = '-' ] && [ "$isNegativMACDLast_3" = '-' ]; then
                     isMACDHorizontalAlarm1=true
                 fi
-            else
-                valueNewMACDLow="$valueMACD"
+            # else
+            #     valueNewMACDLow="$valueMACD"
             fi
+            valueNewMACDLow="$valueMACD" # ???
         done
   
         # Check if MACD is horizontal?
