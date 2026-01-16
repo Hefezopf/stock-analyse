@@ -412,7 +412,7 @@ StrategieUnderratedLowHorizontalMACD() {
         #_MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
         _MACDQuoteListParam="${_MACDQuoteListParam:25}"
         jj_index=0
-        valueNewMACDLow=100
+        #valueNewMACDLow=100
         _MACDQuoteListParam="${_MACDQuoteListParam//,/ }"
         for valueMACD in $_MACDQuoteListParam
         do      
@@ -432,8 +432,8 @@ StrategieUnderratedLowHorizontalMACD() {
             jj_index=$((jj_index + 1))
 
             isMACDHorizontalAlarm1=false
-            isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"}')      
-            if [ "$isNewMACDLower" = true ]; then
+         #   isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"}')      
+          #  if [ "$isNewMACDLower" = true ]; then
             #if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
                 
                 # valueNewMACDLow="$valueMACD"
@@ -450,8 +450,8 @@ StrategieUnderratedLowHorizontalMACD() {
                 fi
             # else
             #     valueNewMACDLow="$valueMACD"
-            fi
-            valueNewMACDLow="$valueMACD" # ???
+          #  fi
+         #   valueNewMACDLow="$valueMACD" # ???
         done
   
         # Check if MACD is horizontal?
