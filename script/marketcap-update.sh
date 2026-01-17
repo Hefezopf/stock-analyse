@@ -229,7 +229,7 @@ fi
 # fi
 if [ "$firmenportraitWarningSymbols" ]; then
     echo ""
-    echo "Symbols with firmenportrait Warning: firmenportraitWarningSymbols=$firmenportraitWarningSymbols"
+    echo "Symbols with Firmenportrait Warning: firmenportraitWarningSymbols=$firmenportraitWarningSymbols"
 fi
 if [ "$spreadWarningSymbols" ]; then
     echo ""
