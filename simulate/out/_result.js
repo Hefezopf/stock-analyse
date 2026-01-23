@@ -612,9 +612,9 @@ function processAll(ele) {
        // intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";
 
         // Hide Sort Buttons, because CORS is not working there!
-        document.getElementById('intervalSectionButtonSortDaily').disabled = true;
-        document.getElementById('intervalSectionButtonSortOverall').disabled = true;
-        document.getElementById('intervalSectionButtonSortValue').disabled = true;
+      //  document.getElementById('intervalSectionButtonSortDaily').disabled = true;
+      //  document.getElementById('intervalSectionButtonSortOverall').disabled = true;
+      //  document.getElementById('intervalSectionButtonSortValue').disabled = true;
     }
      
     toggleIsContentVisible = !toggleIsContentVisible;
