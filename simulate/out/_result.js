@@ -74,6 +74,7 @@ var intervalLoadingSpinnerId = setInterval(function () {
         }   
          else {
         */
+        console.log('xxxxxxxx');
             document.getElementsByTagName('body')[0].ondblclick = processAll;
       //  }
         hideSpinner();
