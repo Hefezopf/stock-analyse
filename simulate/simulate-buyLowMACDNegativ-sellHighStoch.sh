@@ -74,7 +74,7 @@ export _outputText=""
 export TX_FEE
 
 # shellcheck disable=SC2140
-echo "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8' /><link rel='shortcut icon' type='image/ico' href='favicon.ico' /><script type='text/javascript' src='_result.js' async></script><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
+echo "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8' /><link rel='icon' type='image/x-icon' href='favicon.ico' /><script type='text/javascript' src='_result.js' async></script><title>Simulate</title></head><body>" >> $OUT_SIMULATE_FILE
 
 Out "" $OUT_SIMULATE_FILE
 Out "# SA Simulate" $OUT_SIMULATE_FILE
