@@ -166,7 +166,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
     body {
         /* width: 750px; */
 /* width: 150px;*/
-  /*       font-size: xx-large;*/
+        font-size: large;
         zoom: 2.5; 
         background: red;
     }
@@ -178,9 +178,15 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 
     #parameterId {
            /* width: 280px; */
-            /* font-size: xx-large; */
+           /* font-size: x-large;*/
             background: green;
-    }     
+    }
+
+    #headlineLinkId {
+           /* width: 280px; */
+            font-size: large;
+            background: blue;
+    } 
 }
 
 /* Safari */
