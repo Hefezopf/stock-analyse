@@ -480,7 +480,7 @@ do
         fi
 
         # Hover Chart (on detail page; top URLs)
-        echo "<img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;'/>"
+        echo "<img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;pointer-events:none;'/>"
         COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
         COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
         COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
