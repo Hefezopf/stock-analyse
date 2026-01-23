@@ -829,36 +829,15 @@ function revealElement(ele) {
 
 function showChart(timeSpan, symbol) {
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-    elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
-    //    console.log('block')
+    elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.style.top = '30%';
     elementSpanToReplace.style.left = '5%';
     elementSpanToReplace.style.transform = 'scale(1.05)';
     // Concat is not clean, but works!
-   
-        
-    var elementDivImgWrapper = document.getElementById('divImgWrapper'+ symbol);
-      elementDivImgWrapper.style.display = 'block'; 
-
-      elementSpanToReplace.style.display = 'block';
-// setTimeout(() => {
-//   console.log("showChart");
-//    elementSpanToReplace.style.display = 'block';
-   
-// }, 100);
-
+    elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
 }
 
 function hideChart(symbol) {
-  console.log("hideChart");
-    var elementDivImgWrapper = document.getElementById('divImgWrapper'+ symbol);
-    elementDivImgWrapper.style.display = 'none';
-    
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'none';
-// setTimeout(() => {
-
-//     //console.log('none')  
-// }, 500);
-
 }
