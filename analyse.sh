@@ -167,7 +167,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
         /* width: 750px; */
         /* width: 150px;*/
         font-size: xx-large;
-        zoom: 2.0; 
+        zoom: 2.5; 
         background: red;
     }
     body > div > div { 
