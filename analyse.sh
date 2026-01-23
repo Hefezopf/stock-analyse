@@ -167,14 +167,14 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
         /* width: 750px; */
         /* width: 150px;*/
         font-size: xx-large;
-        zoom: 1.5; 
+        zoom: 2.0; 
         background: red;
     }
     body > div > div { 
         background: yellow;
      }
     body > div > div > div { 
-        font-size: xxx-large;
+        font-size: xx-large;
         background: blue;
      }     
 /*
