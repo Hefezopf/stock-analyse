@@ -835,17 +835,28 @@ function showChart(timeSpan, symbol) {
     elementSpanToReplace.style.left = '5%';
     elementSpanToReplace.style.transform = 'scale(1.05)';
     // Concat is not clean, but works!
-    elementSpanToReplace.style.display = 'block';
+   
         
     var elementDivImgWrapper = document.getElementById('divImgWrapper'+ symbol);
-    elementDivImgWrapper.style.display = 'block'; 
+      elementDivImgWrapper.style.display = 'block'; 
+setTimeout(() => {
+  console.log("showChart");
+   elementSpanToReplace.style.display = 'block';
+   
+}, 100);
+
 }
 
 function hideChart(symbol) {
+  console.log("hideChart");
     var elementDivImgWrapper = document.getElementById('divImgWrapper'+ symbol);
     elementDivImgWrapper.style.display = 'none';
     
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-    //elementSpanToReplace.style.display = 'none';
-    //console.log('none')
+    elementSpanToReplace.style.display = 'none';
+// setTimeout(() => {
+
+//     //console.log('none')  
+// }, 500);
+
 }
