@@ -170,12 +170,11 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
         zoom: 2.5; 
         background: red;
     }
-    /* body > div { */
-        /* width: 750px; */
-        /* width: 780px; */
+    body > div > div { 
+        width: 280px;
         /* font-size: xx-large; */
-        /* background: red; */
-    /* } */
+        background: yellow;
+     }
 }
 
 /* Safari */
