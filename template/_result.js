@@ -74,14 +74,14 @@ var intervalLoadingSpinnerId = setInterval(function () {
         }   
          else {
         */
-        console.log('xxxxxxxx1');
+    //    console.log('xxxxxxxx1');
             document.getElementsByTagName('body')[0].ondblclick = processAll;
-             console.log('xxxxxxxx2');
+     //        console.log('xxxxxxxx2');
       //  }
        // hideSpinner();
-          console.log('xxxxxxxx3');
+     //     console.log('xxxxxxxx3');
         clearInterval(intervalLoadingSpinnerId);
-          console.log('xxxxxxxx4');
+     //     console.log('xxxxxxxx4');
         // Enable Buttons
         var intervalSectionButtonSortDaily = document.querySelector('#intervalSectionButtonSortDaily');
         if(intervalSectionButtonSortDaily) {
@@ -107,7 +107,7 @@ var intervalLoadingSpinnerId = setInterval(function () {
         if(intervalSectionButtonOpenAll) {
             intervalSectionButtonOpenAll.disabled = false;
         }
-          console.log('xxxxxxxx5');
+     //     console.log('xxxxxxxx5');
    // }
 }, 10);
 // Spinner hide
@@ -542,9 +542,12 @@ function revers(num) {
 var toggleIsContentVisible = false;
 var toggleDecryptOnlyOnce = false;
 function processAll(ele) {
+     console.log('xxxxxxxx1');
     var intervalValues = document.querySelectorAll('[id ^= \"intervalSection\"]');
     var obfuscatedValues = document.querySelectorAll('[id ^= \"obfuscatedValue\"]');
+     console.log('xxxxxxxx2');
     if (!toggleIsContentVisible) {
+         console.log('xxxxxxxx3');
         Array.prototype.forEach.call(intervalValues, revealElement);
 
         var intervalOwnSymbolsValues = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
@@ -601,6 +604,7 @@ function processAll(ele) {
         }
     }
     else {
+         console.log('xxxxxxxx4');
         Array.prototype.forEach.call(intervalValues, hideElement);
         Array.prototype.forEach.call(obfuscatedValues, hideElement);
     }
@@ -608,6 +612,7 @@ function processAll(ele) {
     var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');
     
     if(isMobil()) {
+         console.log('xxxxxxxx5');
         // Hide Refresh ProgressBar in Mobil Version, because CORS is not working there!
         Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
         intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";
