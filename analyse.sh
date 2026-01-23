@@ -166,16 +166,16 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
     body {
         /* width: 750px; */
         /* width: 150px;*/
-        font-size: xx-large;
-        zoom: 2.0; 
-        background: red;
+        /* font-size: xx-large;
+        zoom: 2.0; */
+        background: blue;
     }
     body > div > div { 
         background: yellow;
      }
     body > div > div > div { 
-        font-size: xx-large;
-        background: blue;
+        font-size: xxx-large;
+        background: green;
      }     
 /*
     #parameterId {
