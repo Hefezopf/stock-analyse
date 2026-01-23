@@ -178,17 +178,6 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
     /* } */
 }
 
-/* Spinner */
-/* .loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-} */
-
 /* Safari */
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
@@ -250,7 +239,7 @@ stochasticPercentageUpper=$((100-stochasticPercentageParam))
 
 # Spinner
 echo "<div id='spinner' style='display: X' class='loader'></div>" >> "$OUT_RESULT_FILE"
-echo "<span id='parameterId'>" >> "$OUT_RESULT_FILE"
+echo "<div id='parameterId'>" >> "$OUT_RESULT_FILE"
 Out "# SA Analyse" "$OUT_RESULT_FILE"
 Out "###########" "$OUT_RESULT_FILE"
 Out "" "$OUT_RESULT_FILE"
@@ -265,7 +254,7 @@ echo "<br>" >> "$OUT_RESULT_FILE"
 echo "Stochastic:$stochasticPercentageParam " | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
 echo "RSI:$RSIQuoteParam" | tee -a "$OUT_RESULT_FILE"
-echo "</span>" >> "$OUT_RESULT_FILE"
+echo "</div>" >> "$OUT_RESULT_FILE"
 {
     echo "<span id='analyseId'><br><br># Analyse<br><br></span>"
 # // Spinner hide
