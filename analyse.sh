@@ -891,7 +891,7 @@ do
             echo "</span>"
 
             # Image Chart
-            echo "<br><img id='intervalSectionImage$symbol' alt='' src='#' style='display: none; width:68%'><br>
+            echo "<br><img id='intervalSectionImage$symbol' alt='' src='#' style='display: none; width:78%'><br>
                   <button id=\"intervalSectionButtonDetails1D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '1D')\">1D</button>
                   <button id=\"intervalSectionButtonDetails5D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '5D')\">5D</button>
                   <button id=\"intervalSectionButtonDetails10D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '10D')\">10D</button>
