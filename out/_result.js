@@ -107,7 +107,6 @@ var intervalLoadingSpinnerId = setInterval(function () {
         if(intervalSectionButtonOpenAll) {
             intervalSectionButtonOpenAll.disabled = false;
         }
-     //     console.log('xxxxxxxx5');
    // }
 }, 10);
 // Spinner hide
@@ -612,7 +611,6 @@ function processAll(ele) {
     var intervalSectionHeadlineDailyProgressBarSpan = document.getElementById('intervalSectionHeadlineDailyProgressBarSpan');
     
     if(isMobil()) {
-         console.log('xxxxxxxx5');
         // Hide Refresh ProgressBar in Mobil Version, because CORS is not working there!
        // Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
        // intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";

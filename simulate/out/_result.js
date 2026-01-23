@@ -107,7 +107,6 @@ var intervalLoadingSpinnerId = setInterval(function () {
         if(intervalSectionButtonOpenAll) {
             intervalSectionButtonOpenAll.disabled = false;
         }
-     //     console.log('xxxxxxxx5');
    // }
 }, 10);
 // Spinner hide
