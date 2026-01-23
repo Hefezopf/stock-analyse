@@ -829,15 +829,23 @@ function revealElement(ele) {
 
 function showChart(timeSpan, symbol) {
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-    elementSpanToReplace.style.display = 'block';
+    elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
+    //    console.log('block')
     elementSpanToReplace.style.top = '30%';
     elementSpanToReplace.style.left = '5%';
     elementSpanToReplace.style.transform = 'scale(1.05)';
     // Concat is not clean, but works!
-    elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
+    elementSpanToReplace.style.display = 'block';
+        
+    var elementDivImgWrapper = document.getElementById('divImgWrapper'+ symbol);
+    elementDivImgWrapper.style.display = 'block'; 
 }
 
 function hideChart(symbol) {
+    var elementDivImgWrapper = document.getElementById('divImgWrapper'+ symbol);
+    elementDivImgWrapper.style.display = 'none';
+    
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
-    elementSpanToReplace.style.display = 'none';
+    //elementSpanToReplace.style.display = 'none';
+    //console.log('none')
 }
