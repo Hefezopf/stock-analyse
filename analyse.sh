@@ -165,28 +165,24 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
         /* width: 750px; */
-/* width: 150px;*/
+        /* width: 150px;*/
         font-size: large;
         zoom: 2.5; 
         background: red;
     }
     body > div > div { 
-       /* width: 280px; */
-        /* font-size: xx-large; */
         background: yellow;
      }
-
+/*
     #parameterId {
-           /* width: 280px; */
-           /* font-size: x-large;*/
             background: green;
     }
 
     #headlineLinkId {
-           /* width: 280px; */
             font-size: large;
             background: blue;
-    } 
+    }
+*/
 }
 
 /* Safari */
