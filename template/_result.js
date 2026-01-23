@@ -614,8 +614,8 @@ function processAll(ele) {
     if(isMobil()) {
          console.log('xxxxxxxx5');
         // Hide Refresh ProgressBar in Mobil Version, because CORS is not working there!
-        Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
-        intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";
+       // Array.prototype.forEach.call(intervalSectionHeadlineDailyProgressBarSpan, hideElement);
+       // intervalSectionHeadlineDailyProgressBarSpan.style.display = "none";
 
         // Hide Sort Buttons, because CORS is not working there!
         document.getElementById('intervalSectionButtonSortDaily').disabled = true;
