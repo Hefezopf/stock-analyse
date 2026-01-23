@@ -839,11 +839,13 @@ function showChart(timeSpan, symbol) {
         
     var elementDivImgWrapper = document.getElementById('divImgWrapper'+ symbol);
       elementDivImgWrapper.style.display = 'block'; 
-setTimeout(() => {
-  console.log("showChart");
-   elementSpanToReplace.style.display = 'block';
+
+      elementSpanToReplace.style.display = 'block';
+// setTimeout(() => {
+//   console.log("showChart");
+//    elementSpanToReplace.style.display = 'block';
    
-}, 100);
+// }, 100);
 
 }
 
