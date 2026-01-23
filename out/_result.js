@@ -74,11 +74,14 @@ var intervalLoadingSpinnerId = setInterval(function () {
         }   
          else {
         */
-        console.log('xxxxxxxx');
+        console.log('xxxxxxxx1');
             document.getElementsByTagName('body')[0].ondblclick = processAll;
+             console.log('xxxxxxxx2');
       //  }
         hideSpinner();
+          console.log('xxxxxxxx3');
         clearInterval(intervalLoadingSpinnerId);
+          console.log('xxxxxxxx4');
         // Enable Buttons
         var intervalSectionButtonSortDaily = document.querySelector('#intervalSectionButtonSortDaily');
         if(intervalSectionButtonSortDaily) {
@@ -104,6 +107,7 @@ var intervalLoadingSpinnerId = setInterval(function () {
         if(intervalSectionButtonOpenAll) {
             intervalSectionButtonOpenAll.disabled = false;
         }
+          console.log('xxxxxxxx5');
    // }
 }, 10);
 // Spinner hide
