@@ -165,17 +165,18 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
         /* width: 750px; */
-        /* width: 150px;*/
+        /* width: 150px; */
         font-size: xx-large;
         zoom: 1.2;
-        background: blue;
+        /* background: blue; */
     }
     body > div > div { 
-        background: yellow;
-     }
+        /* background: yellow; */
+    }
+    /* headlineLink */
     body > div > div > div { 
         font-size: xxx-large;
-        background: green;
+        /* background: green; */
      }     
 /*
     #parameterId {
