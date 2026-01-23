@@ -170,9 +170,6 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
         zoom: 1.3;
         /* background: blue; */
     }
-    body > div > div { 
-        /* background: yellow; */
-    }
     /* headlineLink */
     body > div > div > div { 
         font-size: xxx-large;

@@ -131,17 +131,29 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
         /* width: 750px; */
-        /* width: 850px; */
+        /* width: 150px; */
         font-size: xx-large;
-        /* zoom: 2.5; */
-        /* background: red; */
+        zoom: 1.3;
+        /* background: blue; */
     }
-    /* body > div { */
-        /* width: 750px; */
-        /* width: 780px; */
-        /* font-size: xx-large; */
-        /* background: red; */
-    /* } */
+    body > div > div { 
+        /* background: yellow; */
+    }
+    /* headlineLink */
+    body > div > div > div { 
+        font-size: xxx-large;
+        /* background: green; */
+     }     
+/*
+    #parameterId {
+            background: green;
+    }
+
+    #headlineLinkId {
+            font-size: large;
+            background: blue;
+    }
+*/
 }
 
 /* Safari */
