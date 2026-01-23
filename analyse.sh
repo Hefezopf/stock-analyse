@@ -165,10 +165,10 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
         /* width: 750px; */
-width: 150px;
-        font-size: xx-large;
+/* width: 150px;*/
+  /*       font-size: xx-large;*/
         zoom: 2.5; 
-        background: blue;
+        background: red;
     }
     /* body > div { */
         /* width: 750px; */
