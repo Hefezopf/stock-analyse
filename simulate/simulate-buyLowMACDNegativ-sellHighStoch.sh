@@ -41,7 +41,7 @@ alarmCountForIndexOrigParam=$9 # Copy as orig. value needed for summary at the e
 export LC_ALL=en_US.UTF-8
 
 cp out/_result.js simulate/out
-cp out/_result.css simulate/out
+# cp out/_result.css simulate/out
 
 OUT_SIMULATE_FILE="simulate/out/_simulate.html"
 QUOTE_MAX_VALUE=999999

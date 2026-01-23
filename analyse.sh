@@ -64,7 +64,7 @@ mkdir -p "$TEMP_DIR/config"
 cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 cp template/favicon.ico out
 cp template/_common.js out
-cp template/_result.css out
+# cp template/_result.css out
 cp template/_result.js out
 
 rm -rf "$OUT_RESULT_FILE"
@@ -83,7 +83,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 
 
 
-<style>
+<style type='text/css'>
 /* Colors */
 .green{color:green;} .red{color:red;} .black{color:black;}
 
