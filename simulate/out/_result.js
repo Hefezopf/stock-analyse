@@ -78,7 +78,7 @@ var intervalLoadingSpinnerId = setInterval(function () {
             document.getElementsByTagName('body')[0].ondblclick = processAll;
              console.log('xxxxxxxx2');
       //  }
-        hideSpinner();
+       // hideSpinner();
           console.log('xxxxxxxx3');
         clearInterval(intervalLoadingSpinnerId);
           console.log('xxxxxxxx4');
@@ -150,7 +150,7 @@ function updateImage(symbol, notationId, timespan) {
     }
 
     if(isMobil()) {
-        newWidth = '80%';
+        newWidth = '100%';
     }
 
     if (timespan !== undefined) {
