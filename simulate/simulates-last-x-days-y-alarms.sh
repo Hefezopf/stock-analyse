@@ -35,7 +35,7 @@ rm -f ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo ""
-echo "# SA Simulates Last X Days Y Alarms"
+echo "# SA Simulate Last X Days, with minimum Y Alarms"
 echo ""
 echo "Symbols($countSymbols)"
 
