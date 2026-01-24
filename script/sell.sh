@@ -146,9 +146,6 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <script type='text/javascript' src='_common.js'></script>
 <script type='text/javascript' src='_result.js'></script>
 <title>Performance SA $(date +%Y)</title>
-<style type='text/css'>
-div {font-size: x-large; padding-top: 10px;}
-</style>
 
 <style type='text/css'>
 /* Colors */
@@ -231,32 +228,22 @@ div {font-size: x-large; padding-top: 10px;}
 /* iPhone 16 (Meines 09/2024) */
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
-        /* width: 750px; */
-        /* width: 150px; */
-        font-size: xx-large;
-        zoom: 1.6;
-        background: blue;
-    }
-    /*
-    body > div > div { 
-        font-size: xx-large;
-    }
-    */
-    /* headlineLink */
-    body > div > div > div { 
         font-size: xxx-large;
-        /* background: green; */
-     }     
-/*
-    #parameterId {
-            background: green;
+     /*
+        zoom: 1.2;
+           */
+        background: yellow;
+    }
+    
+    body > div { 
+        font-size: xx-large;
+        zoom: 1.1;
     }
 
-    #headlineLinkId {
-            font-size: large;
-            background: blue;
+    body > div > div { 
+        font-size: xxx-large;
+        zoom: 0.8;
     }
-*/
 }
 
 /* Safari */
