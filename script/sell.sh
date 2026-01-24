@@ -228,21 +228,7 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 /* iPhone 16 (Meines 09/2024) */
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
-        font-size: xxx-large;
-     /*
-        zoom: 1.2;
-           */
-        background: yellow;
-    }
-    
-    body > div { 
-        font-size: xx-large;
-        zoom: 1.1;
-    }
-
-    body > div > div { 
-        font-size: xxx-large;
-        zoom: 0.8;
+        font-size: 290%;
     }
 }
 
@@ -279,7 +265,7 @@ summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
 echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before Tax: $summe€<br>&nbsp;Transaction count: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
-echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<button id='performanceButtonOpenAll' style='font-size:x-large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
 awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' $TRANSACTION_HISTORY_FILE* > "$TEMP_REVERS_FILE"
