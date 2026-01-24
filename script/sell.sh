@@ -234,13 +234,14 @@ div {font-size: x-large; padding-top: 10px;}
         /* width: 750px; */
         /* width: 150px; */
         font-size: xx-large;
-        zoom: 1.2;
-        /* background: blue; */
+        zoom: 1.6;
+        background: blue;
     }
+    /*
     body > div > div { 
         font-size: xx-large;
-        /* background: green; */
     }
+    */
     /* headlineLink */
     body > div > div > div { 
         font-size: xxx-large;
