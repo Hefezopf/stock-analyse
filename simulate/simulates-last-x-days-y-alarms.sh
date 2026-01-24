@@ -147,7 +147,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <div>"
 # shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "Simulate Last '$lastDaysParam' Days, with minimum '$alarmCharactersParam' Alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "Simulate Last '$lastDaysParam' Days,<br>with minimum '$alarmCharactersParam' Alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
