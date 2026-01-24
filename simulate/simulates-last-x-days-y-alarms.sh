@@ -50,12 +50,6 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <title>Simulate Last Alarms</title>
 
 <style type='text/css'>
-/* Colors */
-.green{color:green;} .red{color:red;} .black{color:black;}
-
-/* .imgborder { border: 1px solid; pointer-events: none;} */
-.imgborder { border: 1px solid;} 
-
 /* iPhone 3 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) {
     body > div {
@@ -130,30 +124,8 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 /* iPhone 16 (Meines 09/2024) */
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
-        /* width: 750px; */
-        /* width: 150px; */
-        font-size: xx-large;
-        zoom: 1.3;
-        /* background: blue; */
+        font-size: 290%;
     }
-    body > div > div { 
-        /* background: yellow; */
-    }
-    /* headlineLink */
-    body > div > div > div { 
-        font-size: xxx-large;
-        /* background: green; */
-     }     
-/*
-    #parameterId {
-            background: green;
-    }
-
-    #headlineLinkId {
-            font-size: large;
-            background: blue;
-    }
-*/
 }
 
 /* Safari */
@@ -168,7 +140,6 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 }
 </style>
 
-
 </head>
 <body>
 <script>var linkMap = new Map();</script>
@@ -178,7 +149,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "Simulate Last '$lastDaysParam' Days, with minimum '$alarmCharactersParam' Alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
