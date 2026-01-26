@@ -834,8 +834,11 @@ do
     } >> "$indexSymbolFile"
 
     # Minify <Symbol>.html file
-    sed -i "s/^[ \t]*//g" "$indexSymbolFile"
-    sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript!
+    sed -i "s/^[ \t]*//g" "$indexSymbolFile" # Remove Tabs from beginning of line
+    if [ "$(uname)" != 'Linux' ]; then
+        sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript! chartjs.org doesn't work, when build with Linux!
+    fi
+    #sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript! chartjs.org doesn't work, when build with Linux!
 
     WriteComdirectUrlAndStoreFileList "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$BLACK" "$markerOwnStock" "" "$lowMarketCapLinkBackgroundColor" "" "$ID_NOTATION"
 
@@ -1021,7 +1024,10 @@ fi
 
 # Minify _result.html file
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
-sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!
+if [ "$(uname)" != 'Linux' ]; then
+    sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript! PC Links (linkPC) doesn't work, when build with Linux!
+fi
+#sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!
 
 #cp "$TICKER_NAME_ID_FILE_MEM" "config" #mem
 
