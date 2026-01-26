@@ -74,8 +74,7 @@ export _outputText=""
 export TX_FEE
 
 # shellcheck disable=SC2140
-echo "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8' /><link rel='icon' type='image/x-icon' href='favicon.ico' /><script type='text/javascript' src='_result.js' async></script><title>Simulate</title>" >> $OUT_SIMULATE_FILE
-echo "
+echo "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8' /><link rel='icon' type='image/x-icon' href='favicon.ico' /><script type='text/javascript' src='_result.js' async></script><title>Simulate</title>
 <style type='text/css'>
 /* iPhone 3 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) {
@@ -166,8 +165,7 @@ echo "
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-</style>
-" >> $OUT_SIMULATE_FILE
+</style>" >> $OUT_SIMULATE_FILE
 echo "</head><body>" >> $OUT_SIMULATE_FILE
 
 Out "" $OUT_SIMULATE_FILE
