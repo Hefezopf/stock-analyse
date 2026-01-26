@@ -835,7 +835,7 @@ do
 
     # Minify <Symbol>.html file
     sed -i "s/^[ \t]*//g" "$indexSymbolFile" # Remove Tabs from beginning of line
-    if [ "$(uname)" != 'Linux' ]; then
+    if [ "$(uname -m)" != 'x86_64' ]; then
         sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript! chartjs.org doesn't work, when build with Linux!
     fi
     #sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript! chartjs.org doesn't work, when build with Linux!
