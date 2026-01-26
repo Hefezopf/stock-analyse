@@ -35,7 +35,7 @@ rm -f ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo ""
-echo "# SA Simulate Last X Days, with minimum Y Alarms"
+echo "# SA Simulate last X days, with minimum Y alarms"
 echo ""
 echo "Symbols($countSymbols)"
 
@@ -47,7 +47,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <meta http-equiv='pragma' content='no-cache' />
 <meta http-equiv='expires' content='0' />
 <link rel='icon' type='image/x-icon' href='favicon.ico' />
-<title>Simulate Last Alarms</title>
+<title>Simulate last alarms</title>
 
 <style type='text/css'>
 /* iPhone 3 */
@@ -148,7 +148,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <div>"
 # shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "Simulate Last '$lastDaysParam' Days,<br>with minimum '$alarmCharactersParam' Alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "Simulate last '$lastDaysParam' Days,<br>with minimum '$alarmCharactersParam' alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
