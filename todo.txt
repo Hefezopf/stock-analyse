@@ -1,6 +1,53 @@
 TODO:
 -----
 
+ALT:
+MACD_12_26() {
+    _averagePriceList12Param=$1
+    _averagePriceList26Param=$2
+    export MACD_LIST
+    export lastMACDValue
+
+    # Remove leading commas  
+    averagePriceMACD12List=${_averagePriceList12Param:24:10000}
+    averagePriceMACD26List=${_averagePriceList26Param:52:10000}
+
+    jj_index=0
+    averagePriceMACD26List="${averagePriceMACD26List//,/ }"
+    for value26 in $averagePriceMACD26List
+    do
+        index=$((14 + jj_index))
+        kk_index=-1
+        averagePriceMACD12List="${averagePriceMACD12List//,/ }"
+        for valueMACD12 in $averagePriceMACD12List
+        do
+            kk_index=$((kk_index + 1))
+            if [ "$kk_index" = "$index" ]; then
+                value12="$valueMACD12"
+                break
+            fi
+        done 
+        jj_index=$((jj_index + 1))
+
+        #difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
+        difference=$(echo "scale=2;$value12-$value26" | bc)
+        difference=$(printf "%.2f" "$difference")
+
+        # Ignore first incorrect number?!
+        if [ "$kk_index" -eq 15 ]; then 
+            MACD_LIST="$MACD_LIST , $difference, $difference,"
+        fi
+        if [ "$kk_index" -gt 15 ]; then 
+            MACD_LIST="$MACD_LIST $difference,"
+        fi
+    done
+    difference=$(printf "%.2f" "$difference")
+    lastMACDValue=$difference
+    MACD_LIST=" , , , , , , , , , , ,$MACD_LIST"
+}
+
+
+
 
 +LinkPC geht nicht mehr
 +Minify

@@ -13,23 +13,19 @@ MACD_12_26() {
 
     # Remove leading commas  
     averagePriceMACD12List=${_averagePriceList12Param:24:10000}
+#echo "#12##${averagePriceMACD12List}"    
     averagePriceMACD26List=${_averagePriceList26Param:52:10000}
-
+#echo "#26##${averagePriceMACD26List}"
     jj_index=0
     averagePriceMACD26List="${averagePriceMACD26List//,/ }"
     for value26 in $averagePriceMACD26List
     do
         index=$((14 + jj_index))
-        kk_index=-1
-        averagePriceMACD12List="${averagePriceMACD12List//,/ }"
-        for valueMACD12 in $averagePriceMACD12List
-        do
-            kk_index=$((kk_index + 1))
-            if [ "$kk_index" = "$index" ]; then
-                value12="$valueMACD12"
-                break
-            fi
-        done 
+        averagePriceMACD12List="${averagePriceMACD12List//,/}"
+
+value12=$(echo "${averagePriceMACD12List}" | cut -d ' ' -f "$((index + 1))")
+#echo "=${value12}"  
+
         jj_index=$((jj_index + 1))
 
         #difference=$(echo "$value12 $value26" | awk '{print ($1 - $2)}')
@@ -37,17 +33,22 @@ MACD_12_26() {
         difference=$(printf "%.2f" "$difference")
 
         # Ignore first incorrect number?!
-        if [ "$kk_index" -eq 15 ]; then 
-            MACD_LIST="$MACD_LIST , $difference, $difference,"
+
+#echo "====$jj_index - $difference"  
+
+        if [ "$jj_index" -eq 2 ]; then 
+            MACD_LIST="$MACD_LIST $difference, $difference,"
         fi
-        if [ "$kk_index" -gt 15 ]; then 
+        if [ "$jj_index" -gt 2 ]; then 
             MACD_LIST="$MACD_LIST $difference,"
         fi
     done
     difference=$(printf "%.2f" "$difference")
     lastMACDValue=$difference
-    MACD_LIST=" , , , , , , , , , , ,$MACD_LIST"
+    MACD_LIST=" , , , , , , , , , , , ,$MACD_LIST"
+#echo "MACD_LIST${MACD_LIST}"      
 }
+
 
 # EMAverageOfDays function:
 # Input: ${x}
