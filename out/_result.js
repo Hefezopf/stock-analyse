@@ -836,8 +836,8 @@ function showChart(timeSpan, symbol) {
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.style.top = '19%';
-    elementSpanToReplace.style.left = '16%';
-    elementSpanToReplace.style.transform = 'scale(1.4)';
+    elementSpanToReplace.style.left = '14%';
+    elementSpanToReplace.style.transform = 'scale(1.35)';
     // elementSpanToReplace.style.left = '10%';
     // elementSpanToReplace.style.transform = 'scale(1.1)';    
     // Concat is not clean, but works!
