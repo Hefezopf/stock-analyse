@@ -124,8 +124,8 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 /* iPhone 16 (Meines 09/2024) */
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
-        font-size: 380%;
-        background: blue;
+        font-size: 400%;
+        background: red;
     }
 }
 
