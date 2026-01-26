@@ -413,23 +413,38 @@ StrategieUnderratedLowHorizontalMACD() {
         _MACDQuoteListParam="${_MACDQuoteListParam:25}"
         jj_index=0
         #valueNewMACDLow=100
-        _MACDQuoteListParam="${_MACDQuoteListParam//,/ }"
-        for valueMACD in $_MACDQuoteListParam
-        do      
-            if [ "$jj_index" = 71 ]; then
-                valueMACDLast_3="$valueMACD" 
-            fi
-            if [ "$jj_index" = 72 ]; then
-                valueMACDLast_2="$valueMACD" 
-            fi
-            if [ "$jj_index" = 73 ]; then
-                valueMACDLast_1="$valueMACD" 
-            fi
-            if [ "$jj_index" = 74 ]; then
-                valueMACDLast_0="$valueMACD" 
-            fi
+        _MACDQuoteListParam="${_MACDQuoteListParam//,/}"
+#echo "_MACDQuoteListParam=${_MACDQuoteListParam}"  
 
-            jj_index=$((jj_index + 1))
+valueMACDLast_3=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 72)
+#echo "valueMACDLast_3=${valueMACDLast_3}"  
+valueMACDLast_2=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 73)
+#echo "valueMACDLast_2=${valueMACDLast_2}"  
+valueMACDLast_1=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 74)
+#echo "valueMACDLast_1=${valueMACDLast_1}" 
+valueMACDLast_0=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 75)
+#echo "valueMACDLast_0=${valueMACDLast_0}" 
+
+#         for valueMACD in $_MACDQuoteListParam
+#         do      
+#             if [ "$jj_index" = 71 ]; then
+#                 valueMACDLast_3="$valueMACD" 
+# echo "for: valueMACDLast_3=${valueMACDLast_3}"                  
+#             fi
+#             if [ "$jj_index" = 72 ]; then
+#                 valueMACDLast_2="$valueMACD" 
+# echo "for: valueMACDLast_2=${valueMACDLast_2}"                 
+#             fi
+#             if [ "$jj_index" = 73 ]; then
+#                 valueMACDLast_1="$valueMACD" 
+# echo "for: valueMACDLast_1=${valueMACDLast_1}"                     
+#             fi
+#             if [ "$jj_index" = 74 ]; then
+#                 valueMACDLast_0="$valueMACD" 
+# echo "for: valueMACDLast_0=${valueMACDLast_0}"                  
+#             fi
+
+           # jj_index=$((jj_index + 1))
 
             isMACDHorizontalAlarm1=false
          #   isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"}')      
@@ -437,9 +452,9 @@ StrategieUnderratedLowHorizontalMACD() {
             #if [ "$(echo "$valueMACD <= $valueNewMACDLow" | bc)" ]; then
                 
                 # valueNewMACDLow="$valueMACD"
-                if [ "$jj_index" -le 70 ]; then
-                    continue
-                fi           
+                # if [ "$jj_index" -le 70 ]; then
+                #     continue
+                # fi           
 
                 isNegativMACDLast_0=${valueMACDLast_0:0:1}
                 isNegativMACDLast_1=${valueMACDLast_1:0:1}
@@ -452,7 +467,7 @@ StrategieUnderratedLowHorizontalMACD() {
             #     valueNewMACDLow="$valueMACD"
           #  fi
          #   valueNewMACDLow="$valueMACD" # ???
-        done
+ #       done
   
         # Check if MACD is horizontal?
         # BeforeLast Value
