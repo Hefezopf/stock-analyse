@@ -835,7 +835,11 @@ function showChart(timeSpan, symbol) {
     // console.log('tttt');
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
+<<<<<<< HEAD
     elementSpanToReplace.style.top = '19%';
+=======
+    elementSpanToReplace.style.top = '30%';
+>>>>>>> cd53dbf83fc68bf4052fafceac50decbe06dc135
     elementSpanToReplace.style.left = '16%';
     elementSpanToReplace.style.transform = 'scale(1.4)';
     // elementSpanToReplace.style.left = '10%';
