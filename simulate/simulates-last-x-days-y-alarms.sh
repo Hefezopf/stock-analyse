@@ -124,8 +124,8 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 /* iPhone 16 (Meines 09/2024) */
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
-        font-size: 400%;
-        background: red;
+        font-size: 390%;
+        /* background: red; */
     }
 }
 
@@ -150,7 +150,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "Simulate Last '$lastDaysParam' Days,<br>with minimum '$alarmCharactersParam' Alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 120px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 130px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
