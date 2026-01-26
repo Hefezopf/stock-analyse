@@ -149,7 +149,7 @@ function updateImage(symbol, notationId, timespan) {
     }
 
     if(isMobil()) {
-        newWidth = '120%';
+        newWidth = '110%';
     }
 
     if (timespan !== undefined) {
