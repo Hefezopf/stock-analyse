@@ -832,11 +832,14 @@ function revealElement(ele) {
 }
 
 function showChart(timeSpan, symbol) {
+    // console.log('tttt');
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.style.top = '30%';
-    elementSpanToReplace.style.left = '5%';
-    elementSpanToReplace.style.transform = 'scale(1.05)';
+    elementSpanToReplace.style.left = '10%';
+    elementSpanToReplace.style.transform = 'scale(1.15)';
+    // elementSpanToReplace.style.left = '10%';
+    // elementSpanToReplace.style.transform = 'scale(1.1)';    
     // Concat is not clean, but works!
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
 }
