@@ -106,7 +106,7 @@ pricePlusFees=$(echo "$summePlusFees $piecesParam" | awk '{print $1 / $2}')
 pricePlusFees=$(printf "%.2f" "$pricePlusFees")
 summe=$((summe + TX_FEE + summeFromOwnSymbolsFile))
 
-# Prepare for eMail Header sending 
+# Prepare "buy_result.txt" for eMail Header 
 BUY_RESULT_FILE="buy_result.txt"
 rm -rf "$BUY_RESULT_FILE"
 echo "Pieces=$totalAmountOfPieces Invested Amount=$summe€" >> "$BUY_RESULT_FILE"
