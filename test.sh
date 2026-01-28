@@ -69,6 +69,7 @@ rm -rf test/_result.html
 
 # /C/Users/xcg4444/bin/bats --tap test/*.bats
 # C:\Users\info\bin\bats
+# /home/markus/bin/bats
 echo bats ...
 bats --version
 
