@@ -129,7 +129,7 @@ echo "$commaListTransaction" "{x:1,y:$sellPriceParam,r:10}, " > sell/"$symbolPar
 today=$(date --date="-0 day" +"%Y-%m-%d")
 
 # Write Tx History
-echo "Win: $WIN_AMOUNT€"
+echo "Win: $WIN_AMOUNT€ $winPercentage%"
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
 echo "<div>&nbsp;$today&#9;$WIN_AMOUNT&#8364;&#9;&nbsp;&#9;$winPercentage%&#9;&nbsp;&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbolParam.html' target='_blank'>$symbolParam&#9;\"$SYMBOL_NAME\"</a></div>" >> "$TRANSACTION_HISTORY_FILE"
 #echo ""
