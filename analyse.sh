@@ -520,13 +520,13 @@ do
         resultStrategieUnderratedByPercentAndStochastic=""
         StrategieUnderratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageLower" "$lastUnderAgv18" "$lastUnderAgv38" "$lastUnderAgv95" "$agv18UnderAgv38" "$agv38UnderAgv95" "$agv18UnderAgv95" "$last" "$percentageGreaterFactor" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
     
-        # Buy Strategie: Low Stochastic X last values under lowStochasticValue
-        resultStrategieUnderratedXLowStochastic=""
-        StrategieUnderratedXLowStochastic "$stochasticPercentageLower" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
-
         # Buy Strategie: Low RSI X last values under RSIQuoteLower
         resultStrategieUnderratedXLowRSI=""
         StrategieUnderratedXLowRSI "$RSIQuoteLower" "$RSIQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
+
+        # Buy Strategie: Low Stochastic X last values under lowStochasticValue
+        resultStrategieUnderratedXLowStochastic=""
+        StrategieUnderratedXLowStochastic "$stochasticPercentageLower" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Buy Strategie: Low stochastic and Low RSI last quote under stochasticPercentageLower and RSIQuoteLower
         resultStrategieUnderratedLowStochasticLowRSILowMACD=""
@@ -546,13 +546,13 @@ do
         resultStrategieOverratedByPercentAndStochastic=""
         StrategieOverratedByPercentAndStochastic "$lastStochasticQuoteRounded" "$stochasticPercentageUpper" "$lastOverAgv18" "$lastOverAgv38" "$lastOverAgv95" "$agv18OverAgv38" "$agv38OverAgv95" "$agv18OverAgv95" "$last" "$percentageLesserFactor" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
-        # Sell Strategie: High Stochastic X last values over highStochasticValue
-        resultStrategieOverratedXHighStochastic=""
-        StrategieOverratedXHighStochastic "$stochasticPercentageUpper" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
-
         # Sell Strategie: High RSI X last values over RSIQuoteUpper
         resultStrategieOverratedXHighRSI=""
         StrategieOverratedXHighRSI "$RSIQuoteUpper" "$RSIQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
+
+        # Sell Strategie: High Stochastic X last values over highStochasticValue
+        resultStrategieOverratedXHighStochastic=""
+        StrategieOverratedXHighStochastic "$stochasticPercentageUpper" "$stochasticQuoteList" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         # Sell Strategie: High stochastic and High RSI last quote over stochasticPercentageUpper and RSIQuoteUpper
         resultStrategieOverratedHighStochasticHighRSIHighMACD=""
