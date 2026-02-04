@@ -60,6 +60,11 @@ lineFromFile="${lineFromFile//\.io/}"
 lineFromFile="${lineFromFile//:.\/?:\/\/\/\//}"
 lineFromFile="${lineFromFile//\'/}"
 
+if [ "$symbolParam" ]; then
+    lineFromFile=${lineFromFile/$symbolParam $symbolParam/$symbolParam}
+#else
+#    echo ""
+fi
 
 echo "$lineFromFile"
 echo ""
