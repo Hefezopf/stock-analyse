@@ -724,8 +724,6 @@ start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-an
 start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/XDWD.html
 start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/D5BM.html
 start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DXET.html
-start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/XMME.html
-start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/XDEX.html
 start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/XWTS.html
 
 read -r -p "Close Chrome manually and Press enter to continue the next 50"
