@@ -13,7 +13,7 @@
 # shellcheck disable=SC1091
 . script/constants.sh
 
-echo "Sorting (70 sec.)..."
+echo "Sorting (Windows: 70 sec.; Liunx 5 sec.)..."
 
 START_TIME_MEASUREMENT=$(date +%s);
 
