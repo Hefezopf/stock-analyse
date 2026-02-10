@@ -345,22 +345,35 @@ StrategieOverratedHighHorizontalMACD() {
 #        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000) #| cut -
         #_MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
         _MACDQuoteListParam="${_MACDQuoteListParam:25}"
-#echo "----_MACDQuoteListParam:$_MACDQuoteListParam"        
-        jj_index=0
-        _MACDQuoteListParam="${_MACDQuoteListParam//,/ }"
-        for valueMACD in $_MACDQuoteListParam
-        do
-            if [ "$jj_index" = 72 ]; then
-                valueMACDLast_2="$valueMACD" 
-            fi
-            if [ "$jj_index" = 73 ]; then
-                valueMACDLast_1="$valueMACD" 
-            fi
-            if [ "$jj_index" = 74 ]; then
-                valueMACDLast_0="$valueMACD" 
-            fi
-            jj_index=$((jj_index + 1))
-        done
+#echo "----_MACDQuoteListParam:$_MACDQuoteListParam"
+        #jj_index=0
+        _MACDQuoteListParam="${_MACDQuoteListParam//,/}"
+#echo "blank----_MACDQuoteListParam:$_MACDQuoteListParam"
+        # for valueMACD in $_MACDQuoteListParam
+        # do
+        #     if [ "$jj_index" = 72 ]; then
+        #         valueMACDLast_2="$valueMACD"
+        #     fi
+        #     if [ "$jj_index" = 73 ]; then
+        #         valueMACDLast_1="$valueMACD"
+        #     fi
+        #     if [ "$jj_index" = 74 ]; then
+        #         valueMACDLast_0="$valueMACD"
+        #     fi
+        #     jj_index=$((jj_index + 1))
+        # done
+# echo "valueMACDLast_2=${valueMACDLast_2}"
+# echo "valueMACDLast_1=${valueMACDLast_1}"
+# echo "valueMACDLast_0=${valueMACDLast_0}"
+
+        #valueMACDLast_3=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 72)
+        #echo "##neu72:valueMACDLast_3=${valueMACDLast_3}"
+        valueMACDLast_2=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 73)
+        #echo "##neu73:valueMACDLast_2=${valueMACDLast_2}"
+        valueMACDLast_1=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 74)
+        #echo "##neu74:valueMACDLast_1=${valueMACDLast_1}"
+        valueMACDLast_0=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 75)
+        #echo "##neu75:valueMACDLast_0=${valueMACDLast_0}"
 
         isMACDHorizontalAlarm=false
         # Check if MACD is horizontal?
@@ -411,7 +424,7 @@ StrategieUnderratedLowHorizontalMACD() {
        # _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000) #| cut -
         #_MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
         _MACDQuoteListParam="${_MACDQuoteListParam:25}"
-        jj_index=0
+        #jj_index=0
         #valueNewMACDLow=100
         _MACDQuoteListParam="${_MACDQuoteListParam//,/}"
 #echo "_MACDQuoteListParam=${_MACDQuoteListParam}"  
