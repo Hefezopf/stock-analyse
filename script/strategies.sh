@@ -56,14 +56,12 @@ StrategieOverratedStochasticWhenOwn() {
     _idNotationParam="$7"
     export resultStrategieOverratedStochasticWhenOwn=""
 
-    if [ "$_lastStochParam" -gt "$_highStochValueParam" ]; then    
-        if [ "$_markerOwnStockParam" = '*' ]; then
-            alarmAbbrevValue="O-"$alarmAbbrevValue
-            reasonPrefix="Sell: Stochastic Own (O)"
-            resultStrategieOverratedStochasticWhenOwn="$reasonPrefix"
-            echo "$resultStrategieOverratedStochasticWhenOwn"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
-        fi
+    if [ "$_lastStochParam" -gt "$_highStochValueParam" ] && [ "$_markerOwnStockParam" = '*' ]; then
+        alarmAbbrevValue="O-"$alarmAbbrevValue
+        reasonPrefix="Sell: Stochastic Own (O)"
+        resultStrategieOverratedStochasticWhenOwn="$reasonPrefix"
+        echo "$resultStrategieOverratedStochasticWhenOwn"
+        WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
     fi
 }
 
@@ -120,14 +118,12 @@ StrategieUnderratedDivergenceRSI() {
     export resultStrategieUnderratedDivergenceRSI=""
 
     isMACDNegativ=${_lastMACDParam:0:1}
-    if [ "$isMACDNegativ" = '-' ]; then
-        if [ "$_conditionNewLowParam" = true ] && [ "$_lastRSIParam" -ge "$_lowestRSIParam" ]; then
-            alarmAbbrevValue="D+"$alarmAbbrevValue
-            reasonPrefix="Buy: RSI Divergence (D)"
-            resultStrategieUnderratedDivergenceRSI="$reasonPrefix"
-            echo "$resultStrategieUnderratedDivergenceRSI"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
-        fi
+    if [ "$isMACDNegativ" = '-' ] && [ "$_conditionNewLowParam" = true ] && [ "$_lastRSIParam" -ge "$_lowestRSIParam" ]; then
+        alarmAbbrevValue="D+"$alarmAbbrevValue
+        reasonPrefix="Buy: RSI Divergence (D)"
+        resultStrategieUnderratedDivergenceRSI="$reasonPrefix"
+        echo "$resultStrategieUnderratedDivergenceRSI"
+        WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
     fi
 }
 
@@ -240,7 +236,6 @@ StrategieOverratedXHighRSI() {
             countHighRSI=$((countHighRSI + 1))
             oneOfTheLastRSIHigh=1
         fi
-             
         if [ "$value_85" -gt "$_highRSIValueParam" ]; then
             countHighRSI=$((countHighRSI + 1))
         fi
@@ -300,7 +295,6 @@ StrategieUnderratedXLowRSI() {
             countLowRSI=$((countLowRSI + 1))
             oneOfTheLastRSILow=1
         fi
-
         if [ "$value_85" -lt "$_lowRSIValueParam" ]; then
             countLowRSI=$((countLowRSI + 1))
         fi
@@ -342,32 +336,9 @@ StrategieOverratedHighHorizontalMACD() {
    
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
-#        _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000) #| cut -
-        #_MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
         _MACDQuoteListParam="${_MACDQuoteListParam:25}"
-#echo "----_MACDQuoteListParam:$_MACDQuoteListParam"
-        #jj_index=0
         _MACDQuoteListParam="${_MACDQuoteListParam//,/}"
-#echo "blank----_MACDQuoteListParam:$_MACDQuoteListParam"
-        # for valueMACD in $_MACDQuoteListParam
-        # do
-        #     if [ "$jj_index" = 72 ]; then
-        #         valueMACDLast_2="$valueMACD"
-        #     fi
-        #     if [ "$jj_index" = 73 ]; then
-        #         valueMACDLast_1="$valueMACD"
-        #     fi
-        #     if [ "$jj_index" = 74 ]; then
-        #         valueMACDLast_0="$valueMACD"
-        #     fi
-        #     jj_index=$((jj_index + 1))
-        # done
-# echo "valueMACDLast_2=${valueMACDLast_2}"
-# echo "valueMACDLast_1=${valueMACDLast_1}"
-# echo "valueMACDLast_0=${valueMACDLast_0}"
 
-        #valueMACDLast_3=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 72)
-        #echo "##neu72:valueMACDLast_3=${valueMACDLast_3}"
         valueMACDLast_2=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 73)
         #echo "##neu73:valueMACDLast_2=${valueMACDLast_2}"
         valueMACDLast_1=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 74)
@@ -421,13 +392,9 @@ StrategieUnderratedLowHorizontalMACD() {
 
     if [ "${#_MACDQuoteListParam}" -gt 1 ]; then # Check if value makes sense
         # Remove leading commas
-       # _MACDQuoteListParam=$(echo "$_MACDQuoteListParam" | cut -b 26-10000) #| cut -
-        #_MACDQuoteListParam="${_MACDQuoteListParam:25:10000}"
         _MACDQuoteListParam="${_MACDQuoteListParam:25}"
-        #jj_index=0
-        #valueNewMACDLow=100
         _MACDQuoteListParam="${_MACDQuoteListParam//,/}"
-#echo "_MACDQuoteListParam=${_MACDQuoteListParam}"  
+        #echo "_MACDQuoteListParam=${_MACDQuoteListParam}"  
 
         valueMACDLast_3=$(echo "${_MACDQuoteListParam}" | cut -d ' ' -f 72)
         #echo "valueMACDLast_3=${valueMACDLast_3}"  
@@ -501,15 +468,15 @@ StrategieOverratedByPercentAndStochastic() {
     _idNotationParam=${15} # 10th and more need {}
     export resultStrategieOverratedByPercentAndStochastic=""
 
-    if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
-        if [ "$_lastStochasticQuoteRoundedParam" -gt "$_stochasticPercentageUpperParam" ] && [ "$_lastOverAgv18Param" = 1 ] && [ "$_lastOverAgv38Param" = 1 ] && [ "$_lastOverAgv95Param" = 1 ] && 
-            [ "$_agv18OverAgv38Param" = 1 ] && [ "$_agv38OverAgv95Param" = 1 ] && [ "$_agv18OverAgv95Param" = 1 ]; then
-            alarmAbbrevValue=P-$alarmAbbrevValue
-            reasonPrefix="Sell: High Percent & Stochastic (P)"
-            resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 > Avg38 > Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam over level"
-            echo "$resultStrategieOverratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
-        fi
+    if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] &&  # Check if value makes sense
+       [ "$_lastStochasticQuoteRoundedParam" -gt "$_stochasticPercentageUpperParam" ] && 
+       [ "$_lastOverAgv18Param" = 1 ] && [ "$_lastOverAgv38Param" = 1 ] && [ "$_lastOverAgv95Param" = 1 ] && 
+       [ "$_agv18OverAgv38Param" = 1 ] && [ "$_agv38OverAgv95Param" = 1 ] && [ "$_agv18OverAgv95Param" = 1 ]; then
+        alarmAbbrevValue=P-$alarmAbbrevValue
+        reasonPrefix="Sell: High Percent & Stochastic (P)"
+        resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 > Avg38 > Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam over level"
+        echo "$resultStrategieOverratedByPercentAndStochastic"
+        WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
     fi
 }
 
@@ -535,15 +502,15 @@ StrategieUnderratedByPercentAndStochastic() {
     _idNotationParam=${15} # 10th and more need {}
     export resultStrategieUnderratedByPercentAndStochastic=""
 
-    if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ]; then # Check if value makes sense
-        if [ "$_lastStochasticQuoteRoundedParam" -lt "$_stochasticPercentageLowerParam" ] && [ "$_lastUnderAgv18Param" = 1 ] && [ "$_lastUnderAgv38Param" = 1 ] && [ "$_lastUnderAgv95Param" = 1 ] && 
-            [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv95Param" = 1 ] && [ "$_agv18UnderAgv95Param" = 1 ]; then
-            alarmAbbrevValue=P+$alarmAbbrevValue
-            reasonPrefix="Buy: Low Percent & Stochastic (P)"
-            resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 < Avg38 < Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam under level"
-            echo "$resultStrategieUnderratedByPercentAndStochastic"
-            WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
-        fi
+    if [ "${#_lastStochasticQuoteRoundedParam}" -gt 0 ] && # Check if value makes sense
+       [ "$_lastStochasticQuoteRoundedParam" -lt "$_stochasticPercentageLowerParam" ] && 
+       [ "$_lastUnderAgv18Param" = 1 ] && [ "$_lastUnderAgv38Param" = 1 ] && [ "$_lastUnderAgv95Param" = 1 ] && 
+       [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv95Param" = 1 ] && [ "$_agv18UnderAgv95Param" = 1 ]; then
+        alarmAbbrevValue=P+$alarmAbbrevValue
+        reasonPrefix="Buy: Low Percent & Stochastic (P)"
+        resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 < Avg38 < Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam under level"
+        echo "$resultStrategieUnderratedByPercentAndStochastic"
+        WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
     fi
 }
 
@@ -578,14 +545,7 @@ StrategieOverratedXHighStochastic() {
         value5="${5:1:2}"
         value6="${6:1:2}"
         value7="${7:1:2}"
-        # value1=$(echo "$1" | cut -b 2-3) #| cut -
-        # value2=$(echo "$2" | cut -b 2-3)
-        # value3=$(echo "$3" | cut -b 2-3)
-        # value4=$(echo "$4" | cut -b 2-3)
-        # value5=$(echo "$5" | cut -b 2-3)
-        # value6=$(echo "$6" | cut -b 2-3)
-        # value7=$(echo "$7" | cut -b 2-3)
-    #echo "---value1:$value1---value2:$value2"
+        #echo "---value1:$value1---value2:$value2"
 
         # revsers digits '18' will be '81'
         value1=$(echo "$value1" | awk '{ for(i = length; i!=0; i--) x = x substr($0, i, 1);} END {print x}')
@@ -630,7 +590,6 @@ StrategieOverratedXHighStochastic() {
             howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
             oneOfTheLastStochasticHigh=1
         fi
-
         if [ "${#value3}" -gt 1 ] && [ "$value3" -gt "$_highStochasticValueParam" ]; then
             howManyOverHighStochasticValue=$((howManyOverHighStochasticValue + 1))
         fi
@@ -689,13 +648,6 @@ StrategieUnderratedXLowStochastic() {
         value5="${5:1:2}"
         value6="${6:1:2}"
         value7="${7:1:2}"
-        #value1=$(echo "$1" | cut -b 2-3) #| cut -b
-        #value2=$(echo "$2" | cut -b 2-3)
-        #value3=$(echo "$3" | cut -b 2-3)
-        #value4=$(echo "$4" | cut -b 2-3)
-        #value5=$(echo "$5" | cut -b 2-3)
-        #value6=$(echo "$6" | cut -b 2-3)
-        #value7=$(echo "$7" | cut -b 2-3)
 
         IFS=$OLDIFS
         howManyUnderLowStochasticValue=0
@@ -709,7 +661,6 @@ StrategieUnderratedXLowStochastic() {
             howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
             oneOfTheLastStochasticLow=1
         fi
-
         if [ ! "${#value3}" -gt 1 ] && [ "$value3" -lt "$_lowStochasticValueParam" ]; then
             howManyUnderLowStochasticValue=$((howManyUnderLowStochasticValue + 1))
         fi
