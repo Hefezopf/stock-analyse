@@ -31,7 +31,6 @@ fi
 countSymbols=$(echo "$ISINS" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo "ISINS($countSymbols):$ISINS"
-#yesterday=$(date --date="-1 day" +"%Y-%m-%d") # Daten immer nach Mitternacht holen! -1 Tag
 allSymbols=""
 echo "---------------"
 START_TIME_MEASUREMENT=$(date +%s);

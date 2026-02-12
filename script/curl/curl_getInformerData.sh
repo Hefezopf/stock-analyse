@@ -70,18 +70,16 @@ do
         if [ "$asset_type" = 'COIN' ]; then
             curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/zertifikate/detail/uebersicht/indexzertifikat.html?ID_NOTATION=$ID_NOTATION")
         fi
+        
         value=$(echo "$curlResponse" 2>/dev/null | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')
-
         if [ "${value:28:2}" = '--' ]; then
             echo "Warning: '$symbol' value NOT a integer number! Trying with next exchange..."
             value=$(echo "$curlResponse" 2>/dev/null | grep -m3 "</span></div></span>" | sort -r | grep -m1 "</span></div></span>" | grep -o 'realtime-indicator--value .*')              
         fi
-
         value=${value%*"<"*}
         value=${value%*"<"*}
         value=${value%*"<"*}
         value="${value:28}"
-
         if [ "$value" ]; then
             value="${value//\./}"
             value="${value//,/.}"
@@ -90,7 +88,6 @@ do
                 echo "Warning: '$symbol' value NOT a integer number! Taking value from yesterday."
                 value=$(head -1 "$informerDataFile" | cut -f 2)
             fi
-
             echo "$symbol: $ID_NOTATION;$yesterday;$value€"
             numOfLines=$(awk 'END { print NR }' "$informerDataFile")
             numOfLinesToFill=$((101 - numOfLines))
