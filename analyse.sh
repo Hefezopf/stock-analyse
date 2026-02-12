@@ -904,8 +904,8 @@ do
                     <button id=\"intervalSectionButtonSell$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol', '$stocksPieces', document.getElementById('intervalSectionInputPriceBuy$symbol').value)\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
-                    Pieces&nbsp;<input tabindex='0' name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-                    Price&nbsp;<input tabindex='0' name='intervalSectionInputPriceBuy$symbol' id='intervalSectionInputPriceBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+                    Pieces&nbsp;<input tabindex='1' name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+                    Price&nbsp;<input tabindex='2' name='intervalSectionInputPriceBuy$symbol' id='intervalSectionInputPriceBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
                   </p>
                   <hr id='intervalSectionButtonDetailsHR$symbol' style='display: none'>"
 
@@ -1003,8 +1003,8 @@ fi
             <button id='intervalSectionButtonBuyGenerellButton' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
             Symbol&nbsp;<input tabindex='0' name='intervalSectionInputSymbolBuyGenerell' id='intervalSectionInputSymbolBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-            Pieces&nbsp;<input tabindex='0' name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-            Price&nbsp;<input tabindex='0' name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+            Pieces&nbsp;<input tabindex='1' name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+            Price&nbsp;<input tabindex='2' name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
           </span>"
 
     # Workflow        
