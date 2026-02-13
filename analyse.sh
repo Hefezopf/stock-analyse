@@ -82,7 +82,6 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <title>Result SA</title>
 
 
-
 <style type='text/css'>
 /* Colors */
 .green{color:green;} .red{color:red;} .black{color:black;}
