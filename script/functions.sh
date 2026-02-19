@@ -298,20 +298,23 @@ WriteComdirectUrlAndStoreFileList() {
 
 
 #hover
-# echo "<style type='text/css'>
-# a>div { display: none; }
-# a:hover>div { display: block; }
-# </style>"
-# echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam<div>
-# <img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D' /></div></a>"
-# echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;<div>
-# <img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=6M' /></div></a>"
-# echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;<div>
-# <img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=5Y' /></div></a>"
+echo "<style type='text/css'>
+a>div { display: none; }
+a:hover>div { display: block; }
+</style>"
+echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam<div>
+<img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D' /></div></a>"
+echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;<div>
+<img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=6M' /></div></a>"
+echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;<div>
+<img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=5Y' /></div></a>"
 
-            echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('10D', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
-            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('6M', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
-            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
+
+#            echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('10D', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
+#            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('6M', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
+#            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
+
+
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
             if [ "$(uname)" = 'Linux' ]; then
                 echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='file:///media/markus/BigBerta/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"

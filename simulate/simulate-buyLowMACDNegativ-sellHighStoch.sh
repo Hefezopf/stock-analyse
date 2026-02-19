@@ -649,24 +649,6 @@ do
         lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
     fi
 
-    # {
-    #     echo "<img class='imgborder' id='imgToReplace$symbol' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$id_notation&TIME_SPAN=10D' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.2);'/>"
-    #     COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
-    # # COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
-    # # COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
-    #     # shellcheck disable=SC2154
-    #     if [ "$asset_type" = 'INDEX' ]; then
-    #         COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
-    #     # COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
-    #     # COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
-    #     fi
-    #     echo "<a id='headlineLink$symbol' style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('10D', '$symbol')\" onmouseout=\"javascript:hideChart('$symbol')\" href='$COMDIRECT_URL_10D$ID_NOTATION' target='_blank'>$symbol $symbolName</a>"
-    #     #echo "<a style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('6M', '$symbol')\" onmouseout=\"javascript:hideChart('$symbol')\" href='$COMDIRECT_URL_6M$ID_NOTATION' target='_blank'>&nbsp;6M&nbsp;</a>"
-    #     #echo "<a style='background:$lowMarketCapLinkBackgroundColor'; onmouseover=\"javascript:showChart('5Y', '$symbol')\" onmouseout=\"javascript:hideChart('$symbol')\" href='$COMDIRECT_URL_5Y$ID_NOTATION' target='_blank'>&nbsp;5Y&nbsp;</a>"
-
-    #     echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html\" target=\"_blank\">SIM</a><br>" >> $OUT_SIMULATE_FILE
-    # } >> "$OUT_SIMULATE_FILE"
-
     export ID_NOTATION_STORE_FOR_NEXT_TIME=""
     WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate" "$ID_NOTATION"
 
