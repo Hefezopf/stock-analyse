@@ -57,7 +57,6 @@ EMAverageOfDays() {
     _amountOfDaysParam=${1}
     _dataFileParam=${2}
     _quotesAsArrayParam=("$@") # all params are in this array!!!
-    
     export averagePriceList
 
     averagePriceList=$(seq -s " ," "${_amountOfDaysParam}" | tr -d '[:digit:]')
@@ -112,7 +111,7 @@ AverageOfDays() {
 
 # RSIOfDays function:
 # Input: ${x}
-# Output: RSIQuoteList is comma separted list, beforeLastRSIQuoteRounded, lastRSIQuoteRounded
+# Output: RSIQuoteList is comma separted list, beforeLastRSIQuoteRounded, RSIQuoteList
 RSIOfDays() {
     _amountOfDaysParam=$1
     _dataFileParam=$2
@@ -171,7 +170,7 @@ RSIOfDays() {
 
 # StochasticOfDays function:
 # Input: ${x}
-# Output: stochasticQuoteList is comma separted list, lastStochasticQuoteRounded
+# Output: stochasticQuoteList is comma separted list, stochasticQuoteList
 StochasticOfDays() {
     _amountOfDaysParam=$1
     _dataFileParam=$2
@@ -182,7 +181,6 @@ StochasticOfDays() {
     stochasticQuoteList=$(seq -s " ," "${minusCommas}" | tr -d '[:digit:]') 
 
     i=0
-    # TODO optimize not 100 loop?!
     while [ "$i" -le $((100-_amountOfDaysParam)) ]; do
         headLines=$((100-i))
         head -n$headLines "$_dataFileParam" | tail -"$_amountOfDaysParam" > "$stochasticFile"
