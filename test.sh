@@ -40,7 +40,7 @@ for filename in script/*.sh; do
    cat "$filename" | tr -d '\r' > "$filename""1"
    rm "$filename"
    mv "$filename""1" "$filename"
-   chmod +x script/"$filename"
+   chmod +x "$filename"
 done
 for filename in script/*.sh; do
     shellcheck --shell=bash "$filename"

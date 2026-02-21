@@ -275,7 +275,7 @@ echo "<br><br>&nbsp;Good Luck! $creationDate<br><br></div><script>" >> "$OUT_TRA
 #echo "symbolParam: $symbolParam"
 
 # shellcheck disable=SC2013
-for symbol in $(awk '{print $3}' config/transaction_history.txt | sed "s/'/xxx/g" | sed 's/target\=xxx_blankxxx>//g' | sed 's/&.*//' |awk '!seen[$0]++')
+for symbol in $(awk '{print $3}' config/transaction_history.txt | sed "s/'/xxx/g" | sed 's/target\=xxx_blankxxx>//g' | sed 's/&.*//' | awk '!seen[$0]++')
 do 
 #echo "symbol: $symbol"
     echo "linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html');" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
