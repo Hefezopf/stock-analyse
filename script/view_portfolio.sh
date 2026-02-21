@@ -54,6 +54,7 @@ echo ""
 
 echo ""
 
+echo -e "Symbol\tBuyIn\tDate\t\tPieces\tSum\tPerfor.\tName"
 if [ "$1" ]; then
     sort -k6 -n "$TEMP_FILE"
 else
