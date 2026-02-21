@@ -3,10 +3,47 @@ TODO:
 
 
 
-while eliminieren
-
-
 Flickering in Übersicht und Detail
+
+/* .imgborder { border: 1px solid; pointer-events: none;} */
+.container {
+  display: inline-block;
+}
+.imgborder {
+  border: 1px solid;
+  display: none;
+  position:fixed;
+  top: -45%;
+  left: -10%;  
+  scale: 1.0;
+}
+.hover-text:hover ~ .imgborder {
+  display: block;     
+}
+
+
+            # Hover Chart (result overview page)
+            echo "<span style='display:inline-block;'>"
+            echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
+            echo "</span>"
+
+
+ echo "<span class='container'>"
+ echo "<a class='hover-text' id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
+ echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
+ echo "</span>"
+
+ echo "<span class='container'>"
+ echo "<a class='hover-text' id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
+ echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=6M'/>"
+ echo "</span>"
+
+ echo "<span class='container'>"
+ echo "<a class='hover-text' id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
+ echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=5Y'/>"
+ echo "</span>"
+
+
 
 
 (Alle Export Variablen umbenennen: GROSS)
