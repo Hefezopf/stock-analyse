@@ -6,7 +6,7 @@
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI *ALV BAS ...'; Stocks with prefix '*' are marked as own stocks 
 # 2. Parameter: PERCENTAGE - Percentage difference; '3' means 3 percent.
 # 3. Parameter: STOCHASTIC: Percentage for stochastic indicator (only single digit allowed!)
-# 4. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed!)
+# 4. Parameter: RSI: Quote for RSI indicator (only 30 and less allowed! See UsageCheckParameter())
 # Call example: . analyse.sh 'BEI ALV' 1 9 25
 # Call example: . analyse.sh 'BEI' 2 9 25
 # Call example: . analyse.sh 'BEI' 1 9 25
