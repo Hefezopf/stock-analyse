@@ -29,7 +29,7 @@ sed -i 's/ /\t/g' "$TEMP_FILE"
 ###################
 # shellcheck disable=SC2013
 for symbol in $(awk '{print $1}' "$TEMP_FILE")
-do 
+do
     lineFromOwnSymbolsFile=$(grep -m1 -P "$symbol" "$TEMP_FILE")
     DATA_DATE_FILE="$DATA_DIR/$symbol.txt"
     lastQuote=$(head -n1 "$DATA_DATE_FILE" | awk '{print $2}')
@@ -41,7 +41,11 @@ do
     performance=$(echo "$avgPrice $lastQuote" | awk '{print (100 * $2 / $1) - 100}')
     performance=$(printf "%.1f" "$performance")
 
-    echo -e "$symbol\t$avgPrice\t$today\t$totalAmountOfPieces\t$summe\t$performance%\t$SYMBOL_NAME" >> "$TEMP_FILE2"
+    avgPrice=$(printf "%.2f" "$avgPrice")
+    # shellcheck disable=SC2001
+    avgPrice=$(echo "$avgPrice" | sed 's/.00/.0/g')
+    
+    echo -e "$symbol\t$avgPrice€\t$today\t$totalAmountOfPieces\t$summe\t$performance%\t$SYMBOL_NAME" >> "$TEMP_FILE2"
     echo -n .
 done
 mv "$TEMP_FILE2" "$TEMP_FILE"
