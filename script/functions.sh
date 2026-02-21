@@ -380,8 +380,6 @@ Out() {
 CalculateTxFee() {
     _orderrateParam=$1
     _piecesParam=$2
-
-    #export TX_FEE="10"
     export TX_FEE="1"
 
     orderValue=$(echo "$_orderrateParam $_piecesParam" | awk '{print ($1 * $2)}')
