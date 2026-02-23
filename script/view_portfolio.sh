@@ -25,7 +25,6 @@ gpg --decrypt --pinentry-mode=loopback --batch --yes --passphrase "$GPG_PASSPHRA
 
 sed -i 's/ /\t/g' "$TEMP_FILE"
 
-
 ###################
 # shellcheck disable=SC2013
 for symbol in $(awk '{print $1}' "$TEMP_FILE")
@@ -41,9 +40,9 @@ do
     performance=$(echo "$avgPrice $lastQuote" | awk '{print (100 * $2 / $1) - 100}')
     performance=$(printf "%.1f" "$performance")
 
-    avgPrice=$(printf "%.2f" "$avgPrice")
+    avgPrice=$(printf "%.1f" "$avgPrice")
     # shellcheck disable=SC2001
-    avgPrice=$(echo "$avgPrice" | sed 's/.00/.0/g')
+    #avgPrice=$(echo "$avgPrice" | sed 's/.00/.0/g')
     
     echo -e "$symbol\t$avgPrice€\t$today\t$totalAmountOfPieces\t$summe\t$performance%\t$SYMBOL_NAME" >> "$TEMP_FILE2"
     echo -n .
