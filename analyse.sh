@@ -731,7 +731,7 @@ do
                 # Should never occure 
                 echo "<span><img id='countryflagId' alt='No Flag' width="3%" height="3%"></span>&nbsp;&nbsp;"
             else
-                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' src='../image/flags/${isin:0:2}.jpeg' width="3%" height="3%"></span>&nbsp;&nbsp;"  
+                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width="3%" height="3%"></span>&nbsp;&nbsp;"  
             fi
 
             # hover Firmenportrait Text
