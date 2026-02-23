@@ -44,7 +44,7 @@ do
     exit 2
   fi
 
-  echo ""
+  echo "--------------------------------"
   echo "$symbol" "$NAME" ...
 
   if [ "$ASSET_TYPE" = 'COIN' ]; then

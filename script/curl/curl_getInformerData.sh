@@ -44,7 +44,7 @@ START_TIME_MEASUREMENT=$(date +%s);
 
 for symbol in $symbolsParam
 do
-    if [ "${symbol::1}" = '*' ]; then  
+    if [ "${symbol::1}" = '*' ]; then
         symbol="${symbol:1:7}"
     fi
     symbol="${symbol^^}" # all uppercase

@@ -301,11 +301,8 @@ do
     echo "<div id='symbolLineId$symbol'>" >> "$OUT_RESULT_FILE" # Sorting
 
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
-    #symbolName=$(echo "$lineFromTickerFile" | cut -f 2) #| cut -f
-    symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}') # BEGIN{FS
+    symbolName=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $2}')
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
-
-#echo "symbol: $symbol symbolsParam: $symbolsParam symbolName: $symbolName"
 
     # Curl and write Line to TICKER_NAME_ID_FILE. When new symbols: Delay of 14 seconds because of REST API restrictions.
     # Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
@@ -332,6 +329,13 @@ do
     if [ ! "$asset_type" ]; then # Default: asset_type="?"
         asset_type="?"
     fi
+
+    isin=$(echo "$lineFromTickerFile" | cut -f 11)
+    #echo "ISIN: $isin"
+    if [ ! "$isin" ]; then # Default: isin="?"
+        isin="?"
+    fi    
+    #echo "ISIN: $isin"
     
     # Get stock data
     echo ""
@@ -719,13 +723,21 @@ do
         echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
         echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
 
-        if [ "$asset_type" = 'STOCK' ] || [ "$asset_type" = 'INDEX' ]; then            
+        if [ "$asset_type" = 'STOCK' ] || [ "$asset_type" = 'INDEX' ]; then
             # KGVe
             kgve=$(echo "$lineFromTickerFile" | cut -f 6)          
             echo "<span style='font-size:50px'>KGV&nbsp;$kgve&nbsp;&nbsp;&nbsp;</span>&nbsp;"
             # DIVe
             dive=$(echo "$lineFromTickerFile" | cut -f 7)
-            echo "<span style='font-size:50px'>DIV&nbsp;$dive%&nbsp;&nbsp;&nbsp;</span>&nbsp;"
+            echo "<span style='font-size:50px'>DIV&nbsp;$dive%&nbsp</span>"
+
+            # Country Flag
+            if [ "$isin" = '?' ] ; then
+                # Should never occure 
+                echo "<span><img id='countryflagId' alt='No Flag' width="3%" height="3%"></span>&nbsp;&nbsp;"
+            else
+                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' src='../image/${isin:0:2}.jpeg' width="3%" height="3%"></span>&nbsp;&nbsp;"  
+            fi
 
             # hover Firmenportrait Text
             echo "<style>

@@ -197,7 +197,7 @@ do
     intermediateProzWin=0
     amountPerTrade=$amountPerTradeParam
 
-    if [ "${symbol::1}" = '*' ]; then  
+    if [ "${symbol::1}" = '*' ]; then
         symbol="${symbol:1:7}"
     fi
 
