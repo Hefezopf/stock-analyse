@@ -53,6 +53,12 @@ do
   
   if [ "$ASSET_TYPE" = 'INDEX' ]; then
     curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+
+    # ISIN
+    isin=$(echo "$curlResponse" 2>/dev/null | grep -m1 ">ISIN:<" | grep -o '>.*')
+    isin="${isin:14}"
+    echo "ISIN: $isin"
+
     marktkap="1000"
     branche="\"Strategie\""
     kgve="0"
@@ -76,7 +82,7 @@ do
 
     # Now write all results in file!
     # Replace till end of line: idempotent!
-    sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait/g" "$TICKER_NAME_ID_FILE_MEM"
+    sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait\t$isin/g" "$TICKER_NAME_ID_FILE_MEM"
   fi  
 
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
