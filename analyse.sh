@@ -86,8 +86,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 /* Colors */
 .green{color:green;} .red{color:red;} .black{color:black;}
 
-/* .imgborder { border: 1px solid; pointer-events: none;} */
-.imgborder { border: 1px solid;} 
+/*imgborder {border: 1px solid;} */
 
 /* iPhone 3 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) {
@@ -597,7 +596,7 @@ do
         fi
 
         # Hover Chart (on detail page; top URLs)
-        echo "<img class='imgborder' id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;'/>"
+        echo "<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>"
         COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
         COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
         COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
@@ -729,9 +728,9 @@ do
             # Country Flag
             if [ ! "$isin" ] ; then
                 # Should never occure 
-                echo "<span><img id='countryflagId' alt='No Flag'></span>&nbsp;&nbsp;"
+                echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
-                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width="4%" height="4%"></span>&nbsp;&nbsp;"  
+                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width="4%" height="4%" style='border:1px solid;'></span>&nbsp;&nbsp;"  
             fi
 
             # hover Firmenportrait Text
@@ -897,7 +896,7 @@ do
             echo "</span>"
 
             # Image Chart
-            echo "<br><img id='intervalSectionImage$symbol' alt='' src='#' style='display: none;'><br>
+            echo "<br><img id='intervalSectionImage$symbol' alt='' src='#' style='display: none; border: 1px solid;'><br>
                   <button id=\"intervalSectionButtonDetails1D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '1D')\">1D</button>
                   <button id=\"intervalSectionButtonDetails5D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '5D')\">5D</button>
                   <button id=\"intervalSectionButtonDetails10D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '10D')\">10D</button>
