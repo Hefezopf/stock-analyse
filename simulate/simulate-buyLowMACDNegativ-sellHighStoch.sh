@@ -254,7 +254,7 @@ do
             if [ "$isNegativMACDLast_0" = '-' ] && [ "$isNegativMACDLast_1" = '-' ] && [ "$isNegativMACDLast_2" = '-' ] && [ "$isNegativMACDLast_3" = '-' ]; then
                 isMACDHorizontalAlarm=true
             fi
-        fi 
+        fi
 
         # isNewLow
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
@@ -282,7 +282,7 @@ do
             isHoldPiecesAndNewLow=true
         else
             isHoldPiecesAndNewLow=false
-        fi 
+        fi
 
         # is MACD horizontal and lastStoch?
         if [ "$isMACDHorizontalAlarm" = true ] && [ "$isNewLow" = true ] && [ "$lastStoch" = 0 ] && [ "$lastRSI" -le "$RSIBuyLevelParam" ]; then
@@ -368,9 +368,9 @@ do
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
             intermediateProzWinFirstDigit=${intermediateProzWin:0:1}
             intermediateProzWinSecondDigit=${intermediateProzWin:1:1}
-            if [ "$intermediateProzWinFirstDigit" = '-' ]; then 
+            if [ "$intermediateProzWinFirstDigit" = '-' ]; then
                 intermediateProzWinFirstDigit=0
-            else 
+            else
                 # Special cases: if gains are 2 Number digits like (11.1%, 22.1%, 33.1%, 44.1, or 55.1)
                 if [ "$intermediateProzWinFirstDigit" -eq 5 ] && [ ! "$intermediateProzWinSecondDigit" = "." ]; then
                     intermediateProzWinFirstDigit="${intermediateProzWinFirstDigit}${intermediateProzWinSecondDigit}"
@@ -530,7 +530,7 @@ do
 
     if [ "$piecesHold" -gt 0 ]; then
         currentAvg=$(echo "$wallet $piecesHold" | awk '{print ($1 / $2)}')
-    else 
+    else
         currentAvg="$quoteAt"
     fi
 

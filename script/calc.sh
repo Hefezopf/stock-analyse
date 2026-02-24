@@ -31,11 +31,11 @@ orderValue=${orderValue%.*}
 # 15.000 EUR 0,25 % from order value 37,50 EUR 33,75 EUR 30,00 EUR
 # 25.000 EUR Maximalprovision 58,90 EUR 53,01 EUR 47,12 EUR
 TX_FEE=7,12
-if [ "$orderValue" -gt 25000 ]; then 
+if [ "$orderValue" -gt 25000 ]; then
     TX_FEE=47.12
-elif [ "$orderValue" -gt 15000 ]; then 
+elif [ "$orderValue" -gt 15000 ]; then
     TX_FEE=30.0
-elif [ "$orderValue" -gt 10000 ]; then 
+elif [ "$orderValue" -gt 10000 ]; then
     TX_FEE=20.0
 elif [ "$orderValue" -gt 5000 ]; then
     TX_FEE=10.0

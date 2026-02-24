@@ -36,10 +36,10 @@ value12=$(echo "${averagePriceMACD12List}" | cut -d ' ' -f "$((index + 1))")
 
 #echo "====$jj_index - $difference"  
 
-        if [ "$jj_index" -eq 2 ]; then 
+        if [ "$jj_index" -eq 2 ]; then
             MACD_LIST="$MACD_LIST $difference, $difference,"
         fi
-        if [ "$jj_index" -gt 2 ]; then 
+        if [ "$jj_index" -gt 2 ]; then
             MACD_LIST="$MACD_LIST $difference,"
         fi
     done
@@ -191,7 +191,7 @@ StochasticOfDays() {
             # Formula=((C – Ln )/( Hn – Ln )) * 100
             #lastStochasticQuote=$(echo "$lastStochasticRaw $lowestStochasticRaw $highestStochasticRaw" | awk '{print ( ($1 - $2) / ($3 - $2) ) * 100}')
             lastStochasticQuote=$(echo "scale=2;( ($lastStochasticRaw - $lowestStochasticRaw) / ($highestStochasticRaw - $lowestStochasticRaw) ) * 100" | bc)
-        else 
+        else
             lastStochasticQuote=100
         fi
         #lastStochasticQuoteRounded=$(echo "$lastStochasticQuote" | cut -f 1 -d '.')

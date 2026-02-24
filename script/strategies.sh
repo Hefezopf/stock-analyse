@@ -162,7 +162,7 @@ StrategieByTendency() {
             echo "$resultStrategieByTendency"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
         fi
-    elif [ "$_tendencyParam" = "$LEVEL" ]; then 
+    elif [ "$_tendencyParam" = "$LEVEL" ]; then
         # 3 times _percentageFactorParam
         _percentagePowOf=$(echo "$_percentageFactorParam 3" | awk '{print $1 ^ $2}')
         _valueWithFactor=$(echo "$_percentagePowOf $_lastAverage95Param" | awk '{print $1 * $2}')
@@ -181,7 +181,7 @@ StrategieByTendency() {
             echo "$resultStrategieByTendency"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
         fi
-    elif [ "$_tendencyParam" = "$FALLING" ]; then 
+    elif [ "$_tendencyParam" = "$FALLING" ]; then
         # 0 times _percentageFactorParam
         if awk 'BEGIN {exit !('"$_lastPriceParam"' > '"$_lastAverage95Param"')}'; then
             alarmAbbrevValue=T-$alarmAbbrevValue
@@ -252,7 +252,7 @@ StrategieOverratedXHighRSI() {
             countHighRSI=$((countHighRSI + 1))
         fi
         # At least 3 high values out of 7 and one of the last 3 must be over
-        if [ "$countHighRSI" -ge 3 ] && [ "$oneOfTheLastRSIHigh" = 1 ]; then 
+        if [ "$countHighRSI" -ge 3 ] && [ "$oneOfTheLastRSIHigh" = 1 ]; then
             alarmAbbrevValue=$countHighRSI"R-"$alarmAbbrevValue
             reasonPrefix="Sell: High $countHighRSI last RSI (R)"
             resultStrategieOverratedXHighRSI="$reasonPrefix: $countHighRSI last quotes over level"

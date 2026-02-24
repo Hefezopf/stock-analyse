@@ -78,12 +78,12 @@ do
         firmenportrait="-------------"
         firmenportraitWarningSymbols="$symbol $firmenportraitWarningSymbols"
         echo "--> Warning Firmenportrait: $symbol $ID_NOTATION! $firmenportrait"
-    fi    
+    fi
 
     # Now write all results in file!
     # Replace till end of line: idempotent!
     sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait\t$isin/g" "$TICKER_NAME_ID_FILE_MEM"
-  fi  
+  fi
 
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
     curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")

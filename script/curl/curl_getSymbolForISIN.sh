@@ -40,14 +40,14 @@ do
     ISIN="${ISIN^^}" # all uppercase
 
     preFix="${ISIN:0:2}"
-    if { [ "$preFix" = 'GB' ] || [ "$preFix" = 'IE' ] || [ "$preFix" = 'JP' ] ; } then 
+    if { [ "$preFix" = 'GB' ] || [ "$preFix" = 'IE' ] || [ "$preFix" = 'JP' ] ; } then
         echo "ISIN: $ISIN is a kind GB (Great Britain) or IE (Irland) or JP (Japan) ISIN, skipping because spread too high..."
         continue
     fi
     if { [ "$ISIN" = 'DE0005439004' ] ; } then # DE0005439004=CON
         echo "ISIN: $ISIN is excluded!"
         continue
-    fi    
+    fi
 
     curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/search/all.html?SEARCH_VALUE=$ISIN")  
     symbol=$(echo "$curlResponse" 2>/dev/null | grep -m1 -A1 "Symbol" | grep td)

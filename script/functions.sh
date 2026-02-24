@@ -207,7 +207,7 @@ LessThenWithFactor() {
 
 # GreaterThenWithFactor function:
 # Input: ${x}
-# Output: 1 if 'factor'*'firstCompareValue'>'secondCompareValue' else 0
+# Output: 1 if 'factor'*'firstCompareValue'>'secondCompareValue' else=0
 # Example 1.1*100>109 -> return 1
 # Example 1.1*100>110 -> return 0
 GreaterThenWithFactor() {
@@ -279,10 +279,15 @@ WriteComdirectUrlAndStoreFileList() {
         _id_notation=999999
     fi
 
+
+
+#echo "1: $_id_notation" = "$ID_NOTATION_STORE_FOR_NEXT_TIME" 
     # Only write URL once into result file
     if [ ! "$_id_notation" = "$ID_NOTATION_STORE_FOR_NEXT_TIME" ]; then
-        ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
-        {         
+        {    
+            ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
+            #echo "in 2..."                 
+            #echo "in 3..."
             # Hover Chart (result overview page)
             echo "<img class='imgborder' id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
             echo "<div id='headlineLinkId' style='margin-top: 26px'>"
@@ -310,17 +315,16 @@ WriteComdirectUrlAndStoreFileList() {
 # <img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=5Y' /></div></a>"
 
 
-           echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('10D', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
-           echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('6M', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
-           echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
-
+            echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('10D', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
+            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('6M', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
+            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
 
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
             if [ "$(uname)" = 'Linux' ]; then
-                echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='file:///media/markus/BigBerta/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
+                echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam;' href='file:///media/markus/BigBerta/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
             else
-                echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='file:///C:/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
-            fi            
+                echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam;' href='file:///C:/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
+            fi
             echo "</div>"
         } >> "$_outResultFileParam"
     fi
@@ -387,11 +391,11 @@ CalculateTxFee() {
     orderValue=${orderValue%.*}
 
     TX_FEE="10"
-    if [ "$orderValue" -gt 25000 ]; then 
+    if [ "$orderValue" -gt 25000 ]; then
         TX_FEE="47"
-    elif [ "$orderValue" -gt 15000 ]; then 
+    elif [ "$orderValue" -gt 15000 ]; then
         TX_FEE="30"
-    elif [ "$orderValue" -gt 10000 ]; then 
+    elif [ "$orderValue" -gt 10000 ]; then
         TX_FEE="20"
     elif [ "$orderValue" -gt 5000 ]; then
         TX_FEE="15"
@@ -410,7 +414,7 @@ CalculateMarketCapRSILevel() {
     _marketCapParam=$2
 
 # sim CalculateMarketCapRSILevel
-    if [ "$_marketCapParam" = "?" ]; then 
+    if [ "$_marketCapParam" = "?" ]; then
         _marketCapParam="1"
     fi
 # sim CalculateMarketCapRSILevel
@@ -422,25 +426,25 @@ CalculateMarketCapRSILevel() {
         isMarketCapRSILevel="true"
     elif [ "$_lastRSIParam" -eq 24 ] && [ "$_marketCapParam" -gt 90 ]; then # = 24 RSI 
          isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 23 ] && [ "$_marketCapParam" -gt 80 ]; then 
+    elif [ "$_lastRSIParam" -eq 23 ] && [ "$_marketCapParam" -gt 80 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 22 ] && [ "$_marketCapParam" -gt 70 ]; then 
+    elif [ "$_lastRSIParam" -eq 22 ] && [ "$_marketCapParam" -gt 70 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 21 ] && [ "$_marketCapParam" -gt 60 ]; then 
+    elif [ "$_lastRSIParam" -eq 21 ] && [ "$_marketCapParam" -gt 60 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 20 ] && [ "$_marketCapParam" -gt 50 ]; then 
+    elif [ "$_lastRSIParam" -eq 20 ] && [ "$_marketCapParam" -gt 50 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 19 ] && [ "$_marketCapParam" -gt 40 ]; then 
+    elif [ "$_lastRSIParam" -eq 19 ] && [ "$_marketCapParam" -gt 40 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 18 ] && [ "$_marketCapParam" -gt 30 ]; then 
+    elif [ "$_lastRSIParam" -eq 18 ] && [ "$_marketCapParam" -gt 30 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 17 ] && [ "$_marketCapParam" -gt 20 ]; then 
+    elif [ "$_lastRSIParam" -eq 17 ] && [ "$_marketCapParam" -gt 20 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 16 ] && [ "$_marketCapParam" -gt 10 ]; then 
+    elif [ "$_lastRSIParam" -eq 16 ] && [ "$_marketCapParam" -gt 10 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -lt 16 ] && [ "$_marketCapParam" -gt 1 ]; then 
+    elif [ "$_lastRSIParam" -lt 16 ] && [ "$_marketCapParam" -gt 1 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -lt 16 ]; then 
+    elif [ "$_lastRSIParam" -lt 16 ]; then
         isMarketCapRSILevel="true"
     fi
 }

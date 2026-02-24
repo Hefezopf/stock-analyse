@@ -155,7 +155,7 @@ echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
 do
-    if [ "${symbol::1}" = '*' ]; then 
+    if [ "${symbol::1}" = '*' ]; then
         symbol="${symbol:1:7}"
     fi
 
