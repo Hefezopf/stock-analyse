@@ -94,11 +94,20 @@ else
 
     newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')
 
-    if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
-        echo ""
-    else
+    # if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
+    #     echo ""
+    # else
+    #     echo "$newAmount" | clip
+    # fi
+
+
+    if [ "$(uname -n)" == "markus-ideacentre-700-25ISH" ]; then # markus-ideacentre-700-25ISH (bash Mint), Laptop-Markus (bash Win) or runnervmwffz4 (GitHub)
+        echo "$newAmount" | xclip -selection clipboard
+    elif [ "$(uname -n)" == "Laptop-Markus" ]; then    
         echo "$newAmount" | clip
-    fi
+    else # GitHub
+        echo ""
+    fi    
     
     winPercentage=$(echo "scale=1; ($sellPriceParam *100 / $AVG_PRICE) - 100" | bc)
  
@@ -295,7 +304,7 @@ rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
 echo "Transaction count: $count (Year $(date +%Y))"
 
-if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
+if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
     echo ""
     echo "Windows:Red Sell-Marker appears next time in HTML when Github 'Nightly Action' runs!"
 fi

@@ -235,7 +235,8 @@ ProgressBar() {
     _fill=$(printf "%${_done}s")
     _empty=$(printf "%${_left}s")
     # Progress: ######################################## 100%
-if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
+    if [[ "$(uname -n)" == *"arkus"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+    #if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
         # shellcheck disable=SC3037,SC3060
         echo -n "$(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")"
         if [ "$_currentStateParam" = "$_totalStateParam" ]; then
@@ -317,12 +318,19 @@ WriteComdirectUrlAndStoreFileList() {
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('6M', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
 
-            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
-            if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
-                echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='file:///media/markus/BigBerta/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
-            else
+            if [ "$(uname -n)" == "markus-ideacentre-700-25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+                echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam;' href='file:///media/markus/BigBerta/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
+            elif [ "$(uname -n)" == "Laptop-Markus" ]; then    
                 echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam;' href='file:///C:/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
+            else # GitHub
+                echo ""
             fi
+       
+            # if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
+            #     echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='file:///media/markus/BigBerta/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
+            # else
+            #     echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam;' href='file:///C:/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
+            # fi
             echo "</div>"
         } >> "$_outResultFileParam"
     fi
@@ -454,7 +462,8 @@ GetCreationDate() {
 
     dateParameter="%e-%b-%Y %R"
     creationDate=$(date +"$dateParameter") # 29-Apr-2021 08:52
-    if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
+    #if [ "$(uname -n)" == "markus-ideacentre-700-25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+    if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
         #creationDate=$(TZ=EST-0EDT date +"$dateParameter") # Sommerzeit / Summertime 
         creationDate=$(TZ=EST-1EDT date +"$dateParameter") # Winterzeit / Wintertime
     fi
