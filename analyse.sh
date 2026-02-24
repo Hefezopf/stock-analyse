@@ -86,8 +86,6 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 /* Colors */
 .green{color:green;} .red{color:red;} .black{color:black;}
 
-/*imgborder {border: 1px solid;} */
-
 /* iPhone 3 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) {
     body > div {
