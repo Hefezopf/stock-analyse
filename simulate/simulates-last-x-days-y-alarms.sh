@@ -206,12 +206,13 @@ function doOpenAllInTab() {
 </script>
 </body></html>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo ""
-if [ ! "$(uname)" = 'Linux' ]; then
+
+if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
     echo "./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh" | clip
     echo "Call: ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh (in Clipboard)"
 fi
 
-if [ "$(uname)" = 'Linux' ]; then
+if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
     echo "file:///media/markus/BigBerta/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
 else
     echo "file:///C:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"

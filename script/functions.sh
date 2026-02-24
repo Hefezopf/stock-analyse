@@ -235,7 +235,7 @@ ProgressBar() {
     _fill=$(printf "%${_done}s")
     _empty=$(printf "%${_left}s")
     # Progress: ######################################## 100%
-    if [ ! "$(uname)" = 'Linux' ]; then
+if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
         # shellcheck disable=SC3037,SC3060
         echo -n "$(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")"
         if [ "$_currentStateParam" = "$_totalStateParam" ]; then
@@ -320,7 +320,7 @@ WriteComdirectUrlAndStoreFileList() {
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
 
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
-            if [ "$(uname)" = 'Linux' ]; then
+            if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
                 echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='file:///media/markus/BigBerta/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
             else
                 echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam;' href='file:///C:/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
@@ -343,7 +343,7 @@ CreateCmdHyperlink() {
     _symbolParam=$3
 
     _outputText="# $_hyperlinkParam $_symbolParam $symbolName"
-    if [ "$(uname)" = 'Linux' ]; then
+    if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
         echo "$_outputText"
     else
         _driveLetter=$(pwd | cut -f 2 -d '/')
@@ -456,7 +456,7 @@ GetCreationDate() {
 
     dateParameter="%e-%b-%Y %R"
     creationDate=$(date +"$dateParameter") # 29-Apr-2021 08:52
-    if [ "$(uname)" = 'Linux' ]; then
+    if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
         #creationDate=$(TZ=EST-0EDT date +"$dateParameter") # Sommerzeit / Summertime 
         creationDate=$(TZ=EST-1EDT date +"$dateParameter") # Winterzeit / Wintertime
     fi

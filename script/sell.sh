@@ -94,7 +94,7 @@ else
 
     newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')
 
-    if [ "$(uname)" = 'Linux' ]; then
+    if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
         echo ""
     else
         echo "$newAmount" | clip
@@ -295,7 +295,7 @@ rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
 echo "Transaction count: $count (Year $(date +%Y))"
 
-if [ ! "$(uname)" = 'Linux' ]; then
+if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
     echo ""
     echo "Windows:Red Sell-Marker appears next time in HTML when Github 'Nightly Action' runs!"
 fi
