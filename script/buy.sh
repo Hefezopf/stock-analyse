@@ -110,12 +110,20 @@ summe=$((summe + TX_FEE + summeFromOwnSymbolsFile))
 BUY_RESULT_FILE="buy_result.txt"
 rm -rf "$BUY_RESULT_FILE"
 echo "Pieces=$totalAmountOfPieces Invested Amount=$summe€" >> "$BUY_RESULT_FILE"
-if [ "$(uname -o)" = 'GNU/Linux' ]; then
-    echo "(re)buy $symbolParam $piecesParam $priceParam ==> $totalAmountOfPieces <== pieces,  $summe€ Value overall"
-else
-    echo "$summe" | clip
+echo "------- uname -n: $(uname -n)"
+#if [[ "$(uname -n)" == *"runner"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+#if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
+    #echo "(re)buy $symbolParam $piecesParam $priceParam ==> $totalAmountOfPieces <== pieces,  $summe€ Value overall"
+if [ "$(uname -n)" == "markus-ideacentre-700-25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+    echo "$summe" | xclip -selection clipboard
     echo "(re)buy $symbolParam $piecesParam $priceParam ==> $totalAmountOfPieces <== pieces, $summe€ Value overall (in clipboard)"
     rm -rf "$BUY_RESULT_FILE"
+if [ "$(uname -n)" == "Laptop-Markus" ]; then    
+    echo "$summe" | clip
+    echo "(re)buy $symbolParam $piecesParam $priceParam ==> $totalAmountOfPieces <== pieces, $summe€ Value overall (in clipboard)"
+   # rm -rf "$BUY_RESULT_FILE"
+else # GitHub
+    echo "(re)buy $symbolParam $piecesParam $priceParam ==> $totalAmountOfPieces <== pieces,  $summe€ Value overall"
 fi
 
 if { [ -z "$priceFromOwnSymbolsFile" ]; } then
