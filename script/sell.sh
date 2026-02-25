@@ -304,7 +304,7 @@ rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
 echo "Transaction count: $count (Year $(date +%Y))"
 
-if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
+if [ ! "$UNAME_O" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
     echo ""
     echo "Windows:Red Sell-Marker appears next time in HTML when Github 'Nightly Action' runs!"
 fi

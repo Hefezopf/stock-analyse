@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# For printf "%.2f"
-export UNAME_N="$(uname -n)"
+# For uname
+export UNAME_N; UNAME_N="$(uname -n)"
+export UNAME_O; UNAME_O="$(uname -o)"
 
 # For printf "%.2f"
 export LC_NUMERIC=en_US.UTF-8
