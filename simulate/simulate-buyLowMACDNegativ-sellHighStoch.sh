@@ -580,6 +580,10 @@ do
     sed -i """$lineNumer""s/.*/$RSIBuySequenceReplaced/" simulate/out/"$symbol".html
 
     # Search and Replace
+    # path to country flag
+    sed -i 's/image\/flags/..\/image\/flags/g' simulate/out/"$symbol".html
+
+    # Search and Replace
     lineNumer=$(grep -wn "Good Luck!" out/"$symbol".html)
     lineNumer=${lineNumer%*"<"*}
     lineNumer=${lineNumer%*"<"*}
@@ -587,8 +591,6 @@ do
     lineNumer=${lineNumer%*"<"*}
     lineNumer=${lineNumer%*"<"*}
     lineNumer=${lineNumer%*":"*} # 568
- #   echo "-----lineNumer:$lineNumer"
-#<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 25-Apr-2025 13:07</p>
 
     GetCreationDate
     # shellcheck disable=SC2154
