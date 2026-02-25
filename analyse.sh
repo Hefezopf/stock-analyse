@@ -60,7 +60,6 @@ mkdir -p alarm
 mkdir -p out
 mkdir -p temp
 mkdir -p "$TEMP_DIR/config"
-
 cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 cp template/favicon.ico out
 cp template/_common.js out

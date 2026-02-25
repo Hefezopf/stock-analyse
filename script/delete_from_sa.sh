@@ -37,9 +37,6 @@ if { [ "$TOTAL_PIECES" ]; } then
     exit 2
 fi
 
-
-
-
 # Delete symbol in stock_symbols.txt
 # shellcheck disable=SC2002
 cat "$STOCK_SYMBOLS_FILE" | sed -i s/"$symbolParam "// "$STOCK_SYMBOLS_FILE"
@@ -55,5 +52,7 @@ rm -rf buy/"$symbolParam"*.txt
 rm -rf "$DATA_DIR/$symbolParam"*.txt
 rm -rf history/"$symbolParam"*.txt
 rm -rf sell/"$symbolParam"*.txt
-rm -rf status/"$symbolParam"*.txt
+rm -rf status/"$symbolParam"/"$symbolParam"_alarm.txt
+rm -rf status/"$symbolParam"/"$symbolParam"_buy.txt
+rm -rf status/"$symbolParam"/"$symbolParam"_sell.txt
 rm -rf simulate/out/"$symbolParam"*.html
