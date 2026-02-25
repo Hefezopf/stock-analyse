@@ -717,7 +717,7 @@ do
         if [ "$asset_type" = 'STOCK' ] || [ "$asset_type" = 'INDEX' ]; then
             # KGVe
             kgve=$(echo "$lineFromTickerFile" | cut -f 6)          
-            echo "<span style='font-size:50px'>KGV&nbsp;$kgve&nbsp;&nbsp;&nbsp;</span>&nbsp;"
+            echo "<span style='font-size:50px'>KGV&nbsp;$kgve&nbsp;&nbsp;</span>"
             # DIVe
             dive=$(echo "$lineFromTickerFile" | cut -f 7)
             echo "<span style='font-size:50px'>DIV&nbsp;$dive%&nbsp</span>&nbsp;"
