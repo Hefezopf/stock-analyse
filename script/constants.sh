@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # For printf "%.2f"
+export UNAME_N="$(uname -n)"
+
+# For printf "%.2f"
 export LC_NUMERIC=en_US.UTF-8
 
 # Tendency
@@ -29,7 +32,6 @@ export STATUS_DIR="status"
 export TEMP_DIR="/dev/shm/"
 
 # Files
-
 export COOKIES_FILE="$TEMP_DIR""cookies.txt"
 export OWN_SYMBOLS_FILE="config/own_symbols.txt"
 export TICKER_NAME_ID_FILE="config/ticker_name_id.txt"
@@ -40,5 +42,4 @@ export TRANSACTION_HISTORY_FILE="config/transaction_history.txt"
 export OUT_RESULT_FILE="out/_result.html"
 export OUT_TRANSACTION_HISTORY_HTML_FILE="out/_transaction_history.html"
 export SCRIPT_START_ALL_IN_CHROME_FILE="script/start-all-in-chrome.sh"
-
 export SIM_LAST_ALARMS_HTML_FILE="simulate/out/_simulate_last_alarms.html"

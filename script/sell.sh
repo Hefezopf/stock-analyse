@@ -101,9 +101,9 @@ else
     # fi
 
 
-    if [ "$(uname -n)" == "markus-ideacentre-700-25ISH" ]; then # markus-ideacentre-700-25ISH (bash Mint), Laptop-Markus (bash Win) or runnervmwffz4 (GitHub)
+    if [ "$UNAME_N" == "markus-ideacentre-700-25ISH" ]; then # markus-ideacentre-700-25ISH (bash Mint), Laptop-Markus (bash Win) or runnervmwffz4 (GitHub)
         echo "$newAmount" | xclip -selection clipboard
-    elif [ "$(uname -n)" == "Laptop-Markus" ]; then    
+    elif [ "$UNAME_N" == "Laptop-Markus" ]; then    
         echo "$newAmount" | clip
     else # GitHub
         echo ""

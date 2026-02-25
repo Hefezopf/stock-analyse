@@ -110,11 +110,11 @@ summe=$((summe + TX_FEE + summeFromOwnSymbolsFile))
 BUY_RESULT_FILE="buy_result.txt"
 rm -rf "$BUY_RESULT_FILE"
 echo "Pieces=$totalAmountOfPieces Invested Amount=$summe€" >> "$BUY_RESULT_FILE"
-if [ "$(uname -n)" == "markus-ideacentre-700-25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+if [ "$UNAME_N" == "markus-ideacentre-700-25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
     echo "$summe" | xclip -selection clipboard
     echo "(re)buy $symbolParam $piecesParam $priceParam ==> $totalAmountOfPieces <== pieces, $summe€ Value overall (in clipboard)"
     rm -rf "$BUY_RESULT_FILE"
-elif [ "$(uname -n)" == "Laptop-Markus" ]; then    
+elif [ "$UNAME_N" == "Laptop-Markus" ]; then    
     echo "$summe" | clip
     echo "(re)buy $symbolParam $piecesParam $priceParam ==> $totalAmountOfPieces <== pieces, $summe€ Value overall (in clipboard)"
     rm -rf "$BUY_RESULT_FILE"
