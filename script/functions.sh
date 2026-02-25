@@ -351,8 +351,10 @@ CreateCmdHyperlink() {
 
     _outputText="# $_hyperlinkParam $_symbolParam $symbolName"
 
-
-if [ "$(uname -n)" == "markus-ideacentre-700-25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+    if [ "$(uname -n)" == "markus-ideacentre-700-25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+        # shellcheck disable=SC3037
+        echo -e "\e]8;;file:///$(pwd)/$_outDirParam/$_symbolParam.html\a$_outputText\e]8;;\a"
+    elif [ "$(uname -n)" == "Laptop-Markus" ]; then    
         _driveLetter=$(pwd | cut -f 2 -d '/')
         _suffix=$(pwd)
         # shellcheck disable=SC3057
@@ -360,18 +362,9 @@ if [ "$(uname -n)" == "markus-ideacentre-700-25ISH" ]; then # runnervmwffz4 (Git
         _directory=$_driveLetter":"$_suffixPath
         # shellcheck disable=SC3037
         echo -e "\e]8;;file:///$_directory/$_outDirParam/$_symbolParam.html\a$_outputText\e]8;;\a"
-elif [ "$(uname -n)" == "Laptop-Markus" ]; then    
-        _driveLetter=$(pwd | cut -f 2 -d '/')
-        _suffix=$(pwd)
-        # shellcheck disable=SC3057
-        _suffixPath=${_suffix:2:200}
-        _directory=$_driveLetter":"$_suffixPath
-        # shellcheck disable=SC3037
-        echo -e "\e]8;;file:///$_directory/$_outDirParam/$_symbolParam.html\a$_outputText\e]8;;\a"
-else # GitHub
-    echo "$_outputText"
-fi
-
+    else # GitHub
+        echo "$_outputText"
+    fi
 
     # if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux or Msys
     #     echo "$_outputText"
