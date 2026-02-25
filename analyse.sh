@@ -720,14 +720,14 @@ do
             echo "<span style='font-size:50px'>KGV&nbsp;$kgve&nbsp;&nbsp;&nbsp;</span>&nbsp;"
             # DIVe
             dive=$(echo "$lineFromTickerFile" | cut -f 7)
-            echo "<span style='font-size:50px'>DIV&nbsp;$dive%&nbsp</span>"
+            echo "<span style='font-size:50px'>DIV&nbsp;$dive%&nbsp</span>&nbsp;"
 
             # Country Flag
             if [ ! "$isin" ] ; then
                 # Should never occure 
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
-                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;"  
+                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
             fi
 
             # hover Firmenportrait Text
