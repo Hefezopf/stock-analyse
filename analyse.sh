@@ -838,7 +838,7 @@ do
 
     # Minify <Symbol>.html file
     sed -i "s/^[ \t]*//g" "$indexSymbolFile" # Remove Tabs from beginning of line
-    if [ "$UNAME_N" != 'markus-ideacentre-700-25ISH' ]; then
+    if [ "$UNAME_N" != "$UNAME_N_MARKUS_IDEACENTRE_700_25ISH_BASH_MINT" ]; then
         sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript! chartjs.org doesn't work, when build with Linux!
     fi
     #sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript! chartjs.org doesn't work, when build with Linux!
@@ -1027,7 +1027,7 @@ fi
 
 # Minify _result.html file
 sed -i "s/^[ \t]*//g" "$OUT_RESULT_FILE" # Remove Tabs from beginning of line
-if [ "$UNAME_N" != 'markus-ideacentre-700-25ISH' ]; then
+if [ "$UNAME_N" != "$UNAME_N_MARKUS_IDEACENTRE_700_25ISH_BASH_MINT" ]; then
     sed -i ":a;N;$!ba;s/\n//g" "$indexSymbolFile" # Remove \n. Attention: will remove \n in Javascript! PC Links (linkPC) doesn't work, when build with Linux!
 fi
 #sed -i ":a;N;$!ba;s/\n//g" "$OUT_RESULT_FILE" # Remove \n. Attention: will remove \n in Javascript!

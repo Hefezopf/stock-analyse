@@ -207,12 +207,12 @@ function doOpenAllInTab() {
 </body></html>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo ""
 
-if [ ! "$UNAME_O" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
+if [ ! "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
     echo "./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh" | clip
     echo "Call: ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh (in Clipboard)"
 fi
 
-if [ "$UNAME_O" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
+if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
     echo "file:///media/markus/BigBerta/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
 else
     echo "file:///C:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"

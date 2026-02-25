@@ -1,8 +1,14 @@
 #!/bin/bash
 
 # For uname
-export UNAME_N; UNAME_N="$(uname -n)"
+export UNAME_N; UNAME_N="$(uname -n)" #runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+export UNAME_N_MARKUS_IDEACENTRE_700_25ISH_BASH_MINT="markus-ideacentre-700-25ISH"
+export UNAME_N_LAPTOP_MARKUS_BASH_WIN="Laptop-Markus" 
+export UNAME_N_ARKUS_BASH_ALL_OS="arkus"
+
 export UNAME_O; UNAME_O="$(uname -o)"
+export UNAME_O_GNU_LINUX="GNU/Linux"
+
 
 # For printf "%.2f"
 export LC_NUMERIC=en_US.UTF-8
