@@ -723,6 +723,7 @@ do
             echo "<span style='font-size:50px'>DIV&nbsp;$dive%&nbsp</span>&nbsp;"
 
             # Country Flag
+#echo "--------isin $isin"            
             if [ ! "$isin" ] ; then
                 # Should never occure 
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
