@@ -235,7 +235,7 @@ ProgressBar() {
     _fill=$(printf "%${_done}s")
     _empty=$(printf "%${_left}s")
     # Progress: ######################################## 100%
-    if [[ "$UNAME_N" = *"$UNAME_N_ARKUS_BASH_ALL_OS"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win) 
+    if [[ "$UNAME_N" = *"$UNAME_N_BASH_LOCAL_ALL_OS"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win) 
     #if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
         # shellcheck disable=SC3037,SC3060
         echo -n "$(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")"
@@ -311,9 +311,9 @@ WriteComdirectUrlAndStoreFileList() {
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseenter=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseleave=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
 
-            if [ "$UNAME_N" = "$UNAME_N_MARKUS_IDEACENTRE_700_25ISH_BASH_MINT" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+            if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
                 echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam;' href='file:///media/markus/BigBerta/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
-            elif [ "$UNAME_N" = "$UNAME_N_LAPTOP_MARKUS_BASH_WIN" ]; then    
+            elif [ "$UNAME_N" = "$UNAME_N_BASH_WIN_LAPTOP_MARKUS" ]; then    
                 echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam;' href='file:///C:/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
             else # GitHub
                 echo ""
@@ -343,10 +343,10 @@ CreateCmdHyperlink() {
 
     _outputText="# $_hyperlinkParam $_symbolParam $symbolName"
 
-    if [ "$UNAME_N" = "$UNAME_N_MARKUS_IDEACENTRE_700_25ISH_BASH_MINT" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+    if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
         # shellcheck disable=SC3037
         echo -e "\e]8;;file:///$(pwd)/$_outDirParam/$_symbolParam.html\a$_outputText\e]8;;\a"
-    elif [ "$UNAME_N" = "$UNAME_N_LAPTOP_MARKUS_BASH_WIN" ]; then    
+    elif [ "$UNAME_N" = "$UNAME_N_BASH_WIN_LAPTOP_MARKUS" ]; then    
         _driveLetter=$(pwd | cut -f 2 -d '/')
         _suffix=$(pwd)
         # shellcheck disable=SC3057
@@ -471,7 +471,7 @@ GetCreationDate() {
 
     dateParameter="%e-%b-%Y %R"
     creationDate=$(date +"$dateParameter") # 29-Apr-2021 08:52
-    #if [ "$UNAME_N" = "$UNAME_N_MARKUS_IDEACENTRE_700_25ISH_BASH_MINT" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
+    #if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
     if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
         #creationDate=$(TZ=EST-0EDT date +"$dateParameter") # Sommerzeit / Summertime 
         creationDate=$(TZ=EST-1EDT date +"$dateParameter") # Winterzeit / Wintertime

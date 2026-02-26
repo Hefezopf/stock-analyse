@@ -101,9 +101,9 @@ else
     # fi
 
 
-    if [ "$UNAME_N" = "$UNAME_N_MARKUS_IDEACENTRE_700_25ISH_BASH_MINT" ]; then # markus-ideacentre-700-25ISH (bash Mint), Laptop-Markus (bash Win) or runnervmwffz4 (GitHub)
+    if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # markus-ideacentre-700-25ISH (bash Mint), Laptop-Markus (bash Win) or runnervmwffz4 (GitHub)
         echo "$newAmount" | xclip -selection clipboard
-    elif [ "$UNAME_N" = "$UNAME_N_LAPTOP_MARKUS_BASH_WIN" ]; then    
+    elif [ "$UNAME_N" = "$UNAME_N_BASH_WIN_LAPTOP_MARKUS" ]; then    
         echo "$newAmount" | clip
     else # GitHub
         echo ""
@@ -304,8 +304,8 @@ rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
 echo "Transaction count: $count (Year $(date +%Y))"
 
-if [[ "$UNAME_N" = *"$UNAME_N_ARKUS_BASH_ALL_OS"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win) 
+if [[ "$UNAME_N" = *"$UNAME_N_BASH_LOCAL_ALL_OS"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win) 
 #if [ ! "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
     echo ""
-    echo "Windows:Red Sell-Marker appears next time in HTML when Github 'Nightly Action' runs!"
+    echo "Local run: Red Sell-Marker appears  in HTML after next Github 'Nightly Action' run!"
 fi
