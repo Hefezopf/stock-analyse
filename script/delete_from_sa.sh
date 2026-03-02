@@ -55,4 +55,5 @@ rm -rf sell/"$symbolParam"*.txt
 rm -rf status/"$symbolParam"/"$symbolParam"_alarm.txt
 rm -rf status/"$symbolParam"/"$symbolParam"_buy.txt
 rm -rf status/"$symbolParam"/"$symbolParam"_sell.txt
+rm -rf status/"$symbolParam"/
 rm -rf simulate/out/"$symbolParam"*.html
