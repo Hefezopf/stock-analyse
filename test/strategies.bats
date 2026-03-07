@@ -163,6 +163,7 @@ export -f WriteComdirectUrlAndStoreFileList
   [ "$resultStrategieUnderratedLowHorizontalMACD" == 'Buy: Low MACD (M): last MACD -0.80' ]  
 }
 
+# Skip Sell Strategie for MACD
 @test "StrategieOverratedHighHorizontalMACD" {
   StrategieOverratedHighHorizontalMACD 
   [ "$resultStrategieOverratedHighHorizontalMACD" == '' ]

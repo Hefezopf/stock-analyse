@@ -528,7 +528,8 @@ do
             # Sell Strategie: High horizontal MACD
             if [ "$applyStrategieHorizontalMACD" = true ]; then
                 resultStrategieOverratedHighHorizontalMACD=""
-                StrategieOverratedHighHorizontalMACD "$MACD_LIST" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
+                # Skip Sell Strategie for MACD
+                #StrategieOverratedHighHorizontalMACD "$MACD_LIST" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
             fi
 
             # Sell Strategie: Divergence RSI
