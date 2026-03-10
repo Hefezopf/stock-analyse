@@ -473,7 +473,7 @@ GetCreationDate() {
     creationDate=$(date +"$dateParameter") # 29-Apr-2021 08:52
     #if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
     if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
-        #creationDate=$(TZ=EST-0EDT date +"$dateParameter") # Sommerzeit / Summertime 
-        creationDate=$(TZ=EST-1EDT date +"$dateParameter") # Winterzeit / Wintertime
+        creationDate=$(TZ=EST-0EDT date +"$dateParameter") # Sommerzeit / Summertime 
+        #creationDate=$(TZ=EST-1EDT date +"$dateParameter") # Winterzeit / Wintertime
     fi
 }
