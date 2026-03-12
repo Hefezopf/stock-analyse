@@ -9,7 +9,6 @@ env:
   percentageEnv: '1'
   stochasticEnv: '9'
   RSIEnv: '25'
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 # Controls when the action will run. 
 on:
@@ -43,10 +42,6 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -128,7 +123,7 @@ jobs:
           git push
     
       - name: Send result via email
-        uses: dawidd6/action-send-mail@v12
+        uses: dawidd6/action-send-mail@v11
         with:
           server_address: smtp.ionos.de
           server_port: 465
