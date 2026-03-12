@@ -42,6 +42,10 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+
+    env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  
+
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -70,8 +74,6 @@ jobs:
           uname --all
           uname -n
           uname -o
-          
-          export FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
