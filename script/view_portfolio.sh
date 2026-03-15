@@ -39,10 +39,10 @@ do
     SYMBOL_NAME=$(echo "$lineFromOwnSymbolsFile" | cut -f 6)
     performance=$(echo "$avgPrice $lastQuote" | awk '{print (100 * $2 / $1) - 100}')
     performance=$(printf "%.1f" "$performance")
-
+    #if { [ ${performance:0:1} != "-" ]; } then
+    #    performance="+$performance"
+    #fi    
     avgPrice=$(printf "%.1f" "$avgPrice")
-    # shellcheck disable=SC2001
-    #avgPrice=$(echo "$avgPrice" | sed 's/.00/.0/g')
     
     echo -e "$symbol\t$avgPrice€\t$today\t$totalAmountOfPieces\t$summe\t$performance%\t$SYMBOL_NAME" >> "$TEMP_FILE2"
     echo -n .
