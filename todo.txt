@@ -1,17 +1,19 @@
 TODO:
 -----
 
-?
-sudo apt-get install language-selector-common
-sudo check-language-support -l en
-?
+
+#export LC_ALL=en_US.UTF-8
+export LC_ALL=C.UTF-8
+
+
 
 runs-on: ubuntu-slim
-dev:
       - shell: bash
         run: |
+          echo "Locales?1"
           locale -a
           sudo apt-get install -y locales
+          echo "Locales?2"
           locale -a
 
 
