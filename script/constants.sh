@@ -11,7 +11,8 @@ export UNAME_O_GNU_LINUX="GNU/Linux"
 
 
 # For printf "%.2f"
-export LC_NUMERIC=en_US.UTF-8
+#export LC_NUMERIC=en_US.UTF-8
+export LC_NUMERIC=C.UTF-8
 
 # Tendency
 export RISING=RISING

@@ -41,7 +41,8 @@ applyStrategieByTendency=false
 applyStrategieHorizontalMACD=true
 
 # Settings for currency formating like ',' or '.' with 'printf'
-export LC_ALL=en_US.UTF-8
+#export LC_ALL=en_US.UTF-8
+export LC_ALL=C.UTF-8
 
 # Parameter
 symbolsParam=$1
