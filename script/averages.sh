@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#export LC_NUMERIC=en_US.UTF-8
-export LC_NUMERIC="en_US.UTF-8"
+export LC_NUMERIC=en_US.UTF-8
+#export LC_NUMERIC="en_US.UTF-8"
 
 # MACD_12_26 function:
 # Input: ${x}
