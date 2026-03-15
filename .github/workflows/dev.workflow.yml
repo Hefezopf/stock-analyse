@@ -52,6 +52,12 @@ jobs:
 
       - shell: bash
         run: |
+          echo "Locales?"
+          locale -a
+          sudo apt-get install -y locales
+          locale -a
+
+
           echo "Bats Test"
           . ./script/install-bats.sh
 
