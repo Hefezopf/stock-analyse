@@ -69,6 +69,16 @@ if { [ -z "$TOTAL_PIECES" ]; } then
     exit 3
 fi
 
+if { [ "$sellPiecesParam" -gt "${TOTAL_PIECES}" ]; } then
+    echo "Error: There are less stocks in portfolio: $TOTAL_PIECES!"
+    exit 4
+fi
+
+if { [ ${sellPiecesParam:0:1} = "-" ]; } then
+    echo "Error: Pieces can not be negativ!"
+    exit 5
+fi
+
 # Fees
 CalculateTxFee "$sellPriceParam" "$sellPiecesParam"
 
@@ -93,13 +103,6 @@ else
     WIN_AMOUNT=$((WIN_AMOUNT - TX_FEE))
 
     newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')
-
-    # if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
-    #     echo ""
-    # else
-    #     echo "$newAmount" | clip
-    # fi
-
 
     if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # markus-ideacentre-700-25ISH (bash Mint), Laptop-Markus (bash Win) or runnervmwffz4 (GitHub)
         echo "$newAmount" | xclip -selection clipboard

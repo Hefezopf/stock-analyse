@@ -42,6 +42,11 @@ if { [ -z "$symbolParam" ] || [ -z "$piecesParam" ] || [ -z "$priceParam" ]; } t
   exit 1
 fi
 
+if { [ ${piecesParam:0:1} = "-" ]; } then
+    echo "Error: Pieces can not be negativ!"
+    exit 2
+fi
+
 if [ "${symbolParam::1}" = '*' ]; then
     symbolParam="${symbolParam:1:7}"
 fi
