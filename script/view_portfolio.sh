@@ -53,7 +53,7 @@ echo ""
 
 echo ""
 
-echo -e "Symbol\tBuyIn\tDate\t\tPieces\tSum\tPerfor.\tName"
+echo -e "Symbol\tBuyIn\tDate\t\tPieces\t(S)um\t(P)erf.\tName"
 if [ "$1" = 's' ]; then
     sort -k5 -n "$TEMP_FILE"
 elif [ "$1" = 'p' ]; then
