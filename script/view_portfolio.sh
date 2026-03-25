@@ -53,12 +53,16 @@ echo ""
 
 echo ""
 
-echo -e "Symbol\tBuyIn\tDate\t\tPieces\t(S)um\t(P)erf.\tName"
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 if [ "$1" = 's' ]; then
+    echo -e "Symbol\tBuyIn\tDate\t\tPieces\t${RED}(S)um${NC}\t(P)erf.\tName"
     sort -k5 -n "$TEMP_FILE"
 elif [ "$1" = 'p' ]; then
+    echo -e "Symbol\tBuyIn\tDate\t\tPieces\t(S)um\t${RED}(P)erf.${NC}\tName"
     sort -k6 -n "$TEMP_FILE"
 else
+    echo -e "Symbol\tBuyIn\t${RED}Date${NC}\t\tPieces\t(S)um\t(P)erf.\tName"
     cat "$TEMP_FILE"
 fi
 
