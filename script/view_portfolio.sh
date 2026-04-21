@@ -43,7 +43,11 @@ do
     #    performance="+$performance"
     #fi    
     avgPrice=$(printf "%.1f" "$avgPrice")
-    
+    #echo "---${avgPrice:5:1}---"
+    if [ ${avgPrice:5:1} ]; then
+        avgPrice=$(printf "%.0f" "$avgPrice")
+    fi 
+
     echo -e "$symbol\t$avgPrice€\t$today\t$totalAmountOfPieces\t$summe\t$performance%\t$SYMBOL_NAME" >> "$TEMP_FILE2"
     echo -n .
 done
