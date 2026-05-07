@@ -74,7 +74,7 @@ if { [ "$sellPiecesParam" -gt "${TOTAL_PIECES}" ]; } then
     exit 4
 fi
 
-if { [ ${sellPiecesParam:0:1} = "-" ]; } then
+if { [ "${sellPiecesParam:0:1}" = "-" ]; } then
     echo "Error: Pieces can not be negativ!"
     exit 5
 fi

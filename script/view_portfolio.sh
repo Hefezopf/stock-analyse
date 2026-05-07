@@ -44,7 +44,7 @@ do
     #fi    
     avgPrice=$(printf "%.1f" "$avgPrice")
     #echo "---${avgPrice:5:1}---"
-    if [ ${avgPrice:5:1} ]; then
+    if [ "${avgPrice:5:1}" ]; then
         avgPrice=$(printf "%.0f" "$avgPrice")
     fi 
 
