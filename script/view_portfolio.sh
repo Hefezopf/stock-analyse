@@ -39,9 +39,6 @@ do
     SYMBOL_NAME=$(echo "$lineFromOwnSymbolsFile" | cut -f 6)
     performance=$(echo "$avgPrice $lastQuote" | awk '{print (100 * $2 / $1) - 100}')
     performance=$(printf "%.1f" "$performance")
-    #if { [ ${performance:0:1} != "-" ]; } then
-    #    performance="+$performance"
-    #fi    
     avgPrice=$(printf "%.1f" "$avgPrice")
     #echo "---${avgPrice:5:1}---"
     if [ "${avgPrice:5:1}" ]; then
