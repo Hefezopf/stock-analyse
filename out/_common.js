@@ -89,7 +89,7 @@ function curlBuy(symbolParam, price, pieces) {
     totalAmount = Number(totalAmount); // + txFee;
     navigator.clipboard.writeText(totalAmount);
     
-    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
