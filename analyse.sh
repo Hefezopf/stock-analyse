@@ -827,7 +827,9 @@ do
 
         echo "<br>$GOOD_LUCK"
 
-        stocksPieces=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
+        stocksPieces=$(grep -F ""$symbol" " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
+#        stocksPieces=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
+#echo "--------------- stocksPieces $stocksPieces" >> "$OUT_RESULT_FILE"       
         echo "<span id='stocksPiecesId' style='display:none'>$stocksPieces</span>"
 
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
