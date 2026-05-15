@@ -140,7 +140,7 @@ background: blue;
 <br>
 # Parameter
 <br>
-Symbols(31):*33L *CAO *CSC *DAP *3RB0 *MDO *BSX *KC4 *MUV2 *GRM *GYC *COZ *ZOE *NTO *CSA *TR4 *NTH *CBHD *LSPP *ESL *QIA *ABL *DBXT *2M6 *PFE *0ZC *1SXP *ISPA *EHDL *ZPRG *TNE5 
+Symbols(31):*DAP *33L *CAO *CSC *3RB0 *MDO *BSX *KC4 *MUV2 *GRM *GYC *COZ *ZOE *NTO *CSA *TR4 *NTH *CBHD *LSPP *ESL *QIA *ABL *DBXT *2M6 *PFE *0ZC *1SXP *ISPA *EHDL *ZPRG *TNE5 
 <br>
 Percentage:1 
 <br>
@@ -153,6 +153,58 @@ RSI:25
 <button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;
 <button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;
 <hr id='intervalSectionHROverallButtons' style='display: none'>
+<div id='symbolLineIdDAP'>
+<img id='imgToReplaceDAP' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244500622&TIME_SPAN=10D'/>
+<div id='headlineLinkId' style='margin-top: 26px'>
+<a id='headlineLinkDAP' style='background:white; color:green' onmouseover="javascript:showChart('10D', 'DAP')" onmouseout="javascript:hideChart('DAP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500622' target='_blank'>*DAP "Danaher"</a>
+<a style='background:white; color:green' onmouseover="javascript:showChart('6M', 'DAP')" onmouseout="javascript:hideChart('DAP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500622' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='background:white; color:green' onmouseover="javascript:showChart('5Y', 'DAP')" onmouseout="javascript:hideChart('DAP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500622' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='background:white; color:green' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DAP.html' target='_blank'>&nbsp;SA&nbsp;</a>
+
+</div>
+<span id='detailsIdReasonDAPBuy:LowMACD(M)'>Buy: Low MACD (M)<br></span>
+<span id='detailsIdReasonDAPBuy:LowPercent&Stochastic(P)'>Buy: Low Percent & Stochastic (P)<br></span>
+<span id='detailsIdReasonDAPBuy:Low6lastRSI(R)'>Buy: Low 6 last RSI (R)<br></span>
+<span id='detailsIdReasonDAPBuy:Low7lastStochastic(S)'>Buy: Low 7 last Stochastic (S)<br></span>
+<span id='detailsIdReasonDAP'><br></span>
+<script>
+linkMap.set('DAP', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DAP.html'); // Open in Tab
+counterOwnStocks=1; // For Spinner
+document.addEventListener('DOMContentLoaded', onContentLoaded('DAP', '244500622', 'STOCK'));
+</script>
+<span id='intervalSectionRealTimeQuoteDAP' style='font-size:xx-large; display: none'>---</span>&nbsp;
+<span id='intervalSectionPercentageDAP' style='font-size:xx-large; display: none'></span>
+<span id='intervalSectionGainDAP' style='font-size:xx-large; display: none'></span>
+<span id='neverShowRegularMarketTimeDAP' style='display: none'></span>
+<span id='intervalSectionPortfolioValuesDAP' style='font-size:large; display: none'></span>
+<span id='intervalSectionPortfolioGainDAP' style='font-size:large; display: none'></span>
+<span id='intervalSectionButtonDetailsBRDAP'><br></span>
+<div id='neverShowDivDAP' style='display:none'>
+<span id='obfuscatedValuePcEuroDAP' style='display:none'>YY13771/79871XX521</span>&nbsp;
+<span id='obfuscatedValueGainDAP' style='display:none;color:red'>YY661-ZZ9.0-</span>
+<span id='obfuscatedValueCloseBracesDAP' style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<span id='intervalSectionBeepDAP' style='font-size:large; display: none'><br>
+Delay: <span id='intervalSectionRegularMarketTimeOffsetDAP' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldDAP' id='intervalFieldDAP' type='text' style='height: 45px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonDAP' style='font-size:large; height: 50px; width: 97px' onClick="javascript:setBeepInterval('DAP')">Minutes</button><span id='intervalTextDAP'></span>
+</span>
+<br><img id='intervalSectionImageDAP' alt='' src='#' style='display: none; border: 1px solid;'><br>
+<button id="intervalSectionButtonDetails1DDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '1D')">1D</button>
+<button id="intervalSectionButtonDetails5DDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '5D')">5D</button>
+<button id="intervalSectionButtonDetails10DDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '10D')">10D</button>
+<button id="intervalSectionButtonDetails3MDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '3M')">3M</button>
+<button id="intervalSectionButtonDetails6MDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '6M')">6M</button>
+<button id="intervalSectionButtonDetails1YDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '1Y')">1Y</button>
+<button id="intervalSectionButtonDetails5YDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '5Y')">5Y</button>
+<button id="intervalSectionButtonDetailsSEDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', 'SE')">Max</button>
+<p id='intervalSectionButtonDetailsPDAP' style='display: none'>
+<button id="intervalSectionButtonSellDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlSell('DAP', '125', document.getElementById('intervalSectionInputPriceBuyDAP').value)">Sell</button>
+<button id="intervalSectionButtonBuyDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlBuy(
+'DAP', document.getElementById('intervalSectionInputPriceBuyDAP').value, document.getElementById('intervalSectionInputPiecesBuyDAP').value)">ReBuy</button>
+Pieces&nbsp;<input name='intervalSectionInputPiecesBuyDAP' id='intervalSectionInputPiecesBuyDAP' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+Price&nbsp;<input name='intervalSectionInputPriceBuyDAP' id='intervalSectionInputPriceBuyDAP' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+</p>
+<hr id='intervalSectionButtonDetailsHRDAP' style='display: none'>
+</div>
 <div id='symbolLineId33L'>
 <img id='imgToReplace33L' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244511727&TIME_SPAN=10D'/>
 <div id='headlineLinkId' style='margin-top: 26px'>
@@ -170,7 +222,7 @@ RSI:25
 <span id='detailsIdReason33L'><br></span>
 <script>
 linkMap.set('33L', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/33L.html'); // Open in Tab
-counterOwnStocks=1; // For Spinner
+counterOwnStocks=2; // For Spinner
 document.addEventListener('DOMContentLoaded', onContentLoaded('33L', '244511727', 'STOCK'));
 </script>
 <span id='intervalSectionRealTimeQuote33L' style='font-size:xx-large; display: none'>---</span>&nbsp;
@@ -221,7 +273,7 @@ Price&nbsp;<input name='intervalSectionInputPriceBuy33L' id='intervalSectionInpu
 <span id='detailsIdReasonCAO'><br></span>
 <script>
 linkMap.set('CAO', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CAO.html'); // Open in Tab
-counterOwnStocks=2; // For Spinner
+counterOwnStocks=3; // For Spinner
 document.addEventListener('DOMContentLoaded', onContentLoaded('CAO', '244502038', 'STOCK'));
 </script>
 <span id='intervalSectionRealTimeQuoteCAO' style='font-size:xx-large; display: none'>---</span>&nbsp;
@@ -271,7 +323,7 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyCAO' id='intervalSectionInpu
 <span id='detailsIdReasonCSC'><br></span>
 <script>
 linkMap.set('CSC', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/CSC.html'); // Open in Tab
-counterOwnStocks=3; // For Spinner
+counterOwnStocks=4; // For Spinner
 document.addEventListener('DOMContentLoaded', onContentLoaded('CSC', '244539912', 'STOCK'));
 </script>
 <span id='intervalSectionRealTimeQuoteCSC' style='font-size:xx-large; display: none'>---</span>&nbsp;
@@ -306,58 +358,6 @@ Pieces&nbsp;<input name='intervalSectionInputPiecesBuyCSC' id='intervalSectionIn
 Price&nbsp;<input name='intervalSectionInputPriceBuyCSC' id='intervalSectionInputPriceBuyCSC' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
 </p>
 <hr id='intervalSectionButtonDetailsHRCSC' style='display: none'>
-</div>
-<div id='symbolLineIdDAP'>
-<img id='imgToReplaceDAP' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244500622&TIME_SPAN=10D'/>
-<div id='headlineLinkId' style='margin-top: 26px'>
-<a id='headlineLinkDAP' style='background:white; color:green' onmouseover="javascript:showChart('10D', 'DAP')" onmouseout="javascript:hideChart('DAP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500622' target='_blank'>*DAP "Danaher"</a>
-<a style='background:white; color:green' onmouseover="javascript:showChart('6M', 'DAP')" onmouseout="javascript:hideChart('DAP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500622' target='_blank'>&nbsp;6M&nbsp;</a>
-<a style='background:white; color:green' onmouseover="javascript:showChart('5Y', 'DAP')" onmouseout="javascript:hideChart('DAP')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500622' target='_blank'>&nbsp;5Y&nbsp;</a>
-<a style='background:white; color:green' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DAP.html' target='_blank'>&nbsp;SA&nbsp;</a>
-
-</div>
-<span id='detailsIdReasonDAPBuy:LowMACD(M)'>Buy: Low MACD (M)<br></span>
-<span id='detailsIdReasonDAPBuy:LowPercent&Stochastic(P)'>Buy: Low Percent & Stochastic (P)<br></span>
-<span id='detailsIdReasonDAPBuy:Low6lastRSI(R)'>Buy: Low 6 last RSI (R)<br></span>
-<span id='detailsIdReasonDAPBuy:Low7lastStochastic(S)'>Buy: Low 7 last Stochastic (S)<br></span>
-<span id='detailsIdReasonDAP'><br></span>
-<script>
-linkMap.set('DAP', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DAP.html'); // Open in Tab
-counterOwnStocks=4; // For Spinner
-document.addEventListener('DOMContentLoaded', onContentLoaded('DAP', '244500622', 'STOCK'));
-</script>
-<span id='intervalSectionRealTimeQuoteDAP' style='font-size:xx-large; display: none'>---</span>&nbsp;
-<span id='intervalSectionPercentageDAP' style='font-size:xx-large; display: none'></span>
-<span id='intervalSectionGainDAP' style='font-size:xx-large; display: none'></span>
-<span id='neverShowRegularMarketTimeDAP' style='display: none'></span>
-<span id='intervalSectionPortfolioValuesDAP' style='font-size:large; display: none'></span>
-<span id='intervalSectionPortfolioGainDAP' style='font-size:large; display: none'></span>
-<span id='intervalSectionButtonDetailsBRDAP'><br></span>
-<div id='neverShowDivDAP' style='display:none'>
-<span id='obfuscatedValuePcEuroDAP' style='display:none'>YY49841/07051XX501</span>&nbsp;
-<span id='obfuscatedValueGainDAP' style='display:none;color:red'>YY671-ZZ2.1-</span>
-<span id='obfuscatedValueCloseBracesDAP' style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<span id='intervalSectionBeepDAP' style='font-size:large; display: none'><br>
-Delay: <span id='intervalSectionRegularMarketTimeOffsetDAP' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalFieldDAP' id='intervalFieldDAP' type='text' style='height: 45px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButtonDAP' style='font-size:large; height: 50px; width: 97px' onClick="javascript:setBeepInterval('DAP')">Minutes</button><span id='intervalTextDAP'></span>
-</span>
-<br><img id='intervalSectionImageDAP' alt='' src='#' style='display: none; border: 1px solid;'><br>
-<button id="intervalSectionButtonDetails1DDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '1D')">1D</button>
-<button id="intervalSectionButtonDetails5DDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '5D')">5D</button>
-<button id="intervalSectionButtonDetails10DDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '10D')">10D</button>
-<button id="intervalSectionButtonDetails3MDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '3M')">3M</button>
-<button id="intervalSectionButtonDetails6MDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '6M')">6M</button>
-<button id="intervalSectionButtonDetails1YDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '1Y')">1Y</button>
-<button id="intervalSectionButtonDetails5YDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', '5Y')">5Y</button>
-<button id="intervalSectionButtonDetailsSEDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('DAP', '244500622', 'SE')">Max</button>
-<p id='intervalSectionButtonDetailsPDAP' style='display: none'>
-<button id="intervalSectionButtonSellDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlSell('DAP', '105', document.getElementById('intervalSectionInputPriceBuyDAP').value)">Sell</button>
-<button id="intervalSectionButtonBuyDAP" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlBuy(
-'DAP', document.getElementById('intervalSectionInputPriceBuyDAP').value, document.getElementById('intervalSectionInputPiecesBuyDAP').value)">ReBuy</button>
-Pieces&nbsp;<input name='intervalSectionInputPiecesBuyDAP' id='intervalSectionInputPiecesBuyDAP' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-Price&nbsp;<input name='intervalSectionInputPriceBuyDAP' id='intervalSectionInputPriceBuyDAP' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-</p>
-<hr id='intervalSectionButtonDetailsHRDAP' style='display: none'>
 </div>
 <div id='symbolLineId3RB0'>
 <img id='imgToReplace3RB0' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244501030&TIME_SPAN=10D'/>
@@ -1712,7 +1712,7 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyTNE5' id='intervalSectionInp
 <br><br><div id='portfolioValueDaxFooterId'>
 <hr id='intervalSectionHROverallRealtimeBegin' style='display: none'>
 <span id='intervalSectionHeadlineOverallPortfolio' style='display:none'># Portfolio value purchase</span><br>
-<span id='obfuscatedValueBuyingOverall' style='font-size:large; display:none'>YY7571381/2571791</span>
+<span id='obfuscatedValueBuyingOverall' style='font-size:large; display:none'>YY4954381/9754791</span>
 <br><br><span id='intervalSectionHeadlineOverallRealtime' style='display:none'># Realtime difference to purchase</span><br>
 <span id='obfuscatedValueBuyingOverallRealtime' style='font-size:xx-large; display:none'>---</span>
 <hr id='intervalSectionHROverallRealtime' style='display: none'>
@@ -1728,10 +1728,10 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyTNE5' id='intervalSectionInp
 <button id='intervalSectionButtonSEDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick="javascript:updateImage('DAX', '35803356', 'SE')">Max</button>
 <hr id='intervalSectionHRDAX' style='display: none'>
 <button id="intervalSectionButtonAll1D" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('DAP', '244500622', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('33L', '244511727', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('CAO', '244502038', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('CSC', '244539912', '1D');javascript:window.scrollTo(0,0);
-javascript:updateImage('DAP', '244500622', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('3RB0', '244501030', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('MDO', '244494336', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('BSX', '244502504', '1D');javascript:window.scrollTo(0,0);
@@ -1762,10 +1762,10 @@ javascript:updateImage('TNE5', '244495945', '1D');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '1D');javascript:window.scrollTo(0,0);
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('DAP', '244500622', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('33L', '244511727', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('CAO', '244502038', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('CSC', '244539912', '5D');javascript:window.scrollTo(0,0);
-javascript:updateImage('DAP', '244500622', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('3RB0', '244501030', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('MDO', '244494336', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('BSX', '244502504', '5D');javascript:window.scrollTo(0,0);
@@ -1796,10 +1796,10 @@ javascript:updateImage('TNE5', '244495945', '5D');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '5D');javascript:window.scrollTo(0,0);
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('DAP', '244500622', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('33L', '244511727', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('CAO', '244502038', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('CSC', '244539912', '10D');javascript:window.scrollTo(0,0);
-javascript:updateImage('DAP', '244500622', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('3RB0', '244501030', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('MDO', '244494336', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('BSX', '244502504', '10D');javascript:window.scrollTo(0,0);
@@ -1830,10 +1830,10 @@ javascript:updateImage('TNE5', '244495945', '10D');javascript:window.scrollTo(0,
 javascript:updateImage('DAX', '244500568', '10D');javascript:window.scrollTo(0,0);
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('DAP', '244500622', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('33L', '244511727', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('CAO', '244502038', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('CSC', '244539912', '3M');javascript:window.scrollTo(0,0);
-javascript:updateImage('DAP', '244500622', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('3RB0', '244501030', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('MDO', '244494336', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('BSX', '244502504', '3M');javascript:window.scrollTo(0,0);
@@ -1864,10 +1864,10 @@ javascript:updateImage('TNE5', '244495945', '3M');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '3M');javascript:window.scrollTo(0,0);
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('DAP', '244500622', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('33L', '244511727', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('CAO', '244502038', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('CSC', '244539912', '6M');javascript:window.scrollTo(0,0);
-javascript:updateImage('DAP', '244500622', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('3RB0', '244501030', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('MDO', '244494336', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('BSX', '244502504', '6M');javascript:window.scrollTo(0,0);
@@ -1898,10 +1898,10 @@ javascript:updateImage('TNE5', '244495945', '6M');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '6M');javascript:window.scrollTo(0,0);
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('DAP', '244500622', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('33L', '244511727', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('CAO', '244502038', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('CSC', '244539912', '1Y');javascript:window.scrollTo(0,0);
-javascript:updateImage('DAP', '244500622', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('3RB0', '244501030', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('MDO', '244494336', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('BSX', '244502504', '1Y');javascript:window.scrollTo(0,0);
@@ -1932,10 +1932,10 @@ javascript:updateImage('TNE5', '244495945', '1Y');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '1Y');javascript:window.scrollTo(0,0);
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('DAP', '244500622', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('33L', '244511727', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('CAO', '244502038', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('CSC', '244539912', '5Y');javascript:window.scrollTo(0,0);
-javascript:updateImage('DAP', '244500622', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('3RB0', '244501030', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('MDO', '244494336', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('BSX', '244502504', '5Y');javascript:window.scrollTo(0,0);
@@ -1966,10 +1966,10 @@ javascript:updateImage('TNE5', '244495945', '5Y');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '5Y');javascript:window.scrollTo(0,0);
 ">5Y</button>
 <button id="intervalSectionButtonAllSE" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('DAP', '244500622', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('33L', '244511727', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('CAO', '244502038', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('CSC', '244539912', 'SE');javascript:window.scrollTo(0,0);
-javascript:updateImage('DAP', '244500622', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('3RB0', '244501030', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('MDO', '244494336', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('BSX', '244502504', 'SE');javascript:window.scrollTo(0,0);
@@ -2015,6 +2015,6 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectio
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html" target="_blank">Simulation Last Alarms</a><br>
 <br># Informer<br><a href="https://nutzer.comdirect.de/inf/musterdepot/pmd/meineuebersicht.html?name=Max" target="_blank">Comdirect Informer</a><br>
-<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 15-May-2026 09:37</p>
+<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 15-May-2026 09:41</p>
 </div>
 <br></div></body></html>
