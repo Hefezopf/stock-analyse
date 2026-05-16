@@ -88,7 +88,7 @@ sed -i "s/$symbolParam //" "$STOCK_SYMBOLS_FILE"
 
 sleep 1
 
-lineFromOwnSymbolsFile=$(grep -m1 -P ""$symbolParam" " "$OWN_SYMBOLS_FILE")
+lineFromOwnSymbolsFile=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE")
 #lineFromOwnSymbolsFile=$(grep -m1 -P "$symbolParam" "$OWN_SYMBOLS_FILE")
 #echo "---------lineFromOwnSymbolsFile $lineFromOwnSymbolsFile"
 priceFromOwnSymbolsFile=$(echo "$lineFromOwnSymbolsFile" | cut -f 2 -d ' ')
