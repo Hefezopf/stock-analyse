@@ -27,7 +27,15 @@ symbolsParam=$1
 if { [ -z "$symbolsParam" ]; } then
   echo "Error: Not all parameters specified!"
   echo "Example: . curl_getInformerData.sh '*BEI IBM TUI1'"
+  sleep 3
   exit 1
+fi
+
+weekday=$(date +"%w")
+if [ "$weekday" = 6 ] || [ "$weekday" = 0  ]; then # sat=6, sun=0
+    echo "Error: No data retrieval on saturdays or sundays!"
+    sleep 3
+    exit 2
 fi
 
 mkdir -p "$TEMP_DIR/config"
@@ -111,7 +119,8 @@ if { [ "$errorSymbols" ]; } then
     errorLength="${#errorSymbols}"
     if [ "$errorLength" -gt 200 ]; then
         echo "Error: Generell CURL data retrieving problems! Rerun again later?"
-        exit 2
+        sleep 3
+        exit 3
     fi
 fi
 
