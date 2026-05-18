@@ -33,7 +33,7 @@ fi
 
 weekday=$(date +"%w")
 if [ "$weekday" = 6 ] || [ "$weekday" = 0  ]; then # sat=6, sun=0
-    echo "Error: No data retrieval on saturdays or sundays!"
+    echo "Error: No data retrieval on saturdays or sundays ($(date))!"
     sleep 3
     exit 2
 fi
