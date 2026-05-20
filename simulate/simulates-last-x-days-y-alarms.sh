@@ -163,6 +163,11 @@ do
     minRange=$((88-lastDaysParam))
     # shellcheck disable=SC2002
     lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-87 -d ',')
+
+
+#alarmPattern="7S+7R"   
+#test "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" && echo "--> $symbol: $alarmPattern found in $lastAlarms"
+
     if [ "${#lastAlarms}" -gt "$alarmCharactersParam" ]; then # Check if lastAlarms are large enough
         vorzeichen="${lastAlarms: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values
