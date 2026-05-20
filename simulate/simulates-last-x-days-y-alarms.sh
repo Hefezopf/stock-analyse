@@ -176,12 +176,12 @@ do
             # TODO: if more then 50 -> build in!
             # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
 
-            linkBackgroundColor="white" # default
+            linkBackgroundColor="$WHITE" # default
             # Highly recommended
             alarmPattern="7S+7R"   
             test "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $alarmPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" ]; then
-                linkBackgroundColor="lightgreen"
+                linkBackgroundColor="$LIGHTGREEN"
             fi
 
             # Market Cap
