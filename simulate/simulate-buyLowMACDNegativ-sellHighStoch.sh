@@ -307,7 +307,7 @@ do
             CalculateMarketCapRSILevel "$lastRSI" "$marketCapFromFile"
             # shellcheck disable=SC2154
             if [ "$isMarketCapRSILevel" = true ]; then
-                marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the following caluculations
+                marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the subsequent caluculations
                 alarmCountForStockParam=$8
                 alarmCountForIndexParam=100
                 piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')

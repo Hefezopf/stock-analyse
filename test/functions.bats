@@ -49,31 +49,61 @@ SYMBOL_NAME="BEIERSDORF"
   [ "$isMarketCapRSILevel" == "true" ]
 
   CalculateMarketCapRSILevel 16 ?
-  [ "$isMarketCapRSILevel" == "false" ]  
+  [ "$isMarketCapRSILevel" == "true" ]  
 
   CalculateMarketCapRSILevel 15 ?
   [ "$isMarketCapRSILevel" == "true" ]  
 
   CalculateMarketCapRSILevel 25 "?"
-  [ "$isMarketCapRSILevel" == "false" ]
+  [ "$isMarketCapRSILevel" == "true" ]
 
   CalculateMarketCapRSILevel 25 1
-  [ "$isMarketCapRSILevel" == "false" ]
+  [ "$isMarketCapRSILevel" == "true" ]
 
   CalculateMarketCapRSILevel 25 100
   [ "$isMarketCapRSILevel" == "false" ]
 
   CalculateMarketCapRSILevel 25 101
-  [ "$isMarketCapRSILevel" == "true" ]
-
-  CalculateMarketCapRSILevel 23 77
   [ "$isMarketCapRSILevel" == "false" ]
 
-  CalculateMarketCapRSILevel 22 77
+  CalculateMarketCapRSILevel 23 70
+  [ "$isMarketCapRSILevel" == "false" ]
+
+  CalculateMarketCapRSILevel 23 69
   [ "$isMarketCapRSILevel" == "true" ]
 
-  CalculateMarketCapRSILevel 21 77
-  [ "$isMarketCapRSILevel" == "true" ]  
+  CalculateMarketCapRSILevel 22 60
+  [ "$isMarketCapRSILevel" == "false" ]
+
+  CalculateMarketCapRSILevel 22 59
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 21 50
+  [ "$isMarketCapRSILevel" == "false" ]
+
+  CalculateMarketCapRSILevel 21 49
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 18 18
+  [ "$isMarketCapRSILevel" == "false" ]
+
+  CalculateMarketCapRSILevel 18 17
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 17 9
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 16 9
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 15 9
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 1 9
+  [ "$isMarketCapRSILevel" == "true" ]
+
+  CalculateMarketCapRSILevel 1 5
+  [ "$isMarketCapRSILevel" == "true" ]
 }
 
 @test "CalculateTxFee" {

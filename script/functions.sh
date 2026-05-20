@@ -438,28 +438,30 @@ CalculateMarketCapRSILevel() {
 
     export isMarketCapRSILevel="false"
 
+#echo "+++CalculateMarketCapRSILevel $_lastRSIParam $_marketCapParam"    
+
     isMarketCapRSILevel="false"
-    if [ "$_lastRSIParam" -gt 24 ] && [ "$_marketCapParam" -gt 100 ]; then # > 25 RSI
+    if [ "$_lastRSIParam" -gt 24 ] && [ "$_marketCapParam" -lt 90 ]; then # > 25 RSI
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 24 ] && [ "$_marketCapParam" -gt 90 ]; then # = 24 RSI 
+    elif [ "$_lastRSIParam" -eq 24 ] && [ "$_marketCapParam" -lt 80 ]; then # = 24 RSI 
          isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 23 ] && [ "$_marketCapParam" -gt 80 ]; then
+    elif [ "$_lastRSIParam" -eq 23 ] && [ "$_marketCapParam" -lt 70 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 22 ] && [ "$_marketCapParam" -gt 70 ]; then
+    elif [ "$_lastRSIParam" -eq 22 ] && [ "$_marketCapParam" -lt 60 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 21 ] && [ "$_marketCapParam" -gt 60 ]; then
+    elif [ "$_lastRSIParam" -eq 21 ] && [ "$_marketCapParam" -lt 50 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 20 ] && [ "$_marketCapParam" -gt 50 ]; then
+    elif [ "$_lastRSIParam" -eq 20 ] && [ "$_marketCapParam" -lt 40 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 19 ] && [ "$_marketCapParam" -gt 40 ]; then
+    elif [ "$_lastRSIParam" -eq 19 ] && [ "$_marketCapParam" -lt 30 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 18 ] && [ "$_marketCapParam" -gt 30 ]; then
+    elif [ "$_lastRSIParam" -eq 18 ] && [ "$_marketCapParam" -lt 18 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 17 ] && [ "$_marketCapParam" -gt 20 ]; then
+    elif [ "$_lastRSIParam" -eq 17 ] && [ "$_marketCapParam" -lt 10 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -eq 16 ] && [ "$_marketCapParam" -gt 10 ]; then
+    elif [ "$_lastRSIParam" -eq 16 ] && [ "$_marketCapParam" -lt 5 ]; then
         isMarketCapRSILevel="true"
-    elif [ "$_lastRSIParam" -lt 16 ] && [ "$_marketCapParam" -gt 1 ]; then
+    elif [ "$_lastRSIParam" -lt 16 ] && [ "$_marketCapParam" -lt 1 ]; then
         isMarketCapRSILevel="true"
     elif [ "$_lastRSIParam" -lt 16 ]; then
         isMarketCapRSILevel="true"
