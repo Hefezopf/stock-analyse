@@ -178,15 +178,15 @@ do
 
             linkBackgroundColor="$WHITE" # default
             # Recommended
-            alarmPattern="+6R+"
-            test "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $alarmPattern found in $lastAlarms"
-            if [ "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" ]; then
+            recommendedPattern="+6R+"
+            test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
+            if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
                 linkBackgroundColor="$LIGHTGREEN"
             fi
             # Highly recommended
-            alarmPattern="+7R+"
-            test "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $alarmPattern found in $lastAlarms"
-            if [ "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" ]; then
+            highlyRecommendedPattern="+7R+"
+            test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
+            if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
                 linkBackgroundColor="$LIMEGREEN"
             fi            
             #alarmPattern="7S+7R+"
@@ -207,9 +207,9 @@ do
 done
 
 echo "<br><br>Legend:"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$LIGHTGREEN"; color:black'>Recommended</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$LIMEGREEN"; color:black'>Highly Recommended</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$LIGHTGREEN"; color:black'>Recommended: $recommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$LIMEGREEN"; color:black'>Highly Recommended: $highlyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap: < 1Mrd.</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 
 GetCreationDate
