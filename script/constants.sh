@@ -23,7 +23,6 @@ export FALLING=FALLING
 export GREEN=green
 export RED=red
 export BLACK=black
-export WHITE=white
 
 # Links
 COMDIRECT_URL_STOCKS_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1"
