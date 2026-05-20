@@ -215,7 +215,7 @@ do
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     lowMarketCapLinkBackgroundColor="white"
     if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
-        lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
+        lowMarketCapLinkBackgroundColor="$MOCCASIN" #"rgba(251, 225, 173)"
     fi
     #echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
     WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate" "$ID_NOTATION"
@@ -649,7 +649,7 @@ do
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     lowMarketCapLinkBackgroundColor="white"
     if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
-        lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
+        lowMarketCapLinkBackgroundColor="$MOCCASIN" #"rgba(251, 225, 173)"
     fi
 
     export ID_NOTATION_STORE_FOR_NEXT_TIME=""

@@ -20,7 +20,9 @@ export LEVEL=LEVEL
 export FALLING=FALLING
 
 # CSSLink Color
+export MOCCASIN=Moccasin
 export LIGHTGREEN=lightgreen
+export LIMEGREEN=LimeGreen
 export GREEN=green
 export RED=red
 export BLACK=black

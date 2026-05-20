@@ -477,7 +477,7 @@ do
         marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
         lowMarketCapLinkBackgroundColor="white"
         if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
-            lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)" # "rgba(244,164,80,255)"
+            lowMarketCapLinkBackgroundColor="$MOCCASIN" #"rgba(251, 225, 173)" # "rgba(244,164,80,255)"
         fi
 
         # Strategie: Quote by Tendency
