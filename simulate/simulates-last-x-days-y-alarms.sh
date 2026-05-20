@@ -163,11 +163,6 @@ do
     minRange=$((88-lastDaysParam))
     # shellcheck disable=SC2002
     lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-87 -d ',')
-
-
-#alarmPattern="7S+7R"   
-#test "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" && echo "--> $symbol: $alarmPattern found in $lastAlarms"
-
     if [ "${#lastAlarms}" -gt "$alarmCharactersParam" ]; then # Check if lastAlarms are large enough
         vorzeichen="${lastAlarms: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values
@@ -181,18 +176,21 @@ do
             # TODO: if more then 50 -> build in!
             # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
 
+            linkBackgroundColor="$WHITE" # default
+            # Highly recommended
+            alarmPattern="7S+7R"   
+            test "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $alarmPattern found in $lastAlarms"
+            if [ "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" ]; then
+                linkBackgroundColor="$GREEN"
+            fi
+
             # Market Cap
             marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
             asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
-            lowMarketCapLinkBackgroundColor="white"
-            if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
-                lowMarketCapLinkBackgroundColor="rgba(251, 225, 173)"
-            fi
-            # echo "<div>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-            # echo "<img id='imgToReplace$symbol' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;'/>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-            # echo "<a style='font-size: xxx-large; background:$lowMarketCapLinkBackgroundColor;' onmouseover=\"javascript:showChart('10D', '$symbol')\" onmouseout=\"javascript:hideChart('$symbol')\" href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html' target='_blank'>$symbol $symbolName</a><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-            # echo "</div>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-            WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$lowMarketCapLinkBackgroundColor" "" "$ID_NOTATION"
+            if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap 
+                linkBackgroundColor="rgba(251, 225, 173)"
+            fi            
+            WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "" "$ID_NOTATION"
         fi
     fi
 done
