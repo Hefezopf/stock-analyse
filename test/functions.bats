@@ -93,10 +93,10 @@ SYMBOL_NAME="BEIERSDORF"
   CalculateMarketCapRSILevel 17 9
   [ "$isMarketCapRSILevel" == "true" ]
 
-  CalculateMarketCapRSILevel 16 9
+  CalculateMarketCapRSILevel 16 4
   [ "$isMarketCapRSILevel" == "true" ]
 
-  CalculateMarketCapRSILevel 15 9
+  CalculateMarketCapRSILevel 15 4
   [ "$isMarketCapRSILevel" == "true" ]
 
   CalculateMarketCapRSILevel 1 9
