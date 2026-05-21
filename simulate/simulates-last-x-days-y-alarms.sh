@@ -148,9 +148,20 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <div>"
 # shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "Simulate last '$lastDaysParam' Days,<br>with minimum '$alarmCharactersParam' alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br>Simulate last '$lastDaysParam' Days,<br>with minimum '$alarmCharactersParam' alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+
+recommendedPattern="5R"
+highlyRecommendedPattern="6R"
+stronglyRecommendedPattern="7R"
+echo "<br><br>Legend:"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$LIGHTGREEN"; color:black'>Recommended: $recommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$LIMEGREEN"; color:black'>Highly recommended: $highlyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$MEDIUMSEAGREEN"; color:black'>Strongly recommended: $stronglyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap: < 1Mrd.</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+
+echo "<br><br>Simulation Results:"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
@@ -159,7 +170,6 @@ do
         symbol="${symbol:1:7}"
     fi
 
-    #echo "Symbol: $symbol"
     minRange=$((88-lastDaysParam))
     # shellcheck disable=SC2002
     lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-87 -d ',')
@@ -178,21 +188,18 @@ do
 
             linkBackgroundColor="$WHITE" # default
             # Recommended
-            recommendedPattern="5R"
             #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
                 echo "-> Recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
                 linkBackgroundColor="$LIGHTGREEN"
             fi
             # Highly recommended
-            highlyRecommendedPattern="6R"
             #test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
                 echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
                 linkBackgroundColor="$LIMEGREEN"
             fi
             # Strongly recommended
-            stronglyRecommendedPattern="7R"
             #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
                 echo "---> Strongly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
@@ -215,16 +222,10 @@ do
     fi
 done
 
-echo "<br><br>Legend:"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$LIGHTGREEN"; color:black'>Recommended: $recommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$LIMEGREEN"; color:black'>Highly Recommended: $highlyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$MEDIUMSEAGREEN"; color:black'>Strongly Recommended: $stronglyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap: < 1Mrd.</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-
 GetCreationDate
 # shellcheck disable=SC2154
-echo "<br>Good Luck! $creationDate" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br></div>
+echo "<br><br>Good Luck! $creationDate" >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><br><br></div>
 <script>
 // Open all in Tabs
 function doOpenAllInTab() {
