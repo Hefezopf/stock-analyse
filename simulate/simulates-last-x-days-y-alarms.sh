@@ -178,18 +178,18 @@ do
 
             linkBackgroundColor="$WHITE" # default
             # Recommended
-            recommendedPattern="+6R+"
+            recommendedPattern="6R"
             test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
                 linkBackgroundColor="$LIGHTGREEN"
             fi
             # Highly recommended
-            highlyRecommendedPattern="+7R+"
+            highlyRecommendedPattern="7R"
             test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
                 linkBackgroundColor="$LIMEGREEN"
             fi            
-            #alarmPattern="7S+7R+"
+            #alarmPattern="7S+7R"
             #test "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $alarmPattern found in $lastAlarms"
             #if [ "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" ]; then
             #    linkBackgroundColor="MediumSeaGreen"
