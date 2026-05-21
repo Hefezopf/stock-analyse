@@ -178,16 +178,25 @@ do
 
             linkBackgroundColor="$WHITE" # default
             # Recommended
-            recommendedPattern="6R"
-            test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
+            recommendedPattern="5R"
+            #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
+                echo "-> Recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
                 linkBackgroundColor="$LIGHTGREEN"
             fi
             # Highly recommended
-            highlyRecommendedPattern="7R"
-            test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
+            highlyRecommendedPattern="6R"
+            #test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
+                echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
                 linkBackgroundColor="$LIMEGREEN"
+            fi
+            # Strongly recommended
+            stronglyRecommendedPattern="7R"
+            #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
+            if [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
+                echo "---> Strongly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
+                linkBackgroundColor="$MEDIUMSEAGREEN"
             fi            
             #alarmPattern="7S+7R"
             #test "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $alarmPattern found in $lastAlarms"
@@ -209,8 +218,8 @@ done
 echo "<br><br>Legend:"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><span style='background:"$LIGHTGREEN"; color:black'>Recommended: $recommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><span style='background:"$LIMEGREEN"; color:black'>Highly Recommended: $highlyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$MEDIUMSEAGREEN"; color:black'>Strongly Recommended: $stronglyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap: < 1Mrd.</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-
 
 GetCreationDate
 # shellcheck disable=SC2154

@@ -21,6 +21,7 @@ export FALLING=FALLING
 
 # CSSLink Color
 export MOCCASIN=Moccasin
+export MEDIUMSEAGREEN=MediumSeaGreen
 export LIGHTGREEN=lightgreen
 export LIMEGREEN=LimeGreen
 export GREEN=green
