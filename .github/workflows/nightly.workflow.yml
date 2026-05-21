@@ -54,13 +54,13 @@ jobs:
           #symbolsVar="*NVJP *TKA *VTSC SXRL R3NK"
 
           #
-          # InformerData
+          # InformerData CURL
           #
           chmod +x ./script/curl/curl_getInformerData.sh
           ./script/curl/curl_getInformerData.sh "$symbolsVar"
 
           #
-          # Schedule
+          # Schedule Analyse
           #
           percentageVar=1
           stochasticVar=9
@@ -86,7 +86,7 @@ jobs:
           chmod +x ./simulate/*.sh 
           # In case of shell errors with end of line: end of file unexpected (expecting "then")
           sed -i 's/\r$//' ./simulate/*.sh
-          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
+          #./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
 
           ./simulate/simulates-last-x-days-y-alarms.sh "$symbolsVar" 3 35
                     
