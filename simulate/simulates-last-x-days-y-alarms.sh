@@ -243,11 +243,14 @@ if [ ! "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux
 fi
 
 if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
-    echo "file:///media/markus/BigBerta/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
+#    echo "file:///media/markus/BigBerta/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
+    echo "file:///media/markus/BigBerta/code/stock-analyse/$SIM_LAST_ALARMS_HTML_FILE"
 else
-    echo "file:///C:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
+    #echo "file:///C:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
+    echo "file:///C:/code/stock-analyse/$SIM_LAST_ALARMS_HTML_FILE"    
 fi
-echo "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html"
+#echo "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html"
+echo "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/$SIM_LAST_ALARMS_HTML_FILE" 
 
 rm -rf "$TEMP_DIR"/config
 
