@@ -149,7 +149,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 # shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
-Out "" $OUT_SIMULATE_FILE
+Out "" $SIM_LAST_ALARMS_HTML_FILE
 Out "<br># SA Screen" $SIM_LAST_ALARMS_HTML_FILE
 Out "##########" $SIM_LAST_ALARMS_HTML_FILE
 Out "" $SIM_LAST_ALARMS_HTML_FILE
@@ -157,7 +157,6 @@ Out "# Parameter" $SIM_LAST_ALARMS_HTML_FILE
 Out "Symbols($countSymbols):$symbolsParam" $SIM_LAST_ALARMS_HTML_FILE
 
 echo "Screen last '$lastDaysParam' Days<br>with minimum '$alarmCharactersParam' alarms<br><br><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-#echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 recommendedPattern="5R"
@@ -213,17 +212,12 @@ do
                 echo "---> Strongly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
                 linkBackgroundColor="$MEDIUMSEAGREEN"
             fi            
-            #alarmPattern="7S+7R"
-            #test "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $alarmPattern found in $lastAlarms"
-            #if [ "${lastAlarms#*"$alarmPattern"}" != "$lastAlarms" ]; then
-            #    linkBackgroundColor="MediumSeaGreen"
-            #fi
 
             # Market Cap
             marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
             asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
             if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap 
-                linkBackgroundColor="$MOCCASIN" #"rgba(251, 225, 173)"
+                linkBackgroundColor="$MOCCASIN"
             fi            
             WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "" "$ID_NOTATION"
         fi
