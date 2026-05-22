@@ -180,47 +180,53 @@ do
     minRange=$((88-lastDaysParam))
     # shellcheck disable=SC2002
     lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-87 -d ',')
-    if [ "${#lastAlarms}" -gt "$alarmCharactersParam" ]; then # Check if lastAlarms are large enough
-        vorzeichen="${lastAlarms: -2 : -1}"
-        if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values
-            lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
-            symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-            ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
-            echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
-            echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
-            echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+    vorzeichen="${lastAlarms: -2 : -1}"
 
-            # TODO: if more then 50 -> build in!
-            # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
+    veryLastAlarm=$(cat alarm/"$symbol".txt | cut -f 87-87 -d ',')
+    isVeryLastAlarm=false   
+    if [ "${veryLastAlarm#*"$stronglyRecommendedPattern"}" != "$veryLastAlarm" ]; then # Check if veryLastAlarm is matching
+        isVeryLastAlarm=true
+        echo "---> isVeryLastAlarm: $isVeryLastAlarm. $symbol $symbolName: $stronglyRecommendedPattern found in $veryLastAlarm"
+    fi
 
-            linkBackgroundColor="$WHITE" # default
-            # Recommended
-            #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
-            if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
-                echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
-                linkBackgroundColor="$LIGHTGREEN"
-            fi
-            # Highly recommended
-            #test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
-            if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
-                echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
-                linkBackgroundColor="$LIMEGREEN"
-            fi
-            # Strongly recommended
-            #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
-            if [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
-                echo "---> Strongly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
-                linkBackgroundColor="$MEDIUMSEAGREEN"
-            fi            
+    if [ "$isVeryLastAlarm" = true ] || [ "${#lastAlarms}" -gt "$alarmCharactersParam" ] && [ "$vorzeichen" = '+' ]; then # Check if lastAlarms are large enough && if lastAlarms buying values
+        lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
+        symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+        ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
+        echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
+        echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
+        echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
-            # Market Cap
-            marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
-            asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
-            if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap 
-                linkBackgroundColor="$MOCCASIN"
-            fi            
-            WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "" "$ID_NOTATION"
+        # TODO: if more then 50 -> build in!
+        # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
+
+        linkBackgroundColor="$WHITE" # default
+        # Recommended
+        #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
+        if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
+            echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
+            linkBackgroundColor="$LIGHTGREEN"
         fi
+        # Highly recommended
+        #test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
+        if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
+            echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
+            linkBackgroundColor="$LIMEGREEN"
+        fi
+        # Strongly recommended
+        #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
+        if [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
+            echo "---> Strongly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
+            linkBackgroundColor="$MEDIUMSEAGREEN"
+        fi
+
+        # Market Cap
+        marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
+        asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
+        if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap
+            linkBackgroundColor="$MOCCASIN"
+        fi
+        WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "" "$ID_NOTATION"
     fi
 done
 
