@@ -35,7 +35,7 @@ rm -f ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 echo ""
-echo "# SA Simulate last X days, with minimum Y alarms"
+echo "# SA Screen last X days, with minimum Y alarms"
 echo ""
 echo "Symbols($countSymbols)"
 
@@ -148,20 +148,28 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <div>"
 # shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br>Simulate last '$lastDaysParam' Days,<br>with minimum '$alarmCharactersParam' alarms:" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+
+Out "" $OUT_SIMULATE_FILE
+Out "<br># SA Screen" $SIM_LAST_ALARMS_HTML_FILE
+Out "##########" $SIM_LAST_ALARMS_HTML_FILE
+Out "" $SIM_LAST_ALARMS_HTML_FILE
+Out "# Parameter" $SIM_LAST_ALARMS_HTML_FILE
+Out "Symbols($countSymbols):$symbolsParam" $SIM_LAST_ALARMS_HTML_FILE
+
+echo "Screen last '$lastDaysParam' Days<br>with minimum '$alarmCharactersParam' alarms<br><br><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "<br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 recommendedPattern="5R"
 highlyRecommendedPattern="6R"
 stronglyRecommendedPattern="7R"
-echo "<br><br>Legend:"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><br><br># Legend"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><span style='background:"$LIGHTGREEN"; color:black'>Recommended: $recommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><span style='background:"$LIMEGREEN"; color:black'>Highly recommended: $highlyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><span style='background:"$MEDIUMSEAGREEN"; color:black'>Strongly recommended: $stronglyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap: < 1Mrd.</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 
-echo "<br><br>Simulation Results:"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><br># Sceening Results"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
@@ -225,7 +233,7 @@ done
 GetCreationDate
 # shellcheck disable=SC2154
 echo "<br><br>Good Luck! $creationDate" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><br><br></div>
+echo "<br><br><br><br><br><br></div>
 <script>
 // Open all in Tabs
 function doOpenAllInTab() {
