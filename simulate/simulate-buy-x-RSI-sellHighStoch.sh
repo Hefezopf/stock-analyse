@@ -334,7 +334,7 @@ minRange=$((posInAlarm-lastDaysParam))
         if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarms buying values
 
 #isHoldPiecesAndNewLow=true
-echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
+#echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
             lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
             symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
             ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
