@@ -190,7 +190,7 @@ do
             # Recommended
             #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
-                echo "-> Recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
+                echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
                 linkBackgroundColor="$LIGHTGREEN"
             fi
             # Highly recommended
@@ -202,7 +202,7 @@ do
             # Strongly recommended
             #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
             if [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
-                echo "---> Strongly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
+                echo "---> Strongly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
                 linkBackgroundColor="$MEDIUMSEAGREEN"
             fi            
             #alarmPattern="7S+7R"
