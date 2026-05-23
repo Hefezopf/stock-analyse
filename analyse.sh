@@ -526,6 +526,9 @@ do
         StrategieUnderratedLowStochasticLowRSILowMACD "$stochasticPercentageLower" "$RSIQuoteLower" "$lastStochasticQuoteRounded" "$lastRSIQuoteRounded" "$lastMACDValue" "$OUT_RESULT_FILE" "$symbol" "$symbolName" "$markerOwnStock" "$ID_NOTATION"
 
         if [ "$markerOwnStock" = '*' ]; then # Sell strategies only for own stocks!
+        
+echo "--------marker? Symbol: $symbol; markerOwnStock:$markerOwnStock"
+
             # Sell Strategie: High horizontal MACD
             if [ "$applyStrategieHorizontalMACD" = true ]; then
                 resultStrategieOverratedHighHorizontalMACD=""
