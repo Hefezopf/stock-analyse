@@ -149,7 +149,6 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 # shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
-#Out "" $SIM_LAST_ALARMS_HTML_FILE
 Out "# SA Screen" $SIM_LAST_ALARMS_HTML_FILE
 Out "##########" $SIM_LAST_ALARMS_HTML_FILE
 Out "" $SIM_LAST_ALARMS_HTML_FILE
@@ -159,10 +158,6 @@ Out "Symbols($countSymbols):$symbolsParam" $SIM_LAST_ALARMS_HTML_FILE
 echo "Days: '$lastDaysParam'<br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "Alarms: '$alarmCharactersParam'<br><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-
-recommendedPattern="5R"
-highlyRecommendedPattern="6R"
-stronglyRecommendedPattern="7R"
 
 echo "<br><br><br># Sceening Results"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 
@@ -179,7 +174,12 @@ do
     vorzeichen="${lastAlarms: -2 : -1}"
 
     veryLastAlarm=$(cat alarm/"$symbol".txt | cut -f 87-87 -d ',')
-    isVeryLastAlarm=false   
+    isVeryLastAlarm=false
+
+    recommendedPattern="5R"
+    highlyRecommendedPattern="6R"
+    stronglyRecommendedPattern="7R"
+
     if [ "${veryLastAlarm#*"$stronglyRecommendedPattern"}" != "$veryLastAlarm" ]; then # Check if veryLastAlarm is matching
         isVeryLastAlarm=true
         echo "---> isVeryLastAlarm: $isVeryLastAlarm. $symbol $symbolName: $stronglyRecommendedPattern found in $veryLastAlarm"
@@ -192,28 +192,29 @@ do
         echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
         echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
         echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+        linkBackgroundColor="$MEDIUMSEAGREEN_1"
 
         # TODO: if more then 50 -> build in!
         # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
 
-        linkBackgroundColor="$WHITE" # default
+        #linkBackgroundColor="$WHITE" # default
         # Recommended
         #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
         if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
             echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
-            linkBackgroundColor="$LIGHTGREEN"
+            linkBackgroundColor="$MEDIUMSEAGREEN_2"
         fi
         # Highly recommended
         #test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
         if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
             echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
-            linkBackgroundColor="$LIMEGREEN"
+            linkBackgroundColor="$MEDIUMSEAGREEN_3"
         fi
         # Strongly recommended
         #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
         if [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
             echo "---> Strongly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
-            linkBackgroundColor="$MEDIUMSEAGREEN"
+            linkBackgroundColor="$MEDIUMSEAGREEN_4"
         fi
 
         # Market Cap
@@ -227,9 +228,10 @@ do
 done
 
 echo "<br><br># Legend"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$LIGHTGREEN"; color:black'>Recommended: $recommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$LIMEGREEN"; color:black'>Highly recommended: $highlyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$MEDIUMSEAGREEN"; color:black'>Strongly recommended: $stronglyRecommendedPattern</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$MEDIUMSEAGREEN_1"; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$MEDIUMSEAGREEN_2"; color:black'>Recommended: '$recommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$MEDIUMSEAGREEN_3"; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+echo "<br><span style='background:"$MEDIUMSEAGREEN_4"; color:black'>Strongly recommended: '$stronglyRecommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap: < 1Mrd.</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 GetCreationDate

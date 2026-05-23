@@ -11,7 +11,7 @@ export UNAME_O_GNU_LINUX="GNU/Linux"
 
 
 # For printf "%.2f"
-#export LC_NUMERIC=en_US.UTF-8
+# export LC_NUMERIC=en_US.UTF-8
 export LC_NUMERIC=C.UTF-8
 
 # Tendency
@@ -21,13 +21,16 @@ export FALLING=FALLING
 
 # CSSLink Color
 export MOCCASIN=Moccasin
-export MEDIUMSEAGREEN=MediumSeaGreen
-export LIGHTGREEN=lightgreen
-export LIMEGREEN=LimeGreen
+# MediumSeaGreen shades 
+# https://www.css-gradient.com/colors/mediumseagreen
+export MEDIUMSEAGREEN_1=#90DAB1
+export MEDIUMSEAGREEN_2=#62CA90
+export MEDIUMSEAGREEN_3=#37A467
+export MEDIUMSEAGREEN_4=#28764A
+
 export GREEN=green
 export RED=red
 export BLACK=black
-export WHITE=white
 
 
 # Links
