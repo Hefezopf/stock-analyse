@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script simulates a given stock quote.
-# Call: simulate/simulate-simulate-buy-x-RSI-sellHighStoch.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE SELL_IF_OVER_PERCENTAGE KEEP_IF_UNDER_PERCENTAGE
+# Call: simulate/simulate-buy-x-RSI-sellHighStoch.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE SELL_IF_OVER_PERCENTAGE KEEP_IF_UNDER_PERCENTAGE
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI ALV BAS ...'
 # 2. Parameter: AMOUNT_PER_TRADE: How much money will be spent on a single trade; like 2000€
 # 3. Parameter: RSI_BUY_LEVEL: RSI level when the buying trade will be trigged: like 25
@@ -11,9 +11,9 @@
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
 # 8. Parameter: ALARM_COUNT_FOR_STOCK: Buy, if count is true for alarm. Like: 'C+4R+7S+P+D+N+M+' = 7 times '+'
 # 9. Parameter: ALARM_COUNT_FOR_INDEX: Buy, if count is true for alarm. Like: '7S+P+D+N+M+' = 5 times '+'
-# Call example: simulate/simulate-simulate-buy-x-RSI-sellHighStoch.sh 'BEI' 2500 24 70 1.1 99 2 7 5
-# Call example: simulate/simulate-simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 24 91 1.1 99 1 7 5
-# Call example: simulate/simulate-simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 24 65 1.01 99 2 7 5
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI' 2500 24 70 1.1 99 2 7 5
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 24 91 1.1 99 1 7 5
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 24 65 1.01 99 2 7 5
 
 # Debug mode
 #set -x
@@ -304,76 +304,35 @@ do
             isMACDhorizontalAndLastStochNeg=true
         fi
 
+
         # Buy
-
-
-
-lastDaysParam=3
-alarmCharactersParam=35
-
-recommendedPattern="7R"
-#recommendedPattern="'*5S+P+'"
-#highlyRecommendedPattern="6R"
-#stronglyRecommendedPattern="7R"
-
-#'','5S+','5S+','5S+','6S+M+','6S+D+N+M+','C+6S+D+N+M+','C+6S+D+N+M+','C+3R+6S+M+','4R+6S+M+','C+5R+6S+M+','5S+5R+','5S+D+N+','4S+M+','09','10','11','D+N+','15','16','17','18','19','22','23','24','25','26','01','02','M+','M+','M+','P+M+','P+M+','P+M+','4S+D+N+M+','C+5S+D+N+M+','6S+M+','7S+M+','C+7S+D+N+M+','6S+','19','22','23','24','P+D+N+M+','P+D+N+M+','P+D+N+M+','4S+P+M+','4S+M+','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','P+','P+D+N+M+','P+M+','M+','4S+P+M+','C+5S+P+D+N+M+','C+6S+P+D+N+M+','C+6S+3R+P+D+N+M+','C+6S+4R+P+D+N+M+','C+6S+5R+P+M+','C+7S+6R+P+M+','6S+7R+','C+6S+7R+P+','C+6S+7R+P+D+N+M+','C+6S+7R+P+D+N+M+','C+6S+7R+P+D+N+M+','*C+6S+7R+P+M+','*C+6S+7R+P+D+N+M+','*C+7S+7R+P+','*C+7S+7R+P+','6S+6R+'
-
-#RSIindex
-  #  minRange=$((88-lastDaysParam))
-posInAlarm=$((RSIindex-10))  
-minRange=$((posInAlarm-lastDaysParam))
-#maxRange=$((RSIindex-3))
-#echo "###minRange: $minRange"    
-    # shellcheck disable=SC2002
-  #  lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-87 -d ',')
-    lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-"$minRange" -d ',')    
+        recommendedPattern="7R"
+        posInAlarm=$((RSIindex-13))
+        lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$posInAlarm"-"$posInAlarm" -d ',')    
 #echo "###lastAlarms: $lastAlarms"
-   # if [ "${#lastAlarms}" -gt "$alarmCharactersParam" ]; then # Check if lastAlarms are large enough
         vorzeichen="${lastAlarms: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values
-        if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarms buying values
+            if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarms buying values
+#echo "----------------------> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
+                lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
+                symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
+                ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
+                #echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
+#                echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
+#                echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
-#isHoldPiecesAndNewLow=true
-#echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
-            lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
-            symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
-            ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
-            echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
-            echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
-            echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+                # TODO: if more then 50 -> build in!
+                # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
 
-            # TODO: if more then 50 -> build in!
-            # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
+                linkBackgroundColor="$WHITE" # default
+                # Market Cap
+                marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
+                asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
+                if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap 
+                    linkBackgroundColor="$MOCCASIN" #"rgba(251, 225, 173)"
+                fi            
+                WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "" "$ID_NOTATION"
 
-            linkBackgroundColor="$WHITE" # default
-            # Recommended
-            #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
-#echo ".........."            
-            #if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
-            #    echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
-            #    linkBackgroundColor="$LIGHTGREEN"
-            #fi
-            # Highly recommended
-            #test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
-            # if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
-            #     echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
-            #     linkBackgroundColor="$LIMEGREEN"
-            # fi
-            # Strongly recommended
-            #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
-            # if [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
-            #     echo "---> Strongly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
-            #     linkBackgroundColor="$MEDIUMSEAGREEN"
-            # fi            
-
-            # Market Cap
-            marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
-            asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
-            if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap 
-                linkBackgroundColor="$MOCCASIN" #"rgba(251, 225, 173)"
-            fi            
-           # WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "" "$ID_NOTATION"
-            WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "" "$ID_NOTATION"
 
 
 
@@ -393,7 +352,7 @@ minRange=$((posInAlarm-lastDaysParam))
                 # Fees each Buy trade
                 CalculateTxFee "$quoteAt" "$piecesPerTrade"
                 amount=$((amount - TX_FEE))
-              
+                
                 piecesHold=$((piecesHold+piecesPerTrade))
                 wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
                 wallet=$(printf "%.0f" "$wallet")
@@ -421,61 +380,11 @@ minRange=$((posInAlarm-lastDaysParam))
                 ARRAY_BUY[RSIindex]=$amount
                 ARRAY_TX_INDEX[RSIindex]="$wallet€"
                 ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
+
+
+            fi
         fi
-        fi
-   # fi
 
-
-        # if [ "$isHoldPiecesAndNewLow" = true ] || [ "$isMACDhorizontalAndLastStochNeg" = true ]; then
-        #     CalculateMarketCapRSILevel "$lastRSI" "$marketCapFromFile"
-        #     # shellcheck disable=SC2154
-        #     if [ "$isMarketCapRSILevel" = true ]; then
-        #         marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the subsequent caluculations
-        #         alarmCountForStockParam=$8
-        #         alarmCountForIndexParam=100
-        #         piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
-        #         amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
-        #         piecesPerTrade=${piecesPerTrade%.*}
-        #         if [ "$piecesPerTrade" -eq 0 ]; then
-        #             piecesPerTrade=1
-        #         fi
-
-        #         amount=$(echo "$quoteAt $piecesPerTrade" | awk '{print ($1 * $2)}')
-        #         amount=$(printf "%.0f" "$amount")
-
-        #         # Fees each Buy trade
-        #         CalculateTxFee "$quoteAt" "$piecesPerTrade"
-        #         amount=$((amount - TX_FEE))
-              
-        #         piecesHold=$((piecesHold+piecesPerTrade))
-        #         wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
-        #         wallet=$(printf "%.0f" "$wallet")
-        #         quoteAt=$(printf "%.2f" "$quoteAt")
-        #         Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tMACD:$valueMACD\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
-        #         buyingDay=$((buyingDay + RSIindex))
-        #         amountOfTrades=$((amountOfTrades + 1))
-
-        #         # Calculate ARRAY_BUY
-        #         for i in "${!ARRAY_BUY[@]}"; do
-        #             if [ "$i" -eq "$RSIindex" ]; then
-        #                 valueArray="${ARRAY_BUY[i]}"
-        #                 if [ "${ARRAY_BUY[i]}" = '' ]; then
-        #                     Out "SHOUD NOT HAPPEN" $OUT_SIMULATE_FILE
-        #                     valueArray=0
-        #                 fi
-        #                 amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
-        #             fi
-        #         done
-
-        #         if [ "$RSIindex" -eq 100 ]; then
-        #             ARRAY_BUY_POS_SIM+=("$symbol")
-        #         fi
-
-        #         ARRAY_BUY[RSIindex]=$amount
-        #         ARRAY_TX_INDEX[RSIindex]="$wallet€"
-        #         ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
-        #     fi
-        # fi
 
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
