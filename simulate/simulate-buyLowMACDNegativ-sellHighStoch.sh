@@ -671,7 +671,7 @@ Out "Still in Portfolio After Last Day=$sellOnLastDayAmountOverAll€" $OUT_SIMU
 averageHoldingDaysOverall=$(printf "%.1f" "$averageHoldingDaysOverall")
 Out "Avg Holding Busi.Days Overall=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
-Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
+Out "Win Overall (74 Busi.Days)=$winOverAll€" $OUT_SIMULATE_FILE
 
 if [ "$sellAmountOverAll" = 0 ]; then
     prozWinOverAll=0
@@ -681,7 +681,9 @@ else
 fi
 Out "Win Percentage (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
 prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
-Out "Estimated Win Percentage 1 Year (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
+winOverAll1Year=$(echo "$winOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
+Out "Annually Win (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
+Out "Annually Win Percentage (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 # Workflow  
