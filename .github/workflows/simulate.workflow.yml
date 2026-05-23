@@ -17,17 +17,17 @@ on:
         required: false
         default: ''
       amountPerTradeParam:
-        description: 'AMOUNT_PER_TRADE - "2500" means inititial Buy with 2500€'
+        description: 'AMOUNT_PER_TRADE - "3000" means inititial Buy with 3000'
         required: true
-        default: '2500'
+        default: '3000'
       RSIBuyLevelParam:
         description: 'RSI_BUY_LEVEL - "24" means Buy at 24'
         required: true
-        default: '24'
+        default: '25'
       StockSellLevelParam:
         description: 'STOCH_SELL_LEVEL - "65" means sell over 65'
         required: true
-        default: '65'
+        default: '75'
       incrementPerTradeParam:
         description: 'INCREMENT_PER_TRADE - "1.01" means 1% more per trade'
         required: true
@@ -85,9 +85,9 @@ jobs:
           stockSymbolsVar=$(cat config/stock_symbols.txt)
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
 
-          amountPerTradeVar=2500
-          RSIBuyLevelVar=24
-          StockSellLevelVar=65
+          amountPerTradeVar=3000
+          RSIBuyLevelVar=25
+          StockSellLevelVar=75
           incrementPerTradeVar=1.01
           sellIfOverPercentageVar=5
           keepIfUnderPercentageVar=2
