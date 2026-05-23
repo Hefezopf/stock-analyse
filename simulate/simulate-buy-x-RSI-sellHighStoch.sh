@@ -32,7 +32,7 @@ incrementPerTradeParam=$5
 sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
 
-alarmXRSIParam=7
+#alarmXRSIParam=7
 
 # Settings for currency formating like ',' or '.' with 'printf'
 #export LC_ALL=en_US.UTF-8
@@ -213,8 +213,8 @@ do
     fi
     WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate" "$ID_NOTATION"
 
-    ALARM_FILE=alarm/"$symbol".txt
-    alarms=$(head "$ALARM_FILE")
+    #ALARM_FILE=alarm/"$symbol".txt
+    #alarms=$(head "$ALARM_FILE")
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
@@ -222,10 +222,13 @@ do
     historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
     historyMACDs="${historyMACDs:63}"
     RSIindex=26
-    valueNewMACDLow=100
+    #valueNewMACDLow=100
     beforeLastQuote="$QUOTE_MAX_VALUE"
     for valueMACD in ${historyMACDs//,/ }
     do
+
+export DUMMYvalueMACD=$valueMACD
+
         ARRAY_TX_BUY_PRICE[RSIindex]="{}"
         ARRAY_TX_SELL_PRICE[RSIindex]="{}"
 
@@ -248,7 +251,7 @@ isHoldPiecesAndNewLow=false
         fi
 
         # lastStoch
-        lastStoch="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
+        #lastStoch="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
 
         # lastRSI
         lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')" 
@@ -264,6 +267,7 @@ isHoldPiecesAndNewLow=false
         # Buy
         recommendedPattern="7R"
         posInAlarm=$((RSIindex-13))
+        # shellcheck disable=SC2002
         lastAlarm=$(cat alarm/"$symbol".txt | cut -f "$posInAlarm"-"$posInAlarm" -d ',')    
 #echo "###RSIindex: $RSIindex lastAlarm: $lastAlarm isNewLow: $isNewLow"
 
@@ -404,7 +408,7 @@ isHoldPiecesAndNewLow=false
                         buyingDay=0
                         RSIBuyLevelParam=$3
                         # Reset MACD
-                        valueNewMACDLow=100
+                        #valueNewMACDLow=100
                         # Reset MarketCap
                         marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
 
@@ -430,7 +434,7 @@ isHoldPiecesAndNewLow=false
 
         # Reset MACD (and beforeLastQuote) at RSI Schwellwert 40
         if [ "$lastRSI" -gt 40 ] && [ "$piecesHold" -eq 0 ]; then
-            valueNewMACDLow=100
+            #valueNewMACDLow=100
             beforeLastQuote="$QUOTE_MAX_VALUE"
         fi
 
@@ -681,7 +685,7 @@ Out "" $OUT_SIMULATE_FILE
     echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/$SIM_LAST_ALARMS_HTML_FILE\" target=\"_blank\">Simulation Last Alarms</a><br>"
     echo "<br># Informer<br><a href=\"https://nutzer.comdirect.de/inf/musterdepot/pmd/meineuebersicht.html?name=Max\" target=\"_blank\">Comdirect Informer</a><br>"
     echo "<br>"
-} >> $OUT_SIMULATE_FILE
+} >> "$OUT_SIMULATE_FILE"
 Out "Good Luck! $creationDate" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 echo "</body></html>" >> $OUT_SIMULATE_FILE

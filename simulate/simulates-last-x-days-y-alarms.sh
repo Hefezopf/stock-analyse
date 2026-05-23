@@ -149,17 +149,24 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 # shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
-Out "# SA Screen" $SIM_LAST_ALARMS_HTML_FILE
-Out "##########" $SIM_LAST_ALARMS_HTML_FILE
-Out "" $SIM_LAST_ALARMS_HTML_FILE
-Out "# Parameter" $SIM_LAST_ALARMS_HTML_FILE
-Out "Symbols($countSymbols):$symbolsParam" $SIM_LAST_ALARMS_HTML_FILE
+Out "# SA Screen" "$SIM_LAST_ALARMS_HTML_FILE"
+Out "##########" "$SIM_LAST_ALARMS_HTML_FILE"
+Out "" "$SIM_LAST_ALARMS_HTML_FILE"
+Out "# Parameter" "$SIM_LAST_ALARMS_HTML_FILE"
+Out "Symbols($countSymbols):$symbolsParam" "$SIM_LAST_ALARMS_HTML_FILE"
 
-echo "Days: '$lastDaysParam'<br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "Alarms: '$alarmCharactersParam'<br><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "Days: '$lastDaysParam'<br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "Alarms: '$alarmCharactersParam'<br><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>" >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "<br><br><br># Sceening Results" >> "$SIM_LAST_ALARMS_HTML_FILE"
+{       
+    echo "Days: '$lastDaysParam'<br>"
+    echo "Alarms: '$alarmCharactersParam'<br><br><br>"
+    echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>"
+    echo "<br><br><br># Sceening Results"
 
-echo "<br><br><br># Sceening Results"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+} >> "$SIM_LAST_ALARMS_HTML_FILE"
+
 
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
@@ -173,6 +180,7 @@ do
     lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-87 -d ',')
     vorzeichen="${lastAlarms: -2 : -1}"
 
+    # shellcheck disable=SC2002
     veryLastAlarm=$(cat alarm/"$symbol".txt | cut -f 87-87 -d ',')
     isVeryLastAlarm=false
 
@@ -227,12 +235,21 @@ do
     fi
 done
 
-echo "<br><br># Legend"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$MEDIUMSEAGREEN_1"; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$MEDIUMSEAGREEN_2"; color:black'>Recommended: '$recommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$MEDIUMSEAGREEN_3"; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$MEDIUMSEAGREEN_4"; color:black'>Strongly recommended: '$stronglyRecommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap: < 1Mrd.</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "<br><br># Legend"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "<br><span style='background:"$MEDIUMSEAGREEN_1"; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "<br><span style='background:"$MEDIUMSEAGREEN_2"; color:black'>Recommended: '$recommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "<br><span style='background:"$MEDIUMSEAGREEN_3"; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "<br><span style='background:"$MEDIUMSEAGREEN_4"; color:black'>Strongly recommended: '$stronglyRecommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+#echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap: < 1Mrd.</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
+{
+    echo "<br><br># Legend"
+    echo "<br><span style='background:$MEDIUMSEAGREEN_1; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"
+    echo "<br><span style='background:$MEDIUMSEAGREEN_2; color:black'>Recommended: '$recommendedPattern'</span>"
+    echo "<br><span style='background:$MEDIUMSEAGREEN_3; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"
+    echo "<br><span style='background:$MEDIUMSEAGREEN_4; color:black'>Strongly recommended: '$stronglyRecommendedPattern'</span>"
+    echo "<br><span style='background:$MOCCASIN; color:black'>Low Market Cap: < 1Mrd.</span><br>"
+} >> "$SIM_LAST_ALARMS_HTML_FILE"
+
 
 GetCreationDate
 # shellcheck disable=SC2154
