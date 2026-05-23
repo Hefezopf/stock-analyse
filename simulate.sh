@@ -33,6 +33,6 @@ rm -rf "$OUT_SIMULATE_FILE"
 #                                                                                       ALARM_COUNT_FOR_STOCK
 #                                                                                           ALARM_COUNT_FOR_INDEX
 
-./simulate/simulate-buy-x-RSI-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
 #./simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
+./simulate/simulate-buy-x-RSI-sellHighStoch.sh "$1" "$2" "$3" "$4" "$5" "$6" "$7"
 

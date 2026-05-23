@@ -9,11 +9,9 @@
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # NOT USED!!! -----# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
-# 8. Parameter: ALARM_COUNT_FOR_STOCK: Buy, if count is true for alarm. Like: 'C+4R+7S+P+D+N+M+' = 7 times '+'
-# 9. Parameter: ALARM_COUNT_FOR_INDEX: Buy, if count is true for alarm. Like: '7S+P+D+N+M+' = 5 times '+'
-# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI' 2500 24 70 1.1 99 2 7 5
-# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 24 91 1.1 99 1 7 5
-# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 24 65 1.01 99 2 7 5
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI' 2500 24 70 1.1 99 2
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 2000 24 91 1.1 99 1
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 2500 24 65 1.01 99 2
 
 # Debug mode
 #set -x
@@ -33,9 +31,6 @@ stochSellLevelParam=$4
 incrementPerTradeParam=$5
 sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
-alarmCountForStockParam=$8
-alarmCountForIndexParam=$9
-alarmCountForIndexOrigParam=$9 # Copy as orig. value needed for summary at the end
 
 alarmXRSIParam=7
 
@@ -44,7 +39,6 @@ alarmXRSIParam=7
 export LC_ALL=C.UTF-8
 
 cp out/_result.js simulate/out
-# cp out/_result.css simulate/out
 
 OUT_SIMULATE_FILE="simulate/out/_simulate.html"
 QUOTE_MAX_VALUE=999999
@@ -59,8 +53,6 @@ function ParameterOut()
     Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
     Out "Sell Over Percentage (NOT USED!!!):$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
     Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
-    Out "Buy Alarm count for Stocks:$alarmCountForStockParam" $OUT_SIMULATE_FILE
-    Out "Buy Alarm count for Indexes:$alarmCountForIndexOrigParam" $OUT_SIMULATE_FILE
 }
 
 mkdir -p "$TEMP_DIR/config"
@@ -219,7 +211,6 @@ do
     if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then
         lowMarketCapLinkBackgroundColor="$MOCCASIN" #"rgba(251, 225, 173)"
     fi
-    #echo "<a style='background:$lowMarketCapLinkBackgroundColor;' href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html $symbolName\" target=\"_blank\">$_outputText</a><br>" >> $OUT_SIMULATE_FILE  
     WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate" "$ID_NOTATION"
 
     ALARM_FILE=alarm/"$symbol".txt
@@ -232,32 +223,14 @@ do
     historyMACDs="${historyMACDs:63}"
     RSIindex=26
     valueNewMACDLow=100
-    valueMACDLast_3="-1" 
-    valueMACDLast_2="-1" 
-    valueMACDLast_1="-1" 
-    valueMACDLast_0="-1"
     beforeLastQuote="$QUOTE_MAX_VALUE"
     for valueMACD in ${historyMACDs//,/ }
     do
         ARRAY_TX_BUY_PRICE[RSIindex]="{}"
         ARRAY_TX_SELL_PRICE[RSIindex]="{}"
-        valueMACDLast_3="$valueMACDLast_2" 
-        valueMACDLast_2="$valueMACDLast_1" 
-        valueMACDLast_1="$valueMACDLast_0" 
-        valueMACDLast_0="$valueMACD" 
 
-        isMACDHorizontalAlarm=false
-        isNewMACDLower=$(echo "$valueMACD" "$valueNewMACDLow" | awk '{if ($1 <= $2) print "true"; else print "false"}')
-        if [ "$isNewMACDLower" = true ]; then
-            valueNewMACDLow="$valueMACD"
-            isNegativMACDLast_0=${valueMACDLast_0:0:1}
-            isNegativMACDLast_1=${valueMACDLast_1:0:1}
-            isNegativMACDLast_2=${valueMACDLast_2:0:1}
-            isNegativMACDLast_3=${valueMACDLast_3:0:1}
-            if [ "$isNegativMACDLast_0" = '-' ] && [ "$isNegativMACDLast_1" = '-' ] && [ "$isNegativMACDLast_2" = '-' ] && [ "$isNegativMACDLast_3" = '-' ]; then
-                isMACDHorizontalAlarm=true
-            fi
-        fi
+isHoldPiecesAndNewLow=false
+#isBuyArrayFilled=false
 
         # isNewLow
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
@@ -287,43 +260,20 @@ do
             isHoldPiecesAndNewLow=false
         fi
 
-        # is MACD horizontal and lastStoch?
-        if [ "$isMACDHorizontalAlarm" = true ] && [ "$isNewLow" = true ] && [ "$lastStoch" = 0 ] && [ "$lastRSI" -le "$RSIBuyLevelParam" ]; then
-            isMACDhorizontalAndLastStochNeg=true
-        else
-            isMACDhorizontalAndLastStochNeg=false
-        fi
-
-        posInAlarm=$((RSIindex-13))
-        alarmAtIndex="$(echo "$alarms" | cut -f "$posInAlarm" -d ',')"
-        _amountOfBuySignals="${alarmAtIndex//[^+]}"
-        # Buy, if more buy signals in Result file: STOCK >= 7 or INDEX >=5
-        if { [ "${#_amountOfBuySignals}" -ge "$alarmCountForStockParam" ] && [ "$asset_type" = 'STOCK' ]; } || 
-            { [ "${#_amountOfBuySignals}" -ge "$alarmCountForIndexParam" ] && [ "$asset_type" = 'INDEX' ]; } then
-        #    isHoldPiecesAndNewLow=true
-            isMACDhorizontalAndLastStochNeg=true
-        fi
-
 
         # Buy
         recommendedPattern="7R"
         posInAlarm=$((RSIindex-13))
-        lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$posInAlarm"-"$posInAlarm" -d ',')    
-#echo "###lastAlarms: $lastAlarms"
-        vorzeichen="${lastAlarms: -2 : -1}"
-        if [ "$vorzeichen" = '+' ]; then # Check if lastAlarms buying values
-            if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarms buying values
-#echo "----------------------> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
+        lastAlarm=$(cat alarm/"$symbol".txt | cut -f "$posInAlarm"-"$posInAlarm" -d ',')    
+#echo "###RSIindex: $RSIindex lastAlarm: $lastAlarm isNewLow: $isNewLow"
+
+        vorzeichen="${lastAlarm: -2 : -1}"
+        if [ "$vorzeichen" = '+' ]; then # Check if lastAlarm buying values
+            if [ "${lastAlarm#*"$recommendedPattern"}" != "$lastAlarm" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarm buying values
+#echo "----------------------> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarm"
                 lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
                 symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
                 ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
-                #echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
-#                echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
-#                echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-
-                # TODO: if more then 50 -> build in!
-                # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
-
                 linkBackgroundColor="$WHITE" # default
                 # Market Cap
                 marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
@@ -337,8 +287,8 @@ do
 
 
                 marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the subsequent caluculations
-                alarmCountForStockParam=$8
-                alarmCountForIndexParam=100
+                #alarmCountForStockParam=$8
+                #alarmCountForIndexParam=100
                 piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
                 amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
                 piecesPerTrade=${piecesPerTrade%.*}
@@ -357,7 +307,7 @@ do
                 wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
                 wallet=$(printf "%.0f" "$wallet")
                 quoteAt=$(printf "%.2f" "$quoteAt")
-                Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tMACD:$valueMACD\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
+                Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tAlarm:$lastAlarm\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
                 buyingDay=$((buyingDay + RSIindex))
                 amountOfTrades=$((amountOfTrades + 1))
 
@@ -381,6 +331,7 @@ do
                 ARRAY_TX_INDEX[RSIindex]="$wallet€"
                 ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
 
+              #  isBuyArrayFilled=true
 
             fi
         fi
@@ -434,7 +385,9 @@ do
                         sellAmountOverAll=$((amount+sellAmountOverAll))
                         
                         Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount:$amount€\tStoch:$stochAt" $OUT_SIMULATE_FILE
-                        anualPercentWin=$(echo "360 $averageHoldingDays" | awk '{print ($1 / $2)}')
+                        
+                        #anualPercentWin=$(echo "360 $averageHoldingDays" | awk '{print ($1 / $2)}')
+                        anualPercentWin=$(echo "250 $averageHoldingDays" | awk '{print ($1 / $2)}') # -> 250 Arbeitstage
                         anualPercentWin=$(echo "$anualPercentWin $intermediateProzWin" | awk '{print ($1 * $2)}')
                         anualPercentWin=$(printf "%.0f" "$anualPercentWin")
                         Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg Holding Busi.Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
@@ -708,11 +661,14 @@ Out "Win Overall=$winOverAll€" $OUT_SIMULATE_FILE
 if [ "$sellAmountOverAll" = 0 ]; then
     prozWinOverAll=0
 else
-    prozWinOverAll=$(echo "$winOverAll $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
+    prozWinOverAll=$(echo "$winOverAll $sellAmountOverAll" | awk '{print (($1 / ($2-$1) * 100))}')
     prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
 fi
+
+#echo "------------winOverAll:$winOverAll sellAmountOverAll:$sellAmountOverAll prozWinOverAll:$prozWinOverAll"
+
 Out "Win Percentage (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
-prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
+prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # Factor 3.8: 74 Kurse -> 250 Arbeitstage
 Out "Estimated Win Percentage 1 Year (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
@@ -722,7 +678,6 @@ Out "" $OUT_SIMULATE_FILE
     echo "<br># Result<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result_schedule.html\" target=\"_blank\">Result Schedule SA</a>"
     echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/_result.html\" target=\"_blank\">Result&nbsp;SA</a>"
     echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html\" target=\"_blank\">Simulation</a>"
-    #echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html\" target=\"_blank\">Simulation Last Alarms</a><br>"
     echo "<br><a href=\"https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/$SIM_LAST_ALARMS_HTML_FILE\" target=\"_blank\">Simulation Last Alarms</a><br>"
     echo "<br># Informer<br><a href=\"https://nutzer.comdirect.de/inf/musterdepot/pmd/meineuebersicht.html?name=Max\" target=\"_blank\">Comdirect Informer</a><br>"
     echo "<br>"
