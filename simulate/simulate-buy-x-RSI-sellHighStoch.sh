@@ -61,6 +61,7 @@ cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 mkdir -p simulate/out
 sellAmountOverAll=0
 sellOnLastDayAmountOverAll=0
+sellOnLastDayLostAmountOverAll=0
 averageHoldingDaysOverallDays=0
 averageHoldingDaysOverallSymbols=0
 export alarmAbbrevTemplate # from functions.sh
@@ -231,9 +232,7 @@ export DUMMYvalueMACD=$valueMACD
 
         ARRAY_TX_BUY_PRICE[RSIindex]="{}"
         ARRAY_TX_SELL_PRICE[RSIindex]="{}"
-
-isHoldPiecesAndNewLow=false
-#isBuyArrayFilled=false
+        isHoldPiecesAndNewLow=false
 
         # isNewLow
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
@@ -291,8 +290,6 @@ isHoldPiecesAndNewLow=false
 
 
                 marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the subsequent caluculations
-                #alarmCountForStockParam=$8
-                #alarmCountForIndexParam=100
                 piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
                 amountPerTrade=$(echo "$amountPerTrade $incrementPerTradeParam" | awk '{print ($1 * $2)}')
                 piecesPerTrade=${piecesPerTrade%.*}
@@ -332,15 +329,10 @@ isHoldPiecesAndNewLow=false
                 fi
 
                 ARRAY_BUY[RSIindex]=$amount
-                ARRAY_TX_INDEX[RSIindex]="$wallet€"
-#echo "----ARRAY_TX_INDEX[RSIindex]: $wallet€"                      
+                ARRAY_TX_INDEX[RSIindex]="$wallet€"                     
                 ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
-
-              #  isBuyArrayFilled=true
-
             fi
         fi
-
 
         # Sell
         stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
@@ -408,8 +400,6 @@ isHoldPiecesAndNewLow=false
                         amountOfTrades=0
                         buyingDay=0
                         RSIBuyLevelParam=$3
-                        # Reset MACD
-                        #valueNewMACDLow=100
                         # Reset MarketCap
                         marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
 
@@ -426,7 +416,6 @@ isHoldPiecesAndNewLow=false
                         ARRAY_SELL[RSIindex]=$amount
                         ARRAY_TX_INDEX[RSIindex]="+$wallet€+$intermediateProzWin%"
                         ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
-
                         wallet=0
                     fi
                 fi
@@ -446,14 +435,16 @@ isHoldPiecesAndNewLow=false
     if [ "$piecesHold" -gt 0 ]; then
         quoteAt="$(echo "$historyQuotes" | cut -f 100 -d ',')" 
         Out "Keep on the last day!!" $OUT_SIMULATE_FILE
-        # 30 Euro Fees each Last Day Sell trade
-        amount=$(echo "$quoteAt $piecesHold 30" | awk '{print ($1 * $2) - $3}')
+        # 1 Euro Fees each Last Day Sell trade
+        amount=$(echo "$quoteAt $piecesHold 1" | awk '{print ($1 * $2) - $3}')
         amount=$(printf "%.0f" "$amount")
         quoteAt=$(printf "%.2f" "$quoteAt")
         percentageLost=$(echo "$wallet $amount" | awk '{print (100-(100 / $1 * $2 ))*(-1)}')
         percentageLost=$(printf "%.1f" "$percentageLost")
-        Out "Keep\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tCurrent Value=$amount€\tPerc=$percentageLost%" $OUT_SIMULATE_FILE
+        amountLostOnLastDay=$((amount-wallet))
+        Out "Keep\tPos:100\t""$piecesHold""pc\tQuote:$quoteAt€\tCurrent Value=$amount€\tLost=$amountLostOnLastDay€\tPerc=$percentageLost%" $OUT_SIMULATE_FILE
         sellOnLastDayAmountOverAll=$(echo "$sellOnLastDayAmountOverAll $amount" | awk '{print ($1 + $2)}')
+        sellOnLastDayLostAmountOverAll=$(echo "$sellOnLastDayLostAmountOverAll $amountLostOnLastDay" | awk '{print ($1 + $2)}')
         RSIBuyLevelParam=$3
     fi
 
@@ -636,7 +627,6 @@ do
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
-            
     marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     lowMarketCapLinkBackgroundColor="white"
@@ -659,7 +649,8 @@ Out "==========================" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
 Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 sellOnLastDayAmountOverAll=$(printf "%.0f" "$sellOnLastDayAmountOverAll")
-Out "Still in Portfolio After Last Day=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Now still in Portfolio=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Now potential Lost, if sell all=$sellOnLastDayLostAmountOverAll€" $OUT_SIMULATE_FILE
 averageHoldingDaysOverall=$(printf "%.1f" "$averageHoldingDaysOverall")
 Out "Avg Holding Busi.Days Overall=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")

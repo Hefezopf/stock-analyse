@@ -667,7 +667,7 @@ Out "==========================" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
 Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 sellOnLastDayAmountOverAll=$(printf "%.0f" "$sellOnLastDayAmountOverAll")
-Out "Still in Portfolio After Last Day=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Now still in Portfolio=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
 averageHoldingDaysOverall=$(printf "%.1f" "$averageHoldingDaysOverall")
 Out "Avg Holding Busi.Days Overall=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
