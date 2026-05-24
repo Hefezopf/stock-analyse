@@ -405,7 +405,7 @@ do
                         anualPercentWin=$(echo "360 $averageHoldingDays" | awk '{print ($1 / $2)}')
                         anualPercentWin=$(echo "$anualPercentWin $intermediateProzWin" | awk '{print ($1 * $2)}')
                         anualPercentWin=$(printf "%.0f" "$anualPercentWin")
-                        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg Holding Busi.Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
+                        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg. Holding Busi.Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
 
                         averageHoldingDaysOverallDays=$(echo "$averageHoldingDaysOverallDays $averageHoldingDays" | awk '{print ($1 + $2)}')
                         averageHoldingDaysOverallSymbols=$((averageHoldingDaysOverallSymbols + 1))
@@ -665,13 +665,13 @@ Out "# Parameter" $OUT_SIMULATE_FILE
 ParameterOut
 Out "==========================" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
-Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Sell Amount overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 sellOnLastDayAmountOverAll=$(printf "%.0f" "$sellOnLastDayAmountOverAll")
 Out "Now still in Portfolio=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
 averageHoldingDaysOverall=$(printf "%.1f" "$averageHoldingDaysOverall")
-Out "Avg Holding Busi.Days Overall=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
+Out "Avg. holding Busi.Days overall=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
-Out "Win Overall (74 Busi.Days)=$winOverAll€" $OUT_SIMULATE_FILE
+Out "Win overall (74 Busi.Days)=$winOverAll€" $OUT_SIMULATE_FILE
 
 if [ "$sellAmountOverAll" = 0 ]; then
     prozWinOverAll=0

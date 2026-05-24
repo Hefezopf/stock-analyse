@@ -3,9 +3,9 @@
 # This script simulates a given stock quote.
 # Call: simulate/simulate-buy-x-RSI-sellHighStoch.sh SYMBOL AMOUNT_PER_TRADE RSI_BUY_LEVEL STOCH_SELL_LEVEL INCREMENT_PER_TRADE SELL_IF_OVER_PERCENTAGE KEEP_IF_UNDER_PERCENTAGE
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI ALV BAS ...'
-# 2. Parameter: AMOUNT_PER_TRADE: How much money will be spent on a single trade; like 2000€
+# 2. Parameter: AMOUNT_PER_TRADE: How much money will be spent on a single trade; like 3000€
 # 3. Parameter: RSI_BUY_LEVEL: RSI level when the buying trade will be trigged: like 25
-# 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 91
+# 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 50
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # NOT USED!!! -----# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
@@ -31,8 +31,6 @@ stochSellLevelParam=$4
 incrementPerTradeParam=$5
 sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
-
-#alarmXRSIParam=7
 
 # Settings for currency formating like ',' or '.' with 'printf'
 #export LC_ALL=en_US.UTF-8
@@ -171,7 +169,6 @@ Out "" $OUT_SIMULATE_FILE
 Out "# Parameter" $OUT_SIMULATE_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
-
 Out "Symbols($countSymbols):$symbolsParam" $OUT_SIMULATE_FILE
 
 ParameterOut
@@ -241,22 +238,10 @@ export DUMMYvalueMACD=$valueMACD
         # isNewLow
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
         isNewLow=false
-        #isNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
-#echo "isNewLow $isNewLow quoteAt $quoteAt beforeLastQuote $beforeLastQuote"
-
-
-isNewLowPattern="N"
-if [ "${lastAlarm#*"$isNewLowPattern"}" != "$lastAlarm" ]; then # isNewLowPattern
-    #echo "lllllllllllllllastAlarm:$lastAlarm"
-    isNewLow=true
-    #if [ "$isNewLow" = false ]; then
-    #    exit 99
-    #fi
-fi
-
-        #if [ "$isNewLow" = true ]; then
-        #    beforeLastQuote="$quoteAt"
-        #fi
+        isNewLowPattern="N"
+        if [ "${lastAlarm#*"$isNewLowPattern"}" != "$lastAlarm" ]; then # isNewLowPattern
+            isNewLow=true
+        fi
 
         if [ "${#ARRAY_BUY[@]}" -gt 0 ]; then
             isBuyArrayFilled=true
@@ -277,14 +262,13 @@ fi
             isHoldPiecesAndNewLow=false
         fi
 
-
         # Buy
-        recommendedPattern="7R"
+        recommendedAlarmPattern="7S+7R"
 #echo "###RSIindex: $RSIindex lastAlarm: $lastAlarm isNewLow: $isNewLow"
         vorzeichen="${lastAlarm: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarm buying values
-            if [ "${lastAlarm#*"$recommendedPattern"}" != "$lastAlarm" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarm buying values
-#echo "----------------------> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarm"
+            if [ "${lastAlarm#*"$recommendedAlarmPattern"}" != "$lastAlarm" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarm buying values
+#echo "----------------------> Recommended $symbol $symbolName: $recommendedAlarmPattern found in $lastAlarm"
                 lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
                 symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
                 ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
@@ -296,9 +280,6 @@ fi
                     linkBackgroundColor="$MOCCASIN" #"rgba(251, 225, 173)"
                 fi            
                 WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "" "$ID_NOTATION"
-
-
-
 
                 marketCapFromFile=10000 # Make CalculateMarketCapRSILevel() allways true in the subsequent caluculations
                 piecesPerTrade=$(echo "$amountPerTrade $quoteAt" | awk '{print ($1 / $2)}')
@@ -398,7 +379,7 @@ fi
                         anualPercentWin=$(echo "250 $averageHoldingDays" | awk '{print ($1 / $2)}') # -> 250 Arbeitstage
                         anualPercentWin=$(echo "$anualPercentWin $intermediateProzWin" | awk '{print ($1 * $2)}')
                         anualPercentWin=$(printf "%.0f" "$anualPercentWin")
-                        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg Holding Busi.Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
+                        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg. Holding Busi.Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
 
                         averageHoldingDaysOverallDays=$(echo "$averageHoldingDaysOverallDays $averageHoldingDays" | awk '{print ($1 + $2)}')
                         averageHoldingDaysOverallSymbols=$((averageHoldingDaysOverallSymbols + 1))
@@ -432,13 +413,6 @@ fi
                 fi
             fi
         fi
-
-        # Reset MACD (and beforeLastQuote) at RSI Schwellwert 40
-        #if [ "$lastRSI" -gt 40 ] && [ "$piecesHold" -eq 0 ]; then
-        #    #valueNewMACDLow=100
-        #    beforeLastQuote="$QUOTE_MAX_VALUE"
-        #fi
-
         RSIindex=$((RSIindex + 1))
     done
 
@@ -658,14 +632,14 @@ Out "# Parameter" $OUT_SIMULATE_FILE
 ParameterOut
 Out "==========================" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
-Out "Sell Amount Overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Sell Amount overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 sellOnLastDayAmountOverAll=$(printf "%.0f" "$sellOnLastDayAmountOverAll")
 Out "Now still in Portfolio=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
 Out "Now potential Lost, if sell all=$sellOnLastDayLostAmountOverAll€" $OUT_SIMULATE_FILE
 averageHoldingDaysOverall=$(printf "%.1f" "$averageHoldingDaysOverall")
-Out "Avg Holding Busi.Days Overall=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
+Out "Avg. holding Busi.Days overall=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
-Out "Win Overall (74 Busi.Days)=$winOverAll€" $OUT_SIMULATE_FILE
+Out "Win overall (74 Busi.Days)=$winOverAll€" $OUT_SIMULATE_FILE
 
 if [ "$sellAmountOverAll" = 0 ]; then
     prozWinOverAll=0
