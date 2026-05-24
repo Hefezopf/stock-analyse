@@ -382,8 +382,8 @@ isHoldPiecesAndNewLow=false
                 isIntermediateProzWinNegativ=${intermediateProzWin:0:1}
                 # NOT Sell, if tx would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
-                    # ONLY Sell, if gain percent is over KEEP_IF_UNDER_PERCENTAGE (1%)
-                    if [ "$intermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then
+                    # ONLY Sell, if gain percentage is over KEEP_IF_UNDER_PERCENTAGE (1%)
+                    if [ "$intermediateProzWinFirstDigit" -ge "$keepIfUnderPercentageParam" ]; then
                         wallet=$((amount-wallet))
                         wallet=$(printf "%.0f" "$wallet")
                         sellAmountOverAll=$((amount+sellAmountOverAll))
