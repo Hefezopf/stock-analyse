@@ -9,6 +9,8 @@
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # NOT USED!!! -----# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
+# 8. Parameter: xxx
+# 9. Parameter: xxx
 # Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI' 3000 25 50 1.1 99 2
 # Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 50 1.1 99 1
 # Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 50 1.01 99 1
@@ -32,6 +34,8 @@ incrementPerTradeParam=$5
 sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
 
+recommendedAlarmPattern="7S+7R"
+
 # Settings for currency formating like ',' or '.' with 'printf'
 #export LC_ALL=en_US.UTF-8
 export LC_ALL=C.UTF-8
@@ -39,7 +43,6 @@ export LC_ALL=C.UTF-8
 cp out/_result.js simulate/out
 
 OUT_SIMULATE_FILE="simulate/out/_simulate.html"
-QUOTE_MAX_VALUE=999999
 ARRAY_BUY_POS_SIM=()
 
 function ParameterOut()
@@ -51,6 +54,7 @@ function ParameterOut()
     Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
     Out "Sell Over Percentage (NOT USED!!!):$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
     Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
+    Out "Alarm Pattern:$recommendedAlarmPattern" $OUT_SIMULATE_FILE    
 }
 
 mkdir -p "$TEMP_DIR/config"
@@ -216,7 +220,7 @@ do
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
-    historyRSIs=$(head -n6 "$HISTORY_FILE" | tail -1)
+    #historyRSIs=$(head -n6 "$HISTORY_FILE" | tail -1)
     historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
     historyMACDs="${historyMACDs:63}"
     RSIindex=26
@@ -253,7 +257,7 @@ export DUMMYvalueMACD=$valueMACD
         #lastStoch="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
 
         # lastRSI
-        lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')"
+        #lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')"
 
         # Allways buy, if already hold pieces and new low
         if [ "$isBuyArrayFilled" = true ] && [ "$piecesHold" -gt 0 ] && [ "$isNewLow" = true ]; then
@@ -263,7 +267,6 @@ export DUMMYvalueMACD=$valueMACD
         fi
 
         # Buy
-        recommendedAlarmPattern="7S+7R"
 #echo "###RSIindex: $RSIindex lastAlarm: $lastAlarm isNewLow: $isNewLow"
         vorzeichen="${lastAlarm: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarm buying values
