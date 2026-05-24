@@ -20,6 +20,10 @@ symbolsParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 lastDaysParam=$2
 alarmCharactersParam=$3
 
+recommendedPattern="+5R"
+highlyRecommendedPattern="+6R"
+stronglyRecommendedPattern="+7R"
+
 if { [ -z "$symbolsParam" ] || [ -z "$lastDaysParam" ] || [ -z "$alarmCharactersParam" ]; } then
   echo "Error: Not all parameters specified!"
   echo "Call: sh ./simulate/simulates-last-x-days-y-alarms.sh SYMBOL LAST_DAYS ALARM_CHARS"
@@ -184,10 +188,6 @@ do
     # shellcheck disable=SC2002
     veryLastAlarm=$(cat alarm/"$symbol".txt | cut -f 87-87 -d ',')
     isVeryLastAlarm=false
-
-    recommendedPattern="5R"
-    highlyRecommendedPattern="6R"
-    stronglyRecommendedPattern="7R"
 
     if [ "${veryLastAlarm#*"$stronglyRecommendedPattern"}" != "$veryLastAlarm" ]; then # Check if veryLastAlarm is matching
         isVeryLastAlarm=true
