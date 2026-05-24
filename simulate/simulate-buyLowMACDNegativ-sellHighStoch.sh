@@ -396,7 +396,7 @@ do
                 # NOT Sell, if tx would be a negative trade
                 if [ ! "$isIntermediateProzWinNegativ" = '-' ]; then
                     # ONLY Sell, if gain percent is over KEEP_IF_UNDER_PERCENTAGE (1%)
-                    if [ "$intermediateProzWinFirstDigit" -gt "$keepIfUnderPercentageParam" ]; then
+                    if [ "$intermediateProzWinFirstDigit" -ge "$keepIfUnderPercentageParam" ]; then
                         wallet=$((amount-wallet))
                         wallet=$(printf "%.0f" "$wallet")
                         sellAmountOverAll=$((amount+sellAmountOverAll))
@@ -492,7 +492,7 @@ do
     for i in "${!ARRAY_TX_INDEX[@]}"; do
         # Buy may replace some Sell-XXX values -> looks strange: 'SELL-9BUY
         #xAxis=$(echo "$xAxis" | sed "s/'$i'/'${ARRAY_TX_INDEX[i]}'/g")
-        xAxis="${xAxis//"$i"/"${ARRAY_TX_INDEX[i]}"}"
+        xAxis="${xAxis//"'$i'"/"'${ARRAY_TX_INDEX[i]}'"}"
     done
     labelsTemplate="labels:[$xAxis"
     sed -i """$lineNumer""s/.*/$labelsTemplate/" simulate/out/"$symbol".html

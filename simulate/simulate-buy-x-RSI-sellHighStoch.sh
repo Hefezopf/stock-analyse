@@ -333,6 +333,7 @@ isHoldPiecesAndNewLow=false
 
                 ARRAY_BUY[RSIindex]=$amount
                 ARRAY_TX_INDEX[RSIindex]="$wallet€"
+#echo "----ARRAY_TX_INDEX[RSIindex]: $wallet€"                      
                 ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
 
               #  isBuyArrayFilled=true
@@ -478,11 +479,13 @@ isHoldPiecesAndNewLow=false
     lineNumer=$((lineNumer+1)) # 81
     # Write/Replace X-Axis
     xAxis="$alarmAbbrevTemplate"",'100'"
+#echo "-----xAxis:$xAxis"    
     for i in "${!ARRAY_TX_INDEX[@]}"; do
         # Buy may replace some Sell-XXX values -> looks strange: 'SELL-9BUY
         #xAxis=$(echo "$xAxis" | sed "s/'$i'/'${ARRAY_TX_INDEX[i]}'/g")
-        xAxis="${xAxis//"$i"/"${ARRAY_TX_INDEX[i]}"}"
+        xAxis="${xAxis//"'$i'"/"'${ARRAY_TX_INDEX[i]}'"}"
     done
+#echo "####xAxis:$xAxis"     
     labelsTemplate="labels:[$xAxis"
     sed -i """$lineNumer""s/.*/$labelsTemplate/" simulate/out/"$symbol".html
 
