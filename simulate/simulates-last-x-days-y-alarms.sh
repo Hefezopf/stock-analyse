@@ -39,6 +39,7 @@ echo "# SA Screen last X days, with minimum Y alarms"
 echo ""
 echo "Symbols($countSymbols)"
 
+cp "$SIM_LAST_ALARMS_HTML_FILE" "$SIM_LAST_ALARMS_OLD_HTML_FILE"
 rm -rf "$SIM_LAST_ALARMS_HTML_FILE"
 HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <head>
