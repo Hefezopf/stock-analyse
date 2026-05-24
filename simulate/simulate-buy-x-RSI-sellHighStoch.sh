@@ -224,7 +224,7 @@ do
     historyMACDs="${historyMACDs:63}"
     RSIindex=26
     #valueNewMACDLow=100
-    beforeLastQuote="$QUOTE_MAX_VALUE"
+    #beforeLastQuote="$QUOTE_MAX_VALUE"
     for valueMACD in ${historyMACDs//,/ }
     do
 
@@ -234,14 +234,29 @@ export DUMMYvalueMACD=$valueMACD
         ARRAY_TX_SELL_PRICE[RSIindex]="{}"
         isHoldPiecesAndNewLow=false
 
+        posInAlarm=$((RSIindex-13))
+        # shellcheck disable=SC2002
+        lastAlarm=$(cat alarm/"$symbol".txt | cut -f "$posInAlarm"-"$posInAlarm" -d ',')  
+
         # isNewLow
         quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
-        isNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
-#echo isNewLow $isNewLow quoteAt $quoteAt beforeLastQuote $beforeLastQuote
+        isNewLow=false
+        #isNewLow=$(echo "$quoteAt" "$beforeLastQuote" | awk '{if ($1 < $2) print "true"; else print "false"}')
+#echo "isNewLow $isNewLow quoteAt $quoteAt beforeLastQuote $beforeLastQuote"
 
-        if [ "$isNewLow" = true ]; then
-            beforeLastQuote="$quoteAt"
-        fi
+
+isNewLowPattern="N"
+if [ "${lastAlarm#*"$isNewLowPattern"}" != "$lastAlarm" ]; then # isNewLowPattern
+    #echo "lllllllllllllllastAlarm:$lastAlarm"
+    isNewLow=true
+    #if [ "$isNewLow" = false ]; then
+    #    exit 99
+    #fi
+fi
+
+        #if [ "$isNewLow" = true ]; then
+        #    beforeLastQuote="$quoteAt"
+        #fi
 
         if [ "${#ARRAY_BUY[@]}" -gt 0 ]; then
             isBuyArrayFilled=true
@@ -253,7 +268,7 @@ export DUMMYvalueMACD=$valueMACD
         #lastStoch="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
 
         # lastRSI
-        lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')" 
+        lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')"
 
         # Allways buy, if already hold pieces and new low
         if [ "$isBuyArrayFilled" = true ] && [ "$piecesHold" -gt 0 ] && [ "$isNewLow" = true ]; then
@@ -265,11 +280,7 @@ export DUMMYvalueMACD=$valueMACD
 
         # Buy
         recommendedPattern="7R"
-        posInAlarm=$((RSIindex-13))
-        # shellcheck disable=SC2002
-        lastAlarm=$(cat alarm/"$symbol".txt | cut -f "$posInAlarm"-"$posInAlarm" -d ',')    
 #echo "###RSIindex: $RSIindex lastAlarm: $lastAlarm isNewLow: $isNewLow"
-
         vorzeichen="${lastAlarm: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarm buying values
             if [ "${lastAlarm#*"$recommendedPattern"}" != "$lastAlarm" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarm buying values
@@ -423,10 +434,10 @@ export DUMMYvalueMACD=$valueMACD
         fi
 
         # Reset MACD (and beforeLastQuote) at RSI Schwellwert 40
-        if [ "$lastRSI" -gt 40 ] && [ "$piecesHold" -eq 0 ]; then
-            #valueNewMACDLow=100
-            beforeLastQuote="$QUOTE_MAX_VALUE"
-        fi
+        #if [ "$lastRSI" -gt 40 ] && [ "$piecesHold" -eq 0 ]; then
+        #    #valueNewMACDLow=100
+        #    beforeLastQuote="$QUOTE_MAX_VALUE"
+        #fi
 
         RSIindex=$((RSIindex + 1))
     done
@@ -647,7 +658,7 @@ Out "# Parameter" $OUT_SIMULATE_FILE
 ParameterOut
 Out "==========================" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
-Out "Sell Amount Overall=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Sell Amount Overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 sellOnLastDayAmountOverAll=$(printf "%.0f" "$sellOnLastDayAmountOverAll")
 Out "Now still in Portfolio=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
 Out "Now potential Lost, if sell all=$sellOnLastDayLostAmountOverAll€" $OUT_SIMULATE_FILE

@@ -21,13 +21,13 @@ on:
         required: true
         default: '3000'
       RSIBuyLevelParam:
-        description: 'RSI_BUY_LEVEL - "24" means Buy at 24'
+        description: 'RSI_BUY_LEVEL - "25" means Buy at 25'
         required: true
         default: '25'
       StockSellLevelParam:
         description: 'STOCH_SELL_LEVEL - "65" means sell over 65'
         required: true
-        default: '50'
+        default: '60'
       incrementPerTradeParam:
         description: 'INCREMENT_PER_TRADE - "1.01" means 1% more per trade'
         required: true
@@ -39,7 +39,7 @@ on:
         default: '99'
       # sellIfOverPercentageParam NOT USED!!!        
       keepIfUnderPercentageParam:
-        description: 'KEEP_IF_UNDER_PERCENTAGE - "2" means do NOT sell, if under 2% gain'
+        description: 'KEEP_IF_UNDER_PERCENTAGE - "1" means do NOT sell, if under 1% gain'
         required: true
         default: '1'
       alarmCountForStockParam:
@@ -87,7 +87,7 @@ jobs:
 
           amountPerTradeVar=3000
           RSIBuyLevelVar=25
-          StockSellLevelVar=50
+          StockSellLevelVar=65
           incrementPerTradeVar=1.01
           sellIfOverPercentageVar=5
           keepIfUnderPercentageVar=1
