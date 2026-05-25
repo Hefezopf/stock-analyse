@@ -188,10 +188,9 @@ do
     # shellcheck disable=SC2002
     veryLastAlarm=$(cat alarm/"$symbol".txt | cut -f 87-87 -d ',')
     isVeryLastAlarm=false
-
     if [ "${veryLastAlarm#*"$stronglyRecommendedPattern"}" != "$veryLastAlarm" ]; then # Check if veryLastAlarm is matching
         isVeryLastAlarm=true
-        echo "---> isVeryLastAlarm: $isVeryLastAlarm. $symbol $symbolName: $stronglyRecommendedPattern found in $veryLastAlarm"
+        echo "---> isVeryLastAlarm: $symbol: $stronglyRecommendedPattern found in $veryLastAlarm"
     fi
 
     if [ "$isVeryLastAlarm" = true ] || [ "${#lastAlarms}" -gt "$alarmCharactersParam" ] && [ "$vorzeichen" = '+' ]; then # Check if lastAlarms are large enough && if lastAlarms buying values

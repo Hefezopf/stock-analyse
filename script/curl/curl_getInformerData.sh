@@ -117,7 +117,7 @@ echo "---------------"
 if { [ "$errorSymbols" ]; } then
     echo "Summary Errors for:$errorSymbols"
     errorLength="${#errorSymbols}"
-    if [ "$errorLength" -gt 200 ]; then
+    if [ "$errorLength" -gt 1000 ]; then
         echo "Error: Generell CURL data retrieving problems! Rerun again later?"
         sleep 3
         exit 3

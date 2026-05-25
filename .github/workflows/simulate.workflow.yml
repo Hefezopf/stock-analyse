@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       symbolsParam:
-        description: 'SYMBOLS - List of stock symbols like: "DBK BEI". Leave empty for all symbols!'
+        description: 'SYMBOLS - List of stock symbols like: "DBK BEI". Or empty for all symbols!'
         required: false
         default: ''
       amountPerTradeParam:
@@ -77,7 +77,7 @@ jobs:
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
-          #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW+S&P (1040).
+          #Depot+DAX+MDAX+SDAX+Eurostoxx+DOW+S&P (1049).
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
           ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           ownSymbolsVar=$(echo "$ownSymbolsVar" | sed 's/*//g')
