@@ -222,26 +222,36 @@ do
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
     #historyRSIs=$(head -n6 "$HISTORY_FILE" | tail -1)
-    historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
-    historyMACDs="${historyMACDs:63}"
-    RSIindex=26
-    #valueNewMACDLow=100
-    #beforeLastQuote="$QUOTE_MAX_VALUE"
-    for valueMACD in ${historyMACDs//,/ }
+    #historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
+    #historyMACDs="${historyMACDs:63}"
+    #RSIindex=26
+
+
+quoteIndex=0
+    for quoteAt in ${historyQuotes//,/ }
     do
 
-export DUMMYvalueMACD=$valueMACD
+quoteIndex=$((quoteIndex+1))
+        if [ "$quoteIndex" -lt 26 ]; then
+            #echo "-------skip first 26: $quoteIndex $quoteAt"
+            continue
+        fi    
+       # echo "++++weiter: $quoteIndex $quoteAt"
 
-        ARRAY_TX_BUY_PRICE[RSIindex]="{}"
-        ARRAY_TX_SELL_PRICE[RSIindex]="{}"
+        ARRAY_TX_BUY_PRICE[quoteIndex]="{}"
+        ARRAY_TX_SELL_PRICE[quoteIndex]="{}"
         isHoldPiecesAndNewLow=false
 
-        posInAlarm=$((RSIindex-13))
+        #posInAlarm=$((RSIindex-13))
+        posInAlarm=$((quoteIndex-13))
         # shellcheck disable=SC2002
         lastAlarm=$(cat alarm/"$symbol".txt | cut -f "$posInAlarm"-"$posInAlarm" -d ',')  
+ #echo "==========quoteIndex: lastAlarm: $quoteIndex: $lastAlarm"
 
         # isNewLow
-        quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
+        #quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
+ #echo "==========quoteAt: $quoteAt"
+
         isNewLow=false
         isNewLowPattern="N"
         if [ "${lastAlarm#*"$isNewLowPattern"}" != "$lastAlarm" ]; then # isNewLowPattern
@@ -254,12 +264,6 @@ export DUMMYvalueMACD=$valueMACD
             isBuyArrayFilled=false
         fi
 
-        # lastStoch
-        #lastStoch="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
-
-        # lastRSI
-        #lastRSI="$(echo "$historyRSIs" | cut -f "$RSIindex" -d ',')"
-
         # Allways buy, if already hold pieces and new low
         if [ "$isBuyArrayFilled" = true ] && [ "$piecesHold" -gt 0 ] && [ "$isNewLow" = true ]; then
             isHoldPiecesAndNewLow=true
@@ -268,7 +272,6 @@ export DUMMYvalueMACD=$valueMACD
         fi
 
         # Buy
-#echo "###RSIindex: $RSIindex lastAlarm: $lastAlarm isNewLow: $isNewLow"
         vorzeichen="${lastAlarm: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarm buying values
             if [ "${lastAlarm#*"$recommendedAlarmPattern"}" != "$lastAlarm" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarm buying values
@@ -304,13 +307,13 @@ export DUMMYvalueMACD=$valueMACD
                 wallet=$(echo "$wallet $amount" | awk '{print ($1 + $2)}')
                 wallet=$(printf "%.0f" "$wallet")
                 quoteAt=$(printf "%.2f" "$quoteAt")
-                Out "Buy\tPos:$RSIindex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tAlarm:$lastAlarm\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
-                buyingDay=$((buyingDay + RSIindex))
+                Out "Buy\tPos:$quoteIndex\t""$piecesPerTrade""Pc\tQuote:$quoteAt€\tAmount:$amount€\tAlarm:$lastAlarm\tPieces:$piecesHold\tWallet:$wallet€" $OUT_SIMULATE_FILE
+                buyingDay=$((buyingDay + quoteIndex))
                 amountOfTrades=$((amountOfTrades + 1))
 
                 # Calculate ARRAY_BUY
                 for i in "${!ARRAY_BUY[@]}"; do
-                    if [ "$i" -eq "$RSIindex" ]; then
+                    if [ "$i" -eq "$quoteIndex" ]; then
                         valueArray="${ARRAY_BUY[i]}"
                         if [ "${ARRAY_BUY[i]}" = '' ]; then
                             Out "SHOUD NOT HAPPEN" $OUT_SIMULATE_FILE
@@ -320,26 +323,26 @@ export DUMMYvalueMACD=$valueMACD
                     fi
                 done
 
-                if [ "$RSIindex" -eq 100 ]; then
+                if [ "$quoteIndex" -eq 100 ]; then
                     ARRAY_BUY_POS_SIM+=("$symbol")
                 fi
 
-                ARRAY_BUY[RSIindex]=$amount
-                ARRAY_TX_INDEX[RSIindex]="$wallet€"                     
-                ARRAY_TX_BUY_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
+                ARRAY_BUY[quoteIndex]=$amount
+                ARRAY_TX_INDEX[quoteIndex]="$wallet€"                     
+                ARRAY_TX_BUY_PRICE[quoteIndex]="{x:1,y:$quoteAt,r:10}"
             fi
         fi
 
         # Sell
-        stochAt="$(echo "$historyStochs" | cut -f "$RSIindex" -d ',')" 
-        quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
+        stochAt="$(echo "$historyStochs" | cut -f "$quoteIndex" -d ',')" 
+        quoteAt="$(echo "$historyQuotes" | cut -f "$quoteIndex" -d ',')" 
         if [ "$piecesHold" -gt 0 ]; then
             # 20 Euro Fees each Sell trade
             amount=$(echo "$quoteAt $piecesHold 20" | awk '{print ($1 * $2) - $3}')
             amount=$(printf "%.0f" "$amount")
             quoteAt=$(printf "%.2f" "$quoteAt")
             averageBuyingDay=$(echo "$buyingDay $amountOfTrades" | awk '{print ($1 / $2)}')
-            averageHoldingDays=$(echo "$RSIindex $averageBuyingDay" | awk '{print ($1 - $2)}')
+            averageHoldingDays=$(echo "$quoteIndex $averageBuyingDay" | awk '{print ($1 - $2)}')
             averageHoldingDays=$(printf "%.1f" "$averageHoldingDays")
             intermediateProzWin=$(echo "$amount $wallet" | awk '{print (($1 / $2 * 100)-100)}')
             intermediateProzWin=$(printf "%.1f" "$intermediateProzWin")
@@ -377,7 +380,7 @@ export DUMMYvalueMACD=$valueMACD
                         wallet=$(printf "%.0f" "$wallet")
                         sellAmountOverAll=$((amount+sellAmountOverAll))
                         
-                        Out "Sell\tPos:$RSIindex\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount:$amount€\tStoch:$stochAt" $OUT_SIMULATE_FILE
+                        Out "Sell\tPos:$quoteIndex\t""$piecesHold""pc\tQuote:$quoteAt€\tAmount:$amount€\tStoch:$stochAt" $OUT_SIMULATE_FILE
                         
                         #anualPercentWin=$(echo "360 $averageHoldingDays" | awk '{print ($1 / $2)}')
                         anualPercentWin=$(echo "250 $averageHoldingDays" | awk '{print ($1 / $2)}') # -> 250 Arbeitstage
@@ -401,7 +404,7 @@ export DUMMYvalueMACD=$valueMACD
 
                         # Calculate ARRAY_SELL
                         for i in "${!ARRAY_SELL[@]}"; do
-                            if [ "$i" -eq "$RSIindex" ]; then
+                            if [ "$i" -eq "$quoteIndex" ]; then
                                 valueArray="${ARRAY_SELL[i]}"
                                 if [ "${ARRAY_SELL[i]}" = '' ]; then
                                     valueArray=0
@@ -409,15 +412,15 @@ export DUMMYvalueMACD=$valueMACD
                                 amount=$(echo "$valueArray $amount" | awk '{print ($1 + $2)}')
                             fi
                         done
-                        ARRAY_SELL[RSIindex]=$amount
-                        ARRAY_TX_INDEX[RSIindex]="+$wallet€+$intermediateProzWin%"
-                        ARRAY_TX_SELL_PRICE[RSIindex]="{x:1,y:$quoteAt,r:10}"
+                        ARRAY_SELL[quoteIndex]=$amount
+                        ARRAY_TX_INDEX[quoteIndex]="+$wallet€+$intermediateProzWin%"
+                        ARRAY_TX_SELL_PRICE[quoteIndex]="{x:1,y:$quoteAt,r:10}"
                         wallet=0
                     fi
                 fi
             fi
         fi
-        RSIindex=$((RSIindex + 1))
+        #RSIindex=$((RSIindex + 1))
     done
 
     # Sell all on the last day, to get gid of all stocks for simulation
