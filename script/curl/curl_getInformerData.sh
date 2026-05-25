@@ -26,7 +26,7 @@ symbolsParam=$1
 
 if { [ -z "$symbolsParam" ]; } then
   echo "Error: Not all parameters specified!"
-  echo "Example: . curl_getInformerData.sh '*BEI IBM TUI1'"
+  echo "Example: . curl_getInformerData.sh 'DBK BEI'"
   sleep 3
   exit 1
 fi

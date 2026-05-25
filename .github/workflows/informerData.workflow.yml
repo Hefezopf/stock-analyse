@@ -57,7 +57,7 @@ jobs:
           
           #symbolsDefault='${{github.event.client_payload.symbols}}'
           symbolsInput="${{github.event.inputs.symbolsParam}}"
-          symbolsVar=${symbolsInput:-$symbolsDefault}
+          symbolsVar=${symbolsInput:-$symbolsVar}
 
           chmod +x ./script/curl/curl_getInformerData.sh
           ./script/curl/curl_getInformerData.sh "$symbolsVar"
