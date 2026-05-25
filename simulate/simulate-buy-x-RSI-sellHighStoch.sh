@@ -34,7 +34,8 @@ incrementPerTradeParam=$5
 sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
 
-recommendedAlarmPattern="7S+7R"
+recommendedAlarmPattern="+7R"
+#recommendedAlarmPattern="7S+7R"
 
 # Settings for currency formating like ',' or '.' with 'printf'
 #export LC_ALL=en_US.UTF-8
