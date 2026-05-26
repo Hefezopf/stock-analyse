@@ -35,6 +35,8 @@ sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
 
 recommendedAlarmPattern="+7R"
+#recommendedAlarmPattern="+7R+"
+#recommendedAlarmPattern="7R+"
 #recommendedAlarmPattern="7S+7R"
 
 # Settings for currency formating like ',' or '.' with 'printf'
@@ -624,28 +626,31 @@ Out "" $OUT_SIMULATE_FILE
 Out "# Parameter" $OUT_SIMULATE_FILE
 ParameterOut
 Out "==========================" $OUT_SIMULATE_FILE
+LC_ALL=en_US.UTF-8
 sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
-Out "Sell Amount overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
-sellOnLastDayAmountOverAll=$(printf "%.0f" "$sellOnLastDayAmountOverAll")
+sellOnLastDayAmountOverAll=$(printf "%'.f" "$sellOnLastDayAmountOverAll")
 Out "Now still in Portfolio=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
+sellOnLastDayLostAmountOverAll=$(printf "%'.f" "$sellOnLastDayLostAmountOverAll")
 Out "Now potential Lost, if sell all=$sellOnLastDayLostAmountOverAll€" $OUT_SIMULATE_FILE
 averageHoldingDaysOverall=$(printf "%.1f" "$averageHoldingDaysOverall")
 Out "Avg. holding Busi.Days overall=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
-Out "Win overall (74 Busi.Days)=$winOverAll€" $OUT_SIMULATE_FILE
-
 if [ "$sellAmountOverAll" = 0 ]; then
     prozWinOverAll=0
 else
     prozWinOverAll=$(echo "$winOverAll $sellAmountOverAll" | awk '{print (($1 / ($2-$1) * 100))}')
     prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
 fi
-
+winOverAllFormated=$(printf "%'.f" "$winOverAll")
+Out "Win overall (74 Busi.Days)=$winOverAllFormated€" $OUT_SIMULATE_FILE
 Out "Win Percentage (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
 prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # Factor 3.8: 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(echo "$winOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
+winOverAll1Year=$(printf "%'.f" "$winOverAll1Year")
 Out "Annually Win (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
 Out "Annually Win Percentage (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
+sellAmountOverAll=$(printf "%'.f" "$sellAmountOverAll")
+Out "Sell Amount overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 # Workflow  
