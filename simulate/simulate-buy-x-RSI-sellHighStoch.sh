@@ -5,15 +5,15 @@
 # 1. Parameter: SYMBOLS - List of stock symbols like: 'BEI ALV BAS ...'
 # 2. Parameter: AMOUNT_PER_TRADE: How much money will be spent on a single trade; like 3000€
 # 3. Parameter: RSI_BUY_LEVEL: RSI level when the buying trade will be trigged: like 25
-# 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 50
+# 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 60
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
 # NOT USED!!! -----# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
 # 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
 # 8. Parameter: xxx
 # 9. Parameter: xxx
-# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI' 3000 25 50 1.1 99 2
-# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 50 1.1 99 1
-# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 50 1.01 99 1
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI' 3000 25 60 1.1 99 2
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 60 1.1 99 1
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 60 1.01 99 1
 
 # Debug mode
 #set -x
