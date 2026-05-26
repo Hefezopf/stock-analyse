@@ -34,8 +34,8 @@ incrementPerTradeParam=$5
 sellIfOverPercentageParam=$6 # NOT USED!!!
 keepIfUnderPercentageParam=$7
 
-#recommendedAlarmPattern="+7R"
-recommendedAlarmPattern="7S+7R"
+recommendedAlarmPattern="+7R"
+#recommendedAlarmPattern="7S+7R"
 
 # Settings for currency formating like ',' or '.' with 'printf'
 #export LC_ALL=en_US.UTF-8
@@ -216,41 +216,27 @@ do
     fi
     WriteComdirectUrlAndStoreFileList "$OUT_SIMULATE_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$lowMarketCapLinkBackgroundColor" "/simulate" "$ID_NOTATION"
 
-    #ALARM_FILE=alarm/"$symbol".txt
-    #alarms=$(head "$ALARM_FILE")
     HISTORY_FILE=history/"$symbol".txt
     historyQuotes=$(head -n2 "$HISTORY_FILE" | tail -1)
     historyStochs=$(head -n4 "$HISTORY_FILE" | tail -1)
-    #historyRSIs=$(head -n6 "$HISTORY_FILE" | tail -1)
-    #historyMACDs=$(head -n8 "$HISTORY_FILE" | tail -1)
-    #historyMACDs="${historyMACDs:63}"
-    #RSIindex=26
 
-
-quoteIndex=0
+    quoteIndex=0
     for quoteAt in ${historyQuotes//,/ }
     do
-
-quoteIndex=$((quoteIndex+1))
+        quoteIndex=$((quoteIndex+1))
         if [ "$quoteIndex" -lt 26 ]; then
             #echo "-------skip first 26: $quoteIndex $quoteAt"
             continue
-        fi    
-       # echo "++++weiter: $quoteIndex $quoteAt"
+        fi
 
         ARRAY_TX_BUY_PRICE[quoteIndex]="{}"
         ARRAY_TX_SELL_PRICE[quoteIndex]="{}"
         isHoldPiecesAndNewLow=false
 
-        #posInAlarm=$((RSIindex-13))
         posInAlarm=$((quoteIndex-13))
         # shellcheck disable=SC2002
         lastAlarm=$(cat alarm/"$symbol".txt | cut -f "$posInAlarm"-"$posInAlarm" -d ',')  
- #echo "==========quoteIndex: lastAlarm: $quoteIndex: $lastAlarm"
-
-        # isNewLow
-        #quoteAt="$(echo "$historyQuotes" | cut -f "$RSIindex" -d ',')" 
- #echo "==========quoteAt: $quoteAt"
+        #echo "==========quoteIndex: lastAlarm: $quoteIndex: $lastAlarm"
 
         isNewLow=false
         isNewLowPattern="N"
@@ -275,7 +261,7 @@ quoteIndex=$((quoteIndex+1))
         vorzeichen="${lastAlarm: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarm buying values
             if [ "${lastAlarm#*"$recommendedAlarmPattern"}" != "$lastAlarm" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarm buying values
-#echo "----------------------> Recommended $symbol $symbolName: $recommendedAlarmPattern found in $lastAlarm"
+                #echo "----------------------> Recommended $symbol $symbolName: $recommendedAlarmPattern found in $lastAlarm"
                 lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
                 symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
                 ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
@@ -493,7 +479,7 @@ quoteIndex=$((quoteIndex+1))
     lineNumer=$(grep -wn "SELL_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html)
     lineNumer=${lineNumer%*":"*}
     lineNumer=${lineNumer%*":"*}
- #   echo "-----lineNumer:$lineNumer" 
+#    echo "-----lineNumer:$lineNumer" 
     lineNumer=$((lineNumer+1)) # 189
     # Write/Replace "sell"
     sellSequenceReplaced="{},{},{},{},{},{},{},{},{},{},{},{},"
@@ -524,7 +510,7 @@ quoteIndex=$((quoteIndex+1))
     lineNumer=$(grep -wn "5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED" out/"$symbol".html)
     lineNumer=${lineNumer%*":"*}
     lineNumer=${lineNumer%*":"*}
-  #  echo "-----lineNumer:$lineNumer" 
+#  echo "-----lineNumer:$lineNumer" 
     # Draw 5% over buying/last quote
     percentOverBuyingAvg=$(echo "$currentAvg 1.05" | awk '{print $1 * $2}')
     percentOverBuyingAvgSequenceReplaced=$(echo -n "$dataTemplate" | sed "s/X/${percentOverBuyingAvg}/g")
@@ -535,7 +521,7 @@ quoteIndex=$((quoteIndex+1))
     lineNumer=$(grep -wn "STOCH_HIGH_PARAM_TO_BE_REPLACED" out/"$symbol".html)
     lineNumer=${lineNumer%*":"*}
     lineNumer=${lineNumer%*":"*}
- #   echo "-----lineNumer:$lineNumer" 
+#   echo "-----lineNumer:$lineNumer" 
     borderColor="borderColor: window.chartColors.red,"
     sed -i """$lineNumer""s/.*/$borderColor/" simulate/out/"$symbol".html
     dataStochTemplate="data:[X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X"

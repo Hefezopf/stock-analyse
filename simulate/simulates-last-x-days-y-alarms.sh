@@ -160,10 +160,6 @@ Out "" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "# Parameter" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "Symbols($countSymbols):$symbolsParam" "$SIM_LAST_ALARMS_HTML_FILE"
 
-#echo "Days: '$lastDaysParam'<br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-#echo "Alarms: '$alarmCharactersParam'<br><br><br>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-#echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-#echo "<br><br><br># Sceening Results" >> "$SIM_LAST_ALARMS_HTML_FILE"
 {       
     echo "Days: '$lastDaysParam'<br>"
     echo "Alarms: '$alarmCharactersParam'<br><br><br>"
@@ -171,7 +167,6 @@ Out "Symbols($countSymbols):$symbolsParam" "$SIM_LAST_ALARMS_HTML_FILE"
     echo "<br><br><br># Sceening Results"
 
 } >> "$SIM_LAST_ALARMS_HTML_FILE"
-
 
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
@@ -202,10 +197,6 @@ do
         echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
         linkBackgroundColor="$MEDIUMSEAGREEN_1"
 
-        # TODO: if more then 50 -> build in!
-        # echo "read -r -p 'Close Chrome manually and Press enter to continue the next 50'" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
-
-        #linkBackgroundColor="$WHITE" # default
         # Recommended
         #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
         if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
@@ -235,12 +226,6 @@ do
     fi
 done
 
-#echo "<br><br># Legend"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-#echo "<br><span style='background:"$MEDIUMSEAGREEN_1"; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-#echo "<br><span style='background:"$MEDIUMSEAGREEN_2"; color:black'>Recommended: '$recommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-#echo "<br><span style='background:"$MEDIUMSEAGREEN_3"; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-#echo "<br><span style='background:"$MEDIUMSEAGREEN_4"; color:black'>Strongly recommended: '$stronglyRecommendedPattern'</span>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
-#echo "<br><span style='background:"$MOCCASIN"; color:black'>Low Market Cap: < 1Mrd.</span><br>"  >> "$SIM_LAST_ALARMS_HTML_FILE"
 {
     echo "<br><br># Legend"
     echo "<br><span style='background:$MEDIUMSEAGREEN_1; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"
@@ -249,7 +234,6 @@ done
     echo "<br><span style='background:$MEDIUMSEAGREEN_4; color:black'>Strongly recommended: '$stronglyRecommendedPattern'</span>"
     echo "<br><span style='background:$MOCCASIN; color:black'>Low Market Cap: < 1Mrd.</span><br>"
 } >> "$SIM_LAST_ALARMS_HTML_FILE"
-
 
 GetCreationDate
 # shellcheck disable=SC2154
@@ -272,13 +256,10 @@ if [ ! "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux
 fi
 
 if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
-#    echo "file:///media/markus/BigBerta/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
     echo "file:///media/markus/BigBerta/code/stock-analyse/$SIM_LAST_ALARMS_HTML_FILE"
 else
-    #echo "file:///C:/code/stock-analyse/simulate/out/_simulate_last_alarms.html"
     echo "file:///C:/code/stock-analyse/$SIM_LAST_ALARMS_HTML_FILE"    
 fi
-#echo "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html"
 echo "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/$SIM_LAST_ALARMS_HTML_FILE" 
 
 rm -rf "$TEMP_DIR"/config
