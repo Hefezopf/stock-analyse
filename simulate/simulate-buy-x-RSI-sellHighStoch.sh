@@ -631,7 +631,7 @@ sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
 sellOnLastDayAmountOverAll=$(printf "%'.f" "$sellOnLastDayAmountOverAll")
 Out "Still in Portfolio=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
 sellOnLastDayLostAmountOverAll=$(printf "%'.f" "$sellOnLastDayLostAmountOverAll")
-Out "Potential Balance, if would sell all=$sellOnLastDayLostAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Potential Balance, if sell all=$sellOnLastDayLostAmountOverAll€" $OUT_SIMULATE_FILE
 averageHoldingDaysOverall=$(printf "%.1f" "$averageHoldingDaysOverall")
 Out "Avg. holding Busi.Days=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
@@ -642,15 +642,15 @@ else
     prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
 fi
 winOverAllFormated=$(printf "%'.f" "$winOverAll")
-Out "Win Amount (74 Busi.Days)=$winOverAllFormated€" $OUT_SIMULATE_FILE
-Out "Win Percentage (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
+Out "Win Amnt (74 Busi.Days)=$winOverAllFormated€" $OUT_SIMULATE_FILE
+Out "Win Percent (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
 prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # Factor 3.8: 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(echo "$winOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(printf "%'.f" "$winOverAll1Year")
-Out "Annually Win Amount (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
-Out "Annually Win Percentage (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
+Out "Annually Win Amnt (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
+Out "Annually Win Percent (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%'.f" "$sellAmountOverAll")
-Out "Sell Amount overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Sell Amnt overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 # Workflow  
