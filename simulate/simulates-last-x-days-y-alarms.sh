@@ -195,7 +195,8 @@ do
         echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
         echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/$symbol.html" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
         echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-        linkBackgroundColor="$MEDIUMSEAGREEN_1"
+        #linkBackgroundColor="$MEDIUMSEAGREEN_1"
+        linkBackgroundColor="$WHITE"
 
         # Recommended
         #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
@@ -228,7 +229,7 @@ done
 
 {
     echo "<br><br># Legend"
-    echo "<br><span style='background:$MEDIUMSEAGREEN_1; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"
+    echo "<br><span style='background:$WHITE; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"
     echo "<br><span style='background:$MEDIUMSEAGREEN_2; color:black'>Recommended: '$recommendedPattern'</span>"
     echo "<br><span style='background:$MEDIUMSEAGREEN_3; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"
     echo "<br><span style='background:$MEDIUMSEAGREEN_4; color:black'>Strongly recommended: '$stronglyRecommendedPattern'</span>"

@@ -23,15 +23,14 @@ export FALLING=FALLING
 export MOCCASIN=Moccasin
 # MediumSeaGreen shades 
 # https://www.css-gradient.com/colors/mediumseagreen
-export MEDIUMSEAGREEN_1=#90DAB1
+#export MEDIUMSEAGREEN_1=#90DAB1
 export MEDIUMSEAGREEN_2=#62CA90
 export MEDIUMSEAGREEN_3=#37A467
 export MEDIUMSEAGREEN_4=#28764A
-
+export WHITE=white
 export GREEN=green
 export RED=red
 export BLACK=black
-
 
 # Links
 COMDIRECT_URL_STOCKS_PREFIX="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1"
