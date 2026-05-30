@@ -11,6 +11,9 @@
 # . script/curl/curl_getSymbolForISIN.sh 'DE0007164600 IE00A10RZP78 NL0010273215 GB00B10RZP78'
 # mc 'BEI'
 # add BEI to config stock_symbols.txt
+#
+# Call example: ./script/add-to-sa.sh 'BEI'
+# Or alias atsa
 
 # Debug mode
 #set -x
