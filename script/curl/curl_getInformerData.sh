@@ -31,12 +31,12 @@ if { [ -z "$symbolsParam" ]; } then
   exit 1
 fi
 
-weekday=$(date +"%w")
-if [ "$weekday" = 6 ] || [ "$weekday" = 0  ]; then # sat=6, sun=0
-    echo "Error: No data retrieval on saturdays or sundays ($(date))!"
-    sleep 3
-    exit 2
-fi
+# weekday=$(date +"%w")
+# if [ "$weekday" = 6 ] || [ "$weekday" = 0  ]; then # sat=6, sun=0
+#     echo "Error: No data retrieval on saturdays or sundays ($(date))!"
+#     sleep 3
+#     exit 2
+# fi
 
 mkdir -p "$TEMP_DIR/config"
 cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
