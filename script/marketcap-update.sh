@@ -85,23 +85,20 @@ do
     sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait\t$isin/g" "$TICKER_NAME_ID_FILE_MEM"
   fi
 
+echo "-----curl"  
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
-    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    curlResponse=$(curl -c "'$COOKIES_FILE'" --max-time 20 --connect-timeout 20 -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
 
+echo "-----grep"  
     # ISIN
     isin=$(echo "$curlResponse" 2>/dev/null | grep -m1 ">ISIN:<" | grep -o '>.*')
     isin="${isin:14}"
     echo "ISIN: $isin"
-#echo "-----isin:$isin"    
 
     # Mrd. Market Cap
     marktkap=$(echo "$curlResponse" 2>/dev/null | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*')
-#echo "-----0marktkap:$marktkap"
     marktkap=${marktkap%*,*} # cut suffix inclunding ','
-#echo "-----1marktkap:$marktkap"
     marktkap="${marktkap:1}"
-#echo "-----2marktkap:$marktkap"
-
     if [ "$marktkap" ]; then
         echo "Market Cap: $marktkap Mrd.€"
     else
