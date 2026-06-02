@@ -52,7 +52,7 @@ do
   fi
   
   if [ "$ASSET_TYPE" = 'INDEX' ]; then
-    curlResponse=$(curl -c "'$COOKIES_FILE'" -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    curlResponse=$(curl -c "'$COOKIES_FILE'" --max-time 10 --connect-timeout 10 -s --location --request GET "https://www.comdirect.de/inf/etfs/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
 
     # ISIN
     isin=$(echo "$curlResponse" 2>/dev/null | grep -m1 ">ISIN:<" | grep -o '>.*')
@@ -85,11 +85,11 @@ do
     sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait\t$isin/g" "$TICKER_NAME_ID_FILE_MEM"
   fi
 
-echo "-----curl"  
+#echo "-----curl"
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
-    curlResponse=$(curl -c "'$COOKIES_FILE'" --max-time 20 --connect-timeout 20 -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
+    curlResponse=$(curl -c "'$COOKIES_FILE'" --max-time 10 --connect-timeout 10 -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
 
-echo "-----grep"  
+#echo "-----grep"
     # ISIN
     isin=$(echo "$curlResponse" 2>/dev/null | grep -m1 ">ISIN:<" | grep -o '>.*')
     isin="${isin:14}"
