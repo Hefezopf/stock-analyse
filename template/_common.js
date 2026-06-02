@@ -104,7 +104,7 @@ function curlBuy(symbolParam, price, pieces) {
             console.log(xhr.responseText);
         }
     };
-//console.log('----------headlineLink:' + headlineLink);    
+  
     var data = {
         event_type: 'buy',
         client_payload: {
@@ -134,11 +134,6 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     if(headlineLinkElem) {
         headlineLink = headlineLinkElem.innerHTML;
     }
-    // var linkName10Days;
-    // var linkName10DaysIdElem = document.getElementById('linkName10DaysId');
-    // if(linkName10DaysIdElem) {
-    //     linkName10Days = linkName10DaysIdElem.innerHTML;
-    // }
 
     var stocksPiecesId = document.getElementById('stocksPiecesId');
     if(stocksPiecesId) {
@@ -148,7 +143,6 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
             stockPiecesParam = buyingSectionInputPiecesBuyValue;
         }
     }
-    // else {stockPiecesParam = 0;}    
 
     var sellPriceReplaced = parseFloat(sellPriceParam.replace(',', '.')).toFixed(2);
     const sellingAmount = Math.round(Number(stockPiecesParam) * Number(sellPriceReplaced));
@@ -163,11 +157,8 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         navigator.clipboard.writeText(newAmount);
     }
 
-    //console.log('xxxxxxxxxxxxx:stockPiecesParam:' + stockPiecesParam);
-
     // Trading fees
     //var txFee = tradingFees(sellingAmount);
-    //const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
     if (stocksPiecesId === null || newAmount < 0) {
         if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€?') == false) {
             return;
@@ -196,7 +187,6 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
             console.log(xhr.responseText);
         }
     };
-//console.log('----------headlineLink:' + headlineLink);  
     var data = {
         event_type: 'sell',
         client_payload: {
