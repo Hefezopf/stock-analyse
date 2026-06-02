@@ -564,7 +564,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  2-Jun-2026 15:02</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  2-Jun-2026 15:08</p>
 <span id='stocksPiecesId' style='display:none'>15800</span>
 <span id='stocksBuyingValueId' style='display:none'>168253</span>
 
@@ -708,7 +708,7 @@ if (xhr.readyState === DONE) {
 console.log(xhr.responseText);
 }
 };
-//console.log('----------headlineLink:' + headlineLink);    
+
 var data = {
 event_type: 'buy',
 client_payload: {
@@ -738,11 +738,6 @@ var headlineLinkElem = document.getElementById('headlineLink' + symbolParam);
 if(headlineLinkElem) {
 headlineLink = headlineLinkElem.innerHTML;
 }
-// var linkName10Days;
-// var linkName10DaysIdElem = document.getElementById('linkName10DaysId');
-// if(linkName10DaysIdElem) {
-//     linkName10Days = linkName10DaysIdElem.innerHTML;
-// }
 
 var stocksPiecesId = document.getElementById('stocksPiecesId');
 if(stocksPiecesId) {
@@ -752,7 +747,6 @@ if (buyingSectionInputPiecesBuyValue) {
 stockPiecesParam = buyingSectionInputPiecesBuyValue;
 }
 }
-// else {stockPiecesParam = 0;}    
 
 var sellPriceReplaced = parseFloat(sellPriceParam.replace(',', '.')).toFixed(2);
 const sellingAmount = Math.round(Number(stockPiecesParam) * Number(sellPriceReplaced));
@@ -767,11 +761,8 @@ var newPiecesAmount=(stocksPieces - stockPiecesParam);
 navigator.clipboard.writeText(newAmount);
 }
 
-//console.log('xxxxxxxxxxxxx:stockPiecesParam:' + stockPiecesParam);
-
 // Trading fees
 //var txFee = tradingFees(sellingAmount);
-//const sellingAmountAndTxFee = Math.ceil(Number(sellingAmount) - txFee);
 if (stocksPiecesId === null || newAmount < 0) {
 if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€?') == false) {
 return;
@@ -800,7 +791,6 @@ console.log(xhr.status);
 console.log(xhr.responseText);
 }
 };
-//console.log('----------headlineLink:' + headlineLink);  
 var data = {
 event_type: 'sell',
 client_payload: {
