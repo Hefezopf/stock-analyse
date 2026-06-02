@@ -3,7 +3,7 @@
 #   2. manuell 
 name: Buy
 
-run-name: 'Buy ${{github.event.client_payload.symbol}}'
+run-name: 'Buy ${{github.event.client_payload.symbolname}}'
 
 # Controls when the action will run. 
 on:
@@ -19,11 +19,11 @@ on:
         required: true
         default: 'BEI'
       piecesParam:
-        description: 'PIECES - "100" means amount of stocks are 100'     
+        description: 'PIECES - Number of pieces to buy: "100" pieces'     
         required: true
         default: '100'
       priceParam:
-        description: 'PRICE - "9.99" means price/buying rate 9.99'     
+        description: 'PRICE - buying Price: "9.99" EUR'     
         required: true
         default: '9.99'
 
