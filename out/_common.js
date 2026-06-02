@@ -69,17 +69,6 @@ function curlBuy(symbolParam, price, pieces) {
     else {
         headlineLink = symbolParamTrimmed;
     }
-    // var linkName10Days;
-    // var linkName10DaysIdElem = document.getElementById('linkName10DaysId');
-    // if(linkName10DaysIdElem) {
-    //     linkName10Days = linkName10DaysIdElem.innerHTML;
-    // }
-    // else {
-    //     linkName10Days = symbolParamTrimmed;
-    // }
-
-    // Trading fees
-    //var txFee = tradingFees(buyingAmount);
     
     // Condition only for Mobil -> No CORS!
     if(isNaN(totalAmount)) {
@@ -115,12 +104,14 @@ function curlBuy(symbolParam, price, pieces) {
             console.log(xhr.responseText);
         }
     };
+//console.log('----------headlineLink:' + headlineLink);    
     var data = {
         event_type: 'buy',
         client_payload: {
             symbol: symbolParamTrimmed,
             pieces: pieces,
             price: price,
+            symbolname: headlineLink,
         }
     };
     xhr.send(JSON.stringify(data));
@@ -205,12 +196,14 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
             console.log(xhr.responseText);
         }
     };
+//console.log('----------headlineLink:' + headlineLink);  
     var data = {
         event_type: 'sell',
         client_payload: {
             symbol: symbolParam,
             sellPieces: stockPiecesParam,
-            sellPrice: sellPriceParam
+            sellPrice: sellPriceParam,
+            symbolname: headlineLink,
         }
     };
     xhr.send(JSON.stringify(data));

@@ -563,7 +563,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  2-Jun-2026 14:36</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  2-Jun-2026 15:02</p>
 <span id='stocksPiecesId' style='display:none'>27</span>
 <span id='stocksBuyingValueId' style='display:none'>991</span>
 
@@ -672,17 +672,6 @@ headlineLink = headlineLinkElem.innerHTML;
 else {
 headlineLink = symbolParamTrimmed;
 }
-// var linkName10Days;
-// var linkName10DaysIdElem = document.getElementById('linkName10DaysId');
-// if(linkName10DaysIdElem) {
-//     linkName10Days = linkName10DaysIdElem.innerHTML;
-// }
-// else {
-//     linkName10Days = symbolParamTrimmed;
-// }
-
-// Trading fees
-//var txFee = tradingFees(buyingAmount);
 
 // Condition only for Mobil -> No CORS!
 if(isNaN(totalAmount)) {
@@ -718,12 +707,14 @@ if (xhr.readyState === DONE) {
 console.log(xhr.responseText);
 }
 };
+//console.log('----------headlineLink:' + headlineLink);    
 var data = {
 event_type: 'buy',
 client_payload: {
 symbol: symbolParamTrimmed,
 pieces: pieces,
 price: price,
+symbolname: headlineLink,
 }
 };
 xhr.send(JSON.stringify(data));
@@ -808,12 +799,14 @@ console.log(xhr.status);
 console.log(xhr.responseText);
 }
 };
+//console.log('----------headlineLink:' + headlineLink);  
 var data = {
 event_type: 'sell',
 client_payload: {
 symbol: symbolParam,
 sellPieces: stockPiecesParam,
-sellPrice: sellPriceParam
+sellPrice: sellPriceParam,
+symbolname: headlineLink,
 }
 };
 xhr.send(JSON.stringify(data));
