@@ -197,9 +197,13 @@ do
     # shellcheck disable=SC2116
     firmenportrait=$(echo \""$firmenportrait\"")
 
-    # Now write all results in file!
-    # Replace till end of line: idempotent!
-    sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait\t$isin/g" "$TICKER_NAME_ID_FILE_MEM"
+    if [ "$marktkap" = '?' ] && [ "$branche" = '?' ] && [ "$kgve" = '?' ] && [ "$dive" = '?' ]; then
+        echo "--> WARNING CURL Timeout: Ignore $symbol"
+    else
+        # Now write all results in file!
+        # Replace till end of line: idempotent!
+        sed -i "s/$ID_NOTATION.*/$ID_NOTATION\t$marktkap\t$branche\t$kgve\t$dive\t$hauptversammlung\t$ASSET_TYPE\t$firmenportrait\t$isin/g" "$TICKER_NAME_ID_FILE_MEM"
+    fi
 
     # Spread: Check for WARNING?
     spread=$(echo "$curlResponse" 2>/dev/null | grep -F -A1 ">Spread<" | tail -n 1 | awk 'BEGIN{FS=">"} {print $2}')
