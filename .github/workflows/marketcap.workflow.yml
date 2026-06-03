@@ -9,10 +9,10 @@ on:
   # Can be triggered manually
   workflow_dispatch:
     inputs:
-      symbolParam:
-        description: 'DUMMY - xxx. Do for all symbols!'
+      symbolsParam:
+        description: 'SYMBOLS - List of stock symbols like: "DBK BEI". Or empty for all symbols!'
         required: false
-        default: 'XXX'
+        default: ''
 
   schedule:
     # Every 2nd, 9th, 16th and 23th day of each month
@@ -52,6 +52,9 @@ jobs:
           rm -rf config/own_symbols.txt
           stockSymbolsVar=$(cat config/stock_symbols.txt)
           symbolsVar=$(echo $ownSymbolsVar $stockSymbolsVar)
+
+          symbolsInput="${{github.event.inputs.symbolsParam}}"
+          symbolsVar=${symbolsInput:-$symbolsVar}
 
           chmod +x ./script/marketcap-update.sh
           ./script/marketcap-update.sh "$symbolsVar"
