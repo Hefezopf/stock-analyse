@@ -339,8 +339,7 @@ do
 
     # Check, if 100 last quotes are availible, otherwise fill up to 100 
     numOfQuotes=$(grep "" -F -c "$DATA_DATE_FILE")
-#echo "-------numOfQuotes: $numOfQuotes"
-    if [ "$numOfQuotes" = null ] || [ "$numOfQuotes" -lt 100 ]; then
+    if [ "$numOfQuotes" -lt 100 ]; then
         echo "<br>" >> "$OUT_RESULT_FILE"
         echo "!!! LESS then 100 quotes for $symbol" | tee -a "$OUT_RESULT_FILE"
         echo "<br>" >> "$OUT_RESULT_FILE"

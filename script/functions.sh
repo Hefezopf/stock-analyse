@@ -144,9 +144,14 @@ CurlSymbolName() {
     _sleepParam=$3
     _symbolNameParam=$4
 
+
+#ttt=$(curl -c "'$COOKIES_FILE'" -s --location --request POST 'https://api.openfigi.com/v3/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]')
+#echo "-------ttt:$ttt"
+
+
     symbolName="$_symbolNameParam"
     if [ ! "${#symbolName}" -gt 1 ]; then
-        symbolName=$(curl -c "'$COOKIES_FILE'" -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
+        symbolName=$(curl -c "'$COOKIES_FILE'" -s --location --request POST 'https://api.openfigi.com/v3/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
 #echo "-------symbolName:$symbolName"
         if ! [ "$symbolName" ]; then
             symbolName="\"XXXXXX\"" 
