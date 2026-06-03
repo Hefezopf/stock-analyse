@@ -339,7 +339,8 @@ do
 
     # Check, if 100 last quotes are availible, otherwise fill up to 100 
     numOfQuotes=$(grep "" -F -c "$DATA_DATE_FILE")
-    if [ "$numOfQuotes" -lt 100 ]; then
+#echo "-------numOfQuotes: $numOfQuotes"
+    if [ "$numOfQuotes" = null ] || [ "$numOfQuotes" -lt 100 ]; then
         echo "<br>" >> "$OUT_RESULT_FILE"
         echo "!!! LESS then 100 quotes for $symbol" | tee -a "$OUT_RESULT_FILE"
         echo "<br>" >> "$OUT_RESULT_FILE"
@@ -359,7 +360,7 @@ do
     # Check for unknown symbols or not fetched symbols in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
         echo "<br>" >> "$OUT_RESULT_FILE"
-        echo "!!! $symbol NOT found in $DATA_DIR/$symbol.txt" | tee -a "$OUT_RESULT_FILE"
+        echo "!!! $symbol NOT found: $DATA_DIR/$symbol.txt" | tee -a "$OUT_RESULT_FILE"
         echo "<br>" >> "$OUT_RESULT_FILE"
         # Continue with next symbol in the list
         continue

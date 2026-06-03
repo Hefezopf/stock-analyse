@@ -146,15 +146,17 @@ CurlSymbolName() {
 
     symbolName="$_symbolNameParam"
     if [ ! "${#symbolName}" -gt 1 ]; then
-        symbolName=$(curl -c "'$COOKIES_FILE'" -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')        
-        if ! [ "$symbolName" = 'null' ]; then
-            echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999""$(printf '\t')""?""$(printf '\t')""\"--\"""$(printf '\t')""--""$(printf '\t')""--""$(printf '\t')""?""$(printf '\t')""STOCK""$(printf '\t')""\"---\"" | tee -a "$_tickerNameIdFileParam"
-            tempTickerNameIdFile="$(mktemp -p "$TEMP_DIR")"
-            sort -k 1 "$_tickerNameIdFileParam" > "$tempTickerNameIdFile"         
-            mv "$tempTickerNameIdFile" "$_tickerNameIdFileParam"
-            # Can requested in bulk request as an option!
-            sleep "$_sleepParam" # 14; Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
+        symbolName=$(curl -c "'$COOKIES_FILE'" -s --location --request POST 'https://api.openfigi.com/v2/mapping' --header 'Content-Type: application/json' --header "'$X_OPENFIGI_APIKEY'" --data '[{"idType":"TICKER", "idValue":"'"${_symbolParam}"'"}]' | jq '.[0].data[0].name')
+#echo "-------symbolName:$symbolName"
+        if ! [ "$symbolName" ]; then
+            symbolName="\"XXXXXX\"" 
         fi
+        echo "$_symbolParam""$(printf '\t')""$symbolName""$(printf '\t')""999999""$(printf '\t')""?""$(printf '\t')""\"--\"""$(printf '\t')""--""$(printf '\t')""--""$(printf '\t')""?""$(printf '\t')""STOCK""$(printf '\t')""\"---\"" | tee -a "$_tickerNameIdFileParam"
+        tempTickerNameIdFile="$(mktemp -p "$TEMP_DIR")"
+        sort -k 1 "$_tickerNameIdFileParam" > "$tempTickerNameIdFile"         
+        mv "$tempTickerNameIdFile" "$_tickerNameIdFileParam"
+        # Can requested in bulk request as an option!
+        sleep "$_sleepParam" # 14; Only reduced amount of requests per minute to "openfigi" (About 6 requests per minute).
     fi
 }
 
