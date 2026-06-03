@@ -1,14 +1,16 @@
 #!/bin/bash
 
-# For uname
+# uname command
 export UNAME_N; UNAME_N="$(uname -n)" #runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
 export UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH="markus-ideacentre-700-25ISH"
 export UNAME_N_BASH_WIN_LAPTOP_MARKUS="Laptop-Markus" 
 export UNAME_N_BASH_LOCAL_ALL_OS="arkus"
-
 export UNAME_O; UNAME_O="$(uname -o)"
 export UNAME_O_GNU_LINUX="GNU/Linux"
 
+# CURL command
+#curl -c "'$COOKIES_FILE'" --max-time 10 --connect-timeout 10 -s --location --request
+#export CURL_CMD="$(curl -c "'$COOKIES_FILE'" --max-time 10 --connect-timeout 10 -s --location --request GET)"
 
 # For printf "%.2f"
 # export LC_NUMERIC=en_US.UTF-8
