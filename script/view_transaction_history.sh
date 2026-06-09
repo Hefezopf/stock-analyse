@@ -76,7 +76,9 @@ lineFromFile=$(echo "$lineFromFile" | sed 's/\t\t/\t/g')
 lineFromFile=$(echo "$lineFromFile" | sed 's/\t\t/\t/g')
 # shellcheck disable=SC2001
 lineFromFile=$(echo "$lineFromFile" | sed 's/\t2026-/2026-/g')
+# shellcheck disable=SC2001
 lineFromFile=$(echo "$lineFromFile" | sed 's/\t2027-/2027-/g')
+# shellcheck disable=SC2001
 lineFromFile=$(echo "$lineFromFile" | sed 's/\t2028-/2028-/g')
 #year=$(date +%Y)
 #echo "YEAR $year"
