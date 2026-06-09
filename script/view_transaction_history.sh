@@ -15,15 +15,12 @@
 # shellcheck disable=SC1091
 . script/constants.sh
 
-# To uppercase
-#symbolParam=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 symbolParam=$1
 
 echo "View Transaction History $symbolParam"
 echo ""
 
 lineFromFile=$(grep -F "$symbolParam" "$TRANSACTION_HISTORY_FILE")
-#<div style='font-size: x-large;'>&nbsp;2025-10-03&#9;133&#8364;&#9;4.9%&#9;<a href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/58H.html' target='_blank'>58H&#9;"Davide-Campari"</a></div><br>
 
 # shellcheck disable=SC2001
 lineFromFile=$(echo "$lineFromFile" | sed 's/&#9;/\t/g')
@@ -64,8 +61,6 @@ lineFromFile="${lineFromFile//\'/}"
 
 if [ "$symbolParam" ]; then
     lineFromFile=${lineFromFile/$symbolParam $symbolParam/$symbolParam}
-#else
-#    echo ""
 fi
 
 # shellcheck disable=SC2001
@@ -80,11 +75,6 @@ lineFromFile=$(echo "$lineFromFile" | sed 's/\t2026-/2026-/g')
 lineFromFile=$(echo "$lineFromFile" | sed 's/\t2027-/2027-/g')
 # shellcheck disable=SC2001
 lineFromFile=$(echo "$lineFromFile" | sed 's/\t2028-/2028-/g')
-#year=$(date +%Y)
-#echo "YEAR $year"
-#cat "$STOCK_SYMBOLS_FILE" | sed -i s/"$symbolParam "// "$STOCK_SYMBOLS_FILE"
-#lineFromFile=$(echo "$lineFromFile" | sed -i s/\t"$year"-/"$year"-/g)
-
 
 echo "$lineFromFile"
 echo ""
