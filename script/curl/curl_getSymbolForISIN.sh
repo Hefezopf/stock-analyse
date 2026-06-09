@@ -33,7 +33,7 @@ fi
 
 countSymbols=$(echo "$ISINS" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
-echo "ISINS($countSymbols):$ISINS"
+echo "ISINS ($countSymbols):$ISINS"
 allSymbols=""
 echo "---------------"
 START_TIME_MEASUREMENT=$(date +%s);
