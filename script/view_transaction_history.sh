@@ -27,7 +27,6 @@ lineFromFile=$(echo "$lineFromFile" | sed 's/&#9;/\t/g')
 
 #\t245&#8364;
 priceFromFile=$(echo "$lineFromFile" | cut -f 2)
-
 # shellcheck disable=SC2001
 priceFromFile=$(echo "$priceFromFile" | sed 's/%//g')
 # shellcheck disable=SC2001
@@ -35,7 +34,7 @@ priceFromFile=$(echo "$priceFromFile" | sed 's/&#9;/\t/g')
   
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 
-echo -e "Date\t\tWin\tPercent\tSymbol\t\tName"
+#echo -e "Date\t\tWin\tPercent\tSymbol\t\tName"
 
 lineFromFile="${lineFromFile//<div>/}"
 lineFromFile="${lineFromFile//&nbsp;/ }"
@@ -60,7 +59,12 @@ lineFromFile="${lineFromFile//:.\/?:\/\/\/\//}"
 lineFromFile="${lineFromFile//\'/}"
 
 if [ "$symbolParam" ]; then
+    echo -e "Date\t\tWin\tPercent\tSymbol\tName"
     lineFromFile=${lineFromFile/$symbolParam $symbolParam/$symbolParam}
+    lineFromFile=${lineFromFile/$symbolParam $symbolParam/$symbolParam}
+    lineFromFile=${lineFromFile/$symbolParam $symbolParam/$symbolParam}
+else
+    echo -e "Date\t\tWin\tPercent\tSymbol\t\tName"
 fi
 
 # shellcheck disable=SC2001
