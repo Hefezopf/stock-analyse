@@ -41,7 +41,7 @@ countSymbols=$((countSymbols + 1))
 echo ""
 echo "# SA Screen last X days, with minimum Y alarms"
 echo ""
-echo "Symbols($countSymbols)"
+echo "Symbols ($countSymbols)"
 
 cp "$SIM_LAST_ALARMS_HTML_FILE" "$SIM_LAST_ALARMS_OLD_HTML_FILE"
 rm -rf "$SIM_LAST_ALARMS_HTML_FILE"
@@ -158,7 +158,7 @@ Out "# SA Screen" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "##########" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "# Parameter" "$SIM_LAST_ALARMS_HTML_FILE"
-Out "Symbols($countSymbols):$symbolsParam" "$SIM_LAST_ALARMS_HTML_FILE"
+Out "Symbols ($countSymbols):$symbolsParam" "$SIM_LAST_ALARMS_HTML_FILE"
 
 {       
     echo "Days: '$lastDaysParam'<br>"
