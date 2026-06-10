@@ -252,6 +252,11 @@ find and delete all empty directories
 find status/ -empty -type d -delete
 
 
+grep dublicate NOTATION_ID config/ticker_name_id.txt
+----------------------------------------------------
+find config/ticker_name_id.txt -type f -exec sed 's/ /-/g' {} \; | awk '{print $3}' | sort | uniq -c | sort -n
+
+
 find all ISIN's:
 ----------------
 https://www.chartmill.com/stock/lists/eu/eustoxx600_index
