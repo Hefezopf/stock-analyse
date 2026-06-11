@@ -155,7 +155,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 Out "# SA Screen" "$SIM_LAST_ALARMS_HTML_FILE"
-Out "##########" "$SIM_LAST_ALARMS_HTML_FILE"
+Out "###########" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "# Parameter" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "Symbols ($countSymbols):$symbolsParam" "$SIM_LAST_ALARMS_HTML_FILE"
@@ -195,26 +195,25 @@ do
         echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
         echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/$symbol.html" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
         echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-        #linkBackgroundColor="$MEDIUMSEAGREEN_1"
         linkBackgroundColor="$WHITE"
 
         # Recommended
         #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
         if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
             echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
-            linkBackgroundColor="$MEDIUMSEAGREEN_2"
+            linkBackgroundColor="$MEDIUMSEAGREEN_1"
         fi
         # Highly recommended
         #test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
         if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
             echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
-            linkBackgroundColor="$MEDIUMSEAGREEN_3"
+            linkBackgroundColor="$MEDIUMSEAGREEN_2"
         fi
         # Strongly recommended
         #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
         if [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
             echo "---> Strongly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
-            linkBackgroundColor="$MEDIUMSEAGREEN_4"
+            linkBackgroundColor="$MEDIUMSEAGREEN_3"
         fi
 
         # Market Cap
@@ -230,9 +229,9 @@ done
 {
     echo "<br><br># Legend"
     echo "<br><span style='background:$WHITE; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"
-    echo "<br><span style='background:$MEDIUMSEAGREEN_2; color:black'>Recommended: '$recommendedPattern'</span>"
-    echo "<br><span style='background:$MEDIUMSEAGREEN_3; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"
-    echo "<br><span style='background:$MEDIUMSEAGREEN_4; color:black'>Strongly recommended: '$stronglyRecommendedPattern'</span>"
+    echo "<br><span style='background:$MEDIUMSEAGREEN_1; color:black'>Recommended: '$recommendedPattern'</span>"
+    echo "<br><span style='background:$MEDIUMSEAGREEN_2; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"
+    echo "<br><span style='background:$MEDIUMSEAGREEN_3; color:black'>Strongly recommended: '$stronglyRecommendedPattern'</span>"
     echo "<br><span style='background:$MOCCASIN; color:black'>Low Market Cap: < 1Mrd.</span><br>"
 } >> "$SIM_LAST_ALARMS_HTML_FILE"
 
