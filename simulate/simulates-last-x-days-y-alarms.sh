@@ -162,9 +162,9 @@ Out "Symbols ($countSymbols):$symbolsParam" "$SIM_LAST_ALARMS_HTML_FILE"
 
 {       
     echo "Days: '$lastDaysParam'<br>"
-    echo "Alarms: '$alarmCharactersParam'<br><br><br>"
+    echo "Alarms: '$alarmCharactersParam'<br><br>"
     echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>"
-    echo "<br><br><br># Sceening Results"
+    echo "<br><br># Sceening Results"
 
 } >> "$SIM_LAST_ALARMS_HTML_FILE"
 
