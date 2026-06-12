@@ -201,6 +201,13 @@ do
         symbol="${symbol:1:7}"
     fi
 
+    # Check for newly added symbols in data.txt. Skip ananlyses, becauce less data
+    dublicates=$(awk '{print $2}' data/"$symbol".txt | uniq -c)
+    if [ "${#dublicates}" -lt 600 ]; then # Normal count is about 1300 chars
+        echo "--> ${symbol}: Skip simulatation because -lt 600 chars!"
+        continue
+    fi    
+
     lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
     symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
     ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)

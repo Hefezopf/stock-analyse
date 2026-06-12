@@ -175,6 +175,14 @@ do
         symbol="${symbol:1:7}"
     fi
 
+    # Check for newly added symbols in data.txt. Skip ananlyses, becauce less data
+    dublicates=$(awk '{print $2}' data/"$symbol".txt | uniq -c)
+    if [ "${#dublicates}" -lt 600 ]; then # Normal count is about 1300 chars
+       # echo -e "\n"
+        echo "--> ${symbol}: Skip simulatation because -lt 600 chars!"
+        continue
+    fi
+
     minRange=$((88-lastDaysParam))
     # shellcheck disable=SC2002
     lastAlarms=$(cat alarm/"$symbol".txt | cut -f "$minRange"-87 -d ',')
