@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Delete all files for a $Symbol from Stock Analyse
+# Delete all related files for a symbol from Stock Analyse
 # Delete $SYMBOL in stock_symbols.txt
 # Delete File $SYMBOL.html in /out
 # Delete Files $SYMBOL*.txt in /alarm, /buy, /data, /history, /sell
