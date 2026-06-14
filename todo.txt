@@ -7,7 +7,8 @@ MSCI World
 Summary allSymbols:
 
 
-CXU HUEC TIB1 DDN ZGY 
+
+
 WPS N6B 7LI EQR MTO 
 JB1 CCJ CB1A MY8 IM8N
 AC8 CS1 QDI A441 CSG
@@ -20,7 +21,7 @@ EZV 3VU AQ3 LSPP KH7 36E 9TX GOV NC0 1OD S5YA 1LRC 5MT K2Y M3T UAL1 0XE HCG 1HTA
 BCE1 1C9 9SG0 SIA1 IDVA SAB B8O 61F DC2 HLH F1YN WD3 Z4Z S3Z R9C AS5 YAAA 6FHA 17W 4HK CE9 WN6 KW9A SB7 
 LN1 PMC BZTA EI2 1GIA C98 SNO AUX IYAA C7G FTD 56S1 RTHA BCZ C15 CUD 5NU OC5 QAN SBOA BZB BRZ0 EFE CHH NW0 D09 Y7F 15M1 28F0 
 
-grep dublicate NOTATION_ID config/ticker_name_id.txt
+find dublicate NOTATION_ID config/ticker_name_id.txt
 ----------------------------------------------------
 find config/ticker_name_id.txt -type f -exec sed 's/ /-/g' {} \; | awk '{print $3}' | sort | uniq -c | sort -n
 
@@ -236,7 +237,7 @@ find and delete all empty directories
 find status/ -empty -type d -delete
 
 
-grep dublicate NOTATION_ID config/ticker_name_id.txt
+find dublicate NOTATION_ID config/ticker_name_id.txt
 ----------------------------------------------------
 find config/ticker_name_id.txt -type f -exec sed 's/ /-/g' {} \; | awk '{print $3}' | sort | uniq -c | sort -n
 
