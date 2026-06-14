@@ -2,7 +2,6 @@ TODO:
 -----
 
 
-
 MSCI World
 Summary allSymbols:
 
@@ -17,12 +16,6 @@ CPW NRM DSG AV3 PJZ QCH 5I7 CP60 OYC 71Y 8H1 SHRQ GA8 9TF LYI 14T LSPN F1EF 2GL 
 EZV 3VU AQ3 LSPP KH7 36E 9TX GOV NC0 1OD S5YA 1LRC 5MT K2Y M3T UAL1 0XE HCG 1HTA FO5B MRI IEE 4H5 MPV M4M1 S3A 3AD2 
 BCE1 1C9 9SG0 SIA1 IDVA SAB B8O 61F DC2 HLH F1YN WD3 Z4Z S3Z R9C AS5 YAAA 6FHA 17W 4HK CE9 WN6 KW9A SB7 
 LN1 PMC BZTA EI2 1GIA C98 SNO AUX IYAA C7G FTD 56S1 RTHA BCZ C15 CUD 5NU OC5 QAN SBOA BZB BRZ0 EFE CHH NW0 D09 Y7F 15M1 28F0 
-
-find dublicate NOTATION_ID config/ticker_name_id.txt
-----------------------------------------------------
-find config/ticker_name_id.txt -type f -exec sed 's/ /-/g' {} \; | awk '{print $3}' | sort | uniq -c | sort -n
-
-
 
 
 
@@ -229,9 +222,17 @@ find and delete all empty directories
 find status/ -empty -type d -delete
 
 
-find dublicate NOTATION_ID config/ticker_name_id.txt
+find dublicate NOTATION_ID in config/ticker_name_id.txt
 ----------------------------------------------------
 find config/ticker_name_id.txt -type f -exec sed 's/ /-/g' {} \; | awk '{print $3}' | sort | uniq -c | sort -n
+alias fdi='find config/ticker_name_id.txt -type f -exec sed '\''s/ /-/g'\'' {} \; | awk '\''{print $3}'\'' | sort | uniq -c | sort -n'
+
+find high dividend in config/ticker_name_id.txt
+----------------------------------------------------
+find config/ticker_name_id.txt -type f -exec sed 's/ /-/g' {} \; | awk '{print $1, $2, $6, $7}' | sort -k4
+#alias fhd='find config/ticker_name_id.txt -type f -exec sed '\''s/ /-/g'\'' {} \; | awk '\''{print $1, $2, $6, $7}'\'' | sort -k4'
+alias fhd='find config/ticker_name_id.txt -type f -exec sed '\''s/ /-/g'\'' {} \; | awk '\''{print $1, $2, $6, $7}'\'' | sort -k4 | awk '\''{print $1, $2, $3, $4, "https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/"$1".html"}'\'
+
 
 
 find all ISIN's:
