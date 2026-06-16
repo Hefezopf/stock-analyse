@@ -52,6 +52,10 @@ on:
         description: 'ALARM_COUNT_FOR_INDEX - "5" means buy, if count is true for alarm. Like: 7S+P+D+N+M+ = 5 times +'
         required: true
         default: '5'
+      alarmPatternParam:
+        description: 'ALARM_PATTERN - "+7R" means buy, if pattern matches for the last day. Like: +7R'
+        required: true
+        default: '+7R'   
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -105,6 +109,7 @@ jobs:
           keepIfUnderPercentageInput="${{github.event.inputs.keepIfUnderPercentageParam}}"
           alarmCountForStockInput="${{github.event.inputs.alarmCountForStockParam}}"
           alarmCountForIndexInput="${{github.event.inputs.alarmCountForIndexParam}}"
+          alarmPatternInput="${{github.event.inputs.alarmPatternParam}}"
           
           symbolsVar=${symbolsInput:-$symbolsVar}
           amountPerTradeVar=${amountPerTradeInput:-$amountPerTradeVar}
@@ -115,12 +120,13 @@ jobs:
           keepIfUnderPercentageVar=${keepIfUnderPercentageInput:-$keepIfUnderPercentageVar}
           alarmCountForStockVar=${alarmCountForStockInput:-$alarmCountForStockVar}
           alarmCountForIndexVar=${alarmCountForIndexInput:-$alarmCountForIndexVar}
+          alarmPatternVar=${alarmPatternInput:-$alarmPatternVar}
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh
           # In case of shell errors with end of line: end of file unexpected (expecting "then")
           sed -i 's/\r$//' ./simulate/*.sh
-          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
+          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar" "$alarmPatternVar"
 
           ./simulate/simulates-last-x-days-y-alarms.sh "$symbolsVar" 3 35
 

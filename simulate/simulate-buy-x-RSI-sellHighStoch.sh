@@ -7,13 +7,11 @@
 # 3. Parameter: RSI_BUY_LEVEL: RSI level when the buying trade will be trigged: like 25
 # 4. Parameter: STOCH_SELL_LEVEL: Stoch level when the selling trade will be trigged: like 90
 # 5. Parameter: INCREMENT_PER_TRADE: Factor how many more stock to buy on each subsequent order: like 1.1 mean 10% more.
-# NOT USED!!! -----# 6. Parameter: SELL_IF_OVER_PERCENTAGE: Sell if position is over this value: like 5 means 5% or more gain -> sell.
-# 7. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
-# 8. Parameter: xxx
-# 9. Parameter: xxx
-# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI' 3000 25 90 1.1 99 2
-# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 90 1.1 99 1
-# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 90 1.01 99 1
+# 6. Parameter: KEEP_IF_UNDER_PERCENTAGE: Keep if position is under this value: like 1 means 1% or more gain -> not sell.
+# 7. Parameter: ALARM_PATTERN: Buy, if pattern matches for the last day. Like: '+7R'
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI' 3000 25 90 1.1 2 '+7R'
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 90 1.1 1 '+7R'
+# Call example: simulate/simulate-buy-x-RSI-sellHighStoch.sh 'BEI HLE GZF TNE5' 3000 25 90 1.01 1 '+7R'
 
 # Debug mode
 #set -x
@@ -31,13 +29,8 @@ amountPerTradeParam=$2
 RSIBuyLevelParam=$3
 stochSellLevelParam=$4
 incrementPerTradeParam=$5
-sellIfOverPercentageParam=$6 # NOT USED!!!
-keepIfUnderPercentageParam=$7
-
-recommendedAlarmPattern="+7R"
-#recommendedAlarmPattern="+7R+"
-#recommendedAlarmPattern="7R+"
-#recommendedAlarmPattern="7S+7R"
+keepIfUnderPercentageParam=$6
+recommendedAlarmPatternParam=$7
 
 # Settings for currency formating like ',' or '.' with 'printf'
 #export LC_ALL=en_US.UTF-8
@@ -55,9 +48,9 @@ function ParameterOut()
     Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
     Out "Stoch Sell Level:$stochSellLevelParam" $OUT_SIMULATE_FILE
     Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
-    Out "Sell Over Percentage (NOT USED!!!):$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
+    #Out "Sell Over Percentage (NOT USED!!!):$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
     Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
-    Out "Alarm Pattern:$recommendedAlarmPattern" $OUT_SIMULATE_FILE    
+    Out "Alarm Pattern:$recommendedAlarmPatternParam" $OUT_SIMULATE_FILE    
 }
 
 mkdir -p "$TEMP_DIR/config"
@@ -269,8 +262,8 @@ do
         # Buy
         vorzeichen="${lastAlarm: -2 : -1}"
         if [ "$vorzeichen" = '+' ]; then # Check if lastAlarm buying values
-            if [ "${lastAlarm#*"$recommendedAlarmPattern"}" != "$lastAlarm" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarm buying values
-                #echo "----------------------> Recommended $symbol $symbolName: $recommendedAlarmPattern found in $lastAlarm"
+            if [ "${lastAlarm#*"$recommendedAlarmPatternParam"}" != "$lastAlarm" ] || [ "$isHoldPiecesAndNewLow" = true ]; then # Check if lastAlarm buying values
+                #echo "----------------------> Recommended $symbol $symbolName: $recommendedAlarmPatternParam found in $lastAlarm"
                 lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
                 symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
                 ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
