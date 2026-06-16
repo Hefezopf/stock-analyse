@@ -99,6 +99,7 @@ jobs:
           keepIfUnderPercentageVar=1
           alarmCountForStockVar=7
           alarmCountForIndexVar=5
+          alarmPatternVar="+7R"
 
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           amountPerTradeInput="${{github.event.inputs.amountPerTradeParam}}"
@@ -126,7 +127,8 @@ jobs:
           chmod +x ./simulate/*.sh
           # In case of shell errors with end of line: end of file unexpected (expecting "then")
           sed -i 's/\r$//' ./simulate/*.sh
-          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar" "$alarmPatternVar"
+          #./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar" "$alarmPatternVar"
+          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$keepIfUnderPercentageVar" "$alarmPatternVar"
 
           ./simulate/simulates-last-x-days-y-alarms.sh "$symbolsVar" 3 35
 
