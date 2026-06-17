@@ -59,7 +59,7 @@ jobs:
           # InformerData CURL
           #
           chmod +x ./script/curl/curl_getInformerData.sh
-          #./script/curl/curl_getInformerData.sh "$symbolsVar"
+          ./script/curl/curl_getInformerData.sh "$symbolsVar"
 
           #
           # Schedule Analyse
@@ -68,7 +68,7 @@ jobs:
           stochasticVar=9
           RSIVar=25
           chmod +x ./analyse.sh
-          #./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
+          ./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
           cp out/_result.html out/_result_schedule.html
           sed -i 's/Result SA/Result Schedule SA/g' out/_result_schedule.html
 
