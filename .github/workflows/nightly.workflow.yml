@@ -59,7 +59,7 @@ jobs:
           # InformerData CURL
           #
           chmod +x ./script/curl/curl_getInformerData.sh
-          ./script/curl/curl_getInformerData.sh "$symbolsVar"
+          #./script/curl/curl_getInformerData.sh "$symbolsVar"
 
           #
           # Schedule Analyse
@@ -68,7 +68,7 @@ jobs:
           stochasticVar=9
           RSIVar=25
           chmod +x ./analyse.sh
-          ./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
+          #./analyse.sh "$symbolsVar" $percentageVar $stochasticVar $RSIVar
           cp out/_result.html out/_result_schedule.html
           sed -i 's/Result SA/Result Schedule SA/g' out/_result_schedule.html
 
@@ -81,14 +81,16 @@ jobs:
           incrementPerTradeVar=1.01
           sellIfOverPercentageVar=5
           keepIfUnderPercentageVar=1
-          alarmCountForStockVar=7
-          alarmCountForIndexVar=5
+          #alarmCountForStockVar=7
+          #alarmCountForIndexVar=5
+          alarmPatternVar="+7R"
 
           chmod +x ./simulate.sh
           chmod +x ./simulate/*.sh 
           # In case of shell errors with end of line: end of file unexpected (expecting "then")
           sed -i 's/\r$//' ./simulate/*.sh
-          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
+          #./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$sellIfOverPercentageVar" "$keepIfUnderPercentageVar" "$alarmCountForStockVar" "$alarmCountForIndexVar"
+          ./simulate.sh "$symbolsVar" "$amountPerTradeVar" "$RSIBuyLevelVar" "$StockSellLevelVar" "$incrementPerTradeVar" "$keepIfUnderPercentageVar" "$alarmPatternVar"
 
           ./simulate/simulates-last-x-days-y-alarms.sh "$symbolsVar" 3 35
                     
