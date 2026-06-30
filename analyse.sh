@@ -252,7 +252,12 @@ echo "# Parameter" | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
-symbolsParamShortend="${symbolsParam:0:500} ..."
+symbolsParamLength="${#symbolsParam}"
+if [ "$symbolsParamLength" -gt 1000 ]; then
+    symbolsParamShortend="${symbolsParam:0:1000} ..."
+else
+    symbolsParamShortend="${symbolsParam}"
+fi
 echo "Symbols ($countSymbols):$symbolsParamShortend" | tee -a "$OUT_RESULT_FILE"
 #echo "Symbols ($countSymbols):$symbolsParam" | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"

@@ -158,7 +158,12 @@ Out "# SA Screen" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "###########" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "# Parameter" "$SIM_LAST_ALARMS_HTML_FILE"
-symbolsParamShortend="${symbolsParam:0:500} ..."
+symbolsParamLength="${#symbolsParam}"
+if [ "$symbolsParamLength" -gt 1000 ]; then
+    symbolsParamShortend="${symbolsParam:0:1000} ..."
+else
+    symbolsParamShortend="${symbolsParam}"
+fi
 Out "Symbols ($countSymbols):$symbolsParamShortend" "$SIM_LAST_ALARMS_HTML_FILE"
 #Out "<span ondblclick='console.log(\"xxxxxxxxxxx\");'> Symbols ($countSymbols):$symbolsParamShortend</span> " "$SIM_LAST_ALARMS_HTML_FILE"
 
