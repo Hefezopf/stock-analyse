@@ -177,7 +177,9 @@ Out "# Parameter" $OUT_SIMULATE_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 
-Out "Symbols ($countSymbols):$symbolsParam" $OUT_SIMULATE_FILE
+symbolsParamShortend="${symbolsParam:0:500} ..."
+Out "Symbols ($countSymbols):$symbolsParamShortend" $OUT_SIMULATE_FILE
+#Out "Symbols ($countSymbols):$symbolsParam" $OUT_SIMULATE_FILE
 
 ParameterOut
 

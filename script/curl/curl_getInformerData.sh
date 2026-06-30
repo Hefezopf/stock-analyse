@@ -43,7 +43,9 @@ cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
-echo "Symbols ($countSymbols):$symbolsParam"
+symbolsParamShortend="${symbolsParam:0:500} ..."
+echo "Symbols ($countSymbols):$symbolsParamShortend"
+#echo "Symbols ($countSymbols):$symbolsParam"
 mkdir -p "$DATA_INFORMER_DIR"
 yesterday=$(date --date="-1 day" +"%Y-%m-%d") # Daten immer nach Mitternacht holen! -1 Tag
 errorSymbols=""
