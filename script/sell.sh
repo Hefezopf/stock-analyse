@@ -267,19 +267,24 @@ lineFromFile=$(grep -F "_blank" "$TEMP_TRANSACTION_HISTORY_FILE")
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
-
 LC_ALL=en_US.UTF-8
 dayOfYearNum=$(date +%j)
 estSumEndOfYear=$(echo "$summe $dayOfYearNum" | awk '{print $1 * 365 / $2}')
+initialAmountStartOfYear=1850000 # 2026
+all=$(echo "$estSumEndOfYear $initialAmountStartOfYear" | awk '{print $1 + $2}')
 estSumEndOfYear=$(printf "%'.f" "$estSumEndOfYear")
 summe=$(printf "%'.f" "$summe")
 echo ""
-echo "Sum before tax: $summe€"
-echo "Est. sum end of year: $estSumEndOfYear€"
+echo "Win till now before tax: $summe€"
+echo "Est. win end of year: $estSumEndOfYear€"
+estPercentEndOfYear=$(echo "$initialAmountStartOfYear $all" | awk '{print (100 / $1 * $2) - 100 }')
+initialAmountStartOfYear=$(printf "%'.f" "$initialAmountStartOfYear")
+estPercentEndOfYear=$(printf "%'.f" "$estPercentEndOfYear")
+echo "Est. % end of year (Init: $initialAmountStartOfYear€): $estPercentEndOfYear%"
 
 count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
-echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before tax: $summe€<br>&nbsp;Est. sum end of year: $estSumEndOfYear€<br>&nbsp;Transaction count: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Win till now before tax: $summe€<br>&nbsp;Est. win end of year: $estSumEndOfYear€<br>&nbsp;Est. % end of year (Init: $initialAmountStartOfYear€): $estPercentEndOfYear%<br>&nbsp;Transaction count: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
@@ -288,7 +293,7 @@ cat -ev "$TEMP_REVERS_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 rm -rf "$TEMP_REVERS_FILE"
 rm -rf "$TEMP_TRANSACTION_HISTORY_FILE"
 
-echo "<br>&nbsp;Sum before tax: $summe€<br>&nbsp;Est. sum end of year: $estSumEndOfYear€<br>&nbsp;Transaction count: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<br>&nbsp;Win till now before tax: $summe€<br>&nbsp;Est. win end of year: $estSumEndOfYear€<br>&nbsp;Est. % end of year (Init: $initialAmountStartOfYear€): $estPercentEndOfYear%<br>&nbsp;Transaction count: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 GetCreationDate
 # shellcheck disable=SC2154
