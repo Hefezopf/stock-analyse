@@ -158,14 +158,9 @@ Out "# SA Screen" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "###########" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "# Parameter" "$SIM_LAST_ALARMS_HTML_FILE"
-symbolsParamLength="${#symbolsParam}"
-if [ "$symbolsParamLength" -gt 400 ]; then
-    symbolsParamShortend="${symbolsParam:0:400} ..."
-else
-    symbolsParamShortend="${symbolsParam}"
-fi
-Out "Symbols ($countSymbols):$symbolsParamShortend" "$SIM_LAST_ALARMS_HTML_FILE"
-#Out "<span ondblclick='console.log(\"xxxxxxxxxxx\");'> Symbols ($countSymbols):$symbolsParamShortend</span> " "$SIM_LAST_ALARMS_HTML_FILE"
+
+SymbolsParamShortend "$symbolsParam"
+Out "Symbols ($countSymbols):$SYMBOLS_PARAM_SHORTEND" "$SIM_LAST_ALARMS_HTML_FILE"
 
 {       
     echo "Days: '$lastDaysParam'<br>"

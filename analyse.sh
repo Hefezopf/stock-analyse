@@ -252,14 +252,8 @@ echo "# Parameter" | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
-symbolsParamLength="${#symbolsParam}"
-if [ "$symbolsParamLength" -gt 400 ]; then
-    symbolsParamShortend="${symbolsParam:0:400} ..."
-else
-    symbolsParamShortend="${symbolsParam}"
-fi
-echo "Symbols ($countSymbols):$symbolsParamShortend" | tee -a "$OUT_RESULT_FILE"
-#echo "Symbols ($countSymbols):$symbolsParam" | tee -a "$OUT_RESULT_FILE"
+SymbolsParamShortend "$symbolsParam" # SYMBOLS_PARAM_SHORTEND
+echo "Symbols ($countSymbols):$SYMBOLS_PARAM_SHORTEND" | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
 echo "Percentage:$percentageParam " | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"

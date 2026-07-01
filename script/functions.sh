@@ -484,3 +484,19 @@ GetCreationDate() {
         creationDate=$(TZ=EST-1EDT date +"$dateParameter") # Winterzeit / Wintertime
     fi
 }
+
+# SymbolsParamShortend function:
+# Input: ${x}
+# Output: BEI PFE ...
+SymbolsParamShortend() {
+    _symbolsParam="$1"
+
+    export SYMBOLS_PARAM_SHORTEND
+
+    SYMBOL_LENGTH=200
+    if [ "${#_symbolsParam}" -gt "$SYMBOL_LENGTH" ]; then
+        SYMBOLS_PARAM_SHORTEND="${_symbolsParam:0:"$SYMBOL_LENGTH"} ..."
+    else
+        SYMBOLS_PARAM_SHORTEND="${_symbolsParam}"
+    fi
+}
