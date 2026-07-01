@@ -44,8 +44,8 @@ cp "$TICKER_NAME_ID_FILE" "$TEMP_DIR/config"
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 symbolsParamLength="${#symbolsParam}"
-if [ "$symbolsParamLength" -gt 1000 ]; then
-    symbolsParamShortend="${symbolsParam:0:1000} ..."
+if [ "$symbolsParamLength" -gt 400 ]; then
+    symbolsParamShortend="${symbolsParam:0:400} ..."
 else
     symbolsParamShortend="${symbolsParam}"
 fi

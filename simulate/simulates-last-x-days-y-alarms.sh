@@ -159,8 +159,8 @@ Out "###########" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "# Parameter" "$SIM_LAST_ALARMS_HTML_FILE"
 symbolsParamLength="${#symbolsParam}"
-if [ "$symbolsParamLength" -gt 1000 ]; then
-    symbolsParamShortend="${symbolsParam:0:1000} ..."
+if [ "$symbolsParamLength" -gt 400 ]; then
+    symbolsParamShortend="${symbolsParam:0:400} ..."
 else
     symbolsParamShortend="${symbolsParam}"
 fi
