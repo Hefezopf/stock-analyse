@@ -267,9 +267,13 @@ lineFromFile=$(grep -F "_blank" "$TEMP_TRANSACTION_HISTORY_FILE")
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
+echo "Sum before tax: $summe€"
+dayOfYearNum=$(date +%j)
+estSumEndOfYear=$(echo "$summe $dayOfYearNum" | awk '{print $1 * 365 / $2}')
+echo "Est. sum end of year: $estSumEndOfYear€"
 count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
-echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before Tax: $summe€<br>&nbsp;Transaction count: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before tax: $summe€<br>&nbsp;Est. sum end of year: $estSumEndOfYear€<br>&nbsp;Transaction count: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
@@ -278,7 +282,7 @@ cat -ev "$TEMP_REVERS_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 rm -rf "$TEMP_REVERS_FILE"
 rm -rf "$TEMP_TRANSACTION_HISTORY_FILE"
 
-echo "<br>&nbsp;Sum before Tax: $summe€<br>&nbsp;Transaction count: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<br>&nbsp;Sum before tax: $summe€<br>&nbsp;Est. sum end of year: $estSumEndOfYear€<br>&nbsp;Transaction count: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 GetCreationDate
 # shellcheck disable=SC2154
