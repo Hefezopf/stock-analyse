@@ -159,8 +159,8 @@ Out "###########" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "" "$SIM_LAST_ALARMS_HTML_FILE"
 Out "# Parameter" "$SIM_LAST_ALARMS_HTML_FILE"
 
-SymbolsParamShortend "$symbolsParam"
-Out "Symbols ($countSymbols):$SYMBOLS_PARAM_SHORTEND" "$SIM_LAST_ALARMS_HTML_FILE"
+SymbolsParamShortened "$symbolsParam"
+Out "Symbols ($countSymbols):$SYMBOLS_PARAM_SHORTENED" "$SIM_LAST_ALARMS_HTML_FILE"
 
 {       
     echo "Days: '$lastDaysParam'<br>"

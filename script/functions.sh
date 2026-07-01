@@ -485,18 +485,18 @@ GetCreationDate() {
     fi
 }
 
-# SymbolsParamShortend function:
+# SymbolsParamShortened function:
 # Input: ${x}
 # Output: BEI PFE ...
-SymbolsParamShortend() {
+SymbolsParamShortened() {
     _symbolsParam="$1"
 
-    export SYMBOLS_PARAM_SHORTEND
+    export SYMBOLS_PARAM_SHORTENED
 
     SYMBOL_LENGTH=200
     if [ "${#_symbolsParam}" -gt "$SYMBOL_LENGTH" ]; then
-        SYMBOLS_PARAM_SHORTEND="${_symbolsParam:0:"$SYMBOL_LENGTH"} ..."
+        SYMBOLS_PARAM_SHORTENED="${_symbolsParam:0:"$SYMBOL_LENGTH"} ..."
     else
-        SYMBOLS_PARAM_SHORTEND="${_symbolsParam}"
+        SYMBOLS_PARAM_SHORTENED="${_symbolsParam}"
     fi
 }
