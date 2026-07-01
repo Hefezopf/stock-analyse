@@ -267,10 +267,16 @@ lineFromFile=$(grep -F "_blank" "$TEMP_TRANSACTION_HISTORY_FILE")
 # 2022-04-23	999€	20%	BEI "BEIERSDORF"
 priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
-echo "Sum before tax: $summe€"
+
+LC_ALL=en_US.UTF-8
 dayOfYearNum=$(date +%j)
 estSumEndOfYear=$(echo "$summe $dayOfYearNum" | awk '{print $1 * 365 / $2}')
+estSumEndOfYear=$(printf "%'.f" "$estSumEndOfYear")
+summe=$(printf "%'.f" "$summe")
+echo ""
+echo "Sum before tax: $summe€"
 echo "Est. sum end of year: $estSumEndOfYear€"
+
 count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
 echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Sum before tax: $summe€<br>&nbsp;Est. sum end of year: $estSumEndOfYear€<br>&nbsp;Transaction count: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
