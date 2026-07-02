@@ -253,13 +253,13 @@ echo "<br>" >> "$OUT_RESULT_FILE"
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 SymbolsParamShortened "$symbolsParam"
-echo "Symbols ($countSymbols):$SYMBOLS_PARAM_SHORTENED" | tee -a "$OUT_RESULT_FILE"
+echo "Symbols ($countSymbols): $SYMBOLS_PARAM_SHORTENED" | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
-echo "Percentage:$percentageParam " | tee -a "$OUT_RESULT_FILE"
+echo "Percentage: $percentageParam " | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
-echo "Stochastic:$stochasticPercentageParam " | tee -a "$OUT_RESULT_FILE"
+echo "Stochastic: $stochasticPercentageParam " | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
-echo "RSI:$RSIQuoteParam" | tee -a "$OUT_RESULT_FILE"
+echo "RSI: $RSIQuoteParam" | tee -a "$OUT_RESULT_FILE"
 echo "</div>" >> "$OUT_RESULT_FILE"
 {
     echo "<span id='analyseId'><br><br># Analyse<br><br></span>"

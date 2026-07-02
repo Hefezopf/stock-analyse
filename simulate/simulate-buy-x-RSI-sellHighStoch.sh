@@ -43,14 +43,13 @@ ARRAY_BUY_POS_SIM=()
 
 function ParameterOut()
 {
-    #Out "!!! DATA_DIR:$DATA_DIR" $OUT_SIMULATE_FILE
-    Out "Amount Per Trade:$amountPerTradeParam€" $OUT_SIMULATE_FILE
-    Out "RSI Buy Level:$RSIBuyLevelParam" $OUT_SIMULATE_FILE
-    Out "Stoch Sell Level:$stochSellLevelParam" $OUT_SIMULATE_FILE
-    Out "Increment Per Trade:$incrementPerTradeParam" $OUT_SIMULATE_FILE
-    #Out "Sell Over Percentage (NOT USED!!!):$sellIfOverPercentageParam" $OUT_SIMULATE_FILE
-    Out "Keep Under Percentage:$keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
-    Out "Alarm Pattern:$recommendedAlarmPatternParam" $OUT_SIMULATE_FILE    
+    Out "Amount Per Trade: $amountPerTradeParam€" $OUT_SIMULATE_FILE
+    Out "RSI Buy Level: $RSIBuyLevelParam" $OUT_SIMULATE_FILE
+    Out "Stoch Sell Level: $stochSellLevelParam" $OUT_SIMULATE_FILE
+    Out "Increment Per Trade: $incrementPerTradeParam" $OUT_SIMULATE_FILE
+    #Out "Sell Over Percentage (NOT USED!!!): $sellIfOverPercentageParam" $OUT_SIMULATE_FILE
+    Out "Keep Under Percentage: $keepIfUnderPercentageParam" $OUT_SIMULATE_FILE
+    Out "Alarm Pattern: $recommendedAlarmPatternParam" $OUT_SIMULATE_FILE    
 }
 
 mkdir -p "$TEMP_DIR/config"
