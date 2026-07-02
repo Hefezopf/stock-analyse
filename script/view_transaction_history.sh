@@ -85,4 +85,4 @@ echo ""
 echo "Sum before tax: $summe€"
 
 count=$(cat "$TRANSACTION_COUNT_FILE")
-echo "Transaction count: $count (Year $(date +%Y))"
+echo "Transactions: $count"

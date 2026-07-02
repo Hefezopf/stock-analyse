@@ -79,4 +79,4 @@ rm -rf "$TEMP_FILE2"
 
 # Read and output Tx
 count=$(cat "$TRANSACTION_COUNT_FILE")
-echo "Transaction count: $count (Year $(date +%Y))"
+echo "Transactions: $count"

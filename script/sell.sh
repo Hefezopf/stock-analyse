@@ -275,16 +275,16 @@ all=$(echo "$estSumEndOfYear $initialAmountStartOfYear" | awk '{print $1 + $2}')
 estSumEndOfYear=$(printf "%'.f" "$estSumEndOfYear")
 summe=$(printf "%'.f" "$summe")
 echo ""
-echo "Win till now before tax: $summe€"
-echo "Est. win end of year: $estSumEndOfYear€"
 estPercentEndOfYear=$(echo "$initialAmountStartOfYear $all" | awk '{print (100 / $1 * $2) - 100 }')
 initialAmountStartOfYear=$(printf "%'.f" "$initialAmountStartOfYear")
 estPercentEndOfYear=$(printf "%'.f" "$estPercentEndOfYear")
-echo "Est. % end of year (Init: $initialAmountStartOfYear€): $estPercentEndOfYear%"
+echo "Begin of year: $initialAmountStartOfYear€"
+echo "Win till today: $summe€ ($estPercentEndOfYear%)"
+echo "Est. yearly win: $estSumEndOfYear€ (before tax)"
 
 count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
-echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Win till now before tax: $summe€<br>&nbsp;Est. win end of year: $estSumEndOfYear€<br>&nbsp;Est. % end of year (Init: $initialAmountStartOfYear€): $estPercentEndOfYear%<br>&nbsp;Transaction count: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Win till today: $summe€ ($estPercentEndOfYear%)<br>&nbsp;Est. yearly win: $estSumEndOfYear€ (before tax)<br>&nbsp;Transactions: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
@@ -293,18 +293,15 @@ cat -ev "$TEMP_REVERS_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 rm -rf "$TEMP_REVERS_FILE"
 rm -rf "$TEMP_TRANSACTION_HISTORY_FILE"
 
-echo "<br>&nbsp;Win till now before tax: $summe€<br>&nbsp;Est. win end of year: $estSumEndOfYear€<br>&nbsp;Est. % end of year (Init: $initialAmountStartOfYear€): $estPercentEndOfYear%<br>&nbsp;Transaction count: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Win till today: $summe€ ($estPercentEndOfYear%)<br>&nbsp;Est. yearly win: $estSumEndOfYear€ (before tax)<br>&nbsp;Transactions: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 GetCreationDate
 # shellcheck disable=SC2154
 echo "<br><br>&nbsp;Good Luck! $creationDate<br><br></div><script>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
-#echo "symbolParam: $symbolParam"
-
 # shellcheck disable=SC2013
 for symbol in $(awk '{print $3}' config/transaction_history.txt | sed "s/'/xxx/g" | sed 's/target\=xxx_blankxxx>//g' | sed 's/&.*//' | awk '!seen[$0]++')
 do 
-#echo "symbol: $symbol"
     echo "linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/""$symbol"".html');" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 done
 
@@ -320,10 +317,10 @@ count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
 rm -rf "$TRANSACTION_COUNT_FILE"
 echo "$count" >> "$TRANSACTION_COUNT_FILE"
-echo "Transaction count: $count (Year $(date +%Y))"
+echo "Transactions: $count"
+#echo "Transactions: $count (Year $(date +%Y))"
 
 if [[ "$UNAME_N" = *"$UNAME_N_BASH_LOCAL_ALL_OS"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win) 
-#if [ ! "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
     echo ""
     echo "Local run: Red Sell-Marker appears  in HTML after next Github 'Nightly Action' run!"
 fi
