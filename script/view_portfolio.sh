@@ -70,7 +70,7 @@ fi
 echo ""
 
 overallPositions=$(awk 'END { print NR }' "$TEMP_FILE")
-echo "Overall Positions: $overallPositions"
+echo "Overall positions: $overallPositions"
 
 rm -rf "$TEMP_FILE"
 rm -rf "$TEMP_FILE2"

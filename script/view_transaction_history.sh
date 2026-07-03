@@ -17,7 +17,7 @@
 
 symbolParam=$1
 
-echo "View Transaction History $symbolParam"
+echo "View transaction history $symbolParam"
 echo ""
 
 lineFromFile=$(grep -F "$symbolParam" "$TRANSACTION_HISTORY_FILE")
