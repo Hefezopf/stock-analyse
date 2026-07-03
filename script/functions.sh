@@ -273,15 +273,11 @@ WriteComdirectUrlAndStoreFileList() {
         _linkColorParam="$BLACK"
     fi
 
-    #_id_notation=$(grep -m1 -P "$_symbolParam\t" "$TICKER_NAME_ID_FILE_MEM" | cut -f 3)
     _id_notation="$_idNotationParam"
     if [ ! "${#_id_notation}" -gt 1 ]; then
         _id_notation=999999
     fi
 
-
-
-#echo "1: $_id_notation" = "$ID_NOTATION_STORE_FOR_NEXT_TIME" 
     # Only write URL once into result file
     if [ ! "$_id_notation" = "$ID_NOTATION_STORE_FOR_NEXT_TIME" ]; then
         {    
