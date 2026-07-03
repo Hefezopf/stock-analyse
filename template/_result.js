@@ -473,7 +473,8 @@ function doGoToEnd() {
 
 // Open all in Tabs
 function doOpenAllInTab() {
-    for (let [key, value] of linkMap) {
+    for (let [key, value] of Array.from(linkMap).reverse()) {
+    //for (let [key, value] of linkMap) {
         window.open(value, '_blank');
     }
 }
