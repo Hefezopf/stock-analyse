@@ -374,7 +374,7 @@ do
                         anualPercentWin=$(echo "250 $averageHoldingDays" | awk '{print ($1 / $2)}') # -> 250 Arbeitstage
                         anualPercentWin=$(echo "$anualPercentWin $intermediateProzWin" | awk '{print ($1 * $2)}')
                         anualPercentWin=$(printf "%.0f" "$anualPercentWin")
-                        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg. Holding Busi.Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
+                        Out "Intermediate Gain=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg. Holding Busi.Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
 
                         averageHoldingDaysOverallDays=$(echo "$averageHoldingDaysOverallDays $averageHoldingDays" | awk '{print ($1 + $2)}')
                         averageHoldingDaysOverallSymbols=$((averageHoldingDaysOverallSymbols + 1))
@@ -432,7 +432,7 @@ do
     simulationWin=$(printf "%.0f" "$simulationWin")
     if [ ! "$isSimulationWinNull" = '0' ]; then
         Out "--------------------------" $OUT_SIMULATE_FILE
-        Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
+        Out "Simulation Gain=$simulationWin€" $OUT_SIMULATE_FILE
         winOverAll=$((winOverAll+simulationWin))
         prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
@@ -642,13 +642,13 @@ else
     prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
 fi
 winOverAllFormated=$(printf "%'.f" "$winOverAll")
-Out "Win Amnt (74 Busi.Days)=$winOverAllFormated€" $OUT_SIMULATE_FILE
-Out "Win Percent (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
+Out "Gain Amnt (74 Busi.Days)=$winOverAllFormated€" $OUT_SIMULATE_FILE
+Out "Gain Percent (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
 prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # Factor 3.8: 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(echo "$winOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(printf "%'.f" "$winOverAll1Year")
-Out "Annually Win Amnt (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
-Out "Annually Win Percent (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
+Out "Annually Gain Amnt (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
+Out "Annually Gain Percent (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%'.f" "$sellAmountOverAll")
 Out "Sell Amnt overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE

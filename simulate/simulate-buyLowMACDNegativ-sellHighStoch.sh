@@ -404,7 +404,7 @@ do
                         anualPercentWin=$(echo "360 $averageHoldingDays" | awk '{print ($1 / $2)}')
                         anualPercentWin=$(echo "$anualPercentWin $intermediateProzWin" | awk '{print ($1 * $2)}')
                         anualPercentWin=$(printf "%.0f" "$anualPercentWin")
-                        Out "Intermediate Win=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg. Holding Busi.Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
+                        Out "Intermediate Gain=$wallet€ Perc=$intermediateProzWin% Estimated AnualPerc=$anualPercentWin% Avg. Holding Busi.Days=$averageHoldingDays Days" $OUT_SIMULATE_FILE
 
                         averageHoldingDaysOverallDays=$(echo "$averageHoldingDaysOverallDays $averageHoldingDays" | awk '{print ($1 + $2)}')
                         averageHoldingDaysOverallSymbols=$((averageHoldingDaysOverallSymbols + 1))
@@ -470,7 +470,7 @@ do
     simulationWin=$(printf "%.0f" "$simulationWin")
     if [ ! "$isSimulationWinNull" = '0' ]; then
         Out "--------------------------" $OUT_SIMULATE_FILE
-        Out "Simulation Win=$simulationWin€" $OUT_SIMULATE_FILE
+        Out "Simulation Gain=$simulationWin€" $OUT_SIMULATE_FILE
         winOverAll=$((winOverAll+simulationWin))
         prozSimulationWinOverAll=$(echo "$simulationWin $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
         prozSimulationWinOverAll=$(printf "%.1f" "$prozSimulationWinOverAll")
