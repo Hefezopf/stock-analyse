@@ -6,8 +6,8 @@ function showChart(timeSpan) {
     var elementSpanToReplace = document.getElementById('imgToReplace');
     if(isMobil()) {
         elementSpanToReplace.style.top = '25%';
-        elementSpanToReplace.style.left = '25%'
-        elementSpanToReplace.style.transform = 'scale(1.75)'; // yyy
+        elementSpanToReplace.style.left = '20%'
+        elementSpanToReplace.style.transform = 'scale(1.7)'; // yyy
        // elementSpanToReplace.style.transform = 'scale(1.85)'; // yyy        
     }
     else {
