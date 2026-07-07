@@ -491,7 +491,7 @@ SymbolsParamShortened() {
 
     SYMBOL_LENGTH=200
     if [ "${#_symbolsParam}" -gt "$SYMBOL_LENGTH" ]; then
-        SYMBOLS_PARAM_SHORTENED="${_symbolsParam:0:"$SYMBOL_LENGTH"} ..."
+        SYMBOLS_PARAM_SHORTENED="${_symbolsParam:0:"$SYMBOL_LENGTH"} ... ... ..."
     else
         SYMBOLS_PARAM_SHORTENED="${_symbolsParam}"
     fi
