@@ -606,7 +606,7 @@ do
 
 
 #############
-        echo "<p style='text-align:right; font-size:$FONT_SIZE_DETAIL; margin:1px 1px 1px 1px'>"
+        echo "<p style='text-align:right; font-size:$FONT_SIZE_DETAIL; margin:-1px 0px 0px 0px'>"
         # onmouseenter vs. onmouseover
         # onmouseleave vs. onmouseout
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
@@ -756,7 +756,7 @@ do
                 border-radius: 6px;
                 position: absolute;
                 z-index: 1;
-                font-size: 40px;
+                font-size: 50px;
                 margin: 10px 0px 0px -410px;
                 line-height: 100%;
             }
