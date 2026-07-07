@@ -167,7 +167,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
     }
     /* headlineLink */
     body > div > div > div { 
-        font-size: 120%;
+        font-size: 130%;
         /* font-size: 110%; yyy */
         /* background: green; */
      }     
