@@ -129,8 +129,8 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 /* iPhone 16 (Meines 09/2024) */
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
-        font-size: 390%;
-        /* background: red; */
+        font-size: 350%;
+        background: red;
     }
 }
 
@@ -166,7 +166,7 @@ Out "Symbols ($countSymbols):$SYMBOLS_PARAM_SHORTENED" "$SIM_LAST_ALARMS_HTML_FI
     echo "Days: '$lastDaysParam'<br>"
     echo "Alarms: '$alarmCharactersParam'<br><br>"
     echo "<button id='intervalSectionButtonOpenAll' style='font-size:x-large; height: 60px; width: 150px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>"
-    echo "<br><br># Sceening Results"
+    echo "<br><br># Screening Results"
 
 } >> "$SIM_LAST_ALARMS_HTML_FILE"
 
