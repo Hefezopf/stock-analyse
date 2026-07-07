@@ -697,8 +697,6 @@ do
         echo "$MACD_LIST"
         cat template/indexPart12.html
 
-        # Hover Chart (on detail page; lower URLs)
-        
         # Maybe delete next lines? redundant to those in 460...
         COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
         COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
