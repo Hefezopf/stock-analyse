@@ -161,7 +161,7 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
         /* font-size: xx-large; yyy */
-        font-size: xx-large
+        font-size: xx-large;
         zoom: 1.3;
         /* background: grey; */
     }
