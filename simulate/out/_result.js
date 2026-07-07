@@ -837,9 +837,10 @@ function showChart(timeSpan, symbol) {
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.style.top = '19%';
-    elementSpanToReplace.style.left = '17%';
+    // elementSpanToReplace.style.left = '17%';    
+    elementSpanToReplace.style.left = '15%';
     // elementSpanToReplace.style.transform = 'scale(1.4)'; // yyy
-    elementSpanToReplace.style.transform = 'scale(1.3)'; // yyy
+    elementSpanToReplace.style.transform = 'scale(1.25)'; // yyy
     // Concat is not clean, but works!
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
 }
