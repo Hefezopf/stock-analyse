@@ -838,11 +838,7 @@ function showChart(timeSpan, symbol) {
     elementSpanToReplace.style.display = 'block';
     elementSpanToReplace.style.top = '19%';
     elementSpanToReplace.style.left = '17%';
-<<<<<<< HEAD
     elementSpanToReplace.style.transform = 'scale(1.4)'; // yyy
-=======
-    elementSpanToReplace.style.transform = 'scale(1.45)'; // yyy
->>>>>>> c8a3496dfe2f3b5244ca10ba19be248abca26522
     // Concat is not clean, but works!
     elementSpanToReplace.src = elementSpanToReplace.src + '&TIME_SPAN=' + timeSpan;
 }
