@@ -566,8 +566,9 @@ do
         echo "$markerOwnStock$symbol"
         cat template/indexPart1.html
 
+        FONT_SIZE_DETAIL="45px"
         # Color result link in Chart
-        styleComdirectLink="style=\"font-size:50px; color:black\""
+        styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL; color:black\""
 
         # Green
         if 
@@ -577,7 +578,7 @@ do
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
-            styleComdirectLink="style=\"font-size:50px; color:green\""
+            styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL; color:green\""
         fi
 
         # Red link only for stocks that are marked as own stocks
@@ -589,7 +590,7 @@ do
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] ||
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
-            styleComdirectLink="style=\"font-size:50px; color:red\""
+            styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL; color:red\""
         fi
 
         # Hover Chart (on detail page; top URLs)
@@ -603,14 +604,14 @@ do
             COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
         fi
 
-        echo "<p style='text-align:right'>"
+        echo "<p style='text-align:right; font-size:$FONT_SIZE_DETAIL;'>"
         # onmouseenter vs. onmouseover
         # onmouseleave vs. onmouseout
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
 
-        echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "&nbsp;&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:rgb(0, 0, 0)'><b>$last€</b></span>"
 
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.1f" "$percentLastDay")
@@ -619,9 +620,8 @@ do
         if [ "$isPercentLastDayNegativ" = '-' ]; then
             _linkColor="$RED"
         fi
-#echo "isPercentLastDayNegativ: $isPercentLastDayNegativ $_linkColor"
 
-        echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span>"
+        echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>""$percentLastDay""%</b></span>"
         echo "</p>"
         
         cat template/indexPart1a.html
@@ -711,16 +711,16 @@ do
         echo "<a id='headlineLink$symbol' $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-        echo "&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>$last€</b></span>"
-        echo "&nbsp;<span style='font-size:50px; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
+        echo "&nbsp;&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
 
         if [ "$asset_type" = 'STOCK' ] || [ "$asset_type" = 'INDEX' ]; then
             # KGVe
             kgve=$(echo "$lineFromTickerFile" | cut -f 6)          
-            echo "<span style='font-size:50px'>KGV&nbsp;$kgve&nbsp;&nbsp;</span>"
+            echo "<span style='font-size:$FONT_SIZE_DETAIL'>KGV&nbsp;$kgve&nbsp;&nbsp;</span>"
             # DIVe
             dive=$(echo "$lineFromTickerFile" | cut -f 7)
-            echo "<span style='font-size:50px'>DIV&nbsp;$dive%&nbsp</span>&nbsp;"
+            echo "<span style='font-size:$FONT_SIZE_DETAIL'>DIV&nbsp;$dive%&nbsp</span>&nbsp;"
 
             # Country Flag
 #echo "--------isin $isin"            
@@ -736,7 +736,7 @@ do
             .tooltip {
                 display: inline-block;
                 border-bottom: 2px dotted black; 
-                font-size: 50px;
+                font-size: $FONT_SIZE_DETAIL;
                 line-height: 37px;
                 vertical-align: baseline;
             }
@@ -748,7 +748,7 @@ do
                 border-radius: 6px;
                 position: absolute;
                 z-index: 1;
-                font-size: 50px;
+                font-size: $FONT_SIZE_DETAIL;
                 margin: 10px 0px 0px -410px;
                 line-height: 100%;
             }

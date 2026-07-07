@@ -295,20 +295,6 @@ WriteComdirectUrlAndStoreFileList() {
                 COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
             fi
 
-
-#hover
-# echo "<style type='text/css'>
-# a>div { display: none; }
-# a:hover>div { display: block; }
-# </style>"
-# echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam<div>
-# <img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D' /></div></a>"
-# echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;<div>
-# <img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=6M' /></div></a>"
-# echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;<div>
-# <img src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=5Y' /></div></a>"
-
-
             # onmouseenter vs. onmouseover
             # onmouseleave vs. onmouseout
             echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('10D', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
@@ -323,12 +309,6 @@ WriteComdirectUrlAndStoreFileList() {
             else # GitHub
                 echo ""
             fi
-       
-            # if [ "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
-            #     echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam; display: none' href='file:///media/markus/BigBerta/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
-            # else
-            #     echo "<a id='linkPC$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam;' href='file:///C:/code/stock-analyse$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;PC&nbsp;</a>"
-            # fi
             echo "</div>"
         } >> "$_outResultFileParam"
     fi
