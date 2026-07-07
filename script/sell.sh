@@ -235,7 +235,7 @@ TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
         /* font-size: 300%; yyy */
-        font-size: 250%;
+        font-size: 240%;
         /* background: cyan; */     
     }
 }
