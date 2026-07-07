@@ -58,42 +58,42 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 /* iPhone 3 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 1) {
     body > div {
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
         
 /* iPhone 4 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 480px) and (-webkit-device-pixel-ratio: 2) {
     body > div {
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
 
 /* iPhone 5 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
     body > div {
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
 
 /* iPhone 6, 6s, 7, 8 */
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
     body > div {
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
     
 /* iPhone 6+, 6s+, 7+, 8+ */
 @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) { 
     body > div {
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
 
 /* iPhone X, XS, 11 Pro, 12 Mini */
 @media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
     body > div {
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
 
@@ -101,36 +101,36 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 @media only screen and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
     body > div {
         width: 25em;
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
 
 /* iPhone XR, 11 */
 @media only screen and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
     body > div {
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
     
 /* iPhone XS Max, 11 Pro Max */
 @media only screen and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
     body > div {
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
 
 /* iPhone 12 Pro Max */
 @media only screen and (min-device-width: 428px) and (max-device-height: 926px) and (-webkit-device-pixel-ratio: 3) {
     body > div {
-        font-size: xx-large;
+        font-size:xx-large;
     }
 }
 
 /* iPhone 16 (Meines 09/2024) */
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
-        font-size: 310%;
-        /* font-size: 350%; yyy */
+        font-size:310%;
+        /* font-size:350%; yyy */
         /* background: pink; */
     }
 }
