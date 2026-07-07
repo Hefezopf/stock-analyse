@@ -566,7 +566,7 @@ do
         echo "$markerOwnStock$symbol"
         cat template/indexPart1.html
 
-        FONT_SIZE_DETAIL="45px"
+        FONT_SIZE_DETAIL="42px"
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL; color:black\""
 
@@ -748,7 +748,7 @@ do
                 border-radius: 6px;
                 position: absolute;
                 z-index: 1;
-                font-size: $FONT_SIZE_DETAIL;
+                font-size: 30px;
                 margin: 10px 0px 0px -410px;
                 line-height: 100%;
             }
