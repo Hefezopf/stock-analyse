@@ -615,7 +615,7 @@ do
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
 
 #        echo "&nbsp;&nbsp;<span style=';font-size:$FONT_SIZE_DETAIL;color:rgb(0, 0, 0)'><b>$last€</b></span>"
-        echo "<br><span style=';font-size:$FONT_SIZE_DETAIL;color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "<span style=';font-size:40px;color:rgb(0, 0, 0)'><b>$last€</b></span>"
 
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.1f" "$percentLastDay")
@@ -625,7 +625,7 @@ do
             _linkColor="$RED"
         fi
 
-        echo "<span style=';font-size:$FONT_SIZE_DETAIL;color:$_linkColor'><b>""$percentLastDay""%</b></span>"
+        echo "<span style=';font-size:40px;color:$_linkColor'><b>""$percentLastDay""%</b></span>"
         echo "</p>"
 #############
 
@@ -744,7 +744,7 @@ do
                 display: inline-block;
                 border-bottom: 2px dotted black; 
                 // font-size: $FONT_SIZE_DETAIL;
-                font-size: 65px;
+                font-size: 60px;
                 line-height: 67px;
                 vertical-align: baseline;
             }
