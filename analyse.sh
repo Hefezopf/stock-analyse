@@ -566,7 +566,7 @@ do
         echo "$markerOwnStock$symbol"
         cat template/indexPart1.html
 
-        FONT_SIZE_DETAIL="45px"
+        FONT_SIZE_DETAIL="50px"
         # Color result link in Chart
         styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL; color:black\""
 
@@ -744,8 +744,8 @@ do
                 display: inline-block;
                 border-bottom: 2px dotted black; 
                 // font-size: $FONT_SIZE_DETAIL;
-                font-size: 55px;
-                line-height: 37px;
+                font-size: 65px;
+                line-height: 67px;
                 vertical-align: baseline;
             }
             .tooltip .tooltiptext {
