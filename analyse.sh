@@ -743,8 +743,7 @@ do
             .tooltip {
                 display:inline-block;
                 border-bottom:2px dotted black; 
-                // font-size:$FONT_SIZE_DETAIL;
-                font-size:65px;
+                font-size:70px;
                 line-height:67px;
                 vertical-align:baseline;
             }
@@ -773,11 +772,13 @@ do
             # Market Cap Progressbar, only if number
             if [ "$marketCapFromFile" = '?' ]; then
                 echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"
-                #echo "" # Extra line, because of GOOD LUCK replacemant. Low Market Cap Symbol files need the same length!
             else
-                marketCapScaled=$((marketCapFromFile * 5)) # Scale factor in progressbar
+                marketCapScaled=$((marketCapFromFile * 1 / 2)) # Scale factor in progressbar
+                if [ "$marketCapScaled" -gt 100 ]; then
+                    marketCapScaled=100
+                fi
                 # shellcheck disable=SC2086,SC2027
-                echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""px; height:100%; border-radius: 9px; margin-top: -23px;}</style>"
+                echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""%; height:100%; border-radius: 9px; margin-top: -23px;}</style>"
                 echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;$marketCapFromFile Mrd.€</div><br>"
             fi
         fi
@@ -831,9 +832,7 @@ do
 
         echo "<br>$GOOD_LUCK"
 
-        stocksPieces=$(grep -F "$symbol " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
-#        stocksPieces=$(grep -F "$symbol" "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
-#echo "--------------- stocksPieces $stocksPieces" >> "$OUT_RESULT_FILE"       
+        stocksPieces=$(grep -F "$symbol " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')  
         echo "<span id='stocksPiecesId' style='display:none'>$stocksPieces</span>"
 
         stocksBuyingValue=$(echo "$stocksPieces $buyingRate" | awk '{print $1 * $2}')
