@@ -568,7 +568,7 @@ do
 
         FONT_SIZE_DETAIL="45px"
         # Color result link in Chart
-        styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL; color:black\""
+        styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL;color:black\""
 
         # Green
         if 
@@ -578,7 +578,7 @@ do
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
-            styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL; color:green\""
+            styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL;color:green\""
         fi
 
         # Red link only for stocks that are marked as own stocks
@@ -590,7 +590,7 @@ do
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] ||
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
-            styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL; color:red\""
+            styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL;color:red\""
         fi
 
         # Hover Chart (on detail page; top URLs)
@@ -606,7 +606,7 @@ do
 
 
 #############
-        echo "<p style='text-align:right; font-size:$FONT_SIZE_DETAIL; margin:-1px 0px 0px 0px'>"
+        echo "<p style='text-align:right;font-size:$FONT_SIZE_DETAIL;margin:-1px 0px 0px 0px'>"
         # onmouseenter vs. onmouseover
         # onmouseleave vs. onmouseout
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
@@ -741,27 +741,27 @@ do
             # hover Firmenportrait Text
             echo "<style>
             .tooltip {
-                display: inline-block;
-                border-bottom: 2px dotted black; 
-                // font-size: $FONT_SIZE_DETAIL;
-                font-size: 65px;
-                line-height: 67px;
-                vertical-align: baseline;
+                display:inline-block;
+                border-bottom:2px dotted black; 
+                // font-size:$FONT_SIZE_DETAIL;
+                font-size:65px;
+                line-height:67px;
+                vertical-align:baseline;
             }
             .tooltip .tooltiptext {
-                visibility: hidden;
-                background-color: black;
-                color: #fff;
-                padding: 7px 10px 50px 10px;
-                border-radius: 6px;
-                position: absolute;
-                z-index: 1;
-                font-size: 42px;
-                margin: 10px 0px 0px -410px;
-                line-height: 100%;
+                visibility:hidden;
+                background-color:black;
+                color:#fff;
+                padding:7px 10px 50px 10px;
+                border-radius:6px;
+                position:absolute;
+                z-index:1;
+                font-size:43px;
+                margin:10px 0px 0px -410px;
+                line-height:100%;
             }
             .tooltip:hover .tooltiptext {
-                visibility: visible;
+                visibility:visible;
             }
             </style>"
 
