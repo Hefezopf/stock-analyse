@@ -606,27 +606,25 @@ do
 
 
 #############
-        echo "<p style='text-align:right;font-size:$FONT_SIZE_DETAIL;margin:-1px 0px 0px 0px'>"
-        # onmouseenter vs. onmouseover
-        # onmouseleave vs. onmouseout
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-#        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+        # echo "<p style='text-align:right;font-size:$FONT_SIZE_DETAIL;margin:-1px 0px 0px 0px'>"
+        # # onmouseenter vs. onmouseover
+        # # onmouseleave vs. onmouseout
+        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
+        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
 
-#        echo "&nbsp;&nbsp;<span style=';font-size:$FONT_SIZE_DETAIL;color:rgb(0, 0, 0)'><b>$last€</b></span>"
-        echo "<span style=';font-size:40px;color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        # echo "<span style=';font-size:40px;color:rgb(0, 0, 0)'><b>$last€</b></span>"
 
-        percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
-        percentLastDay=$(printf "%.1f" "$percentLastDay")
-        isPercentLastDayNegativ=${percentLastDay:0:1}
-        _linkColor="$GREEN"
-        if [ "$isPercentLastDayNegativ" = '-' ]; then
-            _linkColor="$RED"
-        fi
+        # percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
+        # percentLastDay=$(printf "%.1f" "$percentLastDay")
+        # isPercentLastDayNegativ=${percentLastDay:0:1}
+        # _linkColor="$GREEN"
+        # if [ "$isPercentLastDayNegativ" = '-' ]; then
+        #     _linkColor="$RED"
+        # fi
 
-        echo "<span style=';font-size:40px;color:$_linkColor'><b>""$percentLastDay""%</b></span>"
-        echo "</p>"
+        # echo "<span style=';font-size:40px;color:$_linkColor'><b>""$percentLastDay""%</b></span>"
+        # echo "</p>"
 #############
 
 
@@ -715,11 +713,11 @@ do
         # Maybe delete lines? redundant to those in 460...
 
 #############
-        # echo "<a id='headlineLink$symbol' $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-        # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-        # echo "<span style='font-size:$FONT_SIZE_DETAIL; color:rgb(0, 0, 0)'><b>$last€</b></span>"
-        # echo "<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
+        echo "<a id='headlineLink$symbol' $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
+        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+        echo "<span style='font-size:$FONT_SIZE_DETAIL; color:rgb(0, 0, 0)'><b>$last€</b></span>"
+        echo "<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>""$percentLastDay""%</b></span><br>" 
 #############
 
         if [ "$asset_type" = 'STOCK' ] || [ "$asset_type" = 'INDEX' ]; then

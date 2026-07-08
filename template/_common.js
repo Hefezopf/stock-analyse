@@ -122,6 +122,9 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
         return;
     }
+    
+    // console.log('xxxxxxxxxxxxx:symbolParam:' + symbolParam);
+
     symbolParam = trimOwnChar(symbolParam);
 
     if (sellPriceParam == '') {
