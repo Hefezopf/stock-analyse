@@ -783,13 +783,13 @@ function showChart(timeSpan, symbol) {
     elementSpanToReplace.style.display = 'block';
 
     if(isMobil()) {
-        elementSpanToReplace.style.top = '19%';   
+        elementSpanToReplace.style.top = '15%';
         elementSpanToReplace.style.left = '11%';
         elementSpanToReplace.style.transform = 'scale(1.25)'; // yyy      
     }
     else {
-        elementSpanToReplace.style.top = '12%';
-        elementSpanToReplace.style.left = '15%';    
+        elementSpanToReplace.style.top = '10%';
+        elementSpanToReplace.style.left = '15%';
         elementSpanToReplace.style.transform = 'scale(1.1)'; // yyy
     }
 
