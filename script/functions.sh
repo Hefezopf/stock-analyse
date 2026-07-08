@@ -285,7 +285,8 @@ WriteComdirectUrlAndStoreFileList() {
             # Hover Chart (result overview page)
             echo "<img id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
             
-            echo "<div id='headlineLinkId' style='font-size:40px;margin-top:26px'>" # yyy
+            #echo "<div id='headlineLinkId' style='font-size:40px;margin-top:26px'>" # yyy
+            echo "<div id='headlineLinkId' style='margin-top:26px'>" # yyy
             
             COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
             COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"

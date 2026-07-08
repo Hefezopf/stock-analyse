@@ -252,15 +252,7 @@ echo "<br>" >> "$OUT_RESULT_FILE"
 echo "RSI: $RSIQuoteParam" | tee -a "$OUT_RESULT_FILE"
 echo "</div>" >> "$OUT_RESULT_FILE"
 {
-    echo "<span id='analyseId'><br><br># Analyse<br><br></span>"
-# // Spinner hide
-    #echo "<br><span id='intervalSectionHeadlineDaily' style='display: none'># Realtime difference to previous day</span><br>"
-    #echo "<span id='obfuscatedValueBuyingDailyRealtime' style='font-size:xx-large; display: none'>---</span>&nbsp;"
-    #echo "<span id='intervalSectionHeadlineDailyProgressBarSpan' style='display:none;'><progress value='0' max='300' id='intervalSectionHeadlineDailyProgressBar' style='display:inline-block;'></progress></span><br><br>"
-    #echo "<button id='intervalSectionButtonSortDaily' style='font-size:large; height: 60px; width: 110px; display: none' disabled='disabled' type='button' onClick='javascript:doSortDailyGain()'>&nbsp;&nbsp;Daily&nbsp;%</button>&nbsp;"
-    #echo "<button id='intervalSectionButtonSortValue' style='font-size:large; height: 60px; width: 110px; display: none' disabled='disabled' type='button' onClick='javascript:doSortInvestedValue()'>&nbsp;&nbsp;Value&nbsp;€</button>&nbsp;"
-    #echo "<button id='intervalSectionButtonSortOverall' style='font-size:large; height: 60px; width: 110px; display: none' disabled='disabled' type='button' onClick='javascript:doSortOverallGain()'>&nbsp;&nbsp;&sum;&nbsp;%</button>&nbsp;"
-# // Spinner hide    
+    echo "<span id='analyseId'><br><br># Analyse<br><br></span>"  
     echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doHideDetails()'>&nbsp;Details</button>&nbsp;&nbsp;"
     echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;"
     echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;"
@@ -273,15 +265,11 @@ do
     # Stocks with prefix '*' are marked as own stocks
     markerOwnStock=""
     if [ "${symbol::1}" = '*' ]; then
-    #if [ "$(echo "$symbol" | cut -b 1-1)" = '*' ]; then #| cut -
         markerOwnStock="*"
         symbol="${symbol:1:7}"
-        #symbol=$(echo "$symbol" | cut -b 2-7) #| cut -
     fi
 
-    #symbol=$(echo "$symbol" | tr '[:lower:]' '[:upper:]')
     symbol="${symbol^^}" # all uppercase
-
     if [ ! -f "status/$symbol/$symbol""_alarm.txt" ]; then # For brand new symbols only
         mkdir -p status/"$symbol"
     fi
@@ -312,7 +300,6 @@ do
     if [ ! "$hauptversammlung" ]; then # Default: hauptversammlung="?"
         hauptversammlung="?"
     fi
-    #asset_type=$(echo "$lineFromTickerFile" | cut -f 9) #| cut -f
     asset_type=$(echo "$lineFromTickerFile" | awk 'BEGIN{FS="\t"} {print $9}')
     if [ ! "$asset_type" ]; then # Default: asset_type="?"
         asset_type="?"
@@ -522,7 +509,6 @@ do
         resultStrategieOverratedXHighStochastic=""
         resultStrategieOverratedHighStochasticHighRSIHighMACD=""
         if [ "$markerOwnStock" = '*' ]; then # Sell strategies only for own stocks!
-#echo "--------marker? Symbol: $symbol; markerOwnStock:$markerOwnStock"
 
             # Sell Strategie: High horizontal MACD
             if [ "$applyStrategieHorizontalMACD" = true ]; then
