@@ -267,6 +267,8 @@ WriteComdirectUrlAndStoreFileList() {
     _lowMarketCapBackgroundColorParam=$7
     _pathParam="$8"
     _idNotationParam="$9"
+    # Evtl. TODO?!
+    #_fontSizeParam=${10} # 10th and more need {}    
 
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "$_markerOwnStockParam" = '' ]; then
