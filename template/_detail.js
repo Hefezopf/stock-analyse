@@ -11,9 +11,9 @@ function showChart(timeSpan) {
        // elementSpanToReplace.style.transform = 'scale(1.85)'; // yyy        
     }
     else {
-        elementSpanToReplace.style.top = '25%';
-        elementSpanToReplace.style.left = '52%';
-        elementSpanToReplace.style.transform = 'scale(1.3)';
+        elementSpanToReplace.style.top = '9%';
+        elementSpanToReplace.style.left = '34%';
+        elementSpanToReplace.style.transform = 'scale(1.2)';
     }   
     elementSpanToReplace.style.display = 'block';
  
