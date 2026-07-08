@@ -2,12 +2,6 @@
 // _result.js
 // 
 
-// Spinner Counters
-// Spinner hide
-/* var counterFetchLoaded = 0;
-var counterOwnStocks = 0; // 0 // Spinner hide
- */
-
 // Realtime Overall Value
 var realtimeOverallValue = 0;
 
@@ -23,34 +17,6 @@ function isMobil() {
     }
 }
 
-// Spinner hide
-// Refresh the page after a delay of initRefreshSeconds seconds
-// If changed, change max=300  here as well: analyse.sh: <progress value='0' max='300' id='intervalSectionHeadlineDailyProgressBar'
-// const initRefreshSeconds = 20;
-/* const initRefreshSeconds = 300;
-// if (!isMobil() && location.href.endsWith('_result.html')) {
-if (location.href.startsWith('file') && location.href.endsWith('_result.html')) {
-        setTimeout(function() {
-        location.reload();
-    // 300 * 1000 milliseconds = 300 seconds = 5 Min
-    }, initRefreshSeconds * 1000);
-} */
-
-// 300 seconds total
-/* var timeleftToRefresh = initRefreshSeconds;
-var progressBarTimer = setInterval(function() {
-  if(timeleftToRefresh <= 0) {
-    clearInterval(progressBarTimer);
-  }
-  var intervalSectionHeadlineDailyProgressBar = document.getElementById("intervalSectionHeadlineDailyProgressBar");
-  if(intervalSectionHeadlineDailyProgressBar) {
-    intervalSectionHeadlineDailyProgressBar.value = initRefreshSeconds - timeleftToRefresh;
-  }
-  timeleftToRefresh -= 1;
-  // Visualize in 1 second steps
-}, 1000); */
-// Spinner hide
-
 var delay = ( function() {
     var timer = 0;
     return function(callback, ms) {
@@ -61,55 +27,34 @@ var delay = ( function() {
 
 // Spinner
 var intervalLoadingSpinnerId = setInterval(function () {
-    // Spinner hide
-   // if (counterFetchLoaded >= counterOwnStocks) {
-        // Show local link, if on PC
-        /* if (location.href.startsWith('file')) {
-            delay(function() {
-                processAll();
-                doHideDetails();
-                doSortDailyGain();
-            // end delay, timeout, Warten
-            }, 1000);
-        }   
-         else {
-        */
-    //    console.log('xxxxxxxx1');
-            document.getElementsByTagName('body')[0].ondblclick = processAll;
-     //        console.log('xxxxxxxx2');
-      //  }
-       // hideSpinner();
-     //     console.log('xxxxxxxx3');
-        clearInterval(intervalLoadingSpinnerId);
-     //     console.log('xxxxxxxx4');
-        // Enable Buttons
-        var intervalSectionButtonSortDaily = document.querySelector('#intervalSectionButtonSortDaily');
-        if(intervalSectionButtonSortDaily) {
-            intervalSectionButtonSortDaily.disabled = false;
-        }
-        var intervalSectionButtonSortValue = document.querySelector('#intervalSectionButtonSortValue');
-        if(intervalSectionButtonSortValue) {
-            intervalSectionButtonSortValue.disabled = false;
-        }
-        var intervalSectionButtonSortOverall = document.querySelector('#intervalSectionButtonSortOverall');
-        if(intervalSectionButtonSortOverall) {
-            intervalSectionButtonSortOverall.disabled = false;
-        }
-        var intervalSectionButtonHideDetails = document.querySelector('#intervalSectionButtonHideDetails');
-        if(intervalSectionButtonHideDetails) {
-            intervalSectionButtonHideDetails.disabled = false;
-        }
-        var intervalSectionButtonGoToEnd = document.querySelector('#intervalSectionButtonGoToEnd');
-        if(intervalSectionButtonGoToEnd) {
-            intervalSectionButtonGoToEnd.disabled = false;
-        }
-        var intervalSectionButtonOpenAll = document.querySelector('#intervalSectionButtonOpenAll');
-        if(intervalSectionButtonOpenAll) {
-            intervalSectionButtonOpenAll.disabled = false;
-        }
-   // }
+    document.getElementsByTagName('body')[0].ondblclick = processAll;
+    clearInterval(intervalLoadingSpinnerId);
+    // Enable Buttons
+    var intervalSectionButtonSortDaily = document.querySelector('#intervalSectionButtonSortDaily');
+    if(intervalSectionButtonSortDaily) {
+        intervalSectionButtonSortDaily.disabled = false;
+    }
+    var intervalSectionButtonSortValue = document.querySelector('#intervalSectionButtonSortValue');
+    if(intervalSectionButtonSortValue) {
+        intervalSectionButtonSortValue.disabled = false;
+    }
+    var intervalSectionButtonSortOverall = document.querySelector('#intervalSectionButtonSortOverall');
+    if(intervalSectionButtonSortOverall) {
+        intervalSectionButtonSortOverall.disabled = false;
+    }
+    var intervalSectionButtonHideDetails = document.querySelector('#intervalSectionButtonHideDetails');
+    if(intervalSectionButtonHideDetails) {
+        intervalSectionButtonHideDetails.disabled = false;
+    }
+    var intervalSectionButtonGoToEnd = document.querySelector('#intervalSectionButtonGoToEnd');
+    if(intervalSectionButtonGoToEnd) {
+        intervalSectionButtonGoToEnd.disabled = false;
+    }
+    var intervalSectionButtonOpenAll = document.querySelector('#intervalSectionButtonOpenAll');
+    if(intervalSectionButtonOpenAll) {
+        intervalSectionButtonOpenAll.disabled = false;
+    }
 }, 10);
-// Spinner hide
 
 function setBeepInterval(symbol) {
     var intervalValue = document.getElementById('intervalField' + symbol).value;
