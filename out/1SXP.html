@@ -32,7 +32,6 @@ template/index.html and template/indexPart1.html
 //# sourceMappingURL=chart.umd.js.map
 
 </script>
-
 <script>
 window.chartColors = {
 black: 'rgb(0, 0, 0)',
@@ -46,41 +45,48 @@ darkblue: 'rgb(5, 02, 255)',
 purple: 'rgb(153, 102, 255)',
 grey: 'rgb(201, 203, 207)'
 };
-</script>   
+</script>
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=435054755&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
-<p style='text-align:right;font-size:45px;margin:-1px 0px 0px 0px'>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=435054755"  target="_blank">1SXP "SCHOTT Pharma"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=435054755"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=435054755"  target="_blank">&nbsp;5Y&nbsp;</a>
-<span style=';font-size:40px;color:rgb(0, 0, 0)'><b>18.18€</b></span>
-<span style=';font-size:40px;color:red'><b>-2.8%</b></span>
-</p>
 
-<div style="width:107%;margin-left:-80px;margin-top:-20px;">
+<!--
+<div style="width:107%;margin-left:-80px;margin-top:-20px;"> 
+<div style="width:107%;margin-left:-130px;margin-top:-20px;">
+--> 
+
+<div id="divCanvasIdQuote" style="width:107%;margin-left:-140px;margin-top:-20px;">    
 <canvas id="canvasQuote"></canvas>
 </div>
 
-<div style="width:107%;margin-left:-80px;margin-top:-15px;">
+<div id="divCanvasIdStochastik" style="width:107%;margin-left:-140px;margin-top:-15px;">
 <canvas id="canvasStochastik"></canvas>
 </div>
 
-<div style="width:107%;margin-left:-80px;margin-top:-15px;">
+<div id="divCanvasIdRSI" style="width:107%;margin-left:-140px;margin-top:-15px;">
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div style="width:107%;margin-left:-80px;margin-top:-15px;margin-bottom:-15px;">
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-15px;margin-bottom:-15px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
 <script>
+const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
+// isMobil
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+for (var i = 0; i < divCanvasIds.length; i++) {
+divCanvasIds[i].style.marginLeft = '-80px';
+// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
+}        
+}
+
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','*C+7S+M+','*C+7S+3R+D+N+M+','*C+7S+4R+D+N+M+','*6S+4R+M+','*C+6S+5R+P+D+N+M+','*C+6S+6R+P+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*5S+5R+M+','*24','*25','*26','*29','*30','*O-','*01','*O-','*O-','*4S-O-','*4S-','*5S-O-','*4S-','*12','*4S-O-','*4S-O-','*4S-O-','*C-5S-O-','*C-5S-O-','*C-6S-3R-O-','*C-7S-4R-O-','*6S-5R-','*6R-','*6R-','*6R-','*5R-','*29','*30','*03','*04','*05','*O-','*O-','*O-','*4S-O-','*4S-','*5S-O-','*6S-O-','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07'
+labels: ['','*C+7S+3R+D+N+M+','*C+7S+4R+D+N+M+','*6S+4R+M+','*C+6S+5R+P+D+N+M+','*C+6S+6R+P+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*5S+5R+M+','*24','*25','*26','*29','*30','*O-','*01','*O-','*O-','*4S-O-','*4S-','*5S-O-','*4S-','*12','*4S-O-','*4S-O-','*4S-O-','*C-5S-O-','*C-5S-O-','*C-6S-3R-O-','*C-7S-4R-O-','*6S-5R-','*6R-','*6R-','*6R-','*5R-','*29','*30','*03','*04','*05','*O-','*O-','*O-','*4S-O-','*4S-','*5S-O-','*6S-O-','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08'
 ],
 datasets: [{
 label: ' "SCHOTT Pharma" ',
@@ -88,8 +94,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [13.76,
-13.86,
+data: [13.86,
 13.60,
 13.44,
 13.58,
@@ -175,41 +180,42 @@ data: [13.76,
 17.28,
 18.70,
 18.18,
+18.82,
 ]},
 {
 label: 'buy',
 type: 'bubble',
 backgroundColor: window.chartColors.green,
 data: [ // BUY_UNDERNEATH_TO_BE_REPLACED
-{}, {x:1,y:13.78,r:10}, {x:1,y:13.60,r:10}, {x:1,y:13.48,r:10}, {x:1,y:13.48,r:10}, {x:1,y:13.40,r:10}, {x:1,y:13.55,r:10}, {x:1,y:13.31,r:10}, {}, {x:1,y:12.76,r:10}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
+{x:1,y:13.78,r:10}, {x:1,y:13.60,r:10}, {x:1,y:13.48,r:10}, {x:1,y:13.48,r:10}, {x:1,y:13.40,r:10}, {x:1,y:13.55,r:10}, {x:1,y:13.31,r:10}, {}, {x:1,y:12.76,r:10}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
 label: 'sell',
 type: 'bubble',
 backgroundColor: window.chartColors.red,
 data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {x:1,y:16.5,r:10}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {x:1,y:16.5,r:10}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
 label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 14.3217, 14.2172, 14.1294, 14.0306, 13.945, 13.825, 13.73, 13.6389, 13.5711, 13.5133, 13.4578, 13.4033, 13.3711, 13.3456, 13.3344, 13.3178, 13.3156, 13.3056, 13.3067, 13.3178, 13.3233, 13.3644, 13.4222, 13.52, 13.6222, 13.7411, 13.8456, 13.9478, 14.0611, 14.17, 14.2389, 14.3278, 14.39, 14.4422, 14.5089, 14.5922, 14.6589, 14.7267, 14.8233, 14.9011, 14.9767, 15.0489, 15.0933, 15.1211, 15.1822, 15.2333, 15.3056, 15.3567, 15.4456, 15.5244, 15.64, 15.7744, 15.8967, 16.0378, 16.19, 16.3678, 16.4544, 16.5544, 16.6344, 16.7289, 16.8078, 16.8956, 16.9478, 17.01, 17.0622, 17.1444, 17.19, 17.2156, 17.2089, 17.1811, 17.1589, 17.1311, 17.0944, 17.0278, 17.04, 17.0444, 17.0544, 17.0356, 17.0378, 17.0289, 17.03, 17.1111, 17.1578,
+data: [ , , , , 14.2172, 14.1294, 14.0306, 13.945, 13.825, 13.73, 13.6389, 13.5711, 13.5133, 13.4578, 13.4033, 13.3711, 13.3456, 13.3344, 13.3178, 13.3156, 13.3056, 13.3067, 13.3178, 13.3233, 13.3644, 13.4222, 13.52, 13.6222, 13.7411, 13.8456, 13.9478, 14.0611, 14.17, 14.2389, 14.3278, 14.39, 14.4422, 14.5089, 14.5922, 14.6589, 14.7267, 14.8233, 14.9011, 14.9767, 15.0489, 15.0933, 15.1211, 15.1822, 15.2333, 15.3056, 15.3567, 15.4456, 15.5244, 15.64, 15.7744, 15.8967, 16.0378, 16.19, 16.3678, 16.4544, 16.5544, 16.6344, 16.7289, 16.8078, 16.8956, 16.9478, 17.01, 17.0622, 17.1444, 17.19, 17.2156, 17.2089, 17.1811, 17.1589, 17.1311, 17.0944, 17.0278, 17.04, 17.0444, 17.0544, 17.0356, 17.0378, 17.0289, 17.03, 17.1111, 17.1578, 17.2311,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 13.7997, 13.7671, 13.7455, 13.7313, 13.7339, 13.7461, 13.7605, 13.77, 13.7842, 13.8026, 13.8221, 13.8468, 13.8611, 13.8763, 13.9026, 13.9263, 13.9579, 13.9926, 14.0374, 14.0911, 14.1468, 14.2137, 14.2779, 14.36, 14.4484, 14.5253, 14.6058, 14.6758, 14.7637, 14.8516, 14.9358, 15.0268, 15.1163, 15.2147, 15.3195, 15.4432, 15.5284, 15.6242, 15.7153, 15.8074, 15.8816, 15.9589, 16.0237, 16.0737, 16.1295, 16.19, 16.2458, 16.2942, 16.3426, 16.3784, 16.4279, 16.4884, 16.5442, 16.5968, 16.6563, 16.7221, 16.7721, 16.8184, 16.8579, 16.8968, 16.9411, 17.0163, 17.0653,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 13.7671, 13.7455, 13.7313, 13.7339, 13.7461, 13.7605, 13.77, 13.7842, 13.8026, 13.8221, 13.8468, 13.8611, 13.8763, 13.9026, 13.9263, 13.9579, 13.9926, 14.0374, 14.0911, 14.1468, 14.2137, 14.2779, 14.36, 14.4484, 14.5253, 14.6058, 14.6758, 14.7637, 14.8516, 14.9358, 15.0268, 15.1163, 15.2147, 15.3195, 15.4432, 15.5284, 15.6242, 15.7153, 15.8074, 15.8816, 15.9589, 16.0237, 16.0737, 16.1295, 16.19, 16.2458, 16.2942, 16.3426, 16.3784, 16.4279, 16.4884, 16.5442, 16.5968, 16.6563, 16.7221, 16.7721, 16.8184, 16.8579, 16.8968, 16.9411, 17.0163, 17.0653, 17.1363,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 15.2178, 15.2372, 15.2607, 15.2845, 15.3266, 15.3614,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 15.2372, 15.2607, 15.2845, 15.3266, 15.3614, 15.4051,
 ]},
 {
 label:' Buying/Last ',
@@ -217,14 +223,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,18.18,               ]},
+data: [ 18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,18.82,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,19.089,			]}	
+data: [ 19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,19.761,			]}	
 ]},
 options: {
 responsive: true,
@@ -270,7 +276,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','*C+7S+M+','*C+7S+3R+D+N+M+','*C+7S+4R+D+N+M+','*6S+4R+M+','*C+6S+5R+P+D+N+M+','*C+6S+6R+P+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*5S+5R+M+','*24','*25','*26','*29','*30','*O-','*01','*O-','*O-','*4S-O-','*4S-','*5S-O-','*4S-','*12','*4S-O-','*4S-O-','*4S-O-','*C-5S-O-','*C-5S-O-','*C-6S-3R-O-','*C-7S-4R-O-','*6S-5R-','*6R-','*6R-','*6R-','*5R-','*29','*30','*03','*04','*05','*O-','*O-','*O-','*4S-O-','*4S-','*5S-O-','*6S-O-','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07'
+labels: ['','*C+7S+3R+D+N+M+','*C+7S+4R+D+N+M+','*6S+4R+M+','*C+6S+5R+P+D+N+M+','*C+6S+6R+P+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*5S+5R+M+','*24','*25','*26','*29','*30','*O-','*01','*O-','*O-','*4S-O-','*4S-','*5S-O-','*4S-','*12','*4S-O-','*4S-O-','*4S-O-','*C-5S-O-','*C-5S-O-','*C-6S-3R-O-','*C-7S-4R-O-','*6S-5R-','*6R-','*6R-','*6R-','*5R-','*29','*30','*03','*04','*05','*O-','*O-','*O-','*4S-O-','*4S-','*5S-O-','*6S-O-','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08'
 ],
 datasets: [
 {
@@ -279,7 +285,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 0, 7, 0, 0, 9, 0, 6, 0, 0, 0, 16, 33, 51, 56, 29, 47, 97, 86, 100, 100, 100, 64, 100, 90, 88, 100, 100, 100, 100, 100, 94, 93, 88, 88, 74, 84, 63, 53, 57, 49, 37, 30, 92, 100, 100, 100, 85, 100, 100, 89, 100, 76, 100, 100, 100, 100, 100, 100, 100, 100, 47, 59, 50, 75, 51, 65, 52, 40, 44, 58, 33, 8, 0, 0, 12, 35, 42, 31, 59, 77, 70, 66, 59, 100, 100, 100, 77,
+data: [		 7, 0, 0, 9, 0, 6, 0, 0, 0, 16, 33, 51, 56, 29, 47, 97, 86, 100, 100, 100, 64, 100, 90, 88, 100, 100, 100, 100, 100, 94, 93, 88, 88, 74, 84, 63, 53, 57, 49, 37, 30, 92, 100, 100, 100, 85, 100, 100, 89, 100, 76, 100, 100, 100, 100, 100, 100, 100, 100, 47, 59, 50, 75, 51, 65, 52, 40, 44, 58, 33, 8, 0, 0, 12, 35, 42, 31, 59, 77, 70, 66, 59, 100, 100, 100, 77, 100,
 ]},
 {
 label: '91',
@@ -342,7 +348,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','*C+7S+M+','*C+7S+3R+D+N+M+','*C+7S+4R+D+N+M+','*6S+4R+M+','*C+6S+5R+P+D+N+M+','*C+6S+6R+P+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*5S+5R+M+','*24','*25','*26','*29','*30','*O-','*01','*O-','*O-','*4S-O-','*4S-','*5S-O-','*4S-','*12','*4S-O-','*4S-O-','*4S-O-','*C-5S-O-','*C-5S-O-','*C-6S-3R-O-','*C-7S-4R-O-','*6S-5R-','*6R-','*6R-','*6R-','*5R-','*29','*30','*03','*04','*05','*O-','*O-','*O-','*4S-O-','*4S-','*5S-O-','*6S-O-','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07'
+labels: ['','*C+7S+3R+D+N+M+','*C+7S+4R+D+N+M+','*6S+4R+M+','*C+6S+5R+P+D+N+M+','*C+6S+6R+P+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*5S+5R+M+','*24','*25','*26','*29','*30','*O-','*01','*O-','*O-','*4S-O-','*4S-','*5S-O-','*4S-','*12','*4S-O-','*4S-O-','*4S-O-','*C-5S-O-','*C-5S-O-','*C-6S-3R-O-','*C-7S-4R-O-','*6S-5R-','*6R-','*6R-','*6R-','*5R-','*29','*30','*03','*04','*05','*O-','*O-','*O-','*4S-O-','*4S-','*5S-O-','*6S-O-','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08'
 ],
 datasets: [
 {
@@ -351,7 +357,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 17, 21, 21, 20, 27, 19, 24, 17, 18, 16, 27, 32, 35, 38, 36, 36, 49, 50, 49, 54, 52, 50, 58, 67, 63, 66, 68, 71, 82, 85, 79, 81, 78, 78, 70, 80, 67, 65, 67, 63, 60, 55, 58, 50, 57, 61, 59, 62, 74, 67, 79, 74, 75, 75, 77, 79, 76, 77, 78, 79, 63, 64, 57, 64, 56, 64, 59, 58, 56, 56, 52, 46, 40, 32, 46, 44, 48, 37, 50, 46, 48, 48, 44, 45, 51, 75, 71,
+data: [ 23, 21, 20, 27, 19, 24, 17, 18, 16, 27, 32, 35, 38, 36, 36, 49, 50, 49, 54, 52, 50, 58, 67, 63, 66, 68, 71, 82, 85, 79, 81, 78, 78, 70, 80, 67, 65, 67, 63, 60, 55, 58, 50, 57, 61, 59, 62, 74, 67, 79, 74, 75, 75, 77, 79, 76, 77, 78, 79, 63, 64, 57, 64, 56, 64, 59, 58, 56, 56, 52, 46, 40, 32, 46, 44, 48, 37, 50, 46, 48, 48, 44, 45, 51, 75, 71, 79,
 ]},
 {
 label: '75',
@@ -417,7 +423,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','*C+7S+M+','*C+7S+3R+D+N+M+','*C+7S+4R+D+N+M+','*6S+4R+M+','*C+6S+5R+P+D+N+M+','*C+6S+6R+P+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*5S+5R+M+','*24','*25','*26','*29','*30','*O-','*01','*O-','*O-','*4S-O-','*4S-','*5S-O-','*4S-','*12','*4S-O-','*4S-O-','*4S-O-','*C-5S-O-','*C-5S-O-','*C-6S-3R-O-','*C-7S-4R-O-','*6S-5R-','*6R-','*6R-','*6R-','*5R-','*29','*30','*03','*04','*05','*O-','*O-','*O-','*4S-O-','*4S-','*5S-O-','*6S-O-','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07'
+labels: ['','*C+7S+3R+D+N+M+','*C+7S+4R+D+N+M+','*6S+4R+M+','*C+6S+5R+P+D+N+M+','*C+6S+6R+P+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*C+6S+6R+P+D+N+M+','*5S+5R+M+','*24','*25','*26','*29','*30','*O-','*01','*O-','*O-','*4S-O-','*4S-','*5S-O-','*4S-','*12','*4S-O-','*4S-O-','*4S-O-','*C-5S-O-','*C-5S-O-','*C-6S-3R-O-','*C-7S-4R-O-','*6S-5R-','*6R-','*6R-','*6R-','*5R-','*29','*30','*03','*04','*05','*O-','*O-','*O-','*4S-O-','*4S-','*5S-O-','*6S-O-','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08'
 ],
 datasets: [
 {
@@ -426,7 +432,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , -0.54, -0.54, -0.53, -0.50, -0.45, -0.40, -0.36, -0.32, -0.28, -0.28, -0.24, -0.22, -0.19, -0.14, -0.08, -0.00, 0.08, 0.19, 0.26, 0.31, 0.34, 0.36, 0.34, 0.35, 0.32, 0.28, 0.26, 0.25, 0.24, 0.23, 0.25, 0.28, 0.31, 0.35, 0.36, 0.39, 0.44, 0.46, 0.49, 0.48, 0.50, 0.52, 0.54, 0.57, 0.59, 0.63, 0.66, 0.72, 0.67, 0.65, 0.61, 0.61, 0.57, 0.56, 0.53, 0.50, 0.48, 0.48, 0.44, 0.39, 0.32, 0.24, 0.19, 0.17, 0.15, 0.13, 0.14, 0.15, 0.16, 0.16, 0.15, 0.16, 0.17, 0.28, 0.33,
+data: [ , , , , , , , , , , , , -0.50, -0.50, -0.48, -0.43, -0.38, -0.34, -0.30, -0.27, -0.26, -0.23, -0.20, -0.18, -0.13, -0.07, 0.01, 0.09, 0.19, 0.26, 0.31, 0.34, 0.36, 0.35, 0.35, 0.32, 0.28, 0.27, 0.25, 0.24, 0.23, 0.26, 0.28, 0.31, 0.35, 0.37, 0.39, 0.44, 0.46, 0.50, 0.49, 0.50, 0.52, 0.54, 0.57, 0.59, 0.63, 0.67, 0.72, 0.67, 0.65, 0.61, 0.61, 0.57, 0.56, 0.53, 0.50, 0.48, 0.48, 0.44, 0.39, 0.32, 0.24, 0.19, 0.17, 0.15, 0.13, 0.14, 0.15, 0.16, 0.16, 0.15, 0.16, 0.17, 0.28, 0.33, 0.41,
 ]},
 {
 label: '0',
@@ -501,6 +507,11 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
+<a id='headlineLink1SXP' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=435054755"  target="_blank">1SXP "SCHOTT Pharma"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=435054755"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=435054755"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>18.82€</b></span>
+&nbsp;<span style='font-size:45px; color:green'><b>3.5%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;18&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;1%&nbsp</span>&nbsp;
 <span><img id='countryflagId' alt='DE: No Flag' title='DE' src='../image/flags/DE.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
@@ -532,17 +543,17 @@ visibility:visible;
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 1%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;2 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-07-07</b>
+<b>2026-07-08</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>17.16€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>17.07€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>15.36€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>77 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>71 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.33 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>17.23€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>17.14€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>15.41€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>100 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>79 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.41 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -559,7 +570,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  8-Jul-2026 05:16</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  9-Jul-2026 05:40</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -721,6 +732,9 @@ if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
 alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
 return;
 }
+
+// console.log('xxxxxxxxxxxxx:symbolParam:' + symbolParam);
+
 symbolParam = trimOwnChar(symbolParam);
 
 if (sellPriceParam == '') {
@@ -841,9 +855,9 @@ elementSpanToReplace.style.transform = 'scale(1.7)'; // yyy
 // elementSpanToReplace.style.transform = 'scale(1.85)'; // yyy        
 }
 else {
-elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '52%';
-elementSpanToReplace.style.transform = 'scale(1.3)';
+elementSpanToReplace.style.top = '9%';
+elementSpanToReplace.style.left = '34%';
+elementSpanToReplace.style.transform = 'scale(1.2)';
 }   
 elementSpanToReplace.style.display = 'block';
 
