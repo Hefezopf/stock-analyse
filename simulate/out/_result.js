@@ -370,14 +370,6 @@ function addButtons(container) {
     container.appendChild(document.createElement("br"));
     container.appendChild(document.createElement("br"));
 
-    // Spinner hide
-    /* container.appendChild(intervalSectionButtonSortDailyButton);
-    container.appendChild(document.createTextNode(" "));
-    container.appendChild(intervalSectionButtonSortValueButton);
-    container.appendChild(document.createTextNode(" "));
-    container.appendChild(intervalSectionButtonSortOverallButton);
-    container.appendChild(document.createTextNode(" ")); */
-    // Spinner hide
     container.appendChild(intervalSectionButtonHideDetails);
     container.appendChild(document.createTextNode(" "));
     container.appendChild(intervalSectionButtonGoToEnd);
@@ -594,181 +586,12 @@ function onContentLoaded(symbol, notationId, asset_type) {
         revealElement(linkPCValue);
     }
 
-    //console.info('fetch '+ symbol + ' ...'); // Spinner hide
-
     var part_url = 'aktien';
     if (['INDEX'].indexOf(asset_type) >= 0) {
 //        if (['IWLE', 'IS4S', 'XXXX'].indexOf(symbol) >= 0) {
             // if(symbol === "IWLE") {
         part_url = 'etfs';
     }
-
-    // Spinner hide
-    /*
-    var url = 'https://www.comdirect.de/inf/' + part_url + '/detail/uebersicht.html?ID_NOTATION=' + notationId;
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    // console.log(url);// url
-
-    // time in milliseconds
-    xhr.timeout = 3000;
-    xhr.ontimeout = (e) => {
-        console.error('TIMEOUT!!'+ symbol);
-    };
-    xhr.onreadystatechange = function () {
-        // readyState 4 means the request is done.
-        const DONE = 4;
-        // status 200 is a successful return.
-        const OK = 200;
-        if (xhr.readyState === DONE) {
-            if (xhr.status === OK) {
-                // console.log(xhr.responseText); // 'This is the output.'
-                console.info('... ' + symbol +' done.');
-
-                // Realtime Quote
-                let positionQuote1 = xhr.responseText.indexOf(notationId + '\', key: \'prices.[type=LAST].price.value');
-                var realTimeQuoteGrob = xhr.responseText.slice(positionQuote1 + 64, positionQuote1 + 74);
-                let feinPos = realTimeQuoteGrob.indexOf('\n') + 0;
-                var realTimeQuote = realTimeQuoteGrob.slice(0, feinPos);
-                var elementRealTimeQuoteSymbol = document.getElementById('intervalSectionRealTimeQuote' + symbol);
-                // var realTimeQuoteSymbol = realTimeQuote.replace('.', '');
-                // if (parseFloat(realTimeQuoteSymbol) < 1000) {
-                //     realTimeQuoteSymbol = parseFloat(realTimeQuoteSymbol.replace(',', '.')).toFixed(2);
-                // }
-                // else {
-                //     realTimeQuoteSymbol = parseFloat(realTimeQuoteSymbol).toFixed(0);
-                // }
-                // elementRealTimeQuoteSymbol.innerHTML = realTimeQuoteSymbol + '€';
-                elementRealTimeQuoteSymbol.innerHTML = realTimeQuote + '€';
-        
-                // Realtime Percent
-                let positionProz1 = xhr.responseText.indexOf(notationId + '\', key: \'prices.[type=LAST].profitLossRel');
-                var realTimeProzSymbol = xhr.responseText.slice(positionProz1 + 66, positionProz1 + 73);
-                realTimeProzSymbol = realTimeProzSymbol.replace(' ', '');
-                realTimeProzSymbol = realTimeProzSymbol.replace(',', '.');
-                var elementPercentageSymbol = document.getElementById('intervalSectionPercentage' + symbol);
-                var posDot = realTimeProzSymbol.indexOf('.');
-                var realTimeProzSymbolRounded = realTimeProzSymbol.slice(0, posDot + 2);
-                elementPercentageSymbol.innerHTML = realTimeProzSymbolRounded + '%';
-                if (parseFloat(realTimeProzSymbolRounded) < 0) {
-                    elementPercentageSymbol.style.color = 'red';
-                }
-                else {
-                    elementPercentageSymbol.style.color = 'green';
-                }
-        
-                // Realtime Gain
-                let positionGain1 = xhr.responseText.indexOf(notationId + '\', key: \'prices.[type=LAST].profitLossAbs.value');
-                var realTimeGainSymbol = xhr.responseText.slice(positionGain1 + 73, positionGain1 + 79);
-                realTimeGainSymbol = realTimeGainSymbol.replace(' ', '');
-                realTimeGainSymbol = realTimeGainSymbol.replace(',', '.');
-                var elementGainSymbol = document.getElementById('intervalSectionGain' + symbol);
-                elementGainSymbol.innerHTML = realTimeGainSymbol + '€';
-        
-                if (parseFloat(realTimeGainSymbol) < 0) {
-                    elementGainSymbol.style.color = 'red';
-                }
-                else {
-                    elementGainSymbol.style.color = 'green';
-                }
-        
-                // Extract Time
-                let positionTime1 = xhr.responseText.indexOf(' -  ');
-                var timeSymbol = xhr.responseText.slice(positionTime1 + 4, positionTime1 + 12);
-                var hoursSymbol = timeSymbol.slice(0, 2);
-                var minutesSymbol = timeSymbol.slice(3, 5);
-                var secondsSymbol = timeSymbol.slice(6, 8);
-                var dateSymbol = xhr.responseText.slice(positionTime1 - 9, positionTime1 - 1);
-                var daysSymbol = dateSymbol.slice(0, 2);
-                var monthSymbol = dateSymbol.slice(3, 5) - 1;
-                var yearSymbol = '20' + dateSymbol.slice(6, 8);
-                const dateEclpsedSymbol = new Date(yearSymbol, monthSymbol, daysSymbol);
-                dateEclpsedSymbol.setHours(hoursSymbol);
-                dateEclpsedSymbol.setMinutes(minutesSymbol);
-                dateEclpsedSymbol.setSeconds(secondsSymbol);
-                var deltaMinutesSymbol = ((new Date().getTime() - dateEclpsedSymbol.getTime()) / 1000) / 60;
-                var elementRegularMarketTimeOffsetSymbol = document.getElementById('intervalSectionRegularMarketTimeOffset' + symbol);
-                elementRegularMarketTimeOffsetSymbol.innerHTML = deltaMinutesSymbol.toFixed(0) + 'min';
-        
-                var elementPortfolioValuesSymbol = document.getElementById('intervalSectionPortfolioValues' + symbol);
-                var obfuscatedValuePcEuroSymbol = document.getElementById('obfuscatedValuePcEuro' + symbol);
-                decryptElement(obfuscatedValuePcEuroSymbol);
-                // 940pc 51362€
-                var piecesSymbol = obfuscatedValuePcEuroSymbol.innerHTML.split('pc')[0];
-                var buyingValueSymbol = obfuscatedValuePcEuroSymbol.innerHTML.split('/')[0];
-                buyingValueSymbol = buyingValueSymbol.split(' ')[1];
-                var portfolioValueSymbol = piecesSymbol * realTimeQuote;
-        
-                // Sum up all current symbols
-                realtimeOverallValue = parseInt(realtimeOverallValue) + parseInt(portfolioValueSymbol);
-                var obfuscatedValueBuyingOverallRealtimeElem = document.getElementById('obfuscatedValueBuyingOverallRealtime');
-                if (obfuscatedValueBuyingOverallRealtimeElem) {
-                    obfuscatedValueBuyingOverallRealtimeElem.innerHTML = revers(realtimeOverallValue);
-                }
-        
-                var stocksPerformanceSymbol = ((portfolioValueSymbol / buyingValueSymbol) - 1) * 100;
-                elementPortfolioValuesSymbol.innerHTML = piecesSymbol + 'pc ' + portfolioValueSymbol.toFixed(0) + '€ ';
-        
-                var elementPortfolioGainSymbol = document.getElementById('intervalSectionPortfolioGain' + symbol);
-                elementPortfolioGainSymbol.innerHTML = (portfolioValueSymbol - buyingValueSymbol).toFixed(0) + '€ ' + stocksPerformanceSymbol.toFixed(1) + '%';
-        
-                // Sorting, if 0,00% then add '+' -> +0,00%
-                if (realTimeProzSymbol[0] === ' ') {
-                    realTimeProzSymbol = realTimeProzSymbol.substring(1).trim();
-               } 
-               if ((realTimeProzSymbol.charAt(0) === '-') || (realTimeProzSymbol.charAt(0) === '+')) {
-                   ;
-               }   
-               else {
-                   realTimeProzSymbol = '+' + realTimeProzSymbol;
-               }  
-        
-                // Example ID: id='symbolLineIdEUZ_-115_+111_9999'
-                var numericRealTimeProzSymbol = realTimeProzSymbol.trim().replace('.', '');
-                // Mit Nullen hinten auffüllen
-                if (!numericRealTimeProzSymbol.charAt(4)) {
-                    // 3 -> 4 stellig
-                    numericRealTimeProzSymbol = numericRealTimeProzSymbol + 0;
-                }
-
-                var symbolLineId = 'symbolLineId' + symbol;
-                var symbolLineIdElements = document.querySelectorAll('[id ^="' + symbolLineId + '"]');
-                var numericOverallProzSymbol;
-                if (stocksPerformanceSymbol >= 0) {
-                    numericOverallProzSymbol = '+' + stocksPerformanceSymbol.toFixed(2);
-                }
-                else {
-                    numericOverallProzSymbol = stocksPerformanceSymbol.toFixed(2);
-                }
-                numericOverallProzSymbol = numericOverallProzSymbol.replace('.', '');
-        
-                symbolLineIdElements[0].id = 'symbolLineId' + symbol + '_' + numericRealTimeProzSymbol + '_' + numericOverallProzSymbol + '_' + portfolioValueSymbol.toFixed(0);
-        
-                if (stocksPerformanceSymbol < 0) {
-                    elementPortfolioGainSymbol.style.color = 'red';
-                }
-                else {
-                    elementPortfolioGainSymbol.style.color = 'green';
-                }
-        
-                // For Spinner
-                counterFetchLoaded++;
-        
-            } else {
-                console.error('Network response error:' + symbol);
-                // For Spinner
-                counterFetchLoaded++;
-                throw new Error('Network response error!');
-            }
-        }
-        else {
-            // For Spinner
-            counterFetchLoaded++;
-        }
-    }
-    xhr.send();
-    */
-   // Spinner hide
 }
 
 function revealElement(ele) {
