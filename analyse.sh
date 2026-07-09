@@ -881,7 +881,7 @@ do
                  </div>"
 
             # Interval Beep
-            echo "<span id='intervalSectionBeep$symbol' style='font-size:large; display: none'><br>"
+            echo "<span id='intervalSectionBeep$symbol' style='font-size:large; display: none'>"
             echo "Delay: <span id='intervalSectionRegularMarketTimeOffset$symbol' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalField$symbol' id='intervalField$symbol' type='text' style='height: 45px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButton$symbol' style='font-size:large; height: 50px; width: 97px' onClick=\"javascript:setBeepInterval('$symbol')\">Minutes</button><span id='intervalText$symbol'></span>"
             echo "</span>"
 
