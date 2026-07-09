@@ -861,14 +861,16 @@ do
                 counterOwnStocks=$counterOwnStocks; // For Spinner
                 document.addEventListener('DOMContentLoaded', onContentLoaded('$symbol', '$ID_NOTATION', '$asset_type'));
             </script>"
-                        
-            echo "<span id='intervalSectionRealTimeQuote$symbol' style='font-size:xx-large; display: none'>---</span>&nbsp;
-                  <span id='intervalSectionPercentage$symbol' style='font-size:xx-large; display: none'></span>
-                  <span id='intervalSectionGain$symbol' style='font-size:xx-large; display: none'></span>
-                  <span id='neverShowRegularMarketTime$symbol' style='display: none'></span>
-                  <span id='intervalSectionPortfolioValues$symbol' style='font-size:large; display: none'></span>
-                  <span id='intervalSectionPortfolioGain$symbol' style='font-size:large; display: none'></span>
-                  <span id='intervalSectionButtonDetailsBR$symbol'><br></span>"
+
+# echo "<div>--------------</div>"                        
+#             echo "<span id='intervalSectionRealTimeQuote$symbol' style='font-size:xx-large; display: none'>---</span>&nbsp;
+#                   <span id='intervalSectionPercentage$symbol' style='font-size:xx-large; display: none'></span>
+#                   <span id='intervalSectionGain$symbol' style='font-size:xx-large; display: none'></span>
+#                   <span id='neverShowRegularMarketTime$symbol' style='display: none'></span>
+#                   <span id='intervalSectionPortfolioValues$symbol' style='font-size:large; display: none'></span>
+#                   <span id='intervalSectionPortfolioGain$symbol' style='font-size:large; display: none'></span>
+#                   <span id='intervalSectionButtonDetailsBR$symbol'><br></span>"
+# echo "<div>----------------</div>"
 
             # ObfuscatedValue neverShowDiv (Yesterday)
             echo "<div id='neverShowDiv$symbol' style='display:none'>
