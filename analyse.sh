@@ -957,13 +957,13 @@ fi
 
 {
     # Overall
-    echo "<br><br><div id='portfolioValueDaxFooterId'>" # START portfolioValueDaxFooterId
-    echo "<hr id='intervalSectionHROverallRealtimeBegin' style='display: none'>"
-    echo "<span id='intervalSectionHeadlineOverallPortfolio' style='display:none'># Portfolio value purchase</span><br>"
-    echo "<span id='obfuscatedValueBuyingOverall' style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
-    echo "<br><br><span id='intervalSectionHeadlineOverallRealtime' style='display:none'># Realtime difference to purchase</span><br>"
-    echo "<span id='obfuscatedValueBuyingOverallRealtime' style='font-size:xx-large; display:none'>---</span>"
-    echo "<hr id='intervalSectionHROverallRealtime' style='display: none'>"
+    # echo "<br><br><div id='portfolioValueDaxFooterId'>" # START portfolioValueDaxFooterId
+    # echo "<hr id='intervalSectionHROverallRealtimeBegin' style='display: none'>"
+    # echo "<span id='intervalSectionHeadlineOverallPortfolio' style='display:none'># Portfolio value purchase</span><br>"
+    # echo "<span id='obfuscatedValueBuyingOverall' style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
+    # echo "<br><br><span id='intervalSectionHeadlineOverallRealtime' style='display:none'># Realtime difference to purchase</span><br>"
+    # echo "<span id='obfuscatedValueBuyingOverallRealtime' style='font-size:xx-large; display:none'>---</span>"
+    # echo "<hr id='intervalSectionHROverallRealtime' style='display: none'>"
 
     # DAX
     echo "<span id='intervalSectionHeadlineDAX' style='display:none'>DAX<br></span>"
