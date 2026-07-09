@@ -612,7 +612,7 @@ function showChart(timeSpan, symbol) {
     }
     else {
         elementSpanToReplace.style.top = '10%';
-        elementSpanToReplace.style.left = '15%';
+        elementSpanToReplace.style.left = '22%';
         elementSpanToReplace.style.transform = 'scale(1.1)'; // yyy
     }
 
