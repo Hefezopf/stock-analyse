@@ -763,7 +763,7 @@ do
             else
                 # echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
                 #echo "<span class='tooltiptext'><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
-                echo "<span style='font-size:$FONT_SIZE_DETAIL'><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'>&nbsp;$branche</span>"
+                echo "<span style='font-size:$FONT_SIZE_DETAIL'><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}:${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'>&nbsp;$branche</span>"
             fi
 
             #echo "<div>$branche<br></div></p>"
