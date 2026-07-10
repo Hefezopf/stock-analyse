@@ -53,10 +53,6 @@ grey: 'rgb(201, 203, 207)'
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244494343&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
 
 <!--
-<div style="width:107%;margin-left:-80px;margin-top:-20px;"> 
-<div style="width:107%;margin-left:-130px;margin-top:-20px;">
---> 
-
 <div id="divCanvasIdQuote" style="width:107%;margin-left:-140px;margin-top:-20px;">    
 <canvas id="canvasQuote"></canvas>
 </div>
@@ -70,6 +66,38 @@ grey: 'rgb(201, 203, 207)'
 </div>
 
 <div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-15px;margin-bottom:-15px;">
+<canvas id="canvasMACD"></canvas>
+</div>
+
+<script>
+const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
+// isMobil
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+for (var i = 0; i < divCanvasIds.length; i++) {
+divCanvasIds[i].style.marginLeft = '-80px';
+// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
+}        
+}
+
+var config = {
+type: 'line',
+data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
+labels: [
+--> 
+
+<div id="divCanvasIdQuote" style="width:107%;margin-left:-140px;margin-top:-20px;">    
+<canvas id="canvasQuote"></canvas>
+</div>
+
+<div id="divCanvasIdStochastik" style="width:107%;margin-left:-140px;margin-top:-20px;">
+<canvas id="canvasStochastik"></canvas>
+</div>
+
+<div id="divCanvasIdRSI" style="width:107%;margin-left:-140px;margin-top:-20px;">
+<canvas id="canvasRSI"></canvas>
+</div>
+
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-20px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
@@ -570,7 +598,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 09:11</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 09:33</p>
 <span id='stocksPiecesId' style='display:none'>9900</span>
 <span id='stocksBuyingValueId' style='display:none'>249118</span>
 
