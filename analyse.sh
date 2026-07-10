@@ -698,8 +698,12 @@ do
         echo "<a id='headlineLink$symbol' $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-        echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:rgb(0, 0, 0)'><b>$last€</b></span>"
-        #echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>$last€</b></span>"        
+        lastThousand="$last"
+        if [ "${#lastThousand}" -gt 6 ]; then
+            lastThousand=$(printf "%.0f" "$lastRaw")
+        fi
+        echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:rgb(0, 0, 0)'><b>$lastThousand€</b></span>"
+        #echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>$lastThousand€</b></span>"        
         echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>$percentLastDay%</b></span><br>" 
 #############
 
