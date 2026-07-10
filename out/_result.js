@@ -608,8 +608,8 @@ function showChart(timeSpan, symbol) {
     if(isMobil()) {
         elementSpanToReplace.style.top = '15%';
         elementSpanToReplace.style.left = '11%';
-        elementSpanToReplace.style.transform = 'scale(1.35)'; // yyy
-//        elementSpanToReplace.style.transform = 'scale(1.25)'; // zzz
+ //       elementSpanToReplace.style.transform = 'scale(1.35)'; // yyy
+        elementSpanToReplace.style.transform = 'scale(1.25)'; // zzz
     }
     else {
         elementSpanToReplace.style.top = '10%';
