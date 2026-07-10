@@ -606,7 +606,7 @@ do
         echo "<p style='text-align:right;font-size:$FONT_SIZE_DETAIL;margin:-1px 35px 0px 0px;'>"
         # onmouseenter vs. onmouseover
         # onmouseleave vs. onmouseout
-        echo "$markerOwnStock$symbol $symbolName"
+        echo "$symbolName"
         # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
         # echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
         # echo "<span style=';font-size:40px;color:rgb(0, 0, 0)'><b>$lastThousand€</b></span>"
