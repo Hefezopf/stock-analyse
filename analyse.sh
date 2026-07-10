@@ -747,8 +747,8 @@ do
                 border-radius:6px;
                 position:absolute;
                 z-index:1;
-                font-size:43px;
-                margin:10px 0px 0px -410px;
+                font-size:30px;
+                margin:70px 0px 0px -410px;
                 line-height:100%;
             }
             .tooltip:hover .tooltiptext {
