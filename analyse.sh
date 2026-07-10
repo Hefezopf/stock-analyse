@@ -730,15 +730,6 @@ do
             branche=$(echo "$lineFromTickerFile" | cut -f 5)
             firmenportrait=$(echo "$lineFromTickerFile" | cut -f 10)
 
-            # Country Flag         
-            if [ ! "$isin" ] ; then
-                # Should never occure 
-                echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
-            else
-                # echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
-                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
-            fi
-
             # hover Firmenportrait Text
             echo "<style>
             .tooltip {
@@ -765,7 +756,18 @@ do
             }
             </style>"
 
-            echo "<div class='tooltip'>$branche<br><div class='tooltiptext'>$firmenportrait</div></div></p>"
+            # Country Flag         
+            if [ ! "$isin" ] ; then
+                # Should never occure 
+                echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
+            else
+                # echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
+                #echo "<span class='tooltiptext'><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
+                echo "<span style='font-size:$FONT_SIZE_DETAIL'><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'>&nbsp;$branche</span>"
+            fi
+
+            #echo "<div>$branche<br></div></p>"
+            #echo "<div class='tooltip'>$branche<br><div class='tooltiptext'>$firmenportrait</div></div></p>"
 
             # Market Cap Progressbar, only if number
             if [ "$marketCapFromFile" = '?' ]; then
