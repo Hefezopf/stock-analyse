@@ -747,7 +747,7 @@ do
                 border-radius:6px;
                 position:absolute;
                 z-index:1;
-                font-size:42px;
+                font-size:$FONT_SIZE_DETAIL;
                 margin:70px 0px 0px -410px;
                 line-height:100%;
             }
