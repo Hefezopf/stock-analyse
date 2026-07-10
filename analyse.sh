@@ -733,7 +733,7 @@ do
             # hover Firmenportrait Text
             echo "<style>
             .tooltip {
-                display:inline-block;
+              //  display:inline-block;
                 border-bottom:2px dotted black; 
                 font-size:70px;
                 line-height:67px;
@@ -771,7 +771,7 @@ do
 echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.classList.toggle('active')'>
         <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' width='5%' height='5%' style='border:1px solid;'>
         <span class='tooltiptext'>${isin:0:2}:${firmenportrait}</span>
-      &nbsp;$branche</span>"   
+      &nbsp;$branche</span>"
 
             fi
 
