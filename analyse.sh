@@ -726,12 +726,17 @@ do
             dive=$(echo "$lineFromTickerFile" | cut -f 7)
             echo "<span style='font-size:$FONT_SIZE_DETAIL'>DIV&nbsp;$dive%&nbsp</span>&nbsp;"
 
+            # Branche und Firmenportrait Tooltip
+            branche=$(echo "$lineFromTickerFile" | cut -f 5)
+            firmenportrait=$(echo "$lineFromTickerFile" | cut -f 10)
+
             # Country Flag         
             if [ ! "$isin" ] ; then
                 # Should never occure 
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
-                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
+                # echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
+                echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
             fi
 
             # hover Firmenportrait Text
@@ -760,9 +765,6 @@ do
             }
             </style>"
 
-            # Branche und Firmenportrait Tooltip
-            branche=$(echo "$lineFromTickerFile" | cut -f 5)
-            firmenportrait=$(echo "$lineFromTickerFile" | cut -f 10)
             echo "<div class='tooltip'>$branche<br><div class='tooltiptext'>$firmenportrait</div></div></p>"
 
             # Market Cap Progressbar, only if number
