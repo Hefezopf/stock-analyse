@@ -176,7 +176,7 @@ Out "# Parameter" $OUT_SIMULATE_FILE
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 SymbolsParamShortened "$symbolsParam"
-Out "Symbols ($countSymbols):$SYMBOLS_PARAM_SHORTENED" $OUT_SIMULATE_FILE
+Out "Symbols ($countSymbols $SYMBOLS_PARAM_SHORTENED" $OUT_SIMULATE_FILE
 
 ParameterOut
 
@@ -627,9 +627,9 @@ done
 
 isLiquidityNegativ=${isLiquidityNegativ:0:1}
 if [ "$isLiquidityNegativ" = '-' ]; then
-    Out "Currently invested (in Stocks):$liquidity€" $OUT_SIMULATE_FILE
+    Out "Currently invested (in Stocks): $liquidity€" $OUT_SIMULATE_FILE
 else
-    Out "Currently Liquidity Cash to spend:$liquidity€" $OUT_SIMULATE_FILE
+    Out "Currently Liquidity Cash to spend: $liquidity€" $OUT_SIMULATE_FILE
 fi
 
 Out "" $OUT_SIMULATE_FILE
