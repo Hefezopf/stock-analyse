@@ -7,13 +7,12 @@ function showChart(timeSpan) {
     if(isMobil()) {
         elementSpanToReplace.style.top = '20%';
         elementSpanToReplace.style.left = '20%'
-        elementSpanToReplace.style.transform = 'scale(1.7)'; // yyy
-       // elementSpanToReplace.style.transform = 'scale(1.85)'; // yyy        
+        elementSpanToReplace.style.transform = 'scale(1.7)';     
     }
     else {
-        elementSpanToReplace.style.top = '15%';
+        elementSpanToReplace.style.top = '13%';
         elementSpanToReplace.style.left = '44%';
-        elementSpanToReplace.style.transform = 'scale(1.2)';
+        elementSpanToReplace.style.transform = 'scale(1.1)';
     }   
     elementSpanToReplace.style.display = 'block';
  
