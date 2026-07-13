@@ -608,13 +608,12 @@ function showChart(timeSpan, symbol) {
     if(isMobil()) {
         elementSpanToReplace.style.top = '15%';
         elementSpanToReplace.style.left = '11%';
-//        elementSpanToReplace.style.transform = 'scale(1.35)'; // yyy
-        elementSpanToReplace.style.transform = 'scale(1.25)'; // zzz
+        elementSpanToReplace.style.transform = 'scale(1.25)';
     }
     else {
         elementSpanToReplace.style.top = '10%';
         elementSpanToReplace.style.left = '22%';
-        elementSpanToReplace.style.transform = 'scale(1.1)'; // yyy
+        elementSpanToReplace.style.transform = 'scale(1.1)';
     }
 
     // Concat is not clean, but works!
