@@ -67,7 +67,8 @@ grey: 'rgb(201, 203, 207)'
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-20px;">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
@@ -77,14 +78,13 @@ const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 for (var i = 0; i < divCanvasIds.length; i++) {
 divCanvasIds[i].style.marginLeft = '-80px';
-// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
 }        
 }
 
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','02','05','06','07','08','09','12','4S+','5S+','C+6S+','6S+','C+6S+3R+M+','6S+3R+M+','5S+M+','22','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','15','16','17','18','19','22','23','24','25','26','29','30','31','01','02','05','06','07','08','09','12','4S+','5S+','C+6S+','6S+','C+6S+3R+M+','6S+3R+M+','5S+M+','22','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [{
 label: ' "ONEOK" ',
@@ -92,8 +92,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [73.45,
-73.71,
+data: [73.71,
 74.80,
 74.01,
 74.52,
@@ -179,6 +178,7 @@ data: [73.45,
 77.90,
 79.46,
 78.20,
+78.68,
 ]},
 {
 label: 'buy',
@@ -199,21 +199,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 72.665, 72.7122, 72.9539, 73.3311, 73.7361, 74.0378, 74.5211, 74.9839, 75.4994, 75.9494, 76.1856, 76.1544, 76.3094, 76.52, 76.6772, 76.8867, 76.8433, 76.8194, 76.7606, 76.5778, 76.3217, 75.9867, 75.7328, 75.4794, 75.0544, 74.55, 74.0944, 73.7111, 73.5256, 73.5378, 73.5644, 73.5167, 73.6472, 73.7111, 73.8856, 74.0111, 73.9122, 73.9956, 74.03, 74.21, 74.3583, 74.6094, 74.9883, 75.4217, 75.7883, 76.1761, 76.4344, 76.7167, 76.9489, 77.12, 77.0583, 76.8867, 76.7422, 76.5278, 76.5944, 76.6611, 76.7967, 76.9078, 76.9944, 77.0422, 76.9333, 76.8778, 76.7056, 76.5567, 76.3978, 76.0989, 75.7278, 75.4856, 75.2789, 75.2689, 75.4167, 75.6344, 75.95, 76.1711, 76.3078, 76.29, 76.2222, 76.2189, 76.25, 76.1333, 76.1956, 76.2656, 76.3644,
+data: [ , , , , 72.7122, 72.9539, 73.3311, 73.7361, 74.0378, 74.5211, 74.9839, 75.4994, 75.9494, 76.1856, 76.1544, 76.3094, 76.52, 76.6772, 76.8867, 76.8433, 76.8194, 76.7606, 76.5778, 76.3217, 75.9867, 75.7328, 75.4794, 75.0544, 74.55, 74.0944, 73.7111, 73.5256, 73.5378, 73.5644, 73.5167, 73.6472, 73.7111, 73.8856, 74.0111, 73.9122, 73.9956, 74.03, 74.21, 74.3583, 74.6094, 74.9883, 75.4217, 75.7883, 76.1761, 76.4344, 76.7167, 76.9489, 77.12, 77.0583, 76.8867, 76.7422, 76.5278, 76.5944, 76.6611, 76.7967, 76.9078, 76.9944, 77.0422, 76.9333, 76.8778, 76.7056, 76.5567, 76.3978, 76.0989, 75.7278, 75.4856, 75.2789, 75.2689, 75.4167, 75.6344, 75.95, 76.1711, 76.3078, 76.29, 76.2222, 76.2189, 76.25, 76.1333, 76.1956, 76.2656, 76.3644, 76.6133,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 74.5489, 74.47, 74.4803, 74.4966, 74.5363, 74.5766, 74.6632, 74.705, 74.7689, 74.8163, 74.8963, 74.9116, 75.0468, 75.2084, 75.3061, 75.3621, 75.28, 75.2561, 75.1955, 75.1795, 75.1455, 75.1021, 75.1295, 75.2321, 75.2634, 75.2697, 75.2118, 75.1797, 75.2579, 75.3689, 75.4016, 75.3821, 75.3368, 75.1921, 75.1621, 75.1811, 75.2126, 75.3358, 75.4642, 75.6021, 75.6982, 75.8945, 76.0455, 76.2203, 76.3029, 76.3108, 76.3011, 76.2916, 76.2137, 76.2121, 76.175, 76.1032, 76.14, 76.2042, 76.3474, 76.4226, 76.5026, 76.5537, 76.5942, 76.6163, 76.6174, 76.62, 76.5758,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 74.47, 74.4803, 74.4966, 74.5363, 74.5766, 74.6632, 74.705, 74.7689, 74.8163, 74.8963, 74.9116, 75.0468, 75.2084, 75.3061, 75.3621, 75.28, 75.2561, 75.1955, 75.1795, 75.1455, 75.1021, 75.1295, 75.2321, 75.2634, 75.2697, 75.2118, 75.1797, 75.2579, 75.3689, 75.4016, 75.3821, 75.3368, 75.1921, 75.1621, 75.1811, 75.2126, 75.3358, 75.4642, 75.6021, 75.6982, 75.8945, 76.0455, 76.2203, 76.3029, 76.3108, 76.3011, 76.2916, 76.2137, 76.2121, 76.175, 76.1032, 76.14, 76.2042, 76.3474, 76.4226, 76.5026, 76.5537, 76.5942, 76.6163, 76.6174, 76.62, 76.5758, 76.5179,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 75.2497, 75.2752, 75.3215, 75.4017, 75.5062, 75.5922,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 75.2752, 75.3215, 75.4017, 75.5062, 75.5922, 75.6837,
 ]},
 {
 label:' Buying/Last ',
@@ -221,14 +221,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,78.20,               ]},
+data: [ 78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,78.68,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,82.11,			]}	
+data: [ 82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,82.614,			]}	
 ]},
 options: {
 responsive: true,
@@ -274,7 +274,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','02','05','06','07','08','09','12','4S+','5S+','C+6S+','6S+','C+6S+3R+M+','6S+3R+M+','5S+M+','22','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','15','16','17','18','19','22','23','24','25','26','29','30','31','01','02','05','06','07','08','09','12','4S+','5S+','C+6S+','6S+','C+6S+3R+M+','6S+3R+M+','5S+M+','22','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -283,7 +283,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 73, 78, 99, 84, 93, 100, 100, 100, 94, 64, 100, 100, 100, 91, 54, 3, 30, 27, 27, 44, 0, 0, 0, 0, 0, 0, 12, 0, 2, 10, 36, 45, 56, 96, 100, 77, 100, 100, 80, 63, 10, 27, 9, 37, 46, 53, 88, 100, 100, 100, 82, 85, 100, 73, 60, 38, 4, 0, 10, 25, 29, 47, 50, 47, 43, 71, 73, 97, 69, 34, 35, 22, 0, 34, 75, 46, 100, 94, 69, 45, 30, 50, 55, 51, 86, 100, 70,
+data: [		 78, 99, 84, 93, 100, 100, 100, 94, 64, 100, 100, 100, 91, 54, 3, 30, 27, 27, 44, 0, 0, 0, 0, 0, 0, 12, 0, 2, 10, 36, 45, 56, 96, 100, 77, 100, 100, 80, 63, 10, 27, 9, 37, 46, 53, 88, 100, 100, 100, 82, 85, 100, 73, 60, 38, 4, 0, 10, 25, 29, 47, 50, 47, 43, 71, 73, 97, 69, 34, 35, 22, 0, 34, 75, 46, 100, 94, 69, 45, 30, 50, 55, 51, 86, 100, 70, 81,
 ]},
 {
 label: '91',
@@ -346,7 +346,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','02','05','06','07','08','09','12','4S+','5S+','C+6S+','6S+','C+6S+3R+M+','6S+3R+M+','5S+M+','22','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','15','16','17','18','19','22','23','24','25','26','29','30','31','01','02','05','06','07','08','09','12','4S+','5S+','C+6S+','6S+','C+6S+3R+M+','6S+3R+M+','5S+M+','22','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -355,7 +355,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 41, 48, 61, 65, 71, 71, 74, 71, 70, 61, 67, 68, 77, 78, 63, 51, 53, 55, 54, 56, 45, 42, 42, 41, 31, 22, 24, 23, 28, 39, 38, 40, 44, 38, 61, 57, 66, 75, 68, 64, 48, 55, 52, 56, 54, 53, 57, 60, 57, 62, 51, 52, 59, 56, 66, 56, 56, 43, 44, 47, 41, 41, 40, 36, 39, 46, 38, 49, 46, 46, 49, 57, 53, 53, 58, 48, 55, 55, 53, 43, 45, 43, 50, 58, 62, 67, 63,
+data: [ 51, 61, 65, 71, 71, 74, 71, 70, 61, 67, 68, 77, 78, 63, 51, 53, 55, 54, 56, 45, 42, 42, 41, 31, 22, 24, 23, 28, 39, 38, 40, 44, 38, 61, 57, 66, 75, 68, 64, 48, 55, 52, 56, 54, 53, 57, 60, 57, 62, 51, 52, 59, 56, 66, 56, 56, 43, 44, 47, 41, 41, 40, 36, 39, 46, 38, 49, 46, 46, 49, 57, 53, 53, 58, 48, 55, 55, 53, 43, 45, 43, 50, 58, 62, 67, 63, 60,
 ]},
 {
 label: '75',
@@ -421,7 +421,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','12','15','16','17','18','19','22','23','24','25','26','29','30','31','01','02','05','06','07','08','09','12','4S+','5S+','C+6S+','6S+','C+6S+3R+M+','6S+3R+M+','5S+M+','22','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','15','16','17','18','19','22','23','24','25','26','29','30','31','01','02','05','06','07','08','09','12','4S+','5S+','C+6S+','6S+','C+6S+3R+M+','6S+3R+M+','5S+M+','22','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -430,7 +430,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 2.96, 2.96, 2.77, 2.29, 2.05, 1.84, 1.65, 1.58, 1.23, 0.91, 0.64, 0.27, -0.03, -0.30, -0.41, -0.61, -0.74, -0.79, -0.69, -0.55, -0.38, -0.25, 0.04, 0.15, 0.50, 0.76, 0.84, 0.79, 0.41, 0.22, 0.00, -0.01, 0.04, 0.11, 0.36, 0.67, 0.95, 1.24, 1.32, 1.40, 1.55, 1.45, 1.28, 0.98, 0.65, 0.18, -0.12, -0.24, -0.30, -0.22, -0.13, -0.08, -0.07, 0.14, 0.17, 0.31, 0.27, 0.06, -0.10, -0.23, -0.36, -0.34, -0.16, -0.13, 0.11, 0.27, 0.31, 0.24, 0.12, 0.11, 0.11, 0.10, 0.22, 0.44, 0.50,
+data: [ , , , , , , , , , , , , 2.96, 2.96, 2.47, 2.22, 1.99, 1.80, 1.72, 1.36, 1.03, 0.75, 0.37, 0.07, -0.21, -0.33, -0.53, -0.67, -0.73, -0.63, -0.49, -0.32, -0.20, 0.08, 0.20, 0.54, 0.80, 0.88, 0.82, 0.44, 0.25, 0.03, 0.01, 0.06, 0.13, 0.38, 0.69, 0.97, 1.25, 1.34, 1.41, 1.56, 1.46, 1.29, 0.99, 0.66, 0.19, -0.11, -0.23, -0.29, -0.21, -0.13, -0.07, -0.06, 0.14, 0.17, 0.31, 0.27, 0.06, -0.10, -0.23, -0.36, -0.33, -0.16, -0.13, 0.11, 0.27, 0.31, 0.24, 0.12, 0.11, 0.12, 0.10, 0.22, 0.44, 0.50, 0.59,
 ]},
 {
 label: '0',
@@ -508,14 +508,13 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLinkONK' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538253"  target="_blank">ONK "ONEOK"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538253"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538253"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>78.20€</b></span>
-&nbsp;<span style='font-size:45px; color:red'><b>-1.6%</b></span><br>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>78.68€</b></span>
+&nbsp;<span style='font-size:45px; color:green'><b>0.6%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;15&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;4%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
 <style>
 .tooltip {
-display:inline-block;
+//  display:inline-block;
 border-bottom:2px dotted black; 
 font-size:70px;
 line-height:67px;
@@ -529,29 +528,32 @@ padding:7px 10px 50px 10px;
 border-radius:6px;
 position:absolute;
 z-index:1;
-font-size:43px;
-margin:10px 0px 0px -410px;
+font-size:45px;
+margin:70px 0px 0px -410px;
 line-height:100%;
 }
 .tooltip:hover .tooltiptext {
 visibility:visible;
 }
 </style>
-<div class='tooltip'>"Energieversorger"<br><div class='tooltiptext'>" ONEOK, Inc. ist ein diversifiziertes Energieunternehmen. Das Unternehmen ist persönlich haftende Gesellschafterin und hält von 41,2 Prozent an der ONEOK Partners, L.P. (Stand 21. August 2015). ONEOK Partners, L.P. ist eine der größten börsennotierten Master Limited Partnerships, die eines der führenden Flüssigerdgas-Systeme (NGL) in Kanada besitzt, das den Anschluss der NGL Versorgung in der Mid-Continent, Permian und Rocky Mountain Region mit wichtigen Marktzentren verbindet. Darüber hinaus ist es ein führendes Unternehmen bei Erhebung, Verarbeitung, Speicherung und Transport von Erdgas in den Vereinigten Staaten. "</div></div></p>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" ONEOK, Inc. ist ein diversifiziertes Energieunternehmen. Das Unternehmen ist persönlich haftende Gesellschafterin und hält von 41,2 Prozent an der ONEOK Partners, L.P. (Stand 21. August 2015). ONEOK Partners, L.P. ist eine der größten börsennotierten Master Limited Partnerships, die eines der führenden Flüssigerdgas-Systeme (NGL) in Kanada besitzt, das den Anschluss der NGL Versorgung in der Mid-Continent, Permian und Rocky Mountain Region mit wichtigen Marktzentren verbindet. Darüber hinaus ist es ein führendes Unternehmen bei Erhebung, Verarbeitung, Speicherung und Transport von Erdgas in den Vereinigten Staaten. "</span>
+&nbsp;"Energieversorger"</span>
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 24%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;48 Mrd.€</div><br>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;49 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-07-09</b>
+<b>2026-07-12</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>76.36€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>76.58€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>75.59€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>70 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>63 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.50 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>76.61€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>76.52€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>75.68€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>81 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>60 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.59 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -568,7 +570,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 18:02</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 13-Jul-2026 05:25</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

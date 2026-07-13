@@ -67,7 +67,8 @@ grey: 'rgb(201, 203, 207)'
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-20px;">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
@@ -77,14 +78,13 @@ const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 for (var i = 0; i < divCanvasIds.length; i++) {
 divCanvasIds[i].style.marginLeft = '-80px';
-// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
 }        
 }
 
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','10','C+D+N+','14','C+D+N+','C+3R+D+N+M+','C+4S+4R+D+N+M+','C+5S+5R+D+N+M+','C+6S+6R+M+','C+6S+6R+D+N+M+','6S+6R+M+','24','25','28','29','30','M+','02','05','06','07','P+','P+D+N+M+'
+labels: ['','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','10','C+D+N+','14','C+D+N+','C+3R+D+N+M+','C+4S+4R+D+N+M+','C+5S+5R+D+N+M+','C+6S+6R+M+','C+6S+6R+D+N+M+','6S+6R+M+','24','25','28','29','30','M+','02','05','06','07','P+','P+D+N+M+','P+M+'
 ],
 datasets: [{
 label: ' "VICI Properties" ',
@@ -93,7 +93,6 @@ backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
 data: [24.80,
-24.80,
 24.80,
 24.80,
 24.80,
@@ -179,6 +178,7 @@ data: [24.80,
 23.45,
 22.80,
 22.65,
+22.75,
 ]},
 {
 label: 'buy',
@@ -199,21 +199,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.7694, 24.7528, 24.7167, 24.6778, 24.6139, 24.5083, 24.4111, 24.3, 24.2194, 24.1472, 24.0639, 24.0111, 23.9611, 23.8722, 23.775, 23.7167, 23.6667, 23.5833, 23.5389, 23.4444, 23.3611,
+data: [ , , , , 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.7694, 24.7528, 24.7167, 24.6778, 24.6139, 24.5083, 24.4111, 24.3, 24.2194, 24.1472, 24.0639, 24.0111, 23.9611, 23.8722, 23.775, 23.7167, 23.6667, 23.5833, 23.5389, 23.4444, 23.3611, 23.2861,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.7855, 24.7776, 24.7605, 24.7421, 24.7118, 24.6618, 24.6158, 24.5632, 24.525, 24.4908, 24.4513, 24.4263, 24.4026, 24.3605, 24.3145, 24.2868, 24.2632, 24.2237, 24.1882, 24.1355, 24.0789,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.8, 24.7855, 24.7776, 24.7605, 24.7421, 24.7118, 24.6618, 24.6158, 24.5632, 24.525, 24.4908, 24.4513, 24.4263, 24.4026, 24.3605, 24.3145, 24.2868, 24.2632, 24.2237, 24.1882, 24.1355, 24.0789, 24.025,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 24.5947, 24.5853, 24.5695, 24.5553, 24.5342, 24.5116,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 24.5853, 24.5695, 24.5553, 24.5342, 24.5116, 24.49,
 ]},
 {
 label:' Buying/Last ',
@@ -221,14 +221,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,22.65,               ]},
+data: [ 22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,22.75,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,23.7825,			]}	
+data: [ 23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,23.8875,			]}	
 ]},
 options: {
 responsive: true,
@@ -274,7 +274,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','10','C+D+N+','14','C+D+N+','C+3R+D+N+M+','C+4S+4R+D+N+M+','C+5S+5R+D+N+M+','C+6S+6R+M+','C+6S+6R+D+N+M+','6S+6R+M+','24','25','28','29','30','M+','02','05','06','07','P+','P+D+N+M+'
+labels: ['','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','10','C+D+N+','14','C+D+N+','C+3R+D+N+M+','C+4S+4R+D+N+M+','C+5S+5R+D+N+M+','C+6S+6R+M+','C+6S+6R+D+N+M+','6S+6R+M+','24','25','28','29','30','M+','02','05','06','07','P+','P+D+N+M+','P+M+'
 ],
 datasets: [
 {
@@ -283,7 +283,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 45, 0, 0, 0, 0, 7, 0, 27, 35, 25, 52, 55, 23, 14, 70, 84, 45, 59, 0, 0,
+data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 45, 0, 0, 0, 0, 7, 0, 27, 35, 25, 52, 55, 23, 14, 70, 84, 45, 59, 0, 0, 8,
 ]},
 {
 label: '91',
@@ -346,7 +346,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','10','C+D+N+','14','C+D+N+','C+3R+D+N+M+','C+4S+4R+D+N+M+','C+5S+5R+D+N+M+','C+6S+6R+M+','C+6S+6R+D+N+M+','6S+6R+M+','24','25','28','29','30','M+','02','05','06','07','P+','P+D+N+M+'
+labels: ['','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','10','C+D+N+','14','C+D+N+','C+3R+D+N+M+','C+4S+4R+D+N+M+','C+5S+5R+D+N+M+','C+6S+6R+M+','C+6S+6R+D+N+M+','6S+6R+M+','24','25','28','29','30','M+','02','05','06','07','P+','P+D+N+M+','P+M+'
 ],
 datasets: [
 {
@@ -355,7 +355,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 31, 21, 20, 15, 10, 15, 14, 28, 31, 29, 38, 39, 34, 36, 42, 47, 42, 48, 49, 46,
+data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 31, 21, 20, 15, 10, 15, 14, 28, 31, 29, 38, 39, 34, 36, 42, 47, 42, 48, 49, 46, 49,
 ]},
 {
 label: '75',
@@ -421,7 +421,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','10','C+D+N+','14','C+D+N+','C+3R+D+N+M+','C+4S+4R+D+N+M+','C+5S+5R+D+N+M+','C+6S+6R+M+','C+6S+6R+D+N+M+','6S+6R+M+','24','25','28','29','30','M+','02','05','06','07','P+','P+D+N+M+'
+labels: ['','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','10','C+D+N+','14','C+D+N+','C+3R+D+N+M+','C+4S+4R+D+N+M+','C+5S+5R+D+N+M+','C+6S+6R+M+','C+6S+6R+D+N+M+','6S+6R+M+','24','25','28','29','30','M+','02','05','06','07','P+','P+D+N+M+','P+M+'
 ],
 datasets: [
 {
@@ -430,7 +430,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.04, -0.06, -0.10, -0.13, -0.19, -0.29, -0.36, -0.43, -0.43, -0.42, -0.42, -0.37, -0.33, -0.34, -0.36, -0.32, -0.27, -0.28, -0.27, -0.31, -0.35,
+data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.04, -0.06, -0.10, -0.13, -0.19, -0.29, -0.36, -0.43, -0.43, -0.42, -0.42, -0.37, -0.33, -0.34, -0.36, -0.32, -0.27, -0.28, -0.27, -0.31, -0.35, -0.37,
 ]},
 {
 label: '0',
@@ -508,14 +508,13 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLink1KN' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=347983755"  target="_blank">1KN "VICI Properties"</a>
 <a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=347983755"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=347983755"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>22.65€</b></span>
-&nbsp;<span style='font-size:45px; color:red'><b>-0.7%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;9&nbsp;&nbsp;</span>
-<span style='font-size:45px'>DIV&nbsp;6%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>22.75€</b></span>
+&nbsp;<span style='font-size:45px; color:green'><b>0.4%</b></span><br>
+<span style='font-size:45px'>KGV&nbsp;8&nbsp;&nbsp;</span>
+<span style='font-size:45px'>DIV&nbsp;7%&nbsp</span>&nbsp;
 <style>
 .tooltip {
-display:inline-block;
+//  display:inline-block;
 border-bottom:2px dotted black; 
 font-size:70px;
 line-height:67px;
@@ -529,35 +528,38 @@ padding:7px 10px 50px 10px;
 border-radius:6px;
 position:absolute;
 z-index:1;
-font-size:43px;
-margin:10px 0px 0px -410px;
+font-size:45px;
+margin:70px 0px 0px -410px;
 line-height:100%;
 }
 .tooltip:hover .tooltiptext {
 visibility:visible;
 }
 </style>
-<div class='tooltip'>"Immobilien"<br><div class='tooltiptext'>" Die VICI PROPERTIES INC. befasst sich in erster Linie mit dem Besitz und dem Erwerb von Glücksspiel-, Gastgewerbe- und Unterhaltungseinrichtungen, die Gegenstand langfristiger Triple-Net-Pachtverträge sind. Das nationale, geografisch diversifizierte Portfolio besteht aus mehr als 25 marktführenden Objekten, darunter Caesars Palace Las Vegas, Harrah's Las Vegas und das Venetian Resort. Auf einer Fläche von über 62 Millionen Quadratmetern befinden sich die VICI-Objekte in zwölf Bundesstaaten in städtischen Gebieten sowie in Gebieten und Märkten, die von Autofahrern angefahren werden. Sie verfügen über rund 25.000 Hotelzimmer sowie mehr als 250 Restaurants, Bars und Nachtclubs. Nach dem Abschluss der MGP-Akquisition, die in der ersten Hälfte des Jahres 2022 erfolgte, vergrößert sich das Portfolio auf über 40 Immobilien (davon zehn auf dem Las Vegas Strip) mit einer Fläche von 117 Millionen Quadratmetern, 57.500 Hotelzimmern und über 400 Restaurants, Bars und Nachtclubs. "</div></div></p>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" Die VICI PROPERTIES INC. befasst sich in erster Linie mit dem Besitz und dem Erwerb von Glücksspiel-, Gastgewerbe- und Unterhaltungseinrichtungen, die Gegenstand langfristiger Triple-Net-Pachtverträge sind. Das nationale, geografisch diversifizierte Portfolio besteht aus mehr als 25 marktführenden Objekten, darunter Caesars Palace Las Vegas, Harrah's Las Vegas und das Venetian Resort. Auf einer Fläche von über 62 Millionen Quadratmetern befinden sich die VICI-Objekte in zwölf Bundesstaaten in städtischen Gebieten sowie in Gebieten und Märkten, die von Autofahrern angefahren werden. Sie verfügen über rund 25.000 Hotelzimmer sowie mehr als 250 Restaurants, Bars und Nachtclubs. Nach dem Abschluss der MGP-Akquisition, die in der ersten Hälfte des Jahres 2022 erfolgte, vergrößert sich das Portfolio auf über 40 Immobilien (davon zehn auf dem Las Vegas Strip) mit einer Fläche von 117 Millionen Quadratmetern, 57.500 Hotelzimmern und über 400 Restaurants, Bars und Nachtclubs. "</span>
+&nbsp;"Immobilien"</span>
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 12%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;25 Mrd.€</div><br>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;24 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-07-09</b>
+<b>2026-07-12</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>23.36€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>24.08€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>24.51€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>0 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>46 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.35 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>23.29€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>24.02€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>24.49€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>8 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>49 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.37 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
-<p class='p-result' style='color:rgb(0, 0, 0)'><b> Buy: New 40 days Low (N) </b></p>
-<p class='p-result' style='color:rgb(245, 111, 66)'><b> Buy: RSI Divergence (D) </b></p>
-<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -0.35 </b></p>
-<p class='p-result' style='color:rgb(205, 205, 0)'><b> Buy: Low Percent & Stochastic (P): 22.65€ is .99 under Avg18 < Avg38 < Avg95 and Stoch14 0 under level </b></p>
+<p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
+<p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
+<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -0.37 </b></p>
+<p class='p-result' style='color:rgb(205, 205, 0)'><b> Buy: Low Percent & Stochastic (P): 22.75€ is .99 under Avg18 < Avg38 < Avg95 and Stoch14 8 under level </b></p>
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
@@ -568,7 +570,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 18:02</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 13-Jul-2026 05:25</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

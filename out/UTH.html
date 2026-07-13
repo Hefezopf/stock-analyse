@@ -67,7 +67,8 @@ grey: 'rgb(201, 203, 207)'
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-20px;">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
@@ -77,14 +78,13 @@ const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 for (var i = 0; i < divCanvasIds.length; i++) {
 divCanvasIds[i].style.marginLeft = '-80px';
-// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
 }        
 }
 
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','13','14','15','16','17','N+','D+N+','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','13','14','15','16','17','N+','D+N+','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [{
 label: ' "United Therapeutics" ',
@@ -93,7 +93,6 @@ backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
 data: [470.60,
-470.60,
 470.60,
 470.60,
 470.60,
@@ -179,6 +178,7 @@ data: [470.60,
 492.70,
 484.50,
 482.90,
+478.80,
 ]},
 {
 label: 'buy',
@@ -199,21 +199,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.733, 470.761, 471.189, 470.983, 470.556, 470.517, 470.867, 471.567, 471.889, 472.128, 472.4, 472.522, 473.039, 473.878, 474.583, 474.972, 476.2, 476.972, 477.522,
+data: [ , , , , 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.733, 470.761, 471.189, 470.983, 470.556, 470.517, 470.867, 471.567, 471.889, 472.128, 472.4, 472.522, 473.039, 473.878, 474.583, 474.972, 476.2, 476.972, 477.522, 477.95,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.663, 470.676, 470.879, 470.782, 470.579, 470.561, 470.726, 471.058, 471.211, 471.324, 471.453, 471.511, 471.755, 472.153, 472.487, 472.671, 473.253, 473.618, 473.942,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.6, 470.663, 470.676, 470.879, 470.782, 470.579, 470.561, 470.726, 471.058, 471.211, 471.324, 471.453, 471.511, 471.755, 472.153, 472.487, 472.671, 473.253, 473.618, 473.942, 474.158,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 471.221, 471.355, 471.428, 471.661, 471.807, 471.937,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 471.355, 471.428, 471.661, 471.807, 471.937, 472.023,
 ]},
 {
 label:' Buying/Last ',
@@ -221,14 +221,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,482.90,               ]},
+data: [ 478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,478.80,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,507.045,			]}	
+data: [ 502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,502.74,			]}	
 ]},
 options: {
 responsive: true,
@@ -274,7 +274,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','13','14','15','16','17','N+','D+N+','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','13','14','15','16','17','N+','D+N+','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -283,7 +283,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 20, 100, 0, 0, 45, 90, 100, 66, 59, 62, 48, 83, 100, 89, 64, 100, 72, 57,
+data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 20, 100, 0, 0, 45, 90, 100, 66, 59, 62, 48, 83, 100, 89, 64, 100, 72, 57, 30,
 ]},
 {
 label: '91',
@@ -346,7 +346,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','13','14','15','16','17','N+','D+N+','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','13','14','15','16','17','N+','D+N+','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -355,7 +355,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 55, 83, 41, 35, 48, 57, 63, 55, 53, 54, 51, 57, 60, 57, 54, 58, 60, 62,
+data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 55, 83, 41, 35, 48, 57, 63, 55, 53, 54, 51, 57, 60, 57, 54, 58, 60, 62, 55,
 ]},
 {
 label: '75',
@@ -421,7 +421,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','13','14','15','16','17','N+','D+N+','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','13','14','15','16','17','N+','D+N+','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -430,7 +430,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.19, 0.19, 0.76, 0.28, -0.41, -0.39, 0.19, 1.15, 1.34, 1.35, 1.40, 1.20, 1.60, 2.36, 2.73, 2.54, 3.57, 3.67, 3.59,
+data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.19, 0.19, 0.76, 0.28, -0.41, -0.39, 0.19, 1.15, 1.34, 1.35, 1.40, 1.20, 1.60, 2.36, 2.73, 2.54, 3.57, 3.67, 3.59, 3.15,
 ]},
 {
 label: '0',
@@ -508,14 +508,13 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLinkUTH' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541397"  target="_blank">UTH "United Therapeutics"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541397"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541397"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>482.90€</b></span>
-&nbsp;<span style='font-size:45px; color:red'><b>-0.3%</b></span><br>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>478.80€</b></span>
+&nbsp;<span style='font-size:45px; color:red'><b>-0.8%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;20&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;--%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
 <style>
 .tooltip {
-display:inline-block;
+//  display:inline-block;
 border-bottom:2px dotted black; 
 font-size:70px;
 line-height:67px;
@@ -529,29 +528,32 @@ padding:7px 10px 50px 10px;
 border-radius:6px;
 position:absolute;
 z-index:1;
-font-size:43px;
-margin:10px 0px 0px -410px;
+font-size:45px;
+margin:70px 0px 0px -410px;
 line-height:100%;
 }
 .tooltip:hover .tooltiptext {
 visibility:visible;
 }
 </style>
-<div class='tooltip'>"Pharma"<br><div class='tooltiptext'>" United Therapeutics Corp. ist ein Unternehmen mit Sitz in Silver Spring, USA, das primär im Bereich Biopharmazeutische Produkte tätig ist. Das Unternehmen wurde im Jahr 1996 gegründet und beschäftigte zum Ende des letzten Geschäftsjahres 1168 Mitarbeiter. Den Vorsitz in der Geschäftsführung hat Dr. Martine A. Rothblatt. Die größten Anteilseigner sind The Vanguard Group, Inc., BlackRock Fund Advisors und Wellington Management Co. LLP. Der Umsatz des Unternehmens betrug zum Ende des letzten Geschäftsjahres 2.33 Mrd. USD mit einem Gewinn von 984.80 Mio. USD. Der Umsatz hat sich gegenüber dem vorherigen Geschäftsjahr um 20.2% vergrößert. Die derzeitige Marktkapitalisierung beträgt 10.95 Mrd. USD. Die Angaben zum Geschäftsjahresende beziehen sich auf den 31.12.2023. Die Sektorklassifizierung des Unternehmens basiert auf dem FactSet eigenen RBICS Sektorsystem. "</div></div></p>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" United Therapeutics Corp. ist ein Unternehmen mit Sitz in Silver Spring, USA, das primär im Bereich Biopharmazeutische Produkte tätig ist. Das Unternehmen wurde im Jahr 1996 gegründet und beschäftigte zum Ende des letzten Geschäftsjahres 1168 Mitarbeiter. Den Vorsitz in der Geschäftsführung hat Dr. Martine A. Rothblatt. Die größten Anteilseigner sind The Vanguard Group, Inc., BlackRock Fund Advisors und Wellington Management Co. LLP. Der Umsatz des Unternehmens betrug zum Ende des letzten Geschäftsjahres 2.33 Mrd. USD mit einem Gewinn von 984.80 Mio. USD. Der Umsatz hat sich gegenüber dem vorherigen Geschäftsjahr um 20.2% vergrößert. Die derzeitige Marktkapitalisierung beträgt 10.95 Mrd. USD. Die Angaben zum Geschäftsjahresende beziehen sich auf den 31.12.2023. Die Sektorklassifizierung des Unternehmens basiert auf dem FactSet eigenen RBICS Sektorsystem. "</span>
+&nbsp;"Pharma"</span>
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 10%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;20 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-07-09</b>
+<b>2026-07-12</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>477.52€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>473.94€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>471.94€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>57 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>62 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>3.59 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>477.95€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>474.16€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>472.02€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>30 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>55 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>3.15 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -568,7 +570,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 18:02</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 13-Jul-2026 05:25</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

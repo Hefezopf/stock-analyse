@@ -67,7 +67,8 @@ grey: 'rgb(201, 203, 207)'
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-20px;">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
@@ -77,14 +78,13 @@ const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 for (var i = 0; i < divCanvasIds.length; i++) {
 divCanvasIds[i].style.marginLeft = '-80px';
-// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
 }        
 }
 
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','12','15','16','17','18','19','22','23','4S+','C+5S+3R+','5S+3R+','29','30','31','01','02','05','06','07','08','09','12','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','7S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+D+N+M+','C+7S+4R+D+N+M+','6S+4R+','26','27','28','29','30','03','04','D+N+','D+N+M+','M+','4S+P+M+','5S+P+D+N+M+','5S+','13','14','17','18','19','20','21','24','25','26','27','28','31','M+','M+','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','15','16','17','18','19','22','23','4S+','C+5S+3R+','5S+3R+','29','30','31','01','02','05','06','07','08','09','12','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','7S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+D+N+M+','C+7S+4R+D+N+M+','6S+4R+','26','27','28','29','30','03','04','D+N+','D+N+M+','M+','4S+P+M+','5S+P+D+N+M+','5S+','13','14','17','18','19','20','21','24','25','26','27','28','31','M+','M+','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [{
 label: ' "Republic Services" ',
@@ -92,8 +92,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [192.45,
-196.00,
+data: [196.00,
 196.55,
 194.00,
 193.95,
@@ -179,6 +178,7 @@ data: [192.45,
 194.65,
 191.70,
 191.15,
+191.75,
 ]},
 {
 label: 'buy',
@@ -199,21 +199,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 193.683, 194.103, 194.294, 194.422, 194.364, 194.094, 193.656, 193.169, 192.45, 192.206, 191.65, 191.186, 190.972, 191.036, 191.089, 190.747, 190.103, 189.533, 188.914, 188.181, 187.531, 186.867, 186.367, 185.864, 185.397, 184.65, 183.956, 183.267, 182.678, 181.867, 180.986, 180.144, 179.297, 178.642, 178.181, 177.644, 176.9, 176.317, 175.797, 175.183, 174.894, 174.753, 174.828, 175.075, 175.608, 175.842, 176.039, 176.219, 176.344, 176.481, 176.428, 176.35, 176.239, 176.058, 176.231, 176.425, 176.775, 177.458, 178.011, 178.225, 178.406, 178.683, 178.436, 178.228, 178.061, 178.014, 177.975, 177.844, 177.872, 177.983, 178.478, 179.422, 180.261, 181.189, 181.856, 182.269, 182.625, 183.278, 183.758, 183.947, 184.789, 185.367, 186.022,
+data: [ , , , , 194.103, 194.294, 194.422, 194.364, 194.094, 193.656, 193.169, 192.45, 192.206, 191.65, 191.186, 190.972, 191.036, 191.089, 190.747, 190.103, 189.533, 188.914, 188.181, 187.531, 186.867, 186.367, 185.864, 185.397, 184.65, 183.956, 183.267, 182.678, 181.867, 180.986, 180.144, 179.297, 178.642, 178.181, 177.644, 176.9, 176.317, 175.797, 175.183, 174.894, 174.753, 174.828, 175.075, 175.608, 175.842, 176.039, 176.219, 176.344, 176.481, 176.428, 176.35, 176.239, 176.058, 176.231, 176.425, 176.775, 177.458, 178.011, 178.225, 178.406, 178.683, 178.436, 178.228, 178.061, 178.014, 177.975, 177.844, 177.872, 177.983, 178.478, 179.422, 180.261, 181.189, 181.856, 182.269, 182.625, 183.278, 183.758, 183.947, 184.789, 185.367, 186.022, 186.781,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 190.68, 190.464, 190.208, 189.917, 189.65, 189.242, 188.736, 188.314, 187.762, 187.184, 186.609, 186.072, 185.57, 185.196, 184.78, 184.204, 183.489, 182.85, 182.208, 181.503, 181.018, 180.6, 180.396, 180.233, 180.187, 180.107, 179.988, 179.612, 179.359, 179.107, 178.68, 178.239, 177.746, 177.246, 176.918, 176.641, 176.458, 176.424, 176.509, 176.507, 176.625, 176.832, 176.889, 177.064, 177.196, 177.124, 177.132, 177.201, 177.205, 177.216, 177.358, 177.616, 177.904, 178.32, 178.805, 179.243, 179.743, 180.341, 180.824, 181.187, 181.608, 181.939, 182.129,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 190.464, 190.208, 189.917, 189.65, 189.242, 188.736, 188.314, 187.762, 187.184, 186.609, 186.072, 185.57, 185.196, 184.78, 184.204, 183.489, 182.85, 182.208, 181.503, 181.018, 180.6, 180.396, 180.233, 180.187, 180.107, 179.988, 179.612, 179.359, 179.107, 178.68, 178.239, 177.746, 177.246, 176.918, 176.641, 176.458, 176.424, 176.509, 176.507, 176.625, 176.832, 176.889, 177.064, 177.196, 177.124, 177.132, 177.201, 177.205, 177.216, 177.358, 177.616, 177.904, 178.32, 178.805, 179.243, 179.743, 180.341, 180.824, 181.187, 181.608, 181.939, 182.129, 182.305,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 183.471, 183.521, 183.524, 183.602, 183.646, 183.657,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 183.521, 183.524, 183.602, 183.646, 183.657, 183.637,
 ]},
 {
 label:' Buying/Last ',
@@ -221,14 +221,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,191.15,               ]},
+data: [ 191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,191.75,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,200.708,			]}	
+data: [ 201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,201.338,			]}	
 ]},
 options: {
 responsive: true,
@@ -274,7 +274,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','12','15','16','17','18','19','22','23','4S+','C+5S+3R+','5S+3R+','29','30','31','01','02','05','06','07','08','09','12','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','7S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+D+N+M+','C+7S+4R+D+N+M+','6S+4R+','26','27','28','29','30','03','04','D+N+','D+N+M+','M+','4S+P+M+','5S+P+D+N+M+','5S+','13','14','17','18','19','20','21','24','25','26','27','28','31','M+','M+','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','15','16','17','18','19','22','23','4S+','C+5S+3R+','5S+3R+','29','30','31','01','02','05','06','07','08','09','12','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','7S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+D+N+M+','C+7S+4R+D+N+M+','6S+4R+','26','27','28','29','30','03','04','D+N+','D+N+M+','M+','4S+P+M+','5S+P+D+N+M+','5S+','13','14','17','18','19','20','21','24','25','26','27','28','31','M+','M+','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -283,7 +283,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 47, 69, 74, 53, 39, 15, 0, 0, 0, 0, 2, 23, 13, 70, 36, 44, 93, 93, 100, 56, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 34, 28, 12, 34, 46, 58, 56, 35, 0, 0, 2, 1, 0, 39, 58, 100, 100, 100, 100, 85, 66, 71, 76, 57, 54, 43, 0, 11, 16, 35, 56, 79, 58, 97, 100, 65, 78, 64, 54, 62, 50, 41, 33, 91, 100, 97, 100, 83, 70, 88, 95, 100, 76, 100, 82, 78,
+data: [		 69, 74, 53, 39, 15, 0, 0, 0, 0, 2, 23, 13, 70, 36, 44, 93, 93, 100, 56, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 34, 28, 12, 34, 46, 58, 56, 35, 0, 0, 2, 1, 0, 39, 58, 100, 100, 100, 100, 85, 66, 71, 76, 57, 54, 43, 0, 11, 16, 35, 56, 79, 58, 97, 100, 65, 78, 64, 54, 62, 50, 41, 33, 91, 100, 97, 100, 83, 70, 88, 95, 100, 76, 100, 82, 78, 73,
 ]},
 {
 label: '91',
@@ -346,7 +346,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','12','15','16','17','18','19','22','23','4S+','C+5S+3R+','5S+3R+','29','30','31','01','02','05','06','07','08','09','12','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','7S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+D+N+M+','C+7S+4R+D+N+M+','6S+4R+','26','27','28','29','30','03','04','D+N+','D+N+M+','M+','4S+P+M+','5S+P+D+N+M+','5S+','13','14','17','18','19','20','21','24','25','26','27','28','31','M+','M+','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','15','16','17','18','19','22','23','4S+','C+5S+3R+','5S+3R+','29','30','31','01','02','05','06','07','08','09','12','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','7S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+D+N+M+','C+7S+4R+D+N+M+','6S+4R+','26','27','28','29','30','03','04','D+N+','D+N+M+','M+','4S+P+M+','5S+P+D+N+M+','5S+','13','14','17','18','19','20','21','24','25','26','27','28','31','M+','M+','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -355,7 +355,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 64, 67, 66, 61, 60, 55, 44, 35, 23, 24, 20, 28, 28, 51, 44, 39, 44, 48, 48, 44, 41, 40, 44, 41, 39, 33, 34, 16, 22, 17, 4, 27, 25, 25, 35, 39, 40, 45, 44, 42, 35, 38, 35, 34, 46, 36, 49, 56, 60, 61, 56, 51, 54, 59, 61, 60, 57, 55, 50, 49, 45, 49, 47, 38, 49, 57, 49, 50, 52, 51, 56, 61, 57, 58, 60, 62, 58, 69, 60, 53, 67, 66, 73, 68, 74, 69, 69,
+data: [ 66, 66, 61, 60, 55, 44, 35, 23, 24, 20, 28, 28, 51, 44, 39, 44, 48, 48, 44, 41, 40, 44, 41, 39, 33, 34, 16, 22, 17, 4, 27, 25, 25, 35, 39, 40, 45, 44, 42, 35, 38, 35, 34, 46, 36, 49, 56, 60, 61, 56, 51, 54, 59, 61, 60, 57, 55, 50, 49, 45, 49, 47, 38, 49, 57, 49, 50, 52, 51, 56, 61, 57, 58, 60, 62, 58, 69, 60, 53, 67, 66, 73, 68, 74, 69, 69, 69,
 ]},
 {
 label: '75',
@@ -421,7 +421,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','12','15','16','17','18','19','22','23','4S+','C+5S+3R+','5S+3R+','29','30','31','01','02','05','06','07','08','09','12','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','7S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+D+N+M+','C+7S+4R+D+N+M+','6S+4R+','26','27','28','29','30','03','04','D+N+','D+N+M+','M+','4S+P+M+','5S+P+D+N+M+','5S+','13','14','17','18','19','20','21','24','25','26','27','28','31','M+','M+','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','15','16','17','18','19','22','23','4S+','C+5S+3R+','5S+3R+','29','30','31','01','02','05','06','07','08','09','12','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','7S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+D+N+M+','C+7S+4R+D+N+M+','6S+4R+','26','27','28','29','30','03','04','D+N+','D+N+M+','M+','4S+P+M+','5S+P+D+N+M+','5S+','13','14','17','18','19','20','21','24','25','26','27','28','31','M+','M+','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -430,7 +430,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , -2.20, -2.20, -2.08, -1.88, -1.47, -1.12, -0.84, -0.89, -1.31, -1.72, -2.10, -2.58, -3.03, -3.45, -3.76, -4.05, -4.14, -4.38, -4.55, -4.10, -3.87, -3.90, -3.72, -3.49, -3.27, -3.07, -2.99, -3.10, -3.53, -3.79, -3.97, -4.30, -4.07, -3.71, -3.00, -2.37, -1.47, -0.65, -0.22, -0.15, -0.03, 0.14, -0.01, -0.17, -0.45, -0.97, -1.24, -1.38, -1.25, -0.90, -0.36, -0.30, 0.10, 0.59, 0.60, 0.74, 0.69, 0.55, 0.50, 0.40, 0.27, 0.24, 0.60, 1.22, 1.67, 2.19, 2.41, 2.43, 2.60, 2.76, 2.95, 2.83, 3.27, 3.34, 3.32,
+data: [ , , , , , , , , , , , , -2.19, -2.19, -2.00, -1.58, -1.23, -0.94, -0.99, -1.40, -1.81, -2.18, -2.66, -3.10, -3.52, -3.82, -4.11, -4.20, -4.44, -4.59, -4.15, -3.92, -3.94, -3.76, -3.52, -3.30, -3.10, -3.02, -3.13, -3.55, -3.82, -3.99, -4.32, -4.08, -3.73, -3.02, -2.39, -1.48, -0.66, -0.23, -0.16, -0.04, 0.13, -0.02, -0.18, -0.46, -0.98, -1.24, -1.38, -1.26, -0.91, -0.36, -0.30, 0.10, 0.59, 0.60, 0.74, 0.69, 0.54, 0.50, 0.40, 0.27, 0.24, 0.60, 1.22, 1.67, 2.19, 2.41, 2.43, 2.60, 2.76, 2.95, 2.83, 3.27, 3.34, 3.32, 3.31,
 ]},
 {
 label: '0',
@@ -508,14 +508,13 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLinkRPU' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538409"  target="_blank">RPU "Republic Services"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538409"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538409"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>191.15€</b></span>
-&nbsp;<span style='font-size:45px; color:red'><b>-0.3%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;29&nbsp;&nbsp;</span>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>191.75€</b></span>
+&nbsp;<span style='font-size:45px; color:green'><b>0.3%</b></span><br>
+<span style='font-size:45px'>KGV&nbsp;30&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;1%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
 <style>
 .tooltip {
-display:inline-block;
+//  display:inline-block;
 border-bottom:2px dotted black; 
 font-size:70px;
 line-height:67px;
@@ -529,29 +528,32 @@ padding:7px 10px 50px 10px;
 border-radius:6px;
 position:absolute;
 z-index:1;
-font-size:43px;
-margin:10px 0px 0px -410px;
+font-size:45px;
+margin:70px 0px 0px -410px;
 line-height:100%;
 }
 .tooltip:hover .tooltiptext {
 visibility:visible;
 }
 </style>
-<div class='tooltip'>"Entsorgung, Umwelttechnologie, -dienstleistung"<br><div class='tooltiptext'>" Die Republic Services, Inc. bezeichnet sich als einer der größten Anbieter von Umweltdienstleistungen in den USA. Ende 2021 unterhielt die Gruppe wir in 41 Bundesstaaten 356 Sammelbetriebe, 239 Umladestationen, 198 aktive Deponien, 71 Recyclingzentren, jeweils drei Behandlungs-, Verwertungs- und Entsorgungsanlagen sowie Behandlungs-, Lager- und Entsorgungsanlagen (TSDF), sechs Salzwasserentsorgungsbrunnen und sieben Tiefeninjektionsbrunnen. Zudem ist Republic Services an 77 Projekten zur Gewinnung von Deponiegas und anderen erneuerbaren Energien beteiligt und für die Nachsorge von 124 geschlossenen Deponien verantwortlich. "</div></div></p>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" Die Republic Services, Inc. bezeichnet sich als einer der größten Anbieter von Umweltdienstleistungen in den USA. Ende 2021 unterhielt die Gruppe wir in 41 Bundesstaaten 356 Sammelbetriebe, 239 Umladestationen, 198 aktive Deponien, 71 Recyclingzentren, jeweils drei Behandlungs-, Verwertungs- und Entsorgungsanlagen sowie Behandlungs-, Lager- und Entsorgungsanlagen (TSDF), sechs Salzwasserentsorgungsbrunnen und sieben Tiefeninjektionsbrunnen. Zudem ist Republic Services an 77 Projekten zur Gewinnung von Deponiegas und anderen erneuerbaren Energien beteiligt und für die Nachsorge von 124 geschlossenen Deponien verantwortlich. "</span>
+&nbsp;"Entsorgung, Umwelttechnologie, -dienstleistung"</span>
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 29%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;58 Mrd.€</div><br>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;59 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-07-09</b>
+<b>2026-07-12</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>186.02€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>182.13€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>183.66€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>78 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>186.78€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>182.30€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>183.64€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>73 </b></span>
 &nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>69 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>3.32 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>3.31 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -568,7 +570,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 18:02</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 13-Jul-2026 05:25</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

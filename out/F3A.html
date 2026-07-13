@@ -67,7 +67,8 @@ grey: 'rgb(201, 203, 207)'
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-20px;">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
@@ -77,14 +78,13 @@ const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 for (var i = 0; i < divCanvasIds.length; i++) {
 divCanvasIds[i].style.marginLeft = '-80px';
-// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
 }        
 }
 
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','12','15','16','17','18','19','22','M+','24','25','P+D+N+','29','P+D+N+','31','01','02','05','06','07','08','09','12','13','14','15','M+','M+','M+','D+N+M+','M+','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','4S+','5S+M+','C+5S+M+','C+6S+M+','6S+','6S+','6S+M+','5S+M+'
+labels: ['','15','16','17','18','19','22','M+','24','25','P+D+N+','29','P+D+N+','31','01','02','05','06','07','08','09','12','13','14','15','M+','M+','M+','D+N+M+','M+','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','4S+','5S+M+','C+5S+M+','C+6S+M+','6S+','6S+','6S+M+','5S+M+','12'
 ],
 datasets: [{
 label: ' "First Solar" ',
@@ -92,8 +92,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [171.32,
-171.40,
+data: [171.40,
 172.58,
 172.72,
 173.76,
@@ -179,6 +178,7 @@ data: [171.32,
 198.86,
 196.12,
 199.78,
+199.10,
 ]},
 {
 label: 'buy',
@@ -199,21 +199,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 174.414, 172.583, 170.689, 169.806, 169.026, 168.89, 168.922, 168.423, 168.276, 167.68, 167.891, 168.388, 168.476, 168.426, 168.313, 168, 167.901, 167.661, 167.608, 167.472, 167.402, 167.319, 167.244, 166.95, 166.708, 166.579, 166.348, 166.806, 166.601, 166.467, 166.372, 166.011, 166.117, 166.452, 166.819, 167.867, 168.556, 169.311, 170.244, 172.067, 173.711, 175.844, 177.788, 180.05, 182.271, 183.541, 185.656, 188.183, 191.203, 194.6, 197.975, 201.464, 206.05, 210.183, 214.363, 219.047, 223.852, 227.874, 230.674, 232.794, 234.412, 235.278, 237.114, 239.339, 241.131, 241.856, 241.822, 241.867, 241.422, 241.15, 238.875, 236.478, 234.147, 230.992, 227.139, 223.556, 221.558, 219.239, 217.514, 217.042, 215.114, 213.207, 211.237,
+data: [ , , , , 172.583, 170.689, 169.806, 169.026, 168.89, 168.922, 168.423, 168.276, 167.68, 167.891, 168.388, 168.476, 168.426, 168.313, 168, 167.901, 167.661, 167.608, 167.472, 167.402, 167.319, 167.244, 166.95, 166.708, 166.579, 166.348, 166.806, 166.601, 166.467, 166.372, 166.011, 166.117, 166.452, 166.819, 167.867, 168.556, 169.311, 170.244, 172.067, 173.711, 175.844, 177.788, 180.05, 182.271, 183.541, 185.656, 188.183, 191.203, 194.6, 197.975, 201.464, 206.05, 210.183, 214.363, 219.047, 223.852, 227.874, 230.674, 232.794, 234.412, 235.278, 237.114, 239.339, 241.131, 241.856, 241.822, 241.867, 241.422, 241.15, 238.875, 236.478, 234.147, 230.992, 227.139, 223.556, 221.558, 219.239, 217.514, 217.042, 215.114, 213.207, 211.237, 209.712,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 170.937, 169.894, 168.759, 168.206, 167.826, 167.549, 167.386, 167.318, 167.255, 167.202, 167.275, 167.31, 167.402, 167.444, 167.604, 168.021, 168.353, 168.624, 168.962, 169.65, 170.191, 171.067, 171.977, 172.835, 173.709, 174.479, 175.488, 176.914, 178.318, 179.726, 181.375, 183.093, 185.479, 188.002, 190.362, 192.964, 195.604, 198.262, 200.162, 202.081, 203.793, 205.201, 207.059, 208.945, 210.911, 212.464, 213.949, 215.442, 216.925, 218.686, 219.943, 221.172, 222.254, 222.866, 223.354, 223.956, 224.468, 224.426, 224.542, 224.716, 224.74, 224.651, 224.632,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 169.894, 168.759, 168.206, 167.826, 167.549, 167.386, 167.318, 167.255, 167.202, 167.275, 167.31, 167.402, 167.444, 167.604, 168.021, 168.353, 168.624, 168.962, 169.65, 170.191, 171.067, 171.977, 172.835, 173.709, 174.479, 175.488, 176.914, 178.318, 179.726, 181.375, 183.093, 185.479, 188.002, 190.362, 192.964, 195.604, 198.262, 200.162, 202.081, 203.793, 205.201, 207.059, 208.945, 210.911, 212.464, 213.949, 215.442, 216.925, 218.686, 219.943, 221.172, 222.254, 222.866, 223.354, 223.956, 224.468, 224.426, 224.542, 224.716, 224.74, 224.651, 224.632, 224.861,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 192.486, 192.393, 192.409, 192.58, 192.777, 193.098,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 192.393, 192.409, 192.58, 192.777, 193.098, 193.438,
 ]},
 {
 label:' Buying/Last ',
@@ -221,14 +221,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,199.78,               ]},
+data: [ 199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,199.10,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,209.769,			]}	
+data: [ 209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,209.055,			]}	
 ]},
 options: {
 responsive: true,
@@ -274,7 +274,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','12','15','16','17','18','19','22','M+','24','25','P+D+N+','29','P+D+N+','31','01','02','05','06','07','08','09','12','13','14','15','M+','M+','M+','D+N+M+','M+','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','4S+','5S+M+','C+5S+M+','C+6S+M+','6S+','6S+','6S+M+','5S+M+'
+labels: ['','15','16','17','18','19','22','M+','24','25','P+D+N+','29','P+D+N+','31','01','02','05','06','07','08','09','12','13','14','15','M+','M+','M+','D+N+M+','M+','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','4S+','5S+M+','C+5S+M+','C+6S+M+','6S+','6S+','6S+M+','5S+M+','12'
 ],
 datasets: [
 {
@@ -283,7 +283,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 22, 22, 52, 70, 100, 84, 78, 42, 15, 44, 47, 0, 28, 0, 64, 76, 69, 69, 79, 54, 100, 79, 100, 74, 77, 43, 20, 0, 11, 0, 12, 62, 43, 65, 62, 28, 100, 100, 100, 100, 92, 85, 97, 100, 81, 100, 94, 98, 100, 65, 100, 100, 100, 100, 100, 100, 100, 100, 98, 100, 100, 96, 62, 50, 22, 0, 31, 26, 34, 19, 10, 16, 15, 25, 7, 12, 14, 0, 0, 6, 7, 0, 0, 31, 8, 0, 11,
+data: [		 22, 52, 70, 100, 84, 78, 42, 15, 44, 47, 0, 28, 0, 64, 76, 69, 69, 79, 54, 100, 79, 100, 74, 77, 43, 20, 0, 11, 0, 12, 62, 43, 65, 62, 28, 100, 100, 100, 100, 92, 85, 97, 100, 81, 100, 94, 98, 100, 65, 100, 100, 100, 100, 100, 100, 100, 100, 98, 100, 100, 96, 62, 50, 22, 0, 31, 26, 34, 19, 10, 16, 15, 25, 7, 12, 14, 0, 0, 6, 7, 0, 0, 31, 8, 0, 11, 13,
 ]},
 {
 label: '91',
@@ -346,7 +346,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','12','15','16','17','18','19','22','M+','24','25','P+D+N+','29','P+D+N+','31','01','02','05','06','07','08','09','12','13','14','15','M+','M+','M+','D+N+M+','M+','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','4S+','5S+M+','C+5S+M+','C+6S+M+','6S+','6S+','6S+M+','5S+M+'
+labels: ['','15','16','17','18','19','22','M+','24','25','P+D+N+','29','P+D+N+','31','01','02','05','06','07','08','09','12','13','14','15','M+','M+','M+','D+N+M+','M+','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','4S+','5S+M+','C+5S+M+','C+6S+M+','6S+','6S+','6S+M+','5S+M+','12'
 ],
 datasets: [
 {
@@ -355,7 +355,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 25, 24, 25, 38, 45, 53, 56, 44, 44, 45, 54, 49, 44, 33, 46, 48, 46, 46, 44, 42, 49, 51, 60, 52, 52, 54, 46, 52, 41, 32, 37, 47, 45, 52, 45, 43, 48, 52, 57, 70, 72, 69, 71, 80, 72, 73, 73, 73, 74, 68, 70, 73, 74, 72, 76, 79, 83, 81, 86, 85, 88, 85, 66, 69, 60, 50, 54, 52, 51, 46, 33, 34, 34, 33, 27, 27, 36, 35, 36, 44, 27, 24, 18, 34, 33, 28, 32,
+data: [ 18, 25, 38, 45, 53, 56, 44, 44, 45, 54, 49, 44, 33, 46, 48, 46, 46, 44, 42, 49, 51, 60, 52, 52, 54, 46, 52, 41, 32, 37, 47, 45, 52, 45, 43, 48, 52, 57, 70, 72, 69, 71, 80, 72, 73, 73, 73, 74, 68, 70, 73, 74, 72, 76, 79, 83, 81, 86, 85, 88, 85, 66, 69, 60, 50, 54, 52, 51, 46, 33, 34, 34, 33, 27, 27, 36, 35, 36, 44, 27, 24, 18, 34, 33, 28, 32, 25,
 ]},
 {
 label: '75',
@@ -421,7 +421,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','12','15','16','17','18','19','22','M+','24','25','P+D+N+','29','P+D+N+','31','01','02','05','06','07','08','09','12','13','14','15','M+','M+','M+','D+N+M+','M+','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','4S+','5S+M+','C+5S+M+','C+6S+M+','6S+','6S+','6S+M+','5S+M+'
+labels: ['','15','16','17','18','19','22','M+','24','25','P+D+N+','29','P+D+N+','31','01','02','05','06','07','08','09','12','13','14','15','M+','M+','M+','D+N+M+','M+','23','26','27','28','29','30','03','04','05','06','07','10','11','12','13','14','17','18','19','20','21','24','25','26','27','28','31','01','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','4S+','5S+M+','C+5S+M+','C+6S+M+','6S+','6S+','6S+M+','5S+M+','12'
 ],
 datasets: [
 {
@@ -430,7 +430,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , -4.61, -4.61, -4.09, -3.50, -3.09, -2.73, -2.41, -2.42, -2.00, -1.84, -1.34, -1.21, -1.05, -1.29, -1.72, -2.06, -2.20, -2.62, -2.78, -2.31, -2.12, -1.71, -1.40, -1.52, -0.93, -0.41, 0.45, 1.91, 2.86, 3.40, 4.07, 5.46, 5.97, 6.98, 7.52, 7.99, 8.34, 7.72, 8.15, 9.23, 10.64, 11.79, 13.19, 14.35, 17.12, 19.23, 20.56, 21.92, 23.20, 23.72, 21.60, 19.38, 16.53, 13.16, 11.84, 10.43, 9.58, 8.11, 6.46, 5.36, 4.37, 4.01, 2.83, 1.83, 1.02, -0.26, -1.80, -2.81, -3.56, -4.88, -5.88, -5.76, -6.22, -6.72, -6.75,
+data: [ , , , , , , , , , , , , -3.51, -3.51, -2.95, -2.57, -2.23, -1.95, -1.99, -1.59, -1.45, -0.98, -0.87, -0.74, -1.00, -1.44, -1.81, -1.97, -2.40, -2.57, -2.12, -1.95, -1.54, -1.24, -1.38, -0.80, -0.29, 0.56, 2.01, 2.96, 3.49, 4.16, 5.54, 6.05, 7.05, 7.59, 8.05, 8.40, 7.77, 8.19, 9.27, 10.68, 11.83, 13.23, 14.39, 17.15, 19.26, 20.59, 21.95, 23.22, 23.74, 21.62, 19.40, 16.55, 13.18, 11.86, 10.44, 9.59, 8.13, 6.47, 5.37, 4.38, 4.02, 2.83, 1.83, 1.03, -0.25, -1.79, -2.81, -3.56, -4.87, -5.88, -5.76, -6.22, -6.72, -6.75, -6.74,
 ]},
 {
 label: '0',
@@ -505,17 +505,16 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkF3A' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244505481"  target="_blank">F3A "First Solar"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244505481"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244505481"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>199.78€</b></span>
-&nbsp;<span style='font-size:45px; color:green'><b>1.9%</b></span><br>
+<a id='headlineLinkF3A' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244505481"  target="_blank">F3A "First Solar"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244505481"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244505481"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>199.10€</b></span>
+&nbsp;<span style='font-size:45px; color:red'><b>-0.3%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;13&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;--%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
 <style>
 .tooltip {
-display:inline-block;
+//  display:inline-block;
 border-bottom:2px dotted black; 
 font-size:70px;
 line-height:67px;
@@ -529,36 +528,39 @@ padding:7px 10px 50px 10px;
 border-radius:6px;
 position:absolute;
 z-index:1;
-font-size:43px;
-margin:10px 0px 0px -410px;
+font-size:45px;
+margin:70px 0px 0px -410px;
 line-height:100%;
 }
 .tooltip:hover .tooltiptext {
 visibility:visible;
 }
 </style>
-<div class='tooltip'>"Sonstige Energie, Rohstoffe"<br><div class='tooltiptext'>" Die First Solar, Inc. ist ein führendes amerikanisches Solartechnologieunternehmen mit weltweiter Ausrichtung. In den Forschungs- und Entwicklungslabors in Kalifornien und Ohio werden PV-Solarmodule mit einer fortschrittlichen Dünnschicht-Halbleitertechnologie produziert, die laut dem Unternehmen eine leistungsstarke, kohlenstoffärmere Alternative zu herkömmlichen PV-Solarmodulen aus kristallinem Silizium darstellen. Von der Beschaffung der Rohstoffe bis hin zum Recycling der Module am Ende ihrer Lebensdauer setzt sich First Solar dafür ein, die Umweltauswirkungen zu reduzieren und den sozialen und wirtschaftlichen Nutzen der Produkte während ihres gesamten Lebenszyklus zu erhöhen. Das Unternehmen sieht sich als der weltweit größte Hersteller von Dünnschicht-PV-Solarmodulen und als größter Hersteller von PV-Solarmodulen in der westlichen Hemisphäre. "</div></div></p>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" Die First Solar, Inc. ist ein führendes amerikanisches Solartechnologieunternehmen mit weltweiter Ausrichtung. In den Forschungs- und Entwicklungslabors in Kalifornien und Ohio werden PV-Solarmodule mit einer fortschrittlichen Dünnschicht-Halbleitertechnologie produziert, die laut dem Unternehmen eine leistungsstarke, kohlenstoffärmere Alternative zu herkömmlichen PV-Solarmodulen aus kristallinem Silizium darstellen. Von der Beschaffung der Rohstoffe bis hin zum Recycling der Module am Ende ihrer Lebensdauer setzt sich First Solar dafür ein, die Umweltauswirkungen zu reduzieren und den sozialen und wirtschaftlichen Nutzen der Produkte während ihres gesamten Lebenszyklus zu erhöhen. Das Unternehmen sieht sich als der weltweit größte Hersteller von Dünnschicht-PV-Solarmodulen und als größter Hersteller von PV-Solarmodulen in der westlichen Hemisphäre. "</span>
+&nbsp;"Sonstige Energie, Rohstoffe"</span>
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 10%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;21 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-07-09</b>
+<b>2026-07-12</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>211.24€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>224.63€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>193.10€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>11 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>32 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-6.75 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>209.71€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>224.86€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>193.44€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>13 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>25 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-6.74 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
-<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -6.75 </b></p>
+<p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b>  </b></p>
-<p class='p-result' style='color:rgb(255, 159, 64)'><b> Buy: Low 5 last Stochastic (S): 5 last quotes under level </b></p>
+<p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 166)'><b>  </b></p>
@@ -568,7 +570,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 18:02</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 13-Jul-2026 05:25</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

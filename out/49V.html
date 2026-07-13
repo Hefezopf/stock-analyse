@@ -67,7 +67,8 @@ grey: 'rgb(201, 203, 207)'
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-20px;">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
@@ -77,14 +78,13 @@ const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 for (var i = 0; i < divCanvasIds.length; i++) {
 divCanvasIds[i].style.marginLeft = '-80px';
-// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
 }        
 }
 
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','C+4S+4R+M+','C+5S+5R+D+N+M+','C+6S+6R+D+N+M+','6S+6R+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','P+','05','06','07','08','09'
+labels: ['','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','C+4S+4R+M+','C+5S+5R+D+N+M+','C+6S+6R+D+N+M+','6S+6R+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','P+','05','06','07','08','09','12'
 ],
 datasets: [{
 label: ' "Vertiv" ',
@@ -93,7 +93,6 @@ backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
 data: [284.70,
-284.70,
 284.70,
 284.70,
 284.70,
@@ -179,6 +178,7 @@ data: [284.70,
 266.10,
 277.30,
 283.90,
+279.30,
 ]},
 {
 label: 'buy',
@@ -199,21 +199,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.461, 284.058, 282.689, 281.372, 279.489, 277.044, 275.522, 274.211, 273.35, 271.931, 271.556, 271.839, 272.283, 273.875, 273.692, 273.981, 273.978, 272.95, 272.417, 273.231, 273.986, 274.072, 275.281, 277.328, 277.817, 278.717, 279.533,
+data: [ , , , , 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.461, 284.058, 282.689, 281.372, 279.489, 277.044, 275.522, 274.211, 273.35, 271.931, 271.556, 271.839, 272.283, 273.875, 273.692, 273.981, 273.978, 272.95, 272.417, 273.231, 273.986, 274.072, 275.281, 277.328, 277.817, 278.717, 279.533, 280.653,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.587, 284.396, 283.747, 283.124, 282.232, 281.074, 280.353, 279.732, 279.324, 278.651, 278.474, 278.608, 278.818, 279.572, 279.486, 279.622, 279.621, 279.134, 278.768, 278.963, 278.672, 278.089, 277.77, 277.582, 277.092, 276.897, 276.876,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.7, 284.587, 284.396, 283.747, 283.124, 282.232, 281.074, 280.353, 279.732, 279.324, 278.651, 278.474, 278.608, 278.818, 279.572, 279.486, 279.622, 279.621, 279.134, 278.768, 278.963, 278.672, 278.089, 277.77, 277.582, 277.092, 276.897, 276.876, 276.734,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 282.056, 281.928, 281.853, 281.657, 281.579, 281.571,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 281.928, 281.853, 281.657, 281.579, 281.571, 281.514,
 ]},
 {
 label:' Buying/Last ',
@@ -221,14 +221,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,283.90,               ]},
+data: [ 279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,279.30,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,298.095,			]}	
+data: [ 293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,293.265,			]}	
 ]},
 options: {
 responsive: true,
@@ -274,7 +274,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','C+4S+4R+M+','C+5S+5R+D+N+M+','C+6S+6R+D+N+M+','6S+6R+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','P+','05','06','07','08','09'
+labels: ['','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','C+4S+4R+M+','C+5S+5R+D+N+M+','C+6S+6R+D+N+M+','6S+6R+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','P+','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -283,7 +283,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 3, 0, 0, 37, 46, 64, 41, 84, 100, 100, 100, 56, 67, 60, 35, 41, 62, 26, 6, 24, 29, 6, 29, 42,
+data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 3, 0, 0, 37, 46, 64, 41, 84, 100, 100, 100, 56, 67, 60, 35, 41, 62, 26, 6, 24, 29, 6, 29, 42, 56,
 ]},
 {
 label: '91',
@@ -346,7 +346,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','C+4S+4R+M+','C+5S+5R+D+N+M+','C+6S+6R+D+N+M+','6S+6R+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','P+','05','06','07','08','09'
+labels: ['','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','C+4S+4R+M+','C+5S+5R+D+N+M+','C+6S+6R+D+N+M+','6S+6R+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','P+','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -355,7 +355,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 3, 2, 2, 28, 32, 39, 34, 46, 52, 53, 60, 50, 53, 57, 51, 55, 64, 54, 50, 50, 54, 46, 46, 47,
+data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 3, 2, 2, 28, 32, 39, 34, 46, 52, 53, 60, 50, 53, 57, 51, 55, 64, 54, 50, 50, 54, 46, 46, 47, 39,
 ]},
 {
 label: '75',
@@ -421,7 +421,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','C+4S+4R+M+','C+5S+5R+D+N+M+','C+6S+6R+D+N+M+','6S+6R+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','P+','05','06','07','08','09'
+labels: ['','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','C+4S+4R+M+','C+5S+5R+D+N+M+','C+6S+6R+D+N+M+','6S+6R+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','P+','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -430,7 +430,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.34, -0.84, -2.61, -3.90, -5.67, -7.80, -8.06, -7.86, -6.97, -7.00, -5.44, -3.21, -1.20, 2.04, 2.01, 2.63, 2.68, 1.21, 0.41, 1.48, 0.83, -0.57, -0.87, -0.69, -1.46, -1.15, -0.37,
+data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.34, -0.84, -2.61, -3.90, -5.67, -7.80, -8.06, -7.86, -6.97, -7.00, -5.44, -3.21, -1.20, 2.04, 2.01, 2.63, 2.68, 1.21, 0.41, 1.48, 0.83, -0.57, -0.87, -0.69, -1.46, -1.15, -0.37, -0.12,
 ]},
 {
 label: '0',
@@ -508,14 +508,13 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLink49V' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=369660225"  target="_blank">49V "Vertiv"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=369660225"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=369660225"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>283.90€</b></span>
-&nbsp;<span style='font-size:45px; color:green'><b>2.4%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;51&nbsp;&nbsp;</span>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>279.30€</b></span>
+&nbsp;<span style='font-size:45px; color:red'><b>-1.6%</b></span><br>
+<span style='font-size:45px'>KGV&nbsp;54&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;0%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
 <style>
 .tooltip {
-display:inline-block;
+//  display:inline-block;
 border-bottom:2px dotted black; 
 font-size:70px;
 line-height:67px;
@@ -529,29 +528,32 @@ padding:7px 10px 50px 10px;
 border-radius:6px;
 position:absolute;
 z-index:1;
-font-size:43px;
-margin:10px 0px 0px -410px;
+font-size:45px;
+margin:70px 0px 0px -410px;
 line-height:100%;
 }
 .tooltip:hover .tooltiptext {
 visibility:visible;
 }
 </style>
-<div class='tooltip'>"Elektrotechnologie"<br><div class='tooltiptext'>" Die Vertiv Holdings Co bezeichnet sich als ein weltweit führender Anbieter von kritischer digitaler Infrastruktur für Anwendungen in Rechenzentren, Kommunikationsnetzen sowie gewerblichen und industriellen Umgebungen. Die Gruppe entwickelt und liefert eigenen Angaben zufolge durchgängige Stromversorgungs- und Kühltechnologien. Das Leistungsspektrum umfasst die Bereiche Wechselstrom- und Gleichstrom-Energiemanagement, Wärmemanagement sowie Nieder- und Mittelspannungsschaltanlagen, Sammelschienen, luft- und flüssigkeitsgekühlte Wärmemanagementprodukte, integrierte modulare Lösungen und einphasige USVs. Darüber hinaus gehören Lösungen für die Rack-Stromverteilung, Rack-Wärmemanagementsysteme, konfigurierbare integrierte und Energiespeicherlösungen sowie Hardware und Software für die Verwaltung von IT-Geräten und -Diensten zum Angebot. Neben branchenführenden Technologien verfügt das Unternehmen über globales Servicenetzwerk. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 52%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;104 Mrd.€</div><br>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" Die Vertiv Holdings Co bezeichnet sich als ein weltweit führender Anbieter von kritischer digitaler Infrastruktur für Anwendungen in Rechenzentren, Kommunikationsnetzen sowie gewerblichen und industriellen Umgebungen. Die Gruppe entwickelt und liefert eigenen Angaben zufolge durchgängige Stromversorgungs- und Kühltechnologien. Das Leistungsspektrum umfasst die Bereiche Wechselstrom- und Gleichstrom-Energiemanagement, Wärmemanagement sowie Nieder- und Mittelspannungsschaltanlagen, Sammelschienen, luft- und flüssigkeitsgekühlte Wärmemanagementprodukte, integrierte modulare Lösungen und einphasige USVs. Darüber hinaus gehören Lösungen für die Rack-Stromverteilung, Rack-Wärmemanagementsysteme, konfigurierbare integrierte und Energiespeicherlösungen sowie Hardware und Software für die Verwaltung von IT-Geräten und -Diensten zum Angebot. Neben branchenführenden Technologien verfügt das Unternehmen über globales Servicenetzwerk. "</span>
+&nbsp;"Elektrotechnologie"</span>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 53%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;107 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-07-09</b>
+<b>2026-07-12</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>279.53€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>276.88€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>281.57€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>42 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>47 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.37 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>280.65€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>276.73€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>281.51€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>56 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>39 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.12 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -568,7 +570,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 18:02</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 13-Jul-2026 05:25</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

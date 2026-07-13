@@ -67,7 +67,8 @@ grey: 'rgb(201, 203, 207)'
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-20px;">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
@@ -77,14 +78,13 @@ const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 for (var i = 0; i < divCanvasIds.length; i++) {
 divCanvasIds[i].style.marginLeft = '-80px';
-// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
 }        
 }
 
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','12','14','15','16','17','18','21','22','23','24','25','28','N+','30','01','02','05','06','07','08','09'
+labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','12','14','15','16','17','18','21','22','23','24','25','28','N+','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [{
 label: ' "Curtiss-Wright" ',
@@ -93,7 +93,6 @@ backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
 data: [653.50,
-653.50,
 653.50,
 653.50,
 653.50,
@@ -179,6 +178,7 @@ data: [653.50,
 669.00,
 662.00,
 663.00,
+659.50,
 ]},
 {
 label: 'buy',
@@ -199,21 +199,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.611, 653.861, 655.083, 656.583, 657.806, 659.472, 660.361, 661.222, 662.333, 662.472, 661.806, 662.25, 662.778, 663.278, 664.194, 666.278, 667.139, 667.611, 668.028,
+data: [ , , , , 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.611, 653.861, 655.083, 656.583, 657.806, 659.472, 660.361, 661.222, 662.333, 662.472, 661.806, 662.25, 662.778, 663.278, 664.194, 666.278, 667.139, 667.611, 668.028, 668.111,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.553, 653.671, 654.25, 654.961, 655.539, 656.329, 656.75, 657.158, 657.684, 657.75, 657.434, 657.645, 657.895, 658.132, 658.566, 659.553, 659.961, 660.184, 660.434,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.5, 653.553, 653.671, 654.25, 654.961, 655.539, 656.329, 656.75, 657.158, 657.684, 657.75, 657.434, 657.645, 657.895, 658.132, 658.566, 659.553, 659.961, 660.184, 660.434, 660.592,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 655.353, 655.526, 655.921, 656.084, 656.174, 656.274,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 655.526, 655.921, 656.084, 656.174, 656.274, 656.337,
 ]},
 {
 label:' Buying/Last ',
@@ -221,14 +221,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,663.00,               ]},
+data: [ 659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,659.50,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,696.15,			]}	
+data: [ 692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,692.475,			]}	
 ]},
 options: {
 responsive: true,
@@ -274,7 +274,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','12','14','15','16','17','18','21','22','23','24','25','28','N+','30','01','02','05','06','07','08','09'
+labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','12','14','15','16','17','18','21','22','23','24','25','28','N+','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -283,7 +283,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 81, 100, 53, 51, 66, 8, 0, 47, 51, 50, 67, 100, 55, 41, 43,
+data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 81, 100, 53, 51, 66, 8, 0, 47, 51, 50, 67, 100, 55, 41, 43, 36,
 ]},
 {
 label: '91',
@@ -346,7 +346,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','12','14','15','16','17','18','21','22','23','24','25','28','N+','30','01','02','05','06','07','08','09'
+labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','12','14','15','16','17','18','21','22','23','24','25','28','N+','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -355,7 +355,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 84, 87, 64, 64, 66, 51, 43, 53, 54, 53, 56, 62, 47, 43, 45,
+data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 84, 87, 64, 64, 66, 51, 43, 53, 54, 53, 56, 62, 47, 43, 45, 41,
 ]},
 {
 label: '75',
@@ -421,7 +421,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','12','14','15','16','17','18','21','22','23','24','25','28','N+','30','01','02','05','06','07','08','09'
+labels: ['','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','12','14','15','16','17','18','21','22','23','24','25','28','N+','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -430,7 +430,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.16, 0.48, 2.13, 3.79, 4.65, 5.91, 5.71, 5.45, 5.54, 4.16, 1.87, 1.65, 1.58, 1.46, 1.96, 3.99, 3.79, 3.03, 2.48,
+data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.16, 0.48, 2.13, 3.79, 4.65, 5.91, 5.71, 5.45, 5.54, 4.16, 1.87, 1.65, 1.58, 1.46, 1.96, 3.99, 3.79, 3.03, 2.48, 1.74,
 ]},
 {
 label: '0',
@@ -508,14 +508,13 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLinkCWT' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=258784196"  target="_blank">CWT "Curtiss-Wright"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=258784196"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=258784196"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>663.00€</b></span>
-&nbsp;<span style='font-size:45px; color:green'><b>0.2%</b></span><br>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>659.50€</b></span>
+&nbsp;<span style='font-size:45px; color:red'><b>-0.5%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;50&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;0%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
 <style>
 .tooltip {
-display:inline-block;
+//  display:inline-block;
 border-bottom:2px dotted black; 
 font-size:70px;
 line-height:67px;
@@ -529,29 +528,32 @@ padding:7px 10px 50px 10px;
 border-radius:6px;
 position:absolute;
 z-index:1;
-font-size:43px;
-margin:10px 0px 0px -410px;
+font-size:45px;
+margin:70px 0px 0px -410px;
 line-height:100%;
 }
 .tooltip:hover .tooltiptext {
 visibility:visible;
 }
 </style>
-<div class='tooltip'>"Luft- und Raumfahrtindustrie"<br><div class='tooltiptext'>" Curtiss-Wright Corp. ist ein Unternehmen mit Sitz in Davidson, USA, das primär im Bereich Industrielle Produktion tätig ist. Das Unternehmen wurde im Jahr 1929 gegründet und beschäftigte zum Ende des letzten Geschäftsjahres 8600 Mitarbeiter. Den Vorsitz in der Geschäftsführung hat Lynn M. Bamford. Die größten Anteilseigner sind BlackRock Fund Advisors, The Vanguard Group, Inc. und SSgA Funds Management, Inc. Der Umsatz des Unternehmens betrug zum Ende des letzten Geschäftsjahres 2.85 Mrd. USD mit einem Gewinn von 354.51 Mio. USD. Der Umsatz hat sich gegenüber dem vorherigen Geschäftsjahr um 11.3% vergrößert. Die derzeitige Marktkapitalisierung beträgt 9.53 Mrd. USD. Die Angaben zum Geschäftsjahresende beziehen sich auf den 31.12.2023. Die Sektorklassifizierung des Unternehmens basiert auf dem FactSet eigenen RBICS Sektorsystem. "</div></div></p>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" Curtiss-Wright Corp. ist ein Unternehmen mit Sitz in Davidson, USA, das primär im Bereich Industrielle Produktion tätig ist. Das Unternehmen wurde im Jahr 1929 gegründet und beschäftigte zum Ende des letzten Geschäftsjahres 8600 Mitarbeiter. Den Vorsitz in der Geschäftsführung hat Lynn M. Bamford. Die größten Anteilseigner sind BlackRock Fund Advisors, The Vanguard Group, Inc. und SSgA Funds Management, Inc. Der Umsatz des Unternehmens betrug zum Ende des letzten Geschäftsjahres 2.85 Mrd. USD mit einem Gewinn von 354.51 Mio. USD. Der Umsatz hat sich gegenüber dem vorherigen Geschäftsjahr um 11.3% vergrößert. Die derzeitige Marktkapitalisierung beträgt 9.53 Mrd. USD. Die Angaben zum Geschäftsjahresende beziehen sich auf den 31.12.2023. Die Sektorklassifizierung des Unternehmens basiert auf dem FactSet eigenen RBICS Sektorsystem. "</span>
+&nbsp;"Luft- und Raumfahrtindustrie"</span>
 <style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 12%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;24 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-07-09</b>
+<b>2026-07-12</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>668.03€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>660.43€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>656.27€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>43 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>45 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>2.48 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>668.11€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>660.59€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>656.34€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>36 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>41 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>1.74 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -568,7 +570,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 18:02</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 13-Jul-2026 05:25</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

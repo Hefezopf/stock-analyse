@@ -67,7 +67,8 @@ grey: 'rgb(201, 203, 207)'
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-20px;">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:107%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
@@ -77,14 +78,13 @@ const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 for (var i = 0; i < divCanvasIds.length; i++) {
 divCanvasIds[i].style.marginLeft = '-80px';
-// console.log('xxxxxxxxxxxxx document.getElementById(divCanvasQuoteId).style.marginLeft:', divCanvasIds[i].style.marginLeft);
 }        
 }
 
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+','3R+','C+4S+4R+D+N+','4S+4R+M+','M+','M+','D+N+M+','D+N+M+','C+4S+D+N+M+','C+4S+M+','C+5S+3R+D+N+M+','5S+3R+','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+','3R+','C+4S+4R+D+N+','4S+4R+M+','M+','M+','D+N+M+','D+N+M+','C+4S+D+N+M+','C+4S+M+','C+5S+3R+D+N+M+','5S+3R+','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [{
 label: ' "Marathon Petroleum" ',
@@ -93,7 +93,6 @@ backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
 data: [233.00,
-233.00,
 233.00,
 233.00,
 233.00,
@@ -179,6 +178,7 @@ data: [233.00,
 233.10,
 245.40,
 247.60,
+248.30,
 ]},
 {
 label: 'buy',
@@ -199,21 +199,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 232.844, 232.567, 232.289, 232.156, 231.622, 231.344, 230.9, 230.589, 229.656, 228.689, 227.511, 226.35, 225.094, 224.156, 223.328, 222.428, 221.861, 221.294, 220.906, 220.661, 220.772, 220.889, 221.594, 221.978, 222.428, 223.428, 225.172,
+data: [ , , , , 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 232.844, 232.567, 232.289, 232.156, 231.622, 231.344, 230.9, 230.589, 229.656, 228.689, 227.511, 226.35, 225.094, 224.156, 223.328, 222.428, 221.861, 221.294, 220.906, 220.661, 220.772, 220.889, 221.594, 221.978, 222.428, 223.428, 225.172, 226.989,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 232.926, 232.795, 232.663, 232.6, 232.347, 232.216, 232.005, 231.858, 231.416, 230.958, 230.4, 229.85, 229.255, 228.811, 228.418, 227.992, 227.724, 227.455, 227.197, 226.95, 226.871, 226.863, 226.945, 226.995, 226.997, 227.324, 227.708,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 233, 232.926, 232.795, 232.663, 232.6, 232.347, 232.216, 232.005, 231.858, 231.416, 230.958, 230.4, 229.85, 229.255, 228.811, 228.418, 227.992, 227.724, 227.455, 227.197, 226.95, 226.871, 226.863, 226.945, 226.995, 226.997, 227.324, 227.708, 228.111,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 230.545, 230.578, 230.598, 230.599, 230.729, 230.883,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 230.578, 230.598, 230.599, 230.729, 230.883, 231.044,
 ]},
 {
 label:' Buying/Last ',
@@ -221,14 +221,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,247.60,               ]},
+data: [ 248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,248.30,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,259.98,			]}	
+data: [ 260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,260.715,			]}	
 ]},
 options: {
 responsive: true,
@@ -274,7 +274,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+','3R+','C+4S+4R+D+N+','4S+4R+M+','M+','M+','D+N+M+','D+N+M+','C+4S+D+N+M+','C+4S+M+','C+5S+3R+D+N+M+','5S+3R+','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+','3R+','C+4S+4R+D+N+','4S+4R+M+','M+','M+','D+N+M+','D+N+M+','C+4S+D+N+M+','C+4S+M+','C+5S+3R+D+N+M+','5S+3R+','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -283,7 +283,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 52, 0, 47, 16, 41, 0, 0, 0, 1, 0, 28, 38, 31, 61, 70, 72, 77, 100, 100, 100, 95, 88, 100, 100,
+data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 52, 0, 47, 16, 41, 0, 0, 0, 1, 0, 28, 38, 31, 61, 70, 72, 77, 100, 100, 100, 95, 88, 100, 100, 100,
 ]},
 {
 label: '91',
@@ -346,7 +346,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+','3R+','C+4S+4R+D+N+','4S+4R+M+','M+','M+','D+N+M+','D+N+M+','C+4S+D+N+M+','C+4S+M+','C+5S+3R+D+N+M+','5S+3R+','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+','3R+','C+4S+4R+D+N+','4S+4R+M+','M+','M+','D+N+M+','D+N+M+','C+4S+D+N+M+','C+4S+M+','C+5S+3R+D+N+M+','5S+3R+','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -355,7 +355,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 34, 17, 37, 32, 38, 26, 26, 23, 24, 23, 32, 37, 37, 45, 42, 49, 44, 55, 56, 78, 77, 81, 86, 90,
+data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 34, 17, 37, 32, 38, 26, 26, 23, 24, 23, 32, 37, 37, 45, 42, 49, 44, 55, 56, 78, 77, 81, 86, 90, 89,
 ]},
 {
 label: '75',
@@ -421,7 +421,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+','3R+','C+4S+4R+D+N+','4S+4R+M+','M+','M+','D+N+M+','D+N+M+','C+4S+D+N+M+','C+4S+M+','C+5S+3R+D+N+M+','5S+3R+','23','24','25','28','29','30','01','02','05','06','07','08','09'
+labels: ['','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+','3R+','C+4S+4R+D+N+','4S+4R+M+','M+','M+','D+N+M+','D+N+M+','C+4S+D+N+M+','C+4S+M+','C+5S+3R+D+N+M+','5S+3R+','23','24','25','28','29','30','01','02','05','06','07','08','09','12'
 ],
 datasets: [
 {
@@ -430,7 +430,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.22, -0.57, -0.84, -0.83, -1.39, -1.44, -1.71, -1.71, -2.58, -3.28, -4.09, -4.66, -5.19, -5.09, -4.79, -4.61, -3.94, -3.36, -2.84, -2.37, -1.46, -0.52, 0.49, 1.19, 1.58, 2.84, 3.98,
+data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.22, -0.57, -0.84, -0.83, -1.39, -1.44, -1.71, -1.71, -2.58, -3.28, -4.09, -4.66, -5.19, -5.09, -4.79, -4.61, -3.94, -3.36, -2.84, -2.37, -1.46, -0.52, 0.49, 1.19, 1.58, 2.84, 3.98, 4.88,
 ]},
 {
 label: '0',
@@ -508,14 +508,13 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLinkMPN' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538380"  target="_blank">MPN "Marathon Petroleum"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538380"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538380"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>247.60€</b></span>
-&nbsp;<span style='font-size:45px; color:green'><b>0.9%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;8&nbsp;&nbsp;</span>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>248.30€</b></span>
+&nbsp;<span style='font-size:45px; color:green'><b>0.3%</b></span><br>
+<span style='font-size:45px'>KGV&nbsp;7&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;1%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
 <style>
 .tooltip {
-display:inline-block;
+//  display:inline-block;
 border-bottom:2px dotted black; 
 font-size:70px;
 line-height:67px;
@@ -529,29 +528,32 @@ padding:7px 10px 50px 10px;
 border-radius:6px;
 position:absolute;
 z-index:1;
-font-size:43px;
-margin:10px 0px 0px -410px;
+font-size:45px;
+margin:70px 0px 0px -410px;
 line-height:100%;
 }
 .tooltip:hover .tooltiptext {
 visibility:visible;
 }
 </style>
-<div class='tooltip'>"Öl und Gas"<br><div class='tooltiptext'>" Marathon Petroleum Corp. (MPC) ist eine der größten unabhängigen Erdölraffinerien, Vermarkter und Transporteur in den USA. Das Geschäft besteht aus drei Bereichen. "Refining  u.  Marketing" raffiniert Rohöl und andere Rohstoffen in sieben Raffinerien an der Golfküste und im Mittleren Westen, kauft Ethanol sowie raffinierte Produkte für den Weiterverkauf und verteilt sie durch verschiedene Mittel, eingeschlossen Lastkähne, Terminals und Lastkraftwagen. MPC vertreibt raffinierte Produkte an Großmarkt -Kunden, Käufer auf dem Spotmarkt, sein Speedway-Segment und an unabhängige Unternehmer, die Marathon Einzelhandelsgeschäfte betreiben. "Speedway" verkauft Kraftstoffe und Convenience-Produkte in den Retail-Markt im Mittleren Westen, in erster Linie durch Speedway Convenience-Stores. "Pipeline Transportation" transportiert Rohöl und andere Rohstoffen zu den Raffinerien, liefert raffinierte Produkte an den Groß-und Einzelhandel und umfasst die Pipelineanlagen und Beteiligungen von MPC. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 34%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;68 Mrd.€</div><br>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" Marathon Petroleum Corp. (MPC) ist eine der größten unabhängigen Erdölraffinerien, Vermarkter und Transporteur in den USA. Das Geschäft besteht aus drei Bereichen. "Refining  u.  Marketing" raffiniert Rohöl und andere Rohstoffen in sieben Raffinerien an der Golfküste und im Mittleren Westen, kauft Ethanol sowie raffinierte Produkte für den Weiterverkauf und verteilt sie durch verschiedene Mittel, eingeschlossen Lastkähne, Terminals und Lastkraftwagen. MPC vertreibt raffinierte Produkte an Großmarkt -Kunden, Käufer auf dem Spotmarkt, sein Speedway-Segment und an unabhängige Unternehmer, die Marathon Einzelhandelsgeschäfte betreiben. "Speedway" verkauft Kraftstoffe und Convenience-Produkte in den Retail-Markt im Mittleren Westen, in erster Linie durch Speedway Convenience-Stores. "Pipeline Transportation" transportiert Rohöl und andere Rohstoffen zu den Raffinerien, liefert raffinierte Produkte an den Groß-und Einzelhandel und umfasst die Pipelineanlagen und Beteiligungen von MPC. "</span>
+&nbsp;"Öl und Gas"</span>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 36%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;72 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-07-09</b>
+<b>2026-07-12</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>225.17€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>227.71€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>230.88€</b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>226.99€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>228.11€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>231.04€</b></span>
 &nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>100 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>90 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>3.98 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>89 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>4.88 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -568,7 +570,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 10-Jul-2026 18:02</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 13-Jul-2026 05:25</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
