@@ -11,7 +11,7 @@ function showChart(timeSpan) {
        // elementSpanToReplace.style.transform = 'scale(1.85)'; // yyy        
     }
     else {
-        elementSpanToReplace.style.top = '9%';
+        elementSpanToReplace.style.top = '15%';
         elementSpanToReplace.style.left = '44%';
         elementSpanToReplace.style.transform = 'scale(1.2)';
     }   
