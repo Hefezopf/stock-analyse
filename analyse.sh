@@ -160,7 +160,6 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 /* iPhone 16 (Meines 09/2024) */
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
-        /* font-size:xx-large; yyy */
         font-size:xx-large;
         zoom: 1.3;
         /* background:grey; */
@@ -168,7 +167,6 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
     /* headlineLink */
     body > div > div > div { 
         font-size:120%;
-        /* font-size:110%; yyy */
         /* background:green; */
      }     
 }

@@ -130,7 +130,6 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 @media only screen and (min-device-width: 393px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
     body {
         font-size:310%;
-        /* font-size:350%; yyy */
         /* background: pink; */
     }
 }
