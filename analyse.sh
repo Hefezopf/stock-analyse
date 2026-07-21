@@ -329,8 +329,7 @@ do
     fi
 
     awk '{print $2}' "$DATA_DATE_FILE" > "$DATA_FILE"
-    lastRaw=$(head -n1 "$DATA_FILE")
-#echo "--------lastRaw:$lastRaw"    
+    lastRaw=$(head -n1 "$DATA_FILE") 
     last=$(printf "%.2f" "$lastRaw")
     # Check for unknown symbols or not fetched symbols in cmd or on marketstack.com
     if [ "${#lastRaw}" -eq 0 ]; then
@@ -752,22 +751,11 @@ do
                 # Should never occure 
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
-                # echo "<span><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
-                #echo "<span class='tooltiptext'><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;"
-  #              echo "<span style='font-size:$FONT_SIZE_DETAIL'><img id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}:${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'>&nbsp;$branche</span>"
-               # echo "<div class='tooltip'><div class='tooltiptext'><img class='tooltiptext' id='countryflagId' alt='${isin:0:2}: No Flag' title='${isin:0:2}:${firmenportrait}' src='../image/flags/${isin:0:2}.jpeg' width='5%' height='5%' style='border:1px solid;'>&nbsp;$branche</div></div>"
-
-
-# cccc
-echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.classList.toggle('active')'>
-        <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' width='5%' height='5%' style='border:1px solid;'>
-        <span class='tooltiptext'>${isin:0:2}:${firmenportrait}</span>
-      &nbsp;$branche</span>"
-
+                echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.classList.toggle('active')'>
+                        <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' width='5%' height='5%' style='border:1px solid;'>
+                        <span class='tooltiptext'>${isin:0:2}:${firmenportrait}</span>
+                      &nbsp;$branche</span>"
             fi
-
-            #echo "<div>$branche<br></div></p>"
-            #echo "<div class='tooltip'>$branche<br><div class='tooltiptext'>$firmenportrait</div></div></p>"
 
             # Market Cap Progressbar, only if number
             if [ "$marketCapFromFile" = '?' ]; then
@@ -871,8 +859,7 @@ echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.cl
         if [ "$isStocksPerformanceNegativ" = '-' ]; then
             _linkColor="$RED"
         fi
-#echo "----symbol: $symbol symbolsParam: $symbolsParam symbolName: $symbolName"        
-#echo "isStocksPerformanceNegativ: $isStocksPerformanceNegativ $_linkColor"
+
         {
             # RealTimeQuote
             # shellcheck disable=SC1078,SC1087,SC1079
@@ -881,16 +868,6 @@ echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.cl
                 counterOwnStocks=$counterOwnStocks; // For Spinner
                 document.addEventListener('DOMContentLoaded', onContentLoaded('$symbol', '$ID_NOTATION', '$asset_type'));
             </script>"
-
-# echo "<div>--------------</div>"                        
-#             echo "<span id='intervalSectionRealTimeQuote$symbol' style='font-size:xx-large; display: none'>---</span>&nbsp;
-#                   <span id='intervalSectionPercentage$symbol' style='font-size:xx-large; display: none'></span>
-#                   <span id='intervalSectionGain$symbol' style='font-size:xx-large; display: none'></span>
-#                   <span id='neverShowRegularMarketTime$symbol' style='display: none'></span>
-#                   <span id='intervalSectionPortfolioValues$symbol' style='font-size:large; display: none'></span>
-#                   <span id='intervalSectionPortfolioGain$symbol' style='font-size:large; display: none'></span>
-#                   <span id='intervalSectionButtonDetailsBR$symbol'><br></span>"
-# echo "<div>----------------</div>"
 
             # ObfuscatedValue neverShowDiv (Yesterday)
             echo "<div id='neverShowDiv$symbol' style='display:none'>
@@ -972,21 +949,11 @@ if [ "$obfuscatedValueBuyingOverall" ]; then
     if [ "$isStocksPerformanceOverallNegativ" = '-' ]; then
         _linkColor="$RED"
     fi
-#echo "isStocksPerformanceOverallNegativ: $isStocksPerformanceOverallNegativ $_linkColor"
 fi
 
 {
-    # Overall
-    # echo "<br><br><div id='portfolioValueDaxFooterId'>" # START portfolioValueDaxFooterId
-    # echo "<hr id='intervalSectionHROverallRealtimeBegin' style='display: none'>"
-    # echo "<span id='intervalSectionHeadlineOverallPortfolio' style='display:none'># Portfolio value purchase</span><br>"
-    # echo "<span id='obfuscatedValueBuyingOverall' style='font-size:large; display:none'>$obfuscatedValueBuyingSellingOverall</span>"
-    # echo "<br><br><span id='intervalSectionHeadlineOverallRealtime' style='display:none'># Realtime difference to purchase</span><br>"
-    # echo "<span id='obfuscatedValueBuyingOverallRealtime' style='font-size:xx-large; display:none'>---</span>"
-    # echo "<hr id='intervalSectionHROverallRealtime' style='display: none'>"
-
     # DAX
-    echo "<span id='intervalSectionHeadlineDAX' style='display:none'>DAX<br></span>"
+    echo "<span id='intervalSectionHeadlineDAX' style='display:none'><br>DAX<br></span>"
     echo "<img id='intervalSectionImageDAX' alt='' src='#' style='display: none; width:68%'><br>
         <button id='intervalSectionButton1DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '1D')\">1D</button>
         <button id='intervalSectionButton5DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '5D')\">5D</button>
