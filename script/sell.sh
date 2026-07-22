@@ -280,12 +280,12 @@ estPercentEndOfYear=$(echo "$initialAmountStartOfYear $all" | awk '{print (100 /
 initialAmountStartOfYear=$(printf "%'.f" "$initialAmountStartOfYear")
 estPercentEndOfYear=$(printf "%'.1f" "$estPercentEndOfYear")
 echo "Begin of year: $initialAmountStartOfYear€"
-echo "Gain till today: $summe€ ($estPercentEndOfYear%)"
-echo "Est. yearly gain: $estSumEndOfYear€ (before tax)"
+echo "Gain till today: $summe€ = $estPercentEndOfYear%"
+echo "Est. yearly gain before tax: $estSumEndOfYear€"
 
 count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
-echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Gain till today: $summe€ ($estPercentEndOfYear%)<br>&nbsp;Est. yearly gain: $estSumEndOfYear€ (before tax)<br>&nbsp;Transactions: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Gain till today: <b>$summe€ = $estPercentEndOfYear%</b><br>&nbsp;Est. yearly gain before tax: $estSumEndOfYear€<br>&nbsp;Transactions: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
@@ -294,7 +294,7 @@ cat -ev "$TEMP_REVERS_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 rm -rf "$TEMP_REVERS_FILE"
 rm -rf "$TEMP_TRANSACTION_HISTORY_FILE"
 
-echo "<br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Gaintill today: $summe€ ($estPercentEndOfYear%)<br>&nbsp;Est. yearly gain: $estSumEndOfYear€ (before tax)<br>&nbsp;Transactions: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+#echo "<br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Gaintill today: $summe€ ($estPercentEndOfYear%)<br>&nbsp;Est. yearly gain: $estSumEndOfYear€ (before tax)<br>&nbsp;Transactions: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 GetCreationDate
 # shellcheck disable=SC2154

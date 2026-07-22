@@ -82,7 +82,7 @@ lineFromFile=$(echo "$lineFromFile" | sed 's/\t2028-/2028-/g')
 
 echo "$lineFromFile"
 echo ""
-echo "Gain till today (before tax): $summe€"
+echo "Gain till today before tax: $summe€"
 
 count=$(cat "$TRANSACTION_COUNT_FILE")
 echo "Transactions: $count"
