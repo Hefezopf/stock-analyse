@@ -76,9 +76,10 @@ function curlBuy(symbolParam, price, pieces) {
         overallPieces = '?';
     }
     totalAmount = Number(totalAmount); // + txFee;
-    navigator.clipboard.writeText(totalAmount);
+  //  navigator.clipboard.writeText(totalAmount);
     
-    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+//    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€?') == false) {
         return;
     }
     if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -157,7 +158,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         var stocksPieces = stocksPiecesId.innerHTML;
         var newPiecesAmount=(stocksPieces - stockPiecesParam);
         //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
-        navigator.clipboard.writeText(newAmount);
+        //navigator.clipboard.writeText(newAmount);
     }
 
     // Trading fees
@@ -172,8 +173,9 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         //var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
         var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
         //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
-        navigator.clipboard.writeText(newAmountPartial);
-        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+       // navigator.clipboard.writeText(newAmountPartial);
+//        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€?') == false) {
             return;
         }
     }
