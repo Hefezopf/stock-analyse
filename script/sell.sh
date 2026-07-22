@@ -102,15 +102,15 @@ else
     WIN_AMOUNT=$(echo "$WIN_AMOUNT" | cut -f 1 -d '.')
     WIN_AMOUNT=$((WIN_AMOUNT - TX_FEE))
 
-    newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')
+    # newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')
 
-    if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # markus-ideacentre-700-25ISH (bash Mint), Laptop-Markus (bash Win) or runnervmwffz4 (GitHub)
-        echo "$newAmount" | xclip -selection clipboard
-    elif [ "$UNAME_N" = "$UNAME_N_BASH_WIN_LAPTOP_MARKUS" ]; then    
-        echo "$newAmount" | clip
-    else # GitHub
-        echo ""
-    fi    
+    # if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # markus-ideacentre-700-25ISH (bash Mint), Laptop-Markus (bash Win) or runnervmwffz4 (GitHub)
+    #     echo "$newAmount" | xclip -selection clipboard
+    # elif [ "$UNAME_N" = "$UNAME_N_BASH_WIN_LAPTOP_MARKUS" ]; then    
+    #     echo "$newAmount" | clip
+    # else # GitHub
+    #     echo ""
+    # fi    
     
     winPercentage=$(echo "scale=1; ($sellPriceParam *100 / $AVG_PRICE) - 100" | bc)
  

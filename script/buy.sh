@@ -118,12 +118,12 @@ BUY_RESULT_FILE="buy_result.txt"
 rm -rf "$BUY_RESULT_FILE"
 echo "Pieces=$totalAmountOfPieces Invested Amount=$summe€" >> "$BUY_RESULT_FILE"
 if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
-    echo "$summe" | xclip -selection clipboard
-    echo "(re)buy $symbolParam $piecesParam $priceParam€ (Value $summePlusFees€) ==> $totalAmountOfPieces <== pieces, $summe€ Value overall (in clipboard)"
+   # echo "$summe" | xclip -selection clipboard
+    echo "(re)buy $symbolParam $piecesParam $priceParam€ (Value $summePlusFees€) ==> $totalAmountOfPieces <== pieces, $summe€ Value overall" # (in clipboard)"
     rm -rf "$BUY_RESULT_FILE"
 elif [ "$UNAME_N" = "$UNAME_N_BASH_WIN_LAPTOP_MARKUS" ]; then    
-    echo "$summe" | clip
-    echo "(re)buy $symbolParam $piecesParam $priceParam€ (Value $summePlusFees€) ==> $totalAmountOfPieces <== pieces, $summe€ Value overall (in clipboard)"
+   # echo "$summe" | clip
+    echo "(re)buy $symbolParam $piecesParam $priceParam€ (Value $summePlusFees€) ==> $totalAmountOfPieces <== pieces, $summe€ Value overall" # (in clipboard)"
     rm -rf "$BUY_RESULT_FILE"
 else # GitHub
     echo "(re)buy $symbolParam $piecesParam $priceParam€ (Value $summePlusFees€) ==> $totalAmountOfPieces <== pieces, $summe€ Value overall"
