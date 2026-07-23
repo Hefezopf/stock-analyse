@@ -647,8 +647,8 @@ Out "Gain Percent (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
 prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # Factor 3.8: 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(echo "$winOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(printf "%'.f" "$winOverAll1Year")
-Out "Annually Gain Amnt (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
-Out "Annually Gain Percent (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
+Out "Yearly gain Amnt (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
+Out "Yearly gain Percent (250 Busi.Days)=<b>$prozWinOverAll1Year%</b>" $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%'.f" "$sellAmountOverAll")
 Out "Sell Amnt overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE

@@ -678,11 +678,11 @@ else
     prozWinOverAll=$(echo "$winOverAll $sellAmountOverAll" | awk '{print (($1 / $2 * 100))}')
     prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
 fi
-Out "Win Percentage (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
+Out "Gain Percentage (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
 prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(echo "$winOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
-Out "Annually Win (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
-Out "Annually Win Percentage (250 Busi.Days)=$prozWinOverAll1Year%" $OUT_SIMULATE_FILE
+Out "Yearly gain (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
+Out "Yearly gain Percentage (250 Busi.Days)=<b>$prozWinOverAll1Year%</b>" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 # Workflow  

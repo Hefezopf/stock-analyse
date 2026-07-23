@@ -12,8 +12,8 @@
 # NOT USED!!! -----# 8. Parameter: ALARM_COUNT_FOR_STOCK: Buy, if count is true for alarm. Like: 'C+4R+7S+P+D+N+M+' = 7 times '+'
 # NOT USED!!! -----# 9. Parameter: ALARM_COUNT_FOR_INDEX: Buy, if count is true for alarm. Like: '7S+P+D+N+M+' = 5 times '+'
 # 7. Parameter: ALARM_PATTERN: Buy, if pattern matches for the last day. Like: '+7R'
-# Call example: . simulate.sh 'BEI ALV' 3000 25 90 1.05 99 2 '+7R'
-# Call example: . simulate.sh 'BEI' 3000 25 90 1.01 99 1 '+7R'
+# Call example: . simulate.sh 'BEI ALV' 3000 25 90 1.05 2 '+7R'
+# Call example: . simulate.sh 'BEI' 3000 25 90 1.01 1 '+7R'
 # Hint: Grep output to find symbols -> grep Position:100 simulate/out/_simulate.html
 
 # Debug mode
