@@ -298,7 +298,7 @@ rm -rf "$TEMP_TRANSACTION_HISTORY_FILE"
 
 GetCreationDate
 # shellcheck disable=SC2154
-echo "<br><br>&nbsp;Good Luck! $creationDate<br><br></div><script>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<br>&nbsp;Good Luck! $creationDate<br><br></div><script>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2013
 for symbol in $(awk '{print $3}' config/transaction_history.txt | sed "s/'/xxx/g" | sed 's/target\=xxx_blankxxx>//g' | sed 's/&.*//' | awk '!seen[$0]++')

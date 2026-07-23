@@ -877,12 +877,12 @@ do
                  </div>"
 
             # Interval Beep
-            echo "<span id='intervalSectionBeep$symbol' style='font-size:large; display: none'>"
-            echo "Delay: <span id='intervalSectionRegularMarketTimeOffset$symbol' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalField$symbol' id='intervalField$symbol' type='text' style='height: 45px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButton$symbol' style='font-size:large; height: 50px; width: 97px' onClick=\"javascript:setBeepInterval('$symbol')\">Minutes</button><span id='intervalText$symbol'></span>"
-            echo "</span>"
+            # echo "<span id='intervalSectionBeep$symbol' style='font-size:large; display: none'>"
+            # echo "Delay: <span id='intervalSectionRegularMarketTimeOffset$symbol' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalField$symbol' id='intervalField$symbol' type='text' style='height: 45px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButton$symbol' style='font-size:large; height: 50px; width: 97px' onClick=\"javascript:setBeepInterval('$symbol')\">Minutes</button><span id='intervalText$symbol'></span>"
+            # echo "</span>"
 
             # Image Chart
-            echo "<br><img id='intervalSectionImage$symbol' alt='' src='#' style='display: none; border: 1px solid;'><br>
+            echo "<img id='intervalSectionImage$symbol' alt='' src='#' style='display: none; border: 1px solid;'><br>
                   <button id=\"intervalSectionButtonDetails1D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '1D')\">1D</button>
                   <button id=\"intervalSectionButtonDetails5D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '5D')\">5D</button>
                   <button id=\"intervalSectionButtonDetails10D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '10D')\">10D</button>
