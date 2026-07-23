@@ -419,7 +419,7 @@ function doOpenAllInTab() {
 var toggleIsDetailsVisible = true;
 function doHideDetails() {
     var detailsIdValues = document.querySelectorAll('[id ^= \"detailsId\"]');
-    var intervalSectionBeepValues = document.querySelectorAll('[id ^= \"intervalSectionBeep\"]');
+    //var intervalSectionBeepValues = document.querySelectorAll('[id ^= \"intervalSectionBeep\"]');
     var intervalSectionButtonValues = document.querySelectorAll('[id ^= \"intervalSectionButtonDetails\"]');
     var intervalSectionButtonHideDetailsButton = document.getElementById('intervalSectionButtonHideDetails');
     var intervalSectionRealTimeQuoteValues = document.querySelectorAll('[id ^= \"intervalSectionRealTimeQuote\"]');
@@ -430,7 +430,7 @@ function doHideDetails() {
     var symbolLineIdValues = document.querySelectorAll('[id ^= \"symbolLineId\"]');
     if(toggleIsDetailsVisible) {
         Array.prototype.forEach.call(detailsIdValues, hideElement);
-        Array.prototype.forEach.call(intervalSectionBeepValues, hideElement);
+       // Array.prototype.forEach.call(intervalSectionBeepValues, hideElement);
         Array.prototype.forEach.call(intervalSectionButtonValues, hideElement);
         Array.prototype.forEach.call(intervalSectionRealTimeQuoteValues, hideElement);
         Array.prototype.forEach.call(intervalSectionGainValues, hideElement);
@@ -445,7 +445,7 @@ function doHideDetails() {
     }
     else {
         Array.prototype.forEach.call(detailsIdValues, revealElement);
-        Array.prototype.forEach.call(intervalSectionBeepValues, revealElement);
+       // Array.prototype.forEach.call(intervalSectionBeepValues, revealElement);
         Array.prototype.forEach.call(intervalSectionButtonValues, revealElement);
         Array.prototype.forEach.call(intervalSectionRealTimeQuoteValues, revealElement);
         Array.prototype.forEach.call(intervalSectionGainValues, revealElement);
