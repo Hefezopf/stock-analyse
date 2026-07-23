@@ -263,7 +263,7 @@ echo ""
 
 if [ ! "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
     echo "./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh" | clip
-    echo "Call: ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh" # (in Clipboard)"
+    echo "Call: ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh (in Clipboard)"
 fi
 
 if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
