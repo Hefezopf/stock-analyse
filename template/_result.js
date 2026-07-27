@@ -618,7 +618,7 @@ function showChart(timeSpan, symbol, pathParam) {
     // }
 
     if(isMobil()) {
-        console.log('xxxx showChart:isMobil()');
+        //console.log('xxxx showChart:isMobil()');
         elementSpanToReplace.style.top = '15%';
         // Simulate Page
         elementSpanToReplace.style.left = '18%';
@@ -630,7 +630,7 @@ function showChart(timeSpan, symbol, pathParam) {
         }
     }
     else {
-        console.log('xxxx showChart:WEB');
+        //console.log('xxxx showChart:WEB');
         elementSpanToReplace.style.top = '10%';
         elementSpanToReplace.style.left = '22%';
         elementSpanToReplace.style.transform = 'scale(1.1)';
