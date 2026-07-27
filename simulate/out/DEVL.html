@@ -32,7 +32,6 @@ template/index.html and template/indexPart1.html
 //# sourceMappingURL=chart.umd.js.map
 
 </script>
-
 <script>
 window.chartColors = {
 black: 'rgb(0, 0, 0)',
@@ -46,80 +45,56 @@ darkblue: 'rgb(5, 02, 255)',
 purple: 'rgb(153, 102, 255)',
 grey: 'rgb(201, 203, 207)'
 };
-</script>   
+</script>
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244500778&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
-<p style='text-align:right'>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500778"  target="_blank">DEVL "DBS Group"</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500778"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500778"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>42.67€</b></span>
-&nbsp;<span style='font-size:50px; color:green'><b>3.0%</b></span>
+<p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500778"  target="_blank">DEVL "DBS"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500778"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500778"  target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
 
-<div style="width:98%">
+<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">    
 <canvas id="canvasQuote"></canvas>
 </div>
 
-<div style="width:98%">
+<div id="divCanvasIdStochastik" style="width:108%;margin-left:-140px;margin-top:-20px;">
 <canvas id="canvasStochastik"></canvas>
 </div>
 
-<div style="width:98%">
+<div id="divCanvasIdRSI" style="width:108%;margin-left:-140px;margin-top:-20px;">
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div style="width:98%">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:108%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
 <script>
+const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
+// isMobil
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+for (var i = 0; i < divCanvasIds.length; i++) {
+divCanvasIds[i].style.marginLeft = '-80px';
+}        
+}
+
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
 labels:['','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100'
 ],
 datasets: [{
-label: ' "DBS Group" ',
+label: ' "DBS" ',
 fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
 data: [43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
-43.685,
 43.685,
 43.685,
 43.685,
@@ -175,6 +150,37 @@ data: [43.685,
 42.265,
 41.445,
 42.665,
+42.785,
+42.91,
+42.615,
+43.95,
+44.88,
+44.37,
+44.115,
+45.105,
+44.19,
+44.69,
+44.54,
+44.32,
+44.17,
+44.655,
+45.525,
+45.615,
+45.31,
+46.05,
+47.18,
+46.605,
+47.615,
+48.345,
+49.57,
+50.73,
+49.985,
+48.59,
+48.545,
+48.855,
+49.48,
+48.83,
+49.195,
 ]},
 {
 label: 'buy',
@@ -195,21 +201,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.6494, 43.6369, 43.5981, 43.4994, 43.4206, 43.2961, 43.2394,
+data: [ , , , , 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.6494, 43.6369, 43.5981, 43.4994, 43.4206, 43.2961, 43.2394, 43.1894, 43.1464, 43.0869, 43.1017, 43.1681, 43.2061, 43.23, 43.3089, 43.3369, 43.3928, 43.4403, 43.5111, 43.5506, 43.6433, 43.8442, 44.0303, 44.245, 44.4331, 44.6772, 44.8825, 45.1603, 45.4044, 45.665, 46.0183, 46.3444, 46.5381, 46.78, 47.0114, 47.2858, 47.5364, 47.8156,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.6682, 43.6622, 43.6438, 43.5971, 43.5597, 43.5008, 43.4739,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.685, 43.6682, 43.6622, 43.6438, 43.5971, 43.5597, 43.5008, 43.4739, 43.4503, 43.4299, 43.4017, 43.4087, 43.4401, 43.4582, 43.4695, 43.5068, 43.5201, 43.5466, 43.5691, 43.5858, 43.5986, 43.6241, 43.6725, 43.7233, 43.7661, 43.8283, 43.9203, 43.9971, 44.1005, 44.2232, 44.378, 44.5634, 44.7292, 44.8583, 44.9862, 45.1222, 45.2747, 45.4101, 45.5551,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 43.6759, 43.6685, 43.6498, 43.6349, 43.6113, 43.6006,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 44.1543, 44.2055, 44.2599, 44.3209, 44.3751, 44.4331,
 ]},
 {
 label:' Buying/Last ',
@@ -217,14 +223,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data:[42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,42.665,]},
+data:[49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,49.195,]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data:[44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,44.7983,]},
+data:[51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,51.6547,]},
 ]},
 options: {
 responsive: true,
@@ -270,7 +276,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','C+D+N+M+','M+','C+4S+3R+D+N+M+','4S+3R+'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','C+D+N+M+','M+','C+4S+3R+D+N+M+','4S+3R+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26'
 ],
 datasets: [
 {
@@ -279,7 +285,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 64, 0, 0, 20, 0, 54,
+data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 64, 0, 0, 20, 0, 54, 59, 65, 52, 100, 100, 85, 77, 100, 75, 88, 84, 78, 62, 81, 100, 100, 81, 100, 100, 81, 100, 100, 100, 100, 88, 67, 64, 65, 76, 64, 67,
 ]},
 {
 label: '91',
@@ -342,7 +348,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','C+D+N+M+','M+','C+4S+3R+D+N+M+','4S+3R+'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','C+D+N+M+','M+','C+4S+3R+D+N+M+','4S+3R+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26'
 ],
 datasets: [
 {
@@ -351,7 +357,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 39, 27, 15, 26, 20, 39,
+data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 39, 27, 15, 26, 20, 39, 41, 42, 40, 51, 57, 54, 52, 61, 53, 59, 65, 62, 67, 64, 67, 67, 67, 64, 65, 65, 71, 70, 82, 84, 78, 70, 70, 70, 69, 65, 68,
 ]},
 {
 label: '75',
@@ -417,7 +423,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','C+D+N+M+','M+','C+4S+3R+D+N+M+','4S+3R+'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','C+D+N+M+','M+','C+4S+3R+D+N+M+','4S+3R+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26'
 ],
 datasets: [
 {
@@ -426,7 +432,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.05, -0.06, -0.10, -0.22, -0.28, -0.39, -0.37,
+data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.05, -0.06, -0.10, -0.22, -0.28, -0.39, -0.37, -0.35, -0.31, -0.31, -0.19, -0.02, 0.07, 0.12, 0.23, 0.25, 0.30, 0.32, 0.32, 0.30, 0.32, 0.40, 0.47, 0.49, 0.56, 0.70, 0.76, 0.88, 1.01, 1.21, 1.44, 1.55, 1.50, 1.44, 1.41, 1.41, 1.35, 1.31,
 ]},
 {
 label: '0',
@@ -501,61 +507,63 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkDEVL' style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500778"  target="_blank">DEVL "DBS Group"</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500778"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500778"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>42.67€</b></span>
-&nbsp;<span style='font-size:50px; color:green'><b>3.0%</b></span><br>
-<span style='font-size:50px'>KGV&nbsp;15&nbsp;&nbsp;</span>
-<span style='font-size:50px'>DIV&nbsp;5%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='SG: No Flag' title='SG' src='../../image/flags/SG.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
+<a id='headlineLinkDEVL' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500778"  target="_blank">DEVL "DBS"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500778"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500778"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>49.19€</b></span>
+&nbsp;<span style='font-size:45px; color:green'><b>0.7%</b></span><br>
+<span style='font-size:45px'>KGV&nbsp;18&nbsp;&nbsp;</span>
+<span style='font-size:45px'>DIV&nbsp;4%&nbsp</span>&nbsp;
 <style>
 .tooltip {
-display: inline-block;
-border-bottom: 2px dotted black; 
-font-size: 50px;
-line-height: 37px;
-vertical-align: baseline;
+//  display:inline-block;
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
 }
 .tooltip .tooltiptext {
-visibility: hidden;
-background-color: black;
-color: #fff;
-padding: 7px 10px 50px 10px;
-border-radius: 6px;
-position: absolute;
-z-index: 1;
-font-size: 50px;
-margin: 10px 0px 0px -410px;
-line-height: 100%;
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
 }
 .tooltip:hover .tooltiptext {
-visibility: visible;
+visibility:visible;
 }
 </style>
-<div class='tooltip'>"Banken"<br><div class='tooltiptext'>" Die DBS Group Holdings Ltd. ist eine führende Finanzdienstleistungsgruppe Asiens. Der Bereich Privatkunden Vermögensverwaltung bietet eine breite Palette an Bank- und damit verbundenen Finanzdienstleistungen. Dazu zählen Giro- und Sparkonten, Kredite und Immobilienfinanzierungen, Karten, Zahlungsverkehr, Anlage- und Versicherungsprodukte. Das Institutional Banking bietet Finanzdienstleistungen und -produkte für institutionelle Kunden. Das Angebot umfasst das ganze Spektrum der Kreditfazilitäten. Darüber hinaus werden globale Transaktionsdienstleistungen wie Cash Management, Handelsfinanzierungen und Wertpapier- und Treuhanddienstleistungen, Treasury- und Marktprodukte sowie Kapitalmarktlösungen angeboten. Dem Bereich "Markets Trading" sind Strukturierungs-, Market-Making- und Handelsaktivitäten gebündelt. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 595px; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;119 Mrd.€</div><br>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../../image/flags/SG.jpeg' alt='SG: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>SG:" Die DBS Group Holdings Ltd. ist eine führende Finanzdienstleistungsgruppe Asiens. Der Bereich Privatkunden Vermögensverwaltung bietet eine breite Palette an Bank- und damit verbundenen Finanzdienstleistungen. Dazu zählen Giro- und Sparkonten, Kredite und Immobilienfinanzierungen, Karten, Zahlungsverkehr, Anlage- und Versicherungsprodukte. Das Institutional Banking bietet Finanzdienstleistungen und -produkte für institutionelle Kunden. Das Angebot umfasst das ganze Spektrum der Kreditfazilitäten. Darüber hinaus werden globale Transaktionsdienstleistungen wie Cash Management, Handelsfinanzierungen und Wertpapier- und Treuhanddienstleistungen, Treasury- und Marktprodukte sowie Kapitalmarktlösungen angeboten. Dem Bereich "Markets Trading" sind Strukturierungs-, Market-Making- und Handelsaktivitäten gebündelt. "</span>
+&nbsp;"Banken"</span>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 69%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;139 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-06-11</b>
+<b>2026-07-26</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>43.24€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>43.47€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>43.60€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>54 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>39 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.37 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>47.82€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>45.56€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>44.43€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>67 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>68 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>1.31 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
 <p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b>  </b></p>
-<p class='p-result' style='color:rgb(255, 159, 64)'><b> Buy: Low 4 last Stochastic (S): 4 last quotes under level </b></p>
-<p class='p-result' style='color:rgb(255, 205, 86)'><b> Buy: Low 3 last RSI (R): 3 last quotes under level </b></p>
+<p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
+<p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 166)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
@@ -564,7 +572,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 12-Jun-2026 07:34
+<br>Good Luck! 27-Jul-2026 17:52
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -680,9 +688,10 @@ totalAmount = '0';
 overallPieces = '?';
 }
 totalAmount = Number(totalAmount); // + txFee;
-navigator.clipboard.writeText(totalAmount);
+//  navigator.clipboard.writeText(totalAmount);
 
-if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+//    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€?') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -726,6 +735,9 @@ if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
 alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
 return;
 }
+
+// console.log('xxxxxxxxxxxxx:symbolParam:' + symbolParam);
+
 symbolParam = trimOwnChar(symbolParam);
 
 if (sellPriceParam == '') {
@@ -758,7 +770,7 @@ var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(
 var stocksPieces = stocksPiecesId.innerHTML;
 var newPiecesAmount=(stocksPieces - stockPiecesParam);
 //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
-navigator.clipboard.writeText(newAmount);
+//navigator.clipboard.writeText(newAmount);
 }
 
 // Trading fees
@@ -773,8 +785,9 @@ var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
 //var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
 var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
 //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
-navigator.clipboard.writeText(newAmountPartial);
-if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+// navigator.clipboard.writeText(newAmountPartial);
+//        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€?') == false) {
 return;
 }
 }
@@ -840,14 +853,14 @@ return txFee;
 function showChart(timeSpan) {
 var elementSpanToReplace = document.getElementById('imgToReplace');
 if(isMobil()) {
-elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '25%'
-elementSpanToReplace.style.transform = 'scale(1.85)';
+elementSpanToReplace.style.top = '20%';
+elementSpanToReplace.style.left = '20%'
+elementSpanToReplace.style.transform = 'scale(1.7)';     
 }
 else {
-elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '52%';
-elementSpanToReplace.style.transform = 'scale(1.3)';
+elementSpanToReplace.style.top = '13%';
+elementSpanToReplace.style.left = '44%';
+elementSpanToReplace.style.transform = 'scale(1.1)';
 }   
 elementSpanToReplace.style.display = 'block';
 

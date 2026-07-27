@@ -32,7 +32,6 @@ template/index.html and template/indexPart1.html
 //# sourceMappingURL=chart.umd.js.map
 
 </script>
-
 <script>
 window.chartColors = {
 black: 'rgb(0, 0, 0)',
@@ -46,37 +45,44 @@ darkblue: 'rgb(5, 02, 255)',
 purple: 'rgb(153, 102, 255)',
 grey: 'rgb(201, 203, 207)'
 };
-</script>   
+</script>
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244538407&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
-<p style='text-align:right'>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538407"  target="_blank">QAA "Quanta Services"</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538407"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538407"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>584.80€</b></span>
-&nbsp;<span style='font-size:50px; color:green'><b>3.9%</b></span>
+<p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538407"  target="_blank">QAA "Quanta Services"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538407"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538407"  target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
 
-<div style="width:98%">
+<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">    
 <canvas id="canvasQuote"></canvas>
 </div>
 
-<div style="width:98%">
+<div id="divCanvasIdStochastik" style="width:108%;margin-left:-140px;margin-top:-20px;">
 <canvas id="canvasStochastik"></canvas>
 </div>
 
-<div style="width:98%">
+<div id="divCanvasIdRSI" style="width:108%;margin-left:-140px;margin-top:-20px;">
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div style="width:98%">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:108%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
 <script>
+const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
+// isMobil
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+for (var i = 0; i < divCanvasIds.length; i++) {
+divCanvasIds[i].style.marginLeft = '-80px';
+}        
+}
+
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
@@ -137,37 +143,6 @@ data: [623.20,
 623.20,
 623.20,
 623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
-623.20,
 607.20,
 622.00,
 602.60,
@@ -175,6 +150,37 @@ data: [623.20,
 597.40,
 563.00,
 584.80,
+610.80,
+631.00,
+614.40,
+620.00,
+615.40,
+615.40,
+641.60,
+616.40,
+624.20,
+632.80,
+604.40,
+626.40,
+628.60,
+605.20,
+582.00,
+585.20,
+592.00,
+574.20,
+581.00,
+586.40,
+576.20,
+563.40,
+578.20,
+565.40,
+550.80,
+547.40,
+553.40,
+560.20,
+563.40,
+574.00,
+551.80,
 ]},
 {
 label: 'buy',
@@ -195,21 +201,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 622.311, 622.244, 621.1, 619.878, 618.444, 615.1, 612.967,
+data: [ , , , , 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 622.311, 622.244, 621.1, 619.878, 618.444, 615.1, 612.967, 612.278, 612.711, 612.222, 612.044, 611.611, 611.178, 612.2, 611.822, 611.878, 612.411, 611.367, 612.433, 612.8, 612.944, 611.878, 611.2, 612.811, 612.222, 610.567, 608.089, 605.967, 602.822, 600.756, 597.978, 592.933, 589.1, 585.167, 581.133, 578.856, 575.944, 571.678,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 622.779, 622.747, 622.205, 621.626, 620.947, 619.363, 618.353,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 623.2, 622.779, 622.747, 622.205, 621.626, 620.947, 619.363, 618.353, 618.026, 618.232, 618, 617.916, 617.711, 617.505, 617.989, 617.811, 617.837, 618.089, 617.595, 617.679, 617.821, 617.347, 616.263, 615.263, 614.442, 613.153, 612.042, 611.074, 609.837, 608.263, 607.079, 605.558, 603.653, 601.658, 599.821, 598.163, 596.589, 595.295, 593.416,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 623.019, 622.802, 622.571, 622.299, 621.665, 621.261,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 614.583, 613.848, 613.185, 612.556, 612.038, 611.286,
 ]},
 {
 label:' Buying/Last ',
@@ -217,14 +223,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data:[584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,584.80,]},
+data:[551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,551.80,]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data:[614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,614.04,]},
+data:[579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,579.39,]},
 ]},
 options: {
 responsive: true,
@@ -270,7 +276,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','D+N+M+','4S+D+N+M+','C+5S+D+N+M+','5S+M+'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','D+N+M+','4S+D+N+M+','C+5S+D+N+M+','5S+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','4S+M+','4S+M+','M+','4S+M+','4S+M+','14','4S+P+','4S+P+D+N+M+','C+5S+P+D+N+M+','5S+M+','21','22','23','26'
 ],
 datasets: [
 {
@@ -279,7 +285,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 92, 0, 0, 0, 0, 36,
+data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 92, 0, 0, 0, 0, 36, 79, 100, 75, 83, 77, 77, 100, 67, 77, 88, 52, 80, 77, 2, 0, 5, 16, 0, 10, 18, 3, 0, 21, 3, 0, 0, 10, 28, 35, 59, 11,
 ]},
 {
 label: '91',
@@ -342,7 +348,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','D+N+M+','4S+D+N+M+','C+5S+D+N+M+','5S+M+'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','D+N+M+','4S+D+N+M+','C+5S+D+N+M+','5S+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','4S+M+','4S+M+','M+','4S+M+','4S+M+','14','4S+P+','4S+P+D+N+M+','C+5S+P+D+N+M+','5S+M+','21','22','23','26'
 ],
 datasets: [
 {
@@ -351,7 +357,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 48, 29, 28, 26, 16, 32,
+data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 48, 29, 28, 26, 16, 32, 45, 52, 47, 49, 47, 47, 54, 52, 50, 57, 50, 55, 65, 54, 43, 38, 44, 38, 41, 42, 32, 35, 37, 32, 34, 24, 26, 34, 42, 45, 36,
 ]},
 {
 label: '75',
@@ -417,7 +423,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','D+N+M+','4S+D+N+M+','C+5S+D+N+M+','5S+M+'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','04','D+N+','D+N+M+','4S+D+N+M+','C+5S+D+N+M+','5S+M+','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','4S+M+','4S+M+','M+','4S+M+','4S+M+','14','4S+P+','4S+P+D+N+M+','C+5S+P+D+N+M+','5S+M+','21','22','23','26'
 ],
 datasets: [
 {
@@ -426,7 +432,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -1.28, -1.08, -2.46, -3.63, -4.81, -8.42, -9.41,
+data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -1.28, -1.08, -2.46, -3.63, -4.81, -8.42, -9.41, -8.01, -5.21, -4.28, -3.05, -2.43, -1.91, 0.61, 0.57, 1.15, 2.28, 0.87, 1.51, 2.17, 0.80, -2.13, -4.16, -5.15, -7.29, -8.34, -8.64, -9.59, -11.24, -11.23, -12.11, -13.83, -15.29, -15.78, -15.44, -14.75, -13.19, -13.59,
 ]},
 {
 label: '0',
@@ -501,60 +507,62 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkQAA' style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538407"  target="_blank">QAA "Quanta Services"</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538407"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538407"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>584.80€</b></span>
-&nbsp;<span style='font-size:50px; color:green'><b>3.9%</b></span><br>
-<span style='font-size:50px'>KGV&nbsp;75&nbsp;&nbsp;</span>
-<span style='font-size:50px'>DIV&nbsp;0%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
+<a id='headlineLinkQAA' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538407"  target="_blank">QAA "Quanta Services"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538407"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538407"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>551.80€</b></span>
+&nbsp;<span style='font-size:45px; color:red'><b>-3.9%</b></span><br>
+<span style='font-size:45px'>KGV&nbsp;67&nbsp;&nbsp;</span>
+<span style='font-size:45px'>DIV&nbsp;0%&nbsp</span>&nbsp;
 <style>
 .tooltip {
-display: inline-block;
-border-bottom: 2px dotted black; 
-font-size: 50px;
-line-height: 37px;
-vertical-align: baseline;
+//  display:inline-block;
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
 }
 .tooltip .tooltiptext {
-visibility: hidden;
-background-color: black;
-color: #fff;
-padding: 7px 10px 50px 10px;
-border-radius: 6px;
-position: absolute;
-z-index: 1;
-font-size: 50px;
-margin: 10px 0px 0px -410px;
-line-height: 100%;
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
 }
 .tooltip:hover .tooltiptext {
-visibility: visible;
+visibility:visible;
 }
 </style>
-<div class='tooltip'>"Bauhauptgewerbe"<br><div class='tooltiptext'>" Quanta Services, Inc. ist ein führender Anbieter von Vertragsdienstleistungen und bietet Infrastrukturlösungen in erster Linie für die elektrische Energie und die Öl- und Gasindustrie in Nordamerika und in ausgewählten internationalen Märkten an. Die Leistungen umfassen die Planung, Installation, Ausbau, Reparatur und Wartung der Infrastruktur. Die Hauptindustrien, die das Unternehmen bedient, sind elektrische Energieübertragung und Netzwerke für Energieverteilung, Umspannwerke, Nutzung erneuerbarer Energien, Pipeline-Übertragungs- und Verteilernetze und Einrichtungen sowie die Offshore- und Binnenschiff Energiemärkte. Das Unternehmen besitzt auch faseroptische Telekommunikationsinfrastrukturen in ausgewählten Märkten und lizensiert für Kunden die Nutzungsrechte für diese Punkt-zu-Punkt-Glasfaser-Telekommunikationseinrichtungen und hat kürzlich seine Glasfaser-Service-Angebote um virtuelle Netze erweitert. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 450px; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;90 Mrd.€</div><br>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" Quanta Services, Inc. ist ein führender Anbieter von Vertragsdienstleistungen und bietet Infrastrukturlösungen in erster Linie für die elektrische Energie und die Öl- und Gasindustrie in Nordamerika und in ausgewählten internationalen Märkten an. Die Leistungen umfassen die Planung, Installation, Ausbau, Reparatur und Wartung der Infrastruktur. Die Hauptindustrien, die das Unternehmen bedient, sind elektrische Energieübertragung und Netzwerke für Energieverteilung, Umspannwerke, Nutzung erneuerbarer Energien, Pipeline-Übertragungs- und Verteilernetze und Einrichtungen sowie die Offshore- und Binnenschiff Energiemärkte. Das Unternehmen besitzt auch faseroptische Telekommunikationsinfrastrukturen in ausgewählten Märkten und lizensiert für Kunden die Nutzungsrechte für diese Punkt-zu-Punkt-Glasfaser-Telekommunikationseinrichtungen und hat kürzlich seine Glasfaser-Service-Angebote um virtuelle Netze erweitert. "</span>
+&nbsp;"Bauhauptgewerbe"</span>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 41%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;82 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-06-11</b>
+<b>2026-07-26</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>612.97€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>618.35€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>621.26€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>36 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>32 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-9.41 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>571.68€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>593.42€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>611.29€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>11 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>36 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-13.59 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
-<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -9.41 </b></p>
+<p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b>  </b></p>
-<p class='p-result' style='color:rgb(255, 159, 64)'><b> Buy: Low 5 last Stochastic (S): 5 last quotes under level </b></p>
+<p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 166)'><b>  </b></p>
@@ -564,7 +572,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 12-Jun-2026 07:34
+<br>Good Luck! 27-Jul-2026 17:57
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -680,9 +688,10 @@ totalAmount = '0';
 overallPieces = '?';
 }
 totalAmount = Number(totalAmount); // + txFee;
-navigator.clipboard.writeText(totalAmount);
+//  navigator.clipboard.writeText(totalAmount);
 
-if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+//    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€?') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -726,6 +735,9 @@ if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
 alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
 return;
 }
+
+// console.log('xxxxxxxxxxxxx:symbolParam:' + symbolParam);
+
 symbolParam = trimOwnChar(symbolParam);
 
 if (sellPriceParam == '') {
@@ -758,7 +770,7 @@ var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(
 var stocksPieces = stocksPiecesId.innerHTML;
 var newPiecesAmount=(stocksPieces - stockPiecesParam);
 //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
-navigator.clipboard.writeText(newAmount);
+//navigator.clipboard.writeText(newAmount);
 }
 
 // Trading fees
@@ -773,8 +785,9 @@ var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
 //var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
 var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
 //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
-navigator.clipboard.writeText(newAmountPartial);
-if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+// navigator.clipboard.writeText(newAmountPartial);
+//        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€?') == false) {
 return;
 }
 }
@@ -840,14 +853,14 @@ return txFee;
 function showChart(timeSpan) {
 var elementSpanToReplace = document.getElementById('imgToReplace');
 if(isMobil()) {
-elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '25%'
-elementSpanToReplace.style.transform = 'scale(1.85)';
+elementSpanToReplace.style.top = '20%';
+elementSpanToReplace.style.left = '20%'
+elementSpanToReplace.style.transform = 'scale(1.7)';     
 }
 else {
-elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '52%';
-elementSpanToReplace.style.transform = 'scale(1.3)';
+elementSpanToReplace.style.top = '13%';
+elementSpanToReplace.style.left = '44%';
+elementSpanToReplace.style.transform = 'scale(1.1)';
 }   
 elementSpanToReplace.style.display = 'block';
 

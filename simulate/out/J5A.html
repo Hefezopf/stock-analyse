@@ -32,7 +32,6 @@ template/index.html and template/indexPart1.html
 //# sourceMappingURL=chart.umd.js.map
 
 </script>
-
 <script>
 window.chartColors = {
 black: 'rgb(0, 0, 0)',
@@ -46,37 +45,44 @@ darkblue: 'rgb(5, 02, 255)',
 purple: 'rgb(153, 102, 255)',
 grey: 'rgb(201, 203, 207)'
 };
-</script>   
+</script>
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244538159&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
-<p style='text-align:right'>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538159"  target="_blank">J5A "Warner Bros."</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538159"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538159"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>23.16€</b></span>
-&nbsp;<span style='font-size:50px; color:green'><b>1.9%</b></span>
+<p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
+<a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538159"  target="_blank">J5A "Warner Bros."</a>
+<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538159"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538159"  target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
 
-<div style="width:98%">
+<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">    
 <canvas id="canvasQuote"></canvas>
 </div>
 
-<div style="width:98%">
+<div id="divCanvasIdStochastik" style="width:108%;margin-left:-140px;margin-top:-20px;">
 <canvas id="canvasStochastik"></canvas>
 </div>
 
-<div style="width:98%">
+<div id="divCanvasIdRSI" style="width:108%;margin-left:-140px;margin-top:-20px;">
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div style="width:98%">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:108%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
 <script>
+const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
+// isMobil
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+for (var i = 0; i < divCanvasIds.length; i++) {
+divCanvasIds[i].style.marginLeft = '-80px';
+}        
+}
+
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
@@ -137,37 +143,6 @@ data: [23.37,
 23.37,
 23.37,
 23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
-23.37,
 23.285,
 23.24,
 22.755,
@@ -175,6 +150,37 @@ data: [23.37,
 22.995,
 22.72,
 23.16,
+23.30,
+23.125,
+22.895,
+22.705,
+22.825,
+22.71,
+23.565,
+23.605,
+23.955,
+23.695,
+23.42,
+23.59,
+23.295,
+23.535,
+23.135,
+23.10,
+22.83,
+22.87,
+22.855,
+23.015,
+23.29,
+23.69,
+23.92,
+23.755,
+23.525,
+23.46,
+22.62,
+22.62,
+22.645,
+22.71,
+22.645,
 ]},
 {
 label: 'buy',
@@ -195,21 +201,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.3653, 23.3581, 23.3239, 23.2997, 23.2789, 23.2428, 23.2311,
+data: [ , , , , 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.3653, 23.3581, 23.3239, 23.2997, 23.2789, 23.2428, 23.2311, 23.2272, 23.2136, 23.1872, 23.1503, 23.12, 23.0833, 23.0942, 23.1072, 23.1397, 23.1578, 23.1606, 23.1775, 23.1806, 23.2239, 23.235, 23.2408, 23.2469, 23.2308, 23.2061, 23.2, 23.2219, 23.2767, 23.3375, 23.3956, 23.3933, 23.3853, 23.3111, 23.2514, 23.2083, 23.1594, 23.1233,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.3678, 23.3643, 23.3482, 23.3367, 23.3268, 23.3097, 23.3042,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.37, 23.3678, 23.3643, 23.3482, 23.3367, 23.3268, 23.3097, 23.3042, 23.3024, 23.2959, 23.2834, 23.2659, 23.2516, 23.2342, 23.2393, 23.2455, 23.2609, 23.2695, 23.2708, 23.2766, 23.2746, 23.2789, 23.2728, 23.2657, 23.2514, 23.2383, 23.2247, 23.2154, 23.2133, 23.2217, 23.2362, 23.2463, 23.2504, 23.2528, 23.233, 23.2133, 23.1942, 23.1768, 23.1578,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 23.3677, 23.3613, 23.3567, 23.3527, 23.3459, 23.3437,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 23.3231, 23.3152, 23.3073, 23.2997, 23.2927, 23.2851,
 ]},
 {
 label:' Buying/Last ',
@@ -217,14 +223,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data:[23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,23.16,]},
+data:[22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,22.645,]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data:[24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,24.318,]},
+data:[23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,23.7773,]},
 ]},
 options: {
 responsive: true,
@@ -270,7 +276,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','4R+M+','4R+M+','C+4S+5R+D+N+M+','4S+5R+'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','4R+M+','4R+M+','C+4S+5R+D+N+M+','4S+5R+','14','15','M+','D+N+M+','M+','M+','22','23','24','25','28','29','30','01','02','05','06','07','08','M+','12','13','14','15','16','19','N+','21','22','4S+','5S+M+'
 ],
 datasets: [
 {
@@ -279,7 +285,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 29, 39, 0, 67,
+data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 29, 39, 0, 67, 89, 62, 26, 0, 18, 0, 100, 100, 100, 79, 57, 70, 47, 66, 34, 31, 10, 12, 11, 16, 40, 76, 100, 84, 63, 57, 0, 0, 1, 6, 1,
 ]},
 {
 label: '91',
@@ -342,7 +348,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','4R+M+','4R+M+','C+4S+5R+D+N+M+','4S+5R+'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','4R+M+','4R+M+','C+4S+5R+D+N+M+','4S+5R+','14','15','M+','D+N+M+','M+','M+','22','23','24','25','28','29','30','01','02','05','06','07','08','M+','12','13','14','15','16','19','N+','21','22','4S+','5S+M+'
 ],
 datasets: [
 {
@@ -351,7 +357,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 22, 28, 21, 43,
+data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 0, 0, 0, 22, 28, 21, 43, 47, 43, 38, 35, 38, 37, 52, 54, 59, 63, 56, 58, 57, 55, 47, 49, 49, 52, 50, 54, 45, 51, 49, 51, 51, 47, 39, 35, 41, 42, 46,
 ]},
 {
 label: '75',
@@ -417,7 +423,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','4R+M+','4R+M+','C+4S+5R+D+N+M+','4S+5R+'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','C+D+N+','C+D+N+','C+3R+D+N+','4R+M+','4R+M+','C+4S+5R+D+N+M+','4S+5R+','14','15','M+','D+N+M+','M+','M+','22','23','24','25','28','29','30','01','02','05','06','07','08','M+','12','13','14','15','16','19','N+','21','22','4S+','5S+M+'
 ],
 datasets: [
 {
@@ -426,7 +432,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.01, -0.02, -0.06, -0.08, -0.09, -0.12, -0.11,
+data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, -0.01, -0.02, -0.06, -0.08, -0.09, -0.12, -0.11, -0.08, -0.08, -0.09, -0.12, -0.13, -0.14, -0.08, -0.03, 0.04, 0.07, 0.07, 0.08, 0.07, 0.08, 0.05, 0.03, -0.01, -0.04, -0.06, -0.07, -0.05, -0.00, 0.05, 0.08, 0.09, 0.08, 0.01, -0.04, -0.08, -0.11, -0.13,
 ]},
 {
 label: '0',
@@ -501,61 +507,63 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkJ5A' style="font-size:50px; color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538159"  target="_blank">J5A "Warner Bros."</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538159"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538159"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>23.16€</b></span>
-&nbsp;<span style='font-size:50px; color:green'><b>1.9%</b></span><br>
-<span style='font-size:50px'>KGV&nbsp;--&nbsp;&nbsp;</span>
-<span style='font-size:50px'>DIV&nbsp;--%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
+<a id='headlineLinkJ5A' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538159"  target="_blank">J5A "Warner Bros."</a>
+<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538159"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538159"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>22.65€</b></span>
+&nbsp;<span style='font-size:45px; color:red'><b>-0.3%</b></span><br>
+<span style='font-size:45px'>KGV&nbsp;--&nbsp;&nbsp;</span>
+<span style='font-size:45px'>DIV&nbsp;--%&nbsp</span>&nbsp;
 <style>
 .tooltip {
-display: inline-block;
-border-bottom: 2px dotted black; 
-font-size: 50px;
-line-height: 37px;
-vertical-align: baseline;
+//  display:inline-block;
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
 }
 .tooltip .tooltiptext {
-visibility: hidden;
-background-color: black;
-color: #fff;
-padding: 7px 10px 50px 10px;
-border-radius: 6px;
-position: absolute;
-z-index: 1;
-font-size: 50px;
-margin: 10px 0px 0px -410px;
-line-height: 100%;
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
 }
 .tooltip:hover .tooltiptext {
-visibility: visible;
+visibility:visible;
 }
 </style>
-<div class='tooltip'>"Entertainment, Dienstleistungen"<br><div class='tooltiptext'>" Die Warner Bros. Discovery, Inc. (WBD) ist ein globales Medienunternehmen, das seine Inhalte über mehrere Wege vermarktet. Dazu gehören Pay-TV, free-to-Air und broadcast TV, das Internet, digitale Vertriebs- und Lizenzvereinbarungen. Über seine Netzwerke versorgt das Unternehmen mehr als 2,8 Milliarden Zuschauer weltweit mit eigenen und erworbenen Inhalten sowie live-Events. Das globale Portfolio umfasst TV-Marken wie Discovery Channel, TLC, Animal Planet, Investigation Discovery, Science und Velocity. WBD betreibt ferner ein diversifiziertes Portfolio von Produktions-Studios, Websites und lehrplanbasierte Schulungs-Produkte und Dienstleistungen. Am 4. Dezember 2025 hatten die Netflix, Inc. und WBD eine Vereinbarung getroffen, nach der beide Gesellschaften fusionieren wollen. Kurz darauf legte die Paramount Skydance Corp. ein Gegenangebot vor, das letztlich im April 2026 von den WBD-Aktionären angenommen wurde. Mit dem Vollzug der Fusion wird im dritten Quartal 2026 gerechnet. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 280px; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" Die Warner Bros. Discovery, Inc. (WBD) ist ein globales Medienunternehmen, das seine Inhalte über mehrere Wege vermarktet. Dazu gehören Pay-TV, free-to-Air und broadcast TV, das Internet, digitale Vertriebs- und Lizenzvereinbarungen. Über seine Netzwerke versorgt das Unternehmen mehr als 2,8 Milliarden Zuschauer weltweit mit eigenen und erworbenen Inhalten sowie live-Events. Das globale Portfolio umfasst TV-Marken wie Discovery Channel, TLC, Animal Planet, Investigation Discovery, Science und Velocity. WBD betreibt ferner ein diversifiziertes Portfolio von Produktions-Studios, Websites und lehrplanbasierte Schulungs-Produkte und Dienstleistungen. Am 4. Dezember 2025 hatten die Netflix, Inc. und WBD eine Vereinbarung getroffen, nach der beide Gesellschaften fusionieren wollen. Kurz darauf legte die Paramount Skydance Corp. ein Gegenangebot vor, das letztlich im April 2026 von den WBD-Aktionären angenommen wurde. Mit dem Vollzug der Fusion wird im dritten Quartal 2026 gerechnet. "</span>
+&nbsp;"Entertainment, Dienstleistungen"</span>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 28%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;56 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-06-11</b>
+<b>2026-07-26</b>
 <b>&nbsp;&nbsp;STOCK</b>
-<b>&nbsp;&nbsp;HV:09.06.26</b>
+<b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>23.23€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>23.30€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>23.34€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>67 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>43 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.11 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>23.12€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>23.16€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>23.29€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>1 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>46 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-0.13 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
-<p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
+<p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -0.13 </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b>  </b></p>
-<p class='p-result' style='color:rgb(255, 159, 64)'><b> Buy: Low 4 last Stochastic (S): 4 last quotes under level </b></p>
-<p class='p-result' style='color:rgb(255, 205, 86)'><b> Buy: Low 5 last RSI (R): 5 last quotes under level </b></p>
+<p class='p-result' style='color:rgb(255, 159, 64)'><b> Buy: Low 5 last Stochastic (S): 5 last quotes under level </b></p>
+<p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 166)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
@@ -564,7 +572,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 12-Jun-2026 07:34
+<br>Good Luck! 27-Jul-2026 17:55
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -680,9 +688,10 @@ totalAmount = '0';
 overallPieces = '?';
 }
 totalAmount = Number(totalAmount); // + txFee;
-navigator.clipboard.writeText(totalAmount);
+//  navigator.clipboard.writeText(totalAmount);
 
-if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+//    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€?') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -726,6 +735,9 @@ if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
 alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
 return;
 }
+
+// console.log('xxxxxxxxxxxxx:symbolParam:' + symbolParam);
+
 symbolParam = trimOwnChar(symbolParam);
 
 if (sellPriceParam == '') {
@@ -758,7 +770,7 @@ var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(
 var stocksPieces = stocksPiecesId.innerHTML;
 var newPiecesAmount=(stocksPieces - stockPiecesParam);
 //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
-navigator.clipboard.writeText(newAmount);
+//navigator.clipboard.writeText(newAmount);
 }
 
 // Trading fees
@@ -773,8 +785,9 @@ var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
 //var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
 var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
 //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
-navigator.clipboard.writeText(newAmountPartial);
-if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+// navigator.clipboard.writeText(newAmountPartial);
+//        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€?') == false) {
 return;
 }
 }
@@ -840,14 +853,14 @@ return txFee;
 function showChart(timeSpan) {
 var elementSpanToReplace = document.getElementById('imgToReplace');
 if(isMobil()) {
-elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '25%'
-elementSpanToReplace.style.transform = 'scale(1.85)';
+elementSpanToReplace.style.top = '20%';
+elementSpanToReplace.style.left = '20%'
+elementSpanToReplace.style.transform = 'scale(1.7)';     
 }
 else {
-elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '52%';
-elementSpanToReplace.style.transform = 'scale(1.3)';
+elementSpanToReplace.style.top = '13%';
+elementSpanToReplace.style.left = '44%';
+elementSpanToReplace.style.transform = 'scale(1.1)';
 }   
 elementSpanToReplace.style.display = 'block';
 

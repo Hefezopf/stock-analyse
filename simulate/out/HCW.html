@@ -32,7 +32,6 @@ template/index.html and template/indexPart1.html
 //# sourceMappingURL=chart.umd.js.map
 
 </script>
-
 <script>
 window.chartColors = {
 black: 'rgb(0, 0, 0)',
@@ -46,37 +45,44 @@ darkblue: 'rgb(5, 02, 255)',
 purple: 'rgb(153, 102, 255)',
 grey: 'rgb(201, 203, 207)'
 };
-</script>   
+</script>
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244508454&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
-<p style='text-align:right'>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244508454"  target="_blank">HCW "Welltower"</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244508454"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244508454"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>181.75€</b></span>
-&nbsp;<span style='font-size:50px; color:red'><b>-0.6%</b></span>
+<p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244508454"  target="_blank">HCW "Welltower"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244508454"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244508454"  target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
 
-<div style="width:98%">
+<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">    
 <canvas id="canvasQuote"></canvas>
 </div>
 
-<div style="width:98%">
+<div id="divCanvasIdStochastik" style="width:108%;margin-left:-140px;margin-top:-20px;">
 <canvas id="canvasStochastik"></canvas>
 </div>
 
-<div style="width:98%">
+<div id="divCanvasIdRSI" style="width:108%;margin-left:-140px;margin-top:-20px;">
 <canvas id="canvasRSI"></canvas>
 </div>
 
-<div style="width:98%">
+<!-- Abstand über Link: margin-bottom: -->
+<div id="divCanvasIdMACD" style="width:108%;margin-left:-140px;margin-top:-20px;margin-bottom:-10px;">
 <canvas id="canvasMACD"></canvas>
 </div>
 
 <script>
+const divCanvasIds = document.querySelectorAll('[id ^= \"divCanvasId\"]');
+// isMobil
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+for (var i = 0; i < divCanvasIds.length; i++) {
+divCanvasIds[i].style.marginLeft = '-80px';
+}        
+}
+
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
@@ -137,37 +143,6 @@ data: [169.60,
 169.60,
 169.60,
 169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
-169.60,
 171.95,
 172.80,
 179.30,
@@ -175,6 +150,37 @@ data: [169.60,
 178.30,
 182.85,
 181.75,
+184.80,
+183.45,
+183.95,
+177.65,
+180.10,
+179.55,
+182.65,
+191.05,
+194.95,
+195.00,
+199.25,
+198.95,
+198.25,
+202.10,
+205.20,
+206.40,
+203.20,
+207.50,
+204.50,
+203.60,
+202.60,
+205.40,
+205.60,
+203.40,
+210.60,
+212.40,
+214.30,
+215.90,
+214.90,
+216.90,
+222.20,
 ]},
 {
 label: 'buy',
@@ -195,21 +201,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.731, 169.908, 170.447, 170.65, 171.133, 171.869, 172.544,
+data: [ , , , , 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.731, 169.908, 170.447, 170.65, 171.133, 171.869, 172.544, 173.389, 174.158, 174.956, 175.403, 175.986, 176.539, 177.264, 178.456, 179.864, 181.275, 182.922, 184.422, 185.836, 187.103, 188.878, 190.439, 191.569, 193, 194.094, 195.214, 196.25, 197.792, 199.208, 200.533, 202.086, 203.272, 204.347, 205.508, 206.378, 207.375, 208.706,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.662, 169.746, 170.001, 170.097, 170.326, 170.675, 170.995,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.6, 169.662, 169.746, 170.001, 170.097, 170.326, 170.675, 170.995, 171.395, 171.759, 172.137, 172.349, 172.625, 172.887, 173.23, 173.795, 174.462, 175.13, 175.911, 176.683, 177.437, 178.292, 179.229, 180.197, 181.082, 182.079, 182.997, 183.892, 184.761, 185.703, 186.65, 187.539, 188.618, 189.745, 190.921, 192.139, 193.332, 194.576, 195.961,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 169.658, 169.761, 169.799, 169.891, 170.03, 170.158,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 177.658, 178.128, 178.616, 179.093, 179.591, 180.144,
 ]},
 {
 label:' Buying/Last ',
@@ -217,14 +223,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data:[181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,181.75,]},
+data:[222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,222.20,]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data:[190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,190.838,]},
+data:[233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,233.31,]},
 ]},
 options: {
 responsive: true,
@@ -270,7 +276,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','03','04','07','08','09','10','11'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26'
 ],
 datasets: [
 {
@@ -279,7 +285,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 37, 89, 100, 91,
+data: [		 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 37, 89, 100, 91, 100, 91, 94, 52, 69, 65, 83, 100, 100, 100, 100, 98, 95, 100, 100, 100, 88, 100, 89, 84, 70, 83, 84, 55, 100, 100, 100, 100, 92, 100, 100,
 ]},
 {
 label: '91',
@@ -342,7 +348,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','03','04','07','08','09','10','11'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26'
 ],
 datasets: [
 {
@@ -351,7 +357,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 61, 70, 76, 72,
+data: [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 61, 70, 76, 72, 75, 72, 72, 60, 63, 62, 64, 69, 70, 66, 79, 75, 71, 76, 76, 79, 73, 87, 80, 79, 76, 72, 68, 63, 66, 68, 71, 70, 65, 65, 76,
 ]},
 {
 label: '75',
@@ -417,7 +423,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','03','04','07','08','09','10','11'
+labels: ['','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','02','03','04','07','08','09','10','11','14','15','16','17','18','21','22','23','24','25','28','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26'
 ],
 datasets: [
 {
@@ -426,7 +432,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.19, 0.40, 1.08, 1.12, 1.54, 2.21, 2.63,
+data: [ , , , , , , , , , , , , 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.19, 0.40, 1.08, 1.12, 1.54, 2.21, 2.63, 3.17, 3.45, 3.66, 3.29, 3.16, 2.97, 3.04, 3.73, 4.54, 5.12, 5.86, 6.35, 6.61, 7.04, 7.54, 7.95, 7.92, 8.15, 8.00, 7.72, 7.33, 7.17, 6.97, 6.56, 6.74, 6.95, 7.19, 7.42, 7.43, 7.52, 7.93,
 ]},
 {
 label: '0',
@@ -501,53 +507,55 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkHCW' style="font-size:50px; color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244508454"  target="_blank">HCW "Welltower"</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244508454"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:50px; color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244508454"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;&nbsp;<span style='font-size:50px; color:rgb(0, 0, 0)'><b>181.75€</b></span>
-&nbsp;<span style='font-size:50px; color:red'><b>-0.6%</b></span><br>
-<span style='font-size:50px'>KGV&nbsp;72&nbsp;&nbsp;</span>
-<span style='font-size:50px'>DIV&nbsp;1%&nbsp</span>&nbsp;
-<span><img id='countryflagId' alt='US: No Flag' title='US' src='../../image/flags/US.jpeg' width='5%' height='5%' style='border:1px solid;'></span>&nbsp;&nbsp;&nbsp;
+<a id='headlineLinkHCW' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244508454"  target="_blank">HCW "Welltower"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244508454"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244508454"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>222.20€</b></span>
+&nbsp;<span style='font-size:45px; color:green'><b>2.4%</b></span><br>
+<span style='font-size:45px'>KGV&nbsp;86&nbsp;&nbsp;</span>
+<span style='font-size:45px'>DIV&nbsp;1%&nbsp</span>&nbsp;
 <style>
 .tooltip {
-display: inline-block;
-border-bottom: 2px dotted black; 
-font-size: 50px;
-line-height: 37px;
-vertical-align: baseline;
+//  display:inline-block;
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
 }
 .tooltip .tooltiptext {
-visibility: hidden;
-background-color: black;
-color: #fff;
-padding: 7px 10px 50px 10px;
-border-radius: 6px;
-position: absolute;
-z-index: 1;
-font-size: 50px;
-margin: 10px 0px 0px -410px;
-line-height: 100%;
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
 }
 .tooltip:hover .tooltiptext {
-visibility: visible;
+visibility:visible;
 }
 </style>
-<div class='tooltip'>"Immobilien"<br><div class='tooltiptext'>" Welltower Inc. (vorher Health Care REIT, Inc.) ist ein Real Estate Investment Trust (REIT), der sich auf Senioren-Wohnungen und Gesundheitsimmobilien spezialisiert hat. Das Portfolio des Unternehmens umfasst Seniorenwohngemeinschaften, lang- und kurzfristige Rehabilitationseinrichtungen, medizinische Bürogebäude, stationäre und ambulante medizinische Zentren und Life-Science-Einrichtungen. "</div></div></p>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 630px; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;126 Mrd.€</div><br>
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
+<img src='../../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span class='tooltiptext'>US:" Welltower Inc. (vorher Health Care REIT, Inc.) ist ein Real Estate Investment Trust (REIT), der sich auf Senioren-Wohnungen und Gesundheitsimmobilien spezialisiert hat. Das Portfolio des Unternehmens umfasst Seniorenwohngemeinschaften, lang- und kurzfristige Rehabilitationseinrichtungen, medizinische Bürogebäude, stationäre und ambulante medizinische Zentren und Life-Science-Einrichtungen. "</span>
+&nbsp;"Immobilien"</span>
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 78%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;157 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-06-11</b>
+<b>2026-07-26</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>172.54€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>170.99€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>170.16€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>91 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>72 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>2.63 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>208.71€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>195.96€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>180.14€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>100 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>76 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>7.93 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -564,7 +572,7 @@ visibility: visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 12-Jun-2026 07:34
+<br>Good Luck! 27-Jul-2026 17:54
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -680,9 +688,10 @@ totalAmount = '0';
 overallPieces = '?';
 }
 totalAmount = Number(totalAmount); // + txFee;
-navigator.clipboard.writeText(totalAmount);
+//  navigator.clipboard.writeText(totalAmount);
 
-if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+//    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€?') == false) {
 return;
 }
 if (document.getElementById('intervalSectionInputPriceBuy' + symbolParamTrimmed)) {
@@ -726,6 +735,9 @@ if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
 alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
 return;
 }
+
+// console.log('xxxxxxxxxxxxx:symbolParam:' + symbolParam);
+
 symbolParam = trimOwnChar(symbolParam);
 
 if (sellPriceParam == '') {
@@ -758,7 +770,7 @@ var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(
 var stocksPieces = stocksPiecesId.innerHTML;
 var newPiecesAmount=(stocksPieces - stockPiecesParam);
 //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
-navigator.clipboard.writeText(newAmount);
+//navigator.clipboard.writeText(newAmount);
 }
 
 // Trading fees
@@ -773,8 +785,9 @@ var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
 //var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
 var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
 //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
-navigator.clipboard.writeText(newAmountPartial);
-if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+// navigator.clipboard.writeText(newAmountPartial);
+//        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
+if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€?') == false) {
 return;
 }
 }
@@ -840,14 +853,14 @@ return txFee;
 function showChart(timeSpan) {
 var elementSpanToReplace = document.getElementById('imgToReplace');
 if(isMobil()) {
-elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '25%'
-elementSpanToReplace.style.transform = 'scale(1.85)';
+elementSpanToReplace.style.top = '20%';
+elementSpanToReplace.style.left = '20%'
+elementSpanToReplace.style.transform = 'scale(1.7)';     
 }
 else {
-elementSpanToReplace.style.top = '25%';
-elementSpanToReplace.style.left = '52%';
-elementSpanToReplace.style.transform = 'scale(1.3)';
+elementSpanToReplace.style.top = '13%';
+elementSpanToReplace.style.left = '44%';
+elementSpanToReplace.style.transform = 'scale(1.1)';
 }   
 elementSpanToReplace.style.display = 'block';
 
