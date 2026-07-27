@@ -177,11 +177,11 @@ do
         symbol="${symbol:1:7}"
     fi
 
-    # Check for newly added symbols in data.txt. Skip ananlyses, becauce less data
+    # Check for newly added symbols in data.txt. Skip analyses, becauce less data
     dublicates=$(awk '{print $2}' data/"$symbol".txt | uniq -c)
-    if [ "${#dublicates}" -lt 600 ]; then # Normal count is about 1300 chars
+    if [ "${#dublicates}" -lt 350 ]; then # Normal count is about 1300 chars
        # echo -e "\n"
-        echo "--> ${symbol}: Skip simulatation because -lt 600 chars!"
+        echo "--> ${symbol}: Skip simulatation because -lt 350 chars!"
         continue
     fi
 
