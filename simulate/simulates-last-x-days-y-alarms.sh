@@ -178,10 +178,10 @@ do
     fi
 
     # Check for newly added symbols in data.txt. Skip analyses, becauce less data
-    dublicates=$(awk '{print $2}' data/"$symbol".txt | uniq -c)
-    if [ "${#dublicates}" -lt 350 ]; then # Normal count is about 1300 chars
-       # echo -e "\n"
-        echo "--> ${symbol}: Skip simulatation because -lt 350 chars!"
+    uniqQuotes=$(awk '{print $2}' data/"$symbol".txt | uniq -c)
+    if [ "${#uniqQuotes}" -lt "$UNIQ_QUOTES_COUNT" ]; then # Normal count is about 1300 chars
+        echo ""
+        echo "--> ${symbol}: Skip simulatation because -lt $UNIQ_QUOTES_COUNT chars!"
         continue
     fi
 

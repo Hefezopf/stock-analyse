@@ -16,6 +16,9 @@ export UNAME_O_GNU_LINUX="GNU/Linux"
 # export LC_NUMERIC=en_US.UTF-8
 export LC_NUMERIC=C.UTF-8
 
+# Simulte
+export UNIQ_QUOTES_COUNT=350
+
 # Tendency
 export RISING=RISING
 export LEVEL=LEVEL
