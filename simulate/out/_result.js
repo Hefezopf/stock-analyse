@@ -600,7 +600,7 @@ function revealElement(ele) {
     }
 }
 
-function showChart(timeSpan, symbol) {
+function showChart(timeSpan, symbol, pathParam) {
     var elementSpanToReplace = document.getElementById('imgToReplace'+ symbol);
     elementSpanToReplace.style.display = 'block';
 
@@ -620,8 +620,14 @@ function showChart(timeSpan, symbol) {
     if(isMobil()) {
         console.log('xxxx showChart:isMobil()');
         elementSpanToReplace.style.top = '15%';
+        // Simulate Page
         elementSpanToReplace.style.left = '18%';
         elementSpanToReplace.style.transform = 'scale(1.55)';
+        // Result Analyse Page
+        if(pathParam=="") {
+            elementSpanToReplace.style.left = '11%';
+            elementSpanToReplace.style.transform = 'scale(1.25)';              
+        }
     }
     else {
         console.log('xxxx showChart:WEB');

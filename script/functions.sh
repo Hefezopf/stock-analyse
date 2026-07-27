@@ -300,9 +300,9 @@ WriteComdirectUrlAndStoreFileList() {
 
             # onmouseenter vs. onmouseover
             # onmouseleave vs. onmouseout
-            echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('10D', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
-            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('6M', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
-            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('5Y', '$_symbolParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
+            echo "<a id='headlineLink$_symbolParam' style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('10D', '$_symbolParam', '$_pathParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_10D$_id_notation' target='_blank'>$_markerOwnStockParam$_symbolParam $_symbolNameParam</a>"
+            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('6M', '$_symbolParam', '$_pathParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_6M$_id_notation' target='_blank'>&nbsp;6M&nbsp;</a>"
+            echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' onmouseover=\"javascript:showChart('5Y', '$_symbolParam', '$_pathParam')\" onmouseout=\"javascript:hideChart('$_symbolParam')\" href='$COMDIRECT_URL_5Y$_id_notation' target='_blank'>&nbsp;5Y&nbsp;</a>"
             echo "<a style='background:$_lowMarketCapBackgroundColorParam; color:$_linkColorParam' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main$_pathParam/out/$_symbolParam.html' target='_blank'>&nbsp;SA&nbsp;</a>"
 
             if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win)
