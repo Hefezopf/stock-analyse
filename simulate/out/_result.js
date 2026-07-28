@@ -617,7 +617,7 @@ function showChart(timeSpan, symbol, pathParam) {
         }
     }
     else {
-       //console.log('xxxx showChart:WEB');
+        //console.log('xxxx showChart:WEB');
         elementSpanToReplace.style.top = '10%';
         elementSpanToReplace.style.left = '22%';
         elementSpanToReplace.style.transform = 'scale(1.1)';
