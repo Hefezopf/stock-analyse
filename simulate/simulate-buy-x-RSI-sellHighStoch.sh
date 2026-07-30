@@ -630,11 +630,11 @@ Out "==========================" $OUT_SIMULATE_FILE
 LC_ALL=en_US.UTF-8
 sellAmountOverAll=$(printf "%.0f" "$sellAmountOverAll")
 sellOnLastDayAmountOverAll=$(printf "%'.f" "$sellOnLastDayAmountOverAll")
-Out "Still in Portfolio=$sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Still in Portfolio: $sellOnLastDayAmountOverAll€" $OUT_SIMULATE_FILE
 sellOnLastDayLostAmountOverAll=$(printf "%'.f" "$sellOnLastDayLostAmountOverAll")
-Out "Potential Balance, if sell all=$sellOnLastDayLostAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Potential Balance, if sell all: $sellOnLastDayLostAmountOverAll€" $OUT_SIMULATE_FILE
 averageHoldingDaysOverall=$(printf "%.1f" "$averageHoldingDaysOverall")
-Out "Avg. holding Busi.Days=$averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
+Out "Avg. holding Busi.Days: $averageHoldingDaysOverall Days" $OUT_SIMULATE_FILE
 winOverAll=$(printf "%.0f" "$winOverAll")
 if [ "$sellAmountOverAll" = 0 ]; then
     prozWinOverAll=0
@@ -643,15 +643,15 @@ else
     prozWinOverAll=$(printf "%.1f" "$prozWinOverAll")
 fi
 winOverAllFormated=$(printf "%'.f" "$winOverAll")
-Out "Gain Amnt (74 Busi.Days)=$winOverAllFormated€" $OUT_SIMULATE_FILE
-Out "Gain Percent (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
+Out "Gain till today (74 Busi.Days): $winOverAllFormated€ = $prozWinOverAll%" $OUT_SIMULATE_FILE
+#Out "Gain Percent (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
 prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # Factor 3.8: 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(echo "$winOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(printf "%'.f" "$winOverAll1Year")
-Out "Yearly gain Amnt (250 Busi.Days)=$winOverAll1Year€" $OUT_SIMULATE_FILE
-Out "Yearly gain Percent (250 Busi.Days)=<b>$prozWinOverAll1Year%</b>" $OUT_SIMULATE_FILE
+Out "Est. yearly gain before tax (250 Busi.Days): $winOverAll1Year€ = <b>$prozWinOverAll1Year%</b>" $OUT_SIMULATE_FILE
+#Out "Yearly gain Percent (250 Busi.Days): " $OUT_SIMULATE_FILE
 sellAmountOverAll=$(printf "%'.f" "$sellAmountOverAll")
-Out "Sell Amnt overall (Sales Volume)=$sellAmountOverAll€" $OUT_SIMULATE_FILE
+Out "Sell Amnt overall (Sales Volume): $sellAmountOverAll€" $OUT_SIMULATE_FILE
 Out "" $OUT_SIMULATE_FILE
 
 # Workflow  
