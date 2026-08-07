@@ -128,7 +128,7 @@ font-size:120%;
 <br>
 # Parameter
 <br>
-Symbols (16): *8TI *SES *DS81 *GXE *SE4 *RLS *BOP *8CW *DBXT *KPN *TNE5 *GYC *PFE *ISPA *EHDL *ZPRG 
+Symbols (16): *RLS *8TI *SES *DS81 *GXE *SE4 *BOP *8CW *DBXT *KPN *TNE5 *GYC *PFE *ISPA *EHDL *ZPRG 
 <br>
 Percentage: 1 
 <br>
@@ -141,6 +141,51 @@ RSI: 25
 <button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;
 <button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;
 <hr id='intervalSectionHROverallButtons' style='display: none'>
+<div id='symbolLineIdRLS'>
+<img id='imgToReplaceRLS' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244541384&TIME_SPAN=10D'/>
+<div id='headlineLinkId' style='margin-top:26px'>
+<a id='headlineLinkRLS' style='background:white; color:green' onmouseover="javascript:showChart('10D', 'RLS', '')" onmouseout="javascript:hideChart('RLS')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541384' target='_blank'>*RLS "Rollins"</a>
+<a style='background:white; color:green' onmouseover="javascript:showChart('6M', 'RLS', '')" onmouseout="javascript:hideChart('RLS')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541384' target='_blank'>&nbsp;6M&nbsp;</a>
+<a style='background:white; color:green' onmouseover="javascript:showChart('5Y', 'RLS', '')" onmouseout="javascript:hideChart('RLS')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541384' target='_blank'>&nbsp;5Y&nbsp;</a>
+<a style='background:white; color:green' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/RLS.html' target='_blank'>&nbsp;SA&nbsp;</a>
+
+</div>
+<span id='detailsIdReasonRLSBuy:LowMACD(M)'>Buy: Low MACD (M)<br></span>
+<span id='detailsIdReasonRLSBuy:New40daysLow(N)'>Buy: New 40 days Low (N)<br></span>
+<span id='detailsIdReasonRLSBuy:RSIDivergence(D)'>Buy: RSI Divergence (D)<br></span>
+<span id='detailsIdReasonRLSBuy:LowPercent&Stochastic(P)'>Buy: Low Percent & Stochastic (P)<br></span>
+<span id='detailsIdReasonRLSBuy:Low3lastRSI(R)'>Buy: Low 3 last RSI (R)<br></span>
+<span id='detailsIdReasonRLSBuy:Low7lastStochastic(S)'>Buy: Low 7 last Stochastic (S)<br></span>
+<span id='detailsIdReasonRLSBuy:LowStochastic&RSI&MACD-(C)'>Buy: Low Stochastic & RSI & MACD- (C)<br></span>
+<span id='detailsIdReasonRLS'><br></span>
+<script>
+linkMap.set('RLS', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/RLS.html'); // Open in Tab
+counterOwnStocks=1; // For Spinner
+document.addEventListener('DOMContentLoaded', onContentLoaded('RLS', '244541384', 'STOCK'));
+</script>
+<div id='neverShowDivRLS' style='display:none'>
+<span id='obfuscatedValuePcEuroRLS' style='display:none'>YY05813/74423XX0001</span>&nbsp;
+<span id='obfuscatedValueGainRLS' style='display:none;color:red'>YY795-ZZ8.1-</span>
+<span id='obfuscatedValueCloseBracesRLS' style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
+</div>
+<img id='intervalSectionImageRLS' alt='' src='#' style='display: none; border: 1px solid;'><br>
+<button id="intervalSectionButtonDetails1DRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '1D')">1D</button>
+<button id="intervalSectionButtonDetails5DRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '5D')">5D</button>
+<button id="intervalSectionButtonDetails10DRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '10D')">10D</button>
+<button id="intervalSectionButtonDetails3MRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '3M')">3M</button>
+<button id="intervalSectionButtonDetails6MRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '6M')">6M</button>
+<button id="intervalSectionButtonDetails1YRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '1Y')">1Y</button>
+<button id="intervalSectionButtonDetails5YRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '5Y')">5Y</button>
+<button id="intervalSectionButtonDetailsSERLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', 'SE')">Max</button>
+<p id='intervalSectionButtonDetailsPRLS' style='display: none'>
+<button id="intervalSectionButtonSellRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlSell('RLS', '1000', document.getElementById('intervalSectionInputPriceBuyRLS').value)">Sell</button>
+<button id="intervalSectionButtonBuyRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlBuy(
+'RLS', document.getElementById('intervalSectionInputPriceBuyRLS').value, document.getElementById('intervalSectionInputPiecesBuyRLS').value)">ReBuy</button>
+Pieces&nbsp;<input name='intervalSectionInputPiecesBuyRLS' id='intervalSectionInputPiecesBuyRLS' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+Price&nbsp;<input name='intervalSectionInputPriceBuyRLS' id='intervalSectionInputPriceBuyRLS' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+</p>
+<hr id='intervalSectionButtonDetailsHRRLS' style='display: none'>
+</div>
 <div id='symbolLineId8TI'>
 <img id='imgToReplace8TI' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244501050&TIME_SPAN=10D'/>
 <div id='headlineLinkId' style='margin-top:26px'>
@@ -156,7 +201,7 @@ RSI: 25
 <span id='detailsIdReason8TI'><br></span>
 <script>
 linkMap.set('8TI', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/8TI.html'); // Open in Tab
-counterOwnStocks=1; // For Spinner
+counterOwnStocks=2; // For Spinner
 document.addEventListener('DOMContentLoaded', onContentLoaded('8TI', '244501050', 'STOCK'));
 </script>
 <div id='neverShowDiv8TI' style='display:none'>
@@ -201,7 +246,7 @@ Price&nbsp;<input name='intervalSectionInputPriceBuy8TI' id='intervalSectionInpu
 <span id='detailsIdReasonSES'><br></span>
 <script>
 linkMap.set('SES', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SES.html'); // Open in Tab
-counterOwnStocks=2; // For Spinner
+counterOwnStocks=3; // For Spinner
 document.addEventListener('DOMContentLoaded', onContentLoaded('SES', '244501066', 'STOCK'));
 </script>
 <div id='neverShowDivSES' style='display:none'>
@@ -246,7 +291,7 @@ Price&nbsp;<input name='intervalSectionInputPriceBuySES' id='intervalSectionInpu
 <span id='detailsIdReasonDS81'><br></span>
 <script>
 linkMap.set('DS81', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/DS81.html'); // Open in Tab
-counterOwnStocks=3; // For Spinner
+counterOwnStocks=4; // For Spinner
 document.addEventListener('DOMContentLoaded', onContentLoaded('DS81', '244522410', 'STOCK'));
 </script>
 <div id='neverShowDivDS81' style='display:none'>
@@ -287,7 +332,7 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyDS81' id='intervalSectionInp
 <span id='detailsIdReasonGXE'><br></span>
 <script>
 linkMap.set('GXE', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/GXE.html'); // Open in Tab
-counterOwnStocks=4; // For Spinner
+counterOwnStocks=5; // For Spinner
 document.addEventListener('DOMContentLoaded', onContentLoaded('GXE', '244541164', 'STOCK'));
 </script>
 <div id='neverShowDivGXE' style='display:none'>
@@ -330,7 +375,7 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyGXE' id='intervalSectionInpu
 <span id='detailsIdReasonSE4'><br></span>
 <script>
 linkMap.set('SE4', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/SE4.html'); // Open in Tab
-counterOwnStocks=5; // For Spinner
+counterOwnStocks=6; // For Spinner
 document.addEventListener('DOMContentLoaded', onContentLoaded('SE4', '244538267', 'STOCK'));
 </script>
 <div id='neverShowDivSE4' style='display:none'>
@@ -355,51 +400,6 @@ Pieces&nbsp;<input name='intervalSectionInputPiecesBuySE4' id='intervalSectionIn
 Price&nbsp;<input name='intervalSectionInputPriceBuySE4' id='intervalSectionInputPriceBuySE4' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
 </p>
 <hr id='intervalSectionButtonDetailsHRSE4' style='display: none'>
-</div>
-<div id='symbolLineIdRLS'>
-<img id='imgToReplaceRLS' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244541384&TIME_SPAN=10D'/>
-<div id='headlineLinkId' style='margin-top:26px'>
-<a id='headlineLinkRLS' style='background:white; color:green' onmouseover="javascript:showChart('10D', 'RLS', '')" onmouseout="javascript:hideChart('RLS')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541384' target='_blank'>*RLS "Rollins"</a>
-<a style='background:white; color:green' onmouseover="javascript:showChart('6M', 'RLS', '')" onmouseout="javascript:hideChart('RLS')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541384' target='_blank'>&nbsp;6M&nbsp;</a>
-<a style='background:white; color:green' onmouseover="javascript:showChart('5Y', 'RLS', '')" onmouseout="javascript:hideChart('RLS')" href='https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541384' target='_blank'>&nbsp;5Y&nbsp;</a>
-<a style='background:white; color:green' href='https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/RLS.html' target='_blank'>&nbsp;SA&nbsp;</a>
-
-</div>
-<span id='detailsIdReasonRLSBuy:LowMACD(M)'>Buy: Low MACD (M)<br></span>
-<span id='detailsIdReasonRLSBuy:New40daysLow(N)'>Buy: New 40 days Low (N)<br></span>
-<span id='detailsIdReasonRLSBuy:RSIDivergence(D)'>Buy: RSI Divergence (D)<br></span>
-<span id='detailsIdReasonRLSBuy:LowPercent&Stochastic(P)'>Buy: Low Percent & Stochastic (P)<br></span>
-<span id='detailsIdReasonRLSBuy:Low3lastRSI(R)'>Buy: Low 3 last RSI (R)<br></span>
-<span id='detailsIdReasonRLSBuy:Low7lastStochastic(S)'>Buy: Low 7 last Stochastic (S)<br></span>
-<span id='detailsIdReasonRLSBuy:LowStochastic&RSI&MACD-(C)'>Buy: Low Stochastic & RSI & MACD- (C)<br></span>
-<span id='detailsIdReasonRLS'><br></span>
-<script>
-linkMap.set('RLS', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/out/RLS.html'); // Open in Tab
-counterOwnStocks=6; // For Spinner
-document.addEventListener('DOMContentLoaded', onContentLoaded('RLS', '244541384', 'STOCK'));
-</script>
-<div id='neverShowDivRLS' style='display:none'>
-<span id='obfuscatedValuePcEuroRLS' style='display:none'>YY56682/45292XX009</span>&nbsp;
-<span id='obfuscatedValueGainRLS' style='display:none;color:red'>YY985-ZZ0.2-</span>
-<span id='obfuscatedValueCloseBracesRLS' style='display:none'>)yadretseY(</span> <!-- (Yesterday) -->
-</div>
-<img id='intervalSectionImageRLS' alt='' src='#' style='display: none; border: 1px solid;'><br>
-<button id="intervalSectionButtonDetails1DRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '1D')">1D</button>
-<button id="intervalSectionButtonDetails5DRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '5D')">5D</button>
-<button id="intervalSectionButtonDetails10DRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '10D')">10D</button>
-<button id="intervalSectionButtonDetails3MRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '3M')">3M</button>
-<button id="intervalSectionButtonDetails6MRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '6M')">6M</button>
-<button id="intervalSectionButtonDetails1YRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '1Y')">1Y</button>
-<button id="intervalSectionButtonDetails5YRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', '5Y')">5Y</button>
-<button id="intervalSectionButtonDetailsSERLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:updateImage('RLS', '244541384', 'SE')">Max</button>
-<p id='intervalSectionButtonDetailsPRLS' style='display: none'>
-<button id="intervalSectionButtonSellRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlSell('RLS', '900', document.getElementById('intervalSectionInputPriceBuyRLS').value)">Sell</button>
-<button id="intervalSectionButtonBuyRLS" style='font-size:large; height: 50px; width: 80px; display: none' type="button" onClick="javascript:curlBuy(
-'RLS', document.getElementById('intervalSectionInputPriceBuyRLS').value, document.getElementById('intervalSectionInputPiecesBuyRLS').value)">ReBuy</button>
-Pieces&nbsp;<input name='intervalSectionInputPiecesBuyRLS' id='intervalSectionInputPiecesBuyRLS' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-Price&nbsp;<input name='intervalSectionInputPriceBuyRLS' id='intervalSectionInputPriceBuyRLS' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-</p>
-<hr id='intervalSectionButtonDetailsHRRLS' style='display: none'>
 </div>
 <div id='symbolLineIdBOP'>
 <img id='imgToReplaceBOP' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244522571&TIME_SPAN=10D'/>
@@ -805,12 +805,12 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyZPRG' id='intervalSectionInp
 <button id='intervalSectionButtonSEDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick="javascript:updateImage('DAX', '35803356', 'SE')">Max</button>
 <hr id='intervalSectionHRDAX' style='display: none'>
 <button id="intervalSectionButtonAll1D" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('RLS', '244541384', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('8TI', '244501050', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('SES', '244501066', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('DS81', '244522410', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('GXE', '244541164', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('SE4', '244538267', '1D');javascript:window.scrollTo(0,0);
-javascript:updateImage('RLS', '244541384', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('BOP', '244522571', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('8CW', '244537753', '1D');javascript:window.scrollTo(0,0);
 javascript:updateImage('DBXT', '244511999', '1D');javascript:window.scrollTo(0,0);
@@ -824,12 +824,12 @@ javascript:updateImage('ZPRG', '244539787', '1D');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '1D');javascript:window.scrollTo(0,0);
 ">1D</button>
 <button id="intervalSectionButtonAll5D" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('RLS', '244541384', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('8TI', '244501050', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('SES', '244501066', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('DS81', '244522410', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('GXE', '244541164', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('SE4', '244538267', '5D');javascript:window.scrollTo(0,0);
-javascript:updateImage('RLS', '244541384', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('BOP', '244522571', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('8CW', '244537753', '5D');javascript:window.scrollTo(0,0);
 javascript:updateImage('DBXT', '244511999', '5D');javascript:window.scrollTo(0,0);
@@ -843,12 +843,12 @@ javascript:updateImage('ZPRG', '244539787', '5D');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '5D');javascript:window.scrollTo(0,0);
 ">5D</button>
 <button id="intervalSectionButtonAll10D" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('RLS', '244541384', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('8TI', '244501050', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('SES', '244501066', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('DS81', '244522410', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('GXE', '244541164', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('SE4', '244538267', '10D');javascript:window.scrollTo(0,0);
-javascript:updateImage('RLS', '244541384', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('BOP', '244522571', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('8CW', '244537753', '10D');javascript:window.scrollTo(0,0);
 javascript:updateImage('DBXT', '244511999', '10D');javascript:window.scrollTo(0,0);
@@ -862,12 +862,12 @@ javascript:updateImage('ZPRG', '244539787', '10D');javascript:window.scrollTo(0,
 javascript:updateImage('DAX', '244500568', '10D');javascript:window.scrollTo(0,0);
 ">10D</button>
 <button id="intervalSectionButtonAll3M" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('RLS', '244541384', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('8TI', '244501050', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('SES', '244501066', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('DS81', '244522410', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('GXE', '244541164', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('SE4', '244538267', '3M');javascript:window.scrollTo(0,0);
-javascript:updateImage('RLS', '244541384', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('BOP', '244522571', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('8CW', '244537753', '3M');javascript:window.scrollTo(0,0);
 javascript:updateImage('DBXT', '244511999', '3M');javascript:window.scrollTo(0,0);
@@ -881,12 +881,12 @@ javascript:updateImage('ZPRG', '244539787', '3M');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '3M');javascript:window.scrollTo(0,0);
 ">3M</button>
 <button id="intervalSectionButtonAll6M" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('RLS', '244541384', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('8TI', '244501050', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('SES', '244501066', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('DS81', '244522410', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('GXE', '244541164', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('SE4', '244538267', '6M');javascript:window.scrollTo(0,0);
-javascript:updateImage('RLS', '244541384', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('BOP', '244522571', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('8CW', '244537753', '6M');javascript:window.scrollTo(0,0);
 javascript:updateImage('DBXT', '244511999', '6M');javascript:window.scrollTo(0,0);
@@ -900,12 +900,12 @@ javascript:updateImage('ZPRG', '244539787', '6M');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '6M');javascript:window.scrollTo(0,0);
 ">6M</button>
 <button id="intervalSectionButtonAll1Y" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('RLS', '244541384', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('8TI', '244501050', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('SES', '244501066', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('DS81', '244522410', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('GXE', '244541164', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('SE4', '244538267', '1Y');javascript:window.scrollTo(0,0);
-javascript:updateImage('RLS', '244541384', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('BOP', '244522571', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('8CW', '244537753', '1Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('DBXT', '244511999', '1Y');javascript:window.scrollTo(0,0);
@@ -919,12 +919,12 @@ javascript:updateImage('ZPRG', '244539787', '1Y');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '1Y');javascript:window.scrollTo(0,0);
 ">1Y</button>
 <button id="intervalSectionButtonAll5Y" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('RLS', '244541384', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('8TI', '244501050', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('SES', '244501066', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('DS81', '244522410', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('GXE', '244541164', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('SE4', '244538267', '5Y');javascript:window.scrollTo(0,0);
-javascript:updateImage('RLS', '244541384', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('BOP', '244522571', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('8CW', '244537753', '5Y');javascript:window.scrollTo(0,0);
 javascript:updateImage('DBXT', '244511999', '5Y');javascript:window.scrollTo(0,0);
@@ -938,12 +938,12 @@ javascript:updateImage('ZPRG', '244539787', '5Y');javascript:window.scrollTo(0,0
 javascript:updateImage('DAX', '244500568', '5Y');javascript:window.scrollTo(0,0);
 ">5Y</button>
 <button id="intervalSectionButtonAllSE" style="font-size:large; height: 50px; width: 80px; display: none" type="button" onClick="
+javascript:updateImage('RLS', '244541384', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('8TI', '244501050', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('SES', '244501066', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('DS81', '244522410', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('GXE', '244541164', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('SE4', '244538267', 'SE');javascript:window.scrollTo(0,0);
-javascript:updateImage('RLS', '244541384', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('BOP', '244522571', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('8CW', '244537753', 'SE');javascript:window.scrollTo(0,0);
 javascript:updateImage('DBXT', '244511999', 'SE');javascript:window.scrollTo(0,0);
@@ -972,6 +972,6 @@ Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectio
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate.html" target="_blank">Simulation</a>
 <br><a href="https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/_simulate_last_alarms.html" target="_blank">Screen Last Alarms</a><br>
 <br># Informer<br><a href="https://nutzer.comdirect.de/inf/musterdepot/pmd/meineuebersicht.html?name=Max" target="_blank">Comdirect Informer</a><br>
-<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  7-Aug-2026 14:19</p>
+<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a>  7-Aug-2026 14:43</p>
 </div>
 <br></div></body></html>
