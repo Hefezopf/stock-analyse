@@ -646,6 +646,7 @@ winOverAllFormated=$(printf "%'.f" "$winOverAll")
 Out "Gain till today (74 Busi.Days): $winOverAllFormated€ = $prozWinOverAll%" $OUT_SIMULATE_FILE
 #Out "Gain Percent (74 Busi.Days)=$prozWinOverAll%" $OUT_SIMULATE_FILE
 prozWinOverAll1Year=$(echo "$prozWinOverAll 3.8" | awk '{print ($1 * $2)}') # Factor 3.8: 74 Kurse -> 250 Arbeitstage
+prozWinOverAll1Year=$(printf "%'.1f" "$prozWinOverAll1Year")
 winOverAll1Year=$(echo "$winOverAll 3.8" | awk '{print ($1 * $2)}') # 74 Kurse -> 250 Arbeitstage
 winOverAll1Year=$(printf "%'.f" "$winOverAll1Year")
 Out "Est. yearly gain before tax (250 Busi.Days): $winOverAll1Year€ = <b>$prozWinOverAll1Year%</b>" $OUT_SIMULATE_FILE
