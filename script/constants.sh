@@ -28,9 +28,9 @@ export FALLING=FALLING
 export MOCCASIN=Moccasin
 # MediumSeaGreen shades 
 # https://www.css-gradient.com/colors/mediumseagreen
-export MEDIUMSEAGREEN_1=#62CA90
-export MEDIUMSEAGREEN_2=#37A467
-export MEDIUMSEAGREEN_3=#28764A
+export MEDIUMSEAGREEN_1=#90DAB1
+export MEDIUMSEAGREEN_2=#43C07B
+export MEDIUMSEAGREEN_3=#4CA373
 export WHITE=white
 export GREEN=green
 export RED=red
