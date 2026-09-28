@@ -58,9 +58,8 @@ jobs:
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           symbolsVar=${symbolsInput:-$symbolsVar}
 
-          #chmod +x ./script/curl/curl_getInformerData.sh
-          #./script/curl/curl_getInformerData.sh "$symbolsVar"
-
+          chmod +x ./script/curl/curl_getInformerData.sh
+          ./script/curl/curl_getInformerData.sh "$symbolsVar"
 
           
           # Temp Solution: Always run with ownSymbolsVar -> ignore Param
