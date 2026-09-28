@@ -58,8 +58,20 @@ jobs:
           symbolsInput="${{github.event.inputs.symbolsParam}}"
           symbolsVar=${symbolsInput:-$symbolsVar}
 
-          chmod +x ./script/curl/curl_getInformerData.sh
-          ./script/curl/curl_getInformerData.sh "$symbolsVar"
+          #chmod +x ./script/curl/curl_getInformerData.sh
+          #./script/curl/curl_getInformerData.sh "$symbolsVar"
+
+
+          
+          # Temp Solution: Always run with ownSymbolsVar -> ignore Param
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg 2>/dev/null
+          ownSymbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          rm -rf config/own_symbols.txt
+          symbolsVar=$ownSymbolsVar
+          
+          chmod +x ./analyse.sh
+          ./analyse.sh "$symbolsVar" 1 9 25
+
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
