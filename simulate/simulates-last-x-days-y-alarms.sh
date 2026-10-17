@@ -261,7 +261,8 @@ do
         asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
         if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap
             linkBackgroundColor="$MOCCASIN"
-            WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "/simulate" "$ID_NOTATION"
+            # No Alarm for low Market Cap!
+            # No WriteComdirectUrlAndStoreFileList
         fi
         #WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "/simulate" "$ID_NOTATION"
     fi
