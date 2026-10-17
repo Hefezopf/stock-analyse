@@ -1,8 +1,12 @@
 #!/bin/bash
 
+# Runs local tests for all bats files: test/*.bats
+# Using installation from /media/markus/BigBerta/code/stock-analyse/script/install-bats.sh
+
 # https://github.com/bats-core/bats-core
 # https://github.com/ztombol/bats-assert
 
+# Windows bash:
 # cd /D/code
 # git clone https://github.com/bats-core/bats-core.git
 # git clone https://github.com/bats-core/bats-assert.git
@@ -12,7 +16,12 @@
 # /libexec, /bin, /share and /lib
 # bats --version
 
-# To get rid of carage returns, may run:
+# Mint bash:
+# . /media/markus/BigBerta/code/stock-analyse/script/install-bats.sh
+# Installation under /home/markus/test/test_helper/batscore/bin
+# ./bats -v
+
+# To get rid of carrage returns, may run:
 # sed -i 's/\r//g' script/constants.sh
 # sed -i 's/\r//g' simulate/simulate-buyLowMACDNegativ-sellHighStoch.sh
 
@@ -72,7 +81,10 @@ rm -rf test/_result.html
 # /C/Users/xcg4444/bin/bats --tap test/*.bats
 # C:\Users\info\bin\bats
 # /home/markus/bin/bats
+# /home/markus/test/test_helper/batscore/bin/bats'
 echo bats ...
+alias bats='/home/markus/test/test_helper/batscore/bin/bats'
+#./bats --version
 bats --version
 
 bats --tap --timing test/analyse.bats
