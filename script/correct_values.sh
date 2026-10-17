@@ -66,6 +66,7 @@ SYMBOL_NAME=$(echo "$lineFromSymbolsFile" | cut -f 6 -d ' ')
 sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
 
 # Add symbol on top of the own list
+# shellcheck disable=SC1003,SC2086
 sed -i '1 i\'$symbolParam' '$buyInPriceParam' '$BUY_DATE' '$piecesParam' '$overallParam'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
 lineFromSymbolsFile=$(grep -m1 -P "^$symbolParam " "$OWN_SYMBOLS_FILE")
 echo "-> New lineFromSymbolsFile: $lineFromSymbolsFile"

@@ -140,7 +140,7 @@ else
 fi
 
 today=$(date --date="-0 day" +"%Y-%m-%d")
-# shellcheck disable=SC2027,SC1003,SC2086
+# shellcheck disable=SC1003,SC2086
 sed -i '1 i\'$symbolParam' '$avgPrice' '$today' '$totalAmountOfPieces' '$summe'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
 
 # Encript

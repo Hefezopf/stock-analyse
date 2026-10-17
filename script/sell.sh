@@ -118,7 +118,7 @@ else
     totalAmountOfPieces=$((TOTAL_PIECES - sellPiecesParam))
     summe=$(echo "$totalAmountOfPieces $AVG_PRICE" | awk '{print $1 * $2}')
     summe=${summe%.*}
-    # shellcheck disable=SC2027,SC1003,SC2086
+    # shellcheck disable=SC1003,SC2086
     sed -i '1 i\'$symbolParam' '$AVG_PRICE' '$today' '$totalAmountOfPieces' '$summe'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
 fi
 
