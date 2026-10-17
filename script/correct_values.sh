@@ -41,8 +41,8 @@ if { [ -z "$symbolParam" ] || [ -z "$piecesParam" ] || [ -z "$buyInPriceParam" ]
 fi
 
 if { [ "${piecesParam:0:1}" = "-" ]; } then
-    echo "Error: Pieces can not be negativ!"
-    exit 2
+  echo "Error: Pieces can not be negativ!"
+  exit 2
 fi
 
 if [ "${symbolParam::1}" = '*' ]; then
@@ -59,6 +59,11 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/
 
 # Correct values
 lineFromSymbolsFile=$(grep -m1 -P "^$symbolParam " "$OWN_SYMBOLS_FILE")
+echo "---lineFromSymbolsFile $lineFromSymbolsFile"
+if { [ -z "$lineFromSymbolsFile" ]; } then
+  echo "Error: Symbol '$symbolParam' not found in own stocks file!"
+  exit 3
+fi
 BUY_DATE=$(echo "$lineFromSymbolsFile" | cut -f 3 -d ' ')
 SYMBOL_NAME=$(echo "$lineFromSymbolsFile" | cut -f 6 -d ' ')
 
@@ -73,7 +78,7 @@ sed -i '1 i\'$symbolParam' '$buyInPriceParam' '$BUY_DATE' '$piecesParam' '$overa
 # # shellcheck disable=SC2154
 # if [ -z "$correctValuesInput" ]; then
 #     echo "exit"
-#     exit 1
+#     exit 4
 # fi
 
 # Encript
