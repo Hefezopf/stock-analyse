@@ -458,7 +458,7 @@ GetCreationDate() {
     dateParameter="%e-%b-%Y %R"
     creationDate=$(date +"$dateParameter") # 29-Apr-2021 08:52
     if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
-        creationDate=$(TZ=EST-0EDT date +"$dateParameter") # Sommerzeit / Summertime 
+        creationDate=$(TZ=EST+2EDT date +"$dateParameter") # Sommerzeit / Summertime 
         #creationDate=$(TZ=EST-1EDT date +"$dateParameter") # Winterzeit / Wintertime
     fi
 }
