@@ -54,11 +54,11 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/
 
 # Correct values
 lineFromSymbolsFile=$(grep -m1 -P "^$symbolParam " "$OWN_SYMBOLS_FILE")
-echo "-> Old lineFromSymbolsFile: $lineFromSymbolsFile"
 if { [ -z "$lineFromSymbolsFile" ]; } then
   echo "Error: Symbol '$symbolParam' not found in own stocks file!"
   exit 3
 fi
+echo "-> Old lineFromSymbolsFile: $lineFromSymbolsFile"
 BUY_DATE=$(echo "$lineFromSymbolsFile" | cut -f 3 -d ' ')
 SYMBOL_NAME=$(echo "$lineFromSymbolsFile" | cut -f 6 -d ' ')
 
@@ -67,6 +67,7 @@ sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
 
 # Add symbol on top of the own list
 sed -i '1 i\'$symbolParam' '$buyInPriceParam' '$BUY_DATE' '$piecesParam' '$overallParam'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
+lineFromSymbolsFile=$(grep -m1 -P "^$symbolParam " "$OWN_SYMBOLS_FILE")
 echo "-> New lineFromSymbolsFile: $lineFromSymbolsFile"
 
 # Encript
