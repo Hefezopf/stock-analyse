@@ -68,7 +68,7 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/
 # 1. Comment OUT in .gitignore: #config/own_symbols.txt
 # 2. Comment IN line (line 75 here) 'read -n....' to correct values
 # 3. Run buy XXX 1 1
-# 4. Lookup in TradeRepublic: 'Position/Einstandskurs', 'Position/Aktien' and 'Gesamtsumme' (Gesamtwert - Rendite)
+# 4. Lookup in TradeRepublic: 'Position/Einstandskurs', 'Position/Aktien' and 'Gesamtsumme' (Position/Gesamtwert - Performance/Rendite)
 # 5. Correct values in config/own_symbols.txt
 # 6. Press ANY KEY! -> NOT ENTER
 # 7. Checkin config/own_symbols.txt.gpg
