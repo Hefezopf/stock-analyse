@@ -28,6 +28,6 @@ rm -rf "$OWN_SYMBOLS_FILE"
 
 git checkout .gitignore
 
-read -p "Press enter to continue and commit (or CTRL+C to abort)"
+read -p "Press enter to commit (or CTRL+C to abort)"
 
 #git commit -am "correct values" "$OWN_SYMBOLS_FILE".gpg
