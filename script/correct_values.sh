@@ -3,11 +3,11 @@
 # Correcting values in own_symbols.txt
 # Specify the value to be replaced in own_symbols.txt
 #
-# Call: . script/correct_values.sh SYMBOL PIECES BUY_IN_PRICE OVERALL_VALUE
+# Call: . script/correct_values.sh SYMBOL PIECES BUY_IN_PRICE OVERALL
 # Example: source ./script/correct_values.sh BEI 100 9.99 100000
 # alias cv='/d/code/stock-analyse/script/correct_values.sh $1 $2 $3 $4'
 # Example: cv BEI 100 9.99 100000
-# {"event_type": "correct", "client_payload": {"symbol": "BEI", "price": "9.99", "pieces": "100", "overall": "100000"}}
+# {"event_type": "correct_values", "client_payload": {"symbol": "BEI", "price": "9.99", "pieces": "100", "overall": "100000"}}
 
 #set -x
 
@@ -34,8 +34,9 @@ overallParam="${_overallParam//\./}"
 
 if { [ -z "$symbolParam" ] || [ -z "$piecesParam" ] || [ -z "$buyInPriceParam" ] || [ -z "$overallParam" ]; } then
   echo "Error: Not all parameters specified!"
-  echo "Call: sh ./correct_values.sh SYMBOL PIECES BUY_IN_PRICE OVERALL_VALUE"
+  echo "Call: sh ./correct_values.sh SYMBOL PIECES BUY_IN_PRICE OVERALL"
   echo "Example: sh ./correct_values.sh BEI 100 9.99 100000"
+  echo "Example: cv BEI 100 9.99 100000"
   exit 1
 fi
 

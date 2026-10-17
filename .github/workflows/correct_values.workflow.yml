@@ -1,0 +1,121 @@
+# Is triggered:
+#   1. curl 
+#   2. manuell 
+name: Correct Values
+
+run-name: 'Correct Values ${{github.event.client_payload.symbolname}}'
+
+# Controls when the action will run. 
+on:
+  # Can be triggered with cURL and js: client_payload
+  repository_dispatch:
+    types: [correct_values] 
+       
+  # Can be triggered manually
+  workflow_dispatch:
+    inputs:
+      symbolParam:
+        description: 'SYMBOL - stock symbol to add to own stocks list: "BEI"'
+        required: true
+        default: 'BEI'
+      piecesParam:
+        description: 'PIECES - Number of pieces to buy: "100" pieces'     
+        required: true
+        default: '100'
+      priceParam:
+        description: 'PRICE - buying Price: "9.99" EUR'     
+        required: true
+        default: '9.99'
+      overallParam:
+        description: 'OVERALL - Overall Price: "100000" EUR'     
+        required: true
+        default: '9.99'        
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-26.04
+    #runs-on: ubuntu-slim
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      # Runs a set of commands using the runners shell
+      - name: Run curl (re)buy
+        run: |
+          echo "Start (re)buy ..."
+
+          #uname --all
+          #uname -n
+          uname -o
+
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
+
+          symbolDefault='${{github.event.client_payload.symbol}}'
+          priceDefault='${{github.event.client_payload.price}}'
+          piecesDefault='${{github.event.client_payload.pieces}}'
+          overallDefault='${{github.event.client_payload.overall}}'
+
+          symbolInput="${{github.event.inputs.symbolParam}}"
+          priceInput="${{github.event.inputs.priceParam}}"
+          piecesInput="${{github.event.inputs.piecesParam}}"
+          overallInput="${{github.event.inputs.overallParam}}"
+
+          symbolVar=${symbolInput:-$symbolDefault}  
+          priceVar=${priceInput:-$priceDefault}
+          piecesVar=${piecesInput:-$piecesDefault}
+          overallVar=${overallInput:-$overallDefault}
+
+          chmod +x ./script/correct_values.sh
+          ./script/correct_values.sh "$symbolVar" "$piecesVar" "$priceVar" "$overallVar"
+
+          #symbolName=$(grep -m1 -P "$symbolVar\t" "config/ticker_name_id.txt" | cut -f 2)
+          #echo "symbolNameEnv=${symbolName}" >> $GITHUB_ENV
+          # Files comes from buy.sh
+          #BUY_RESULT_FILE="buy_result.txt"
+          #echo "buyResult=$(cat $BUY_RESULT_FILE)" >> $GITHUB_ENV
+          #rm -rf $BUY_RESULT_FILE
+
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
+          symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          rm -rf config/own_symbols.txt
+
+          chmod +x ./analyse.sh
+          ./analyse.sh "$symbolsVar" 1 9 25
+
+          git config user.email ${{secrets.MAIL_ADRESS}}
+          git config user.name "Markus Hopf"
+          git add config/own_symbols.txt.gpg config/stock_symbols.txt
+          git add data/*.txt
+          git add history/*.txt
+          git add alarm/*.txt
+          git add buy/*.txt
+          git add sell/*.txt
+          git add status
+          git add out/*.html
+          git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
+          git push
+          
+      - name: Send result via email
+        uses: dawidd6/action-send-mail@v21
+        with:
+          server_address: smtp.ionos.de
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: SA Buy ${{github.event.client_payload.symbol}} ${{env.symbolNameEnv}}, Overall ${{env.buyResult}}
+          # Read file contents as body:
+          html_body: file://template/email.html
+          #body: file://out/_result.html
+          to: ${{secrets.MAIL_ADRESS}}
+          from: 'Github stock-analyse <github@hopf-it.de>'
+          # Optional content type (defaults to text/plain):
+          #content_type: text/html
+          # Optional attachments:
+          #attachments: out/_out.tar.gz
