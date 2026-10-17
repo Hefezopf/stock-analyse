@@ -462,7 +462,9 @@ GetCreationDate() {
         echo "--------------run on: $UNAME_O"
         date
         date +"$dateParameter"
-        creationDate=$(TZ="EST-1EDT" date +"$dateParameter") # Sommerzeit / Summertime 
+        date +"$dateParameter" -d "+1hours"
+        creationDate=$(date +"$dateParameter" -d "+2hours") # Sommerzeit / Summertime 
+        #creationDate=$(TZ="EST-1EDT" date +"$dateParameter") # Sommerzeit / Summertime 
         #creationDate=$(TZ="EST-2EDT" date +"$dateParameter") # Winterzeit / Wintertime
     fi
     echo "--------------creationDate: $creationDate"
