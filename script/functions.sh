@@ -459,12 +459,13 @@ GetCreationDate() {
     creationDate=$(date +"$dateParameter") # 29-Apr-2021 08:52
     #echo "--------------uname: $UNAME_O"
     if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
-        #echo "--------------run on: $UNAME_O"
-        #date +"$dateParameter"
+        echo "--------------run on: $UNAME_O"
+        date
+        date +"$dateParameter"
         creationDate=$(TZ="EST-1EDT" date +"$dateParameter") # Sommerzeit / Summertime 
         #creationDate=$(TZ="EST-2EDT" date +"$dateParameter") # Winterzeit / Wintertime
     fi
-    #echo "--------------creationDate: $creationDate"
+    echo "--------------creationDate: $creationDate"
 }
 
 # SymbolsParamShortened function:
