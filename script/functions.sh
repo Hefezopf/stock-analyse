@@ -460,7 +460,7 @@ GetCreationDate() {
     echo "--------------uname: $UNAME_O"
     if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
         echo "--------------run on: $UNAME_O"
-        creationDate=$(TZ=EST-1EDT date +"$dateParameter") # Sommerzeit / Summertime 
+        creationDate=$(TZ="EST-3EDT" date +"$dateParameter") # Sommerzeit / Summertime 
         #creationDate=$(TZ=EST-2EDT date +"$dateParameter") # Winterzeit / Wintertime
     fi
     echo "--------------creationDate: $creationDate"
