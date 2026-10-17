@@ -306,7 +306,7 @@ done
     echo "<br><span style='background:$MEDIUMSEAGREEN_2; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"
     echo "<br><span style='background:$MEDIUMSEAGREEN_1; color:black'>Recommended: '$recommendedPattern'</span>"
     echo "<br><span style='background:$WHITE; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"
-    echo "<br><span style='background:$MOCCASIN; color:black'>Low Market Cap: < 1Mrd.</span><br>"
+   # echo "<br><span style='background:$MOCCASIN; color:black'>Low Market Cap: < 1Mrd.</span><br>"
 } >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 GetCreationDate
