@@ -49,17 +49,12 @@ if [ "${symbolParam::1}" = '*' ]; then
     symbolParam="${symbolParam:1:7}"
 fi
 
-#sed -i 's/config/#config/g' .gitignore
-
 # Decript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/null
 
-# Open Editor
-#flatpak run com.vscodium.codium /media/markus/BigBerta/code/stock-analyse/"$OWN_SYMBOLS_FILE"
-
 # Correct values
 lineFromSymbolsFile=$(grep -m1 -P "^$symbolParam " "$OWN_SYMBOLS_FILE")
-echo "---lineFromSymbolsFile $lineFromSymbolsFile"
+echo "-> Old lineFromSymbolsFile: $lineFromSymbolsFile"
 if { [ -z "$lineFromSymbolsFile" ]; } then
   echo "Error: Symbol '$symbolParam' not found in own stocks file!"
   exit 3
@@ -72,26 +67,9 @@ sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
 
 # Add symbol on top of the own list
 sed -i '1 i\'$symbolParam' '$buyInPriceParam' '$BUY_DATE' '$piecesParam' '$overallParam'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
-
-# Correct values
-# read -r -n 1 -p "Correct values in 'config/own_symbols.txt' now and then hit ANY KEY! -> NOT ENTER, NOT SPACE" correctValuesInput
-# # shellcheck disable=SC2154
-# if [ -z "$correctValuesInput" ]; then
-#     echo "exit"
-#     exit 4
-# fi
+echo "-> New lineFromSymbolsFile: $lineFromSymbolsFile"
 
 # Encript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c "$OWN_SYMBOLS_FILE" 2>/dev/null
 # Delete readable file own_symbols.txt
 rm -rf "$OWN_SYMBOLS_FILE"
-
-#echo -e "\n"
-#. /media/markus/BigBerta/code/stock-analyse/script/view_portfolio.sh
-
-
-#git checkout .gitignore
-
-#read -r -p "Press enter to commit (or CTRL+C to abort)"
-
-#git commit -am "correct values" "$OWN_SYMBOLS_FILE".gpg
