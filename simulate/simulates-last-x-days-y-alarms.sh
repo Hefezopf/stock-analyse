@@ -170,6 +170,22 @@ Out "Symbols ($countSymbols): $SYMBOLS_PARAM_SHORTENED" "$SIM_LAST_ALARMS_HTML_F
 
 } >> "$SIM_LAST_ALARMS_HTML_FILE"
 
+ARRAY_SYMBOL_RECOMMENDED=()
+ARRAY_NAME_RECOMMENDED=()
+ARRAY_NOTATION_ID_RECOMMENDED=()
+
+ARRAY_SYMBOL_HIGHLY_RECOMMENDED=()
+ARRAY_NAME_HIGHLY_RECOMMENDED=()
+ARRAY_NOTATION_ID_HIGHLY_RECOMMENDED=()
+
+ARRAY_SYMBOL_STRONGLY_RECOMMENDED=()
+ARRAY_NAME_STRONGLY_RECOMMENDED=()
+ARRAY_NOTATION_ID_STRONGLY_RECOMMENDED=()
+
+ARRAY_SYMBOL_X_Y_DAYS_RECOMMENDED=()
+ARRAY_NAME_X_Y_DAYS_RECOMMENDED=()
+ARRAY_NOTATION_ID_X_Y_DAYS_RECOMMENDED=()
+
 # Simulate stocks for each symbol
 for symbol in $symbolsParam
 do
@@ -212,28 +228,75 @@ do
         if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
             echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
             linkBackgroundColor="$MEDIUMSEAGREEN_1"
-        fi
+            ARRAY_SYMBOL_RECOMMENDED+=("$symbol")
+            ARRAY_NAME_RECOMMENDED+=("$symbolName")
+            ARRAY_NOTATION_ID_RECOMMENDED+=("$ID_NOTATION")
         # Highly recommended
         #test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
-        if [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
+        elif [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
             echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
             linkBackgroundColor="$MEDIUMSEAGREEN_2"
-        fi
+            ARRAY_SYMBOL_HIGHLY_RECOMMENDED+=("$symbol")
+            ARRAY_NAME_HIGHLY_RECOMMENDED+=("$symbolName")
+            ARRAY_NOTATION_ID_HIGHLY_RECOMMENDED+=("$ID_NOTATION")
         # Strongly recommended
         #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
-        if [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
+        elif [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
             echo "---> Strongly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
             linkBackgroundColor="$MEDIUMSEAGREEN_3"
-        fi
+            ARRAY_SYMBOL_STRONGLY_RECOMMENDED+=("$symbol")
+            ARRAY_NAME_STRONGLY_RECOMMENDED+=("$symbolName")
+            ARRAY_NOTATION_ID_STRONGLY_RECOMMENDED+=("$ID_NOTATION")
+
+        # '35' Alarms within the last '3' days
+        else
+            echo "---> 'x' Alarms within the last 'y' days $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
+            ARRAY_SYMBOL_X_Y_DAYS_RECOMMENDED+=("$symbol")
+            ARRAY_NAME_X_Y_DAYS_RECOMMENDED+=("$symbolName")
+            ARRAY_NOTATION_ID_X_Y_DAYS_RECOMMENDED+=("$ID_NOTATION")
+        fi        
 
         # Market Cap
         marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
         asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
         if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap
             linkBackgroundColor="$MOCCASIN"
+            WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "/simulate" "$ID_NOTATION"
         fi
-        WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "/simulate" "$ID_NOTATION"
+        #WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "/simulate" "$ID_NOTATION"
     fi
+done
+
+# Output Strongly recommended
+for i in "${!ARRAY_SYMBOL_STRONGLY_RECOMMENDED[@]}"; do
+    echo "->${ARRAY_SYMBOL_STRONGLY_RECOMMENDED[i]}"
+    echo "-->${ARRAY_NAME_STRONGLY_RECOMMENDED[i]}"
+    echo "-->${ARRAY_NOTATION_ID_STRONGLY_RECOMMENDED[i]}"
+    WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "${ARRAY_SYMBOL_STRONGLY_RECOMMENDED[i]}" "${ARRAY_NAME_STRONGLY_RECOMMENDED[i]}" "$BLACK" "" "" "$MEDIUMSEAGREEN_3" "/simulate" "${ARRAY_NOTATION_ID_STRONGLY_RECOMMENDED[i]}"
+done
+
+# Output Highly recommended
+for i in "${!ARRAY_SYMBOL_HIGHLY_RECOMMENDED[@]}"; do
+    echo "->${ARRAY_SYMBOL_HIGHLY_RECOMMENDED[i]}"
+    echo "-->${ARRAY_NAME_HIGHLY_RECOMMENDED[i]}"
+    echo "-->${ARRAY_NOTATION_ID_HIGHLY_RECOMMENDED[i]}"
+    WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "${ARRAY_SYMBOL_HIGHLY_RECOMMENDED[i]}" "${ARRAY_NAME_HIGHLY_RECOMMENDED[i]}" "$BLACK" "" "" "$MEDIUMSEAGREEN_2" "/simulate" "${ARRAY_NOTATION_ID_HIGHLY_RECOMMENDED[i]}"
+done
+
+# Output Recommended ARRAY
+for i in "${!ARRAY_SYMBOL_RECOMMENDED[@]}"; do
+    echo "->${ARRAY_SYMBOL_RECOMMENDED[i]}"
+    echo "-->${ARRAY_NAME_RECOMMENDED[i]}"
+    echo "-->${ARRAY_NOTATION_ID_RECOMMENDED[i]}"
+    WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "${ARRAY_SYMBOL_RECOMMENDED[i]}" "${ARRAY_NAME_RECOMMENDED[i]}" "$BLACK" "" "" "$MEDIUMSEAGREEN_1" "/simulate" "${ARRAY_NOTATION_ID_RECOMMENDED[i]}"
+done
+
+# Output 'x' Alarms within the last 'y' days ARRAY
+for i in "${!ARRAY_SYMBOL_X_Y_DAYS_RECOMMENDED[@]}"; do
+    echo "->${ARRAY_SYMBOL_X_Y_DAYS_RECOMMENDED[i]}"
+    echo "-->${ARRAY_NAME_X_Y_DAYS_RECOMMENDED[i]}"
+    echo "-->${ARRAY_NOTATION_ID_X_Y_DAYS_RECOMMENDED[i]}"
+    WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "${ARRAY_SYMBOL_X_Y_DAYS_RECOMMENDED[i]}" "${ARRAY_NAME_X_Y_DAYS_RECOMMENDED[i]}" "$BLACK" "" "" "$WHITE" "/simulate" "${ARRAY_NOTATION_ID_X_Y_DAYS_RECOMMENDED[i]}"
 done
 
 {
