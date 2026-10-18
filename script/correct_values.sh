@@ -58,7 +58,8 @@ if { [ -z "$lineFromSymbolsFile" ]; } then
   echo "Error: Symbol '$symbolParam' not found in own stocks file!"
   exit 3
 fi
-echo "-> Old lineFromSymbolsFile: $lineFromSymbolsFile"
+echo "-> Old:"
+echo "$lineFromSymbolsFile"
 BUY_DATE=$(echo "$lineFromSymbolsFile" | cut -f 3 -d ' ')
 SYMBOL_NAME=$(echo "$lineFromSymbolsFile" | cut -f 6 -d ' ')
 
@@ -69,7 +70,8 @@ sed -i "/^$symbolParam /d" "$OWN_SYMBOLS_FILE"
 # shellcheck disable=SC1003,SC2086
 sed -i '1 i\'$symbolParam' '$buyInPriceParam' '$BUY_DATE' '$piecesParam' '$overallParam'€ '$SYMBOL_NAME'' "$OWN_SYMBOLS_FILE"
 lineFromSymbolsFile=$(grep -m1 -P "^$symbolParam " "$OWN_SYMBOLS_FILE")
-echo "-> New lineFromSymbolsFile: $lineFromSymbolsFile"
+echo "-> New:"
+echo "$lineFromSymbolsFile"
 
 # Encript
 gpg --batch --yes --passphrase "$GPG_PASSPHRASE" -c "$OWN_SYMBOLS_FILE" 2>/dev/null
