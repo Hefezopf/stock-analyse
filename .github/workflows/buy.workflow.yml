@@ -84,6 +84,7 @@ jobs:
           rm -rf $BUY_RESULT_FILE
 
           echo "Skip=$skipVar"
+      - name: Analyse          
         if: ${{ skipVar == 'false' }}
         run: |
           echo "Build all own stocks (don't skip)"
@@ -97,8 +98,10 @@ jobs:
           ./analyse.sh "$symbolsVar" 1 9 25
           #fi
           exit 1
-
+          
+      - name: Git
         run: |
+          echo "Git commit and push"
           exit 2
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
@@ -111,8 +114,8 @@ jobs:
           git add status
           git add out/*.html
           git commit -am "Github ${{github.event_name}} ${{github.event.action}}" --allow-empty
-          git push
-          
+          git push        
+
       - name: Send result via email
         uses: dawidd6/action-send-mail@v22
         with:
