@@ -84,7 +84,7 @@ jobs:
           rm -rf $BUY_RESULT_FILE
 
           echo "Skip=$skipVar"
-      - name: Analyse          
+      - name: Run Analyse          
         if: ${{github.event.client_payload.skip == 'true'}}
         run: |
           echo "Build all own stocks (don't skip)"
@@ -99,7 +99,7 @@ jobs:
           #fi
           exit 1
           
-      - name: Git
+      - name: Run Git
         run: |
           echo "Git commit and push"
           exit 2
