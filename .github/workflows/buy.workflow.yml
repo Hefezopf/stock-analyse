@@ -85,7 +85,7 @@ jobs:
 
           echo "Skip=$skipVar"
       - name: Analyse          
-        if: ${{github.event.client_payload.skip}}
+        if: ${{github.event.client_payload.skip == 'true'}}
         run: |
           echo "Build all own stocks (don't skip)"
           #if: ${{ inputs.debug_mode == 'true' }}
