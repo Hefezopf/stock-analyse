@@ -83,17 +83,22 @@ jobs:
           echo "buyResult=$(cat $BUY_RESULT_FILE)" >> $GITHUB_ENV
           rm -rf $BUY_RESULT_FILE
 
-          #if: ${{ inputs.debug_mode == 'true' }}
-          if { [ -z "$skipVar" ]; } then
-            gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
-            symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
-            rm -rf config/own_symbols.txt
+          echo "Skip=$skipVar"
+        if: ${{ skipVar == 'false' }}
+        run: |
+          echo "Build all own stocks (don't skip)"
+          if: ${{ inputs.debug_mode == 'true' }}
+          #if { [ -z "$skipVar" ]; } then
+          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
+          symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          rm -rf config/own_symbols.txt
 
-            chmod +x ./analyse.sh
-            ./analyse.sh "$symbolsVar" 1 9 25
-          fi
+          chmod +x ./analyse.sh
+          ./analyse.sh "$symbolsVar" 1 9 25
+          #fi
           exit
 
+        run: |
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt
