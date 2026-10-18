@@ -96,9 +96,10 @@ jobs:
           chmod +x ./analyse.sh
           ./analyse.sh "$symbolsVar" 1 9 25
           #fi
-          exit
+          exit 1
 
         run: |
+          exit 2
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt
