@@ -85,10 +85,10 @@ jobs:
 
           echo "Skip=$skipVar"
       - name: Analyse          
-        if: ${{ skipVar == 'false' }}
+        if: ${{github.event.client_payload.skip}}
         run: |
           echo "Build all own stocks (don't skip)"
-          if: ${{ inputs.debug_mode == 'true' }}
+          #if: ${{ inputs.debug_mode == 'true' }}
           #if { [ -z "$skipVar" ]; } then
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
