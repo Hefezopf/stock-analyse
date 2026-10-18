@@ -26,6 +26,11 @@ on:
         description: 'PRICE - Buying Price: "9.99" EUR'     
         required: true
         default: '9.99'
+      skipParam:
+        description: 'SKIP BUILD ALL - Skips the biulding of all stocks: true'     
+        type: boolean
+        required: true
+        default: true        
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -56,14 +61,17 @@ jobs:
           symbolDefault='${{github.event.client_payload.symbol}}'
           priceDefault='${{github.event.client_payload.price}}'
           piecesDefault='${{github.event.client_payload.pieces}}'
+          skipDefault='${{github.event.client_payload.skip}}'
 
           symbolInput="${{github.event.inputs.symbolParam}}"
           priceInput="${{github.event.inputs.priceParam}}"
           piecesInput="${{github.event.inputs.piecesParam}}"
+          skipInput="${{github.event.inputs.skipParam}}"
 
           symbolVar=${symbolInput:-$symbolDefault}  
           priceVar=${priceInput:-$priceDefault}
           piecesVar=${piecesInput:-$piecesDefault}
+          skipVar=${skipInput:-$skipDefault}
 
           chmod +x ./script/buy.sh
           ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
@@ -75,12 +83,15 @@ jobs:
           echo "buyResult=$(cat $BUY_RESULT_FILE)" >> $GITHUB_ENV
           rm -rf $BUY_RESULT_FILE
 
-          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
-          symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
-          rm -rf config/own_symbols.txt
+          #if: ${{ inputs.debug_mode == 'true' }}
+          if { [ -z "$skipVar" ]; } then
+            gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
+            symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+            rm -rf config/own_symbols.txt
 
-          chmod +x ./analyse.sh
-          ./analyse.sh "$symbolsVar" 1 9 25
+            chmod +x ./analyse.sh
+            ./analyse.sh "$symbolsVar" 1 9 25
+          fi
 
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
