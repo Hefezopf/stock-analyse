@@ -61,17 +61,17 @@ jobs:
           symbolDefault='${{github.event.client_payload.symbol}}'
           priceDefault='${{github.event.client_payload.price}}'
           piecesDefault='${{github.event.client_payload.pieces}}'
-          skipDefault='${{github.event.client_payload.skip}}'
+          #skipDefault='${{github.event.client_payload.skip}}'
 
           symbolInput="${{github.event.inputs.symbolParam}}"
           priceInput="${{github.event.inputs.priceParam}}"
           piecesInput="${{github.event.inputs.piecesParam}}"
-          skipInput="${{github.event.inputs.skipParam}}"
+          #skipInput="${{github.event.inputs.skipParam}}"
 
           symbolVar=${symbolInput:-$symbolDefault}  
           priceVar=${priceInput:-$priceDefault}
           piecesVar=${piecesInput:-$piecesDefault}
-          skipVar=${skipInput:-$skipDefault}
+          #skipVar=${skipInput:-$skipDefault}
 
           chmod +x ./script/buy.sh
           ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
@@ -83,20 +83,18 @@ jobs:
           echo "buyResult=$(cat $BUY_RESULT_FILE)" >> $GITHUB_ENV
           rm -rf $BUY_RESULT_FILE
 
-          echo "Skip=$skipVar"
+          #echo "Skip=$skipVar"
+          
       - name: Run Analyse          
         if: ${{github.event.inputs.skipParam == 'false'}}
         run: |
-          echo "Build all own stocks (don't skip)"
-          #if: ${{ inputs.debug_mode == 'true' }}
-          #if { [ -z "$skipVar" ]; } then
+          echo "Run analyse.sh of own stocks"
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
 
           chmod +x ./analyse.sh
           ./analyse.sh "$symbolsVar" 1 9 25
-          #fi
           exit 1
           
       - name: Run Git
