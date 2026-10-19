@@ -56,8 +56,6 @@ jobs:
           #uname -n
           uname -o
 
-          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
-
           symbolDefault='${{github.event.client_payload.symbol}}'
           priceDefault='${{github.event.client_payload.price}}'
           piecesDefault='${{github.event.client_payload.pieces}}'
@@ -89,6 +87,7 @@ jobs:
         #if: ${{github.event.inputs.skipParam == 'false' || github.event.client_payload.skipParam == 'false'}}
         run: |
           echo "Run analyse.sh of own stocks"
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           rm -rf config/own_symbols.txt
