@@ -572,7 +572,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 19-Oct-2026 13:40</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 19-Oct-2026 14:05</p>
 <span id='stocksPiecesId' style='display:none'>480</span>
 <span id='stocksBuyingValueId' style='display:none'>73948</span>
 
@@ -606,6 +606,7 @@ document.getElementById('buyingSectionInputPriceBuy').value,
 document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
 Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'/>
 Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6'/>
+Skip Analyse&nbsp;<input type="checkbox" id="skipAnalyse" name="skipAnalyse" />
 </form>
 </div>
 <br>
@@ -720,6 +721,14 @@ console.log(xhr.responseText);
 }
 };
 
+console.warn('--------------')
+var skipAnalyse = false;
+var skipAnalyseElem = document.getElementById('skipAnalyse');
+if(skipAnalyseElem) {
+//skipAnalyse = skipAnalyseElem.innerHTML;
+skipAnalyse = skipAnalyseElem.checked;
+}
+console.warn('--------------', skipAnalyse)     
 var data = {
 event_type: 'buy',
 client_payload: {
@@ -727,8 +736,10 @@ symbol: symbolParamTrimmed,
 pieces: pieces,
 price: price,
 symbolname: headlineLink,
+skipAnalyse: skipAnalyse
 }
 };
+console.warn('--------------', data) 
 xhr.send(JSON.stringify(data));
 }
 
@@ -806,6 +817,14 @@ console.log(xhr.status);
 console.log(xhr.responseText);
 }
 };
+
+// console.warn('--------------')
+// var skipAnalyse = false;
+// var skipAnalyseElem = document.getElementById('skipAnalyse');
+// if(skipAnalyseElem) {
+//     skipAnalyse = skipAnalyseElem.innerHTML;
+// }
+// console.warn('--------------')        
 var data = {
 event_type: 'sell',
 client_payload: {
@@ -815,6 +834,7 @@ sellPrice: sellPriceParam,
 symbolname: headlineLink,
 }
 };
+//console.warn('--------------', data)    
 xhr.send(JSON.stringify(data));
 }
 
