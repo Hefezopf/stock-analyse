@@ -260,7 +260,7 @@ do
         marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
         asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
         if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap
-          #  linkBackgroundColor="$MOCCASIN"
+            linkBackgroundColor="$MOCCASIN" # TODO GANZES IF KANN WEG!
             # No Alarm for low Market Cap!
             # No WriteComdirectUrlAndStoreFileList
         fi
