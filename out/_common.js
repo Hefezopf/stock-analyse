@@ -76,9 +76,7 @@ function curlBuy(symbolParam, price, pieces) {
         overallPieces = '?';
     }
     totalAmount = Number(totalAmount); // + txFee;
-  //  navigator.clipboard.writeText(totalAmount);
-    
-//    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
+
     if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€?') == false) {
         return;
     }
@@ -106,14 +104,11 @@ function curlBuy(symbolParam, price, pieces) {
         }
     };
   
-    console.warn('--------------')
     var skipAnalyse = false;
     var skipAnalyseElem = document.getElementById('skipAnalyse');
     if(skipAnalyseElem) {
-        //skipAnalyse = skipAnalyseElem.innerHTML;
         skipAnalyse = skipAnalyseElem.checked;
     }
-    console.warn('--------------', skipAnalyse)     
     var data = {
         event_type: 'buy',
         client_payload: {
@@ -124,7 +119,6 @@ function curlBuy(symbolParam, price, pieces) {
             skipAnalyse: skipAnalyse
         }
     };
-    console.warn('--------------', data) 
     xhr.send(JSON.stringify(data));
 }
 
@@ -133,8 +127,6 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
         return;
     }
-    
-    // console.log('xxxxxxxxxxxxx:symbolParam:' + symbolParam);
 
     symbolParam = trimOwnChar(symbolParam);
 
@@ -167,12 +159,9 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(sellPriceReplaced));
         var stocksPieces = stocksPiecesId.innerHTML;
         var newPiecesAmount=(stocksPieces - stockPiecesParam);
-        //console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
-        //navigator.clipboard.writeText(newAmount);
     }
 
     // Trading fees
-    //var txFee = tradingFees(sellingAmount);
     if (stocksPiecesId === null || newAmount < 0) {
         if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€?') == false) {
             return;
@@ -180,11 +169,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     }
     else {
         var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
-        //var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
         var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
-        //console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
-       // navigator.clipboard.writeText(newAmountPartial);
-//        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
         if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€?') == false) {
             return;
         }
@@ -203,13 +188,11 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         }
     };
 
-    // console.warn('--------------')
-    // var skipAnalyse = false;
-    // var skipAnalyseElem = document.getElementById('skipAnalyse');
-    // if(skipAnalyseElem) {
-    //     skipAnalyse = skipAnalyseElem.innerHTML;
-    // }
-    // console.warn('--------------')        
+    var skipAnalyse = false;
+    var skipAnalyseElem = document.getElementById('skipAnalyse');
+    if(skipAnalyseElem) {
+        skipAnalyse = skipAnalyseElem.checked;
+    }    
     var data = {
         event_type: 'sell',
         client_payload: {
@@ -217,9 +200,9 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
             sellPieces: stockPiecesParam,
             sellPrice: sellPriceParam,
             symbolname: headlineLink,
+            skipAnalyse: skipAnalyse
         }
     };
-    //console.warn('--------------', data)    
     xhr.send(JSON.stringify(data));
 }
 

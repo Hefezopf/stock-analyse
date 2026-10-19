@@ -572,7 +572,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 19-Oct-2026 18:05</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 19-Oct-2026 19:08</p>
 <span id='stocksPiecesId' style='display:none'>96000</span>
 <span id='stocksBuyingValueId' style='display:none'>422811</span>
 
@@ -606,7 +606,7 @@ document.getElementById('buyingSectionInputPriceBuy').value,
 document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
 Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'/>
 Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6'/>
-Skip Analyse&nbsp;<input type="checkbox" id="skipAnalyse" name="skipAnalyse" />
+Skip Analyse&nbsp;<input type="checkbox" id="skipAnalyse" name="skipAnalyse" style="width:30px; height:30px; vertical-align: middle;">
 </form>
 </div>
 <br>
@@ -691,9 +691,7 @@ totalAmount = '0';
 overallPieces = '?';
 }
 totalAmount = Number(totalAmount); // + txFee;
-//  navigator.clipboard.writeText(totalAmount);
 
-//    if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€ (in clipboard)?') == false) {
 if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€?') == false) {
 return;
 }
@@ -721,14 +719,11 @@ console.log(xhr.responseText);
 }
 };
 
-console.warn('--------------')
 var skipAnalyse = false;
 var skipAnalyseElem = document.getElementById('skipAnalyse');
 if(skipAnalyseElem) {
-//skipAnalyse = skipAnalyseElem.innerHTML;
 skipAnalyse = skipAnalyseElem.checked;
 }
-console.warn('--------------', skipAnalyse)     
 var data = {
 event_type: 'buy',
 client_payload: {
@@ -739,7 +734,6 @@ symbolname: headlineLink,
 skipAnalyse: skipAnalyse
 }
 };
-console.warn('--------------', data) 
 xhr.send(JSON.stringify(data));
 }
 
@@ -748,8 +742,6 @@ if (stockPiecesParam === '?' && symbolParam.charAt(0) !== '*') {
 alert('Error: Stock Symbol ' + symbolParam.trim() + ' not in portfolio!');
 return;
 }
-
-// console.log('xxxxxxxxxxxxx:symbolParam:' + symbolParam);
 
 symbolParam = trimOwnChar(symbolParam);
 
@@ -782,12 +774,9 @@ var stocksBuyingValue = Number(stocksBuyingValueId.innerHTML);
 var newAmount = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(sellPriceReplaced));
 var stocksPieces = stocksPiecesId.innerHTML;
 var newPiecesAmount=(stocksPieces - stockPiecesParam);
-//console.log('xxxxxxxxxxxxx:newPiecesAmount:' + newPiecesAmount);
-//navigator.clipboard.writeText(newAmount);
 }
 
 // Trading fees
-//var txFee = tradingFees(sellingAmount);
 if (stocksPiecesId === null || newAmount < 0) {
 if (confirm('Sell all ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€?') == false) {
 return;
@@ -795,11 +784,7 @@ return;
 }
 else {
 var buyInPrice = (stocksBuyingValue/stocksPiecesId.innerHTML).toFixed(3);
-//var newAmountPartial = Math.ceil(stocksBuyingValue - Number(stockPiecesParam) * Number(buyInPrice));
 var newAmountPartial = Math.floor(Number(newPiecesAmount) * Number(buyInPrice));
-//console.log('xxxxxxxxxxxxx:newAmountPartial:' + newAmountPartial);
-// navigator.clipboard.writeText(newAmountPartial);
-//        if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€ (in clipboard)?') == false) {
 if (confirm('Sell partial ' + stockPiecesParam + ' pieces for ' + sellPriceReplaced + '€\n' + headlineLink + '\nValue ' + sellingAmount + '€\nPieces now ==> ' + newPiecesAmount + ' <==\nValue now ' + newAmountPartial + '€?') == false) {
 return;
 }
@@ -818,13 +803,11 @@ console.log(xhr.responseText);
 }
 };
 
-// console.warn('--------------')
-// var skipAnalyse = false;
-// var skipAnalyseElem = document.getElementById('skipAnalyse');
-// if(skipAnalyseElem) {
-//     skipAnalyse = skipAnalyseElem.innerHTML;
-// }
-// console.warn('--------------')        
+var skipAnalyse = false;
+var skipAnalyseElem = document.getElementById('skipAnalyse');
+if(skipAnalyseElem) {
+skipAnalyse = skipAnalyseElem.checked;
+}    
 var data = {
 event_type: 'sell',
 client_payload: {
@@ -832,9 +815,9 @@ symbol: symbolParam,
 sellPieces: stockPiecesParam,
 sellPrice: sellPriceParam,
 symbolname: headlineLink,
+skipAnalyse: skipAnalyse
 }
 };
-//console.warn('--------------', data)    
 xhr.send(JSON.stringify(data));
 }
 
