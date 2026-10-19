@@ -83,7 +83,9 @@ jobs:
           echo "buyResult=$(cat $BUY_RESULT_FILE)" >> $GITHUB_ENV
           rm -rf $BUY_RESULT_FILE
 
-          echo "Skip Analyse: inputs.skipAnalyseParam: ${{github.event.inputs.skipAnalyseParam}} - client_payload.skipAnalyse: ${{github.event.client_payload.skipAnalyse}}"
+          echo "Skip Analyse"
+          echo "inputs.skipAnalyseParam: ${{github.event.inputs.skipAnalyseParam}}"
+          echo "client_payload.skipAnalyse: ${{github.event.client_payload.skipAnalyse}}"
 
       - name: Run Analyse          
         if: ${{github.event.inputs.skipAnalyseParam == 'false' || github.event.client_payload.skipAnalyse == 'false'}}
