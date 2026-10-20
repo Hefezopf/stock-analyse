@@ -88,7 +88,10 @@ jobs:
           echo "client_payload.runAnalyse: ${{github.event.client_payload.runAnalyse}}"
 
       - name: Run Analyse
-        if: ${{ github.event.inputs.runAnalyseParam == 'true' || github.event.client_payload.runAnalyse == 'true' }}
+        if: |
+          startsWith(github.event.inputs.runAnalyseParam, 'true') ||
+          startsWith(github.event.client_payload.runAnalyse, 'true')
+        #if: ${{ github.event.inputs.runAnalyseParam == 'true' || github.event.client_payload.runAnalyse == 'true' }}
         #if: ${{ endsWith(needs.precheck.outputs.version, '-SNAPSHOT') }}
         #if: ${{github.event.inputs.runAnalyseParam}} == 'true' || ${{github.event.client_payload.runAnalyse == 'true' }}
         #if: ${{github.event.inputs.runAnalyseParam == true || github.event.client_payload.runAnalyse == true}}
