@@ -91,10 +91,6 @@ jobs:
         if: |
           startsWith(github.event.inputs.runAnalyseParam, 'true') ||
           startsWith(github.event.client_payload.runAnalyse, 'true')
-        #if: ${{ github.event.inputs.runAnalyseParam == 'true' || github.event.client_payload.runAnalyse == 'true' }}
-        #if: ${{ endsWith(needs.precheck.outputs.version, '-SNAPSHOT') }}
-        #if: ${{github.event.inputs.runAnalyseParam}} == 'true' || ${{github.event.client_payload.runAnalyse == 'true' }}
-        #if: ${{github.event.inputs.runAnalyseParam == true || github.event.client_payload.runAnalyse == true}}
         run: |
           echo "Run analyse.sh of own stocks"
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
@@ -104,12 +100,12 @@ jobs:
 
           chmod +x ./analyse.sh
           ./analyse.sh "$symbolsVar" 1 9 25
-          exit 1
+          #exit 1
           
       - name: Run Git
         run: |
           echo "Git commit and push"
-          exit 2
+          #exit 2
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt
