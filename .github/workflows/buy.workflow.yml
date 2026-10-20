@@ -26,7 +26,7 @@ on:
         description: 'PRICE - Buying Price: "9.99" EUR'     
         required: true
         default: '9.99'
-      skipAnalyseParam:
+      runAnalyseParam:
         description: 'SKIP ANALYSE RUN - Skips the run of ananlyse.sh for own stocks: true'     
         type: boolean
         required: false
@@ -61,17 +61,17 @@ jobs:
           symbolDefault='${{github.event.client_payload.symbol}}'
           priceDefault='${{github.event.client_payload.price}}'
           piecesDefault='${{github.event.client_payload.pieces}}'
-          #skipAnalyseDefault='${{github.event.client_payload.skipAnalyse}}'
+          #runAnalyseDefault='${{github.event.client_payload.runAnalyse}}'
 
           symbolInput="${{github.event.inputs.symbolParam}}"
           priceInput="${{github.event.inputs.priceParam}}"
           piecesInput="${{github.event.inputs.piecesParam}}"
-          #skipAnalyseInput="${{github.event.inputs.skipAnalyseParam}}"
+          #runAnalyseInput="${{github.event.inputs.runAnalyseParam}}"
 
           symbolVar=${symbolInput:-$symbolDefault}  
           priceVar=${priceInput:-$priceDefault}
           piecesVar=${piecesInput:-$piecesDefault}
-          #skipAnalyseVar=${skipInput:-$skipAnalyseDefault}
+          #runAnalyseVar=${skipInput:-$runAnalyseDefault}
 
           chmod +x ./script/buy.sh
           ./script/buy.sh "$symbolVar" "$piecesVar" "$priceVar"
@@ -84,11 +84,11 @@ jobs:
           rm -rf $BUY_RESULT_FILE
 
           echo "Skip Analyse"
-          echo "inputs.skipAnalyseParam: ${{github.event.inputs.skipAnalyseParam}}"
-          echo "client_payload.skipAnalyse: ${{github.event.client_payload.skipAnalyse}}"
+          echo "inputs.runAnalyseParam: ${{github.event.inputs.runAnalyseParam}}"
+          echo "client_payload.runAnalyse: ${{github.event.client_payload.runAnalyse}}"
 
       - name: Run Analyse          
-        if: ${{github.event.inputs.skipAnalyseParam == false || github.event.client_payload.skipAnalyse == false}}
+        if: ${{github.event.inputs.runAnalyseParam == true || github.event.client_payload.runAnalyse == true}}
         run: |
           echo "Run analyse.sh of own stocks"
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
@@ -98,12 +98,12 @@ jobs:
 
           chmod +x ./analyse.sh
           ./analyse.sh "$symbolsVar" 1 9 25
-          #exit 1
+          exit 1
           
       - name: Run Git
         run: |
           echo "Git commit and push"
-          #exit 2
+          exit 2
           git config user.email ${{secrets.MAIL_ADRESS}}
           git config user.name "Markus Hopf"
           git add config/own_symbols.txt.gpg config/stock_symbols.txt

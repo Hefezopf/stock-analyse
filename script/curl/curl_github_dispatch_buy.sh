@@ -20,7 +20,7 @@ if { [ -z "$symbolParam" ] || [ -z "$2" ] || [ -z "$3" ]; } then
 fi
 
 # TODO
-# TODO skipAnalyse Paramater added
+# TODO runAnalyse Paramater added
 # TODO
 
 # shellcheck disable=SC2086

@@ -104,10 +104,10 @@ function curlBuy(symbolParam, price, pieces) {
         }
     };
   
-    var skipAnalyse = false;
-    var skipAnalyseElem = document.getElementById('skipAnalyse');
-    if(skipAnalyseElem) {
-        skipAnalyse = skipAnalyseElem.checked;
+    var runAnalyse = false;
+    var runAnalyseElem = document.getElementById('runAnalyse');
+    if(runAnalyseElem) {
+        runAnalyse = runAnalyseElem.checked;
     }
     var data = {
         event_type: 'buy',
@@ -116,7 +116,7 @@ function curlBuy(symbolParam, price, pieces) {
             pieces: pieces,
             price: price,
             symbolname: headlineLink,
-            skipAnalyse: skipAnalyse
+            runAnalyse: runAnalyse
         }
     };
     xhr.send(JSON.stringify(data));
@@ -188,10 +188,10 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
         }
     };
 
-    var skipAnalyse = false;
-    var skipAnalyseElem = document.getElementById('skipAnalyse');
-    if(skipAnalyseElem) {
-        skipAnalyse = skipAnalyseElem.checked;
+    var runAnalyse = false;
+    var runAnalyseElem = document.getElementById('runAnalyse');
+    if(runAnalyseElem) {
+        runAnalyse = runAnalyseElem.checked;
     }    
     var data = {
         event_type: 'sell',
@@ -200,7 +200,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
             sellPieces: stockPiecesParam,
             sellPrice: sellPriceParam,
             symbolname: headlineLink,
-            skipAnalyse: skipAnalyse
+            runAnalyse: runAnalyse
         }
     };
     xhr.send(JSON.stringify(data));
