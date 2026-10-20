@@ -88,7 +88,7 @@ jobs:
           echo "client_payload.runAnalyse: ${{github.event.client_payload.runAnalyse}}"
 
       - name: Run Analyse          
-        if: ( ${{github.event.inputs.runAnalyseParam}} == "true" || ${{github.event.client_payload.runAnalyse == "true" }} )
+        if: ${{github.event.inputs.runAnalyseParam}} == 'true' || ${{github.event.client_payload.runAnalyse == 'true' }}
         #if: ${{github.event.inputs.runAnalyseParam == true || github.event.client_payload.runAnalyse == true}}
         run: |
           echo "Run analyse.sh of own stocks"
