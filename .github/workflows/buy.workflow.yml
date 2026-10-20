@@ -88,7 +88,7 @@ jobs:
           echo "client_payload.skipAnalyse: ${{github.event.client_payload.skipAnalyse}}"
 
       - name: Run Analyse          
-        if: ${{github.event.inputs.skipAnalyseParam == 'false' || github.event.client_payload.skipAnalyse == 'false'}}
+        if: ${{github.event.inputs.skipAnalyseParam == false || github.event.client_payload.skipAnalyse == false}}
         run: |
           echo "Run analyse.sh of own stocks"
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
