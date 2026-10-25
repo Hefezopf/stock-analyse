@@ -255,10 +255,6 @@ echo "</div>" >> "$OUT_RESULT_FILE"
     echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;"
     echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;"
 
-#    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doHideDetails()'>&nbsp;Details</button>&nbsp;&nbsp;"
-#    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;"
-#    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;"
-
     echo "<hr id='intervalSectionHROverallButtons' style='display: none'>"
 } >> "$OUT_RESULT_FILE"
 
