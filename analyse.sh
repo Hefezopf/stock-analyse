@@ -719,7 +719,7 @@ do
             echo "<span style='font-size:$FONT_SIZE_DETAIL'>KGV&nbsp;$kgve&nbsp;&nbsp;</span>"
             # DIVe
             dive=$(echo "$lineFromTickerFile" | cut -f 7)
-            echo "<span style='font-size:$FONT_SIZE_DETAIL'>DIV&nbsp;$dive%&nbsp</span>&nbsp;"
+            echo "<span style='font-size:$FONT_SIZE_DETAIL'>DIV&nbsp;$dive%&nbsp;</span>&nbsp;"
 
             # Branche und Firmenportrait Tooltip
             branche=$(echo "$lineFromTickerFile" | cut -f 5)
