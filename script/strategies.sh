@@ -473,7 +473,7 @@ StrategieOverratedByPercentAndStochastic() {
        [ "$_lastOverAgv18Param" = 1 ] && [ "$_lastOverAgv38Param" = 1 ] && [ "$_lastOverAgv95Param" = 1 ] && 
        [ "$_agv18OverAgv38Param" = 1 ] && [ "$_agv38OverAgv95Param" = 1 ] && [ "$_agv18OverAgv95Param" = 1 ]; then
         alarmAbbrevValue=P-$alarmAbbrevValue
-        reasonPrefix="Sell: High Percent & Stochastic (P)"
+        reasonPrefix="Sell: High Percent &amp; Stochastic (P)"
         resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 > Avg38 > Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam over level"
         echo "$resultStrategieOverratedByPercentAndStochastic"
         WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
@@ -710,7 +710,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
         # Last Stochastic quote over _highStochasticValueParam and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
         if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -gt "$_highRSIQuoteParam" ] && [ ! "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C-$alarmAbbrevValue
-            reasonPrefix="Sell: High Stochastic & RSI & MACD+ (C)"
+            reasonPrefix="Sell: High Stochastic &amp; RSI &amp; MACD+ (C)"
             resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam over level and RSI $_lastRSIQuoteRoundedParam over level"
             echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"

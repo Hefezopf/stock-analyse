@@ -317,7 +317,7 @@ WriteComdirectUrlAndStoreFileList() {
     fi
     # Show reason in result file only, if marked as own stock or a 'buy' recommendation
     if [ "$_markerOwnStockParam" = '*' ] || [ "$_linkColorParam" = "$GREEN" ]; then
-        uniqueId=$(echo "$_symbolParam$_reasonParam" | tr -d '[:space:]' | tr -d '(' | tr -d ')' | tr -d ':' | tr -d '&' | tr -d ';')
+        uniqueId=$(echo "$_symbolParam$_reasonParam" | tr -d '[:space:]' | tr -d '(' | tr -d ')' | tr -d ':' | tr -d '&' | tr -d ';' | tr -d '+' | tr -d '-')
         echo "<span id='detailsIdReason$uniqueId'>$_reasonParam<br></span>" >> "$_outResultFileParam"
     fi
 }
