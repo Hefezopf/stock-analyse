@@ -2,13 +2,40 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+<meta charset="utf-8">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
 <title>*PLUN
 </title>
 <style>
 .p-result{margin-top:-14px;}
 </style>
+
+<!-- # hover Firmenportrait Text -->
+<style>
+.tooltip {
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
+}
+.tooltip .tooltiptext {
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
+}
+.tooltip:hover .tooltiptext {
+visibility:visible;
+}
+</style>
+
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 
 <script>
 /*! 
@@ -50,14 +77,14 @@ grey: 'rgb(201, 203, 207)'
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
-<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244500366&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
+<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244500366&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
 <a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500366"  target="_blank">*PLUN "Plug Power"</a>
 <a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500366"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500366"  target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
 
-<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">    
+<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
 </div>
 
@@ -513,36 +540,11 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>1.23€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-0.8%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;--&nbsp;&nbsp;</span>
-<span style='font-size:45px'>DIV&nbsp;--%&nbsp</span>&nbsp;
-<style>
-.tooltip {
-//  display:inline-block;
-border-bottom:2px dotted black; 
-font-size:70px;
-line-height:67px;
-vertical-align:baseline;
-}
-.tooltip .tooltiptext {
-visibility:hidden;
-background-color:black;
-color:#fff;
-padding:7px 10px 50px 10px;
-border-radius:6px;
-position:absolute;
-z-index:1;
-font-size:45px;
-margin:70px 0px 0px -410px;
-line-height:100%;
-}
-.tooltip:hover .tooltiptext {
-visibility:visible;
-}
-</style>
-<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
-<img src='../../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span style='font-size:45px'>DIV&nbsp;--%&nbsp;</span>&nbsp;
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
+<img src='../../image/flags/US.jpeg' alt='US: No Flag' height='50' width='65' style='border:1px solid;'>
 <span class='tooltiptext'>US:" Die Plug Power Inc. baut ein Ökosystem für Wasserstoff auf, das von der Produktion über die Speicherung und Lieferung bis hin zur Energieerzeugung reicht. Die vertikal integrierten End-to-End-Wasserstofflösungen sind auf die individuellen Bedürfnisse der Kunden zugeschnitten und umfassen Wasserstoffproduktionsanlagen und die Lieferung von Wasserstoffkraftstoff. Hervorgehoben werden dabei Brennstoffzellen, Protonenaustauschmembranen, Wasserstoffverflüssiger, Kryotechnik für flüssigen Wasserstoff und die Wasserstoffproduktion. Pionier war Plug Power bei der kommerziellen Nutzung von Wasserstoff-Brennstoffzellen für Gabelstapler, mehr als 72.000 Brennstoffzellensysteme hat das Unternehmen für diesen Anwendungsbereich zur Verfügung gestellt. "</span>
 &nbsp;"Erneuerbare Energieanlagen"</span>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 0%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-10-22</b>
@@ -561,10 +563,10 @@ visibility:visible;
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
 <p class='p-result' style='color:rgb(54, 162, 235)'><b> Buy: Low MACD (M): last MACD -0.15 </b></p>
-<p class='p-result' style='color:rgb(205, 205, 0)'><b> Buy: Low Percent & Stochastic (P): 1.23€ is .99 under Avg18 < Avg38 < Avg95 and Stoch14 1 under level </b></p>
+<p class='p-result' style='color:rgb(205, 205, 0)'><b> Buy: Low Percent &amp; Stochastic (P): 1.23€ is .99 under Avg18 &lt; Avg38 &lt; Avg95 and Stoch14 1 under level </b></p>
 <p class='p-result' style='color:rgb(255, 159, 64)'><b> Buy: Low 7 last Stochastic (S): 7 last quotes under level </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b> Buy: Low 7 last RSI (R): 7 last quotes under level </b></p>
-<p class='p-result' style='color:rgb(139, 126, 102)'><b> Buy: Low Stochastic & RSI & MACD- (C): Stochastic 1 under level and RSI 9 under level </b></p>
+<p class='p-result' style='color:rgb(139, 126, 102)'><b> Buy: Low Stochastic &amp; RSI &amp; MACD- (C): Stochastic 1 under level and RSI 9 under level </b></p>
 <p class='p-result' style='color:rgb(245, 111, 166)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
 <p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
@@ -572,9 +574,9 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 23-Oct-2026 06:39
-<span id='stocksPiecesId' style='display:none'>2500</span>
-<span id='stocksBuyingValueId' style='display:none'>3051</span>
+<br>Good Luck! 25-Oct-2026 16:58
+<span id='stocksPiecesId' style='display:none'>4900</span>
+<span id='stocksBuyingValueId' style='display:none'>6004</span>
 
 
 <script>
@@ -604,17 +606,15 @@ document.getElementById('buyingSectionInputPriceBuy').value)">Sell</button>
 trimOwnChar(document.getElementsByTagName('TITLE')[0].text),
 document.getElementById('buyingSectionInputPriceBuy').value,
 document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
-Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'/>
-Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6'/>
+Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'>
+Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6' pattern="^\d*(\.\d{0,3})?$">
 <br>
-<br>            
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
-<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:30px; height:30px; vertical-align: middle;">&nbsp;Run Analyse
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:40px; height:40px; vertical-align: middle;">&nbsp;Run Analyse
+<button style='display: none' disabled type="submit">Dummy</button>
 </form>
 </div>
 <br>
