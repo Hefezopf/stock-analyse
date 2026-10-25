@@ -60,6 +60,7 @@ SYMBOL_NAME="${SYMBOL_NAME//\"/}"
 
 # SYMBOL_NAME has to be without blank ' ' -> replace with dash '-'
 SYMBOL_NAME="${SYMBOL_NAME// /-}"
+SYMBOL_NAME="${SYMBOL_NAME//&/&amp;}"
 AVG_PRICE=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f2 -d ' ')
 BUY_TOTAL_AMOUNT=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f5 -d ' ' | sed 's/€//g')
 TOTAL_PIECES=$(grep -m1 -P "$symbolParam " "$OWN_SYMBOLS_FILE" | cut -f4 -d ' ')
