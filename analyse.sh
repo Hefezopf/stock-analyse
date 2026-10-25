@@ -722,29 +722,29 @@ do
             firmenportrait=$(echo "$lineFromTickerFile" | cut -f 10)
 
             # hover Firmenportrait Text
-            echo "<style>
-            .tooltip {
-                border-bottom:2px dotted black; 
-                font-size:70px;
-                line-height:67px;
-                vertical-align:baseline;
-            }
-            .tooltip .tooltiptext {
-                visibility:hidden;
-                background-color:black;
-                color:#fff;
-                padding:7px 10px 50px 10px;
-                border-radius:6px;
-                position:absolute;
-                z-index:1;
-                font-size:$FONT_SIZE_DETAIL;
-                margin:70px 0px 0px -410px;
-                line-height:100%;
-            }
-            .tooltip:hover .tooltiptext {
-                visibility:visible;
-            }
-            </style>"
+            # echo "<style>
+            # .tooltip {
+            #     border-bottom:2px dotted black; 
+            #     font-size:70px;
+            #     line-height:67px;
+            #     vertical-align:baseline;
+            # }
+            # .tooltip .tooltiptext {
+            #     visibility:hidden;
+            #     background-color:black;
+            #     color:#fff;
+            #     padding:7px 10px 50px 10px;
+            #     border-radius:6px;
+            #     position:absolute;
+            #     z-index:1;
+            #     font-size:$FONT_SIZE_DETAIL;
+            #     margin:70px 0px 0px -410px;
+            #     line-height:100%;
+            # }
+            # .tooltip:hover .tooltiptext {
+            #     visibility:visible;
+            # }
+            # </style>"
 
             # Country Flag         
             if [ ! "$isin" ] ; then
@@ -752,7 +752,7 @@ do
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
                 echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.classList.toggle(\"active\")'>
-                        <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' width='5%' height='5%' style='border:1px solid;'>
+                        <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' height='50' width='60' style='border:1px solid;'>
                         <span class='tooltiptext'>${isin:0:2}:${firmenportrait}</span>
                       &nbsp;$branche</span>"
             fi
@@ -766,7 +766,7 @@ do
                     marketCapScaled=100
                 fi
                 # shellcheck disable=SC2086,SC2027
-                echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""%; height:100%; border-radius: 9px; margin-top: -23px;}</style>"
+               # echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: ""$marketCapScaled""%; height:100%; border-radius: 9px; margin-top: -23px;}</style>"
                 echo "<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;$marketCapFromFile Mrd.€</div><br>"
             fi
         fi

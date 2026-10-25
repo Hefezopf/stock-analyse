@@ -32,6 +32,25 @@
 
 START_TIME_MEASUREMENT=$(date +%s);
 
+ echo html-validate ...
+if html-validate --config .htmlvalidate.json out/_result.html
+then
+    echo html-validate out/_result.html
+else
+    echo ERROR: echo html-validate ... 1>&2
+    read -n1 -r -p "Hit ANY KEY!"
+    #exit 1 # terminate and indicate error
+fi
+
+if html-validate --config .htmlvalidate.json out/BEI.html
+then
+    echo html-validate out/BEI.html
+else
+    echo ERROR: echo html-validate ... 1>&2
+    read -n 1 -r -p "Hit ANY KEY!"
+    #exit 1 # terminate and indicate error
+fi
+
 echo shellcheck ...
 
 for filename in *.sh; do
