@@ -101,16 +101,6 @@ else
     WIN_AMOUNT=$(echo "$sellPiecesParam $sellPriceParam $AVG_PRICE $sellPiecesParam" | awk '{print ($1 * $2) - ($3 * $4)}')
     WIN_AMOUNT=$(echo "$WIN_AMOUNT" | cut -f 1 -d '.')
     WIN_AMOUNT=$((WIN_AMOUNT - TX_FEE))
-
-    # newAmount=$(echo "$BUY_TOTAL_AMOUNT $sellPiecesParam $sellPriceParam" | awk '{print $1 - ($2 * $3)}')
-
-    # if [ "$UNAME_N" = "$UNAME_N_BASH_MINT_MARKUS_IDEACENTRE_700_25ISH" ]; then # markus-ideacentre-700-25ISH (bash Mint), Laptop-Markus (bash Win) or runnervmwffz4 (GitHub)
-    #     echo "$newAmount" | xclip -selection clipboard
-    # elif [ "$UNAME_N" = "$UNAME_N_BASH_WIN_LAPTOP_MARKUS" ]; then    
-    #     echo "$newAmount" | clip
-    # else # GitHub
-    #     echo ""
-    # fi    
     
     winPercentage=$(echo "scale=1; ($sellPriceParam *100 / $AVG_PRICE) - 100" | bc)
  
@@ -276,16 +266,18 @@ all=$(echo "$estSumEndOfYear $initialAmountStartOfYear" | awk '{print $1 + $2}')
 estSumEndOfYear=$(printf "%'.f" "$estSumEndOfYear")
 summe=$(printf "%'.f" "$summe")
 echo ""
-estPercentEndOfYear=$(echo "$initialAmountStartOfYear $all" | awk '{print (100 / $1 * $2) - 100 }')
+
+percentTillToday=$(echo "$initialAmountStartOfYear $summe" | awk '{print ((($1 + $2) / $1) - 1) * 100000 }')
+percentTillToday=$(printf "%'.1f" "$percentTillToday")
+echo "percentTillToday: $percentTillToday%"
 initialAmountStartOfYear=$(printf "%'.f" "$initialAmountStartOfYear")
-estPercentEndOfYear=$(printf "%'.1f" "$estPercentEndOfYear")
 echo "Begin of year: $initialAmountStartOfYear€"
-echo "Gain till today: $summe€ = $estPercentEndOfYear%"
-echo "Est. yearly gain before tax: $estSumEndOfYear€"
+echo "Gain till today before tax: $summe€ = $percentTillToday%"
+echo "Est. yearly gain: $estSumEndOfYear€"
 
 count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
-echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Gain till today: <b>$summe€ = $estPercentEndOfYear%</b><br>&nbsp;Est. yearly gain before tax: $estSumEndOfYear€<br>&nbsp;Transactions: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Gain till today before tax: <b>$summe€ = $percentTillToday%</b><br>&nbsp;Est. yearly gain: $estSumEndOfYear€<br>&nbsp;Transactions: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
@@ -293,8 +285,6 @@ awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' $TRANSACTION_HISTORY_FI
 cat -ev "$TEMP_REVERS_FILE" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 rm -rf "$TEMP_REVERS_FILE"
 rm -rf "$TEMP_TRANSACTION_HISTORY_FILE"
-
-#echo "<br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Gaintill today: $summe€ ($estPercentEndOfYear%)<br>&nbsp;Est. yearly gain: $estSumEndOfYear€ (before tax)<br>&nbsp;Transactions: $count" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 GetCreationDate
 # shellcheck disable=SC2154
