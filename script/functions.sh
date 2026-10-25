@@ -457,19 +457,22 @@ GetCreationDate() {
 
     dateParameter="%e-%b-%Y %R"
     creationDate=$(date +"$dateParameter") # 29-Apr-2021 08:52
-    #echo "--------------uname: $UNAME_O"
+    #echo "--------------$UNAME_O_GNU_LINUX: $UNAME_O_GNU_LINUX"
+    #echo "--------------UNAME_N: $UNAME_N"
+    #echo "--------------run on: $UNAME_O"
     if [ "$UNAME_O" = "$UNAME_O_GNU_LINUX" ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
         #echo "--------------run on: $UNAME_O"
-        #date
-        #date +"$dateParameter"
-        #date +"$dateParameter" -d "+1hours"
         #creationDate=$(date +"$dateParameter" -d "+2hours") # Sommerzeit / Summertime
         creationDate=$(date +"$dateParameter" -d "+1hours") # Winterzeit / Wintertime
-
-        #creationDate=$(TZ="EST-1EDT" date +"$dateParameter") # Sommerzeit / Summertime 
-        #creationDate=$(TZ="EST-2EDT" date +"$dateParameter") # Winterzeit / Wintertime
     fi
-    #echo "--------------creationDate: $creationDate"
+#echo "-----------1---creationDate: $creationDate"
+
+    if [[ "$UNAME_N" = *"$UNAME_N_BASH_LOCAL_ALL_OS"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win) 
+        #echo "--------------run on: Mein"
+        #creationDate=$(date +"$dateParameter" -d "+1hours") # Sommerzeit / Summertime
+        creationDate=$(date +"$dateParameter" -d "+0hours") # Winterzeit / Wintertime
+    fi
+    #echo "--------2------creationDate: $creationDate"
 }
 
 # SymbolsParamShortened function:
