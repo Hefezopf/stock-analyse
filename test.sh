@@ -39,7 +39,7 @@ then
 else
     echo ERROR: echo html-validate ... 1>&2
     read -n1 -r -p "Hit ANY KEY!"
-    #exit 1 # terminate and indicate error
+    #exit 2
 fi
 
 if html-validate --config .htmlvalidate.json out/BEI.html
@@ -48,7 +48,7 @@ then
 else
     echo ERROR: echo html-validate ... 1>&2
     read -n 1 -r -p "Hit ANY KEY!"
-    #exit 1 # terminate and indicate error
+    #exit 1
 fi
 
 echo shellcheck ...
