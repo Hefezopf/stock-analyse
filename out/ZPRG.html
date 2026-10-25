@@ -2,13 +2,40 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+<meta charset="utf-8">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
 <title>*ZPRG
 </title>
 <style>
 .p-result{margin-top:-14px;}
 </style>
+
+<!-- # hover Firmenportrait Text -->
+<style>
+.tooltip {
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
+}
+.tooltip .tooltiptext {
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
+}
+.tooltip:hover .tooltiptext {
+visibility:visible;
+}
+</style>
+
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 
 <script>
 /*! 
@@ -514,34 +541,10 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 &nbsp;<span style='font-size:45px; color:green'><b>1.5%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;0&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;0%&nbsp;</span>&nbsp;
-<style>
-.tooltip {
-border-bottom:2px dotted black; 
-font-size:70px;
-line-height:67px;
-vertical-align:baseline;
-}
-.tooltip .tooltiptext {
-visibility:hidden;
-background-color:black;
-color:#fff;
-padding:7px 10px 50px 10px;
-border-radius:6px;
-position:absolute;
-z-index:1;
-font-size:45px;
-margin:70px 0px 0px -410px;
-line-height:100%;
-}
-.tooltip:hover .tooltiptext {
-visibility:visible;
-}
-</style>
 <span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
-<img src='../image/flags/IE.jpeg' alt='IE: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<img src='../image/flags/IE.jpeg' alt='IE: No Flag' height='50' width='60' style='border:1px solid;'>
 <span class='tooltiptext'>IE:"   Das Ziel des Fonds ist die Nachbildung der Performance von weltweiten Aktien mit hoher Dividendenrendite. Der Fonds versucht, die Wertentwicklung des S u. #38;P Global Dividend Aristocrats Quality Income Index (der  u. #39;Index u. #39;) möglichst genau abzubilden. Der Fonds investiert in erster Linie in Wertpapiere des Index. Zu diesen Wertpapieren gehören hoch rentierliche Aktien aus Industrie- und Schwellenländern weltweit. Die Wertpapiere müssen bestimmten Anforderungen an Streuung, Stabilität und Handel genügen und werden anschließend nach der Höhe ihrer Dividenden gewichtet. Obwohl der Index in der Regel gut gestreut ist, muss der Fonds zwecks genauer Nachbildung des Index von den erhöhten Diversifizierungslimits Gebrauch machen, die nach den OGAW-Vorschriften zur Verfügung stehen und die erlauben, Positionen in einzelnen Indexkomponenten, die von ein und demselben Emittenten emittiert wurden, in einer Höhe von bis zu 20% des Nettoinventarwerts des Fonds zu halten. Der Fonds beabsichtigt, alle Wertpapiere des Index in ungefähr den gleichen Gewichtungen wie in diesem Index zu halten. Der Fonds wird eine Nachbildungsstrategie anwenden, um den Index so genau wie möglich abzubilden. In begrenzten Fällen kann der Fonds auch nicht im Index enthaltene Wertpapiere kaufen. Der Fonds kann Finanzderivate (d. h. Finanzinstrumente, deren Preise von einem oder mehreren Basiswerten abhängig sind) zu Zwecken des effizienten Portfoliomanagements einsetzen"</span>
 &nbsp;"Strategie"</span>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 100%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 <div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1000 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-10-22</b>
@@ -570,7 +573,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b> Sell: High 4 last Stochastic (S): 4 last quotes over level </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 25-Oct-2026 10:55</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 25-Oct-2026 14:43</p>
 <span id='stocksPiecesId' style='display:none'>30</span>
 <span id='stocksBuyingValueId' style='display:none'>1002</span>
 
@@ -610,6 +613,7 @@ Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSecti
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:40px; height:40px; vertical-align: middle;">&nbsp;Run Analyse
+<button style='display: none' disabled type="submit">Dummy</button>
 </form>
 </div>
 <br>
