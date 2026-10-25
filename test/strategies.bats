@@ -526,7 +526,7 @@ export -f WriteComdirectUrlAndStoreFileList
 
   resultStrategieUnderratedByPercentAndStochastic=""
   StrategieUnderratedByPercentAndStochastic 0 9 1 1 1 1 1 1 "46.95" "0.99" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" * "999999"
-  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'Buy: Low Percent &amp; Stochastic (P): 46.95€ is 0.99 under Avg18 < Avg38 < Avg95 and Stoch14 0 under level' ]  
+  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'Buy: Low Percent &amp; Stochastic (P): 46.95€ is 0.99 under Avg18 &lt; Avg38 &lt; Avg95 and Stoch14 0 under level' ]  
 }
 
 @test "StrategieOverratedByPercentAndStoch" {

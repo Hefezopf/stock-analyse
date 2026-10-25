@@ -508,7 +508,7 @@ StrategieUnderratedByPercentAndStochastic() {
        [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv95Param" = 1 ] && [ "$_agv18UnderAgv95Param" = 1 ]; then
         alarmAbbrevValue=P+$alarmAbbrevValue
         reasonPrefix="Buy: Low Percent &amp; Stochastic (P)"
-        resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 < Avg38 < Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam under level"
+        resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 &lt; Avg38 &lt; Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam under level"
         echo "$resultStrategieUnderratedByPercentAndStochastic"
         WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
     fi
