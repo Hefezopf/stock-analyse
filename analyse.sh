@@ -72,11 +72,11 @@ gpg --batch --yes --passphrase "$GPG_PASSPHRASE" "$OWN_SYMBOLS_FILE".gpg 2>/dev/
 alarmAbbrevValue=""
 HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <head>
-<meta charset='utf-8' />
-<meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate' />
-<meta http-equiv='pragma' content='no-cache' />
-<meta http-equiv='expires' content='0' />
-<link rel='icon' type='image/x-icon' href='favicon.ico' />
+<meta charset='utf-8'>
+<meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate'>
+<meta http-equiv='pragma' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<link rel='icon' type='image/x-icon' href='favicon.ico'>
 <script src='_common.js'></script>
 <script src='_result.js'></script>
 <title>Result SA</title>
@@ -243,9 +243,9 @@ countSymbols=$((countSymbols + 1))
 SymbolsParamShortened "$symbolsParam"
 echo "Symbols ($countSymbols): $SYMBOLS_PARAM_SHORTENED" | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
-echo "Percentage: $percentageParam " | tee -a "$OUT_RESULT_FILE"
+echo "Percentage: $percentageParam" | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
-echo "Stochastic: $stochasticPercentageParam " | tee -a "$OUT_RESULT_FILE"
+echo "Stochastic: $stochasticPercentageParam" | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
 echo "RSI: $RSIQuoteParam" | tee -a "$OUT_RESULT_FILE"
 echo "</div>" >> "$OUT_RESULT_FILE"
@@ -582,7 +582,7 @@ do
         fi
 
         # Hover Chart (on detail page; top URLs)
-        echo "<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>"
+        echo "<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>"
         COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
         COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
         COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
@@ -899,8 +899,8 @@ do
                     <button id=\"intervalSectionButtonSell$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol', '$stocksPieces', document.getElementById('intervalSectionInputPriceBuy$symbol').value)\">Sell</button>
                     <button id=\"intervalSectionButtonBuy$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
-                    Pieces&nbsp;<input name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-                    Price&nbsp;<input name='intervalSectionInputPriceBuy$symbol' id='intervalSectionInputPriceBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+                    Pieces&nbsp;<input name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'>
+                    Price&nbsp;<input name='intervalSectionInputPriceBuy$symbol' id='intervalSectionInputPriceBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'>
                   </p>
                   <hr id='intervalSectionButtonDetailsHR$symbol' style='display: none'>"
 
@@ -987,9 +987,9 @@ fi
             <br>
             <button id='intervalSectionButtonBuyGenerellButton' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
-            Symbol&nbsp;<input name='intervalSectionInputSymbolBuyGenerell' id='intervalSectionInputSymbolBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-            Pieces&nbsp;<input name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
-            Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'/>
+            Symbol&nbsp;<input name='intervalSectionInputSymbolBuyGenerell' id='intervalSectionInputSymbolBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'>
+            Pieces&nbsp;<input name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'>
+            Price&nbsp;<input name='intervalSectionInputPriceBuyGenerell' id='intervalSectionInputPriceBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'>
           </span>"
 
     # Workflow        

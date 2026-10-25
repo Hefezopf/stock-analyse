@@ -47,11 +47,11 @@ cp "$SIM_LAST_ALARMS_HTML_FILE" "$SIM_LAST_ALARMS_OLD_HTML_FILE"
 rm -rf "$SIM_LAST_ALARMS_HTML_FILE"
 HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <head>
-<meta charset='utf-8' />
-<meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate' />
-<meta http-equiv='pragma' content='no-cache' />
-<meta http-equiv='expires' content='0' />
-<link rel='icon' type='image/x-icon' href='favicon.ico' />
+<meta charset='utf-8'>
+<meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate'>
+<meta http-equiv='pragma' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<link rel='icon' type='image/x-icon' href='favicon.ico'>
 <title>Screen last alarms</title>
 
 <style type='text/css'>

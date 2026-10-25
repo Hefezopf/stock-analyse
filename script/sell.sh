@@ -140,11 +140,11 @@ rm -rf "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 # shellcheck disable=SC1078
 TRANSACTION_HISTORY_HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <head>
-<meta charset='utf-8' />
-<meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate' />
-<meta http-equiv='pragma' content='no-cache' />
-<meta http-equiv='expires' content='0' />
-<link rel='icon' type='image/x-icon' href='favicon.ico' />
+<meta charset='utf-8'>
+<meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate'>
+<meta http-equiv='pragma' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<link rel='icon' type='image/x-icon' href='favicon.ico'>
 <script src='_common.js'></script>
 <script src='_result.js'></script>
 <title>Performance SA $(date +%Y)</title>

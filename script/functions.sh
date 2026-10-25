@@ -285,8 +285,8 @@ WriteComdirectUrlAndStoreFileList() {
         {    
             ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
             # Hover Chart (result overview page)
-            echo "<img id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'/>"
-            echo "<div id='headlineLinkId' style='margin-top:26px'>"
+            echo "<img id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'>"
+            echo "<div id='headlineLinkId$_symbolParam' style='margin-top:26px'>"
             
             COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
             COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
@@ -317,7 +317,7 @@ WriteComdirectUrlAndStoreFileList() {
     fi
     # Show reason in result file only, if marked as own stock or a 'buy' recommendation
     if [ "$_markerOwnStockParam" = '*' ] || [ "$_linkColorParam" = "$GREEN" ]; then
-        uniqueId=$(echo "$_symbolParam$_reasonParam" | tr -d '[:space:]')
+        uniqueId=$(echo "$_symbolParam$_reasonParam" | tr -d '[:space:]' | tr -d '(' | tr -d ')' | tr -d ':' | tr -d '&' | tr -d ';')
         echo "<span id='detailsIdReason$uniqueId'>$_reasonParam<br></span>" >> "$_outResultFileParam"
     fi
 }
