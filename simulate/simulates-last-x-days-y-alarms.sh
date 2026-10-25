@@ -216,18 +216,28 @@ do
 
     if [ "$isVeryLastAlarm" = true ] || [ "${#lastAlarms}" -gt "$alarmCharactersParam" ] && [ "$vorzeichen" = '+' ]; then # Check if lastAlarms are large enough && if lastAlarms buying values
         lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
+
+        # Market Cap
+        marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
+        asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
+        if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap
+            #linkBackgroundColor="$MOCCASIN" # TODO GANZES IF KANN WEG!
+            echo ""
+            echo "--> ${symbol}: No Alarm for low Market Cap!"
+            echo ""
+            continue
+        fi
+
         symbolName=$(echo "$lineFromTickerFile" | cut -f 2)
         ID_NOTATION=$(echo "$lineFromTickerFile" | cut -f 3)
         echo "$symbol $symbolName last '$lastDaysParam' alarms: $lastAlarms" # Sample -> last 3 Alarms: 'C+5R+6S+M+','C+5R+6S+M+','C+5R+6S+M+'
         echo "start chrome https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/$symbol.html" >> ./simulate/simulates-last-x-days-y-alarms-open-in-chrome.sh
         echo "<script>linkMap.set('$symbol', 'https://htmlpreview.github.io/?https://github.com/Hefezopf/stock-analyse/blob/main/simulate/out/""$symbol"".html'); // Open in Tab </script>" >> "$SIM_LAST_ALARMS_HTML_FILE"
-     #   linkBackgroundColor="$WHITE"
 
         # Recommended
         #test "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
         if [ "${lastAlarms#*"$recommendedPattern"}" != "$lastAlarms" ]; then
             echo "-> Recommended $symbol $symbolName: $recommendedPattern found in $lastAlarms"
-         #   linkBackgroundColor="$MEDIUMSEAGREEN_1"
             ARRAY_SYMBOL_RECOMMENDED+=("$symbol")
             ARRAY_NAME_RECOMMENDED+=("$symbolName")
             ARRAY_NOTATION_ID_RECOMMENDED+=("$ID_NOTATION")
@@ -235,7 +245,6 @@ do
         #test "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
         elif [ "${lastAlarms#*"$highlyRecommendedPattern"}" != "$lastAlarms" ]; then
             echo "--> Highly recommended $symbol $symbolName: $highlyRecommendedPattern found in $lastAlarms"
-           # linkBackgroundColor="$MEDIUMSEAGREEN_2"
             ARRAY_SYMBOL_HIGHLY_RECOMMENDED+=("$symbol")
             ARRAY_NAME_HIGHLY_RECOMMENDED+=("$symbolName")
             ARRAY_NOTATION_ID_HIGHLY_RECOMMENDED+=("$ID_NOTATION")
@@ -243,7 +252,6 @@ do
         #test "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" && echo "--> Highly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
         elif [ "${lastAlarms#*"$stronglyRecommendedPattern"}" != "$lastAlarms" ]; then
             echo "---> Strongly recommended $symbol $symbolName: $stronglyRecommendedPattern found in $lastAlarms"
-          #  linkBackgroundColor="$MEDIUMSEAGREEN_3"
             ARRAY_SYMBOL_STRONGLY_RECOMMENDED+=("$symbol")
             ARRAY_NAME_STRONGLY_RECOMMENDED+=("$symbolName")
             ARRAY_NOTATION_ID_STRONGLY_RECOMMENDED+=("$ID_NOTATION")
@@ -255,17 +263,6 @@ do
             ARRAY_NAME_X_Y_DAYS_RECOMMENDED+=("$symbolName")
             ARRAY_NOTATION_ID_X_Y_DAYS_RECOMMENDED+=("$ID_NOTATION")
         fi        
-
-        # Market Cap
-        # marketCapFromFile=$(echo "$lineFromTickerFile" | cut -f 4)
-        # asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
-        # if [ "$marketCapFromFile" = '?' ] && [ "$asset_type" = 'STOCK' ]; then # lowMarketCap
-        #     linkBackgroundColor="$MOCCASIN" # TODO GANZES IF KANN WEG!
-        #     # No Alarm for low Market Cap!
-        #     # No WriteComdirectUrlAndStoreFileList
-        # fi
-        
-        #WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "$symbol" "$symbolName" "$BLACK" "" "" "$linkBackgroundColor" "/simulate" "$ID_NOTATION"
     fi
 done
 
@@ -307,7 +304,6 @@ done
     echo "<br><span style='background:$MEDIUMSEAGREEN_2; color:black'>Highly recommended: '$highlyRecommendedPattern'</span>"
     echo "<br><span style='background:$MEDIUMSEAGREEN_1; color:black'>Recommended: '$recommendedPattern'</span>"
     echo "<br><span style='background:$WHITE; color:black'>'$alarmCharactersParam' Alarms within the last '$lastDaysParam' days</span>"
-   # echo "<br><span style='background:$MOCCASIN; color:black'>Low Market Cap: < 1Mrd.</span><br>"
 } >> "$SIM_LAST_ALARMS_HTML_FILE"
 
 GetCreationDate
