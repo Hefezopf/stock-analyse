@@ -149,7 +149,7 @@ HTML_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 </head>
 <body>
 <script>var linkMap = new Map();</script>
-<script type='text/javascript' src='_result.js'></script>
+<script src='_result.js'></script>
 <div>"
 # shellcheck disable=SC2129
 echo "$HTML_FILE_HEADER" >> "$SIM_LAST_ALARMS_HTML_FILE"

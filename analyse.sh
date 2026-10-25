@@ -77,8 +77,8 @@ HTML_RESULT_FILE_HEADER="<!DOCTYPE html><html lang='en'>
 <meta http-equiv='pragma' content='no-cache' />
 <meta http-equiv='expires' content='0' />
 <link rel='icon' type='image/x-icon' href='favicon.ico' />
-<script type='text/javascript' src='_common.js'></script>
-<script type='text/javascript' src='_result.js'></script>
+<script src='_common.js'></script>
+<script src='_result.js'></script>
 <title>Result SA</title>
 
 
@@ -194,7 +194,7 @@ echo "$HTML_RESULT_FILE_HEADER" > "$OUT_RESULT_FILE"
 GetCreationDate
 # shellcheck disable=SC2154
 GOOD_LUCK="<p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> $creationDate</p>"
-HTML_RESULT_FILE_END="<br></div></body></html>"
+HTML_RESULT_FILE_END="<br></body></html>"
 START_TIME_MEASUREMENT=$(date +%s);
 
 # Check for multiple identical symbols in cmd. Do not ignore '*' 
@@ -251,9 +251,14 @@ echo "RSI: $RSIQuoteParam" | tee -a "$OUT_RESULT_FILE"
 echo "</div>" >> "$OUT_RESULT_FILE"
 {
     echo "<span id='analyseId'><br><br># Analyse<br><br></span>"  
-    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doHideDetails()'>&nbsp;Details</button>&nbsp;&nbsp;"
-    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;"
-    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;"
+    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onClick='javascript:doHideDetails()'>&nbsp;Details</button>&nbsp;&nbsp;"
+    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;"
+    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;"
+
+#    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doHideDetails()'>&nbsp;Details</button>&nbsp;&nbsp;"
+#    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;"
+#    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled='disabled' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;"
+
     echo "<hr id='intervalSectionHROverallButtons' style='display: none'>"
 } >> "$OUT_RESULT_FILE"
 
@@ -723,7 +728,6 @@ do
             # hover Firmenportrait Text
             echo "<style>
             .tooltip {
-              //  display:inline-block;
                 border-bottom:2px dotted black; 
                 font-size:70px;
                 line-height:67px;
@@ -751,7 +755,7 @@ do
                 # Should never occure 
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
-                echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.classList.toggle('active')'>
+                echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.classList.toggle(\"active\")'>
                         <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' width='5%' height='5%' style='border:1px solid;'>
                         <span class='tooltiptext'>${isin:0:2}:${firmenportrait}</span>
                       &nbsp;$branche</span>"
