@@ -2,13 +2,6 @@ TODO:
 -----
 
 
-
-npm install node
-sudo npm install --global html-validate
-html-validate --config .htmlvalidate.json out/_result.html
-
-
-
 SA: Sell checkbox auch einbauen
 
 
@@ -338,8 +331,11 @@ mc 'XXX'
 
 
 // https://html-validate.org/rules/index.html
+npm install node
+sudo npm install --global html-validate
+html-validate --config .htmlvalidate.json out/_result.html
+
 .htmlvalidate.json
-"html.completion.attributeDefaultValue": "singlequotes"
 {
   "elements": ["html5"],
 
@@ -348,7 +344,11 @@ mc 'XXX'
   "rules": {
     "no-trailing-whitespace": "error",
     "no-inline-style": "off",
-    "attr-quotes": "error"
+    "attr-quotes": "off",
+    "attr-case": "off",
+    "no-implicit-close": "warn",
+    "attr-spacing": "warn",
+    "void-style": "warn"
   }
 }
 
