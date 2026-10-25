@@ -740,7 +740,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
         # Last Stochastic quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
         if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C+$alarmAbbrevValue
-            reasonPrefix="Buy: Low Stochastic & RSI & MACD- (C)"
+            reasonPrefix="Buy: Low Stochastic &amp; RSI &amp; MACD- (C)"
             resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam under level and RSI $_lastRSIQuoteRoundedParam under level"
             echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"

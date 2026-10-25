@@ -511,7 +511,7 @@ export -f WriteComdirectUrlAndStoreFileList
 
   resultStrategieUnderratedLowStochasticLowRSILowMACD=""
   StrategieUnderratedLowStochasticLowRSILowMACD 9 90 0 5 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" * "999999"
-  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic & RSI & MACD- (C): Stochastic 0 under level and RSI 5 under level' ]
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic &amp; RSI &amp; MACD- (C): Stochastic 0 under level and RSI 5 under level' ]
 }
 
 @test "StrategieUnderratedByPercentAndStoch" {

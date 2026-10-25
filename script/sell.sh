@@ -262,7 +262,7 @@ LC_ALL=en_US.UTF-8
 dayOfYearNum=$(date +%j)
 estSumEndOfYear=$(echo "$summe $dayOfYearNum" | awk '{print $1 * 365 / $2}')
 initialAmountStartOfYear=1850000 # 2026
-all=$(echo "$estSumEndOfYear $initialAmountStartOfYear" | awk '{print $1 + $2}')
+#all=$(echo "$estSumEndOfYear $initialAmountStartOfYear" | awk '{print $1 + $2}')
 estSumEndOfYear=$(printf "%'.f" "$estSumEndOfYear")
 summe=$(printf "%'.f" "$summe")
 echo ""
