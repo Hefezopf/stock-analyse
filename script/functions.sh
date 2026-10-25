@@ -463,8 +463,8 @@ GetCreationDate() {
         #date
         #date +"$dateParameter"
         #date +"$dateParameter" -d "+1hours"
-        creationDate=$(date +"$dateParameter" -d "+2hours") # Sommerzeit / Summertime
-        #creationDate=$(date +"$dateParameter" -d "+1hours") # Winterzeit / Wintertime
+        #creationDate=$(date +"$dateParameter" -d "+2hours") # Sommerzeit / Summertime
+        creationDate=$(date +"$dateParameter" -d "+1hours") # Winterzeit / Wintertime
 
         #creationDate=$(TZ="EST-1EDT" date +"$dateParameter") # Sommerzeit / Summertime 
         #creationDate=$(TZ="EST-2EDT" date +"$dateParameter") # Winterzeit / Wintertime
