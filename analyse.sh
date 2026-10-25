@@ -241,8 +241,6 @@ echo "<br>" >> "$OUT_RESULT_FILE"
 countSymbols=$(echo "$symbolsParam" | awk -F" " '{print NF-1}')
 countSymbols=$((countSymbols + 1))
 SymbolsParamShortened "$symbolsParam"
-#echo "--3--$_symbolsParam----"
-#echo "--4--$SYMBOLS_PARAM_SHORTENED----"
 echo "Symbols ($countSymbols): $SYMBOLS_PARAM_SHORTENED" | tee -a "$OUT_RESULT_FILE"
 echo "<br>" >> "$OUT_RESULT_FILE"
 echo "Percentage: $percentageParam" | tee -a "$OUT_RESULT_FILE"
