@@ -752,7 +752,7 @@ do
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
                 echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.classList.toggle(\"active\")'>
-                        <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' height='50' width='65' style='border:1px solid;'>
+                        <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' height='45' width='65' style='border:1px solid;'>
                         <span class='tooltiptext'>${isin:0:2}:${firmenportrait}</span>
                       &nbsp;$branche</span>"
             fi
