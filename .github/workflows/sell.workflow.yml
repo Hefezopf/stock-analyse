@@ -70,6 +70,8 @@ jobs:
 
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
+          # Trim last character (blank)
+          symbolsVar=${symbolsVar::-1}
           rm -rf config/own_symbols.txt
 
           chmod +x ./analyse.sh
