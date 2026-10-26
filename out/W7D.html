@@ -2,13 +2,40 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+<meta charset="utf-8">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
 <title>W7D
 </title>
 <style>
 .p-result{margin-top:-14px;}
 </style>
+
+<!-- # hover Firmenportrait Text -->
+<style>
+.tooltip {
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
+}
+.tooltip .tooltiptext {
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
+}
+.tooltip:hover .tooltiptext {
+visibility:visible;
+}
+</style>
+
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 
 <script>
 /*! 
@@ -50,14 +77,14 @@ grey: 'rgb(201, 203, 207)'
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
-<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244539921&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
+<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244539921&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539921"  target="_blank">W7D "Workday"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539921"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539921"  target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
 
-<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">    
+<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
 </div>
 
@@ -86,7 +113,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','C+7S+6R+M+','6S+6R+','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','4S+','4S+','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22'
+labels: ['','6S+6R+','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','4S+','4S+','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [{
 label: ' "Workday" ',
@@ -94,8 +121,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [100.20,
-100.02,
+data: [100.02,
 108.66,
 107.56,
 106.78,
@@ -181,6 +207,7 @@ data: [100.20,
 179.86,
 180.32,
 186.84,
+187.06,
 ]},
 {
 label: 'buy',
@@ -201,21 +228,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 109.331, 108.673, 108.363, 108.061, 108.112, 108.844, 109.258, 109.771, 110.454, 111.54, 112.67, 113.892, 115.457, 116.877, 118.468, 119.786, 120.187, 120.444, 121.119, 122.017, 123.087, 124.733, 125.681, 126.168, 127.434, 129.027, 130.326, 131.607, 133.424, 135.373, 137, 138.308, 140.994, 143.631, 146.351, 149.259, 151.947, 154.133, 155.996, 157.386, 158.947, 160.706, 161.977, 163.472, 164.841, 166.076, 167.061, 168.039, 168.707, 169.612, 168.628, 167.98, 167.661, 167.336, 167.377, 167.161, 166.807, 166.994, 167.184, 167.24, 167.13, 166.712, 166.594, 166.321, 165.92, 165.208, 165.08, 165.051, 165.362, 165.828, 166.076, 166.386, 166.337, 166.419, 166.638, 166.134, 166.152, 166.501, 166.839, 167.122, 167.809, 168.603, 169.788,
+data: [ , , , , 108.673, 108.363, 108.061, 108.112, 108.844, 109.258, 109.771, 110.454, 111.54, 112.67, 113.892, 115.457, 116.877, 118.468, 119.786, 120.187, 120.444, 121.119, 122.017, 123.087, 124.733, 125.681, 126.168, 127.434, 129.027, 130.326, 131.607, 133.424, 135.373, 137, 138.308, 140.994, 143.631, 146.351, 149.259, 151.947, 154.133, 155.996, 157.386, 158.947, 160.706, 161.977, 163.472, 164.841, 166.076, 167.061, 168.039, 168.707, 169.612, 168.628, 167.98, 167.661, 167.336, 167.377, 167.161, 166.807, 166.994, 167.184, 167.24, 167.13, 166.712, 166.594, 166.321, 165.92, 165.208, 165.08, 165.051, 165.362, 165.828, 166.076, 166.386, 166.337, 166.419, 166.638, 166.134, 166.152, 166.501, 166.839, 167.122, 167.809, 168.603, 169.788, 171.11,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 116.186, 116.724, 117.071, 117.417, 118.053, 119.018, 119.861, 120.844, 122.046, 123.424, 124.853, 126.132, 128.195, 130.045, 131.746, 133.444, 134.987, 136.598, 138.291, 139.798, 141.031, 142.354, 143.568, 144.895, 146.189, 147.514, 148.86, 150.187, 151.397, 152.525, 153.381, 154.252, 155.048, 155.968, 157.341, 158.727, 159.932, 161.104, 161.919, 162.489, 163.202, 164.1, 164.739, 165.18, 165.721, 166.103, 166.392, 166.583, 166.816, 167.288, 166.929, 166.746, 166.807, 166.856, 166.891, 166.788, 166.731, 166.807, 166.94, 167.139, 167.502, 167.611, 168.064,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 116.724, 117.071, 117.417, 118.053, 119.018, 119.861, 120.844, 122.046, 123.424, 124.853, 126.132, 128.195, 130.045, 131.746, 133.444, 134.987, 136.598, 138.291, 139.798, 141.031, 142.354, 143.568, 144.895, 146.189, 147.514, 148.86, 150.187, 151.397, 152.525, 153.381, 154.252, 155.048, 155.968, 157.341, 158.727, 159.932, 161.104, 161.919, 162.489, 163.202, 164.1, 164.739, 165.18, 165.721, 166.103, 166.392, 166.583, 166.816, 167.288, 166.929, 166.746, 166.807, 166.856, 166.891, 166.788, 166.731, 166.807, 166.94, 167.139, 167.502, 167.611, 168.064, 168.488,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 144.55, 145.024, 145.549, 146.165, 146.81, 147.592,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 145.024, 145.549, 146.165, 146.81, 147.592, 148.372,
 ]},
 {
 label:' Buying/Last ',
@@ -223,14 +250,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,186.84,               ]},
+data: [ 187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,187.06,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,196.182,			]}	
+data: [ 196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,196.413,			]}	
 ]},
 options: {
 responsive: true,
@@ -276,7 +303,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','C+7S+6R+M+','6S+6R+','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','4S+','4S+','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22'
+labels: ['','6S+6R+','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','4S+','4S+','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [
 {
@@ -285,7 +312,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 5, 4, 43, 43, 56, 100, 100, 87, 100, 100, 80, 80, 83, 99, 86, 87, 100, 97, 100, 60, 0, 0, 40, 100, 100, 100, 74, 66, 93, 100, 88, 98, 100, 100, 95, 78, 100, 85, 71, 70, 76, 75, 81, 79, 57, 59, 59, 96, 72, 50, 70, 99, 31, 10, 0, 0, 0, 0, 53, 35, 34, 87, 56, 48, 31, 65, 57, 48, 44, 30, 47, 23, 17, 43, 2, 18, 72, 57, 99, 30, 100, 100, 68, 100, 100, 100, 100,
+data: [		 4, 43, 43, 56, 100, 100, 87, 100, 100, 80, 80, 83, 99, 86, 87, 100, 97, 100, 60, 0, 0, 40, 100, 100, 100, 74, 66, 93, 100, 88, 98, 100, 100, 95, 78, 100, 85, 71, 70, 76, 75, 81, 79, 57, 59, 59, 96, 72, 50, 70, 99, 31, 10, 0, 0, 0, 0, 53, 35, 34, 87, 56, 48, 31, 65, 57, 48, 44, 30, 47, 23, 17, 43, 2, 18, 72, 57, 99, 30, 100, 100, 68, 100, 100, 100, 100, 100,
 ]},
 {
 label: '91',
@@ -348,7 +375,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','C+7S+6R+M+','6S+6R+','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','4S+','4S+','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22'
+labels: ['','6S+6R+','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','4S+','4S+','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [
 {
@@ -357,7 +384,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 7, 8, 29, 30, 32, 50, 56, 55, 62, 72, 70, 71, 76, 77, 72, 73, 70, 71, 74, 61, 47, 46, 48, 53, 64, 68, 60, 56, 63, 65, 60, 62, 64, 69, 74, 72, 77, 70, 63, 60, 67, 70, 67, 64, 63, 62, 58, 62, 58, 64, 45, 55, 53, 51, 42, 40, 37, 37, 52, 48, 48, 47, 48, 46, 41, 43, 49, 49, 57, 54, 57, 57, 45, 54, 48, 34, 47, 48, 58, 42, 52, 61, 56, 64, 67, 68, 73,
+data: [ 7, 29, 30, 32, 50, 56, 55, 62, 72, 70, 71, 76, 77, 72, 73, 70, 71, 74, 61, 47, 46, 48, 53, 64, 68, 60, 56, 63, 65, 60, 62, 64, 69, 74, 72, 77, 70, 63, 60, 67, 70, 67, 64, 63, 62, 58, 62, 58, 64, 45, 55, 53, 51, 42, 40, 37, 37, 52, 48, 48, 47, 48, 46, 41, 43, 49, 49, 57, 54, 57, 57, 45, 54, 48, 34, 47, 48, 58, 42, 52, 61, 56, 64, 67, 68, 73, 72,
 ]},
 {
 label: '75',
@@ -423,7 +450,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','C+7S+6R+M+','6S+6R+','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','4S+','4S+','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22'
+labels: ['','6S+6R+','29','30','01','02','05','06','07','08','09','12','13','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','4S+','4S+','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [
 {
@@ -432,7 +459,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , 4.83, 4.83, 4.79, 4.80, 5.03, 5.12, 5.32, 5.00, 4.08, 3.01, 2.67, 3.22, 4.26, 5.66, 6.02, 6.03, 6.66, 7.56, 7.84, 8.27, 9.01, 9.77, 10.07, 9.69, 11.46, 12.23, 12.19, 12.00, 11.93, 11.86, 11.85, 11.66, 10.96, 10.36, 9.77, 10.00, 9.54, 9.18, 8.93, 8.90, 8.16, 7.32, 6.04, 4.97, 4.05, 3.24, 3.32, 3.09, 2.86, 3.38, 3.33, 3.13, 2.70, 2.70, 2.57, 2.32, 2.06, 1.66, 1.53, 1.40, 1.23, 1.31, 1.01, 0.81, 0.89, 0.87, 1.03, 0.84, 1.00, 1.48, 1.58, 1.92, 2.66, 3.24, 4.18,
+data: [ , , , , , , , , , , , , 5.66, 5.66, 5.60, 5.78, 5.81, 5.95, 5.60, 4.63, 3.52, 3.15, 3.66, 4.67, 6.04, 6.37, 6.35, 6.96, 7.84, 8.10, 8.51, 9.23, 9.97, 10.26, 9.87, 11.62, 12.38, 12.33, 12.13, 12.05, 11.97, 11.95, 11.76, 11.04, 10.44, 9.84, 10.07, 9.60, 9.24, 8.99, 8.96, 8.20, 7.37, 6.08, 5.01, 4.08, 3.27, 3.35, 3.12, 2.89, 3.41, 3.35, 3.16, 2.72, 2.72, 2.59, 2.34, 2.08, 1.67, 1.54, 1.41, 1.24, 1.32, 1.02, 0.82, 0.89, 0.88, 1.03, 0.85, 1.01, 1.49, 1.59, 1.93, 2.67, 3.25, 4.19, 4.89,
 ]},
 {
 label: '0',
@@ -510,52 +537,27 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLinkW7D' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539921"  target="_blank">W7D "Workday"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539921"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539921"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>186.84€</b></span>
-&nbsp;<span style='font-size:45px; color:green'><b>3.6%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;33&nbsp;&nbsp;</span>
-<span style='font-size:45px'>DIV&nbsp;--%&nbsp</span>&nbsp;
-<style>
-.tooltip {
-//  display:inline-block;
-border-bottom:2px dotted black; 
-font-size:70px;
-line-height:67px;
-vertical-align:baseline;
-}
-.tooltip .tooltiptext {
-visibility:hidden;
-background-color:black;
-color:#fff;
-padding:7px 10px 50px 10px;
-border-radius:6px;
-position:absolute;
-z-index:1;
-font-size:45px;
-margin:70px 0px 0px -410px;
-line-height:100%;
-}
-.tooltip:hover .tooltiptext {
-visibility:visible;
-}
-</style>
-<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
-<img src='../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>187.06€</b></span>
+&nbsp;<span style='font-size:45px; color:green'><b>0.1%</b></span><br>
+<span style='font-size:45px'>KGV&nbsp;35&nbsp;&nbsp;</span>
+<span style='font-size:45px'>DIV&nbsp;--%&nbsp;</span>&nbsp;
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
+<img src='../image/flags/US.jpeg' alt='US: No Flag' height='50' width='65' style='border:1px solid;'>
 <span class='tooltiptext'>US:" Die WORKDAY, INC. bezeichnet sich als ein führender Anbieter von Cloud-Unternehmensanwendungen für das Finanz- und Personalwesen. Das Unternehmen bietet seinen Kunden ein einheitliches System, das sie bei der Planung, Ausführung, Analyse und Erweiterung auf andere Anwendungen und Umgebungen unterstützt und ihnen so hilft, die Art und Weise, wie sie ihre Geschäfte und Abläufe verwalten, kontinuierlich anzupassen. Workday bettet Künstliche Intelligenz und maschinelles Lernen in den Kern seiner Plattform ein. Dadurch können die Anwendungen des Unternehmens , KI und ML als Teil des Workflows nutzen. Die Lösungen werden weltweit hauptsächlich über den Direktvertrieb vermarktet. Im Bereich professionelle Dienstleistungen arbeitet Workday auch mit Services Partnern zusammen. "</span>
 &nbsp;"Sonstige Technologie"</span>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 16%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;33 Mrd.€</div><br>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;36 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-10-22</b>
+<b>2026-10-25</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>169.79€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>168.06€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>147.59€</b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>171.11€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>168.49€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>148.37€</b></span>
 &nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>100 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>73 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>4.18 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>72 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>4.89 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -572,7 +574,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 23-Oct-2026 04:34</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 26-Oct-2026 06:36</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -604,17 +606,15 @@ document.getElementById('buyingSectionInputPriceBuy').value)">Sell</button>
 trimOwnChar(document.getElementsByTagName('TITLE')[0].text),
 document.getElementById('buyingSectionInputPriceBuy').value,
 document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
-Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'/>
-Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6'/>
+Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'>
+Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6' pattern="^\d*(\.\d{0,3})?$">
 <br>
-<br>            
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
-<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:30px; height:30px; vertical-align: middle;">&nbsp;Run Analyse
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:40px; height:40px; vertical-align: middle;">&nbsp;Run Analyse
+<button style='display: none' disabled type="submit">Dummy</button>
 </form>
 </div>
 <br>

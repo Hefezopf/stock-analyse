@@ -2,13 +2,40 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+<meta charset="utf-8">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
 <title>IDA
 </title>
 <style>
 .p-result{margin-top:-14px;}
 </style>
+
+<!-- # hover Firmenportrait Text -->
+<style>
+.tooltip {
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
+}
+.tooltip .tooltiptext {
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
+}
+.tooltip:hover .tooltiptext {
+visibility:visible;
+}
+</style>
+
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 
 <script>
 /*! 
@@ -50,14 +77,14 @@ grey: 'rgb(201, 203, 207)'
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
-<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244526622&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
+<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244526622&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244526622"  target="_blank">IDA "Indra Sistemas"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244526622"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244526622"  target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
 
-<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">    
+<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
 </div>
 
@@ -94,8 +121,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [51.28,
-47.69,
+data: [47.69,
 46.94,
 47.94,
 48.23,
@@ -181,6 +207,7 @@ data: [51.28,
 62.22,
 63.00,
 62.48,
+59.78,
 ]},
 {
 label: 'buy',
@@ -201,21 +228,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 53.0544, 52.7378, 52.4389, 52.2678, 52.1856, 51.9411, 51.68, 51.3544, 50.9339, 50.4261, 50.1639, 49.8617, 49.5822, 49.3428, 49.2383, 49.4089, 49.6011, 49.9256, 50.1894, 50.5372, 50.8672, 51.0972, 51.3128, 51.5972, 52.015, 52.525, 53.2422, 54.0389, 54.8111, 55.6067, 56.4894, 57.34, 58.19, 58.95, 59.7189, 60.1844, 60.6589, 60.9478, 61.1667, 61.4478, 61.7078, 61.92, 62.1033, 62.2978, 62.3078, 62.2689, 62.1089, 61.8411, 61.5667, 61.2033, 60.8111, 60.3811, 60.0033, 59.8178, 59.7756, 59.8011, 59.8311, 59.9411, 59.9856, 60.0578, 60.0622, 60.0589, 60.0544, 60.1422, 60.1578, 60.1589, 60.0822, 60.1722, 60.2822, 60.4633, 60.5633, 60.5567, 60.4322, 60.3611, 60.3711, 60.3222, 60.3856, 60.48, 60.5633, 60.4867, 60.5567, 60.6144, 60.7278,
+data: [ , , , , 52.7378, 52.4389, 52.2678, 52.1856, 51.9411, 51.68, 51.3544, 50.9339, 50.4261, 50.1639, 49.8617, 49.5822, 49.3428, 49.2383, 49.4089, 49.6011, 49.9256, 50.1894, 50.5372, 50.8672, 51.0972, 51.3128, 51.5972, 52.015, 52.525, 53.2422, 54.0389, 54.8111, 55.6067, 56.4894, 57.34, 58.19, 58.95, 59.7189, 60.1844, 60.6589, 60.9478, 61.1667, 61.4478, 61.7078, 61.92, 62.1033, 62.2978, 62.3078, 62.2689, 62.1089, 61.8411, 61.5667, 61.2033, 60.8111, 60.3811, 60.0033, 59.8178, 59.7756, 59.8011, 59.8311, 59.9411, 59.9856, 60.0578, 60.0622, 60.0589, 60.0544, 60.1422, 60.1578, 60.1589, 60.0822, 60.1722, 60.2822, 60.4633, 60.5633, 60.5567, 60.4322, 60.3611, 60.3711, 60.3222, 60.3856, 60.48, 60.5633, 60.4867, 60.5567, 60.6144, 60.7278, 60.7911,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 51.8745, 51.8871, 51.8745, 51.925, 52.0445, 52.1213, 52.2629, 52.415, 52.6129, 52.8118, 53.0829, 53.3397, 53.6397, 53.9324, 54.2734, 54.6542, 55.0379, 55.3774, 55.7171, 56.0129, 56.265, 56.4971, 56.7424, 57.0271, 57.2971, 57.585, 57.9063, 58.2189, 58.4842, 58.7121, 58.9587, 59.1611, 59.3726, 59.5847, 59.8574, 60.0553, 60.2842, 60.4674, 60.5842, 60.7416, 60.8868, 61.0353, 61.1053, 61.1932, 61.1821, 61.1179, 60.9811, 60.8747, 60.7553, 60.6405, 60.4968, 60.3458, 60.1953, 60.1389, 60.1479, 60.1711, 60.2142, 60.2832, 60.3447, 60.3563, 60.3726, 60.3958, 60.4337,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 51.8871, 51.8745, 51.925, 52.0445, 52.1213, 52.2629, 52.415, 52.6129, 52.8118, 53.0829, 53.3397, 53.6397, 53.9324, 54.2734, 54.6542, 55.0379, 55.3774, 55.7171, 56.0129, 56.265, 56.4971, 56.7424, 57.0271, 57.2971, 57.585, 57.9063, 58.2189, 58.4842, 58.7121, 58.9587, 59.1611, 59.3726, 59.5847, 59.8574, 60.0553, 60.2842, 60.4674, 60.5842, 60.7416, 60.8868, 61.0353, 61.1053, 61.1932, 61.1821, 61.1179, 60.9811, 60.8747, 60.7553, 60.6405, 60.4968, 60.3458, 60.1953, 60.1389, 60.1479, 60.1711, 60.2142, 60.2832, 60.3447, 60.3563, 60.3726, 60.3958, 60.4337, 60.4179,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 57.0906, 57.1759, 57.2184, 57.2997, 57.3969, 57.4683,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 57.1759, 57.2184, 57.2997, 57.3969, 57.4683, 57.5136,
 ]},
 {
 label:' Buying/Last ',
@@ -223,14 +250,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data:[62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,62.48,]},
+data:[59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,59.78,]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data:[65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,65.604,]},
+data:[62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,62.769,]},
 ]},
 options: {
 responsive: true,
@@ -276,7 +303,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','4S+D+N+','C+5S+D+N+','5S+','M+','M+','02','05','06','07','08','09','M+','D+N+M+','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','4S+','4S+','4S+','06','4S+','5S+','6S+','5S+','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','M+','M+','M+','11','12','13','14','15','18','19','20','21','22'
+labels: ['','C+5S+D+N+','5S+','M+','M+','02','05','06','07','08','09','M+','D+N+M+','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','4S+','4S+','4S+','06','4S+','5S+','6S+','5S+','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','M+','M+','M+','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [
 {
@@ -285,7 +312,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 0, 0, 0, 11, 14, 27, 48, 50, 59, 57, 50, 39, 15, 0, 43, 42, 27, 40, 48, 72, 66, 100, 88, 100, 100, 84, 90, 91, 100, 100, 100, 100, 100, 100, 100, 100, 100, 97, 94, 70, 61, 39, 41, 0, 5, 0, 30, 42, 17, 3, 0, 0, 16, 0, 0, 0, 13, 39, 74, 84, 91, 100, 83, 82, 84, 90, 72, 89, 63, 23, 0, 32, 37, 44, 29, 20, 16, 51, 95, 94, 100, 100, 98, 52, 78, 94, 83,
+data: [		 0, 0, 11, 14, 27, 48, 50, 59, 57, 50, 39, 15, 0, 43, 42, 27, 40, 48, 72, 66, 100, 88, 100, 100, 84, 90, 91, 100, 100, 100, 100, 100, 100, 100, 100, 100, 97, 94, 70, 61, 39, 41, 0, 5, 0, 30, 42, 17, 3, 0, 0, 16, 0, 0, 0, 13, 39, 74, 84, 91, 100, 83, 82, 84, 90, 72, 89, 63, 23, 0, 32, 37, 44, 29, 20, 16, 51, 95, 94, 100, 100, 98, 52, 78, 94, 83, 26,
 ]},
 {
 label: '91',
@@ -348,7 +375,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','4S+D+N+','C+5S+D+N+','5S+','M+','M+','02','05','06','07','08','09','M+','D+N+M+','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','4S+','4S+','4S+','06','4S+','5S+','6S+','5S+','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','M+','M+','M+','11','12','13','14','15','18','19','20','21','22'
+labels: ['','C+5S+D+N+','5S+','M+','M+','02','05','06','07','08','09','M+','D+N+M+','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','4S+','4S+','4S+','06','4S+','5S+','6S+','5S+','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','M+','M+','M+','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [
 {
@@ -357,7 +384,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 42, 28, 20, 28, 31, 27, 36, 37, 39, 36, 39, 33, 33, 30, 43, 55, 54, 53, 54, 54, 46, 57, 52, 62, 67, 66, 72, 78, 77, 78, 84, 84, 85, 84, 86, 84, 89, 84, 81, 78, 72, 68, 63, 59, 49, 45, 41, 42, 32, 29, 25, 22, 27, 28, 30, 29, 32, 42, 49, 54, 50, 51, 52, 54, 56, 66, 57, 69, 61, 57, 51, 52, 45, 44, 39, 32, 35, 43, 50, 48, 56, 55, 62, 58, 67, 65, 61,
+data: [ 18, 20, 28, 31, 27, 36, 37, 39, 36, 39, 33, 33, 30, 43, 55, 54, 53, 54, 54, 46, 57, 52, 62, 67, 66, 72, 78, 77, 78, 84, 84, 85, 84, 86, 84, 89, 84, 81, 78, 72, 68, 63, 59, 49, 45, 41, 42, 32, 29, 25, 22, 27, 28, 30, 29, 32, 42, 49, 54, 50, 51, 52, 54, 56, 66, 57, 69, 61, 57, 51, 52, 45, 44, 39, 32, 35, 43, 50, 48, 56, 55, 62, 58, 67, 65, 61, 49,
 ]},
 {
 label: '75',
@@ -423,7 +450,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','4S+D+N+','C+5S+D+N+','5S+','M+','M+','02','05','06','07','08','09','M+','D+N+M+','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','4S+','4S+','4S+','06','4S+','5S+','6S+','5S+','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','M+','M+','M+','11','12','13','14','15','18','19','20','21','22'
+labels: ['','C+5S+D+N+','5S+','M+','M+','02','05','06','07','08','09','M+','D+N+M+','14','15','16','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','4S+','4S+','4S+','06','4S+','5S+','6S+','5S+','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','M+','M+','M+','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [
 {
@@ -432,7 +459,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , -2.01, -2.01, -1.91, -1.82, -1.80, -1.70, -1.57, -1.34, -1.18, -0.77, -0.50, -0.07, 0.39, 0.62, 0.83, 1.01, 1.29, 1.53, 1.87, 2.13, 2.47, 2.74, 2.98, 3.14, 3.27, 3.30, 3.28, 3.06, 2.80, 2.51, 2.28, 2.03, 1.83, 1.60, 1.52, 1.47, 1.34, 1.16, 0.99, 0.73, 0.56, 0.31, 0.09, -0.15, -0.28, -0.27, -0.10, 0.07, 0.24, 0.44, 0.52, 0.56, 0.60, 0.66, 0.61, 0.64, 0.54, 0.30, 0.06, -0.01, -0.05, -0.05, -0.11, -0.20, -0.28, -0.22, -0.02, 0.12, 0.31, 0.50, 0.64, 0.53, 0.57, 0.66, 0.68,
+data: [ , , , , , , , , , , , , -1.99, -1.99, -1.89, -1.86, -1.76, -1.62, -1.39, -1.23, -0.81, -0.54, -0.11, 0.35, 0.58, 0.80, 0.99, 1.27, 1.50, 1.84, 2.11, 2.45, 2.72, 2.96, 3.13, 3.25, 3.29, 3.27, 3.05, 2.79, 2.50, 2.27, 2.02, 1.82, 1.60, 1.51, 1.47, 1.33, 1.16, 0.99, 0.72, 0.55, 0.30, 0.09, -0.15, -0.28, -0.27, -0.11, 0.07, 0.24, 0.44, 0.51, 0.56, 0.60, 0.66, 0.60, 0.64, 0.53, 0.30, 0.06, -0.02, -0.05, -0.05, -0.11, -0.20, -0.28, -0.22, -0.02, 0.12, 0.31, 0.50, 0.63, 0.53, 0.57, 0.66, 0.68, 0.47,
 ]},
 {
 label: '0',
@@ -510,52 +537,27 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLinkIDA' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244526622"  target="_blank">IDA "Indra Sistemas"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244526622"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244526622"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>62.48€</b></span>
-&nbsp;<span style='font-size:45px; color:red'><b>-0.8%</b></span><br>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>59.78€</b></span>
+&nbsp;<span style='font-size:45px; color:red'><b>-4.3%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;22&nbsp;&nbsp;</span>
-<span style='font-size:45px'>DIV&nbsp;0%&nbsp</span>&nbsp;
-<style>
-.tooltip {
-//  display:inline-block;
-border-bottom:2px dotted black; 
-font-size:70px;
-line-height:67px;
-vertical-align:baseline;
-}
-.tooltip .tooltiptext {
-visibility:hidden;
-background-color:black;
-color:#fff;
-padding:7px 10px 50px 10px;
-border-radius:6px;
-position:absolute;
-z-index:1;
-font-size:45px;
-margin:70px 0px 0px -410px;
-line-height:100%;
-}
-.tooltip:hover .tooltiptext {
-visibility:visible;
-}
-</style>
-<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
-<img src='../../image/flags/ES.jpeg' alt='ES: No Flag' width='5%' height='5%' style='border:1px solid;'>
-<span class='tooltiptext'>ES:" Indra Sistemas SA ist ein Unternehmen mit Sitz in Alcobendas, Spanien, das primär im Bereich Software und Beratung tätig ist. Das Unternehmen wurde im Jahr 1992 gegründet und beschäftigte zum Ende des letzten Geschäftsjahres 62396 Mitarbeiter. Den Vorsitz in der Geschäftsführung hat Josep Maria Recasens. Die größten Anteilseigner sind Government of Spain, SAPA Placencia SL und Amber Capital (UK) LLP. Der Umsatz des Unternehmens betrug zum Ende des letzten Geschäftsjahres 5.46 Mrd. EUR mit einem Gewinn von 435.83 Mio. EUR. Der Umsatz hat sich gegenüber dem vorherigen Geschäftsjahr um 12.7% vergrößert. Die derzeitige Marktkapitalisierung beträgt 10.82 Mrd. EUR. Die Angaben zum Geschäftsjahresende beziehen sich auf den 31.12.2025. Die Sektorklassifizierung des Unternehmens basiert auf dem FactSet eigenen RBICS Sektorsystem. "</span>
+<span style='font-size:45px'>DIV&nbsp;0%&nbsp;</span>&nbsp;
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
+<img src='../../image/flags/ES.jpeg' alt='ES: No Flag' height='50' width='65' style='border:1px solid;'>
+<span class='tooltiptext'>ES:" Indra Sistemas SA ist ein Unternehmen mit Sitz in Alcobendas, Spanien, das primär im Bereich Software und Beratung tätig ist. Das Unternehmen wurde im Jahr 1992 gegründet und beschäftigte zum Ende des letzten Geschäftsjahres 62396 Mitarbeiter. Den Vorsitz in der Geschäftsführung hat Josep Maria Recasens. Die größten Anteilseigner sind Government of Spain, SAPA Placencia SL und Amber Capital (UK) LLP. Der Umsatz des Unternehmens betrug zum Ende des letzten Geschäftsjahres 5.46 Mrd. EUR mit einem Gewinn von 435.83 Mio. EUR. Der Umsatz hat sich gegenüber dem vorherigen Geschäftsjahr um 12.7% vergrößert. Die derzeitige Marktkapitalisierung beträgt 10.93 Mrd. EUR. Die Angaben zum Geschäftsjahresende beziehen sich auf den 31.12.2025. Die Sektorklassifizierung des Unternehmens basiert auf dem FactSet eigenen RBICS Sektorsystem. "</span>
 &nbsp;"Softwareservice, -dienstleistung"</span>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 5%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;11 Mrd.€</div><br>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;10 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-10-22</b>
+<b>2026-10-25</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>60.73€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>60.43€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>57.47€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>83 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>61 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.68 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>60.79€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>60.42€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>57.51€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>26 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>49 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.47 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -572,7 +574,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 23-Oct-2026 06:51
+<br>Good Luck! 26-Oct-2026 08:29
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -604,17 +606,15 @@ document.getElementById('buyingSectionInputPriceBuy').value)">Sell</button>
 trimOwnChar(document.getElementsByTagName('TITLE')[0].text),
 document.getElementById('buyingSectionInputPriceBuy').value,
 document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
-Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'/>
-Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6'/>
+Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'>
+Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6' pattern="^\d*(\.\d{0,3})?$">
 <br>
-<br>            
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
-<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:30px; height:30px; vertical-align: middle;">&nbsp;Run Analyse
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:40px; height:40px; vertical-align: middle;">&nbsp;Run Analyse
+<button style='display: none' disabled type="submit">Dummy</button>
 </form>
 </div>
 <br>

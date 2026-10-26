@@ -2,13 +2,40 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+<meta charset="utf-8">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
 <title>ALZC
 </title>
 <style>
 .p-result{margin-top:-14px;}
 </style>
+
+<!-- # hover Firmenportrait Text -->
+<style>
+.tooltip {
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
+}
+.tooltip .tooltiptext {
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
+}
+.tooltip:hover .tooltiptext {
+visibility:visible;
+}
+</style>
+
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 
 <script>
 /*! 
@@ -50,14 +77,14 @@ grey: 'rgb(201, 203, 207)'
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
-<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244540100&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
+<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244540100&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244540100"  target="_blank">ALZC "ASSA Abloy"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244540100"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244540100"  target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
 
-<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">    
+<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
 </div>
 
@@ -86,7 +113,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','25','28','29','30','01','02','05','06','07','M+','M+','M+','M+','M+','M+','M+','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','M+','M+','M+','4S+M+','4S+M+','4S+M+','M+','M+','17','20','21','22','23','24','27','28','29','M+','M+','04','05','06','M+','M+','11','12','13','14','15','18','19','20','21','22'
+labels: ['','28','29','30','01','02','05','06','07','M+','M+','M+','M+','M+','M+','M+','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','M+','M+','M+','4S+M+','4S+M+','4S+M+','M+','M+','17','20','21','22','23','24','27','28','29','M+','M+','04','05','06','M+','M+','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [{
 label: ' "ASSA Abloy" ',
@@ -94,8 +121,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [30.83,
-30.77,
+data: [30.77,
 30.59,
 30.74,
 30.93,
@@ -181,6 +207,7 @@ data: [30.83,
 31.95,
 32.08,
 32.81,
+33.20,
 ]},
 {
 label: 'buy',
@@ -201,21 +228,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 30.55, 30.6167, 30.6944, 30.7383, 30.8022, 30.84, 30.8044, 30.7517, 30.7017, 30.6317, 30.5406, 30.4811, 30.4472, 30.5461, 30.5383, 30.5372, 30.5633, 30.5789, 30.6044, 30.6439, 30.7006, 30.7372, 30.7933, 30.875, 31.0344, 31.2056, 31.3717, 31.5722, 31.7806, 31.9517, 32.1161, 32.1794, 32.29, 32.3811, 32.4222, 32.4378, 32.4444, 32.4478, 32.44, 32.4356, 32.4317, 32.4211, 32.3878, 32.3244, 32.2428, 32.1356, 32.02, 31.9333, 31.865, 31.7906, 31.7272, 31.6233, 31.5378, 31.4633, 31.3928, 31.3289, 31.235, 31.1767, 31.1128, 31.0817, 31.0672, 31.0389, 30.9983, 31.0083, 31.0239, 31.0122, 30.9867, 30.9622, 30.9583, 31.0039, 31.0583, 31.0789, 31.0883, 31.1294, 31.16, 31.2028, 31.2267, 31.255, 31.2761, 31.2961, 31.3378, 31.3639, 31.4294,
+data: [ , , , , 30.6167, 30.6944, 30.7383, 30.8022, 30.84, 30.8044, 30.7517, 30.7017, 30.6317, 30.5406, 30.4811, 30.4472, 30.5461, 30.5383, 30.5372, 30.5633, 30.5789, 30.6044, 30.6439, 30.7006, 30.7372, 30.7933, 30.875, 31.0344, 31.2056, 31.3717, 31.5722, 31.7806, 31.9517, 32.1161, 32.1794, 32.29, 32.3811, 32.4222, 32.4378, 32.4444, 32.4478, 32.44, 32.4356, 32.4317, 32.4211, 32.3878, 32.3244, 32.2428, 32.1356, 32.02, 31.9333, 31.865, 31.7906, 31.7272, 31.6233, 31.5378, 31.4633, 31.3928, 31.3289, 31.235, 31.1767, 31.1128, 31.0817, 31.0672, 31.0389, 30.9983, 31.0083, 31.0239, 31.0122, 30.9867, 30.9622, 30.9583, 31.0039, 31.0583, 31.0789, 31.0883, 31.1294, 31.16, 31.2028, 31.2267, 31.255, 31.2761, 31.2961, 31.3378, 31.3639, 31.4294, 31.5356,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 30.6447, 30.6976, 30.7563, 30.8084, 30.8868, 30.9684, 31.0437, 31.105, 31.1608, 31.2147, 31.2563, 31.2992, 31.3553, 31.4245, 31.45, 31.4639, 31.4882, 31.5118, 31.54, 31.5592, 31.5792, 31.6055, 31.6379, 31.6716, 31.725, 31.7605, 31.7853, 31.8313, 31.8837, 31.9195, 31.9616, 31.9347, 31.9234, 31.9026, 31.8811, 31.8671, 31.8387, 31.8116, 31.7745, 31.7687, 31.7676, 31.7492, 31.7079, 31.6671, 31.6205, 31.5661, 31.5076, 31.4508, 31.4132, 31.3779, 31.34, 31.2858, 31.2492, 31.2474, 31.2303, 31.2218, 31.1997, 31.2095, 31.2203, 31.2163, 31.2105, 31.2121, 31.2353,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 30.6976, 30.7563, 30.8084, 30.8868, 30.9684, 31.0437, 31.105, 31.1608, 31.2147, 31.2563, 31.2992, 31.3553, 31.4245, 31.45, 31.4639, 31.4882, 31.5118, 31.54, 31.5592, 31.5792, 31.6055, 31.6379, 31.6716, 31.725, 31.7605, 31.7853, 31.8313, 31.8837, 31.9195, 31.9616, 31.9347, 31.9234, 31.9026, 31.8811, 31.8671, 31.8387, 31.8116, 31.7745, 31.7687, 31.7676, 31.7492, 31.7079, 31.6671, 31.6205, 31.5661, 31.5076, 31.4508, 31.4132, 31.3779, 31.34, 31.2858, 31.2492, 31.2474, 31.2303, 31.2218, 31.1997, 31.2095, 31.2203, 31.2163, 31.2105, 31.2121, 31.2353, 31.2818,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 31.2208, 31.2484, 31.2711, 31.2892, 31.3133, 31.3422,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 31.2484, 31.2711, 31.2892, 31.3133, 31.3422, 31.3702,
 ]},
 {
 label:' Buying/Last ',
@@ -223,14 +250,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data: [ 32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,32.81,               ]},
+data: [ 33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,33.20,               ]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,34.4505,			]}	
+data: [ 34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,34.86,			]}	
 ]},
 options: {
 responsive: true,
@@ -276,7 +303,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','25','28','29','30','01','02','05','06','07','M+','M+','M+','M+','M+','M+','M+','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','M+','M+','M+','4S+M+','4S+M+','4S+M+','M+','M+','17','20','21','22','23','24','27','28','29','M+','M+','04','05','06','M+','M+','11','12','13','14','15','18','19','20','21','22'
+labels: ['','28','29','30','01','02','05','06','07','M+','M+','M+','M+','M+','M+','M+','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','M+','M+','M+','4S+M+','4S+M+','4S+M+','M+','M+','17','20','21','22','23','24','27','28','29','M+','M+','04','05','06','M+','M+','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [
 {
@@ -285,7 +312,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 70, 65, 53, 62, 75, 71, 87, 80, 75, 62, 10, 23, 47, 0, 0, 20, 18, 100, 54, 57, 74, 72, 91, 100, 100, 81, 92, 100, 100, 100, 100, 98, 100, 84, 78, 63, 59, 40, 6, 0, 9, 15, 32, 14, 27, 33, 49, 45, 45, 9, 4, 22, 42, 0, 24, 0, 0, 0, 12, 23, 16, 29, 45, 87, 100, 79, 63, 84, 85, 68, 64, 39, 72, 64, 50, 0, 5, 56, 40, 76, 63, 100, 100, 78, 82, 89, 100,
+data: [		 65, 53, 62, 75, 71, 87, 80, 75, 62, 10, 23, 47, 0, 0, 20, 18, 100, 54, 57, 74, 72, 91, 100, 100, 81, 92, 100, 100, 100, 100, 98, 100, 84, 78, 63, 59, 40, 6, 0, 9, 15, 32, 14, 27, 33, 49, 45, 45, 9, 4, 22, 42, 0, 24, 0, 0, 0, 12, 23, 16, 29, 45, 87, 100, 79, 63, 84, 85, 68, 64, 39, 72, 64, 50, 0, 5, 56, 40, 76, 63, 100, 100, 78, 82, 89, 100, 100,
 ]},
 {
 label: '91',
@@ -348,7 +375,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','25','28','29','30','01','02','05','06','07','M+','M+','M+','M+','M+','M+','M+','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','M+','M+','M+','4S+M+','4S+M+','4S+M+','M+','M+','17','20','21','22','23','24','27','28','29','M+','M+','04','05','06','M+','M+','11','12','13','14','15','18','19','20','21','22'
+labels: ['','28','29','30','01','02','05','06','07','M+','M+','M+','M+','M+','M+','M+','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','M+','M+','M+','4S+M+','4S+M+','4S+M+','M+','M+','17','20','21','22','23','24','27','28','29','M+','M+','04','05','06','M+','M+','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [
 {
@@ -357,7 +384,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 60, 59, 57, 54, 60, 57, 55, 49, 45, 46, 35, 39, 48, 49, 32, 38, 40, 58, 47, 48, 49, 50, 53, 57, 70, 63, 63, 72, 76, 76, 78, 69, 85, 77, 73, 69, 67, 60, 45, 45, 44, 42, 39, 28, 29, 31, 33, 35, 36, 33, 32, 38, 48, 50, 50, 36, 27, 28, 28, 30, 26, 31, 35, 50, 55, 50, 45, 52, 50, 58, 61, 61, 63, 59, 60, 47, 46, 47, 39, 48, 49, 53, 56, 55, 56, 61, 62,
+data: [ 62, 57, 54, 60, 57, 55, 49, 45, 46, 35, 39, 48, 49, 32, 38, 40, 58, 47, 48, 49, 50, 53, 57, 70, 63, 63, 72, 76, 76, 78, 69, 85, 77, 73, 69, 67, 60, 45, 45, 44, 42, 39, 28, 29, 31, 33, 35, 36, 33, 32, 38, 48, 50, 50, 36, 27, 28, 28, 30, 26, 31, 35, 50, 55, 50, 45, 52, 50, 58, 61, 61, 63, 59, 60, 47, 46, 47, 39, 48, 49, 53, 56, 55, 56, 61, 62, 66,
 ]},
 {
 label: '75',
@@ -423,7 +450,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','25','28','29','30','01','02','05','06','07','M+','M+','M+','M+','M+','M+','M+','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','M+','M+','M+','4S+M+','4S+M+','4S+M+','M+','M+','17','20','21','22','23','24','27','28','29','M+','M+','04','05','06','M+','M+','11','12','13','14','15','18','19','20','21','22'
+labels: ['','28','29','30','01','02','05','06','07','M+','M+','M+','M+','M+','M+','M+','19','20','21','22','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','M+','M+','M+','4S+M+','4S+M+','4S+M+','M+','M+','17','20','21','22','23','24','27','28','29','M+','M+','04','05','06','M+','M+','11','12','13','14','15','18','19','20','21','22','25'
 ],
 datasets: [
 {
@@ -432,7 +459,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , -0.10, -0.10, -0.15, -0.16, -0.18, -0.06, -0.03, -0.00, 0.04, 0.07, 0.13, 0.18, 0.27, 0.30, 0.34, 0.38, 0.46, 0.55, 0.63, 0.68, 0.72, 0.72, 0.69, 0.64, 0.60, 0.54, 0.43, 0.31, 0.22, 0.16, 0.14, 0.09, 0.08, 0.07, 0.08, 0.08, 0.06, 0.01, -0.03, -0.06, -0.06, -0.09, -0.10, -0.18, -0.27, -0.35, -0.40, -0.40, -0.42, -0.41, -0.38, -0.30, -0.19, -0.14, -0.12, -0.07, -0.03, -0.03, -0.03, -0.06, -0.03, -0.02, -0.02, -0.09, -0.14, -0.11, -0.12, -0.09, -0.07, 0.00, 0.09, 0.12, 0.15, 0.19, 0.27,
+data: [ , , , , , , , , , , , , -0.20, -0.20, -0.21, -0.22, -0.10, -0.07, -0.04, 0.01, 0.04, 0.10, 0.15, 0.24, 0.27, 0.31, 0.36, 0.44, 0.53, 0.61, 0.67, 0.71, 0.70, 0.68, 0.63, 0.59, 0.53, 0.42, 0.30, 0.21, 0.16, 0.14, 0.09, 0.07, 0.07, 0.08, 0.07, 0.06, 0.01, -0.04, -0.06, -0.06, -0.09, -0.10, -0.18, -0.27, -0.36, -0.40, -0.41, -0.42, -0.41, -0.38, -0.30, -0.19, -0.14, -0.12, -0.07, -0.03, -0.03, -0.03, -0.06, -0.03, -0.02, -0.02, -0.09, -0.14, -0.11, -0.12, -0.09, -0.07, 0.00, 0.09, 0.12, 0.15, 0.19, 0.27, 0.36,
 ]},
 {
 label: '0',
@@ -510,52 +537,27 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <a id='headlineLinkALZC' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244540100"  target="_blank">ALZC "ASSA Abloy"</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244540100"  target="_blank">&nbsp;6M&nbsp;</a>
 <a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244540100"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>32.81€</b></span>
-&nbsp;<span style='font-size:45px; color:green'><b>2.3%</b></span><br>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>33.20€</b></span>
+&nbsp;<span style='font-size:45px; color:green'><b>1.2%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;22&nbsp;&nbsp;</span>
-<span style='font-size:45px'>DIV&nbsp;1%&nbsp</span>&nbsp;
-<style>
-.tooltip {
-//  display:inline-block;
-border-bottom:2px dotted black; 
-font-size:70px;
-line-height:67px;
-vertical-align:baseline;
-}
-.tooltip .tooltiptext {
-visibility:hidden;
-background-color:black;
-color:#fff;
-padding:7px 10px 50px 10px;
-border-radius:6px;
-position:absolute;
-z-index:1;
-font-size:45px;
-margin:70px 0px 0px -410px;
-line-height:100%;
-}
-.tooltip:hover .tooltiptext {
-visibility:visible;
-}
-</style>
-<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
-<img src='../image/flags/SE.jpeg' alt='SE: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span style='font-size:45px'>DIV&nbsp;1%&nbsp;</span>&nbsp;
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
+<img src='../image/flags/SE.jpeg' alt='SE: No Flag' height='50' width='65' style='border:1px solid;'>
 <span class='tooltiptext'>SE:" ASSA ABLOY bietet eine komplette Palette von Toröffnungs-Lösungen. In dem schnell wachsenden elektromechanischen Security-Segment ist der Konzern in den Bereichen Zutrittskontrolle, Identifikationstechnologie, Eingangsautomatisierung und Hotelsicherheit führend. ASSA ABLOY ist weltweit vertreten und eine der ersten Adressen in weiten Teilen Europas sowie in Nordamerika und in der Region Asien-Pazifik. Die regionalen Divisionen EMEA (19 Prozent des Konzernumsatzes 2022), Americas (23%) und Asia Pacific (8%) produzieren und vertreiben in ihren jeweiligen Märkten mechanische und elektromechanische Schlösser, Sicherheitstüren und dazugehörige Hardware. Die Global Technologies division (16%) ist weltweit in den Produktbereichen von Zutrittskontrollsysteme, sichere Kartenausstellung, Identifikationstechnologie und Hotelschließanlagen tätig. Die Entrance Systems division (36%) ist globaler Anbieter von Produkten und Services für automatisierte Eingangstüren. "</span>
 &nbsp;"Sonstige Technologie"</span>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 16%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;33 Mrd.€</div><br>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;35 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-10-22</b>
+<b>2026-10-25</b>
 <b>&nbsp;&nbsp;STOCK</b>
-<b>&nbsp;&nbsp;HV:?</b>
+<b>&nbsp;&nbsp;HV:28.04.27</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>31.43€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>31.24€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>31.34€</b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>31.54€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>31.28€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>31.37€</b></span>
 &nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>100 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>62 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.27 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>66 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>0.36 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
@@ -572,7 +574,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 23-Oct-2026 04:34</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 26-Oct-2026 06:36</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -604,17 +606,15 @@ document.getElementById('buyingSectionInputPriceBuy').value)">Sell</button>
 trimOwnChar(document.getElementsByTagName('TITLE')[0].text),
 document.getElementById('buyingSectionInputPriceBuy').value,
 document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
-Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'/>
-Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6'/>
+Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'>
+Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6' pattern="^\d*(\.\d{0,3})?$">
 <br>
-<br>            
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
-<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:30px; height:30px; vertical-align: middle;">&nbsp;Run Analyse
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:40px; height:40px; vertical-align: middle;">&nbsp;Run Analyse
+<button style='display: none' disabled type="submit">Dummy</button>
 </form>
 </div>
 <br>

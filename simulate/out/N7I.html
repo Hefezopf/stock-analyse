@@ -2,13 +2,40 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+<meta charset="utf-8">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
 <title>N7I
 </title>
 <style>
 .p-result{margin-top:-14px;}
 </style>
+
+<!-- # hover Firmenportrait Text -->
+<style>
+.tooltip {
+border-bottom:2px dotted black; 
+font-size:70px;
+line-height:67px;
+vertical-align:baseline;
+}
+.tooltip .tooltiptext {
+visibility:hidden;
+background-color:black;
+color:#fff;
+padding:7px 10px 50px 10px;
+border-radius:6px;
+position:absolute;
+z-index:1;
+font-size:45px;
+margin:70px 0px 0px -410px;
+line-height:100%;
+}
+.tooltip:hover .tooltiptext {
+visibility:visible;
+}
+</style>
+
+<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
 
 <script>
 /*! 
@@ -50,14 +77,14 @@ grey: 'rgb(201, 203, 207)'
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
 <div style="font-size: large">
-<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244496037&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'/>
+<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244496037&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244496037"  target="_blank">N7I "Apollo Global"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244496037"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244496037"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244496037"  target="_blank">N7I "Apollo Global"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244496037"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244496037"  target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
 
-<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">    
+<div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
 </div>
 
@@ -94,8 +121,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [108.15,
-106.70,
+data: [106.70,
 103.80,
 100.15,
 103.50,
@@ -181,6 +207,7 @@ data: [108.15,
 98.84,
 99.02,
 102.15,
+100.60,
 ]},
 {
 label: 'buy',
@@ -201,21 +228,21 @@ label:' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 112.425, 111.964, 111.589, 111.094, 110.722, 110.119, 109.442, 108.797, 108.142, 107.197, 106.331, 105.581, 104.981, 104.492, 104.231, 103.997, 104.008, 104.261, 104.456, 104.764, 105.075, 105.092, 104.944, 105.186, 105.686, 106.139, 106.522, 106.878, 107.244, 107.739, 108.597, 109.425, 110.503, 111.561, 112.228, 112.828, 113.233, 113.444, 113.683, 114.206, 114.7, 115.022, 115.125, 115.322, 115.586, 115.794, 115.961, 116.039, 115.708, 115.394, 114.861, 114.361, 114.028, 113.786, 113.597, 113.478, 113.192, 112.964, 112.769, 112.594, 112.269, 111.856, 111.239, 110.858, 110.333, 109.731, 109.042, 108.306, 107.631, 107.072, 106.669, 106.15, 105.692, 105.467, 105.358, 105.025, 104.575, 103.912, 103.417, 102.85, 102.461, 102.034, 101.906,
+data: [ , , , , 111.964, 111.589, 111.094, 110.722, 110.119, 109.442, 108.797, 108.142, 107.197, 106.331, 105.581, 104.981, 104.492, 104.231, 103.997, 104.008, 104.261, 104.456, 104.764, 105.075, 105.092, 104.944, 105.186, 105.686, 106.139, 106.522, 106.878, 107.244, 107.739, 108.597, 109.425, 110.503, 111.561, 112.228, 112.828, 113.233, 113.444, 113.683, 114.206, 114.7, 115.022, 115.125, 115.322, 115.586, 115.794, 115.961, 116.039, 115.708, 115.394, 114.861, 114.361, 114.028, 113.786, 113.597, 113.478, 113.192, 112.964, 112.769, 112.594, 112.269, 111.856, 111.239, 110.858, 110.333, 109.731, 109.042, 108.306, 107.631, 107.072, 106.669, 106.15, 105.692, 105.467, 105.358, 105.025, 104.575, 103.912, 103.417, 102.85, 102.461, 102.034, 101.906, 101.676,
 ]},
 {
 label:' Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 108.457, 108.28, 108.114, 108.007, 107.979, 107.916, 107.826, 107.654, 107.491, 107.328, 107.351, 107.386, 107.562, 107.761, 107.967, 108.199, 108.475, 108.788, 109.053, 109.342, 109.588, 109.867, 110.064, 110.38, 110.737, 110.968, 111.195, 111.516, 111.793, 112.034, 112.242, 112.436, 112.608, 112.836, 113.017, 113.154, 113.191, 113.226, 113.233, 113.421, 113.534, 113.539, 113.367, 113.204, 113, 112.867, 112.645, 112.303, 111.784, 111.321, 110.792, 110.272, 109.921, 109.667, 109.461, 109.238, 108.918, 108.545, 108.189, 107.774, 107.368, 106.909, 106.52,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , 108.28, 108.114, 108.007, 107.979, 107.916, 107.826, 107.654, 107.491, 107.328, 107.351, 107.386, 107.562, 107.761, 107.967, 108.199, 108.475, 108.788, 109.053, 109.342, 109.588, 109.867, 110.064, 110.38, 110.737, 110.968, 111.195, 111.516, 111.793, 112.034, 112.242, 112.436, 112.608, 112.836, 113.017, 113.154, 113.191, 113.226, 113.233, 113.421, 113.534, 113.539, 113.367, 113.204, 113, 112.867, 112.645, 112.303, 111.784, 111.321, 110.792, 110.272, 109.921, 109.667, 109.461, 109.238, 108.918, 108.545, 108.189, 107.774, 107.368, 106.909, 106.52, 106.179,
 ]},
 {
 label:' Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 109.538, 109.416, 109.294, 109.146, 108.994, 108.856,
+data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 109.416, 109.294, 109.146, 108.994, 108.856, 108.698,
 ]},
 {
 label:' Buying/Last ',
@@ -223,14 +250,14 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // BUYING_LAST_UNDERNEATH_TO_BE_REPLACED
-data:[102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,102.15,]},
+data:[100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,100.60,]},
 {
 label:' 5% over Buying/Last ',
 fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data:[107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,107.258,]},
+data:[105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,105.63,]},
 ]},
 options: {
 responsive: true,
@@ -276,7 +303,7 @@ labelString: 'Value'}
 var configStochastik = {
 type: 'line',
 data: {
-labels: ['','25','D+N+','4S+D+N+','4S+','M+','M+','M+','06','07','M+','09','12','13','14','15','16','19','20','M+','22','23','26','27','28','29','M+','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','4S+M+','4S+M+','M+','21','22','M+','M+','M+','D+N+M+','4S+M+','5S+D+N+M+','C+5S+D+N+M+','6S+D+N+M+','5S+M+','06','5S+','4S+','11','12','13','14','D+N+M+','P+D+N+M+','4S+P+D+N+M+','5S+P+M+','6S+P+M+','6S+'
+labels: ['','D+N+','4S+D+N+','4S+','M+','M+','M+','06','07','M+','09','12','13','14','15','16','19','20','M+','22','23','26','27','28','29','M+','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','4S+M+','4S+M+','M+','21','22','M+','M+','M+','D+N+M+','4S+M+','5S+D+N+M+','C+5S+D+N+M+','6S+D+N+M+','5S+M+','06','5S+','4S+','11','12','13','14','D+N+M+','P+D+N+M+','4S+P+D+N+M+','5S+P+M+','6S+P+M+','6S+','25'
 ],
 datasets: [
 {
@@ -285,7 +312,7 @@ fill: true,
 backgroundColor: window.chartColors.orange,
 borderColor: window.chartColors.orange,
 tension: 0.3,
-data: [		 0, 0, 0, 0, 16, 12, 17, 19, 32, 21, 17, 28, 37, 40, 62, 78, 78, 61, 18, 0, 35, 51, 100, 100, 100, 26, 23, 93, 100, 100, 93, 70, 80, 100, 100, 95, 100, 93, 63, 60, 39, 17, 28, 29, 24, 30, 20, 40, 45, 13, 19, 72, 57, 48, 24, 0, 0, 16, 12, 0, 0, 14, 15, 42, 0, 9, 0, 11, 0, 4, 0, 0, 0, 13, 15, 6, 14, 60, 67, 44, 5, 0, 0, 0, 0, 2, 43,
+data: [		 0, 0, 0, 16, 12, 17, 19, 32, 21, 17, 28, 37, 40, 62, 78, 78, 61, 18, 0, 35, 51, 100, 100, 100, 26, 23, 93, 100, 100, 93, 70, 80, 100, 100, 95, 100, 93, 63, 60, 39, 17, 28, 29, 24, 30, 20, 40, 45, 13, 19, 72, 57, 48, 24, 0, 0, 16, 12, 0, 0, 14, 15, 42, 0, 9, 0, 11, 0, 4, 0, 0, 0, 13, 15, 6, 14, 60, 67, 44, 5, 0, 0, 0, 0, 2, 43, 23,
 ]},
 {
 label: '91',
@@ -348,7 +375,7 @@ suggestedMax: 100,
 var configRSI = {
 type: 'line',
 data: {
-labels: ['','25','D+N+','4S+D+N+','4S+','M+','M+','M+','06','07','M+','09','12','13','14','15','16','19','20','M+','22','23','26','27','28','29','M+','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','4S+M+','4S+M+','M+','21','22','M+','M+','M+','D+N+M+','4S+M+','5S+D+N+M+','C+5S+D+N+M+','6S+D+N+M+','5S+M+','06','5S+','4S+','11','12','13','14','D+N+M+','P+D+N+M+','4S+P+D+N+M+','5S+P+M+','6S+P+M+','6S+'
+labels: ['','D+N+','4S+D+N+','4S+','M+','M+','M+','06','07','M+','09','12','13','14','15','16','19','20','M+','22','23','26','27','28','29','M+','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','4S+M+','4S+M+','M+','21','22','M+','M+','M+','D+N+M+','4S+M+','5S+D+N+M+','C+5S+D+N+M+','6S+D+N+M+','5S+M+','06','5S+','4S+','11','12','13','14','D+N+M+','P+D+N+M+','4S+P+D+N+M+','5S+P+M+','6S+P+M+','6S+','25'
 ],
 datasets: [
 {
@@ -357,7 +384,7 @@ fill: true,
 backgroundColor: window.chartColors.yellow,
 borderColor: window.chartColors.yellow,
 tension: 0.3,
-data: [ 42, 41, 37, 27, 33, 28, 30, 29, 33, 24, 23, 27, 31, 31, 42, 47, 53, 64, 49, 49, 51, 52, 50, 62, 69, 48, 46, 62, 66, 66, 64, 58, 64, 70, 75, 73, 73, 69, 58, 66, 64, 55, 51, 51, 51, 58, 55, 54, 40, 36, 29, 36, 46, 46, 46, 51, 39, 42, 43, 35, 33, 29, 27, 42, 34, 29, 26, 29, 28, 30, 30, 24, 25, 31, 34, 28, 32, 36, 44, 36, 38, 32, 36, 33, 38, 42, 52,
+data: [ 47, 37, 27, 33, 28, 30, 29, 33, 24, 23, 27, 31, 31, 42, 47, 53, 64, 49, 49, 51, 52, 50, 62, 69, 48, 46, 62, 66, 66, 64, 58, 64, 70, 75, 73, 73, 69, 58, 66, 64, 55, 51, 51, 51, 58, 55, 54, 40, 36, 29, 36, 46, 46, 46, 51, 39, 42, 43, 35, 33, 29, 27, 42, 34, 29, 26, 29, 28, 30, 30, 24, 25, 31, 34, 28, 32, 36, 44, 36, 38, 32, 36, 33, 38, 42, 52, 44,
 ]},
 {
 label: '75',
@@ -423,7 +450,7 @@ suggestedMax: 100,
 var configMACD = {
 type: 'line',
 data: {
-labels: ['','25','D+N+','4S+D+N+','4S+','M+','M+','M+','06','07','M+','09','12','13','14','15','16','19','20','M+','22','23','26','27','28','29','M+','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','4S+M+','4S+M+','M+','21','22','M+','M+','M+','D+N+M+','4S+M+','5S+D+N+M+','C+5S+D+N+M+','6S+D+N+M+','5S+M+','06','5S+','4S+','11','12','13','14','D+N+M+','P+D+N+M+','4S+P+D+N+M+','5S+P+M+','6S+P+M+','6S+'
+labels: ['','D+N+','4S+D+N+','4S+','M+','M+','M+','06','07','M+','09','12','13','14','15','16','19','20','M+','22','23','26','27','28','29','M+','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','4S+M+','4S+M+','M+','21','22','M+','M+','M+','D+N+M+','4S+M+','5S+D+N+M+','C+5S+D+N+M+','6S+D+N+M+','5S+M+','06','5S+','4S+','11','12','13','14','D+N+M+','P+D+N+M+','4S+P+D+N+M+','5S+P+M+','6S+P+M+','6S+','25'
 ],
 datasets: [
 {
@@ -432,7 +459,7 @@ fill: true,
 backgroundColor: window.chartColors.blue,
 borderColor: window.chartColors.blue,
 tension: 0.3,
-data: [ , , , , , , , , , , , , -4.12, -4.12, -3.90, -3.60, -3.32, -3.08, -2.99, -2.96, -2.79, -2.57, -2.18, -1.75, -1.31, -1.35, -1.38, -1.02, -0.43, 0.07, 0.41, 0.48, 0.62, 0.98, 1.78, 2.33, 2.95, 3.31, 3.10, 2.87, 2.55, 2.10, 1.84, 1.63, 1.38, 1.31, 1.21, 1.29, 1.38, 1.16, 1.00, 1.00, 0.93, 0.84, 0.66, 0.45, 0.08, -0.12, -0.29, -0.50, -0.79, -0.90, -0.99, -0.89, -1.05, -1.11, -1.40, -1.54, -1.81, -1.98, -2.28, -2.58, -2.80, -2.82, -2.79, -2.81, -2.72, -2.37, -2.02, -1.95, -2.05, -2.25, -2.39, -2.52, -2.59, -2.61, -2.34,
+data: [ , , , , , , , , , , , , -4.03, -4.03, -3.73, -3.44, -3.19, -3.10, -3.07, -2.89, -2.66, -2.26, -1.83, -1.39, -1.42, -1.45, -1.08, -0.49, 0.02, 0.36, 0.43, 0.57, 0.94, 1.74, 2.30, 2.92, 3.28, 3.07, 2.84, 2.53, 2.08, 1.82, 1.61, 1.37, 1.29, 1.19, 1.27, 1.36, 1.14, 0.99, 0.99, 0.92, 0.83, 0.65, 0.44, 0.07, -0.12, -0.30, -0.51, -0.79, -0.91, -0.99, -0.89, -1.05, -1.11, -1.40, -1.54, -1.82, -1.99, -2.28, -2.58, -2.80, -2.82, -2.79, -2.81, -2.73, -2.37, -2.02, -1.95, -2.05, -2.25, -2.39, -2.52, -2.60, -2.61, -2.34, -2.23,
 ]},
 {
 label: '0',
@@ -507,62 +534,37 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkN7I' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244496037"  target="_blank">N7I "Apollo Global"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244496037"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244496037"  target="_blank">&nbsp;5Y&nbsp;</a>
-&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>102.15€</b></span>
-&nbsp;<span style='font-size:45px; color:green'><b>3.2%</b></span><br>
+<a id='headlineLinkN7I' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244496037"  target="_blank">N7I "Apollo Global"</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244496037"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244496037"  target="_blank">&nbsp;5Y&nbsp;</a>
+&nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>100.60€</b></span>
+&nbsp;<span style='font-size:45px; color:red'><b>-1.5%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;12&nbsp;&nbsp;</span>
-<span style='font-size:45px'>DIV&nbsp;1%&nbsp</span>&nbsp;
-<style>
-.tooltip {
-//  display:inline-block;
-border-bottom:2px dotted black; 
-font-size:70px;
-line-height:67px;
-vertical-align:baseline;
-}
-.tooltip .tooltiptext {
-visibility:hidden;
-background-color:black;
-color:#fff;
-padding:7px 10px 50px 10px;
-border-radius:6px;
-position:absolute;
-z-index:1;
-font-size:45px;
-margin:70px 0px 0px -410px;
-line-height:100%;
-}
-.tooltip:hover .tooltiptext {
-visibility:visible;
-}
-</style>
-<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle('active')'>
-<img src='../../image/flags/US.jpeg' alt='US: No Flag' width='5%' height='5%' style='border:1px solid;'>
+<span style='font-size:45px'>DIV&nbsp;2%&nbsp;</span>&nbsp;
+<span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
+<img src='../../image/flags/US.jpeg' alt='US: No Flag' height='50' width='65' style='border:1px solid;'>
 <span class='tooltiptext'>US:" Die Apollo Global Management, Inc. ist ein global tätiger Vermögensverwalter für alternative Anlagen und Anbieter von Altersvorsorgeleistungen. Das Geschäft ist in die drei berichtspflichtigen Segmenten Vermögensverwaltung, Altersvorsorgeleistungen und Principal Investing unterteilt. In der Vermögensverwaltung konzentriert sich Apollo auf die drei Anlagestrategien Rendite, Hybrid und Eigenkapital. Der Geschäftsbereich für Altersvorsorge wird von Athene Annuity geführt, einem führenden Finanzdienstleistungsunternehmen, das sich auf die Ausgabe, Rückversicherung und den Erwerb von Altersvorsorge-Produkten spezialisiert hat, die für Einzelpersonen und Institutionen entwickelt wurden, die ihre Altersvorsorge finanzieren möchten. Das Segment Principal Investing umfasst realisierte Performancegebühren und Anlageerträge sowie Wachstumskapital- und Liquiditätsressourcen. "</span>
 &nbsp;"Finanzdienstleistungen"</span>
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 29%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;58 Mrd.€</div><br>
+<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;59 Mrd.€</div><br>
 <br><p class='p-result'>
-<b>2026-10-22</b>
+<b>2026-10-25</b>
 <b>&nbsp;&nbsp;STOCK</b>
 <b>&nbsp;&nbsp;HV:?</b>
 </p>
 <p class='p-result'>
-<span style='color:rgb(153, 102, 255)'>Avg18:<b>101.91€</b></span>
-&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>106.52€</b></span>
-&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>108.86€</b></span>
-&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>43 </b></span>
-&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>52 </b></span>
-&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-2.34 </b></span>
+<span style='color:rgb(153, 102, 255)'>Avg18:<b>101.68€</b></span>
+&nbsp;<span style='color:rgb(205, 99, 132)'>Avg38:<b>106.18€</b></span>
+&nbsp;<span style='color:rgb(75, 192, 192)'>Avg95:<b>108.70€</b></span>
+&nbsp;<span style='color:rgb(255, 159, 64)'>Stoch14:<b>23 </b></span>
+&nbsp;<span style='color:rgb(255, 205, 86)'>RSI14:<b>44 </b></span>
+&nbsp;<span style='color:rgb(54, 162, 235)'>MACD:<b>-2.23 </b></span>
 </p>
 <p class='p-result' style='color:rgb(205, 99, 132)'><b>  </b></p>
 <p class='p-result' style='color:rgb(0, 0, 0)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 66)'><b>  </b></p>
 <p class='p-result' style='color:rgb(54, 162, 235)'><b>  </b></p>
 <p class='p-result' style='color:rgb(205, 205, 0)'><b>  </b></p>
-<p class='p-result' style='color:rgb(255, 159, 64)'><b> Buy: Low 6 last Stochastic (S): 6 last quotes under level </b></p>
+<p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
 <p class='p-result' style='color:rgb(245, 111, 166)'><b>  </b></p>
@@ -572,7 +574,7 @@ visibility:visible;
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br>Good Luck! 23-Oct-2026 06:54
+<br>Good Luck! 26-Oct-2026 08:31
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
@@ -604,17 +606,15 @@ document.getElementById('buyingSectionInputPriceBuy').value)">Sell</button>
 trimOwnChar(document.getElementsByTagName('TITLE')[0].text),
 document.getElementById('buyingSectionInputPriceBuy').value,
 document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
-Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'/>
-Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6'/>
+Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'>
+Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6' pattern="^\d*(\.\d{0,3})?$">
 <br>
-<br>            
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
-<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:30px; height:30px; vertical-align: middle;">&nbsp;Run Analyse
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:40px; height:40px; vertical-align: middle;">&nbsp;Run Analyse
+<button style='display: none' disabled type="submit">Dummy</button>
 </form>
 </div>
 <br>
