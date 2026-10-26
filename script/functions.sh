@@ -270,6 +270,8 @@ WriteComdirectUrlAndStoreFileList() {
     # Evtl. TODO?!
     #_fontSizeParam=${10} # 10th and more need {}    
 
+    _symbolNameParam="${_symbolNameParam//&/&amp;}"
+
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "$_markerOwnStockParam" = '' ]; then
         _linkColorParam="$BLACK"
@@ -285,6 +287,8 @@ WriteComdirectUrlAndStoreFileList() {
         {    
             ID_NOTATION_STORE_FOR_NEXT_TIME=$_id_notation
             # Hover Chart (result overview page)
+# No ID?            
+            #echo "<img alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'>"
             echo "<img id='imgToReplace$_symbolParam' alt='' loading='lazy' style='display:none;position:fixed;top:25%;left:20%;transform:scale(1.5);border:1px solid;' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$_id_notation&TIME_SPAN=10D'>"
             echo "<div id='headlineLinkId$_symbolParam' style='margin-top:26px'>"
             

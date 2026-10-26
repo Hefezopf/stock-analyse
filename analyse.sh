@@ -701,11 +701,11 @@ do
         # Maybe delete lines? redundant to those in 460...
 
 #############
-        echo "<a id='headlineLink$symbol' $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+        symbolNameEncoded="${symbolName//&/&amp;}"
+        echo "<a id='headlineLink$symbol' $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolNameEncoded</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
         echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
         echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:rgb(0, 0, 0)'><b>$lastThousand€</b></span>"
-        #echo "&nbsp;<span style='font-size:40px; color:$_linkColor'><b>$lastThousand€</b></span>"        
         echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>$percentLastDay%</b></span><br>" 
 #############
 
@@ -752,7 +752,7 @@ do
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
                 echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.classList.toggle(\"active\")'>
-                        <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' height='45' width='65' style='border:1px solid;'>
+                        <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' style='border:1px solid; height:35px; width:auto;'>
                         <span class='tooltiptext'>${isin:0:2}:${firmenportrait}</span>
                       &nbsp;$branche</span>"
             fi
