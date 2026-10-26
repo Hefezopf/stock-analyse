@@ -251,9 +251,9 @@ echo "RSI: $RSIQuoteParam" | tee -a "$OUT_RESULT_FILE"
 echo "</div>" >> "$OUT_RESULT_FILE"
 {
     echo "<span id='analyseId'><br><br># Analyse<br><br></span>"  
-    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onClick='javascript:doHideDetails()'>&nbsp;Details</button>&nbsp;&nbsp;"
-    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onClick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;"
-    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onClick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;"
+    echo "<button id='intervalSectionButtonHideDetails' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onclick='javascript:doHideDetails()'>&nbsp;Details</button>&nbsp;&nbsp;"
+    echo "<button id='intervalSectionButtonGoToEnd' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onclick='javascript:doGoToEnd()'>To End</button>&nbsp;&nbsp;"
+    echo "<button id='intervalSectionButtonOpenAll' style='font-size:large; height: 70px; width: 140px; display: none' disabled type='button' onclick='javascript:doOpenAllInTab()'>Open All</button>&nbsp;&nbsp;"
 
     echo "<hr id='intervalSectionHROverallButtons' style='display: none'>"
 } >> "$OUT_RESULT_FILE"
@@ -878,22 +878,22 @@ do
 
             # Interval Beep
             # echo "<span id='intervalSectionBeep$symbol' style='font-size:large; display: none'>"
-            # echo "Delay: <span id='intervalSectionRegularMarketTimeOffset$symbol' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalField$symbol' id='intervalField$symbol' type='text' style='height: 45px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButton$symbol' style='font-size:large; height: 50px; width: 97px' onClick=\"javascript:setBeepInterval('$symbol')\">Minutes</button><span id='intervalText$symbol'></span>"
+            # echo "Delay: <span id='intervalSectionRegularMarketTimeOffset$symbol' style='font-size:large; display: none'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='intervalField$symbol' id='intervalField$symbol' type='text' style='height: 45px;' maxlength='3' size='3' value='10'/>&nbsp;<button type='button' id='intervalButton$symbol' style='font-size:large; height: 50px; width: 97px' onclick=\"javascript:setBeepInterval('$symbol')\">Minutes</button><span id='intervalText$symbol'></span>"
             # echo "</span>"
 
             # Image Chart
             echo "<img id='intervalSectionImage$symbol' alt='' src='#' style='display: none; border: 1px solid;'><br>
-                  <button id=\"intervalSectionButtonDetails1D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '1D')\">1D</button>
-                  <button id=\"intervalSectionButtonDetails5D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '5D')\">5D</button>
-                  <button id=\"intervalSectionButtonDetails10D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '10D')\">10D</button>
-                  <button id=\"intervalSectionButtonDetails3M$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '3M')\">3M</button>
-                  <button id=\"intervalSectionButtonDetails6M$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '6M')\">6M</button>
-                  <button id=\"intervalSectionButtonDetails1Y$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '1Y')\">1Y</button>
-                  <button id=\"intervalSectionButtonDetails5Y$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '5Y')\">5Y</button>
-                  <button id=\"intervalSectionButtonDetailsSE$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:updateImage('$symbol', '$ID_NOTATION', 'SE')\">Max</button>
+                  <button id=\"intervalSectionButtonDetails1D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '1D')\">1D</button>
+                  <button id=\"intervalSectionButtonDetails5D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '5D')\">5D</button>
+                  <button id=\"intervalSectionButtonDetails10D$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '10D')\">10D</button>
+                  <button id=\"intervalSectionButtonDetails3M$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '3M')\">3M</button>
+                  <button id=\"intervalSectionButtonDetails6M$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '6M')\">6M</button>
+                  <button id=\"intervalSectionButtonDetails1Y$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '1Y')\">1Y</button>
+                  <button id=\"intervalSectionButtonDetails5Y$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:updateImage('$symbol', '$ID_NOTATION', '5Y')\">5Y</button>
+                  <button id=\"intervalSectionButtonDetailsSE$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:updateImage('$symbol', '$ID_NOTATION', 'SE')\">Max</button>
                   <p id='intervalSectionButtonDetailsP$symbol' style='display: none'>
-                    <button id=\"intervalSectionButtonSell$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:curlSell('$symbol', '$stocksPieces', document.getElementById('intervalSectionInputPriceBuy$symbol').value)\">Sell</button>
-                    <button id=\"intervalSectionButtonBuy$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onClick=\"javascript:curlBuy(
+                    <button id=\"intervalSectionButtonSell$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:curlSell('$symbol', '$stocksPieces', document.getElementById('intervalSectionInputPriceBuy$symbol').value)\">Sell</button>
+                    <button id=\"intervalSectionButtonBuy$symbol\" style='font-size:large; height: 50px; width: 80px; display: none' type=\"button\" onclick=\"javascript:curlBuy(
                         '$symbol', document.getElementById('intervalSectionInputPriceBuy$symbol').value, document.getElementById('intervalSectionInputPiecesBuy$symbol').value)\">ReBuy</button>
                     Pieces&nbsp;<input name='intervalSectionInputPiecesBuy$symbol' id='intervalSectionInputPiecesBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'>
                     Price&nbsp;<input name='intervalSectionInputPriceBuy$symbol' id='intervalSectionInputPriceBuy$symbol' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'>
@@ -955,14 +955,14 @@ fi
     # DAX
     echo "<span id='intervalSectionHeadlineDAX' style='display:none'><br>DAX<br></span>"
     echo "<img id='intervalSectionImageDAX' alt='' src='#' style='display: none; width:68%'><br>
-        <button id='intervalSectionButton1DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '1D')\">1D</button>
-        <button id='intervalSectionButton5DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '5D')\">5D</button>
-        <button id='intervalSectionButton10DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '10D')\">10D</button>
-        <button id='intervalSectionButton3MDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '3M')\">3M</button>
-        <button id='intervalSectionButton6MDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '6M')\">6M</button>
-        <button id='intervalSectionButton1YDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '1Y')\">1Y</button>
-        <button id='intervalSectionButton5YDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', '5Y')\">5Y</button>
-        <button id='intervalSectionButtonSEDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:updateImage('DAX', '35803356', 'SE')\">Max</button>
+        <button id='intervalSectionButton1DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onclick=\"javascript:updateImage('DAX', '35803356', '1D')\">1D</button>
+        <button id='intervalSectionButton5DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onclick=\"javascript:updateImage('DAX', '35803356', '5D')\">5D</button>
+        <button id='intervalSectionButton10DDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onclick=\"javascript:updateImage('DAX', '35803356', '10D')\">10D</button>
+        <button id='intervalSectionButton3MDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onclick=\"javascript:updateImage('DAX', '35803356', '3M')\">3M</button>
+        <button id='intervalSectionButton6MDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onclick=\"javascript:updateImage('DAX', '35803356', '6M')\">6M</button>
+        <button id='intervalSectionButton1YDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onclick=\"javascript:updateImage('DAX', '35803356', '1Y')\">1Y</button>
+        <button id='intervalSectionButton5YDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onclick=\"javascript:updateImage('DAX', '35803356', '5Y')\">5Y</button>
+        <button id='intervalSectionButtonSEDAX' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onclick=\"javascript:updateImage('DAX', '35803356', 'SE')\">Max</button>
         <hr id='intervalSectionHRDAX' style='display: none'>"
 
     symbolsParam="$symbolsParam *DAX"
@@ -981,7 +981,7 @@ fi
           <span id='intervalSectionButtonBuyGenerellParagraph' style='display: none'>
             Buy new Symbols:
             <br>
-            <button id='intervalSectionButtonBuyGenerellButton' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onClick=\"javascript:curlBuy(
+            <button id='intervalSectionButtonBuyGenerellButton' style='font-size:large; height: 50px; width: 80px; display: none' type='button' onclick=\"javascript:curlBuy(
                 document.getElementById('intervalSectionInputSymbolBuyGenerell').value, document.getElementById('intervalSectionInputPriceBuyGenerell').value, document.getElementById('intervalSectionInputPiecesBuyGenerell').value)\">Buy</button>
             Symbol&nbsp;<input name='intervalSectionInputSymbolBuyGenerell' id='intervalSectionInputSymbolBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'>
             Pieces&nbsp;<input name='intervalSectionInputPiecesBuyGenerell' id='intervalSectionInputPiecesBuyGenerell' style='display: none; height: 45px;' type='text' maxlength='7' value='' size='5'>

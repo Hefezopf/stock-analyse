@@ -279,7 +279,7 @@ echo "Est. yearly gain: $estSumEndOfYear€"
 count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
 echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Gain till today before tax: <b>$summe€ = $percentTillToday%</b><br>&nbsp;Est. yearly gain: $estSumEndOfYear€<br>&nbsp;Transactions: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
-echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onClick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onclick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
 awk '{a[i++]=$0} END {for (j=i-1; j>=0;) print a[j--] }' $TRANSACTION_HISTORY_FILE* > "$TEMP_REVERS_FILE"
