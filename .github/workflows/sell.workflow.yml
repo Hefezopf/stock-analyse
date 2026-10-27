@@ -19,9 +19,9 @@ on:
         required: true
         default: 'BEI'
       sellPiecesParam:
-        description: 'SELL_PIECES - Number of pieces to sell: "100" pieces'
+        description: 'SELL_PIECES - Number of pieces to sell: "1" pieces'
         required: true
-        default: '100'
+        default: '1'
       sellPriceParam:
         description: 'SELL_PRICE - Selling Price: "9.99" EUR'
         required: true
@@ -90,11 +90,7 @@ jobs:
           symbolsVar=${symbolsVar::-1}
           rm -rf config/own_symbols.txt
 
-
-
-          exit 1
-
-
+          #exit 1
 
           chmod +x ./analyse.sh
           if echo "$symbolsVar" | grep -q "$symbolVar"
@@ -109,12 +105,8 @@ jobs:
       - name: Run Git
         run: |
           echo "Git commit and push"
-          
 
-
-          exit 2
-
-
+          #exit 2
 
           #git fetch --unshallow origin
           git config user.email ${{secrets.MAIL_ADRESS}}
