@@ -480,11 +480,11 @@ export -f WriteComdirectUrlAndStoreFileList
   [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == '' ]
 
   StrategieOverratedHighStochasticHighRSIHighMACD 91 70 92 71 "0" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" * "999999"
-  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic &amp; RSI &amp; MACD+ (C): Stochastic 92 over level and RSI 71 over level' ]
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic & RSI & MACD+ (C): Stochastic 92 over level and RSI 71 over level' ]
 
   resultStrategieOverratedHighStochasticHighRSIHighMACD=""
   StrategieOverratedHighStochasticHighRSIHighMACD 91 70 92 71 "0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" * "999999"
-  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic &amp; RSI &amp; MACD+ (C): Stochastic 92 over level and RSI 71 over level' ]  
+  [ "$resultStrategieOverratedHighStochasticHighRSIHighMACD" == 'Sell: High Stochastic & RSI & MACD+ (C): Stochastic 92 over level and RSI 71 over level' ]  
 }
 
 @test "StrategieUnderratedLowStochasticLowRSILowMACD" {
@@ -511,7 +511,7 @@ export -f WriteComdirectUrlAndStoreFileList
 
   resultStrategieUnderratedLowStochasticLowRSILowMACD=""
   StrategieUnderratedLowStochasticLowRSILowMACD 9 90 0 5 "-0.1" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" * "999999"
-  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic &amp; RSI &amp; MACD- (C): Stochastic 0 under level and RSI 5 under level' ]
+  [ "$resultStrategieUnderratedLowStochasticLowRSILowMACD" == 'Buy: Low Stochastic & RSI & MACD- (C): Stochastic 0 under level and RSI 5 under level' ]
 }
 
 @test "StrategieUnderratedByPercentAndStoch" {
@@ -526,7 +526,7 @@ export -f WriteComdirectUrlAndStoreFileList
 
   resultStrategieUnderratedByPercentAndStochastic=""
   StrategieUnderratedByPercentAndStochastic 0 9 1 1 1 1 1 1 "46.95" "0.99" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" * "999999"
-  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'Buy: Low Percent &amp; Stochastic (P): 46.95€ is 0.99 under Avg18 &lt; Avg38 &lt; Avg95 and Stoch14 0 under level' ]  
+  [ "$resultStrategieUnderratedByPercentAndStochastic" == 'Buy: Low Percent & Stochastic (P): 46.95€ is 0.99 under Avg18 &lt; Avg38 &lt; Avg95 and Stoch14 0 under level' ]  
 }
 
 @test "StrategieOverratedByPercentAndStoch" {
@@ -541,7 +541,7 @@ export -f WriteComdirectUrlAndStoreFileList
 
   resultStrategieOverratedByPercentAndStochastic=""
   StrategieOverratedByPercentAndStochastic 100 91 1 1 1 1 1 1 "5.61" "1.01" "$OUT_RESULT_FILE" "$SYMBOL" "$SYMBOL_NAME" * "999999"
-  [ "$resultStrategieOverratedByPercentAndStochastic" == 'Sell: High Percent &amp; Stochastic (P): 5.61€ is 1.01 over Avg18 > Avg38 > Avg95 and Stoch14 100 over level' ]
+  [ "$resultStrategieOverratedByPercentAndStochastic" == 'Sell: High Percent & Stochastic (P): 5.61€ is 1.01 over Avg18 > Avg38 > Avg95 and Stoch14 100 over level' ]
 }
 
 @test "StrategieOverratedStochasticWhenOwn" {

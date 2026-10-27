@@ -473,7 +473,7 @@ StrategieOverratedByPercentAndStochastic() {
        [ "$_lastOverAgv18Param" = 1 ] && [ "$_lastOverAgv38Param" = 1 ] && [ "$_lastOverAgv95Param" = 1 ] && 
        [ "$_agv18OverAgv38Param" = 1 ] && [ "$_agv38OverAgv95Param" = 1 ] && [ "$_agv18OverAgv95Param" = 1 ]; then
         alarmAbbrevValue=P-$alarmAbbrevValue
-        reasonPrefix="Sell: High Percent &amp; Stochastic (P)"
+        reasonPrefix="Sell: High Percent & Stochastic (P)"
         resultStrategieOverratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageLesserFactorParam over Avg18 > Avg38 > Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam over level"
         echo "$resultStrategieOverratedByPercentAndStochastic"
         WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
@@ -507,9 +507,10 @@ StrategieUnderratedByPercentAndStochastic() {
        [ "$_lastUnderAgv18Param" = 1 ] && [ "$_lastUnderAgv38Param" = 1 ] && [ "$_lastUnderAgv95Param" = 1 ] && 
        [ "$_agv18UnderAgv38Param" = 1 ] && [ "$_agv38UnderAgv95Param" = 1 ] && [ "$_agv18UnderAgv95Param" = 1 ]; then
         alarmAbbrevValue=P+$alarmAbbrevValue
-        reasonPrefix="Buy: Low Percent &amp; Stochastic (P)"
+        reasonPrefix="Buy: Low Percent & Stochastic (P)"
         resultStrategieUnderratedByPercentAndStochastic="$reasonPrefix: $_lastPriceParam€ is $_percentageGreaterFactorParam under Avg18 &lt; Avg38 &lt; Avg95 and Stoch14 $_lastStochasticQuoteRoundedParam under level"
-        echo "$resultStrategieUnderratedByPercentAndStochastic"
+        resultStrategieUnderratedByPercentAndStochasticEcho="${resultStrategieUnderratedByPercentAndStochastic//&lt;/<}"
+        echo "$resultStrategieUnderratedByPercentAndStochasticEcho"
         WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
     fi
 }
@@ -710,7 +711,7 @@ StrategieOverratedHighStochasticHighRSIHighMACD() {
         # Last Stochastic quote over _highStochasticValueParam and Last RSI quote over _highRSIValue and _lastMACDValueParam is positiv
         if [ "$_lastStochasticQuoteRoundedParam" -gt "$_highStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -gt "$_highRSIQuoteParam" ] && [ ! "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C-$alarmAbbrevValue
-            reasonPrefix="Sell: High Stochastic &amp; RSI &amp; MACD+ (C)"
+            reasonPrefix="Sell: High Stochastic & RSI & MACD+ (C)"
             resultStrategieOverratedHighStochasticHighRSIHighMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam over level and RSI $_lastRSIQuoteRoundedParam over level"
             echo "$resultStrategieOverratedHighStochasticHighRSIHighMACD"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$RED" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"
@@ -740,7 +741,7 @@ StrategieUnderratedLowStochasticLowRSILowMACD() {
         # Last Stochastic quote under _lowStochasticValueParam and Last RSI quote under _lowRSIValue and _lastMACDValueParam is negativ
         if [ "$_lastStochasticQuoteRoundedParam" -lt "$_lowStochasticValueParam" ] && [ "$_lastRSIQuoteRoundedParam" -lt "$_lowRSIQuoteParam" ] && [ "$_lastMACDValueParamSign" = '-' ]; then
             alarmAbbrevValue=C+$alarmAbbrevValue
-            reasonPrefix="Buy: Low Stochastic &amp; RSI &amp; MACD- (C)"
+            reasonPrefix="Buy: Low Stochastic & RSI & MACD- (C)"
             resultStrategieUnderratedLowStochasticLowRSILowMACD="$reasonPrefix: Stochastic $_lastStochasticQuoteRoundedParam under level and RSI $_lastRSIQuoteRoundedParam under level"
             echo "$resultStrategieUnderratedLowStochasticLowRSILowMACD"
             WriteComdirectUrlAndStoreFileList "$_outResultFileParam" "$_symbolParam" "$_symbolNameParam" "$GREEN" "$_markerOwnStockParam" "$reasonPrefix" "$lowMarketCapLinkBackgroundColor" "" "$_idNotationParam"

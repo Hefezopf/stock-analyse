@@ -271,6 +271,7 @@ WriteComdirectUrlAndStoreFileList() {
     #_fontSizeParam=${10} # 10th and more need {}    
 
     _symbolNameParam="${_symbolNameParam//&/&amp;}"
+    _reasonParam="${_reasonParam//&/&amp;}"
 
     # Red link only for stocks that are marked as own
     if [ "$_linkColorParam" = "$RED" ] && [ "$_markerOwnStockParam" = '' ]; then
