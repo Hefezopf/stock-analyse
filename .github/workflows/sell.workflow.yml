@@ -26,6 +26,11 @@ on:
         description: 'SELL_PRICE - Selling Price: "9.99" EUR'
         required: true
         default: '9.99'
+      runAnalyseParam:
+        description: 'RUN ANALYSE - Run ananlyse.sh for own stocks: true'     
+        type: boolean
+        required: false
+        default: false         
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -68,14 +73,30 @@ jobs:
           chmod +x ./script/sell.sh
           ./script/sell.sh "$symbolVar" "$sellPiecesVar" "$sellPriceVar"
 
+          echo "Run Analyse"
+          echo "inputs.runAnalyseParam: ${{github.event.inputs.runAnalyseParam}}"
+          echo "client_payload.runAnalyse: ${{github.event.client_payload.runAnalyse}}"
+
+      - name: Run Analyse
+        if: |
+          startsWith(github.event.inputs.runAnalyseParam, 'true') ||
+          startsWith(github.event.client_payload.runAnalyse, 'true')
+        run: |
+          echo "Run analyse.sh of own stocks"
+          export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
           gpg --batch --yes --passphrase "$GPG_PASSPHRASE" config/own_symbols.txt.gpg
           symbolsVar=$(sed 's/^/*/' config/own_symbols.txt | cut -f1 -d ' ' | tr '\n' ' ')
           # Trim last character (blank)
           symbolsVar=${symbolsVar::-1}
           rm -rf config/own_symbols.txt
 
+
+
+          exit 1
+
+
+
           chmod +x ./analyse.sh
-          
           if echo "$symbolsVar" | grep -q "$symbolVar"
           then
             echo "Sell partial..."
@@ -84,6 +105,16 @@ jobs:
             echo "Sell all..."
             ./analyse.sh "$symbolsVar $symbolVar" 1 9 25
           fi        
+
+      - name: Run Git
+        run: |
+          echo "Git commit and push"
+          
+
+
+          exit 2
+
+
 
           #git fetch --unshallow origin
           git config user.email ${{secrets.MAIL_ADRESS}}
