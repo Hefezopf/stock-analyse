@@ -91,24 +91,34 @@ jobs:
           rm -rf config/own_symbols.txt
 
           chmod +x ./analyse.sh
-          symbolVar=${symbolInput:-$symbolDefault}  
+
+          symbolDefault='${{github.event.client_payload.symbol}}'
+          symbolInput="${{github.event.inputs.symbolParam}}"
+          symbolVar=${symbolInput:-$symbolDefault}
+
           echo "symbolVar: $symbolVar"
+          
           if echo "$symbolsVar" | grep -q "$symbolVar"
           then
             echo "Sell partial..."
-            ./analyse.sh "$symbolsVar" 1 9 25
 
 
             exit 1
 
 
+
+            ./analyse.sh "$symbolsVar" 1 9 25
+
           else 
             echo "Sell all..."
+
+
+
+            exit 1 
+
+
+
             ./analyse.sh "$symbolsVar $symbolVar" 1 9 25
-
-            exit 1        
-
-
           fi        
 
       - name: Run Git
