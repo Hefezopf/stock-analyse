@@ -77,6 +77,14 @@ jobs:
           echo "inputs.runAnalyseParam: ${{github.event.inputs.runAnalyseParam}}"
           echo "client_payload.runAnalyse: ${{github.event.client_payload.runAnalyse}}"
 
+
+          # NEW
+          # Draw sell circle
+          chmod +x ./analyse.sh
+          ./analyse.sh "$symbolVar" 1 9 25
+          git checkout out/_result.html
+          # NEW
+
       - name: Run Analyse
         if: |
           startsWith(github.event.inputs.runAnalyseParam, 'true') ||
@@ -95,29 +103,16 @@ jobs:
           symbolDefault='${{github.event.client_payload.symbol}}'
           symbolInput="${{github.event.inputs.symbolParam}}"
           symbolVar=${symbolInput:-$symbolDefault}
-
-          echo "symbolVar: $symbolVar"
+          #echo "symbolVar: $symbolVar"
 
           if echo "$symbolsVar" | grep -q "$symbolVar"
           then
             echo "Sell partial..."
-
-
             #exit 1
-
-
-
             ./analyse.sh "$symbolsVar" 1 9 25
-
           else 
             echo "Sell all..."
-
-
-
             #exit 1 
-
-
-
             ./analyse.sh "$symbolsVar $symbolVar" 1 9 25
           fi        
 
