@@ -261,24 +261,22 @@ priceFromFile=$(echo "$lineFromFile" | cut -f 2)
 summe=$(echo "$priceFromFile" | awk '{s += $1;} END {print s;}')
 LC_ALL=en_US.UTF-8
 dayOfYearNum=$(date +%j)
-estSumEndOfYear=$(echo "$summe $dayOfYearNum" | awk '{print $1 * 365 / $2}')
-initialAmountStartOfYear=1850000 # 2026
-#all=$(echo "$estSumEndOfYear $initialAmountStartOfYear" | awk '{print $1 + $2}')
-estSumEndOfYear=$(printf "%'.f" "$estSumEndOfYear")
+estGainEndOfYear=$(echo "$summe $dayOfYearNum" | awk '{print $1 * 365 / $2}')
+initialBalanceStartOfYear=1850000 # 2026
+estBalanceEndOfYear=$(echo "$estGainEndOfYear $initialBalanceStartOfYear" | awk '{print $1 + $2}')
+estGainEndOfYear=$(printf "%'.f" "$estGainEndOfYear")
 summe=$(printf "%'.f" "$summe")
 echo ""
-
-percentTillToday=$(echo "$initialAmountStartOfYear $summe" | awk '{print ((($1 + $2) / $1) - 1) * 100000 }')
-percentTillToday=$(printf "%'.1f" "$percentTillToday")
-echo "percentTillToday: $percentTillToday%"
-initialAmountStartOfYear=$(printf "%'.f" "$initialAmountStartOfYear")
-echo "Begin of year: $initialAmountStartOfYear€"
-echo "Gain till today before tax: $summe€ = $percentTillToday%"
-echo "Est. yearly gain: $estSumEndOfYear€"
+percentageGainTillToday=$(echo "$initialBalanceStartOfYear $estBalanceEndOfYear" | awk '{print (100 / $1 * $2) - 100 }')
+initialBalanceStartOfYear=$(printf "%'.f" "$initialBalanceStartOfYear")
+percentageGainTillToday=$(printf "%'.1f" "$percentageGainTillToday")
+echo "Initial balance: $initialBalanceStartOfYear€"
+echo "Gain till today before tax: $summe€ = $percentageGainTillToday%"
+echo "Est. gain end of year: $estGainEndOfYear€"
 
 count=$(cat "$TRANSACTION_COUNT_FILE")
 count=$((count + 1))
-echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Begin of year: $initialAmountStartOfYear€<br>&nbsp;Gain till today before tax: <b>$summe€ = $percentTillToday%</b><br>&nbsp;Est. yearly gain: $estSumEndOfYear€<br>&nbsp;Transactions: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
+echo "&nbsp;Performance SA $(date +%Y)<br><br>&nbsp;Initial balance: $initialBalanceStartOfYear€<br>&nbsp;Gain till today before tax: <b>$summe€ = $percentageGainTillToday%</b><br>&nbsp;Est. gain end of year: $estGainEndOfYear€<br>&nbsp;Transactions: $count<br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 echo "<button id='performanceButtonOpenAll' style='font-size:large; height: 60px; width: 110px;' type='button' onclick='javascript:doOpenAllInTab()'>Open All</button><br><br>" >> "$OUT_TRANSACTION_HISTORY_HTML_FILE"
 
 # shellcheck disable=SC2086
