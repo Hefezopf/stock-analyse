@@ -60,7 +60,7 @@ jobs:
           
           symbolDefault='${{github.event.client_payload.symbol}}'
           symbolInput="${{github.event.inputs.symbolParam}}"
-          symbolVar=${symbolInput:-$symbolDefault}  
+          symbolVar=${symbolInput:-$symbolDefault}
 
           sellPiecesDefault='${{github.event.client_payload.sellPieces}}'
           sellPiecesInput="${{github.event.inputs.sellPiecesParam}}"
@@ -90,23 +90,32 @@ jobs:
           symbolsVar=${symbolsVar::-1}
           rm -rf config/own_symbols.txt
 
-          #exit 1
-
           chmod +x ./analyse.sh
+          symbolVar=${symbolInput:-$symbolDefault}  
+          echo "symbolVar: $symbolVar"
           if echo "$symbolsVar" | grep -q "$symbolVar"
           then
             echo "Sell partial..."
             ./analyse.sh "$symbolsVar" 1 9 25
+
+
+            exit 1
+
+
           else 
             echo "Sell all..."
             ./analyse.sh "$symbolsVar $symbolVar" 1 9 25
+
+            exit 1        
+
+
           fi        
 
       - name: Run Git
         run: |
           echo "Git commit and push"
 
-          #exit 2
+          exit 2
 
           #git fetch --unshallow origin
           git config user.email ${{secrets.MAIL_ADRESS}}
