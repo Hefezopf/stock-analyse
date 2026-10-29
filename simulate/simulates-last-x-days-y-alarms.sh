@@ -271,7 +271,7 @@ for i in "${!ARRAY_SYMBOL_STRONGLY_RECOMMENDED[@]}"; do
     echo "->${ARRAY_SYMBOL_STRONGLY_RECOMMENDED[i]}"
     echo "-->${ARRAY_NAME_STRONGLY_RECOMMENDED[i]}"
     echo "-->${ARRAY_NOTATION_ID_STRONGLY_RECOMMENDED[i]}"
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
+    lineFromTickerFile=$(grep -m1 -P "^$ARRAY_SYMBOL_STRONGLY_RECOMMENDED[i]\t" "$TICKER_NAME_ID_FILE_MEM")
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "${ARRAY_SYMBOL_STRONGLY_RECOMMENDED[i]}" "${ARRAY_NAME_STRONGLY_RECOMMENDED[i]}" "$BLACK" "" "" "$MEDIUMSEAGREEN_3" "/simulate" "${ARRAY_NOTATION_ID_STRONGLY_RECOMMENDED[i]}"
 done
@@ -281,7 +281,7 @@ for i in "${!ARRAY_SYMBOL_HIGHLY_RECOMMENDED[@]}"; do
     echo "->${ARRAY_SYMBOL_HIGHLY_RECOMMENDED[i]}"
     echo "-->${ARRAY_NAME_HIGHLY_RECOMMENDED[i]}"
     echo "-->${ARRAY_NOTATION_ID_HIGHLY_RECOMMENDED[i]}"
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
+    lineFromTickerFile=$(grep -m1 -P "^$ARRAY_SYMBOL_HIGHLY_RECOMMENDED[i]\t" "$TICKER_NAME_ID_FILE_MEM")
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)    
     WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "${ARRAY_SYMBOL_HIGHLY_RECOMMENDED[i]}" "${ARRAY_NAME_HIGHLY_RECOMMENDED[i]}" "$BLACK" "" "" "$MEDIUMSEAGREEN_2" "/simulate" "${ARRAY_NOTATION_ID_HIGHLY_RECOMMENDED[i]}"
 done
@@ -291,7 +291,7 @@ for i in "${!ARRAY_SYMBOL_RECOMMENDED[@]}"; do
     echo "->${ARRAY_SYMBOL_RECOMMENDED[i]}"
     echo "-->${ARRAY_NAME_RECOMMENDED[i]}"
     echo "-->${ARRAY_NOTATION_ID_RECOMMENDED[i]}"
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
+    lineFromTickerFile=$(grep -m1 -P "^$ARRAY_SYMBOL_RECOMMENDED[i]\t" "$TICKER_NAME_ID_FILE_MEM")
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "${ARRAY_SYMBOL_RECOMMENDED[i]}" "${ARRAY_NAME_RECOMMENDED[i]}" "$BLACK" "" "" "$MEDIUMSEAGREEN_1" "/simulate" "${ARRAY_NOTATION_ID_RECOMMENDED[i]}"
 done
@@ -301,7 +301,7 @@ for i in "${!ARRAY_SYMBOL_X_Y_DAYS_RECOMMENDED[@]}"; do
     echo "->${ARRAY_SYMBOL_X_Y_DAYS_RECOMMENDED[i]}"
     echo "-->${ARRAY_NAME_X_Y_DAYS_RECOMMENDED[i]}"
     echo "-->${ARRAY_NOTATION_ID_X_Y_DAYS_RECOMMENDED[i]}"
-    lineFromTickerFile=$(grep -m1 -P "^$symbol\t" "$TICKER_NAME_ID_FILE_MEM")
+    lineFromTickerFile=$(grep -m1 -P "^$ARRAY_SYMBOL_X_Y_DAYS_RECOMMENDED[i]\t" "$TICKER_NAME_ID_FILE_MEM")
     asset_type=$(echo "$lineFromTickerFile" | cut -f 9)
     WriteComdirectUrlAndStoreFileList "$SIM_LAST_ALARMS_HTML_FILE" "${ARRAY_SYMBOL_X_Y_DAYS_RECOMMENDED[i]}" "${ARRAY_NAME_X_Y_DAYS_RECOMMENDED[i]}" "$BLACK" "" "" "$WHITE" "/simulate" "${ARRAY_NOTATION_ID_X_Y_DAYS_RECOMMENDED[i]}"
 done
