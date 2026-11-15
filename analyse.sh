@@ -751,10 +751,15 @@ do
                 # Should never occure 
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
+                brancheShort="$branche"
+                MAX_LENGTH_BRANCHE=25
+                if [ "${#branche}" -gt "$MAX_LENGTH_BRANCHE" ]; then
+                    brancheShort="${branche:0:(MAX_LENGTH_BRANCHE-3)}..."
+                fi
                 echo "<span class='tooltip' style='font-size:$FONT_SIZE_DETAIL' onclick='this.classList.toggle(\"active\")'>
                         <img src='../image/flags/${isin:0:2}.jpeg' alt='${isin:0:2}: No Flag' style='border:1px solid; height:35px; width:auto;'>
                         <span class='tooltiptext'>${isin:0:2}:${firmenportrait}</span>
-                      &nbsp;$branche</span>"
+                      &nbsp;$brancheShort</span>"
             fi
 
             # Market Cap Progressbar, only if number
