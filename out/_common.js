@@ -69,6 +69,7 @@ function curlBuy(symbolParam, price, pieces) {
     else {
         headlineLink = symbolParamTrimmed;
     }
+    headlineLink = headlineLink.replace("&amp;", "&")
     
     // Condition only for Mobil -> No CORS!
     if(isNaN(totalAmount)) {
@@ -76,7 +77,6 @@ function curlBuy(symbolParam, price, pieces) {
         overallPieces = '?';
     }
     totalAmount = Number(totalAmount); // + txFee;
-
     if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€?') == false) {
         return;
     }
@@ -140,6 +140,7 @@ function curlSell(symbolParam, stockPiecesParam, sellPriceParam) {
     if(headlineLinkElem) {
         headlineLink = headlineLinkElem.innerHTML;
     }
+    headlineLink = headlineLink.replace("&amp;", "&")
 
     var stocksPiecesId = document.getElementById('stocksPiecesId');
     if(stocksPiecesId) {

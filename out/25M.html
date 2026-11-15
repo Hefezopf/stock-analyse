@@ -574,7 +574,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 15-Nov-2026 10:39</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 15-Nov-2026 10:50</p>
 <span id='stocksPiecesId' style='display:none'>5100</span>
 <span id='stocksBuyingValueId' style='display:none'>5622</span>
 
@@ -692,6 +692,7 @@ headlineLink = headlineLinkElem.innerHTML;
 else {
 headlineLink = symbolParamTrimmed;
 }
+headlineLink = headlineLink.replace("&amp;", "&")
 
 // Condition only for Mobil -> No CORS!
 if(isNaN(totalAmount)) {
@@ -699,7 +700,6 @@ totalAmount = '0';
 overallPieces = '?';
 }
 totalAmount = Number(totalAmount); // + txFee;
-
 if (confirm('Buy ' + pieces + ' pieces for ' + price + '€\n' + headlineLink + '\nValue ' + buyingAmount + '€\nPieces overall ==> ' + overallPieces + ' <==\nValue overall ' + totalAmount + '€?') == false) {
 return;
 }
@@ -763,6 +763,7 @@ var headlineLinkElem = document.getElementById('headlineLink' + symbolParam);
 if(headlineLinkElem) {
 headlineLink = headlineLinkElem.innerHTML;
 }
+headlineLink = headlineLink.replace("&amp;", "&")
 
 var stocksPiecesId = document.getElementById('stocksPiecesId');
 if(stocksPiecesId) {
