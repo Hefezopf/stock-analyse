@@ -752,7 +752,7 @@ do
                 echo "<span><img id='countryflagId' alt='No Flag' style='border:1px solid;'></span>&nbsp;&nbsp;"
             else
                 brancheShort="$branche"
-                MAX_LENGTH_BRANCHE=25
+                MAX_LENGTH_BRANCHE=28
                 if [ "${#branche}" -gt "$MAX_LENGTH_BRANCHE" ]; then
                     brancheShort="${branche:0:(MAX_LENGTH_BRANCHE-3)}..."
                 fi
