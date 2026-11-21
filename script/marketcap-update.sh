@@ -5,6 +5,7 @@
 # Call: script/marketcap-update.sh SYMBOLS
 # Example: script/marketcap-update.sh 'BEI VH2'
 # alias mc='/d/code/stock-analyse/script/marketcap-update.sh $1'
+# Example: mc 'BEI VH2'
 
 #set -x
 
@@ -89,7 +90,7 @@ do
   if [ "$ASSET_TYPE" = 'STOCK' ]; then
     curlResponse=$(curl -c "'$COOKIES_FILE'" --max-time 10 --connect-timeout 10 -s --location --request GET "https://www.comdirect.de/inf/aktien/detail/uebersicht.html?ID_NOTATION=$ID_NOTATION")
 
-#echo "-----grep"
+#echo "-----isin"
     # ISIN
     isin=$(echo "$curlResponse" 2>/dev/null | grep -m1 ">ISIN:<" | grep -o '>.*')
     isin="${isin:14}"
@@ -97,11 +98,12 @@ do
 
     # Mrd. Market Cap
     marktkap=$(echo "$curlResponse" 2>/dev/null | grep -m1 "#160;Mrd.&nbsp;EUR<" | grep -o '>.*')
-    marktkap=${marktkap%*,*} # cut suffix inclunding ','
+    marktkap=${marktkap%*,*} # cut suffix including ','
     marktkap="${marktkap:1}"
     if [ "$marktkap" ]; then
         echo "Market Cap: $marktkap Mrd.€"
     else
+#echo "-----Bil"    
         # Bil. Market Cap
         marktkap=$(echo "$curlResponse" 2>/dev/null | grep -m1 "#160;Bil.&nbsp;EUR<" | grep -o '>.*')
         marktkap=${marktkap%*,*}
