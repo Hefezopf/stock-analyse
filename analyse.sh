@@ -269,6 +269,8 @@ do
     fi
 
     symbol="${symbol^^}" # all uppercase
+SYMBOL_TO_REPLACE="$symbol" 
+
     if [ ! -f "status/$symbol/$symbol""_alarm.txt" ]; then # For brand new symbols only
         mkdir -p status/"$symbol"
     fi
@@ -549,7 +551,9 @@ do
         cat template/indexPart0.html
         TITLE_TO_REPLACE="$markerOwnStock$symbol"
 
-SYMBOL_NAME_TO_REPLACE="$symbolName"
+symbolNameEncoded="${symbolName//&/+}"
+#SYMBOL_NAME_TO_REPLACE="$symbolNameEncoded"
+SYMBOL_NAME_TO_REPLACE="$symbolNameEncoded"
 
 
         FONT_SIZE_DETAIL="45px"
@@ -589,14 +593,14 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
 #IMG_TAG_TO_REPLACE=$(echo "<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>")
 
 
-        COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
-        COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
-        COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
-        if [ "$asset_type" = 'INDEX' ]; then
-            COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
-            COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
-            COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
-        fi
+       # COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
+       # COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
+       # COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
+       # if [ "$asset_type" = 'INDEX' ]; then
+        #    COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
+        #    COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
+       #    COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
+       # fi
 
         percentLastDay=$(echo "$last $beforeLastQuote" | awk '{print ((($1 / $2)-1)*100)}')
         percentLastDay=$(printf "%.1f" "$percentLastDay")
@@ -700,21 +704,22 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
         cat template/indexPart12.html
 
         # Maybe delete lines? redundant to those in 460...
-        COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
-        COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
-        COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
-        if [ "$asset_type" = 'INDEX' ]; then
-            COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
-            COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
-            COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
-        fi
+    #    COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
+     #   COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
+     #   COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
+     #   if [ "$asset_type" = 'INDEX' ]; then
+     #       COMDIRECT_URL_10D="$COMDIRECT_URL_INDEX_PREFIX_10D"
+      #      COMDIRECT_URL_6M="$COMDIRECT_URL_INDEX_PREFIX_6M"
+      #      COMDIRECT_URL_5Y="$COMDIRECT_URL_INDEX_PREFIX_5Y"
+      #  fi
         # Maybe delete lines? redundant to those in 460...
 
 #############
         symbolNameEncoded="${symbolName//&/&amp;}"
-        echo "<a id='headlineLink$symbol' style=$styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolNameEncoded</a>"
-        echo "<a style=$styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-        echo "<a style=$styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+#SYMBOL_NAME_TO_REPLACE="$symbolNameEncoded"        
+     #   echo "<a id='headlineLink$symbol' style=$styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolNameEncoded</a>"
+      #  echo "<a style=$styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
+      #  echo "<a style=$styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
         echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:rgb(0, 0, 0)'><b>$lastThousand€</b></span>"
         echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>$percentLastDay%</b></span><br>" 
 #############
@@ -831,10 +836,12 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
 #echo "---ID_NOTATION_TO_REPLACE=$ID_NOTATION"
 #echo "---SYMBOL_NAME_TO_REPLACE=$SYMBOL_NAME_TO_REPLACE"
 #echo "---STYLE_COMDIRECT_LINK_TO_REPLACE=$STYLE_COMDIRECT_LINK_TO_REPLACE"
+#echo "---SYMBOL_TO_REPLACE=$SYMBOL_TO_REPLACE"
 
 sed -i "s/TITLE_TO_REPLACE/$TITLE_TO_REPLACE/;
 s/ID_NOTATION_TO_REPLACE/$ID_NOTATION/;
-s/SYMBOL_NAME_TO_REPLACE/$SYMBOL_NAME_TO_REPLACE/
+s/SYMBOL_NAME_TO_REPLACE/$SYMBOL_NAME_TO_REPLACE/;
+s/SYMBOL_TO_REPLACE/$SYMBOL_TO_REPLACE/;
 s/STYLE_COMDIRECT_LINK_TO_REPLACE/$STYLE_COMDIRECT_LINK_TO_REPLACE/" "$indexSymbolFile"
 
 
