@@ -766,16 +766,11 @@ do
             if [ "$marketCapFromFile" = '?' ]; then
                 echo "<p class='p-result' id='lowMarketCapId'><b style='color:black; font-size:x-large; background: rgba(244,164,80,255);'>->LOW CAP&nbsp;$marketCapFromFile Mrd.€</b></p>"
             else
-#echo "-----marketCapFromFile $marketCapFromFile"             
                 marketCapScaled=$((marketCapFromFile * 1 / 2)) # Scale factor in progressbar
-#echo "-----marketCapScaled $marketCapScaled"                  
                 if [ "$marketCapScaled" -gt 100 ]; then
                     marketCapScaled=100
                 fi
-#echo "-----marketCapScaled2 $marketCapScaled"                 
-                # shellcheck disable=SC2086,SC2027
-               # echo "<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 100%; height:100%; border-radius: 9px; margin-top:-23px;}</style>"
-                echo "<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: "$marketCapScaled"%; height:100%; border-radius: 9px; margin-top:-23px;}</style>"
+#                echo "<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: "$marketCapScaled"%; height:100%; border-radius: 9px; margin-top:-23px;}</style>"
                 echo "<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;$marketCapFromFile Mrd.€</div><br>"
             fi
         fi
@@ -841,6 +836,9 @@ do
         cat template/_detail.js
         echo "</script></body></html>"
     } >> "$indexSymbolFile"
+
+    # Trick to succeed html validation
+    sed -i "s/PROGRESS_WIDTH_PERCENT/$marketCapScaled/" "$indexSymbolFile"
 
     # Minify <Symbol>.html file
     sed -i "s/^[ \t]*//g" "$indexSymbolFile" # Remove Tabs from beginning of line
