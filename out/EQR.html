@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>EQR
+<title>EQR		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 22%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244538186&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538186"  target="_blank">EQR "Equity Residential"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538186"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538186"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538186" target="_blank">EQR "Equity Residential"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538186" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538186" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','29','30','02','03','04','05','06','M+','M+','M+','4S+M+','4S+M+','M+','4S+D+N+M+','5S+M+','5S+M+','4S+M+','23','24','25','26','27','30','31','01','02','M+','06','07','08','09','10','13','14','15','D+N+','4S+D+N+M+','4S+D+N+M+','4S+P+D+N+M+','4S+M+','M+','5S+P+M+','4S+','28','P+M+','P+M+','4S+P+M+','C+5S+P+D+N+M+','4S+','06','5S+P+D+N+','4S+','11','12','13','14','15','18','19','20','21','22','25','26','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
+labels: [	'','23','26','27','28','29','30','02','03','04','05','06','M+','M+','M+','4S+M+','4S+M+','M+','4S+D+N+M+','5S+M+','5S+M+','4S+M+','23','24','25','26','27','30','31','01','02','M+','06','07','08','09','10','13','14','15','D+N+','4S+D+N+M+','4S+D+N+M+','4S+P+D+N+M+','4S+M+','M+','5S+P+M+','4S+','28','P+M+','P+M+','4S+P+M+','C+5S+P+D+N+M+','4S+','06','5S+P+D+N+','4S+','11','12','13','14','15','18','19','20','21','22','25','26','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
 ],
 datasets: [{
 label: ' "Equity Residential" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [59.56,
+data: [					59.56,
 59.90,
 59.56,
 58.38,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 59.9711, 59.9389, 59.7778, 59.5822, 59.5278, 59.4844, 59.3933, 59.2033, 59.0878, 58.9456, 58.6833, 58.4333, 58.3156, 58.1522, 57.8889, 57.6233, 57.3689, 57.2078, 57.0389, 56.9467, 56.9256, 56.9067, 56.7489, 56.6233, 56.48, 56.3922, 56.2833, 56.2189, 56.2122, 56.2056, 56.19, 56.1256, 56.1822, 56.25, 56.3767, 56.4444, 56.34, 56.1456, 55.9167, 55.7044, 55.5956, 55.4478, 55.3133, 55.1867, 55.0722, 54.95, 54.8, 54.6744, 54.4622, 54.3322, 54.1989, 54.0022, 53.7611, 53.6378, 53.6422, 53.6267, 53.6533, 53.7089, 53.7378, 53.7433, 53.8233, 53.8656, 53.9878, 54.1322, 54.2767, 54.4267, 54.5211, 54.6189, 54.7222, 54.8689, 54.96, 55.0811, 55.2544, 55.4844, 55.7433, 55.9867, 56.1944, 56.4089, 56.5989, 56.8256, 56.9411, 57.03, 57.0833,
+data: [							 , , , , 59.9711, 59.9389, 59.7778, 59.5822, 59.5278, 59.4844, 59.3933, 59.2033, 59.0878, 58.9456, 58.6833, 58.4333, 58.3156, 58.1522, 57.8889, 57.6233, 57.3689, 57.2078, 57.0389, 56.9467, 56.9256, 56.9067, 56.7489, 56.6233, 56.48, 56.3922, 56.2833, 56.2189, 56.2122, 56.2056, 56.19, 56.1256, 56.1822, 56.25, 56.3767, 56.4444, 56.34, 56.1456, 55.9167, 55.7044, 55.5956, 55.4478, 55.3133, 55.1867, 55.0722, 54.95, 54.8, 54.6744, 54.4622, 54.3322, 54.1989, 54.0022, 53.7611, 53.6378, 53.6422, 53.6267, 53.6533, 53.7089, 53.7378, 53.7433, 53.8233, 53.8656, 53.9878, 54.1322, 54.2767, 54.4267, 54.5211, 54.6189, 54.7222, 54.8689, 54.96, 55.0811, 55.2544, 55.4844, 55.7433, 55.9867, 56.1944, 56.4089, 56.5989, 56.8256, 56.9411, 57.03, 57.0833,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 58.4784, 58.3911, 58.2537, 58.1321, 58.0342, 57.9468, 57.8347, 57.6916, 57.5916, 57.4916, 57.3816, 57.2626, 57.1753, 57.0837, 57.0232, 56.9389, 56.8132, 56.7179, 56.5579, 56.3853, 56.2726, 56.1737, 56.0379, 55.9111, 55.7879, 55.6768, 55.5605, 55.4684, 55.3821, 55.32, 55.2253, 55.1179, 55.0679, 55.0511, 55.0479, 55.0216, 54.9542, 54.8516, 54.7626, 54.6753, 54.6521, 54.6047, 54.6074, 54.6063, 54.61, 54.6195, 54.5811, 54.5684, 54.53, 54.5226, 54.4889, 54.4974, 54.5163, 54.5668, 54.6716, 54.7763, 54.8942, 55.0089, 55.1274, 55.2574, 55.3784, 55.4795, 55.5626,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 58.4784, 58.3911, 58.2537, 58.1321, 58.0342, 57.9468, 57.8347, 57.6916, 57.5916, 57.4916, 57.3816, 57.2626, 57.1753, 57.0837, 57.0232, 56.9389, 56.8132, 56.7179, 56.5579, 56.3853, 56.2726, 56.1737, 56.0379, 55.9111, 55.7879, 55.6768, 55.5605, 55.4684, 55.3821, 55.32, 55.2253, 55.1179, 55.0679, 55.0511, 55.0479, 55.0216, 54.9542, 54.8516, 54.7626, 54.6753, 54.6521, 54.6047, 54.6074, 54.6063, 54.61, 54.6195, 54.5811, 54.5684, 54.53, 54.5226, 54.4889, 54.4974, 54.5163, 54.5668, 54.6716, 54.7763, 54.8942, 55.0089, 55.1274, 55.2574, 55.3784, 55.4795, 55.5626,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 56.5514, 56.5286, 56.5042, 56.4731, 56.4528, 56.4265,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 56.5514, 56.5286, 56.5042, 56.4731, 56.4528, 56.4265,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,			]}	
+data: [ 59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,59.808,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,9 +539,12 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkEQR' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538186"  target="_blank">EQR "Equity Residential"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538186"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538186"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkEQR' style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538186" target="_blank">EQR "Equity Residential"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538186"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538186"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>56.96€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-1.3%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;--&nbsp;&nbsp;</span>
@@ -547,7 +553,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <img src='../image/flags/US.jpeg' alt='US: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>US:" Equity Residential (EQR) konzentriert sich auf die Akquisition, Entwicklung und Verwaltung von hochwertigen Immobilien in den Top-Wachstumsmärkten der USA. Das Unternehmen ist einer der größten börsennotierten Eigentümer und Betreiber von hochwertigen Mietwohnungen in den USA mit einem Portfolio, das hauptsächlich in städtischen und dicht besiedelten Vororten in und um Boston, New York, Washington, D.C., Südkalifornien (einschließlich Los Angeles, Orange County und San Diego), San Francisco, Seattle und Denver liegt. Das Mehrfamilienhausgeschäft wird von der ERP Operating Limited Partnership (ERPOP) geleitet. EQR ist deren persönlich haftende Gesellschafterin und besitzt gut 96 Prozent der Anteile. Alle Eigentumsangelegenheiten, die Entwicklung und die damit verbundenen Geschäftstätigkeiten der Gesellschaft werden durch den Operating Partnership durchgeführt. EQR selbst hat keine wesentlichen Vermögenswerte und Schulden mit Ausnahme seiner Investitionen in ERPOP. "</span>
 &nbsp;"Immobilien"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;45 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;44 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

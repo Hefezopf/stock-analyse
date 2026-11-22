@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>FOT
+<title>FOT		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 9%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244519586&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244519586"  target="_blank">FOT "FORTUM"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244519586"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244519586"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244519586" target="_blank">FOT "FORTUM"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244519586" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244519586" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','29','D+N+','02','M+','M+','4S+D+N+M+','M+','M+','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','4S+','4S+','18','4S+','4S+','21','22','25','26','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
+labels: [	'','23','26','27','28','29','D+N+','02','M+','M+','4S+D+N+M+','M+','M+','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','4S+','4S+','18','4S+','4S+','21','22','25','26','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
 ],
 datasets: [{
 label: ' "FORTUM" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [20.72,
+data: [					20.72,
 20.74,
 20.43,
 20.06,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 19.9556, 19.8911, 19.8611, 19.8583, 19.8464, 19.8381, 19.8172, 19.7936, 19.7408, 19.7258, 19.7475, 19.7594, 19.7553, 19.7367, 19.685, 19.6389, 19.6033, 19.5853, 19.6092, 19.6267, 19.6842, 19.7131, 19.7594, 19.8281, 19.9114, 19.9922, 20.085, 20.1233, 20.1839, 20.2472, 20.3342, 20.5989, 20.8272, 21.0428, 21.24, 21.4614, 21.6764, 21.9311, 22.1661, 22.3417, 22.5278, 22.7044, 22.8733, 23.0222, 23.1744, 23.3728, 23.5222, 23.6511, 23.7922, 23.7383, 23.7067, 23.6794, 23.6967, 23.6817, 23.6561, 23.6089, 23.5406, 23.5278, 23.5194, 23.4622, 23.43, 23.3956, 23.3539, 23.3128, 23.285, 23.2894, 23.2539, 23.2183, 23.1944, 23.1283, 23.0694, 23.0456, 23.0178, 22.9933, 23.0094, 23.0267, 23.0183, 23.0378, 23.0661, 23.0922, 23.1028, 23.0883, 23.0544,
+data: [							 , , , , 19.9556, 19.8911, 19.8611, 19.8583, 19.8464, 19.8381, 19.8172, 19.7936, 19.7408, 19.7258, 19.7475, 19.7594, 19.7553, 19.7367, 19.685, 19.6389, 19.6033, 19.5853, 19.6092, 19.6267, 19.6842, 19.7131, 19.7594, 19.8281, 19.9114, 19.9922, 20.085, 20.1233, 20.1839, 20.2472, 20.3342, 20.5989, 20.8272, 21.0428, 21.24, 21.4614, 21.6764, 21.9311, 22.1661, 22.3417, 22.5278, 22.7044, 22.8733, 23.0222, 23.1744, 23.3728, 23.5222, 23.6511, 23.7922, 23.7383, 23.7067, 23.6794, 23.6967, 23.6817, 23.6561, 23.6089, 23.5406, 23.5278, 23.5194, 23.4622, 23.43, 23.3956, 23.3539, 23.3128, 23.285, 23.2894, 23.2539, 23.2183, 23.1944, 23.1283, 23.0694, 23.0456, 23.0178, 22.9933, 23.0094, 23.0267, 23.0183, 23.0378, 23.0661, 23.0922, 23.1028, 23.0883, 23.0544,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 19.7945, 19.7818, 19.7951, 19.8199, 19.8472, 19.8816, 19.9201, 19.9301, 19.948, 19.9833, 20.0286, 20.1555, 20.2658, 20.3613, 20.4303, 20.5087, 20.5971, 20.7108, 20.8416, 20.9426, 21.0583, 21.168, 21.2811, 21.3899, 21.5104, 21.6255, 21.7392, 21.8426, 21.9445, 22.0403, 22.1375, 22.2289, 22.3305, 22.4237, 22.5168, 22.6167, 22.7038, 22.7905, 22.875, 22.9439, 23.0197, 23.0797, 23.1411, 23.1984, 23.255, 23.3424, 23.3987, 23.4476, 23.4924, 23.4271, 23.3926, 23.3724, 23.3589, 23.3424, 23.3353, 23.3095, 23.2787, 23.2737, 23.2747, 23.2634, 23.2497, 23.2297, 23.1982,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 19.7945, 19.7818, 19.7951, 19.8199, 19.8472, 19.8816, 19.9201, 19.9301, 19.948, 19.9833, 20.0286, 20.1555, 20.2658, 20.3613, 20.4303, 20.5087, 20.5971, 20.7108, 20.8416, 20.9426, 21.0583, 21.168, 21.2811, 21.3899, 21.5104, 21.6255, 21.7392, 21.8426, 21.9445, 22.0403, 22.1375, 22.2289, 22.3305, 22.4237, 22.5168, 22.6167, 22.7038, 22.7905, 22.875, 22.9439, 23.0197, 23.0797, 23.1411, 23.1984, 23.255, 23.3424, 23.3987, 23.4476, 23.4924, 23.4271, 23.3926, 23.3724, 23.3589, 23.3424, 23.3353, 23.3095, 23.2787, 23.2737, 23.2747, 23.2634, 23.2497, 23.2297, 23.1982,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 21.6726, 21.7041, 21.7425, 21.7792, 21.8124, 21.8439,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 21.6726, 21.7041, 21.7425, 21.7792, 21.8124, 21.8439,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,			]}	
+data: [ 23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,23.667,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,9 +539,12 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkFOT' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244519586"  target="_blank">FOT "FORTUM"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244519586"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244519586"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkFOT' style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244519586" target="_blank">FOT "FORTUM"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244519586"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244519586"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>22.54€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-1.0%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;23&nbsp;&nbsp;</span>
@@ -547,7 +553,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <img src='../image/flags/FI.jpeg' alt='FI: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>FI:" Die Fortum Oyj ist eine internationale Energie-Gruppe, die durch den Zusammenschluss von Imatran Voima Oy und Neste Oyj entstanden ist. Die Tätigkeiten des Unternehmens umfassen Öl- und Gasförderung, Raffinerie und Verkauf von Erdöl, Transmission und Verkauf von Energie und Wärme, Betrieb und Instandhaltung von Kraftwerken, Entwicklung und Bau von Kraftwerken und Wärmeerzeugungswerken und damit verbundene Beratungsdienstleistungen, Entwicklung von Transmissions- und Verteilungssystemen, Produktion und Verkauf von Chemikalien. Im Laufe des Jahres 2020 hat die Gesellschaft ihre Beteiligung an der Uniper SE von 49,99 auf rund 76 Prozent erhöht. Damit wurde Uniper erstmals als separates Berichtssegment konsolidiert. "</span>
 &nbsp;"Öl und Gas"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;21 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;19 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

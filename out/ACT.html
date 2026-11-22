@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>ACT
+<title>ACT		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 0%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244541752&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541752"  target="_blank">ACT "Alzchem"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541752"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541752"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541752" target="_blank">ACT "Alzchem"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541752" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541752" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','M+','D+N+M+','D+N+M+','C+M+','4S+M+','4S+M+','M+','5S+M+','C+5S+P+M+','4S+3R+','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','M+','M+','M+','4S+M+','4S+','21','22','23','M+','M+','M+','29','30','01','M+','M+','06','07','08','11','12','13','14','15','18','19','20','M+','M+','M+','M+','27','28','29','C+D+N+','C+D+N+M+','M+','04','05','P+D+N+M+','M+','M+','11','12','M+','16','17','18','19'
+labels: [	'','23','26','27','28','M+','D+N+M+','D+N+M+','C+M+','4S+M+','4S+M+','M+','5S+M+','C+5S+P+M+','4S+3R+','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','M+','M+','M+','4S+M+','4S+','21','22','23','M+','M+','M+','29','30','01','M+','M+','06','07','08','11','12','13','14','15','18','19','20','M+','M+','M+','M+','27','28','29','C+D+N+','C+D+N+M+','M+','04','05','P+D+N+M+','M+','M+','11','12','M+','16','17','18','19'
 ],
 datasets: [{
 label: ' "Alzchem" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [177.20,
+data: [					177.20,
 174.40,
 174.10,
 173.90,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 172.039, 172.006, 171.261, 170.883, 170.161, 169.361, 168.794, 168.078, 167.239, 166.367, 165.567, 164.783, 164.133, 163.428, 162.656, 161.783, 160.9, 160.022, 159.383, 158.711, 158.906, 159.217, 159.639, 160.128, 160.35, 160.556, 160.8, 161.15, 161.306, 161.494, 161.656, 161.511, 161.5, 161.567, 161.561, 161.622, 161.5, 161.378, 161.569, 161.558, 161.646, 161.301, 160.99, 160.862, 160.734, 160.69, 160.646, 160.329, 159.962, 159.729, 159.59, 159.634, 159.679, 159.768, 159.923, 160.073, 159.866, 159.793, 159.567, 159.694, 159.744, 159.711, 159.683, 159.478, 159.311, 159.506, 159.783, 159.967, 159.278, 157.872, 156.989, 156.533, 155.483, 153.994, 152.922, 151.822, 150.794, 149.422, 148.183, 147.628, 147, 146.483, 145.439,
+data: [							 , , , , 172.039, 172.006, 171.261, 170.883, 170.161, 169.361, 168.794, 168.078, 167.239, 166.367, 165.567, 164.783, 164.133, 163.428, 162.656, 161.783, 160.9, 160.022, 159.383, 158.711, 158.906, 159.217, 159.639, 160.128, 160.35, 160.556, 160.8, 161.15, 161.306, 161.494, 161.656, 161.511, 161.5, 161.567, 161.561, 161.622, 161.5, 161.378, 161.569, 161.558, 161.646, 161.301, 160.99, 160.862, 160.734, 160.69, 160.646, 160.329, 159.962, 159.729, 159.59, 159.634, 159.679, 159.768, 159.923, 160.073, 159.866, 159.793, 159.567, 159.694, 159.744, 159.711, 159.683, 159.478, 159.311, 159.506, 159.783, 159.967, 159.278, 157.872, 156.989, 156.533, 155.483, 153.994, 152.922, 151.822, 150.794, 149.422, 148.183, 147.628, 147, 146.483, 145.439,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 165.418, 165.126, 164.95, 165.021, 164.889, 164.645, 164.432, 164.203, 163.924, 163.679, 163.395, 163.071, 162.842, 162.418, 161.916, 161.516, 161.084, 160.658, 160.459, 160.177, 160.395, 160.482, 160.545, 160.619, 160.614, 160.703, 160.801, 160.819, 160.74, 160.677, 160.69, 160.622, 160.506, 160.561, 160.622, 160.682, 160.687, 160.69, 160.708, 160.708, 160.595, 160.422, 160.298, 160.193, 160.095, 160.04, 160.019, 159.953, 159.564, 158.898, 158.369, 158.177, 157.743, 157.069, 156.624, 156.164, 155.605, 154.96, 154.218, 153.945, 153.671, 153.382, 152.85,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 165.418, 165.126, 164.95, 165.021, 164.889, 164.645, 164.432, 164.203, 163.924, 163.679, 163.395, 163.071, 162.842, 162.418, 161.916, 161.516, 161.084, 160.658, 160.459, 160.177, 160.395, 160.482, 160.545, 160.619, 160.614, 160.703, 160.801, 160.819, 160.74, 160.677, 160.69, 160.622, 160.506, 160.561, 160.622, 160.682, 160.687, 160.69, 160.708, 160.708, 160.595, 160.422, 160.298, 160.193, 160.095, 160.04, 160.019, 159.953, 159.564, 158.898, 158.369, 158.177, 157.743, 157.069, 156.624, 156.164, 155.605, 154.96, 154.218, 153.945, 153.671, 153.382, 152.85,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 160.462, 160.088, 159.861, 159.707, 159.49, 159.159,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 160.462, 160.088, 159.861, 159.707, 159.49, 159.159,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,			]}	
+data: [ 146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,146.58,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,18 +539,21 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkACT' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541752"  target="_blank">ACT "Alzchem"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541752"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541752"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkACT' style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541752" target="_blank">ACT "Alzchem"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541752"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541752"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>139.60€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-5.9%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;21&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;1%&nbsp;</span>&nbsp;
 <span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
 <img src='../image/flags/DE.jpeg' alt='DE: No Flag' style='border:1px solid; height:35px; width:auto;'>
-<span class='tooltiptext'>DE:" Die Alzchem Group AG ist ein international agierender Hersteller diverser Chemieprodukte, die auf der NCN-Kette basieren. Dabei handelt es sich um Produkte mit typischer Stickstoff-Kohlenstoff-Stickstoff-Bindung, die in einer Vielzahl von Branchen Verwendung finden. Hierzu zählen vor allem die Nahrungsmittelindustrie, die Feinchemie, die Landwirtschaft, die Metallurgie sowie Erneuerbare Energien. Das operative Geschäft ist in drei Segmente unterteilt. Das mit mehr als 50% Umsatzanteil größte Segment Specialty Chemicals umfasst die Herstellung und den Vertrieb hochwertiger chemischer Erzeugnisse. Das Segment Basics  u.  Intermediates bündelt die Erzeugung chemischer Zwischenprodukte, die entweder direkt an Dritte verkauft oder zu Spezialchemieprodukten weiterverarbeitet werden. Das dritte Segment Other  u.  Holding fasst sämtliche sonstigen Tätigkeiten zusammen. Bis weit in das Jahr 2017 hinein war die Alzchem Group AG eine sogenannte Mantelgesellschaft ohne operatives Geschäft. "</span>
+<span class='tooltiptext'>DE:" Die Alzchem Group AG ist ein international agierender Hersteller von Chemieprodukten, die auf der Calciumcarbid- Calciumcyanamid-Kette (NCN-Kette) basieren. Dabei handelt es sich um Produkte mit typischer Stickstoff-Kohlenstoff-Stickstoff-Bindung, die in einer Vielzahl von Branchen Verwendung finden. Hierzu zählen vor allem die Nahrungsmittelindustrie, die Feinchemie, die Landwirtschaft, die Metallurgie sowie Erneuerbare Energien. Das operative Geschäft ist in drei Segmente unterteilt. Das mit mehr als 50% Umsatzanteil größte Segment Specialty Chemicals umfasst die Herstellung und den Vertrieb hochwertiger chemischer Erzeugnisse. Das Segment Basics  u.  Intermediates bündelt die Erzeugung chemischer Zwischenprodukte, die entweder direkt an Dritte verkauft oder zu Spezialchemieprodukten weiterverarbeitet werden. Das dritte Segment Other  u.  Holding fasst sämtliche sonstigen Tätigkeiten zusammen. "</span>
 &nbsp;"Holdings"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

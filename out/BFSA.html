@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>BFSA
+<title>BFSA		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 0%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244541747&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541747"  target="_blank">BFSA "Befesa"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541747"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541747"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541747" target="_blank">BFSA "Befesa"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541747" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541747" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','D+N+','4S+D+N+','4S+','5S+M+','5S+M+','4S+','28','29','30','01','04','05','06','07','08','11','12','13','M+','M+','M+','D+N+M+','4S+D+N+M+','5S+M+','6S+D+N+M+','7S+M+','6S+','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
+labels: [	'','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','D+N+','4S+D+N+','4S+','5S+M+','5S+M+','4S+','28','29','30','01','04','05','06','07','08','11','12','13','M+','M+','M+','D+N+M+','4S+D+N+M+','5S+M+','6S+D+N+M+','7S+M+','6S+','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
 ],
 datasets: [{
 label: ' "Befesa" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [35.60,
+data: [					35.60,
 34.55,
 34.80,
 34.65,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 33.4056, 33.5722, 33.7, 33.8861, 34.1361, 34.3944, 34.6083, 34.8194, 34.9278, 35.0139, 35.1194, 35.2, 35.2583, 35.2944, 35.3139, 35.3389, 35.3, 35.3111, 35.4028, 35.4778, 35.5556, 35.6472, 35.7167, 35.775, 35.7889, 35.7639, 35.7361, 35.7556, 35.7833, 35.8194, 35.8667, 35.9639, 36.0222, 36.1, 36.2444, 36.2333, 36.1472, 36.0889, 35.9833, 35.8194, 35.675, 35.5139, 35.375, 35.325, 35.2889, 35.1889, 35.05, 34.9056, 34.7528, 34.5917, 34.4889, 34.4, 34.2722, 34.3, 34.3778, 34.35, 34.3806, 34.3972, 34.3861, 34.3556, 34.3111, 34.2139, 34.05, 33.9056, 33.8111, 33.775, 33.8222, 33.9389, 34.0111, 34.1694, 34.3333, 34.4333, 34.5111, 34.6528, 34.8556, 35.1056, 35.3917, 35.7417, 36.1111, 36.4417, 36.7556, 37.0583, 37.325,
+data: [							 , , , , 33.4056, 33.5722, 33.7, 33.8861, 34.1361, 34.3944, 34.6083, 34.8194, 34.9278, 35.0139, 35.1194, 35.2, 35.2583, 35.2944, 35.3139, 35.3389, 35.3, 35.3111, 35.4028, 35.4778, 35.5556, 35.6472, 35.7167, 35.775, 35.7889, 35.7639, 35.7361, 35.7556, 35.7833, 35.8194, 35.8667, 35.9639, 36.0222, 36.1, 36.2444, 36.2333, 36.1472, 36.0889, 35.9833, 35.8194, 35.675, 35.5139, 35.375, 35.325, 35.2889, 35.1889, 35.05, 34.9056, 34.7528, 34.5917, 34.4889, 34.4, 34.2722, 34.3, 34.3778, 34.35, 34.3806, 34.3972, 34.3861, 34.3556, 34.3111, 34.2139, 34.05, 33.9056, 33.8111, 33.775, 33.8222, 33.9389, 34.0111, 34.1694, 34.3333, 34.4333, 34.5111, 34.6528, 34.8556, 35.1056, 35.3917, 35.7417, 36.1111, 36.4417, 36.7556, 37.0583, 37.325,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 34.4763, 34.6066, 34.7237, 34.8618, 34.9987, 35.1171, 35.2066, 35.3132, 35.3947, 35.45, 35.5105, 35.6, 35.6553, 35.6855, 35.7145, 35.7171, 35.7039, 35.7066, 35.6974, 35.6711, 35.6592, 35.6329, 35.5855, 35.5579, 35.5289, 35.4882, 35.4526, 35.3987, 35.3368, 35.3118, 35.2908, 35.2618, 35.2211, 35.225, 35.2671, 35.2513, 35.2132, 35.1592, 35.1053, 35.0211, 34.9197, 34.8184, 34.7053, 34.6079, 34.5408, 34.4605, 34.4079, 34.4211, 34.4118, 34.4118, 34.4211, 34.4355, 34.4461, 34.5026, 34.6013, 34.6934, 34.825, 34.9842, 35.1263, 35.2579, 35.3592, 35.4289, 35.5053,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 34.4763, 34.6066, 34.7237, 34.8618, 34.9987, 35.1171, 35.2066, 35.3132, 35.3947, 35.45, 35.5105, 35.6, 35.6553, 35.6855, 35.7145, 35.7171, 35.7039, 35.7066, 35.6974, 35.6711, 35.6592, 35.6329, 35.5855, 35.5579, 35.5289, 35.4882, 35.4526, 35.3987, 35.3368, 35.3118, 35.2908, 35.2618, 35.2211, 35.225, 35.2671, 35.2513, 35.2132, 35.1592, 35.1053, 35.0211, 34.9197, 34.8184, 34.7053, 34.6079, 34.5408, 34.4605, 34.4079, 34.4211, 34.4118, 34.4118, 34.4211, 34.4355, 34.4461, 34.5026, 34.6013, 34.6934, 34.825, 34.9842, 35.1263, 35.2579, 35.3592, 35.4289, 35.5053,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 34.9542, 35.0368, 35.1074, 35.1695, 35.2374, 35.3063,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 34.9542, 35.0368, 35.1074, 35.1695, 35.2374, 35.3063,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,			]}	
+data: [ 39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,39.375,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,18 +539,21 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkBFSA' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541747"  target="_blank">BFSA "Befesa"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541747"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541747"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkBFSA' style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244541747" target="_blank">BFSA "Befesa"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244541747"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244541747"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>37.50€</b></span>
 &nbsp;<span style='font-size:45px; color:green'><b>0.8%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;13&nbsp;&nbsp;</span>
+<span style='font-size:45px'>KGV&nbsp;12&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;3%&nbsp;</span>&nbsp;
 <span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
 <img src='../image/flags/LU.jpeg' alt='LU: No Flag' style='border:1px solid; height:35px; width:auto;'>
-<span class='tooltiptext'>LU:" Die Befesa S.A. beschreibt sich als Dienstleistungsunternehmen, das auf das Recycling von Stahlstaub, Salzschlacke und anderen Aluminium-Rückständen spezialisiert ist. Darüber hinaus werden die damit verbundene Logistik und andere verwandte Industrielle Dienstleistungen angeboten. Die Dienstleistungen des Unternehmens umfassen das Sammeln und die Aufbereitung von gefährlichen Abfällen (vor allem Stahlstaub und Salzschlacke) in den Fabriken der Kunden. Befesa offeriert zudem regulatorische Services im Zusammenhang mit der Bewirtschaftung gefährlicher Abfälle, wie behördliche Anmeldungen und Anträge auf Zulassung von Transportmitteln. Aus den eingesammelten Abfällen produziert Befesa Ausgangsstoffe (vorwiegend Walzoxide, Aluminium-Konzentrat und Salz), die vor allem an Kunden des Zink- und Aluminium-Branche weiterverkauft werden. "</span>
+<span class='tooltiptext'>LU:" Die Befesa S.A. beschreibt sich als Dienstleistungsunternehmen, das auf das Recycling von Stahlstaub, Salzschlacke und anderen Aluminium-Rückständen spezialisiert ist. Darüber hinaus werden die damit verbundene Logistik und andere verwandte industrielle Dienstleistungen angeboten. Die Dienstleistungen des Unternehmens umfassen das Sammeln und die Aufbereitung von gefährlichen Abfällen (vor allem Stahlstaub und Salzschlacke) in den Fabriken der Kunden. Befesa offeriert zudem regulatorische Services im Zusammenhang mit der Bewirtschaftung gefährlicher Abfälle, wie behördliche Anmeldungen und Anträge auf Zulassung von Transportmitteln. Aus den eingesammelten Abfällen produziert Befesa Ausgangsstoffe (vorwiegend Walzoxide, Aluminium-Konzentrat und Salz), die vor allem an Kunden des Zink- und Aluminium-Branche weiterverkauft werden. "</span>
 &nbsp;"Entsorgung, Umwelttec...</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

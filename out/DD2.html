@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>DD2
+<title>DD2		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 28%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=407108337&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=407108337"  target="_blank">DD2 "DoorDash"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=407108337"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=407108337"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=407108337" target="_blank">DD2 "DoorDash"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=407108337" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=407108337" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','4S+','4S+','13','14','C+4S+M+','4S+M+','C+4S+M+','C+4S+3R+M+','C+5S+4R+M+','C+6S+5R+M+','C+7S+6R+D+N+M+','7S+5R+D+N+M+','6S+','6S+D+N+','5S+','30','M+','04','05','06','07','08','11','12','13','14','15','18','19','20','21','M+','M+','D+N+M+','M+','4S+D+N+M+','4S+','01','02','03','04','05','08','09','M+','11','12','M+','M+','P+D+N+M+','P+M+','P+D+N+M+'
+labels: [	'','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','4S+','4S+','13','14','C+4S+M+','4S+M+','C+4S+M+','C+4S+3R+M+','C+5S+4R+M+','C+6S+5R+M+','C+7S+6R+D+N+M+','7S+5R+D+N+M+','6S+','6S+D+N+','5S+','30','M+','04','05','06','07','08','11','12','13','14','15','18','19','20','21','M+','M+','D+N+M+','M+','4S+D+N+M+','4S+','01','02','03','04','05','08','09','M+','11','12','M+','M+','P+D+N+M+','P+M+','P+D+N+M+'
 ],
 datasets: [{
 label: ' "DoorDash" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [154.62,
+data: [					154.62,
 148.40,
 152.26,
 161.82,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 162.893, 162.948, 163.254, 163.179, 163.757, 164.211, 165.054, 166.061, 167.328, 168.088, 169.349, 170.621, 171.86, 173.271, 174.842, 176.904, 178.756, 180.327, 181.551, 183.076, 184.758, 186.599, 187.914, 189.53, 190.421, 191.007, 191.236, 191.812, 191.621, 191.4, 190.552, 189.543, 188.988, 188.344, 187.786, 186.649, 185.59, 184.049, 182.293, 180.387, 178.782, 176.59, 174.683, 173.299, 171.378, 169.939, 168.821, 167.817, 167.593, 167.61, 167.538, 167.357, 167.069, 167.372, 167.511, 167.721, 167.552, 167.639, 167.662, 168.07, 168.41, 168.081, 168.527, 168.241, 167.616, 167.158, 166.129, 165.731, 165.112, 165.05, 164.603, 164.652, 163.553, 162.989, 162.697, 162.097, 161.604, 160.694, 159.867, 159.289, 158.418, 157.908, 157.396,
+data: [							 , , , , 162.893, 162.948, 163.254, 163.179, 163.757, 164.211, 165.054, 166.061, 167.328, 168.088, 169.349, 170.621, 171.86, 173.271, 174.842, 176.904, 178.756, 180.327, 181.551, 183.076, 184.758, 186.599, 187.914, 189.53, 190.421, 191.007, 191.236, 191.812, 191.621, 191.4, 190.552, 189.543, 188.988, 188.344, 187.786, 186.649, 185.59, 184.049, 182.293, 180.387, 178.782, 176.59, 174.683, 173.299, 171.378, 169.939, 168.821, 167.817, 167.593, 167.61, 167.538, 167.357, 167.069, 167.372, 167.511, 167.721, 167.552, 167.639, 167.662, 168.07, 168.41, 168.081, 168.527, 168.241, 167.616, 167.158, 166.129, 165.731, 165.112, 165.05, 164.603, 164.652, 163.553, 162.989, 162.697, 162.097, 161.604, 160.694, 159.867, 159.289, 158.418, 157.908, 157.396,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 173.56, 174.494, 175.396, 176.267, 177.182, 177.897, 178.528, 179.175, 179.636, 179.992, 180.236, 180.462, 180.675, 180.987, 181.537, 182.096, 182.596, 182.767, 182.749, 182.754, 182.752, 182.619, 182.357, 182.202, 181.523, 181.012, 180.344, 179.864, 179.405, 179.035, 178.628, 178.185, 177.855, 177.581, 177.27, 176.796, 176.118, 175.442, 174.654, 173.843, 173.118, 172.042, 171.152, 170.228, 169.155, 168.185, 167.329, 166.876, 166.577, 166.583, 166.304, 166.358, 165.792, 165.588, 165.274, 165.044, 164.854, 164.515, 164.158, 163.846, 163.447, 162.937, 162.532,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 173.56, 174.494, 175.396, 176.267, 177.182, 177.897, 178.528, 179.175, 179.636, 179.992, 180.236, 180.462, 180.675, 180.987, 181.537, 182.096, 182.596, 182.767, 182.749, 182.754, 182.752, 182.619, 182.357, 182.202, 181.523, 181.012, 180.344, 179.864, 179.405, 179.035, 178.628, 178.185, 177.855, 177.581, 177.27, 176.796, 176.118, 175.442, 174.654, 173.843, 173.118, 172.042, 171.152, 170.228, 169.155, 168.185, 167.329, 166.876, 166.577, 166.583, 166.304, 166.358, 165.792, 165.588, 165.274, 165.044, 164.854, 164.515, 164.158, 163.846, 163.447, 162.937, 162.532,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 171.546, 171.417, 171.308, 171.072, 170.929, 170.656,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 171.546, 171.417, 171.308, 171.072, 170.929, 170.656,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,			]}	
+data: [ 148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,148.26,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,18 +539,21 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkDD2' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=407108337"  target="_blank">DD2 "DoorDash"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=407108337"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=407108337"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkDD2' style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=407108337" target="_blank">DD2 "DoorDash"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=407108337"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=407108337"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>141.20€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-5.9%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;63&nbsp;&nbsp;</span>
+<span style='font-size:45px'>KGV&nbsp;56&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;--%&nbsp;</span>&nbsp;
 <span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
 <img src='../image/flags/US.jpeg' alt='US: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>US:" Die DoorDash, Inc. betreibt Marktplätze, auf denen Händler ihre Online-Präsenz aufbauen können. Im Rahmen dieser Marktplätze wird eine breite Palette von Dienstleistungen angeboten, die bei der Kundenakquise und Nachfragegenerierung, bei der Auftragsabwicklung, beim Merchandising, bei der Zahlungsabwicklung und beim Kundensupport helfen. Mit ihren lokalen Logistikplattformen unterstützt das Unternehmen zudem die Belieferung der Verbraucher, die aber auch wird durch persönliche Abholung erfolgen kann. Zum Angebotsportfolio gehören der DoorDash-Marktplatz, der in vier Ländern einschließlich der USA betrieben wird, der Wolt-Marktplatz, der in mehr als 20 Ländern verfügbar ist, sowie diverse Plattformdienste. Insgesamt erreichen die Marktplätze mehr als 32 Millionen monatlich aktive Nutzer. Die Zahl der DashPass- und Wolt+-Mitglieder beläuft sich auf über 15 Millionen. "</span>
 &nbsp;"Internetkommerz"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;64 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;57 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>DBK
+<title>DBK		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 25%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244494392&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244494392"  target="_blank">DBK "Deutsche Bank"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244494392"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244494392"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244494392" target="_blank">DBK "Deutsche Bank"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244494392" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244494392" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','4S+','4S+','5S+','C+5S+','C+5S+','4S+3R+','4R+M+','4R+M+','M+','C+5R+D+N+M+','4R+D+N+M+','M+','4S+M+','C+5S+D+N+M+','C+6S+3R+M+','C+7S+4R+M+','6S+3R+M+','6S+D+N+M+','6S+D+N+M+','C+6S+4R+D+N+M+','C+6S+4R+M+','C+6S+4R+D+N+M+','C+6S+4R+D+N+M+','6S+5R+M+','C+6S+6R+D+N+M+','C+6S+7R+D+N+M+','5S+6R+','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
+labels: [	'','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','4S+','4S+','5S+','C+5S+','C+5S+','4S+3R+','4R+M+','4R+M+','M+','C+5R+D+N+M+','4R+D+N+M+','M+','4S+M+','C+5S+D+N+M+','C+6S+3R+M+','C+7S+4R+M+','6S+3R+M+','6S+D+N+M+','6S+D+N+M+','C+6S+4R+D+N+M+','C+6S+4R+M+','C+6S+4R+D+N+M+','C+6S+4R+D+N+M+','6S+5R+M+','C+6S+6R+D+N+M+','C+6S+7R+D+N+M+','5S+6R+','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
 ],
 datasets: [{
 label: ' "Deutsche Bank" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [31.195,
+data: [					31.195,
 29.955,
 30.445,
 31.15,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 31.1378, 31.0969, 31.0733, 31.0578, 31.1339, 31.2214, 31.3017, 31.3986, 31.4942, 31.5608, 31.645, 31.785, 31.9486, 32.0722, 32.1639, 32.3242, 32.4319, 32.4806, 32.5558, 32.6642, 32.7442, 32.8922, 33.02, 33.1478, 33.24, 33.3208, 33.4292, 33.5767, 33.7147, 33.8367, 33.9478, 34.0356, 34.1381, 34.2425, 34.3294, 34.4061, 34.4694, 34.5228, 34.5069, 34.4436, 34.3483, 34.1664, 33.9847, 33.8683, 33.6928, 33.4775, 33.2631, 33.0206, 32.7806, 32.5789, 32.3767, 32.1039, 31.8747, 31.6883, 31.5031, 31.2636, 31.0539, 30.8206, 30.6181, 30.4342, 30.2625, 30.0681, 29.8567, 29.6342, 29.4631, 29.3258, 29.2639, 29.2503, 29.2036, 29.2392, 29.2644, 29.4022, 29.5089, 29.6022, 29.7769, 29.9989, 30.2439, 30.515, 30.7881, 31.0108, 31.1408, 31.2525, 31.3153,
+data: [							 , , , , 31.1378, 31.0969, 31.0733, 31.0578, 31.1339, 31.2214, 31.3017, 31.3986, 31.4942, 31.5608, 31.645, 31.785, 31.9486, 32.0722, 32.1639, 32.3242, 32.4319, 32.4806, 32.5558, 32.6642, 32.7442, 32.8922, 33.02, 33.1478, 33.24, 33.3208, 33.4292, 33.5767, 33.7147, 33.8367, 33.9478, 34.0356, 34.1381, 34.2425, 34.3294, 34.4061, 34.4694, 34.5228, 34.5069, 34.4436, 34.3483, 34.1664, 33.9847, 33.8683, 33.6928, 33.4775, 33.2631, 33.0206, 32.7806, 32.5789, 32.3767, 32.1039, 31.8747, 31.6883, 31.5031, 31.2636, 31.0539, 30.8206, 30.6181, 30.4342, 30.2625, 30.0681, 29.8567, 29.6342, 29.4631, 29.3258, 29.2639, 29.2503, 29.2036, 29.2392, 29.2644, 29.4022, 29.5089, 29.6022, 29.7769, 29.9989, 30.2439, 30.515, 30.7881, 31.0108, 31.1408, 31.2525, 31.3153,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 31.9151, 31.9875, 32.045, 32.1167, 32.2113, 32.2943, 32.3867, 32.5117, 32.6255, 32.7226, 32.8216, 32.928, 33.0432, 33.1408, 33.2133, 33.3041, 33.3841, 33.4566, 33.5111, 33.5728, 33.5963, 33.5892, 33.5617, 33.5482, 33.5193, 33.4964, 33.4634, 33.4141, 33.3595, 33.3041, 33.2459, 33.1558, 33.0763, 33.0029, 32.9441, 32.8801, 32.7996, 32.6995, 32.5892, 32.4249, 32.2555, 32.0893, 31.9167, 31.7501, 31.5847, 31.4005, 31.2512, 31.1316, 30.9987, 30.8838, 30.7678, 30.7101, 30.6607, 30.6046, 30.5768, 30.5566, 30.5699, 30.5639, 30.5691, 30.5946, 30.5696, 30.5111, 30.4586,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 31.9151, 31.9875, 32.045, 32.1167, 32.2113, 32.2943, 32.3867, 32.5117, 32.6255, 32.7226, 32.8216, 32.928, 33.0432, 33.1408, 33.2133, 33.3041, 33.3841, 33.4566, 33.5111, 33.5728, 33.5963, 33.5892, 33.5617, 33.5482, 33.5193, 33.4964, 33.4634, 33.4141, 33.3595, 33.3041, 33.2459, 33.1558, 33.0763, 33.0029, 32.9441, 32.8801, 32.7996, 32.6995, 32.5892, 32.4249, 32.2555, 32.0893, 31.9167, 31.7501, 31.5847, 31.4005, 31.2512, 31.1316, 30.9987, 30.8838, 30.7678, 30.7101, 30.6607, 30.6046, 30.5768, 30.5566, 30.5699, 30.5639, 30.5691, 30.5946, 30.5696, 30.5111, 30.4586,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 31.8807, 31.8941, 31.896, 31.8763, 31.8651, 31.8518,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 31.8807, 31.8941, 31.896, 31.8763, 31.8651, 31.8518,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,			]}	
+data: [ 31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,31.1745,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,18 +539,21 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkDBK' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244494392"  target="_blank">DBK "Deutsche Bank"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244494392"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244494392"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkDBK' style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244494392" target="_blank">DBK "Deutsche Bank"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244494392"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244494392"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>29.69€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-0.3%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;10&nbsp;&nbsp;</span>
+<span style='font-size:45px'>KGV&nbsp;9&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;3%&nbsp;</span>&nbsp;
 <span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
 <img src='../image/flags/DE.jpeg' alt='DE: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>DE:" Die Deutsche Bank AG repräsentiert eine global ausgerichtete Bankengruppe. Das im Segment Corporate Bank zusammengefasste Firmenkundengeschäft wird als Kern der Aktivitäten beschrieben, welche das Cash Management, die Handelsfinanzierung, Kredite und den Devisenhandel umfassen. Zudem werden Korrespondenzbank-, Treuhand- und Wertpapierdienstleistungen für Finanzinstitute angeboten. Das Segment Private Bank betreut private, wohlhabende und kommerzielle Kunden in mehr als 60 Ländern und betreibt die Geschäftsbereiche Privatkundenbank Deutschland und International Private Bank. Im Segment Investment Bank ist die Gruppe u. a. auch mit dem Emissions- und Beratungsgeschäft sowie dem Franchise befasst. Das Segment Asset Management wird von der DWS Group repräsentiert, die ein Vermögen von mehr als 790 Mrd. Euro verwaltet. Die Anlageangebote umfassen alle wichtigen Anlageklassen, einschließlich Aktien, festverzinsliche Wertpapiere, Bargeld und Multi-Asset sowie alternative und passive Anlagen. "</span>
 &nbsp;"Banken"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;59 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;51 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

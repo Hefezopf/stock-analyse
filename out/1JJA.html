@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>1JJA
+<title>1JJA		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 2%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=270085217&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=270085217"  target="_blank">1JJA "Avanza Bank"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=270085217"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=270085217"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=270085217" target="_blank">1JJA "Avanza Bank"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=270085217" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=270085217" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','D+N+M+','D+N+M+','M+','M+','M+','4S+D+N+M+','4S+M+','4S+M+','21','22','D+N+','4S+D+N+M+','M+','M+','M+','30','01','04','05','06','M+','08','11','12','13','P+D+N+','M+','P+D+N+M+','P+D+N+M+','M+','M+','4S+P+D+N+M+','4S+P+D+N+M+','5S+P+M+','4S+','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
+labels: [	'','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','D+N+M+','D+N+M+','M+','M+','M+','4S+D+N+M+','4S+M+','4S+M+','21','22','D+N+','4S+D+N+M+','M+','M+','M+','30','01','04','05','06','M+','08','11','12','13','P+D+N+','M+','P+D+N+M+','P+D+N+M+','M+','M+','4S+P+D+N+M+','4S+P+D+N+M+','5S+P+M+','4S+','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
 ],
 datasets: [{
 label: ' "Avanza Bank" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [35.34,
+data: [					35.34,
 34.59,
 34.99,
 35.11,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 34.915, 34.9044, 34.9022, 34.93, 34.995, 35.0356, 35.135, 35.245, 35.2994, 35.3622, 35.4244, 35.5306, 35.6117, 35.6678, 35.7094, 35.7611, 35.7722, 35.7867, 35.84, 35.8861, 35.9083, 35.9278, 35.9533, 35.9967, 35.9733, 35.95, 35.84, 35.8128, 35.7728, 35.7056, 35.6322, 35.5317, 35.4228, 35.3567, 35.3106, 35.2606, 35.1533, 35.0683, 34.9611, 34.9106, 34.8161, 34.6472, 34.4983, 34.3917, 34.3322, 34.2017, 34.1039, 34.035, 34.0267, 34.0456, 34.0067, 33.9589, 33.9222, 33.8956, 33.8983, 33.8839, 33.8256, 33.7489, 33.6411, 33.5344, 33.465, 33.3933, 33.2856, 33.1717, 33.0422, 32.9328, 32.7744, 32.6356, 32.5561, 32.46, 32.3844, 32.3422, 32.2633, 32.2161, 32.29, 32.3256, 32.4139, 32.5456, 32.7367, 32.8756, 33.0272, 33.1511, 33.2406,
+data: [							 , , , , 34.915, 34.9044, 34.9022, 34.93, 34.995, 35.0356, 35.135, 35.245, 35.2994, 35.3622, 35.4244, 35.5306, 35.6117, 35.6678, 35.7094, 35.7611, 35.7722, 35.7867, 35.84, 35.8861, 35.9083, 35.9278, 35.9533, 35.9967, 35.9733, 35.95, 35.84, 35.8128, 35.7728, 35.7056, 35.6322, 35.5317, 35.4228, 35.3567, 35.3106, 35.2606, 35.1533, 35.0683, 34.9611, 34.9106, 34.8161, 34.6472, 34.4983, 34.3917, 34.3322, 34.2017, 34.1039, 34.035, 34.0267, 34.0456, 34.0067, 33.9589, 33.9222, 33.8956, 33.8983, 33.8839, 33.8256, 33.7489, 33.6411, 33.5344, 33.465, 33.3933, 33.2856, 33.1717, 33.0422, 32.9328, 32.7744, 32.6356, 32.5561, 32.46, 32.3844, 32.3422, 32.2633, 32.2161, 32.29, 32.3256, 32.4139, 32.5456, 32.7367, 32.8756, 33.0272, 33.1511, 33.2406,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 35.4063, 35.4258, 35.4371, 35.4758, 35.5095, 35.5221, 35.5253, 35.5726, 35.5703, 35.5689, 35.5637, 35.5613, 35.5461, 35.5276, 35.5018, 35.4987, 35.4737, 35.4511, 35.4282, 35.4287, 35.3963, 35.3418, 35.2742, 35.2171, 35.145, 35.0784, 35.0039, 34.9403, 34.9016, 34.8579, 34.7858, 34.7182, 34.6553, 34.615, 34.5861, 34.5497, 34.4739, 34.4163, 34.3224, 34.2082, 34.0955, 33.9839, 33.8718, 33.7624, 33.6787, 33.5761, 33.4813, 33.4037, 33.3287, 33.2632, 33.2161, 33.1871, 33.1426, 33.1076, 33.1176, 33.1171, 33.1158, 33.0879, 33.1105, 33.1447, 33.175, 33.1747, 33.1616,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 35.4063, 35.4258, 35.4371, 35.4758, 35.5095, 35.5221, 35.5253, 35.5726, 35.5703, 35.5689, 35.5637, 35.5613, 35.5461, 35.5276, 35.5018, 35.4987, 35.4737, 35.4511, 35.4282, 35.4287, 35.3963, 35.3418, 35.2742, 35.2171, 35.145, 35.0784, 35.0039, 34.9403, 34.9016, 34.8579, 34.7858, 34.7182, 34.6553, 34.615, 34.5861, 34.5497, 34.4739, 34.4163, 34.3224, 34.2082, 34.0955, 33.9839, 33.8718, 33.7624, 33.6787, 33.5761, 33.4813, 33.4037, 33.3287, 33.2632, 33.2161, 33.1871, 33.1426, 33.1076, 33.1176, 33.1171, 33.1158, 33.0879, 33.1105, 33.1447, 33.175, 33.1747, 33.1616,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 34.39, 34.3917, 34.3817, 34.3736, 34.3634, 34.3421,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 34.39, 34.3917, 34.3817, 34.3736, 34.3634, 34.3421,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,			]}	
+data: [ 34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,34.6185,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,9 +539,12 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLink1JJA' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=270085217"  target="_blank">1JJA "Avanza Bank"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=270085217"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=270085217"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLink1JJA' style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=270085217" target="_blank">1JJA "Avanza Bank"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=270085217"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=270085217"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>32.97€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-1.7%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;19&nbsp;&nbsp;</span>
@@ -547,7 +553,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <img src='../image/flags/SE.jpeg' alt='SE: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>SE:"-------------"</span>
 &nbsp;"Finanzdienstleistungen"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;5 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;5 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

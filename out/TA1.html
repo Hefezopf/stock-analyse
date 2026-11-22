@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>TA1
+<title>TA1		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 2%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244500084&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500084"  target="_blank">TA1 "Telekom Austria"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500084"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500084"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500084" target="_blank">TA1 "Telekom Austria"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500084" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500084" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','D+N+','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','D+N+','21','D+N+M+','4S+D+N+M+','4S+M+','M+','M+','M+','4S+D+N+M+','C+4S+D+N+M+','C+4S+D+N+M+','C+5S+3R+M+','6S+3R+D+N+M+','C+7S+4R+M+','7S+4R+P+D+N+M+','C+7S+5R+P+D+N+M+','C+7S+5R+P+M+','6S+4R+M+','4R+','C+5S+5R+P+','C+5S+5R+P+','C+5S+6R+P+D+N+M+','4S+5R+','21','22','4S+P+D+N+M+','26','P+D+N+','P+D+N+M+','*29','*01','*02','*03','*O-','*05','*08','*09','*O-','11','12','15','16','17','18','M+'
+labels: [	'','D+N+','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','D+N+','21','D+N+M+','4S+D+N+M+','4S+M+','M+','M+','M+','4S+D+N+M+','C+4S+D+N+M+','C+4S+D+N+M+','C+5S+3R+M+','6S+3R+D+N+M+','C+7S+4R+M+','7S+4R+P+D+N+M+','C+7S+5R+P+D+N+M+','C+7S+5R+P+M+','6S+4R+M+','4R+','C+5S+5R+P+','C+5S+5R+P+','C+5S+6R+P+D+N+M+','4S+5R+','21','22','4S+P+D+N+M+','26','P+D+N+','P+D+N+M+','*29','*01','*02','*03','*O-','*05','*08','*09','*O-','11','12','15','16','17','18','M+'
 ],
 datasets: [{
 label: ' "Telekom Austria" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [9.73,
+data: [					9.73,
 9.46,
 9.71,
 9.99,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {x:1,y:8.864,r:10}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 9.86778, 9.89556, 9.91333, 9.935, 9.945, 9.96, 9.96333, 9.975, 9.97389, 9.97833, 9.99167, 9.99278, 10.0072, 10.0339, 10.0533, 10.0878, 10.1083, 10.1033, 10.0817, 10.065, 10.065, 10.0606, 10.0628, 10.0628, 10.0639, 10.0561, 10.0694, 10.0728, 10.0706, 10.0728, 10.0644, 10.0567, 10.0578, 10.0644, 10.0667, 10.08, 10.0761, 10.0783, 10.0356, 10.0061, 9.96, 9.91222, 9.87333, 9.83722, 9.79167, 9.74444, 9.68889, 9.62944, 9.57667, 9.51889, 9.44722, 9.37333, 9.3, 9.21556, 9.14667, 9.07667, 9.04278, 8.99444, 8.96389, 8.925, 8.89278, 8.84944, 8.80333, 8.75722, 8.72222, 8.69, 8.65667, 8.62444, 8.60778, 8.58889, 8.57611, 8.585, 8.58722, 8.58389, 8.57667, 8.58222, 8.59389, 8.60889, 8.615, 8.61833, 8.63056, 8.64889, 8.65111,
+data: [							 , , , , 9.86778, 9.89556, 9.91333, 9.935, 9.945, 9.96, 9.96333, 9.975, 9.97389, 9.97833, 9.99167, 9.99278, 10.0072, 10.0339, 10.0533, 10.0878, 10.1083, 10.1033, 10.0817, 10.065, 10.065, 10.0606, 10.0628, 10.0628, 10.0639, 10.0561, 10.0694, 10.0728, 10.0706, 10.0728, 10.0644, 10.0567, 10.0578, 10.0644, 10.0667, 10.08, 10.0761, 10.0783, 10.0356, 10.0061, 9.96, 9.91222, 9.87333, 9.83722, 9.79167, 9.74444, 9.68889, 9.62944, 9.57667, 9.51889, 9.44722, 9.37333, 9.3, 9.21556, 9.14667, 9.07667, 9.04278, 8.99444, 8.96389, 8.925, 8.89278, 8.84944, 8.80333, 8.75722, 8.72222, 8.69, 8.65667, 8.62444, 8.60778, 8.58889, 8.57611, 8.585, 8.58722, 8.58389, 8.57667, 8.58222, 8.59389, 8.60889, 8.615, 8.61833, 8.63056, 8.64889, 8.65111,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 9.97658, 9.98605, 9.99342, 10.0016, 10.0074, 10.0134, 10.0197, 10.0242, 10.0279, 10.03, 10.0303, 10.0318, 10.0387, 10.0508, 10.0611, 10.0789, 10.0829, 10.0821, 10.0561, 10.0384, 10.0155, 9.99079, 9.97342, 9.95526, 9.93842, 9.915, 9.89289, 9.86474, 9.83368, 9.80737, 9.77342, 9.73789, 9.70421, 9.66579, 9.62737, 9.59579, 9.56395, 9.53132, 9.49395, 9.45289, 9.41921, 9.38053, 9.34132, 9.29974, 9.25474, 9.20974, 9.16395, 9.12132, 9.08342, 9.04263, 9.00237, 8.965, 8.92658, 8.88711, 8.85368, 8.82263, 8.81105, 8.79105, 8.78211, 8.76763, 8.75263, 8.73684, 8.71447,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 9.97658, 9.98605, 9.99342, 10.0016, 10.0074, 10.0134, 10.0197, 10.0242, 10.0279, 10.03, 10.0303, 10.0318, 10.0387, 10.0508, 10.0611, 10.0789, 10.0829, 10.0821, 10.0561, 10.0384, 10.0155, 9.99079, 9.97342, 9.95526, 9.93842, 9.915, 9.89289, 9.86474, 9.83368, 9.80737, 9.77342, 9.73789, 9.70421, 9.66579, 9.62737, 9.59579, 9.56395, 9.53132, 9.49395, 9.45289, 9.41921, 9.38053, 9.34132, 9.29974, 9.25474, 9.20974, 9.16395, 9.12132, 9.08342, 9.04263, 9.00237, 8.965, 8.92658, 8.88711, 8.85368, 8.82263, 8.81105, 8.79105, 8.78211, 8.76763, 8.75263, 8.73684, 8.71447,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 9.50905, 9.50032, 9.48863, 9.47832, 9.46726, 9.454,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 9.50905, 9.50032, 9.48863, 9.47832, 9.46726, 9.454,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,			]}	
+data: [ 8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,8.9775,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,9 +539,12 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkTA1' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500084"  target="_blank">TA1 "Telekom Austria"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500084"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500084"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkTA1' style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500084" target="_blank">TA1 "Telekom Austria"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500084"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500084"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>8.55€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-2.7%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;8&nbsp;&nbsp;</span>
@@ -547,7 +553,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <img src='../image/flags/AT.jpeg' alt='AT: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>AT:" Die Telekom Austria AG kontrolliert die größte Telekommunikationsgruppe Österreichs. 2010 richtete sich der Konzern stärker am Kundenwunsch aus, Kommunikationsdienstleistungen aus einer Hand zu erhalten. In der Folge wurden die Mobilfunk- und Festnetzaktivitäten in Österreich in der A1 Telekom Austria AG gebündelt. Daneben gehören die Marken CableRunner und Yesss! zum Konzern. Die Geschäftstätigkeit ist gegliedert in die Segmente Österreich, Bulgarien, Kroatien, Belarus, Slowenien, Serbien und Nordmazedonien. Hinzu kommt das Segment Holding  u.  Sonstige, Eliminierungen. Auf der ao. HV vom 01. August 2023 wurde die Abspaltung des Funkturmgeschäfts auf die neu zu gründende EuroTeleSites AG beschlossen. Für jeweils vier Telekom Austria Aktien erhalten die Anteilseigner eine EuroTeleSites Aktie. Die Spaltung wurde im Herbst 2023 umgesetzt, und die EuroTeleSites Aktien sind kurz danach im amtlichen Handel der Wiener Börse gelistet worden. "</span>
 &nbsp;"Telekomdienstleister"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;5 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;5 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

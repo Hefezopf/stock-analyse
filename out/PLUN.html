@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>PLUN
+<title>PLUN		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 0%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244500366&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500366"  target="_blank">PLUN "Plug Power"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500366"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500366"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500366" target="_blank">PLUN "Plug Power"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500366" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500366" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','C+4S+P+D+N+','4S+P+D+N+M+','*C+4S+3R+P+D+N+M+','*C+4S+3R+P+D+N+M+','4S+3R+','02','03','04','05','06','09','10','11','12','13','16','17','M+','M+','M+','23','24','M+','M+','M+','30','31','M+','4S+M+','5S+M+','4S+M+','07','08','09','M+','M+','M+','M+','M+','17','20','M+','M+','M+','P+M+','P+M+','C+P+D+N+M+','M+','M+','M+','M+','M+','P+M+','C+P+D+N+M+','C+P+D+N+M+','C+4S+3R+P+D+N+M+','C+5S+4R+P+D+N+M+','C+6S+5R+P+D+N+M+','C+7S+6R+P+D+N+M+','C+7S+7R+P+M+','C+7S+7R+P+D+N+M+','C+7S+7R+P+D+N+M+','C+7S+7R+P+M+','C+7S+7R+P+M+','*C+7S+7R+P+M+','*C+7S+7R+P+M+','*C+7S+7R+P+M+','6S+7R+','7R+','7R+','C+4S+7R+P+','C+4S+7R+P+D+N+','6R+','04','05','08','09','10','M+','P+D+N+M+','P+D+N+M+','P+D+N+M+','4S+P+D+N+M+','5S+P+M+','6S+P+D+N+M+'
+labels: [	'','23','C+4S+P+D+N+','4S+P+D+N+M+','*C+4S+3R+P+D+N+M+','*C+4S+3R+P+D+N+M+','4S+3R+','02','03','04','05','06','09','10','11','12','13','16','17','M+','M+','M+','23','24','M+','M+','M+','30','31','M+','4S+M+','5S+M+','4S+M+','07','08','09','M+','M+','M+','M+','M+','17','20','M+','M+','M+','P+M+','P+M+','C+P+D+N+M+','M+','M+','M+','M+','M+','P+M+','C+P+D+N+M+','C+P+D+N+M+','C+4S+3R+P+D+N+M+','C+5S+4R+P+D+N+M+','C+6S+5R+P+D+N+M+','C+7S+6R+P+D+N+M+','C+7S+7R+P+M+','C+7S+7R+P+D+N+M+','C+7S+7R+P+D+N+M+','C+7S+7R+P+M+','C+7S+7R+P+M+','*C+7S+7R+P+M+','*C+7S+7R+P+M+','*C+7S+7R+P+M+','6S+7R+','7R+','7R+','C+4S+7R+P+','C+4S+7R+P+D+N+','6R+','04','05','08','09','10','M+','P+D+N+M+','P+D+N+M+','P+D+N+M+','4S+P+D+N+M+','5S+P+M+','6S+P+D+N+M+'
 ],
 datasets: [{
 label: ' "Plug Power" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [1.959,
+data: [					1.959,
 1.922,
 1.8366,
 1.81,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {x:1,y:1.805,r:10}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {x:1,y:1.291,r:10}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 1.97949, 1.94386, 1.91533, 1.89392, 1.87587, 1.86448, 1.8559, 1.85018, 1.84482, 1.84793, 1.85004, 1.85452, 1.85997, 1.86083, 1.85977, 1.85638, 1.86079, 1.86379, 1.87535, 1.88713, 1.89471, 1.89893, 1.90559, 1.90659, 1.90926, 1.90926, 1.90517, 1.89584, 1.89237, 1.88648, 1.88393, 1.87612, 1.86912, 1.86618, 1.85868, 1.85368, 1.84379, 1.8429, 1.83579, 1.83376, 1.82848, 1.82331, 1.8162, 1.8126, 1.80254, 1.79549, 1.78712, 1.77673, 1.76234, 1.75196, 1.74257, 1.73007, 1.71601, 1.70071, 1.68354, 1.65932, 1.63077, 1.60332, 1.57127, 1.5391, 1.51166, 1.48464, 1.4622, 1.43702, 1.40969, 1.3863, 1.36324, 1.33936, 1.31558, 1.29241, 1.27819, 1.26782, 1.25299, 1.24714, 1.25153, 1.24598, 1.24326, 1.2372, 1.2242, 1.20887, 1.19364, 1.18049, 1.16443,
+data: [							 , , , , 1.97949, 1.94386, 1.91533, 1.89392, 1.87587, 1.86448, 1.8559, 1.85018, 1.84482, 1.84793, 1.85004, 1.85452, 1.85997, 1.86083, 1.85977, 1.85638, 1.86079, 1.86379, 1.87535, 1.88713, 1.89471, 1.89893, 1.90559, 1.90659, 1.90926, 1.90926, 1.90517, 1.89584, 1.89237, 1.88648, 1.88393, 1.87612, 1.86912, 1.86618, 1.85868, 1.85368, 1.84379, 1.8429, 1.83579, 1.83376, 1.82848, 1.82331, 1.8162, 1.8126, 1.80254, 1.79549, 1.78712, 1.77673, 1.76234, 1.75196, 1.74257, 1.73007, 1.71601, 1.70071, 1.68354, 1.65932, 1.63077, 1.60332, 1.57127, 1.5391, 1.51166, 1.48464, 1.4622, 1.43702, 1.40969, 1.3863, 1.36324, 1.33936, 1.31558, 1.29241, 1.27819, 1.26782, 1.25299, 1.24714, 1.25153, 1.24598, 1.24326, 1.2372, 1.2242, 1.20887, 1.19364, 1.18049, 1.16443,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 1.92587, 1.91443, 1.90438, 1.89719, 1.88972, 1.88224, 1.87829, 1.87589, 1.87267, 1.87122, 1.87257, 1.87198, 1.87021, 1.86545, 1.86077, 1.85687, 1.85499, 1.85583, 1.8578, 1.86228, 1.86323, 1.86374, 1.86146, 1.85767, 1.85301, 1.84999, 1.84534, 1.8375, 1.83102, 1.82339, 1.8146, 1.80351, 1.79267, 1.78313, 1.77103, 1.75897, 1.74195, 1.72784, 1.71003, 1.6933, 1.67485, 1.6578, 1.64125, 1.62629, 1.61064, 1.59614, 1.58038, 1.56423, 1.54538, 1.52702, 1.51275, 1.4997, 1.48412, 1.47167, 1.46141, 1.44509, 1.42935, 1.41072, 1.38862, 1.36675, 1.34635, 1.32687, 1.30837,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 1.92587, 1.91443, 1.90438, 1.89719, 1.88972, 1.88224, 1.87829, 1.87589, 1.87267, 1.87122, 1.87257, 1.87198, 1.87021, 1.86545, 1.86077, 1.85687, 1.85499, 1.85583, 1.8578, 1.86228, 1.86323, 1.86374, 1.86146, 1.85767, 1.85301, 1.84999, 1.84534, 1.8375, 1.83102, 1.82339, 1.8146, 1.80351, 1.79267, 1.78313, 1.77103, 1.75897, 1.74195, 1.72784, 1.71003, 1.6933, 1.67485, 1.6578, 1.64125, 1.62629, 1.61064, 1.59614, 1.58038, 1.56423, 1.54538, 1.52702, 1.51275, 1.4997, 1.48412, 1.47167, 1.46141, 1.44509, 1.42935, 1.41072, 1.38862, 1.36675, 1.34635, 1.32687, 1.30837,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 1.70159, 1.68801, 1.6738, 1.66106, 1.64894, 1.63683,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 1.70159, 1.68801, 1.6738, 1.66106, 1.64894, 1.63683,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,			]}	
+data: [ 0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,0.9765,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,9 +539,12 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkPLUN' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500366"  target="_blank">PLUN "Plug Power"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500366"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500366"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkPLUN' style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244500366" target="_blank">PLUN "Plug Power"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244500366"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244500366"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>0.93€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-6.1%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;--&nbsp;&nbsp;</span>
@@ -547,7 +553,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <img src='../image/flags/US.jpeg' alt='US: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>US:" Die Plug Power Inc. baut ein Ökosystem für Wasserstoff auf, das von der Produktion über die Speicherung und Lieferung bis hin zur Energieerzeugung reicht. Die vertikal integrierten End-to-End-Wasserstofflösungen sind auf die individuellen Bedürfnisse der Kunden zugeschnitten und umfassen Wasserstoffproduktionsanlagen und die Lieferung von Wasserstoffkraftstoff. Hervorgehoben werden dabei Brennstoffzellen, Protonenaustauschmembranen, Wasserstoffverflüssiger, Kryotechnik für flüssigen Wasserstoff und die Wasserstoffproduktion. Pionier war Plug Power bei der kommerziellen Nutzung von Wasserstoff-Brennstoffzellen für Gabelstapler, mehr als 72.000 Brennstoffzellensysteme hat das Unternehmen für diesen Anwendungsbereich zur Verfügung gestellt. "</span>
 &nbsp;"Erneuerbare Energiean...</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

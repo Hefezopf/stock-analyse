@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>SPU
+<title>SPU		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244539631&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539631"  target="_blank">SPU "Snap-on"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539631"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539631"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539631" target="_blank">SPU "Snap-on"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539631" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539631" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','C+4S+','C+5S+','6S+D+N+','C+7S+3R+D+N+M+','7S+3R+M+','6S+4R+M+','5R+M+','5R+','5R+','6R+','C+6R+D+N+M+','C+7R+D+N+M+','C+7R+D+N+M+','7R+M+','4S+6R+M+','5S+D+N+M+','6S+M+','6S+D+N+M+','6S+D+N+M+','C+6S+M+','6S+','15','3R+','C+4S+4R+','4R+','P+D+N+','22','23','24','27','28','29','P+D+N+','01','04','05','06','07','P+D+N+M+','M+','12','13','14','15','18','19','20','21','C+D+N+','25','26','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
+labels: [	'','23','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','C+4S+','C+5S+','6S+D+N+','C+7S+3R+D+N+M+','7S+3R+M+','6S+4R+M+','5R+M+','5R+','5R+','6R+','C+6R+D+N+M+','C+7R+D+N+M+','C+7R+D+N+M+','7R+M+','4S+6R+M+','5S+D+N+M+','6S+M+','6S+D+N+M+','6S+D+N+M+','C+6S+M+','6S+','15','3R+','C+4S+4R+','4R+','P+D+N+','22','23','24','27','28','29','P+D+N+','01','04','05','06','07','P+D+N+M+','M+','12','13','14','15','18','19','20','21','C+D+N+','25','26','27','28','29','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
 ],
 datasets: [{
 label: ' "Snap-on" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [355.40,
+data: [					355.40,
 340.00,
 355.00,
 357.60,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 355.186, 355.244, 354.856, 354.756, 355.047, 355.758, 356.322, 356.733, 357.019, 357.219, 356.897, 356.597, 356.319, 355.969, 355.419, 355.481, 354.447, 353.136, 351.328, 350.028, 349.069, 348.247, 347.344, 345.953, 344.292, 342.581, 340.822, 339.372, 337.825, 336.281, 334.931, 333.592, 332.297, 331.275, 330.714, 330.156, 329.492, 328.678, 327.892, 326.825, 326.025, 325.317, 324.806, 324.494, 324.289, 323.939, 323.458, 323.492, 323.536, 323.697, 323.931, 323.825, 323.422, 323.247, 323.242, 323.297, 323.408, 323.619, 323.775, 323.764, 323.931, 324.169, 322.714, 322.458, 322.397, 322.064, 321.592, 321.219, 320.742, 321.008, 321.217, 321.594, 321.739, 322.017, 322.428, 322.883, 323.45, 324.083, 324.55, 324.767, 326.422, 327.022, 327.356,
+data: [							 , , , , 355.186, 355.244, 354.856, 354.756, 355.047, 355.758, 356.322, 356.733, 357.019, 357.219, 356.897, 356.597, 356.319, 355.969, 355.419, 355.481, 354.447, 353.136, 351.328, 350.028, 349.069, 348.247, 347.344, 345.953, 344.292, 342.581, 340.822, 339.372, 337.825, 336.281, 334.931, 333.592, 332.297, 331.275, 330.714, 330.156, 329.492, 328.678, 327.892, 326.825, 326.025, 325.317, 324.806, 324.494, 324.289, 323.939, 323.458, 323.492, 323.536, 323.697, 323.931, 323.825, 323.422, 323.247, 323.242, 323.297, 323.408, 323.619, 323.775, 323.764, 323.931, 324.169, 322.714, 322.458, 322.397, 322.064, 321.592, 321.219, 320.742, 321.008, 321.217, 321.594, 321.739, 322.017, 322.428, 322.883, 323.45, 324.083, 324.55, 324.767, 326.422, 327.022, 327.356,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 352.417, 351.917, 351.317, 350.789, 350.316, 349.763, 349.136, 348.538, 347.868, 347.179, 346.224, 345.297, 344.429, 343.605, 342.839, 342.417, 341.593, 340.678, 339.488, 338.455, 337.661, 336.845, 335.991, 334.954, 333.962, 333.004, 331.971, 331.203, 330.421, 329.713, 329.087, 328.379, 327.683, 327.149, 326.812, 326.543, 326.263, 325.946, 325.679, 325.247, 324.9, 324.636, 323.741, 323.472, 323.243, 323.004, 322.732, 322.579, 322.366, 322.418, 322.434, 322.563, 322.561, 322.688, 322.917, 323.201, 323.575, 323.949, 324.201, 324.375, 324.507, 324.67, 324.696,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 352.417, 351.917, 351.317, 350.789, 350.316, 349.763, 349.136, 348.538, 347.868, 347.179, 346.224, 345.297, 344.429, 343.605, 342.839, 342.417, 341.593, 340.678, 339.488, 338.455, 337.661, 336.845, 335.991, 334.954, 333.962, 333.004, 331.971, 331.203, 330.421, 329.713, 329.087, 328.379, 327.683, 327.149, 326.812, 326.543, 326.263, 325.946, 325.679, 325.247, 324.9, 324.636, 323.741, 323.472, 323.243, 323.004, 322.732, 322.579, 322.366, 322.418, 322.434, 322.563, 322.561, 322.688, 322.917, 323.201, 323.575, 323.949, 324.201, 324.375, 324.507, 324.67, 324.696,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 336.058, 335.785, 335.467, 335.151, 334.936, 334.675,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 336.058, 335.785, 335.467, 335.151, 334.936, 334.675,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,			]}	
+data: [ 341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,341.04,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,18 +539,21 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkSPU' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539631"  target="_blank">SPU "Snap-on"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539631"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539631"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkSPU' style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539631" target="_blank">SPU "Snap-on"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539631"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539631"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>324.80€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-1.3%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;19&nbsp;&nbsp;</span>
+<span style='font-size:45px'>KGV&nbsp;18&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;2%&nbsp;</span>&nbsp;
 <span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
 <img src='../image/flags/US.jpeg' alt='US: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>US:" Snap-on ist ein weltweit führender Hersteller und Anbieter von Werkzeugen, Geräten, Diagnostik, Reparaturinformationen und Systemlösungen für professionelle Anwender, die kritische Aufgaben durchführen. Die Produkte und Dienstleistungen umfassen Hand- und Elektrowerkzeuge, Werkzeugspeicher, Diagnose-Software, Informations- und Managementsysteme, Ladeneinrichtungen und andere Lösungen für Fahrzeughändler und Reparaturzentren wie auch für Kunden in Branchen wie Luft- und Raumfahrt, Landwirtschaft, Baugewerbe, Regierung und Militär, Bergbau, natürliche Ressourcen, Energieerzeugung und technische Ausbildung. Snap-on erzielt auch Erträge aus verschiedenen Finanzierungsprogrammen, die entwickelt werden, um die Verkäufe ihrer Produkte zu erleichtern. Bedeutende Märkte in Europa sind Großbritannien, Deutschland, Frankreich, Italien, Schweden, Spanien und Russland. Snap-on erreicht seine Kunden direkt, über Franchisenehmer, Händler und Internet-Kanäle. "</span>
 &nbsp;"Dienstleistungen"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;17 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;16 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

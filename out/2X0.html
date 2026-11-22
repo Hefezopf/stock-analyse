@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>2X0
+<title>2X0		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 2%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=258784017&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=258784017"  target="_blank">2X0 "Corteva"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=258784017"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=258784017"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=258784017" target="_blank">2X0 "Corteva"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=258784017" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=258784017" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','29','30','02','03','04','05','4S+M+','5S+M+','5S+M+','C+5S+M+','C+5S+D+N+M+','C+6S+3R+D+N+M+','C+7S+4R+','C+7S+5R+','6S+6R+','6R+','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','4S+','5S+','5S+','23','M+','4S+M+','4S+M+','4S+M+','4S+M+','C+5S+P+D+N+M+','C+6S+P+D+N+M+','C+7S+3R+P+M+','C+7S+4R+P+M+','C+7S+5R+P+M+','C+7S+6R+P+M+','C+7S+7R+P+M+','C+7S+7R+P+M+','C+7S+7R+P+','C+7S+7R+P+','C+7S+7R+P+','C+7S+7R+P+','C+7S+7R+P+','6S+7R+','6R+','22','4S+P+','4S+P+','C+4S+3R+P+D+N+','C+4S+3R+P+D+N+','C+5S+3R+P+','5S+4R+','4R+','03','04','05','08','09','10','11','C+P+D+N+','15','P+D+N+','P+D+N+','C+4S+P+D+N+','C+5S+3R+P+D+N+'
+labels: [	'','23','26','27','28','29','30','02','03','04','05','4S+M+','5S+M+','5S+M+','C+5S+M+','C+5S+D+N+M+','C+6S+3R+D+N+M+','C+7S+4R+','C+7S+5R+','6S+6R+','6R+','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','4S+','5S+','5S+','23','M+','4S+M+','4S+M+','4S+M+','4S+M+','C+5S+P+D+N+M+','C+6S+P+D+N+M+','C+7S+3R+P+M+','C+7S+4R+P+M+','C+7S+5R+P+M+','C+7S+6R+P+M+','C+7S+7R+P+M+','C+7S+7R+P+M+','C+7S+7R+P+','C+7S+7R+P+','C+7S+7R+P+','C+7S+7R+P+','C+7S+7R+P+','6S+7R+','6R+','22','4S+P+','4S+P+','C+4S+3R+P+D+N+','C+4S+3R+P+D+N+','C+5S+3R+P+','5S+4R+','4R+','03','04','05','08','09','10','11','C+P+D+N+','15','P+D+N+','P+D+N+','C+4S+P+D+N+','C+5S+3R+P+D+N+'
 ],
 datasets: [{
 label: ' "Corteva" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [76.94,
+data: [					76.94,
 77.78,
 77.96,
 76.88,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 75.6533, 75.8711, 75.7367, 75.3356, 74.8622, 74.5756, 74.1889, 73.6867, 73.2644, 72.84, 72.3178, 71.7189, 71.1589, 70.6056, 69.97, 69.3956, 68.7856, 68.2933, 67.8789, 67.4133, 67.3044, 67.4611, 67.7211, 67.9578, 68.2233, 68.7033, 69.3289, 69.8778, 70.4067, 70.9378, 71.4111, 71.7867, 72.1733, 72.4422, 72.6767, 72.9044, 72.9378, 72.9533, 72.8922, 72.7689, 72.7344, 72.6356, 72.4867, 72.1344, 71.6178, 71.2044, 70.81, 67.2611, 63.7472, 60.2889, 56.9483, 53.6489, 50.3728, 47.0214, 43.765, 40.485, 37.2692, 34.0831, 30.825, 27.5319, 24.2725, 21.0767, 17.9192, 14.7403, 11.5317, 11.4922, 11.4669, 11.44, 11.3314, 11.2056, 11.1153, 11.0653, 10.9989, 10.9289, 10.8608, 10.83, 10.8047, 10.6397, 10.4767, 10.3038, 10.1127, 9.91822, 9.7375,
+data: [							 , , , , 75.6533, 75.8711, 75.7367, 75.3356, 74.8622, 74.5756, 74.1889, 73.6867, 73.2644, 72.84, 72.3178, 71.7189, 71.1589, 70.6056, 69.97, 69.3956, 68.7856, 68.2933, 67.8789, 67.4133, 67.3044, 67.4611, 67.7211, 67.9578, 68.2233, 68.7033, 69.3289, 69.8778, 70.4067, 70.9378, 71.4111, 71.7867, 72.1733, 72.4422, 72.6767, 72.9044, 72.9378, 72.9533, 72.8922, 72.7689, 72.7344, 72.6356, 72.4867, 72.1344, 71.6178, 71.2044, 70.81, 67.2611, 63.7472, 60.2889, 56.9483, 53.6489, 50.3728, 47.0214, 43.765, 40.485, 37.2692, 34.0831, 30.825, 27.5319, 24.2725, 21.0767, 17.9192, 14.7403, 11.5317, 11.4922, 11.4669, 11.44, 11.3314, 11.2056, 11.1153, 11.0653, 10.9989, 10.9289, 10.8608, 10.83, 10.8047, 10.6397, 10.4767, 10.3038, 10.1127, 9.91822, 9.7375,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 71.7168, 71.6084, 71.4842, 71.4026, 71.3589, 71.4105, 71.4784, 71.4832, 71.5247, 71.5647, 71.5237, 71.4368, 71.36, 71.2579, 71.1068, 70.9579, 70.7621, 70.6063, 70.4089, 70.1389, 70.0621, 70.1237, 70.2337, 70.2542, 70.2605, 70.3074, 70.3621, 68.9221, 67.4639, 66.0226, 64.6287, 63.2258, 61.8239, 60.3596, 58.9103, 57.4339, 55.9096, 54.3509, 52.7824, 51.2099, 49.6528, 48.0474, 46.4322, 44.7459, 42.9845, 41.2658, 39.5451, 37.8395, 36.1699, 34.5295, 32.9017, 31.2863, 29.6945, 28.0771, 26.5047, 24.9241, 23.3725, 21.7802, 20.1622, 18.5218, 16.8867, 15.2751, 13.6728,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 71.7168, 71.6084, 71.4842, 71.4026, 71.3589, 71.4105, 71.4784, 71.4832, 71.5247, 71.5647, 71.5237, 71.4368, 71.36, 71.2579, 71.1068, 70.9579, 70.7621, 70.6063, 70.4089, 70.1389, 70.0621, 70.1237, 70.2337, 70.2542, 70.2605, 70.3074, 70.3621, 68.9221, 67.4639, 66.0226, 64.6287, 63.2258, 61.8239, 60.3596, 58.9103, 57.4339, 55.9096, 54.3509, 52.7824, 51.2099, 49.6528, 48.0474, 46.4322, 44.7459, 42.9845, 41.2658, 39.5451, 37.8395, 36.1699, 34.5295, 32.9017, 31.2863, 29.6945, 28.0771, 26.5047, 24.9241, 23.3725, 21.7802, 20.1622, 18.5218, 16.8867, 15.2751, 13.6728,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 51.9342, 51.2331, 50.5262, 49.8166, 49.1126, 48.4196,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 51.9342, 51.2331, 50.5262, 49.8166, 49.1126, 48.4196,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,			]}	
+data: [ 7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,7.7595,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,18 +539,21 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLink2X0' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=258784017"  target="_blank">2X0 "Corteva"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=258784017"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=258784017"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLink2X0' style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=258784017" target="_blank">2X0 "Corteva"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=258784017"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=258784017"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>7.39€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-2.8%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;28&nbsp;&nbsp;</span>
+<span style='font-size:45px'>KGV&nbsp;21&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;1%&nbsp;</span>&nbsp;
 <span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
 <img src='../image/flags/US.jpeg' alt='US: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>US:" Die Corteva, Inc. ist ein global ausgerichtetes Agrarunternehmen, das seine Geschäftstätigkeit 2026 auf das Segment Pflanzenschutz konzentriert hat. Hier liefert das Unternehmen Produkte zum Schutz der Ernte vor Unkraut, Insekten und Krankheiten. Der Geschäftsbereich Saatgut (entwickelt und liefert kommerzielles Saatgut, das hochwertiges Keimplasma mit verbesserten Eigenschaften kombiniert) wurde 2026 in ein unabhängiges, börsennotiertes Unternehmen, die Vylor Inc., ausgegliedert. Die Corteva, Inc. selbst war 2019 durch Aufspaltung der DowDuPont Inc. in die drei separate Gesellschaften hervorgegangen, neben Corteva waren das die Dow Inc. und die DuPont Inc. Die DowDuPont Inc. ihrerseits war am 31. August 2017 durch den Zusammenschluss von Dow Chemical Company und E. I. du Pont de Nemours and Company gegründet worden. "</span>
 &nbsp;"Sonstige Handel"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;5 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;4 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>CEBT
+<title>CEBT		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 100%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=443697821&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://www.comdirect.de/inf/etfs/detail/uebersicht.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=443697821"  target="_blank">CEBT "iSh Essential Metals"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://www.comdirect.de/inf/etfs/detail/uebersicht.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=443697821"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://www.comdirect.de/inf/etfs/detail/uebersicht.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=443697821"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=443697821" target="_blank">CEBT "iSh Essential Metals"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=443697821" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=443697821" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','M+','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','4S+','C+5S+3R+','5S+3R+','20','M+','22','23','M+','M+','M+','M+','M+','D+N+M+','M+','05','06','07','D+N+M+','11','12','13','D+N+M+','D+N+M+','4S+M+','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+M+','6S+3R+','28','4R+','C+4S+5R+D+N+','4R+M+','P+M+','04','P+D+N+','08','09','10','11','12','M+','P+D+N+M+','P+D+N+M+','P+D+N+M+','4S+P+D+N+M+'
+labels: [	'','23','26','27','28','M+','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','4S+','C+5S+3R+','5S+3R+','20','M+','22','23','M+','M+','M+','M+','M+','D+N+M+','M+','05','06','07','D+N+M+','11','12','13','D+N+M+','D+N+M+','4S+M+','4S+D+N+M+','5S+D+N+M+','6S+D+N+M+','C+7S+D+N+M+','C+7S+M+','C+7S+3R+M+','6S+3R+','28','4R+','C+4S+5R+D+N+','4R+M+','P+M+','04','P+D+N+','08','09','10','11','12','M+','P+D+N+M+','P+D+N+M+','P+D+N+M+','4S+P+D+N+M+'
 ],
 datasets: [{
 label: ' "iSh Essential Metals" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [8.213,
+data: [					8.213,
 8.102,
 8.013,
 8.049,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 8.003, 7.98267, 7.971, 7.9725, 7.98994, 8.01944, 8.05789, 8.10378, 8.14694, 8.20589, 8.2725, 8.35039, 8.41083, 8.45828, 8.50328, 8.539, 8.59172, 8.6465, 8.73294, 8.82533, 8.90728, 8.99078, 9.07078, 9.129, 9.16194, 9.18594, 9.19944, 9.20956, 9.22217, 9.22822, 9.26461, 9.29522, 9.29272, 9.30606, 9.29217, 9.26756, 9.21539, 9.17972, 9.13539, 9.09906, 9.07144, 9.03094, 8.99733, 8.97517, 8.94133, 8.904, 8.87011, 8.83189, 8.789, 8.75428, 8.74406, 8.72267, 8.7115, 8.72061, 8.73039, 8.71578, 8.69372, 8.663, 8.62333, 8.58922, 8.55878, 8.51961, 8.46761, 8.41556, 8.36483, 8.33567, 8.29789, 8.24822, 8.178, 8.12689, 8.07233, 8.01672, 7.94711, 7.89661, 7.87494, 7.84378, 7.82133, 7.79533, 7.76139, 7.71761, 7.68978, 7.63956, 7.57583,
+data: [							 , , , , 8.003, 7.98267, 7.971, 7.9725, 7.98994, 8.01944, 8.05789, 8.10378, 8.14694, 8.20589, 8.2725, 8.35039, 8.41083, 8.45828, 8.50328, 8.539, 8.59172, 8.6465, 8.73294, 8.82533, 8.90728, 8.99078, 9.07078, 9.129, 9.16194, 9.18594, 9.19944, 9.20956, 9.22217, 9.22822, 9.26461, 9.29522, 9.29272, 9.30606, 9.29217, 9.26756, 9.21539, 9.17972, 9.13539, 9.09906, 9.07144, 9.03094, 8.99733, 8.97517, 8.94133, 8.904, 8.87011, 8.83189, 8.789, 8.75428, 8.74406, 8.72267, 8.7115, 8.72061, 8.73039, 8.71578, 8.69372, 8.663, 8.62333, 8.58922, 8.55878, 8.51961, 8.46761, 8.41556, 8.36483, 8.33567, 8.29789, 8.24822, 8.178, 8.12689, 8.07233, 8.01672, 7.94711, 7.89661, 7.87494, 7.84378, 7.82133, 7.79533, 7.76139, 7.71761, 7.68978, 7.63956, 7.57583,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 8.42979, 8.46434, 8.49655, 8.53726, 8.57826, 8.60987, 8.64063, 8.67737, 8.70476, 8.735, 8.77803, 8.82363, 8.857, 8.88226, 8.89539, 8.90829, 8.92268, 8.94421, 8.96618, 8.99316, 9.01782, 9.03863, 9.05545, 9.06258, 9.05911, 9.05642, 9.04732, 9.03153, 9.02268, 9.01495, 9.01484, 9.0075, 8.99403, 8.99432, 8.98837, 8.97703, 8.94761, 8.91626, 8.88332, 8.84842, 8.81292, 8.77392, 8.73021, 8.6915, 8.65197, 8.61758, 8.58487, 8.55074, 8.50013, 8.45408, 8.41595, 8.38358, 8.35124, 8.32763, 8.31266, 8.28345, 8.26087, 8.23087, 8.19237, 8.15182, 8.11084, 8.05884, 8.00516,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 8.42979, 8.46434, 8.49655, 8.53726, 8.57826, 8.60987, 8.64063, 8.67737, 8.70476, 8.735, 8.77803, 8.82363, 8.857, 8.88226, 8.89539, 8.90829, 8.92268, 8.94421, 8.96618, 8.99316, 9.01782, 9.03863, 9.05545, 9.06258, 9.05911, 9.05642, 9.04732, 9.03153, 9.02268, 9.01495, 9.01484, 9.0075, 8.99403, 8.99432, 8.98837, 8.97703, 8.94761, 8.91626, 8.88332, 8.84842, 8.81292, 8.77392, 8.73021, 8.6915, 8.65197, 8.61758, 8.58487, 8.55074, 8.50013, 8.45408, 8.41595, 8.38358, 8.35124, 8.32763, 8.31266, 8.28345, 8.26087, 8.23087, 8.19237, 8.15182, 8.11084, 8.05884, 8.00516,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 8.48856, 8.48185, 8.47092, 8.46231, 8.45186, 8.43724,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 8.48856, 8.48185, 8.47092, 8.46231, 8.45186, 8.43724,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,			]}	
+data: [ 6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,6.8985,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,9 +539,12 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkCEBT' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://www.comdirect.de/inf/etfs/detail/uebersicht.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=443697821"  target="_blank">CEBT "iSh Essential Metals"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://www.comdirect.de/inf/etfs/detail/uebersicht.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=443697821"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://www.comdirect.de/inf/etfs/detail/uebersicht.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=443697821"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkCEBT' style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=443697821" target="_blank">CEBT "iSh Essential Metals"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=443697821"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=443697821"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>6.57€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-3.2%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;0&nbsp;&nbsp;</span>
@@ -547,7 +553,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <img src='../image/flags/IE.jpeg' alt='IE: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>IE:"   Die Anteilklasse ist eine Anteilklasse des Fonds, der durch eine Kombination aus Kapitalwachstum und Erträgen auf das Fondsvermögen die Erzielung einer Rendite aus Ihrer Anlage anstrebt, welche die Rendite des S u. #38;P Global Essential Metals Producers Index, des Referenzindex des Fonds (Index), widerspiegelt. Die Anteilklasse wird über den Fonds passiv verwaltet und strebt an, soweit dies möglich und machbar ist, in die Eigenkapitalinstrumente (z. B. Aktien) zu investieren, aus denen sich der Index zusammensetzt. Der Index strebt eine Abbildung der Wertentwicklung eines Segments der Eigenkapitalwerte zulässiger Unternehmen in Industrie- und Schwellenländern an, die an der Produktion von Metallen beteiligt sind, die für den Übergang des weltweiten Energiesektors von auf fossilen Energieträgern basierenden Systemen der Energieerzeugung und des Energieverbrauchs hin zu erneuerbaren Energiequellen gebraucht werden. Der Referenzindex setzt sich aus Emittenten aus dem S u. #38;P Global BMI Index zusammen. Im Index enthaltene Unternehmen müssen (i) ein tägliches Handelsvolumen im Sechsmonatsdurchschnitt (MDTV) von mindestens 3 Millionen USD (2 Millionen USD bei vorhandenen Indexkomponenten) haben, (ii) eine Marktkapitalisierung auf Freefloat-Basis von mindestens 100 Millionen USD haben, (iii) eine gesamte Marktkapitalisierung von mindestens 300 Millionen USD haben und (iv) ihren Sitz in einem gemäß der Festlegung des Indexanbieters zulässigen Land haben"</span>
 &nbsp;"Strategie"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1000 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;1000 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;INDEX</b>
@@ -575,7 +581,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

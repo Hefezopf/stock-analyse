@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>FAN
+<title>FAN		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 4%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244539285&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539285"  target="_blank">FAN "Fabrinet"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539285"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539285"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539285" target="_blank">FAN "Fabrinet"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539285" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539285" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','M+','P+D+N+M+','P+D+N+M+','M+','M+','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','D+N+','4S+M+','4S+M+','C+5S+M+','6S+D+N+M+','6S+D+N+M+','C+6S+D+N+M+','C+6S+3R+P+D+N+M+','C+6S+4R+P+D+N+M+','6S+5R+','5R+','5R+','09','10','13','P+D+N+','P+D+N+M+','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','4S+D+N+','5S+D+N+','6S+M+','C+7S+D+N+M+','C+7S+D+N+M+','6S+3R+M+','4R+','5R+','6R+','7R+M+','6R+','03','04','P+D+N+','08','09','10','11','12','15','M+','M+','M+','M+'
+labels: [	'','23','26','M+','P+D+N+M+','P+D+N+M+','M+','M+','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','D+N+','4S+M+','4S+M+','C+5S+M+','6S+D+N+M+','6S+D+N+M+','C+6S+D+N+M+','C+6S+3R+P+D+N+M+','C+6S+4R+P+D+N+M+','6S+5R+','5R+','5R+','09','10','13','P+D+N+','P+D+N+M+','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','4S+D+N+','5S+D+N+','6S+M+','C+7S+D+N+M+','C+7S+D+N+M+','6S+3R+M+','4R+','5R+','6R+','7R+M+','6R+','03','04','P+D+N+','08','09','10','11','12','15','M+','M+','M+','M+'
 ],
 datasets: [{
 label: ' "Fabrinet" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [449.50,
+data: [					449.50,
 454.30,
 417.70,
 413.15,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 424.592, 420.147, 417.003, 415.208, 413.853, 415.997, 418.142, 421.169, 424.697, 426.525, 429.475, 433.831, 437.086, 438.758, 440.808, 438.644, 437.022, 435.192, 434.025, 433.944, 433.306, 433.2, 431.583, 425.85, 420.519, 413.592, 405.547, 399.092, 393.275, 385.175, 377.786, 370.336, 362.597, 359.339, 356.283, 353.239, 351.5, 349.847, 348.114, 346.725, 345.953, 345.681, 345.394, 346.472, 347.556, 349.333, 350.667, 353.428, 356.394, 358.878, 363.55, 368.267, 373.883, 379.872, 383.561, 386.394, 387.122, 386.722, 385.733, 384.122, 382.244, 379.494, 375.183, 370.144, 365.794, 360.672, 355.839, 350.061, 342.311, 335.394, 329.306, 322.069, 313.764, 308.831, 307.386, 305.642, 305.519, 305.314, 304.236, 302.342, 302.497, 302.903, 302.208,
+data: [							 , , , , 424.592, 420.147, 417.003, 415.208, 413.853, 415.997, 418.142, 421.169, 424.697, 426.525, 429.475, 433.831, 437.086, 438.758, 440.808, 438.644, 437.022, 435.192, 434.025, 433.944, 433.306, 433.2, 431.583, 425.85, 420.519, 413.592, 405.547, 399.092, 393.275, 385.175, 377.786, 370.336, 362.597, 359.339, 356.283, 353.239, 351.5, 349.847, 348.114, 346.725, 345.953, 345.681, 345.394, 346.472, 347.556, 349.333, 350.667, 353.428, 356.394, 358.878, 363.55, 368.267, 373.883, 379.872, 383.561, 386.394, 387.122, 386.722, 385.733, 384.122, 382.244, 379.494, 375.183, 370.144, 365.794, 360.672, 355.839, 350.061, 342.311, 335.394, 329.306, 322.069, 313.764, 308.831, 307.386, 305.642, 305.519, 305.314, 304.236, 302.342, 302.497, 302.903, 302.208,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 425.899, 424.141, 422.278, 420.899, 419.189, 417.216, 415.332, 413.305, 411.416, 409.489, 408.332, 406.774, 404.542, 401.776, 398.724, 395.332, 393.337, 391.162, 389.672, 389.362, 388.622, 387.964, 386.762, 384.283, 381.896, 379.278, 376.349, 374.864, 373.714, 371.27, 369.709, 368.386, 367.022, 367.492, 368.013, 368.047, 367.455, 366.993, 366.088, 364.717, 363.391, 362.325, 360.421, 358.697, 357.518, 356.666, 355.982, 354.637, 352.905, 351.834, 351.253, 349.838, 347.872, 347.012, 346.559, 346.054, 345.912, 345.101, 343.63, 341.796, 340.101, 338.059, 336.038,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 425.899, 424.141, 422.278, 420.899, 419.189, 417.216, 415.332, 413.305, 411.416, 409.489, 408.332, 406.774, 404.542, 401.776, 398.724, 395.332, 393.337, 391.162, 389.672, 389.362, 388.622, 387.964, 386.762, 384.283, 381.896, 379.278, 376.349, 374.864, 373.714, 371.27, 369.709, 368.386, 367.022, 367.492, 368.013, 368.047, 367.455, 366.993, 366.088, 364.717, 363.391, 362.325, 360.421, 358.697, 357.518, 356.666, 355.982, 354.637, 352.905, 351.834, 351.253, 349.838, 347.872, 347.012, 346.559, 346.054, 345.912, 345.101, 343.63, 341.796, 340.101, 338.059, 336.038,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 378.042, 376.511, 374.882, 373.576, 372.192, 370.737,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 378.042, 376.511, 374.882, 373.576, 372.192, 370.737,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,			]}	
+data: [ 297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,297.255,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,18 +539,21 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkFAN' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539285"  target="_blank">FAN "Fabrinet"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539285"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539285"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkFAN' style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539285" target="_blank">FAN "Fabrinet"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539285"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539285"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>283.10€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-1.7%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;27&nbsp;&nbsp;</span>
+<span style='font-size:45px'>KGV&nbsp;23&nbsp;&nbsp;</span>
 <span style='font-size:45px'>DIV&nbsp;--%&nbsp;</span>&nbsp;
 <span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
 <img src='../image/flags/KY.jpeg' alt='KY: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>KY:"-------------"</span>
 &nbsp;"--"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;10 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;9 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>PZX
+<title>PZX		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 21%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244539866&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539866"  target="_blank">PZX "Ping An Insurance"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539866"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539866"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539866" target="_blank">PZX "Ping An Insurance"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539866" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539866" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,7 +118,7 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','23','26','27','28','29','30','02','03','04','05','06','09','10','11','4S+','5S+','6S+','7S+','C+7S+','6S+M+','3R+M+','3R+','24','25','26','27','30','31','01','02','03','06','07','08','P+','10','C+M+','M+','C+4S+D+N+M+','C+5S+3R+D+N+M+','5S+3R+M+','M+','21','22','23','M+','M+','M+','M+','M+','01','04','M+','P+M+','P+M+','M+','M+','M+','4S+M+','5S+P+D+N+M+','4S+M+','4S+P+D+N+M+','4S+P+M+','5S+P+D+N+M+','C+6S+P+M+','C+6S+P+D+N+M+','6S+P+M+','C+7S+3R+P+D+N+M+','7S+3R+P+M+','C+7S+4R+P+D+N+M+','6S+4R+','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
+labels: [	'','23','26','27','28','29','30','02','03','04','05','06','09','10','11','4S+','5S+','6S+','7S+','C+7S+','6S+M+','3R+M+','3R+','24','25','26','27','30','31','01','02','03','06','07','08','P+','10','C+M+','M+','C+4S+D+N+M+','C+5S+3R+D+N+M+','5S+3R+M+','M+','21','22','23','M+','M+','M+','M+','M+','01','04','M+','P+M+','P+M+','M+','M+','M+','4S+M+','5S+P+D+N+M+','4S+M+','4S+P+D+N+M+','4S+P+M+','5S+P+D+N+M+','C+6S+P+M+','C+6S+P+D+N+M+','6S+P+M+','C+7S+3R+P+D+N+M+','7S+3R+P+M+','C+7S+4R+P+D+N+M+','6S+4R+','01','02','03','04','05','08','09','10','11','12','15','16','17','18','19'
 ],
 datasets: [{
 label: ' "Ping An Insurance" ',
@@ -123,7 +126,7 @@ fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [6.265,
+data: [					6.265,
 6.381,
 6.347,
 6.331,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 6.10467, 6.13833, 6.16917, 6.20356, 6.23078, 6.25033, 6.27111, 6.28867, 6.3025, 6.31133, 6.31428, 6.31639, 6.31267, 6.29894, 6.28583, 6.25933, 6.23917, 6.22167, 6.21294, 6.20194, 6.18533, 6.17411, 6.16183, 6.16122, 6.15733, 6.156, 6.15611, 6.15889, 6.16528, 6.16656, 6.1615, 6.16156, 6.16083, 6.16161, 6.16306, 6.15578, 6.13344, 6.11706, 6.10206, 6.086, 6.07861, 6.06111, 6.04456, 6.0265, 6.00822, 5.98811, 5.9675, 5.95956, 5.95206, 5.94128, 5.93211, 5.92811, 5.91922, 5.91922, 5.92161, 5.91456, 5.90317, 5.89322, 5.86883, 5.85328, 5.833, 5.81517, 5.7965, 5.77894, 5.75961, 5.73517, 5.712, 5.70222, 5.69083, 5.68517, 5.68578, 5.68856, 5.69367, 5.70744, 5.72356, 5.73483, 5.75033, 5.76567, 5.784, 5.80022, 5.81122, 5.82094, 5.83172,
+data: [							 , , , , 6.10467, 6.13833, 6.16917, 6.20356, 6.23078, 6.25033, 6.27111, 6.28867, 6.3025, 6.31133, 6.31428, 6.31639, 6.31267, 6.29894, 6.28583, 6.25933, 6.23917, 6.22167, 6.21294, 6.20194, 6.18533, 6.17411, 6.16183, 6.16122, 6.15733, 6.156, 6.15611, 6.15889, 6.16528, 6.16656, 6.1615, 6.16156, 6.16083, 6.16161, 6.16306, 6.15578, 6.13344, 6.11706, 6.10206, 6.086, 6.07861, 6.06111, 6.04456, 6.0265, 6.00822, 5.98811, 5.9675, 5.95956, 5.95206, 5.94128, 5.93211, 5.92811, 5.91922, 5.91922, 5.92161, 5.91456, 5.90317, 5.89322, 5.86883, 5.85328, 5.833, 5.81517, 5.7965, 5.77894, 5.75961, 5.73517, 5.712, 5.70222, 5.69083, 5.68517, 5.68578, 5.68856, 5.69367, 5.70744, 5.72356, 5.73483, 5.75033, 5.76567, 5.784, 5.80022, 5.81122, 5.82094, 5.83172,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 6.16197, 6.17308, 6.18074, 6.19234, 6.2, 6.20816, 6.21584, 6.22437, 6.23142, 6.23363, 6.23276, 6.23182, 6.22647, 6.21639, 6.20968, 6.19663, 6.18271, 6.1725, 6.16074, 6.14829, 6.13784, 6.12487, 6.11179, 6.10213, 6.09132, 6.082, 6.07274, 6.067, 6.06118, 6.05413, 6.04621, 6.04074, 6.03603, 6.03553, 6.03229, 6.02703, 6.014, 6.00205, 5.98792, 5.97289, 5.95603, 5.93821, 5.92039, 5.90339, 5.88492, 5.86629, 5.84647, 5.83418, 5.82326, 5.81508, 5.811, 5.81145, 5.80995, 5.81466, 5.81984, 5.821, 5.82132, 5.82116, 5.81647, 5.81463, 5.80987, 5.80603, 5.80132,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 6.16197, 6.17308, 6.18074, 6.19234, 6.2, 6.20816, 6.21584, 6.22437, 6.23142, 6.23363, 6.23276, 6.23182, 6.22647, 6.21639, 6.20968, 6.19663, 6.18271, 6.1725, 6.16074, 6.14829, 6.13784, 6.12487, 6.11179, 6.10213, 6.09132, 6.082, 6.07274, 6.067, 6.06118, 6.05413, 6.04621, 6.04074, 6.03603, 6.03553, 6.03229, 6.02703, 6.014, 6.00205, 5.98792, 5.97289, 5.95603, 5.93821, 5.92039, 5.90339, 5.88492, 5.86629, 5.84647, 5.83418, 5.82326, 5.81508, 5.811, 5.81145, 5.80995, 5.81466, 5.81984, 5.821, 5.82132, 5.82116, 5.81647, 5.81463, 5.80987, 5.80603, 5.80132,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 6.0122, 6.01319, 6.01263, 6.01203, 6.01001, 6.00793,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 6.0122, 6.01319, 6.01263, 6.01203, 6.01001, 6.00793,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,			]}	
+data: [ 6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,6.027,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,9 +539,12 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkPZX' style="font-size:45px;color:black" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539866"  target="_blank">PZX "Ping An Insurance"</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539866"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:black" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539866"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkPZX' style='font-size:45px;color:black' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244539866" target="_blank">PZX "Ping An Insurance"</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244539866"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:black' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244539866"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>5.74€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-0.5%</b></span><br>
 <span style='font-size:45px'>KGV&nbsp;5&nbsp;&nbsp;</span>
@@ -547,7 +553,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <img src='../image/flags/CN.jpeg' alt='CN: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>CN:" Ping An Insurance (Group) Company of China, Ltd. hat sich zu einem der drei großen integrierten Finanzkonglomerate in China entwickelt. Ping An belegt in der Forbes Global 2000 Liste für 2018 Platz 10 und liegt damit an der Spitze aller anderen Versicherungsgruppen der Welt. 2017 wurde das operative Geschäft in folgende Segmente neu gegliedert: Leben- und Krankenversicherung (Ping An Life, Ping An Annuity und Ping An Health), Schaden- und Unfallversicherung (Ping An Property  u.  Casualty). Bankgeschäft (Ping An Bank), Treuhandgeschäft (Ping An Trust und Ping  An New Capital)., Wertpapiergeschäft (Ping An Securities), das andere Vermögenswert-Managementgeschäft (Tochtergesellschaften, die im Bereich der Vermögensverwaltung tätig sind wie Ping An Asset Management, Ping An Finanzierungsleasing und Ping An Auslandsbeteiligungen) und das fintech  u.  healthtech Geschäft (Lufax Holding, Ping An Good Doctor, OneConnect, Ping An Healthcare Technology und Autohome). "</span>
 &nbsp;"Versicherungen"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;44 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;42 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 

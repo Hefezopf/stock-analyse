@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" type="image/ico" href="favicon.ico">
-<title>IFF
+<title>IFF		
 </title>
 <style>
 .p-result{margin-top:-14px;}
@@ -35,7 +35,7 @@ visibility:visible;
 }
 </style>
 
-<style>#progress:after { content: ''; display: block; background: rgba(244,164,80,255); width: 8%; height:100%; border-radius: 9px; margin-top: -23px;}</style>
+<style>#progressMarketCap:after { content: ''; display: block; background: rgba(244,164,80,255); width: 9%; height:100%; border-radius: 9px; margin-top:-23px;}</style>
 
 <script>
 /*! 
@@ -78,13 +78,16 @@ grey: 'rgb(201, 203, 207)'
 </head>
 
 <body id='bodyId' style='background: rgb(255, 255, 255)'>
+
+
 <div style="font-size: large">
 <img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=244538323&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>
 <p style='position:relative;text-align:right;font-size:45px;margin:-1px 35px 0px 0px;'>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538323"  target="_blank">IFF "Flavors&Fragrances"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538323"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538323"  target="_blank">&nbsp;5Y&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538323" target="_blank">IFF "Flavors+Fragrances"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538323" target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538323" target="_blank">&nbsp;5Y&nbsp;</a>
 </p>
+
 
 <div id="divCanvasIdQuote" style="z-index:-1;position:relative;width:108%;margin-left:-143px;margin-top:-100px;">
 <canvas id="canvasQuote"></canvas>
@@ -115,15 +118,15 @@ divCanvasIds[i].style.marginLeft = '-80px';
 var config = {
 type: 'line',
 data: { // X_AXIS_UNDERNEATH_TO_BE_REPLACED
-labels: ['','C+D+N+','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22','25','26','27','28','29','01','02','03','04','05','08','4S+','5S+','6S+','C+6S+M+','6S+M+','6S+M+','6S+D+N+M+','6S+M+','C+6S+D+N+M+'
+labels: [	'','C+D+N+','26','27','28','29','30','02','03','04','05','06','09','10','11','12','13','16','17','18','19','20','23','24','25','26','27','30','31','01','02','03','06','07','08','09','10','13','14','15','16','17','20','21','22','23','24','27','28','29','30','01','04','05','06','07','08','11','12','13','14','15','18','19','20','21','22','25','26','27','28','29','01','02','03','04','05','08','4S+','5S+','6S+','C+6S+M+','6S+M+','6S+M+','6S+D+N+M+','6S+M+','C+6S+D+N+M+'
 ],
 datasets: [{
-label: ' "Flavors&Fragrances" ',
+label: ' "Flavors+Fragrances" ',
 fill: false,
 backgroundColor: window.chartColors.black,
 borderColor: window.chartColors.black,
 tension: 0.3,
-data: [67.58,
+data: [					67.58,
 64.72,
 66.70,
 67.08,
@@ -226,25 +229,25 @@ data: [ // SELL_UNDERNEATH_TO_BE_REPLACED
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, 
 ]},
 {
-label:' Average 18 ',
+label: ' Average 18 ',
 fill: false,
 backgroundColor: window.chartColors.purple,
 borderColor: window.chartColors.purple,
-data: [ , , , , 68.0522, 67.7567, 67.5644, 67.3833, 67.4389, 67.5256, 67.9833, 68.3922, 68.8878, 69.3344, 69.6267, 69.8533, 70.1433, 70.4678, 70.6278, 70.9111, 71.1622, 71.3944, 71.5478, 71.8489, 72.1656, 72.5133, 72.7389, 73.0522, 72.8689, 72.9022, 72.9411, 72.9789, 73.0378, 73.1178, 73.1567, 73.1022, 73.1978, 73.3189, 73.3633, 73.4189, 73.4978, 73.5222, 73.3889, 73.2889, 73.3389, 73.2644, 73.4011, 73.4689, 73.4289, 73.4656, 73.44, 73.3856, 73.3633, 73.4911, 73.6133, 73.7367, 73.9178, 74.0911, 74.2333, 74.5, 74.95, 75.3667, 75.71, 76.0756, 76.3967, 76.7144, 77.2356, 77.7122, 78.2311, 78.77, 79.21, 79.6, 80.0889, 80.6417, 80.7239, 80.8478, 80.8661, 80.6028, 80.3033, 79.9572, 79.5744, 79.0917, 78.6739, 78.2044, 77.5567, 76.9489, 76.305,
+data: [							 , , , , 68.0522, 67.7567, 67.5644, 67.3833, 67.4389, 67.5256, 67.9833, 68.3922, 68.8878, 69.3344, 69.6267, 69.8533, 70.1433, 70.4678, 70.6278, 70.9111, 71.1622, 71.3944, 71.5478, 71.8489, 72.1656, 72.5133, 72.7389, 73.0522, 72.8689, 72.9022, 72.9411, 72.9789, 73.0378, 73.1178, 73.1567, 73.1022, 73.1978, 73.3189, 73.3633, 73.4189, 73.4978, 73.5222, 73.3889, 73.2889, 73.3389, 73.2644, 73.4011, 73.4689, 73.4289, 73.4656, 73.44, 73.3856, 73.3633, 73.4911, 73.6133, 73.7367, 73.9178, 74.0911, 74.2333, 74.5, 74.95, 75.3667, 75.71, 76.0756, 76.3967, 76.7144, 77.2356, 77.7122, 78.2311, 78.77, 79.21, 79.6, 80.0889, 80.6417, 80.7239, 80.8478, 80.8661, 80.6028, 80.3033, 79.9572, 79.5744, 79.0917, 78.6739, 78.2044, 77.5567, 76.9489, 76.305,
 ]},
 {
-label:' Average 38 ',
+label:' yyy Average 38 ',
 fill: false,
 backgroundColor: window.chartColors.red,
 borderColor: window.chartColors.red,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , 70.0195, 70.0542, 70.0979, 70.2068, 70.3089, 70.4479, 70.6332, 70.8537, 71.0842, 71.3005, 71.4542, 71.5437, 71.6642, 71.8011, 71.9179, 72.1163, 72.2947, 72.4732, 72.5474, 72.6747, 72.8332, 72.9926, 73.1332, 73.2632, 73.2126, 73.2568, 73.2405, 73.2195, 73.2242, 73.2668, 73.3079, 73.3495, 73.4763, 73.6226, 73.7495, 73.9442, 74.1589, 74.3411, 74.5121, 74.68, 74.8658, 74.9979, 75.2811, 75.5353, 75.7463, 75.9626, 76.1479, 76.3374, 76.5916, 76.9208, 77.0413, 77.1889, 77.3034, 77.3471, 77.3826, 77.3892, 77.4421, 77.4287, 77.3929, 77.3379, 77.2495, 77.1837, 77.1087,
+data: [							 , , , , , , , , , , , , , , , , , , , , , , , , 70.0195, 70.0542, 70.0979, 70.2068, 70.3089, 70.4479, 70.6332, 70.8537, 71.0842, 71.3005, 71.4542, 71.5437, 71.6642, 71.8011, 71.9179, 72.1163, 72.2947, 72.4732, 72.5474, 72.6747, 72.8332, 72.9926, 73.1332, 73.2632, 73.2126, 73.2568, 73.2405, 73.2195, 73.2242, 73.2668, 73.3079, 73.3495, 73.4763, 73.6226, 73.7495, 73.9442, 74.1589, 74.3411, 74.5121, 74.68, 74.8658, 74.9979, 75.2811, 75.5353, 75.7463, 75.9626, 76.1479, 76.3374, 76.5916, 76.9208, 77.0413, 77.1889, 77.3034, 77.3471, 77.3826, 77.3892, 77.4421, 77.4287, 77.3929, 77.3379, 77.2495, 77.1837, 77.1087,
 ]},
 {
-label:' Average 95 ',
+label: ' aaa Average 95 ',
 fill: false,
 backgroundColor: window.chartColors.green,
 borderColor: window.chartColors.green,
-data: [ , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 73.6513, 73.6529, 73.6537, 73.656, 73.6949, 73.7235,
+data: [					 , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 73.6513, 73.6529, 73.6537, 73.656, 73.6949, 73.7235,
 ]},
 {
 label:' Buying/Last ',
@@ -259,7 +262,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 // 5_PERCENT_OVER_UNDERNEATH_TO_BE_REPLACED
-data: [ 74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,			]}	
+data: [ 74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,74.8545,			]}
 ]},
 options: {
 responsive: true,
@@ -329,7 +332,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -399,7 +402,7 @@ data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 7
 label: '25',
 fill: {
 target: 'origin',
-above: 'rgb(0, 255, 0)',  
+above: 'rgb(0, 255, 0)',
 },
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray, // RSI_LOW_PARAM_TO_BE_REPLACED
@@ -469,7 +472,7 @@ fill: false,
 backgroundColor: window.chartColors.gray,
 borderColor: window.chartColors.gray,
 data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-]}		
+]}
 ]},
 options: {
 responsive: true,
@@ -536,18 +539,21 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 }
 }, false);        
 </script>
-<a id='headlineLinkIFF' style="font-size:45px;color:green" onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538323"  target="_blank">IFF "Flavors&amp;Fragrances"</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538323"  target="_blank">&nbsp;6M&nbsp;</a>
-<a style="font-size:45px;color:green" onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538323"  target="_blank">&nbsp;5Y&nbsp;</a>
+
+
+<a id='headlineLinkIFF' style='font-size:45px;color:green' onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=244538323" target="_blank">IFF "Flavors+Fragrances"</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=244538323"  target="_blank">&nbsp;6M&nbsp;</a>
+<a style='font-size:45px;color:green' onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=244538323"  target="_blank">&nbsp;5Y&nbsp;</a>
+
 &nbsp;<span style='font-size:45px; color:rgb(0, 0, 0)'><b>71.29€</b></span>
 &nbsp;<span style='font-size:45px; color:red'><b>-1.8%</b></span><br>
-<span style='font-size:45px'>KGV&nbsp;131&nbsp;&nbsp;</span>
-<span style='font-size:45px'>DIV&nbsp;1%&nbsp;</span>&nbsp;
+<span style='font-size:45px'>KGV&nbsp;128&nbsp;&nbsp;</span>
+<span style='font-size:45px'>DIV&nbsp;2%&nbsp;</span>&nbsp;
 <span class='tooltip' style='font-size:45px' onclick='this.classList.toggle("active")'>
 <img src='../image/flags/US.jpeg' alt='US: No Flag' style='border:1px solid; height:35px; width:auto;'>
 <span class='tooltiptext'>US:" International Flavors  u.  Fragrances, Inc. entwirft, produziert und liefert Düfte und Aromen für die Lebensmittel-, Getränke-, Körperpflege- und Haushaltsprodukte-Industrie - entweder in Form von Verbindungen oder als einzelne Zutaten. Düfte- und Aromen-Verbindungen des Unternehmens vereinen eine Vielzahl von Zutaten, die vermengt, vermischt oder miteinander umgesetzt werden, nach firmeneigene Rezepturen, die durch seine Parfümeure und Flavoristen erstellt werden. Die Gruppe verfügt weltweit über Niederlassungen in 32 Ländern.  "</span>
 &nbsp;"Spezialchemie"</span>
-<div id='progress' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;18 Mrd.€</div><br>
+<div id='progressMarketCap' style='background: rgba(240,236,236,255); border-radius: 13px; height: 24px; width: 98%; padding: 3px; text-align: left'>&nbsp;Market Cap&nbsp;18 Mrd.€</div><br>
 <br><p class='p-result'>
 <b>2026-11-19</b>
 <b>&nbsp;&nbsp;STOCK</b>
@@ -576,7 +582,7 @@ document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
 <p class='p-result' style='color:rgb(255, 159, 64)'><b>  </b></p>
 <p class='p-result' style='color:rgb(255, 205, 86)'><b>  </b></p>
 <p class='p-result' style='color:rgb(139, 126, 102)'><b>  </b></p>
-<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 20-Nov-2026 08:00</p>
+<br><p style='text-align: left; padding-right: 50px'>Good Luck! <a href='https://www.paypal.com/donate/?hosted_button_id=G2CERK22Q4QP8' target='_blank'>Donate?</a> 22-Nov-2026 18:10</p>
 <span id='stocksPiecesId' style='display:none'></span>
 <span id='stocksBuyingValueId' style='display:none'>0</span>
 
