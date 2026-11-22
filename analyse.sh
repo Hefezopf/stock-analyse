@@ -547,12 +547,11 @@ do
     rm -rf "$indexSymbolFile"
     {
         cat template/indexPart0.html
-        echo "$markerOwnStock$symbol"
-        cat template/indexPart1.html
+        TITLE_TO_REPLACE="$markerOwnStock$symbol"
 
         FONT_SIZE_DETAIL="45px"
         # Color result link in Chart
-        styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL;color:black\""
+        styleComdirectLink="style='font-size:$FONT_SIZE_DETAIL;color:black'"
 
         # Green
         if 
@@ -562,7 +561,7 @@ do
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
-            styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL;color:green\""
+            styleComdirectLink="style='font-size:$FONT_SIZE_DETAIL;color:green'"
         fi
 
         # Red link only for stocks that are marked as own stocks
@@ -574,11 +573,14 @@ do
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] ||
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
-            styleComdirectLink="style=\"font-size:$FONT_SIZE_DETAIL;color:red\""
+            styleComdirectLink="style='font-size:$FONT_SIZE_DETAIL;color:red'"
         fi
 
         # Hover Chart (on detail page; top URLs)
         echo "<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>"
+#IMG_TAG_TO_REPLACE=$(echo "<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>")
+
+
         COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
         COMDIRECT_URL_6M="$COMDIRECT_URL_STOCKS_PREFIX_6M"
         COMDIRECT_URL_5Y="$COMDIRECT_URL_STOCKS_PREFIX_5Y"
@@ -839,6 +841,25 @@ do
 
     # Trick to succeed html validation
     sed -i "s/PROGRESS_WIDTH_PERCENT/$marketCapScaled/" "$indexSymbolFile"
+
+
+
+
+sed -i "s/TITLE_TO_REPLACE/$TITLE_TO_REPLACE/" "$indexSymbolFile"
+
+#echo "---IMG_TAG_TO_REPLACE $ID_NOTATION"
+#sed -i "s/ID_NOTATION_TO_REPLACE/$ID_NOTATION/" "$indexSymbolFile"
+
+
+#echo "---STYLE_COMDIRECT_LINK_TO_REPLACE=$STYLE_COMDIRECT_LINK_TO_REPLACE"
+
+#sed -i "s/STYLE_COMDIRECT_LINK_TO_REPLACE/$STYLE_COMDIRECT_LINK_TO_REPLACE/" "$indexSymbolFile"
+
+
+
+
+
+
 
     # Minify <Symbol>.html file
     sed -i "s/^[ \t]*//g" "$indexSymbolFile" # Remove Tabs from beginning of line
