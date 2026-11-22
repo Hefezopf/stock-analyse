@@ -631,8 +631,10 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
         cat alarm/"$symbol".txt
         cat template/indexPart1b.html
 
-        echo "'" "$symbolName" "',"
-        cat template/indexPart2.html
+
+
+      #  echo "'" "$symbolName" "',"
+       # cat template/indexPart2.html
     
         # Writing quotes
         echo "$commaPriceList"
@@ -647,18 +649,18 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
         cat sell/"$symbol".txt
         cat template/indexPart3b.html
 
-        echo "'" Average $averageInDays18 "',"
-        cat template/indexPart4.html
+        #echo "'" Average $averageInDays18 "',"
+       # cat template/indexPart4.html
         echo "$averagePriceList18"
         cat template/indexPart5.html
 
-        echo "'" Average $averageInDays38 "'," 
-        cat template/indexPart6.html 
+       # echo "'" Average $averageInDays38 "'," 
+       # cat template/indexPart6.html 
         echo "$averagePriceList38" 
         cat template/indexPart7.html  
 
-        echo "'" Average $averageInDays95 "',"
-        cat template/indexPart8.html
+       # echo "'" Average $averageInDays95 "',"
+       # cat template/indexPart8.html
         echo "$averagePriceList95"
 
         # Draw 5% lines
@@ -728,31 +730,6 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
             # Branche und Firmenportrait Tooltip
             branche=$(echo "$lineFromTickerFile" | cut -f 5)
             firmenportrait=$(echo "$lineFromTickerFile" | cut -f 10)
-
-            # hover Firmenportrait Text
-            # echo "<style>
-            # .tooltip {
-            #     border-bottom:2px dotted black; 
-            #     font-size:70px;
-            #     line-height:67px;
-            #     vertical-align:baseline;
-            # }
-            # .tooltip .tooltiptext {
-            #     visibility:hidden;
-            #     background-color:black;
-            #     color:#fff;
-            #     padding:7px 10px 50px 10px;
-            #     border-radius:6px;
-            #     position:absolute;
-            #     z-index:1;
-            #     font-size:$FONT_SIZE_DETAIL;
-            #     margin:70px 0px 0px -410px;
-            #     line-height:100%;
-            # }
-            # .tooltip:hover .tooltiptext {
-            #     visibility:visible;
-            # }
-            # </style>"
 
             # Country Flag         
             if [ ! "$isin" ] ; then
@@ -850,32 +827,15 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
 
 
 
-echo "---TITLE_TO_REPLACE=$TITLE_TO_REPLACE"
-#sed -i "s/TITLE_TO_REPLACE/$TITLE_TO_REPLACE/" "$indexSymbolFile"
-
-echo "---ID_NOTATION_TO_REPLACE=$ID_NOTATION"
-#sed -i "s/ID_NOTATION_TO_REPLACE/$ID_NOTATION/" "$indexSymbolFile"
-
-echo "---SYMBOL_NAME_TO_REPLACE=$SYMBOL_NAME_TO_REPLACE"
-#sed -i "s/SYMBOL_NAME_TO_REPLACE/$SYMBOL_NAME_TO_REPLACE/" "$indexSymbolFile"
-
-echo "---STYLE_COMDIRECT_LINK_TO_REPLACE=$STYLE_COMDIRECT_LINK_TO_REPLACE"
-
+#echo "---TITLE_TO_REPLACE=$TITLE_TO_REPLACE"
+#echo "---ID_NOTATION_TO_REPLACE=$ID_NOTATION"
+#echo "---SYMBOL_NAME_TO_REPLACE=$SYMBOL_NAME_TO_REPLACE"
+#echo "---STYLE_COMDIRECT_LINK_TO_REPLACE=$STYLE_COMDIRECT_LINK_TO_REPLACE"
 
 sed -i "s/TITLE_TO_REPLACE/$TITLE_TO_REPLACE/;
 s/ID_NOTATION_TO_REPLACE/$ID_NOTATION/;
 s/SYMBOL_NAME_TO_REPLACE/$SYMBOL_NAME_TO_REPLACE/
 s/STYLE_COMDIRECT_LINK_TO_REPLACE/$STYLE_COMDIRECT_LINK_TO_REPLACE/" "$indexSymbolFile"
-
-
-# sed 's/^[[:space:]]*//g; s:/usr/bin/:/usr/local/bin/:g; s/http/https/g' input_file
-
-#echo "---STYLE_COMDIRECT_LINK_TO_REPLACE=$STYLE_COMDIRECT_LINK_TO_REPLACE"
-#sed -i "s/STYLE_COMDIRECT_LINK_TO_REPLACE/$STYLE_COMDIRECT_LINK_TO_REPLACE/" "$indexSymbolFile"
-
-
-
-
 
 
 
