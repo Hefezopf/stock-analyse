@@ -549,9 +549,13 @@ do
         cat template/indexPart0.html
         TITLE_TO_REPLACE="$markerOwnStock$symbol"
 
+SYMBOL_NAME_TO_REPLACE="$symbolName"
+
+
         FONT_SIZE_DETAIL="45px"
         # Color result link in Chart
-        styleComdirectLink="style='font-size:$FONT_SIZE_DETAIL;color:black'"
+        styleComdirectLink="'font-size:$FONT_SIZE_DETAIL;color:black'"
+#        styleComdirectLink="style='font-size:$FONT_SIZE_DETAIL;color:black'"
 
         # Green
         if 
@@ -561,7 +565,8 @@ do
            [ "${#resultStrategieUnderratedLowHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieUnderratedByPercentAndStochastic}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedXLowStochastic}" -gt 1 ] || [ "${#resultStrategieUnderratedXLowRSI}" -gt 1 ] ||
            [ "${#resultStrategieUnderratedLowStochasticLowRSILowMACD}" -gt 1 ]; then
-            styleComdirectLink="style='font-size:$FONT_SIZE_DETAIL;color:green'"
+            styleComdirectLink="'font-size:$FONT_SIZE_DETAIL;color:green'"
+#            styleComdirectLink="style='font-size:$FONT_SIZE_DETAIL;color:green'"
         fi
 
         # Red link only for stocks that are marked as own stocks
@@ -573,11 +578,14 @@ do
             [ "${#resultStrategieOverratedHighHorizontalMACD}" -gt 1 ] || [ "${#resultStrategieOverratedByPercentAndStochastic}" -gt 1 ] ||
             [ "${#resultStrategieOverratedXHighStochastic}" -gt 1 ] || [ "${#resultStrategieOverratedXHighRSI}" -gt 1 ] ||
             [ "${#resultStrategieOverratedHighStochasticHighRSIHighMACD}" -gt 1 ]; } then
-            styleComdirectLink="style='font-size:$FONT_SIZE_DETAIL;color:red'"
+            styleComdirectLink="'font-size:$FONT_SIZE_DETAIL;color:red'"
+#            styleComdirectLink="style='font-size:$FONT_SIZE_DETAIL;color:red'"
         fi
 
+STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
+
         # Hover Chart (on detail page; top URLs)
-        echo "<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>"
+        #echo "<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>"
 #IMG_TAG_TO_REPLACE=$(echo "<img id='imgToReplace' alt='' loading='lazy' src='https://charts.comdirect.de/charts/rebrush/design_big.chart?AVG1=95&AVG2=38&AVG3=18&AVGTYPE=simple&IND0=SST&IND1=RSI&IND2=MACD&LCOLORS=5F696E&TYPE=MOUNTAIN&LNOTATIONS=$ID_NOTATION&TIME_SPAN=10D' style='display:none;position:fixed;border:1px solid;'>")
 
 
@@ -607,18 +615,16 @@ do
         # echo "$symbolName"
         # echo "</p>"
 #############
-        echo "<p style='position:relative;text-align:right;font-size:$FONT_SIZE_DETAIL;margin:-1px 35px 0px 0px;'>"
+     #   echo "<p style='position:relative;text-align:right;font-size:$FONT_SIZE_DETAIL;margin:-1px 35px 0px 0px;'>"
         # onmouseenter vs. onmouseover
         # onmouseleave vs. onmouseout
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-      #  echo "<span style='font-size:$FONT_SIZE_DETAIL;color:rgb(0, 0, 0)'><b>$lastThousand€</b></span>"
-      #  echo "<span style='font-size:$FONT_SIZE_DETAIL;color:$_linkColor'><b>""$percentLastDay""%</b></span>"
-        echo "</p>"
+     #   echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
+      #  echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
+      #  echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+      #  echo "</p>"
 #############
 
-        cat template/indexPart1a.html
+       # cat template/indexPart1a.html
 
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm" "$markerOwnStock"
         alarmAbbrevValue=""
@@ -704,9 +710,9 @@ do
 
 #############
         symbolNameEncoded="${symbolName//&/&amp;}"
-        echo "<a id='headlineLink$symbol' $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolNameEncoded</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-        echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
+        echo "<a id='headlineLink$symbol' style=$styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolNameEncoded</a>"
+        echo "<a style=$styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
+        echo "<a style=$styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
         echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:rgb(0, 0, 0)'><b>$lastThousand€</b></span>"
         echo "&nbsp;<span style='font-size:$FONT_SIZE_DETAIL; color:$_linkColor'><b>$percentLastDay%</b></span><br>" 
 #############
@@ -844,16 +850,29 @@ do
 
 
 
+echo "---TITLE_TO_REPLACE=$TITLE_TO_REPLACE"
+#sed -i "s/TITLE_TO_REPLACE/$TITLE_TO_REPLACE/" "$indexSymbolFile"
 
-sed -i "s/TITLE_TO_REPLACE/$TITLE_TO_REPLACE/" "$indexSymbolFile"
-
-#echo "---IMG_TAG_TO_REPLACE $ID_NOTATION"
+echo "---ID_NOTATION_TO_REPLACE=$ID_NOTATION"
 #sed -i "s/ID_NOTATION_TO_REPLACE/$ID_NOTATION/" "$indexSymbolFile"
 
+echo "---SYMBOL_NAME_TO_REPLACE=$SYMBOL_NAME_TO_REPLACE"
+#sed -i "s/SYMBOL_NAME_TO_REPLACE/$SYMBOL_NAME_TO_REPLACE/" "$indexSymbolFile"
+
+echo "---STYLE_COMDIRECT_LINK_TO_REPLACE=$STYLE_COMDIRECT_LINK_TO_REPLACE"
+
+
+sed -i "s/TITLE_TO_REPLACE/$TITLE_TO_REPLACE/;
+s/ID_NOTATION_TO_REPLACE/$ID_NOTATION/;
+s/SYMBOL_NAME_TO_REPLACE/$SYMBOL_NAME_TO_REPLACE/
+s/STYLE_COMDIRECT_LINK_TO_REPLACE/$STYLE_COMDIRECT_LINK_TO_REPLACE/" "$indexSymbolFile"
+
+
+# sed 's/^[[:space:]]*//g; s:/usr/bin/:/usr/local/bin/:g; s/http/https/g' input_file
 
 #echo "---STYLE_COMDIRECT_LINK_TO_REPLACE=$STYLE_COMDIRECT_LINK_TO_REPLACE"
-
 #sed -i "s/STYLE_COMDIRECT_LINK_TO_REPLACE/$STYLE_COMDIRECT_LINK_TO_REPLACE/" "$indexSymbolFile"
+
 
 
 
