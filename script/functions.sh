@@ -233,17 +233,15 @@ ProgressBar() {
     _currentStateParam=$1
     _totalStateParam=$2
     
-    _progress_="$((_currentStateParam*10000/_totalStateParam))"
-    _progress=$((_progress_/100))
-    _done_=$((_progress*4))
-    _done=$((_done_/10))
-    _left=$((40-_done))
-    # Build progressbar string lengths
-    _fill=$(printf "%${_done}s")
-    _empty=$(printf "%${_left}s")
     # Progress: ######################################## 100%
     if [[ "$UNAME_N" = *"$UNAME_N_BASH_LOCAL_ALL_OS"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win) 
-    #if [ ! "$(uname -o)" = 'GNU/Linux' ]; then # GNU/Linux (GitHub), GNU/Linux (bash Mint) or Msys (bash Win)
+        _progress_="$((_currentStateParam*10000/_totalStateParam))"
+        _progress=$((_progress_/100))
+        _done_=$((_progress*4))
+        _done=$((_done_/10))
+        _left=$((40-_done))
+        _fill=$(printf "%${_done}s")
+        _empty=$(printf "%${_left}s")    
         # shellcheck disable=SC3037,SC3060
         echo -n "$(printf "\r${_fill// /#}${_empty// /-} ${_progress}%%")"
         if [ "$_currentStateParam" = "$_totalStateParam" ]; then
