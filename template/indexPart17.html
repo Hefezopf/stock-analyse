@@ -1,0 +1,44 @@
+
+
+    <script>
+        document.getElementsByTagName('body')[0].ondblclick = showBuyingSection; 
+        function showBuyingSection() {   
+            const ele = document.querySelectorAll('[id ^= \"buyingSection\"]');
+            Array.prototype.forEach.call(ele, function(ele) {
+                ele.style.display = '';
+
+                var title=document.getElementsByTagName('TITLE')[0].text;
+                if (title.charAt(0) === '*') {
+                    title = trimOwnChar(title);
+                }
+                navigator.clipboard.writeText(title);
+                document.getElementById('buyingSectionInputPiecesBuy').focus(); var scrollingElement = (document.scrollingElement || document.body);scrollingElement.scrollTop = scrollingElement.scrollHeight;// document.body.style.zoom = "180%";
+            });
+        }
+    </script>
+
+    <div id='buyingSectionButtonDetailsP' style='display: none'>
+        <form>
+            <button id="buyingSectionButtonSell" style='font-size:x-large; height: 100px; width: 160px; display: none' type="button" onclick="javascript:curlSell(
+                document.getElementsByTagName('TITLE')[0].text,
+                '?',
+                document.getElementById('buyingSectionInputPriceBuy').value)">Sell</button>
+            <button id="buyingSectionButtonBuy" style='font-size:x-large; height: 100px; width: 160px; display: none' type="button" onclick="javascript:curlBuy(
+                trimOwnChar(document.getElementsByTagName('TITLE')[0].text),
+                document.getElementById('buyingSectionInputPriceBuy').value,
+                document.getElementById('buyingSectionInputPiecesBuy').value)">ReBuy</button>
+            Pieces&nbsp;<input tabindex='1' autofocus name='buyingSectionInputPiecesBuy' id='buyingSectionInputPiecesBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='6' value='' size='6'>
+            Price&nbsp;<input tabindex='2' name='buyingSectionInputPriceBuy' id='buyingSectionInputPriceBuy' style='border: 5px solid #0c0000; display: none; font-size:x-large; height: 95px; width: 120px;' type='text' maxlength='7' value='' size='6' pattern="^\d*(\.\d{0,3})?$">
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input tabindex='3' type="checkbox" id="runAnalyse" checked name="runAnalyse" style="width:40px; height:40px; vertical-align: middle;">&nbsp;Run Analyse
+            <button style='display: none' disabled type="submit">Dummy to satisfy HTML Form</button>
+        </form>
+    </div>
+    <br>
+    <br>
+</div>
+<script>

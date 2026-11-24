@@ -548,11 +548,10 @@ SYMBOL_TO_REPLACE="$symbol"
     indexSymbolFile=out/$symbol.html
     rm -rf "$indexSymbolFile"
     {
-        cat template/indexPart0.html
+        cat template/indexPart1.html
         TITLE_TO_REPLACE="$markerOwnStock$symbol"
 
 symbolNameEncoded="${symbolName//&/+}"
-#SYMBOL_NAME_TO_REPLACE="$symbolNameEncoded"
 SYMBOL_NAME_TO_REPLACE="$symbolNameEncoded"
 
 
@@ -614,32 +613,12 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
         if [ "${#lastThousand}" -gt 6 ]; then
             lastThousand=$(printf "%.0f" "$lastRaw")
         fi
-#############
-        # echo "<p style='position:relative;text-align:right;font-size:$FONT_SIZE_DETAIL;margin:-1px 35px 0px 0px;'>"
-        # echo "$symbolName"
-        # echo "</p>"
-#############
-     #   echo "<p style='position:relative;text-align:right;font-size:$FONT_SIZE_DETAIL;margin:-1px 35px 0px 0px;'>"
-        # onmouseenter vs. onmouseover
-        # onmouseleave vs. onmouseout
-     #   echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('10D')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_10D""$ID_NOTATION"\" " target=\"_blank\">$markerOwnStock$symbol $symbolName</a>"
-      #  echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('6M')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_6M""$ID_NOTATION"\" " target=\"_blank\">&nbsp;6M&nbsp;</a>"
-      #  echo "<a $styleComdirectLink onmouseover=\"javascript:showChart('5Y')\" onmouseout='javascript:hideChart()' href=\"$COMDIRECT_URL_5Y""$ID_NOTATION"\" " target=\"_blank\">&nbsp;5Y&nbsp;</a>"
-      #  echo "</p>"
-#############
-
-       # cat template/indexPart1a.html
 
         WriteAlarmAbbrevXAxisFile "$alarmAbbrevValue" "$symbol" "$DATA_DATE_FILE" "alarm" "$markerOwnStock"
         alarmAbbrevValue=""
         cat alarm/"$symbol".txt
-        cat template/indexPart1b.html
+        cat template/indexPart2.html
 
-
-
-      #  echo "'" "$symbolName" "',"
-       # cat template/indexPart2.html
-    
         # Writing quotes
         echo "$commaPriceList"
         cat template/indexPart3.html
@@ -647,24 +626,18 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
         # shellcheck disable=SC2154
         WriteTransactionFile "$lastDateInDataFile" "$symbol" "buy"
         cat buy/"$symbol".txt
-        cat template/indexPart3a.html
+        cat template/indexPart4.html
 
         WriteTransactionFile "$lastDateInDataFile" "$symbol" "sell"
         cat sell/"$symbol".txt
-        cat template/indexPart3b.html
-
-        #echo "'" Average $averageInDays18 "',"
-       # cat template/indexPart4.html
-        echo "$averagePriceList18"
         cat template/indexPart5.html
 
-       # echo "'" Average $averageInDays38 "'," 
-       # cat template/indexPart6.html 
+        echo "$averagePriceList18"
+        cat template/indexPart6.html
+
         echo "$averagePriceList38" 
         cat template/indexPart7.html  
 
-       # echo "'" Average $averageInDays95 "',"
-       # cat template/indexPart8.html
         echo "$averagePriceList95"
 
         # Draw 5% lines
@@ -675,33 +648,33 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
             buyingRate=$last
         fi
         # Draw buying/last rate
-        cat template/indexPart8a.html
+        cat template/indexPart8.html
 
         agregateBuyingrate=$(seq -s "XX," 88 | tr -d '[:digit:]')
         echo -n "$agregateBuyingrate" | sed "s/XX/${buyingRate}/g"
 
         # Draw 5% over buying/last quote
-        cat template/indexPart8b.html
+        cat template/indexPart9.html
         percentOverBuyingLastRate=$(echo "$buyingRate 1.05" | awk '{print $1 * $2}')
         agregatePercentOverBuyingLastRate=$(seq -s "XX," 88 | tr -d '[:digit:]')
         echo -n "$agregatePercentOverBuyingLastRate" | sed "s/XX/${percentOverBuyingLastRate}/g"
 
-        cat template/indexPart9.html
-        cat alarm/"$symbol".txt
-        cat template/indexPart9b.html
-
-        echo "$stochasticQuoteList"
         cat template/indexPart10.html
         cat alarm/"$symbol".txt
-        cat template/indexPart10b.html        
+        cat template/indexPart11.html
+
+        echo "$stochasticQuoteList"
+        cat template/indexPart12.html
+        cat alarm/"$symbol".txt
+        cat template/indexPart13.html        
 
         echo "$RSIQuoteList"
-        cat template/indexPart11.html
+        cat template/indexPart14.html
         cat alarm/"$symbol".txt
-        cat template/indexPart11b.html        
+        cat template/indexPart15.html        
 
         echo "$MACD_LIST"
-        cat template/indexPart12.html
+        cat template/indexPart16.html
 
         # Maybe delete lines? redundant to those in 460...
     #    COMDIRECT_URL_10D="$COMDIRECT_URL_STOCKS_PREFIX_10D"
@@ -821,7 +794,7 @@ STYLE_COMDIRECT_LINK_TO_REPLACE="$styleComdirectLink"
         stocksBuyingValue=$(printf "%.0f" "$stocksBuyingValue")
         echo "<span id='stocksBuyingValueId' style='display:none'>$stocksBuyingValue</span>" # >> "$indexSymbolFile"
 
-        cat template/indexPart13.html
+        cat template/indexPart17.html
         cat template/_common.js
         cat template/_detail.js
         echo "</script></body></html>"

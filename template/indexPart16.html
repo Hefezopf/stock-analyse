@@ -1,0 +1,80 @@
+		            ]},
+                    {
+                        label: '0',
+                        fill: false,
+                        backgroundColor: window.chartColors.gray,
+                        borderColor: window.chartColors.gray,
+                        data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+                    ]}
+			]},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+                aspectRatio: 1.5,
+				plugins: {
+					title: {
+						display: false,
+						text: 'Chart.js Line Chart'
+					},
+					legend: {
+                        display: false
+                    },
+					tooltip: {
+                        enabled: false,
+						mode: 'index',
+						intersect: false,
+					}
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					x: {
+						display: true,
+						scaleLabel: {
+							display: false,
+							labelString: 'Month'
+						}
+					},
+					y: {
+						display: true,
+						position: 'right',
+						scaleLabel: {
+							display: false,
+							labelString: 'Value'}
+					}
+				}
+			}
+		};
+
+        var ctxQuote = document.getElementById('canvasQuote');
+        ctxQuote.height = 720;
+		new Chart(ctxQuote, config);
+
+		var ctxStochastik = document.getElementById('canvasStochastik');
+        ctxStochastik.height = 300;
+        new Chart(ctxStochastik, configStochastik);
+
+        var ctxRSI = document.getElementById('canvasRSI');
+        ctxRSI.height = 300;
+        new Chart(ctxRSI, configRSI);
+
+        var ctxMACD = document.getElementById('canvasMACD');
+        ctxMACD.height = 300;
+        new Chart(ctxMACD, configMACD);
+	</script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('oldDataId') || document.getElementById('lowMarketCapId')) {
+                document.getElementById('bodyId').style.backgroundColor = 'rgb(251, 225, 173)';
+            }
+        }, false);        
+    </script>
+
+
+	<a id='headlineLinkSYMBOL_TO_REPLACE' style=STYLE_COMDIRECT_LINK_TO_REPLACE onmouseover="javascript:showChart('10D')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=10D&ID_NOTATION=ID_NOTATION_TO_REPLACE" target="_blank">TITLE_TO_REPLACE SYMBOL_NAME_TO_REPLACE</a>
+	<a style=STYLE_COMDIRECT_LINK_TO_REPLACE onmouseover="javascript:showChart('6M')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=6M&ID_NOTATION=ID_NOTATION_TO_REPLACE"  target="_blank">&nbsp;6M&nbsp;</a>
+	<a style=STYLE_COMDIRECT_LINK_TO_REPLACE onmouseover="javascript:showChart('5Y')" onmouseout='javascript:hideChart()' href="https://nutzer.comdirect.de/inf/aktien/detail/chart.html?chartType=MOUNTAIN&useFixAverage=false&freeAverage0=95&freeAverage1=38&freeAverage2=18&indicatorsBelowChart=SST&indicatorsBelowChart=RSI&indicatorsBelowChart=MACD&PRESET=1&timeSpan=5Y&ID_NOTATION=ID_NOTATION_TO_REPLACE"  target="_blank">&nbsp;5Y&nbsp;</a>
+
