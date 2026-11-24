@@ -905,20 +905,20 @@ s/STYLE_COMDIRECT_LINK_TO_REPLACE/$STYLE_COMDIRECT_LINK_TO_REPLACE/" "$indexSymb
     PRE_FIX="100,100,100,100,100,100,100,100,100,100,100,100,100,"
 
     commaPriceList=$(echo "$commaPriceList" | sed -e :a -e 'N;s/\n//g;ta')
-    echo "# Quote oldest,..,newest" >> "$HISTORY_FILE"
-    echo "$PRE_FIX$commaPriceList" >> "$HISTORY_FILE"
+    echo -e "# Quote oldest,..,newest\n$PRE_FIX$commaPriceList" >> "$HISTORY_FILE"
+  #  echo "$PRE_FIX$commaPriceList" >> "$HISTORY_FILE"
     
     stochasticQuoteList="${stochasticQuoteList// /}"
-    echo "# Stoch oldest,..,newest" >> "$HISTORY_FILE"
-    echo "$PRE_FIX$stochasticQuoteList" >> "$HISTORY_FILE"
+    echo -e "# Stoch oldest,..,newest\n$PRE_FIX$stochasticQuoteList" >> "$HISTORY_FILE"
+    #echo "$PRE_FIX$stochasticQuoteList" >> "$HISTORY_FILE"
 
     RSIQuoteList="${RSIQuoteList// /}"
-    echo "# RSI oldest,..,newest" >> "$HISTORY_FILE"
-    echo "$PRE_FIX$RSIQuoteList" >> "$HISTORY_FILE"
+    echo -e "# RSI oldest,..,newest\n$PRE_FIX$RSIQuoteList" >> "$HISTORY_FILE"
+    #echo "$PRE_FIX$RSIQuoteList" >> "$HISTORY_FILE"
 
     MACD_LIST="${MACD_LIST// /}"
-    echo "# MACD oldest,..,newest" >> "$HISTORY_FILE"
-    echo "$PRE_FIX$MACD_LIST" >> "$HISTORY_FILE"
+    echo -e "# MACD oldest,..,newest\n$PRE_FIX$MACD_LIST" >> "$HISTORY_FILE"
+    #echo "$PRE_FIX$MACD_LIST" >> "$HISTORY_FILE"
 done
 
 # Overall
