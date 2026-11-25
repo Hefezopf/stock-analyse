@@ -19,7 +19,8 @@ on:
   schedule:
     # At 1:05 on Mon, Tue, Wed, Thr, Fri (MEST: run is 4 hour delayed: --> 4:35) -> Wintertime
     - cron: "05 1 * * 1,2,3,4,5"
-      timezone: "Europe/Berlin"
+      timezone: "Asia/Qatar" # +3
+      #timezone: "Europe/Berlin"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -41,9 +42,8 @@ jobs:
         run: |
           echo "Start Nightly ..."
 
-          #uname --all
-          #uname -n
           uname -o
+          date
 
           export GPG_PASSPHRASE=${{secrets.GPG_PASSPHRASE}}
 
