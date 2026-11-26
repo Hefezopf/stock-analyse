@@ -312,5 +312,5 @@ echo "Transactions: $count"
 
 if [[ "$UNAME_N" = *"$UNAME_N_BASH_LOCAL_ALL_OS"* ]]; then # runnervmwffz4 (GitHub), markus-ideacentre-700-25ISH (bash Mint) or Laptop-Markus (bash Win) 
     echo ""
-    echo "Local run: Red Sell-Marker appears  in HTML after next Github 'Nightly Action' run!"
+    echo "Local run: Red Sell-Marker appears in HTML after next Github 'Nightly Action' run!"
 fi
